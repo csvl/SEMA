@@ -1,0 +1,35 @@
+*.pyc
+archives/*
+Result/save_SCDG
+*/__pycache__/
+penv/
+penv-2.7/
+Examples/
+malware-win/
+malware-win2/
+malware-linux/
+kkrunchy-dataset-1/
+PEPacker-dataset-1/
+malware-inputs-2/
+malware-inputs/
+upx-dataset/
+.vscode/
+.idea/
+build/
+dist/
+toolchain-malware-analysis.rep
+.unpacker_history
+toolchain-malware-analysis.gpr
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
