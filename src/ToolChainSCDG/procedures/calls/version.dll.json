@@ -1,0 +1,998 @@
+{
+  "1": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetFileVersionInfoA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lptstrFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetFileVersionInfoExA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpwstrFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetFileVersionInfoExW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpwstrFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetFileVersionInfoSizeA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lptstrFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "6": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetFileVersionInfoSizeExA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpwstrFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "7": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetFileVersionInfoSizeExW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpwstrFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "8": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetFileVersionInfoSizeW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lptstrFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "9": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetFileVersionInfoW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lptstrFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "10": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "VerFindFileA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "uFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "szFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "szWinDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "szAppDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "szCurDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " PUINT", 
+        "name": "puCurDirLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "szDestDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " PUINT", 
+        "name": "puDestDirLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "11": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "VerFindFileW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "uFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "szFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "szWinDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "szAppDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "szCurDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " PUINT", 
+        "name": "puCurDirLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "szDestDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " PUINT", 
+        "name": "puDestDirLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "12": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "VerInstallFileA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "uFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "szSrcFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "szDestFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "szSrcDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "szDestDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "szCurDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "szTmpFile", 
+        "is_float": false
+      }, 
+      {
+        "type": " PUINT", 
+        "name": "puTmpFileLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "13": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "VerInstallFileW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "uFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "szSrcFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "szDestFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "szSrcDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "szDestDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "szCurDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "szTmpFile", 
+        "is_float": false
+      }, 
+      {
+        "type": " PUINT", 
+        "name": "puTmpFileLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "14": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "VerLanguageNameA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "wLang", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "szLang", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "cchLang", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "15": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "VerLanguageNameW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "wLang", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "szLang", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "cchLang", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "16": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "VerQueryValueA", 
+    "arguments": [
+      {
+        "type": " LPCVOID", 
+        "name": "pBlock", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpSubBlock", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "lplpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " PUINT", 
+        "name": "puLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "17": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "VerQueryValueW", 
+    "arguments": [
+      {
+        "type": " LPCVOID", 
+        "name": "pBlock", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpSubBlock", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "lplpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " PUINT", 
+        "name": "puLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetFileVersionInfoSizeW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetFileVersionInfoSizeW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lptstrFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "VerQueryValueW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "VerQueryValueW", 
+    "arguments": [
+      {
+        "type": " LPCVOID", 
+        "name": "pBlock", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpSubBlock", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "lplpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " PUINT", 
+        "name": "puLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "VerQueryValueA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "VerQueryValueA", 
+    "arguments": [
+      {
+        "type": " LPCVOID", 
+        "name": "pBlock", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpSubBlock", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "lplpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " PUINT", 
+        "name": "puLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetFileVersionInfoExW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetFileVersionInfoExW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpwstrFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetFileVersionInfoSizeExW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetFileVersionInfoSizeExW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpwstrFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "VerInstallFileA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "VerInstallFileA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "uFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "szSrcFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "szDestFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "szSrcDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "szDestDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "szCurDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "szTmpFile", 
+        "is_float": false
+      }, 
+      {
+        "type": " PUINT", 
+        "name": "puTmpFileLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetFileVersionInfoSizeExA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetFileVersionInfoSizeExA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpwstrFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetFileVersionInfoExA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetFileVersionInfoExA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpwstrFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "VerInstallFileW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "VerInstallFileW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "uFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "szSrcFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "szDestFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "szSrcDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "szDestDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "szCurDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "szTmpFile", 
+        "is_float": false
+      }, 
+      {
+        "type": " PUINT", 
+        "name": "puTmpFileLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetFileVersionInfoSizeA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetFileVersionInfoSizeA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lptstrFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "VerLanguageNameA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "VerLanguageNameA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "wLang", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "szLang", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "cchLang", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetFileVersionInfoA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetFileVersionInfoA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lptstrFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "VerFindFileW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "VerFindFileW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "uFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "szFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "szWinDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "szAppDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "szCurDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " PUINT", 
+        "name": "puCurDirLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "szDestDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " PUINT", 
+        "name": "puDestDirLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "VerLanguageNameW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "VerLanguageNameW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "wLang", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "szLang", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "cchLang", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "VerFindFileA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "VerFindFileA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "uFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "szFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "szWinDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "szAppDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "szCurDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " PUINT", 
+        "name": "puCurDirLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "szDestDir", 
+        "is_float": false
+      }, 
+      {
+        "type": " PUINT", 
+        "name": "puDestDirLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetFileVersionInfoW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetFileVersionInfoW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lptstrFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpData", 
+        "is_float": false
+      }
+    ]
+  }
+}

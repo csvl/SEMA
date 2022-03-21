@@ -1,0 +1,142 @@
+{
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "Beep", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFreq", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDuration", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__cdecl", 
+    "returns": "PVOID", 
+    "returns_float": false, 
+    "name": "DecodePointer", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "Ptr", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DecodeSystemPointer": {
+    "cc": "__cdecl", 
+    "returns": "PVOID", 
+    "returns_float": false, 
+    "name": "DecodeSystemPointer", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "Ptr", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__cdecl", 
+    "returns": "PVOID", 
+    "returns_float": false, 
+    "name": "EncodePointer", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "Ptr", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__cdecl", 
+    "returns": "PVOID", 
+    "returns_float": false, 
+    "name": "EncodeSystemPointer", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "Ptr", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "EncodeSystemPointer": {
+    "cc": "__cdecl", 
+    "returns": "PVOID", 
+    "returns_float": false, 
+    "name": "EncodeSystemPointer", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "Ptr", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "Beep": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "Beep", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFreq", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDuration", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__cdecl", 
+    "returns": "PVOID", 
+    "returns_float": false, 
+    "name": "DecodeSystemPointer", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "Ptr", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "EncodePointer": {
+    "cc": "__cdecl", 
+    "returns": "PVOID", 
+    "returns_float": false, 
+    "name": "EncodePointer", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "Ptr", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DecodePointer": {
+    "cc": "__cdecl", 
+    "returns": "PVOID", 
+    "returns_float": false, 
+    "name": "DecodePointer", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "Ptr", 
+        "is_float": false
+      }
+    ]
+  }
+}

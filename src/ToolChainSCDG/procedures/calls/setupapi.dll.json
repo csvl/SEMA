@@ -1,0 +1,40 @@
+{
+    "SetupDiOpenDevRegKey": {
+        "cc": "__stdcall",
+        "returns": "WINSETUPAPI_HKEY",
+        "returns_float": false,
+        "name": "SetupDiOpenDevRegKey",
+        "arguments": [
+            {
+                "type": "HDEVINFO",
+                "name": "DeviceInfoSet",
+                "is_float": false
+            },
+            {
+                "type": "PSP_DEVINFO_DATA",
+                "name": "DeviceInfoData",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "Scope",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "HwProfile",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "KeyType",
+                "is_float": false
+            },
+            {
+                "type": "REGSAM",
+                "name": "samDesired",
+                "is_float": false
+            }
+        ]
+    }
+}

@@ -1,0 +1,218 @@
+{
+    "IcmpCreateFile": {
+        "cc": "__stdcall",
+        "returns": "IPHLPAPI_DLL_LINKAGE_HANDLE",
+        "returns_float": false,
+        "name": "IcmpCreateFile",
+        "arguments": [            {
+                "type": "void",
+                "name": "null",
+                "is_float": false
+            }]
+    },
+    "Icmp6CreateFile": {
+        "cc": "__cdecl",
+        "returns": "HANDLE",
+        "returns_float": false,
+        "name": "IcmpCreateFile",
+        "arguments": [
+            {
+                "type": "void",
+                "name": "null",
+                "is_float": false
+            }
+        ]
+    },
+    "IcmpCloseHandle": {
+        "cc": "__cdecl",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "IcmpCloseHandle",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "IcmpHandle",
+                "is_float": false
+            }
+        ]
+    },
+    "IcmpSendEcho": {
+        "cc": "__cdecl",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "IcmpSendEcho",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "IcmpHandle",
+                "is_float": false
+            },
+            {
+                "type": "IpAddr",
+                "name": "DestinationAddress",
+                "is_float": false
+            },
+            {
+                "type": "LPVOID",
+                "name": "RequestData",
+                "is_float": false
+            },
+            {
+                "type": "WORD",
+                "name": "RequestSize",
+                "is_float": false
+            },
+            {
+                "type": "PIP_OPTION_INFORMATION",
+                "name": "RequestOptions",
+                "is_float": false
+            },
+            {
+                "type": "LPVOID",
+                "name": "ReplyBuffer",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "ReplySize",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "Timeout",
+                "is_float": false
+            }
+        ]
+    },
+    "IcmpSendEcho2": {
+        "cc": "__cdecl",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "IcmpSendEcho2",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "IcmpHandle",
+                "is_float": false
+            },
+            {
+                "type": "HANDLE",
+                "name": "Event",
+                "is_float": false
+            },
+            {
+                "type": "PIO_APC_ROUTINE",
+                "name": "ApcRoutine",
+                "is_float": false
+            },
+            {
+                "type": "PVOID",
+                "name": "ApcContext",
+                "is_float": false
+            },
+            {
+                "type": "IpAddr",
+                "name": "DestinationAddress",
+                "is_float": false
+            },
+            {
+                "type": "LPVOID",
+                "name": "RequestData",
+                "is_float": false
+            },
+            {
+                "type": "WORD",
+                "name": "RequestSize",
+                "is_float": false
+            },
+            {
+                "type": "PIP_OPTION_INFORMATION",
+                "name": "RequestOptions",
+                "is_float": false
+            },
+            {
+                "type": "LPVOID",
+                "name": "ReplyBuffer",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "ReplySize",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "Timeout",
+                "is_float": false
+            }
+        ]
+    },
+    "IcmpSendEcho2Ex": {
+        "cc": "__cdecl",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "IcmpSendEcho2Ex",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "IcmpHandle",
+                "is_float": false
+            },
+            {
+                "type": "HANDLE",
+                "name": "Event",
+                "is_float": false
+            },
+            {
+                "type": "PIO_APC_ROUTINE",
+                "name": "ApcRoutine",
+                "is_float": false
+            },
+            {
+                "type": "PVOID",
+                "name": "ApcContext",
+                "is_float": false
+            },
+            {
+                "type": "IpAddr",
+                "name": "SourceAddress",
+                "is_float": false
+            },
+            {
+                "type": "IpAddr",
+                "name": "DestinationAddress",
+                "is_float": false
+            },
+            {
+                "type": "LPVOID",
+                "name": "RequestData",
+                "is_float": false
+            },
+            {
+                "type": "WORD",
+                "name": "RequestSize",
+                "is_float": false
+            },
+            {
+                "type": "PIP_OPTION_INFORMATION",
+                "name": "RequestOptions",
+                "is_float": false
+            },
+            {
+                "type": "LPVOID",
+                "name": "ReplyBuffer",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "ReplySize",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "Timeout",
+                "is_float": false
+            }
+        ]
+    }
+}

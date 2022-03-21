@@ -1,0 +1,87 @@
+{
+    "56": {
+        "cc": "__cdecl",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllGetClassObject",
+        "arguments": [
+            {
+                "type": "const IID*const",
+                "name": "rclsid",
+                "is_float": false
+            },
+            {
+                "type": "const IID*const",
+                "name": "riid",
+                "is_float": false
+            },
+            {
+                "type": " LPVOID*",
+                "name": "ppv",
+                "is_float": false
+            }
+        ]
+    },
+    "DllGetClassObject": {
+        "cc": "__cdecl",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllGetClassObject",
+        "arguments": [
+            {
+                "type": "const IID*const",
+                "name": "rclsid",
+                "is_float": false
+            },
+            {
+                "type": "const IID*const",
+                "name": "riid",
+                "is_float": false
+            },
+            {
+                "type": " LPVOID*",
+                "name": "ppv",
+                "is_float": false
+            }
+        ]
+    },
+    "54": {
+        "cc": "__cdecl",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllCanUnloadNow",
+        "arguments": [
+            {
+                "type": " void",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "DllCanUnloadNow": {
+        "cc": "__cdecl",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllCanUnloadNow",
+        "arguments": [
+            {
+                "type": " void",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "IsThemeActive": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "IsThemeActive",
+        "arguments": [
+            {
+                "type": "void",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    }
+}

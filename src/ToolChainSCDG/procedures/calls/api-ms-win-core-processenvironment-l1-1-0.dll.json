@@ -1,0 +1,748 @@
+{
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ExpandEnvironmentStringsA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpDst", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ExpandEnvironmentStringsW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpDst", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetEnvironmentVariableA": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetEnvironmentVariableA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "FreeEnvironmentStringsW", 
+    "arguments": [
+      {
+        "type": " LPWCH", 
+        "name": "penv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetStdHandle": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "GetStdHandle", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "nStdHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "6": {
+    "cc": "__cdecl", 
+    "returns": "LPWSTR", 
+    "returns_float": false, 
+    "name": "GetCommandLineW", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "7": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetCurrentDirectoryA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "nBufferLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "8": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetCurrentDirectoryW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "nBufferLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "9": {
+    "cc": "__cdecl", 
+    "returns": "LPCH", 
+    "returns_float": false, 
+    "name": "GetEnvironmentStrings", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "10": {
+    "cc": "__cdecl", 
+    "returns": "LPWCH", 
+    "returns_float": false, 
+    "name": "GetEnvironmentStringsW", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "11": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetEnvironmentVariableA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "12": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetEnvironmentVariableW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "13": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "GetStdHandle", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "nStdHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "14": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "SearchPathW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpPath", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpExtension", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nBufferLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR*", 
+        "name": "lpFilePart", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "15": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetCurrentDirectoryA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpPathName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "16": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetCurrentDirectoryW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpPathName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "17": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetEnvironmentStringsW", 
+    "arguments": [
+      {
+        "type": " LPWCH", 
+        "name": "NewEnvironment", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "18": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetEnvironmentVariableA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpValue", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "FreeEnvironmentStringsA", 
+    "arguments": [
+      {
+        "type": " LPCH", 
+        "name": "penv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "20": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetStdHandle", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "nStdHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "21": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetStdHandleEx", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "nStdHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " PHANDLE", 
+        "name": "phPrevValue", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetEnvironmentStringsW": {
+    "cc": "__cdecl", 
+    "returns": "LPWCH", 
+    "returns_float": false, 
+    "name": "GetEnvironmentStringsW", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetEnvironmentStringsW": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetEnvironmentStringsW", 
+    "arguments": [
+      {
+        "type": " LPWCH", 
+        "name": "NewEnvironment", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__cdecl", 
+    "returns": "LPSTR", 
+    "returns_float": false, 
+    "name": "GetCommandLineA", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "FreeEnvironmentStringsA": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "FreeEnvironmentStringsA", 
+    "arguments": [
+      {
+        "type": " LPCH", 
+        "name": "penv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetEnvironmentStrings": {
+    "cc": "__cdecl", 
+    "returns": "LPCH", 
+    "returns_float": false, 
+    "name": "GetEnvironmentStrings", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetCurrentDirectoryW": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetCurrentDirectoryW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "nBufferLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetCommandLineW": {
+    "cc": "__cdecl", 
+    "returns": "LPWSTR", 
+    "returns_float": false, 
+    "name": "GetCommandLineW", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetCurrentDirectoryA": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetCurrentDirectoryA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "nBufferLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "FreeEnvironmentStringsW": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "FreeEnvironmentStringsW", 
+    "arguments": [
+      {
+        "type": " LPWCH", 
+        "name": "penv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetCommandLineA": {
+    "cc": "__cdecl", 
+    "returns": "LPSTR", 
+    "returns_float": false, 
+    "name": "GetCommandLineA", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetStdHandle": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetStdHandle", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "nStdHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetEnvironmentVariableW": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetEnvironmentVariableW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpValue", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ExpandEnvironmentStringsW": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ExpandEnvironmentStringsW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpDst", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetStdHandleEx": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetStdHandleEx", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "nStdHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " PHANDLE", 
+        "name": "phPrevValue", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ExpandEnvironmentStringsA": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ExpandEnvironmentStringsA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpDst", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetEnvironmentVariableA": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetEnvironmentVariableA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpValue", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SearchPathW": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "SearchPathW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpPath", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpExtension", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nBufferLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR*", 
+        "name": "lpFilePart", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetCurrentDirectoryW": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetCurrentDirectoryW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpPathName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetCurrentDirectoryA": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetCurrentDirectoryA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpPathName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "19": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetEnvironmentVariableW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpValue", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetEnvironmentVariableW": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetEnvironmentVariableW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nSize", 
+        "is_float": false
+      }
+    ]
+  }
+}

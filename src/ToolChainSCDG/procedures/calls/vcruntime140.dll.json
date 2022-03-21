@@ -1,0 +1,500 @@
+{
+  "65": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "strchr", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "_Str", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "_Val", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "66": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "strrchr", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "_Str", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "_Ch", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "67": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "strstr", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "_Str", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "_SubStr", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "69": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "wcschr", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "_Str", 
+        "is_float": false
+      }, 
+      {
+        "type": " char", 
+        "name": "_Ch", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "70": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "wcsrchr", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "_Str", 
+        "is_float": false
+      }, 
+      {
+        "type": " char", 
+        "name": "_Ch", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "71": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "wcsstr", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "_Str", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "_SubStr", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "memset": {
+    "cc": "__cdecl", 
+    "returns": " void", 
+    "returns_float": false, 
+    "name": "memset", 
+    "arguments": [
+      {
+        "type": " void*", 
+        "name": "_Dst", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "_Val", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "_Size", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wcschr": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "wcschr", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "_Str", 
+        "is_float": false
+      }, 
+      {
+        "type": " char", 
+        "name": "_Ch", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "56": {
+    "cc": "__cdecl", 
+    "returns": "_purecall_handler", 
+    "returns_float": false, 
+    "name": "_set_purecall_handler", 
+    "arguments": [
+      {
+        "type": " _purecall_handler", 
+        "name": "_Handler", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "memcpy": {
+    "cc": "__cdecl", 
+    "returns": " void", 
+    "returns_float": false, 
+    "name": "memcpy", 
+    "arguments": [
+      {
+        "type": " void*", 
+        "name": "_Dst", 
+        "is_float": false
+      }, 
+      {
+        "type": "const void*", 
+        "name": "_Src", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "_Size", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "strchr": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "strchr", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "_Str", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "_Val", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "strstr": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "strstr", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "_Str", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "_SubStr", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "memmove": {
+    "cc": "__cdecl", 
+    "returns": " void", 
+    "returns_float": false, 
+    "name": "memmove", 
+    "arguments": [
+      {
+        "type": " void*", 
+        "name": "_Dst", 
+        "is_float": false
+      }, 
+      {
+        "type": "const void*", 
+        "name": "_Src", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "_Size", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "61": {
+    "cc": "__cdecl", 
+    "returns": " void", 
+    "returns_float": false, 
+    "name": "memcpy", 
+    "arguments": [
+      {
+        "type": " void*", 
+        "name": "_Dst", 
+        "is_float": false
+      }, 
+      {
+        "type": "const void*", 
+        "name": "_Src", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "_Size", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "51": {
+    "cc": "__cdecl", 
+    "returns": "_purecall_handler", 
+    "returns_float": false, 
+    "name": "_get_purecall_handler", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "62": {
+    "cc": "__cdecl", 
+    "returns": " void", 
+    "returns_float": false, 
+    "name": "memmove", 
+    "arguments": [
+      {
+        "type": " void*", 
+        "name": "_Dst", 
+        "is_float": false
+      }, 
+      {
+        "type": "const void*", 
+        "name": "_Src", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "_Size", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "_get_purecall_handler": {
+    "cc": "__cdecl", 
+    "returns": "_purecall_handler", 
+    "returns_float": false, 
+    "name": "_get_purecall_handler", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "memcmp": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "memcmp", 
+    "arguments": [
+      {
+        "type": "const void*", 
+        "name": "_Buf1", 
+        "is_float": false
+      }, 
+      {
+        "type": "const void*", 
+        "name": "_Buf2", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "_Size", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wcsstr": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "wcsstr", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "_Str", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "_SubStr", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "strrchr": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "strrchr", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "_Str", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "_Ch", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "_set_purecall_handler": {
+    "cc": "__cdecl", 
+    "returns": "_purecall_handler", 
+    "returns_float": false, 
+    "name": "_set_purecall_handler", 
+    "arguments": [
+      {
+        "type": " _purecall_handler", 
+        "name": "_Handler", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "59": {
+    "cc": "__cdecl", 
+    "returns": " void", 
+    "returns_float": false, 
+    "name": "memchr", 
+    "arguments": [
+      {
+        "type": "const void*", 
+        "name": "_Buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "_Val", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "_MaxCount", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "60": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "memcmp", 
+    "arguments": [
+      {
+        "type": "const void*", 
+        "name": "_Buf1", 
+        "is_float": false
+      }, 
+      {
+        "type": "const void*", 
+        "name": "_Buf2", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "_Size", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wcsrchr": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "wcsrchr", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "_Str", 
+        "is_float": false
+      }, 
+      {
+        "type": " char", 
+        "name": "_Ch", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "memchr": {
+    "cc": "__cdecl", 
+    "returns": " void", 
+    "returns_float": false, 
+    "name": "memchr", 
+    "arguments": [
+      {
+        "type": "const void*", 
+        "name": "_Buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "_Val", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "_MaxCount", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "63": {
+    "cc": "__cdecl", 
+    "returns": " void", 
+    "returns_float": false, 
+    "name": "memset", 
+    "arguments": [
+      {
+        "type": " void*", 
+        "name": "_Dst", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "_Val", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "_Size", 
+        "is_float": false
+      }
+    ]
+  }
+}

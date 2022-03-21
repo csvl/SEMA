@@ -1,0 +1,130 @@
+{
+  "SearchPathA": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "SearchPathA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpPath", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpExtension", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nBufferLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR*", 
+        "name": "lpFilePart", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "NeedCurrentDirectoryForExePathW": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "NeedCurrentDirectoryForExePathW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "ExeName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "SearchPathA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpPath", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpExtension", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nBufferLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR*", 
+        "name": "lpFilePart", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "NeedCurrentDirectoryForExePathA": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "NeedCurrentDirectoryForExePathA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "ExeName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "NeedCurrentDirectoryForExePathA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "ExeName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "NeedCurrentDirectoryForExePathW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "ExeName", 
+        "is_float": false
+      }
+    ]
+  }
+}

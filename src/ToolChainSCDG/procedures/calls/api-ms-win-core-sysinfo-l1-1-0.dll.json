@@ -1,0 +1,734 @@
+{
+  "GetComputerNameExA": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetComputerNameExA", 
+    "arguments": [
+      {
+        "type": " COMPUTER_NAME_FORMAT", 
+        "name": "NameType", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "nSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetSystemWindowsDirectoryA": {
+    "cc": "__cdecl", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "GetSystemWindowsDirectoryA", 
+    "arguments": [
+      {
+        "type": " LPSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "GetLocalTime", 
+    "arguments": [
+      {
+        "type": " LPSYSTEMTIME", 
+        "name": "lpSystemTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetLogicalProcessorInformationEx": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetLogicalProcessorInformationEx", 
+    "arguments": [
+      {
+        "type": " LOGICAL_PROCESSOR_RELATIONSHIP", 
+        "name": "RelationshipType", 
+        "is_float": false
+      }, 
+      {
+        "type": " PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX", 
+        "name": "Buffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " PDWORD", 
+        "name": "ReturnedLength", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetComputerNameExW": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetComputerNameExW", 
+    "arguments": [
+      {
+        "type": " COMPUTER_NAME_FORMAT", 
+        "name": "NameType", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "nSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "6": {
+    "cc": "__cdecl", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "GetSystemDirectoryA", 
+    "arguments": [
+      {
+        "type": " LPSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetSystemTime": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "GetSystemTime", 
+    "arguments": [
+      {
+        "type": " LPSYSTEMTIME", 
+        "name": "lpSystemTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "8": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "GetSystemInfo", 
+    "arguments": [
+      {
+        "type": " LPSYSTEM_INFO", 
+        "name": "lpSystemInfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "9": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "GetSystemTime", 
+    "arguments": [
+      {
+        "type": " LPSYSTEMTIME", 
+        "name": "lpSystemTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetSystemInfo": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "GetSystemInfo", 
+    "arguments": [
+      {
+        "type": " LPSYSTEM_INFO", 
+        "name": "lpSystemInfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "11": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "GetSystemTimeAsFileTime", 
+    "arguments": [
+      {
+        "type": " LPFILETIME", 
+        "name": "lpSystemTimeAsFileTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "12": {
+    "cc": "__cdecl", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "GetSystemWindowsDirectoryA", 
+    "arguments": [
+      {
+        "type": " LPSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetComputerNameExW", 
+    "arguments": [
+      {
+        "type": " COMPUTER_NAME_FORMAT", 
+        "name": "NameType", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "nSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "14": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetTickCount", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetVersionExW": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetVersionExW", 
+    "arguments": [
+      {
+        "type": " LPOSVERSIONINFOW", 
+        "name": "lpVersionInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "16": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "GetVersion", 
+    "arguments": [
+      {
+        "type": " ITypeLibRegistration*", 
+        "name": "This", 
+        "is_float": false
+      }, 
+      {
+        "type": " BSTR*", 
+        "name": "pVersion", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "17": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetVersionExA", 
+    "arguments": [
+      {
+        "type": " LPOSVERSIONINFOA", 
+        "name": "lpVersionInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "18": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetVersionExW", 
+    "arguments": [
+      {
+        "type": " LPOSVERSIONINFOW", 
+        "name": "lpVersionInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "19": {
+    "cc": "__cdecl", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "GetWindowsDirectoryA", 
+    "arguments": [
+      {
+        "type": " LPSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetTickCount": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetTickCount", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "21": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GlobalMemoryStatusEx", 
+    "arguments": [
+      {
+        "type": " LPMEMORYSTATUSEX", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "22": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetLocalTime", 
+    "arguments": [
+      {
+        "type": "const SYSTEMTIME*", 
+        "name": "lpSystemTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetVersionExA": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetVersionExA", 
+    "arguments": [
+      {
+        "type": " LPOSVERSIONINFOA", 
+        "name": "lpVersionInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetSystemDirectoryA": {
+    "cc": "__cdecl", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "GetSystemDirectoryA", 
+    "arguments": [
+      {
+        "type": " LPSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetLocalTime": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "GetLocalTime", 
+    "arguments": [
+      {
+        "type": " LPSYSTEMTIME", 
+        "name": "lpSystemTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetLogicalProcessorInformationEx", 
+    "arguments": [
+      {
+        "type": " LOGICAL_PROCESSOR_RELATIONSHIP", 
+        "name": "RelationshipType", 
+        "is_float": false
+      }, 
+      {
+        "type": " PSYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX", 
+        "name": "Buffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " PDWORD", 
+        "name": "ReturnedLength", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetComputerNameExA", 
+    "arguments": [
+      {
+        "type": " COMPUTER_NAME_FORMAT", 
+        "name": "NameType", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "nSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetWindowsDirectoryW": {
+    "cc": "__cdecl", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "GetWindowsDirectoryW", 
+    "arguments": [
+      {
+        "type": " LPWSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "7": {
+    "cc": "__cdecl", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "GetSystemDirectoryW", 
+    "arguments": [
+      {
+        "type": " LPWSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetWindowsDirectoryA": {
+    "cc": "__cdecl", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "GetWindowsDirectoryA", 
+    "arguments": [
+      {
+        "type": " LPSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "10": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetSystemTimeAdjustment", 
+    "arguments": [
+      {
+        "type": " PDWORD", 
+        "name": "lpTimeAdjustment", 
+        "is_float": false
+      }, 
+      {
+        "type": " PDWORD", 
+        "name": "lpTimeIncrement", 
+        "is_float": false
+      }, 
+      {
+        "type": " PBOOL", 
+        "name": "lpTimeAdjustmentDisabled", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetTickCount64": {
+    "cc": "__cdecl", 
+    "returns": "ULONGLONG", 
+    "returns_float": false, 
+    "name": "GetTickCount64", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetSystemDirectoryW": {
+    "cc": "__cdecl", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "GetSystemDirectoryW", 
+    "arguments": [
+      {
+        "type": " LPWSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "13": {
+    "cc": "__cdecl", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "GetSystemWindowsDirectoryW", 
+    "arguments": [
+      {
+        "type": " LPWSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetSystemTimeAsFileTime": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "GetSystemTimeAsFileTime", 
+    "arguments": [
+      {
+        "type": " LPFILETIME", 
+        "name": "lpSystemTimeAsFileTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GlobalMemoryStatusEx": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GlobalMemoryStatusEx", 
+    "arguments": [
+      {
+        "type": " LPMEMORYSTATUSEX", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetLocalTime": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetLocalTime", 
+    "arguments": [
+      {
+        "type": "const SYSTEMTIME*", 
+        "name": "lpSystemTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "15": {
+    "cc": "__cdecl", 
+    "returns": "ULONGLONG", 
+    "returns_float": false, 
+    "name": "GetTickCount64", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "20": {
+    "cc": "__cdecl", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "GetWindowsDirectoryW", 
+    "arguments": [
+      {
+        "type": " LPWSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetSystemTimeAdjustment": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetSystemTimeAdjustment", 
+    "arguments": [
+      {
+        "type": " PDWORD", 
+        "name": "lpTimeAdjustment", 
+        "is_float": false
+      }, 
+      {
+        "type": " PDWORD", 
+        "name": "lpTimeIncrement", 
+        "is_float": false
+      }, 
+      {
+        "type": " PBOOL", 
+        "name": "lpTimeAdjustmentDisabled", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetLogicalProcessorInformation": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetLogicalProcessorInformation", 
+    "arguments": [
+      {
+        "type": " PSYSTEM_LOGICAL_PROCESSOR_INFORMATION", 
+        "name": "Buffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " PDWORD", 
+        "name": "ReturnedLength", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetSystemWindowsDirectoryW": {
+    "cc": "__cdecl", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "GetSystemWindowsDirectoryW", 
+    "arguments": [
+      {
+        "type": " LPWSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetVersion": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "GetVersion", 
+    "arguments": [
+      {
+        "type": " ITypeLibRegistration*", 
+        "name": "This", 
+        "is_float": false
+      }, 
+      {
+        "type": " BSTR*", 
+        "name": "pVersion", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetLogicalProcessorInformation", 
+    "arguments": [
+      {
+        "type": " PSYSTEM_LOGICAL_PROCESSOR_INFORMATION", 
+        "name": "Buffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " PDWORD", 
+        "name": "ReturnedLength", 
+        "is_float": false
+      }
+    ]
+  }
+}

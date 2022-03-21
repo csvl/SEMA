@@ -1,0 +1,120 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4623224.main
+81c1465cd57fa36a1fe58ce6425d3e1ce845337a9ac7c941d2fe6cfd74d5f4cb"]
+	1 [label="4221604.GetModuleHandleA
+0"]
+	2 [label="4208825.GetKeyboardType
+0"]
+	3 [label="4221263.GetCommandLineA
+"]
+	4 [label="4199350.GetStartupInfoA
+2147417460"]
+	5 [label="4221283.GetVersion
+"]
+	6 [label="4221300.GetVersion
+"]
+	7 [label="4221360.GetCurrentThreadId
+"]
+	8 [label="4217954.GetModuleFileNameA
+4194304
+PZM
+261"]
+	1 -> 8 [label="(0-->1)"]
+	9 [label="4218611.GetModuleFileNameA
+0
+81c1465cd57fa36a1fe58ce6425d3e1ce845337a9ac7c941d2fe6cfd74d5f4cb
+261"]
+	0 -> 9 [label="(1-->2)"]
+	8 -> 9 [label="(3-->3)"]
+	10 [label="4218641.RegOpenKeyExA
+2147483649
+Software\Borland\Locales
+0
+983065
+2147413072"]
+	11 [label="4218141.GetModuleHandleA
+kernel32.dll"]
+	12 [label="4218158.GetProcAddress
+6295592
+GetLongPathNameA"]
+	11 -> 12 [label="(0-->1)"]
+	13 [label="4218188.GetLongPathNameA
+81c1465cd57fa36a1fe58ce6425d3e1ce845337a9ac7c941d2fe6cfd74d5f4cb
+
+261"]
+	0 -> 13 [label="(1-->1)"]
+	9 -> 13 [label="(2-->1)"]
+	8 -> 13 [label="(3-->3)"]
+	9 -> 13 [label="(3-->3)"]
+	12 -> 13 [label="(0-->0)"]
+	14 [label="4218210.lstrcpynA
+
+
+261"]
+	8 -> 14 [label="(3-->3)"]
+	9 -> 14 [label="(3-->3)"]
+	13 -> 14 [label="(3-->3)"]
+	15 [label="4218774.RegQueryValueExA
+4217959
+
+0
+0
+2147413062
+2147413056"]
+	16 [label="4218804.RegQueryValueExA
+4217959
+
+0
+0
+2147413062
+2147413056"]
+	15 -> 16 [label="(1-->1)"]
+	15 -> 16 [label="(5-->5)"]
+	15 -> 16 [label="(6-->6)"]
+	17 [label="4218838.RegCloseKey
+4217959"]
+	15 -> 17 [label="(1-->1)"]
+	16 -> 17 [label="(1-->1)"]
+	18 [label="4218867.lstrcpynA
+PZM
+PZM
+261"]
+	8 -> 18 [label="(2-->1)"]
+	8 -> 18 [label="(2-->2)"]
+	8 -> 18 [label="(3-->3)"]
+	9 -> 18 [label="(3-->3)"]
+	13 -> 18 [label="(3-->3)"]
+	14 -> 18 [label="(3-->3)"]
+	14 -> 18 [label="(0-->0)"]
+	19 [label="4218880.GetThreadLocale
+"]
+	20 [label="4218886.GetLocaleInfoA
+retval_GetThreadLocale_821034_32
+3
+
+5"]
+	8 -> 20 [label="(0-->2)"]
+	21 [label="4220922.LoadStringA
+4194304
+65503
+{@
+4096"]
+	1 -> 21 [label="(0-->1)"]
+	8 -> 21 [label="(1-->1)"]
+	22 [label="4220922.LoadStringA
+4194304
+65502
+{@
+4096"]
+	1 -> 22 [label="(0-->1)"]
+	8 -> 22 [label="(1-->1)"]
+	21 -> 22 [label="(1-->1)"]
+	21 -> 22 [label="(4-->4)"]
+	23 [label="4201519.InitializeCriticalSection
+4888012"]
+	4 -> 23 [label="(0-->0)"]
+	24 [label="4201580.LocalAlloc
+0
+4088"]
+}

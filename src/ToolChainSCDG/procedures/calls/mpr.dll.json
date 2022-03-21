@@ -1,0 +1,2054 @@
+{
+  "68": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetOpenEnumA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwScope", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwType", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwUsage", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETRESOURCEA", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPHANDLE", 
+        "name": "lphEnum", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetCancelConnectionA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetCancelConnectionA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fForce", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "74": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetRestoreSingleConnectionW", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hwndParent", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpDevice", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fUseUI", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "81": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetUseConnectionW", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hwndOwner", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETRESOURCEW", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpPassword", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpUserId", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpAccessName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpBufferSize", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpResult", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetGetNetworkInformationA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetNetworkInformationA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpProvider", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETINFOSTRUCT", 
+        "name": "lpNetInfoStruct", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetOpenEnumW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetOpenEnumW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwScope", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwType", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwUsage", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETRESOURCEW", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPHANDLE", 
+        "name": "lphEnum", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetGetProviderNameW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetProviderNameW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwNetType", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpProviderName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpBufferSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "11": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "MultinetGetConnectionPerformanceA", 
+    "arguments": [
+      {
+        "type": " LPNETRESOURCEA", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETCONNECTINFOSTRUCT", 
+        "name": "lpNetConnectInfoStruct", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "12": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "MultinetGetConnectionPerformanceW", 
+    "arguments": [
+      {
+        "type": " LPNETRESOURCEW", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETCONNECTINFOSTRUCT", 
+        "name": "lpNetConnectInfoStruct", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "66": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetUserW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpUserName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpnLength", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "15": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetAddConnection2A", 
+    "arguments": [
+      {
+        "type": " LPNETRESOURCEA", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpPassword", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpUserName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "16": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetAddConnection2W", 
+    "arguments": [
+      {
+        "type": " LPNETRESOURCEW", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpPassword", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpUserName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "17": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetAddConnection3A", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hwndOwner", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETRESOURCEA", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpPassword", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpUserName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "18": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetAddConnection3W", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hwndOwner", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETRESOURCEW", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpPassword", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpUserName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "19": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetAddConnectionA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpRemoteName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpPassword", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpLocalName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "20": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetAddConnectionW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpRemoteName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpPassword", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpLocalName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "21": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetCancelConnection2A", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fForce", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "22": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetCancelConnection2W", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fForce", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "23": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetCancelConnectionA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fForce", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "24": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetCancelConnectionW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fForce", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetGetUserA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetUserA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpUserName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpnLength", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "26": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetCloseEnum", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hEnum", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "27": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetConnectionDialog1A", 
+    "arguments": [
+      {
+        "type": " LPCONNECTDLGSTRUCTA", 
+        "name": "lpConnDlgStruct", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "28": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetConnectionDialog1W", 
+    "arguments": [
+      {
+        "type": " LPCONNECTDLGSTRUCTW", 
+        "name": "lpConnDlgStruct", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "29": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetConnectionDialog", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hwnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwType", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "69": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetOpenEnumW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwScope", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwType", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwUsage", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETRESOURCEW", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPHANDLE", 
+        "name": "lphEnum", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetGetProviderNameA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetProviderNameA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwNetType", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpProviderName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpBufferSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "32": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetDisconnectDialog1A", 
+    "arguments": [
+      {
+        "type": " LPDISCDLGSTRUCTA", 
+        "name": "lpConnDlgStruct", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "33": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetDisconnectDialog1W", 
+    "arguments": [
+      {
+        "type": " LPDISCDLGSTRUCTW", 
+        "name": "lpConnDlgStruct", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "34": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetDisconnectDialog", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hwnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwType", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "35": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetEnumResourceA", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hEnum", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpcCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpBufferSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "36": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetEnumResourceW", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hEnum", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpcCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpBufferSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetUseConnectionA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetUseConnectionA", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hwndOwner", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETRESOURCEA", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpPassword", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpUserId", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpAccessName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpBufferSize", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpResult", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "43": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetConnectionA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpLocalName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpRemoteName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpnLength", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "44": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetConnectionW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpLocalName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpRemoteName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpnLength", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetAddConnection2W": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetAddConnection2W", 
+    "arguments": [
+      {
+        "type": " LPNETRESOURCEW", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpPassword", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpUserName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "48": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetLastErrorA", 
+    "arguments": [
+      {
+        "type": " LPDWORD", 
+        "name": "lpError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpErrorBuf", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nErrorBufSize", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpNameBuf", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nNameBufSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "49": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetLastErrorW", 
+    "arguments": [
+      {
+        "type": " LPDWORD", 
+        "name": "lpError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpErrorBuf", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nErrorBufSize", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpNameBuf", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nNameBufSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "50": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetNetworkInformationA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpProvider", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETINFOSTRUCT", 
+        "name": "lpNetInfoStruct", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "51": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetNetworkInformationW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpProvider", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETINFOSTRUCT", 
+        "name": "lpNetInfoStruct", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetConnectionDialog": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetConnectionDialog", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hwnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwType", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "54": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetProviderNameA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwNetType", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpProviderName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpBufferSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetGetConnectionA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetConnectionA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpLocalName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpRemoteName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpnLength", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetAddConnection2A": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetAddConnection2A", 
+    "arguments": [
+      {
+        "type": " LPNETRESOURCEA", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpPassword", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpUserName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "58": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetResourceInformationA", 
+    "arguments": [
+      {
+        "type": " LPNETRESOURCEA", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpcbBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR*", 
+        "name": "lplpSystem", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "59": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetResourceInformationW", 
+    "arguments": [
+      {
+        "type": " LPNETRESOURCEW", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpcbBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR*", 
+        "name": "lplpSystem", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "60": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetResourceParentA", 
+    "arguments": [
+      {
+        "type": " LPNETRESOURCEA", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpcbBuffer", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "61": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetResourceParentW", 
+    "arguments": [
+      {
+        "type": " LPNETRESOURCEW", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpcbBuffer", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetUseConnectionW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetUseConnectionW", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hwndOwner", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETRESOURCEW", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpPassword", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpUserId", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpAccessName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpBufferSize", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpResult", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "63": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetUniversalNameA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpLocalPath", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwInfoLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpBufferSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "64": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetUniversalNameW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpLocalPath", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwInfoLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpBufferSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "65": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetUserA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpUserName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpnLength", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetGetLastErrorA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetLastErrorA", 
+    "arguments": [
+      {
+        "type": " LPDWORD", 
+        "name": "lpError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpErrorBuf", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nErrorBufSize", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpNameBuf", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nNameBufSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetGetUniversalNameW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetUniversalNameW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpLocalPath", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwInfoLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpBufferSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "MultinetGetConnectionPerformanceW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "MultinetGetConnectionPerformanceW", 
+    "arguments": [
+      {
+        "type": " LPNETRESOURCEW", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETCONNECTINFOSTRUCT", 
+        "name": "lpNetConnectInfoStruct", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetEnumResourceA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetEnumResourceA", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hEnum", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpcCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpBufferSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetGetConnectionW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetConnectionW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpLocalName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpRemoteName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpnLength", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetGetResourceInformationW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetResourceInformationW", 
+    "arguments": [
+      {
+        "type": " LPNETRESOURCEW", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpcbBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR*", 
+        "name": "lplpSystem", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "55": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetProviderNameW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwNetType", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpProviderName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpBufferSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetAddConnectionW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetAddConnectionW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpRemoteName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpPassword", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpLocalName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetRestoreSingleConnectionW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetRestoreSingleConnectionW", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hwndParent", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpDevice", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fUseUI", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "80": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetUseConnectionA", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hwndOwner", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETRESOURCEA", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpPassword", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpUserId", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpAccessName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpBufferSize", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpResult", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetOpenEnumA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetOpenEnumA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwScope", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwType", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwUsage", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETRESOURCEA", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPHANDLE", 
+        "name": "lphEnum", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "MultinetGetConnectionPerformanceA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "MultinetGetConnectionPerformanceA", 
+    "arguments": [
+      {
+        "type": " LPNETRESOURCEA", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETCONNECTINFOSTRUCT", 
+        "name": "lpNetConnectInfoStruct", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetEnumResourceW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetEnumResourceW", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hEnum", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpcCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpBufferSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetGetLastErrorW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetLastErrorW", 
+    "arguments": [
+      {
+        "type": " LPDWORD", 
+        "name": "lpError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpErrorBuf", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nErrorBufSize", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpNameBuf", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nNameBufSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetDisconnectDialog": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetDisconnectDialog", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hwnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwType", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetGetResourceParentW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetResourceParentW", 
+    "arguments": [
+      {
+        "type": " LPNETRESOURCEW", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpcbBuffer", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetAddConnectionA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetAddConnectionA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpRemoteName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpPassword", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpLocalName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetGetResourceInformationA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetResourceInformationA", 
+    "arguments": [
+      {
+        "type": " LPNETRESOURCEA", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpcbBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR*", 
+        "name": "lplpSystem", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetGetUniversalNameA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetUniversalNameA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpLocalPath", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwInfoLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpBufferSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetCloseEnum": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetCloseEnum", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hEnum", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetConnectionDialog1A": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetConnectionDialog1A", 
+    "arguments": [
+      {
+        "type": " LPCONNECTDLGSTRUCTA", 
+        "name": "lpConnDlgStruct", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetGetNetworkInformationW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetNetworkInformationW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpProvider", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETINFOSTRUCT", 
+        "name": "lpNetInfoStruct", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetDisconnectDialog1W": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetDisconnectDialog1W", 
+    "arguments": [
+      {
+        "type": " LPDISCDLGSTRUCTW", 
+        "name": "lpConnDlgStruct", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetAddConnection3W": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetAddConnection3W", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hwndOwner", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETRESOURCEW", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpPassword", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpUserName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetCancelConnection2W": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetCancelConnection2W", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fForce", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetGetResourceParentA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetResourceParentA", 
+    "arguments": [
+      {
+        "type": " LPNETRESOURCEA", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpcbBuffer", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetConnectionDialog1W": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetConnectionDialog1W", 
+    "arguments": [
+      {
+        "type": " LPCONNECTDLGSTRUCTW", 
+        "name": "lpConnDlgStruct", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetGetUserW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetGetUserW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpUserName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpnLength", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetCancelConnectionW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetCancelConnectionW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fForce", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetAddConnection3A": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetAddConnection3A", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hwndOwner", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNETRESOURCEA", 
+        "name": "lpNetResource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpPassword", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpUserName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetCancelConnection2A": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetCancelConnection2A", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fForce", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WNetDisconnectDialog1A": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WNetDisconnectDialog1A", 
+    "arguments": [
+      {
+        "type": " LPDISCDLGSTRUCTA", 
+        "name": "lpConnDlgStruct", 
+        "is_float": false
+      }
+    ]
+  }
+}

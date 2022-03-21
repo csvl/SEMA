@@ -1,0 +1,360 @@
+{
+  "StgCreatePropSetStg": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "StgCreatePropSetStg", 
+    "arguments": [
+      {
+        "type": " IStorage*", 
+        "name": "pStorage", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " IPropertySetStorage**", 
+        "name": "ppPropSetStg", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "FmtIdToPropStgName", 
+    "arguments": [
+      {
+        "type": "const FMTID*", 
+        "name": "pfmtid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOLESTR", 
+        "name": "oszName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "FreePropVariantArray", 
+    "arguments": [
+      {
+        "type": " ULONG", 
+        "name": "cVariants", 
+        "is_float": false
+      }, 
+      {
+        "type": " PROPVARIANT*", 
+        "name": "rgvars", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "PropStgNameToFmtId", 
+    "arguments": [
+      {
+        "type": "const LPOLESTR", 
+        "name": "oszName", 
+        "is_float": false
+      }, 
+      {
+        "type": " FMTID*", 
+        "name": "pfmtid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "PropVariantClear", 
+    "arguments": [
+      {
+        "type": " PROPVARIANT*", 
+        "name": "pvar", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "PropVariantCopy", 
+    "arguments": [
+      {
+        "type": " PROPVARIANT*", 
+        "name": "pvarDest", 
+        "is_float": false
+      }, 
+      {
+        "type": "const PROPVARIANT*", 
+        "name": "pvarSrc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "6": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "StgCreatePropSetStg", 
+    "arguments": [
+      {
+        "type": " IStorage*", 
+        "name": "pStorage", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " IPropertySetStorage**", 
+        "name": "ppPropSetStg", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "FmtIdToPropStgName": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "FmtIdToPropStgName", 
+    "arguments": [
+      {
+        "type": "const FMTID*", 
+        "name": "pfmtid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOLESTR", 
+        "name": "oszName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "8": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "StgOpenPropStg", 
+    "arguments": [
+      {
+        "type": " IUnknown*", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "fmtid", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "grfFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " IPropertyStorage**", 
+        "name": "ppPropStg", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "FreePropVariantArray": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "FreePropVariantArray", 
+    "arguments": [
+      {
+        "type": " ULONG", 
+        "name": "cVariants", 
+        "is_float": false
+      }, 
+      {
+        "type": " PROPVARIANT*", 
+        "name": "rgvars", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "StgCreatePropStg": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "StgCreatePropStg", 
+    "arguments": [
+      {
+        "type": " IUnknown*", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "fmtid", 
+        "is_float": false
+      }, 
+      {
+        "type": "const CLSID*", 
+        "name": "pclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "grfFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " IPropertyStorage**", 
+        "name": "ppPropStg", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "PropStgNameToFmtId": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "PropStgNameToFmtId", 
+    "arguments": [
+      {
+        "type": "const LPOLESTR", 
+        "name": "oszName", 
+        "is_float": false
+      }, 
+      {
+        "type": " FMTID*", 
+        "name": "pfmtid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "StgOpenPropStg": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "StgOpenPropStg", 
+    "arguments": [
+      {
+        "type": " IUnknown*", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "fmtid", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "grfFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " IPropertyStorage**", 
+        "name": "ppPropStg", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "7": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "StgCreatePropStg", 
+    "arguments": [
+      {
+        "type": " IUnknown*", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "fmtid", 
+        "is_float": false
+      }, 
+      {
+        "type": "const CLSID*", 
+        "name": "pclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "grfFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " IPropertyStorage**", 
+        "name": "ppPropStg", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "PropVariantClear": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "PropVariantClear", 
+    "arguments": [
+      {
+        "type": " PROPVARIANT*", 
+        "name": "pvar", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "PropVariantCopy": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "PropVariantCopy", 
+    "arguments": [
+      {
+        "type": " PROPVARIANT*", 
+        "name": "pvarDest", 
+        "is_float": false
+      }, 
+      {
+        "type": "const PROPVARIANT*", 
+        "name": "pvarSrc", 
+        "is_float": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,6768 @@
+{
+  "CoRegisterPSClsid": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRegisterPSClsid", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoFileTimeNow": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoFileTimeNow", 
+    "arguments": [
+      {
+        "type": " FILETIME*", 
+        "name": "lpFileTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "IIDFromString": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "IIDFromString", 
+    "arguments": [
+      {
+        "type": " LPCOLESTR", 
+        "name": "lpsz", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPIID", 
+        "name": "lpiid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "334": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HGLOBAL_UserMarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLOBAL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "257": {
+    "cc": "__cdecl", 
+    "returns": "ULONG", 
+    "returns_float": false, 
+    "name": "CoReleaseServerProcess", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "307": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HBITMAP_UserFree", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HBITMAP*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HBITMAP_UserMarshal": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HBITMAP_UserMarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HBITMAP*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoMarshalInterThreadInterfaceInStream": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoMarshalInterThreadInterfaceInStream", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTREAM*", 
+        "name": "ppStm", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetStdMarshalEx": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetStdMarshalEx", 
+    "arguments": [
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnkOuter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "smexflags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUNKNOWN*", 
+        "name": "ppUnkInner", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetCallerTID": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetCallerTID", 
+    "arguments": [
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwTID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoIncrementMTAUsage": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoIncrementMTAUsage", 
+    "arguments": [
+      {
+        "type": " CO_MTA_USAGE_COOKIE*", 
+        "name": "pCookie", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "225": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetStandardMarshal", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDestContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "pvDestContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "mshlflags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMARSHAL*", 
+        "name": "ppMarshal", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoUnmarshalHresult": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoUnmarshalHresult", 
+    "arguments": [
+      {
+        "type": " LPSTREAM", 
+        "name": "pstm", 
+        "is_float": false
+      }, 
+      {
+        "type": " HRESULT*", 
+        "name": "phresult", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoSetCancelObject": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoSetCancelObject", 
+    "arguments": [
+      {
+        "type": " IUnknown*", 
+        "name": "pUnk", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "208": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetClassObject", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwClsContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "pvReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HICON_UserMarshal": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HICON_UserMarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HICON*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateStreamOnHGlobal": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CreateStreamOnHGlobal", 
+    "arguments": [
+      {
+        "type": " HGLOBAL", 
+        "name": "hGlobal", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fDeleteOnRelease", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTREAM*", 
+        "name": "ppstm", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "291": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "FreePropVariantArray", 
+    "arguments": [
+      {
+        "type": " ULONG", 
+        "name": "cVariants", 
+        "is_float": false
+      }, 
+      {
+        "type": " PROPVARIANT*", 
+        "name": "rgvars", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "264": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRevokeMallocSpy", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "308": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HBITMAP_UserFree64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HBITMAP*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoCreateGuid": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoCreateGuid", 
+    "arguments": [
+      {
+        "type": " GUID*", 
+        "name": "pguid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "274": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoTestCancel", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HMENU_UserFree": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HMENU_UserFree", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HMENU*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "379": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HWND_UserFree", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "349": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HMENU_UserMarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HMENU*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HDC_UserMarshal64": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HDC_UserMarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "189": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoCreateInstanceFromApp", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "Clsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUnknown*", 
+        "name": "punkOuter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwClsCtx", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "reserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " MULTI_QI*", 
+        "name": "pResults", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoRegisterMessageFilter": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRegisterMessageFilter", 
+    "arguments": [
+      {
+        "type": " LPMESSAGEFILTER", 
+        "name": "lpMessageFilter", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMESSAGEFILTER*", 
+        "name": "lplpMessageFilter", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "199": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "CoFreeUnusedLibraries", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetObjectContext": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetObjectContext", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "180": {
+    "cc": "__cdecl", 
+    "returns": "ULONG", 
+    "returns_float": false, 
+    "name": "CoAddRefServerProcess", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HGLOBAL_UserUnmarshal": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HGLOBAL_UserUnmarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLOBAL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HWND_UserMarshal": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HWND_UserMarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "181": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoAllowUnmarshalerCLSID", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "clsid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "352": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HMENU_UserSize64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HMENU*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "343": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HICON_UserSize", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HICON*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoSuspendClassObjects": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoSuspendClassObjects", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "182": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoCancelCall", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwThreadId", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "ulTimeout", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CLIPFORMAT_UserFree": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "CLIPFORMAT_UserFree", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " CLIPFORMAT*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "268": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoSetProxyBlanket", 
+    "arguments": [
+      {
+        "type": " IUnknown*", 
+        "name": "pProxy", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwAuthnSvc", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwAuthzSvc", 
+        "is_float": false
+      }, 
+      {
+        "type": " OLECHAR*", 
+        "name": "pServerPrincName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwAuthnLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwImpLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " RPC_AUTH_IDENTITY_HANDLE", 
+        "name": "pAuthInfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCapabilities", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HACCEL_UserSize64": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HACCEL_UserSize64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HACCEL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoCreateInstanceFromApp": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoCreateInstanceFromApp", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "Clsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUnknown*", 
+        "name": "punkOuter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwClsCtx", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "reserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " MULTI_QI*", 
+        "name": "pResults", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HDC_UserFree64": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HDC_UserFree64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HWND_UserFree": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HWND_UserFree", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "89": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "CLIPFORMAT_UserFree", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " CLIPFORMAT*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HICON_UserSize": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HICON_UserSize", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HICON*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoTestCancel": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoTestCancel", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "94": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "CLIPFORMAT_UserFree64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " CLIPFORMAT*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HWND_UserSize64": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HWND_UserSize64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HMENU_UserUnmarshal64": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HMENU_UserUnmarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HMENU*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoRevokeClassObject": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRevokeClassObject", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwRegister", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "273": {
+    "cc": "__cdecl", 
+    "returns": "LPVOID", 
+    "returns_float": false, 
+    "name": "CoTaskMemRealloc", 
+    "arguments": [
+      {
+        "type": " LPVOID", 
+        "name": "pv", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cb", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HMENU_UserSize": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HMENU_UserSize", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HMENU*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "105": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "CLIPFORMAT_UserMarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " CLIPFORMAT*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "106": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "CLIPFORMAT_UserMarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " CLIPFORMAT*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "107": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "CLIPFORMAT_UserSize", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " CLIPFORMAT*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "108": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "CLIPFORMAT_UserSize64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " CLIPFORMAT*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "109": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "CLIPFORMAT_UserUnmarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " CLIPFORMAT*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoInitializeSecurity": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoInitializeSecurity", 
+    "arguments": [
+      {
+        "type": " PSECURITY_DESCRIPTOR", 
+        "name": "pSecDesc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "cAuthSvc", 
+        "is_float": false
+      }, 
+      {
+        "type": " SOLE_AUTHENTICATION_SERVICE*", 
+        "name": "asAuthSvc", 
+        "is_float": false
+      }, 
+      {
+        "type": " void*", 
+        "name": "pReserved1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwAuthnLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwImpLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " void*", 
+        "name": "pAuthList", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCapabilities", 
+        "is_float": false
+      }, 
+      {
+        "type": " void*", 
+        "name": "pReserved3", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetCurrentProcess": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "CoGetCurrentProcess", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "113": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "CLIPFORMAT_UserUnmarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " CLIPFORMAT*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoDisconnectObject": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoDisconnectObject", 
+    "arguments": [
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReserved", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "116": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CLSIDFromProgIDEx", 
+    "arguments": [
+      {
+        "type": " LPCOLESTR", 
+        "name": "lpszProgID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCLSID", 
+        "name": "lpclsid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "117": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CLSIDFromString", 
+    "arguments": [
+      {
+        "type": " LPCOLESTR", 
+        "name": "lpsz", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCLSID", 
+        "name": "pclsid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HICON_UserMarshal64": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HICON_UserMarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HICON*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HDC_UserSize64": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HDC_UserSize64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CLIPFORMAT_UserFree64": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "CLIPFORMAT_UserFree64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " CLIPFORMAT*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoRevokeMallocSpy": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRevokeMallocSpy", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "458": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "RoGetAgileReference", 
+    "arguments": [
+      {
+        "type": " enum", 
+        "name": "options", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUnknown*", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": " IAgileReference**", 
+        "name": "ppAgileReference", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HGLOBAL_UserFree": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HGLOBAL_UserFree", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLOBAL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "260": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRevertToSelf", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CLIPFORMAT_UserSize64": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "CLIPFORMAT_UserSize64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " CLIPFORMAT*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HGLOBAL_UserFree64": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HGLOBAL_UserFree64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLOBAL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CLSIDFromProgIDEx": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CLSIDFromProgIDEx", 
+    "arguments": [
+      {
+        "type": " LPCOLESTR", 
+        "name": "lpszProgID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCLSID", 
+        "name": "lpclsid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "195": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoDisconnectContext", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwTimeout", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetCurrentLogicalThreadId": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetCurrentLogicalThreadId", 
+    "arguments": [
+      {
+        "type": " GUID*", 
+        "name": "pguid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HICON_UserFree": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HICON_UserFree", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HICON*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "FreePropVariantArray": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "FreePropVariantArray", 
+    "arguments": [
+      {
+        "type": " ULONG", 
+        "name": "cVariants", 
+        "is_float": false
+      }, 
+      {
+        "type": " PROPVARIANT*", 
+        "name": "rgvars", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoTaskMemAlloc": {
+    "cc": "__cdecl", 
+    "returns": "LPVOID", 
+    "returns_float": false, 
+    "name": "CoTaskMemAlloc", 
+    "arguments": [
+      {
+        "type": " int", 
+        "name": "cb", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "346": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HICON_UserUnmarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HICON*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "StringFromGUID2": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "StringFromGUID2", 
+    "arguments": [
+      {
+        "type": "const GUID*const", 
+        "name": "rguid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOLESTR", 
+        "name": "lpsz", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchMax", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoSetProxyBlanket": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoSetProxyBlanket", 
+    "arguments": [
+      {
+        "type": " IUnknown*", 
+        "name": "pProxy", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwAuthnSvc", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwAuthzSvc", 
+        "is_float": false
+      }, 
+      {
+        "type": " OLECHAR*", 
+        "name": "pServerPrincName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwAuthnLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwImpLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " RPC_AUTH_IDENTITY_HANDLE", 
+        "name": "pAuthInfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCapabilities", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateErrorInfo": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CreateErrorInfo", 
+    "arguments": [
+      {
+        "type": " ICreateErrorInfo**", 
+        "name": "pperrinfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoWaitForMultipleObjects": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoWaitForMultipleObjects", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwTimeout", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "cHandles", 
+        "is_float": false
+      }, 
+      {
+        "type": "const HANDLE*", 
+        "name": "pHandles", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwindex", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HMENU_UserSize64": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HMENU_UserSize64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HMENU*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoFreeUnusedLibrariesEx": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "CoFreeUnusedLibrariesEx", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwUnloadDelay", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReserved", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "193": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoDecrementMTAUsage", 
+    "arguments": [
+      {
+        "type": " CO_MTA_USAGE_COOKIE", 
+        "name": "Cookie", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetInterfaceAndReleaseStream": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetInterfaceAndReleaseStream", 
+    "arguments": [
+      {
+        "type": " LPSTREAM", 
+        "name": "pStm", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "iid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoRegisterInitializeSpy": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRegisterInitializeSpy", 
+    "arguments": [
+      {
+        "type": " IInitializeSpy*", 
+        "name": "pSpy", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULARGE_INTEGER*", 
+        "name": "puliCookie", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "284": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CreateErrorInfo", 
+    "arguments": [
+      {
+        "type": " ICreateErrorInfo**", 
+        "name": "pperrinfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "StringFromCLSID": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "StringFromCLSID", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOLESTR*", 
+        "name": "lplpsz", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "449": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "PropVariantCopy", 
+    "arguments": [
+      {
+        "type": " PROPVARIANT*", 
+        "name": "pvarDest", 
+        "is_float": false
+      }, 
+      {
+        "type": "const PROPVARIANT*", 
+        "name": "pvarSrc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "115": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CLSIDFromProgID", 
+    "arguments": [
+      {
+        "type": " LPCOLESTR", 
+        "name": "lpszProgID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCLSID", 
+        "name": "lpclsid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HDC_UserMarshal": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HDC_UserMarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoDisconnectContext": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoDisconnectContext", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwTimeout", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HGLOBAL_UserMarshal": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HGLOBAL_UserMarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLOBAL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "183": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoCopyProxy", 
+    "arguments": [
+      {
+        "type": " IUnknown*", 
+        "name": "pProxy", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUnknown**", 
+        "name": "ppCopy", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "185": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoCreateFreeThreadedMarshaler", 
+    "arguments": [
+      {
+        "type": " LPUNKNOWN", 
+        "name": "punkOuter", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUNKNOWN*", 
+        "name": "ppunkMarshal", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "186": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoCreateGuid", 
+    "arguments": [
+      {
+        "type": " GUID*", 
+        "name": "pguid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "187": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoCreateInstance", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnkOuter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwClsContext", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "188": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoCreateInstanceEx", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "Clsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUnknown*", 
+        "name": "punkOuter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwClsCtx", 
+        "is_float": false
+      }, 
+      {
+        "type": " COSERVERINFO*", 
+        "name": "pServerInfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " MULTI_QI*", 
+        "name": "pResults", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "StringFromIID": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "StringFromIID", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOLESTR*", 
+        "name": "lplpsz", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HACCEL_UserSize": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HACCEL_UserSize", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HACCEL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HBITMAP_UserFree64": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HBITMAP_UserFree64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HBITMAP*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "192": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoDecodeProxy", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwClientPid", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT64", 
+        "name": "ui64ProxyAddress", 
+        "is_float": false
+      }, 
+      {
+        "type": " PServerInformation", 
+        "name": "pServerInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoRevokeInitializeSpy": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRevokeInitializeSpy", 
+    "arguments": [
+      {
+        "type": " ULARGE_INTEGER", 
+        "name": "uliCookie", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "194": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoDisableCallCancellation", 
+    "arguments": [
+      {
+        "type": " LPVOID", 
+        "name": "pReserved", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoRegisterClassObject": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRegisterClassObject", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwClsContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "flags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwRegister", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "196": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoDisconnectObject", 
+    "arguments": [
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReserved", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "197": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoEnableCallCancellation", 
+    "arguments": [
+      {
+        "type": " LPVOID", 
+        "name": "pReserved", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "198": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoFileTimeNow", 
+    "arguments": [
+      {
+        "type": " FILETIME*", 
+        "name": "lpFileTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoLockObjectExternal": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoLockObjectExternal", 
+    "arguments": [
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fLock", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fLastUnlockReleases", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "200": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "CoFreeUnusedLibrariesEx", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwUnloadDelay", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReserved", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HBITMAP_UserSize": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HBITMAP_UserSize", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HBITMAP*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "203": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetApartmentType", 
+    "arguments": [
+      {
+        "type": " APTTYPE*", 
+        "name": "pAptType", 
+        "is_float": false
+      }, 
+      {
+        "type": " APTTYPEQUALIFIER*", 
+        "name": "pAptQualifier", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "204": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetCallContext", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " void**", 
+        "name": "ppInterface", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "484": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "SetErrorInfo", 
+    "arguments": [
+      {
+        "type": " ULONG", 
+        "name": "dwReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " IErrorInfo*", 
+        "name": "perrinfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "206": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetCallerTID", 
+    "arguments": [
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwTID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "207": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetCancelObject", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwThreadId", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "iid", 
+        "is_float": false
+      }, 
+      {
+        "type": " void**", 
+        "name": "ppUnk", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetCancelObject": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetCancelObject", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwThreadId", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "iid", 
+        "is_float": false
+      }, 
+      {
+        "type": " void**", 
+        "name": "ppUnk", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "210": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetContextToken", 
+    "arguments": [
+      {
+        "type": " ULONG_PTR*", 
+        "name": "pToken", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "PropVariantClear": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "PropVariantClear", 
+    "arguments": [
+      {
+        "type": " PROPVARIANT*", 
+        "name": "pvar", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "212": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "CoGetCurrentProcess", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "213": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetDefaultContext", 
+    "arguments": [
+      {
+        "type": " APTTYPE", 
+        "name": "aptType", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " void**", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoCreateInstanceEx": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoCreateInstanceEx", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "Clsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUnknown*", 
+        "name": "punkOuter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwClsCtx", 
+        "is_float": false
+      }, 
+      {
+        "type": " COSERVERINFO*", 
+        "name": "pServerInfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " MULTI_QI*", 
+        "name": "pResults", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoQueryAuthenticationServices": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoQueryAuthenticationServices", 
+    "arguments": [
+      {
+        "type": " DWORD*", 
+        "name": "pcAuthSvc", 
+        "is_float": false
+      }, 
+      {
+        "type": " SOLE_AUTHENTICATION_SERVICE**", 
+        "name": "asAuthSvc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "216": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetInstanceFromIStorage", 
+    "arguments": [
+      {
+        "type": " COSERVERINFO*", 
+        "name": "pServerInfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " CLSID*", 
+        "name": "pClsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUnknown*", 
+        "name": "punkOuter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwClsCtx", 
+        "is_float": false
+      }, 
+      {
+        "type": " struct*", 
+        "name": "pstg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " MULTI_QI*", 
+        "name": "pResults", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "217": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetInterfaceAndReleaseStream", 
+    "arguments": [
+      {
+        "type": " LPSTREAM", 
+        "name": "pStm", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "iid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HGLOBAL_UserSize64": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HGLOBAL_UserSize64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLOBAL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "219": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetMarshalSizeMax", 
+    "arguments": [
+      {
+        "type": " ULONG*", 
+        "name": "pulSize", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDestContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "pvDestContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "mshlflags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetInstanceFromIStorage": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetInstanceFromIStorage", 
+    "arguments": [
+      {
+        "type": " COSERVERINFO*", 
+        "name": "pServerInfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " CLSID*", 
+        "name": "pClsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUnknown*", 
+        "name": "punkOuter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwClsCtx", 
+        "is_float": false
+      }, 
+      {
+        "type": " struct*", 
+        "name": "pstg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " MULTI_QI*", 
+        "name": "pResults", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "222": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetObjectContext", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "223": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetPSClsid", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " CLSID*", 
+        "name": "pClsid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoInitializeEx": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoInitializeEx", 
+    "arguments": [
+      {
+        "type": " LPVOID", 
+        "name": "pvReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCoInit", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "226": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetStdMarshalEx", 
+    "arguments": [
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnkOuter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "smexflags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUNKNOWN*", 
+        "name": "ppUnkInner", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoRevertToSelf": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRevertToSelf", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "228": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetTreatAsClass", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "clsidOld", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCLSID", 
+        "name": "pClsidNew", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "229": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoImpersonateClient", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DcomChannelSetHResult": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DcomChannelSetHResult", 
+    "arguments": [
+      {
+        "type": " LPVOID", 
+        "name": "pvReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG*", 
+        "name": "pulReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " HRESULT", 
+        "name": "appsHR", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "231": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoInitializeEx", 
+    "arguments": [
+      {
+        "type": " LPVOID", 
+        "name": "pvReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCoInit", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "232": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoInitializeSecurity", 
+    "arguments": [
+      {
+        "type": " PSECURITY_DESCRIPTOR", 
+        "name": "pSecDesc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "cAuthSvc", 
+        "is_float": false
+      }, 
+      {
+        "type": " SOLE_AUTHENTICATION_SERVICE*", 
+        "name": "asAuthSvc", 
+        "is_float": false
+      }, 
+      {
+        "type": " void*", 
+        "name": "pReserved1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwAuthnLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwImpLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " void*", 
+        "name": "pAuthList", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCapabilities", 
+        "is_float": false
+      }, 
+      {
+        "type": " void*", 
+        "name": "pReserved3", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "380": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HWND_UserFree64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "234": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoInvalidateRemoteMachineBindings", 
+    "arguments": [
+      {
+        "type": " LPOLESTR", 
+        "name": "pszMachineName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetContextToken": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetContextToken", 
+    "arguments": [
+      {
+        "type": " ULONG_PTR*", 
+        "name": "pToken", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "236": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoLockObjectExternal", 
+    "arguments": [
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fLock", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fLastUnlockReleases", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "237": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoMarshalHresult", 
+    "arguments": [
+      {
+        "type": " LPSTREAM", 
+        "name": "pstm", 
+        "is_float": false
+      }, 
+      {
+        "type": " HRESULT", 
+        "name": "hresult", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "238": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoMarshalInterThreadInterfaceInStream", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTREAM*", 
+        "name": "ppStm", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "239": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoMarshalInterface", 
+    "arguments": [
+      {
+        "type": " LPSTREAM", 
+        "name": "pStm", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDestContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "pvDestContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "mshlflags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "242": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoQueryAuthenticationServices", 
+    "arguments": [
+      {
+        "type": " DWORD*", 
+        "name": "pcAuthSvc", 
+        "is_float": false
+      }, 
+      {
+        "type": " SOLE_AUTHENTICATION_SERVICE**", 
+        "name": "asAuthSvc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HBITMAP_UserUnmarshal64": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HBITMAP_UserUnmarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HBITMAP*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "244": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoQueryProxyBlanket", 
+    "arguments": [
+      {
+        "type": " IUnknown*", 
+        "name": "pProxy", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pwAuthnSvc", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pAuthzSvc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOLESTR*", 
+        "name": "pServerPrincName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pAuthnLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pImpLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " RPC_AUTH_IDENTITY_HANDLE*", 
+        "name": "pAuthInfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pCapabilites", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "382": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HWND_UserMarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "246": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRegisterActivationFilter", 
+    "arguments": [
+      {
+        "type": " IActivationFilter*", 
+        "name": "pActivationFilter", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HACCEL_UserFree64": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HACCEL_UserFree64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HACCEL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "249": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRegisterInitializeSpy", 
+    "arguments": [
+      {
+        "type": " IInitializeSpy*", 
+        "name": "pSpy", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULARGE_INTEGER*", 
+        "name": "puliCookie", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "250": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRegisterMallocSpy", 
+    "arguments": [
+      {
+        "type": " LPMALLOCSPY", 
+        "name": "pMallocSpy", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "251": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRegisterMessageFilter", 
+    "arguments": [
+      {
+        "type": " LPMESSAGEFILTER", 
+        "name": "lpMessageFilter", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMESSAGEFILTER*", 
+        "name": "lplpMessageFilter", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "252": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRegisterPSClsid", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoDisableCallCancellation": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoDisableCallCancellation", 
+    "arguments": [
+      {
+        "type": " LPVOID", 
+        "name": "pReserved", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoMarshalInterface": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoMarshalInterface", 
+    "arguments": [
+      {
+        "type": " LPSTREAM", 
+        "name": "pStm", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDestContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "pvDestContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "mshlflags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "256": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoReleaseMarshalData", 
+    "arguments": [
+      {
+        "type": " LPSTREAM", 
+        "name": "pStm", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoAllowUnmarshalerCLSID": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoAllowUnmarshalerCLSID", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "clsid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "258": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoResumeClassObjects", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoUninitialize": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "CoUninitialize", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoQueryClientBlanket": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoQueryClientBlanket", 
+    "arguments": [
+      {
+        "type": " DWORD*", 
+        "name": "pAuthnSvc", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pAuthzSvc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOLESTR*", 
+        "name": "pServerPrincName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pAuthnLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pImpLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " RPC_AUTHZ_HANDLE*", 
+        "name": "pPrivs", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pCapabilities", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "261": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRevokeClassObject", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwRegister", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "230": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoIncrementMTAUsage", 
+    "arguments": [
+      {
+        "type": " CO_MTA_USAGE_COOKIE*", 
+        "name": "pCookie", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "263": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRevokeInitializeSpy", 
+    "arguments": [
+      {
+        "type": " ULARGE_INTEGER", 
+        "name": "uliCookie", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetInstanceFromFile": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetInstanceFromFile", 
+    "arguments": [
+      {
+        "type": " COSERVERINFO*", 
+        "name": "pServerInfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " CLSID*", 
+        "name": "pClsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUnknown*", 
+        "name": "punkOuter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwClsCtx", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "grfMode", 
+        "is_float": false
+      }, 
+      {
+        "type": " OLECHAR*", 
+        "name": "pwszName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " MULTI_QI*", 
+        "name": "pResults", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "486": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "StringFromCLSID", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOLESTR*", 
+        "name": "lplpsz", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "266": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoSetCancelObject", 
+    "arguments": [
+      {
+        "type": " IUnknown*", 
+        "name": "pUnk", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HBITMAP_UserUnmarshal": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HBITMAP_UserUnmarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HBITMAP*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CLIPFORMAT_UserUnmarshal64": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "CLIPFORMAT_UserUnmarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " CLIPFORMAT*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "269": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoSuspendClassObjects", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "270": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoSwitchCallContext", 
+    "arguments": [
+      {
+        "type": " IUnknown*", 
+        "name": "pNewObject", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUnknown**", 
+        "name": "ppOldObject", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "271": {
+    "cc": "__cdecl", 
+    "returns": "LPVOID", 
+    "returns_float": false, 
+    "name": "CoTaskMemAlloc", 
+    "arguments": [
+      {
+        "type": " int", 
+        "name": "cb", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "272": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "CoTaskMemFree", 
+    "arguments": [
+      {
+        "type": " LPVOID", 
+        "name": "pv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoDecodeProxy": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoDecodeProxy", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwClientPid", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT64", 
+        "name": "ui64ProxyAddress", 
+        "is_float": false
+      }, 
+      {
+        "type": " PServerInformation", 
+        "name": "pServerInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoEnableCallCancellation": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoEnableCallCancellation", 
+    "arguments": [
+      {
+        "type": " LPVOID", 
+        "name": "pReserved", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "275": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "CoUninitialize", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "350": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HMENU_UserMarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HMENU*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "277": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoUnmarshalHresult", 
+    "arguments": [
+      {
+        "type": " LPSTREAM", 
+        "name": "pstm", 
+        "is_float": false
+      }, 
+      {
+        "type": " HRESULT*", 
+        "name": "phresult", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "278": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoUnmarshalInterface", 
+    "arguments": [
+      {
+        "type": " LPSTREAM", 
+        "name": "pStm", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CLIPFORMAT_UserUnmarshal": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "CLIPFORMAT_UserUnmarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " CLIPFORMAT*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "282": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoWaitForMultipleHandles", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwTimeout", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "cHandles", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPHANDLE", 
+        "name": "pHandles", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwindex", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "283": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoWaitForMultipleObjects", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwTimeout", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "cHandles", 
+        "is_float": false
+      }, 
+      {
+        "type": "const HANDLE*", 
+        "name": "pHandles", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwindex", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HMENU_UserMarshal64": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HMENU_UserMarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HMENU*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "218": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetMalloc", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwMemContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMALLOC*", 
+        "name": "ppMalloc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "286": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DcomChannelSetHResult", 
+    "arguments": [
+      {
+        "type": " LPVOID", 
+        "name": "pvReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG*", 
+        "name": "pulReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " HRESULT", 
+        "name": "appsHR", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "289": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllGetClassObject", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "RoGetAgileReference": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "RoGetAgileReference", 
+    "arguments": [
+      {
+        "type": " enum", 
+        "name": "options", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUnknown*", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": " IAgileReference**", 
+        "name": "ppAgileReference", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "294": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "GetErrorInfo", 
+    "arguments": [
+      {
+        "type": " ULONG", 
+        "name": "dwReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " IErrorInfo**", 
+        "name": "pperrinfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoAddRefServerProcess": {
+    "cc": "__cdecl", 
+    "returns": "ULONG", 
+    "returns_float": false, 
+    "name": "CoAddRefServerProcess", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "296": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "GetHGlobalFromStream", 
+    "arguments": [
+      {
+        "type": " LPSTREAM", 
+        "name": "pstm", 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLOBAL*", 
+        "name": "phglobal", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoRegisterMallocSpy": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRegisterMallocSpy", 
+    "arguments": [
+      {
+        "type": " LPMALLOCSPY", 
+        "name": "pMallocSpy", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "299": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HACCEL_UserFree", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HACCEL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "300": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HACCEL_UserFree64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HACCEL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "301": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HACCEL_UserMarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HACCEL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "302": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HACCEL_UserMarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HACCEL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HACCEL_UserUnmarshal64": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HACCEL_UserUnmarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HACCEL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "304": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HACCEL_UserSize64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HACCEL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "305": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HACCEL_UserUnmarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HACCEL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "306": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HACCEL_UserUnmarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HACCEL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoResumeClassObjects": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoResumeClassObjects", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HWND_UserUnmarshal": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HWND_UserUnmarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HDC_UserUnmarshal64": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HDC_UserUnmarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "310": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HBITMAP_UserMarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HBITMAP*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "311": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HBITMAP_UserSize", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HBITMAP*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoCopyProxy": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoCopyProxy", 
+    "arguments": [
+      {
+        "type": " IUnknown*", 
+        "name": "pProxy", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUnknown**", 
+        "name": "ppCopy", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HMENU_UserFree64": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HMENU_UserFree64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HMENU*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "314": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HBITMAP_UserUnmarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HBITMAP*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CLSIDFromString": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CLSIDFromString", 
+    "arguments": [
+      {
+        "type": " LPCOLESTR", 
+        "name": "lpsz", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCLSID", 
+        "name": "pclsid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "215": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetInstanceFromFile", 
+    "arguments": [
+      {
+        "type": " COSERVERINFO*", 
+        "name": "pServerInfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " CLSID*", 
+        "name": "pClsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUnknown*", 
+        "name": "punkOuter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwClsCtx", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "grfMode", 
+        "is_float": false
+      }, 
+      {
+        "type": " OLECHAR*", 
+        "name": "pwszName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " MULTI_QI*", 
+        "name": "pResults", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HWND_UserMarshal64": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HWND_UserMarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "447": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "ProgIDFromCLSID", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "clsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOLESTR*", 
+        "name": "lplpszProgID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ProgIDFromCLSID": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "ProgIDFromCLSID", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "clsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOLESTR*", 
+        "name": "lplpszProgID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoWaitForMultipleHandles": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoWaitForMultipleHandles", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwTimeout", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "cHandles", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPHANDLE", 
+        "name": "pHandles", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwindex", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "324": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HDC_UserFree64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "325": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HDC_UserMarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "326": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HDC_UserMarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HBITMAP_UserFree": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HBITMAP_UserFree", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HBITMAP*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoQueryProxyBlanket": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoQueryProxyBlanket", 
+    "arguments": [
+      {
+        "type": " IUnknown*", 
+        "name": "pProxy", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pwAuthnSvc", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pAuthzSvc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOLESTR*", 
+        "name": "pServerPrincName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pAuthnLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pImpLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " RPC_AUTH_IDENTITY_HANDLE*", 
+        "name": "pAuthInfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pCapabilites", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "329": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HDC_UserUnmarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoTaskMemRealloc": {
+    "cc": "__cdecl", 
+    "returns": "LPVOID", 
+    "returns_float": false, 
+    "name": "CoTaskMemRealloc", 
+    "arguments": [
+      {
+        "type": " LPVOID", 
+        "name": "pv", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cb", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoCreateInstance": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoCreateInstance", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnkOuter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwClsContext", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "332": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HGLOBAL_UserFree64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLOBAL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "333": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HGLOBAL_UserMarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLOBAL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HWND_UserFree64": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HWND_UserFree64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "335": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HGLOBAL_UserSize", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLOBAL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "336": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HGLOBAL_UserSize64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLOBAL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "312": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HBITMAP_UserSize64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HBITMAP*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "338": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HGLOBAL_UserUnmarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLOBAL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "227": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetSystemSecurityPermissions", 
+    "arguments": [
+      {
+        "type": " COMSD", 
+        "name": "comSDType", 
+        "is_float": false
+      }, 
+      {
+        "type": " PSECURITY_DESCRIPTOR*", 
+        "name": "ppSD", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "340": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HICON_UserFree64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HICON*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "341": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HICON_UserMarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HICON*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HBITMAP_UserMarshal64": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HBITMAP_UserMarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HBITMAP*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "313": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HBITMAP_UserUnmarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HBITMAP*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "344": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HICON_UserSize64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HICON*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "345": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HICON_UserUnmarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HICON*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "309": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HBITMAP_UserMarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HBITMAP*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "347": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HMENU_UserFree", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HMENU*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "211": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetCurrentLogicalThreadId", 
+    "arguments": [
+      {
+        "type": " GUID*", 
+        "name": "pguid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CLIPFORMAT_UserMarshal": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "CLIPFORMAT_UserMarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " CLIPFORMAT*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetErrorInfo": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "SetErrorInfo", 
+    "arguments": [
+      {
+        "type": " ULONG", 
+        "name": "dwReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " IErrorInfo*", 
+        "name": "perrinfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HACCEL_UserFree": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HACCEL_UserFree", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HACCEL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoUnmarshalInterface": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoUnmarshalInterface", 
+    "arguments": [
+      {
+        "type": " LPSTREAM", 
+        "name": "pStm", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "353": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HMENU_UserUnmarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HMENU*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "354": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HMENU_UserUnmarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HMENU*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetSystemSecurityPermissions": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetSystemSecurityPermissions", 
+    "arguments": [
+      {
+        "type": " COMSD", 
+        "name": "comSDType", 
+        "is_float": false
+      }, 
+      {
+        "type": " PSECURITY_DESCRIPTOR*", 
+        "name": "ppSD", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HMENU_UserMarshal": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HMENU_UserMarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HMENU*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetCallContext": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetCallContext", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " void**", 
+        "name": "ppInterface", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "487": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "StringFromGUID2", 
+    "arguments": [
+      {
+        "type": "const GUID*const", 
+        "name": "rguid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOLESTR", 
+        "name": "lpsz", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchMax", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HWND_UserUnmarshal64": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HWND_UserUnmarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoFreeUnusedLibraries": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "CoFreeUnusedLibraries", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoSwitchCallContext": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoSwitchCallContext", 
+    "arguments": [
+      {
+        "type": " IUnknown*", 
+        "name": "pNewObject", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUnknown**", 
+        "name": "ppOldObject", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetHGlobalFromStream": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "GetHGlobalFromStream", 
+    "arguments": [
+      {
+        "type": " LPSTREAM", 
+        "name": "pstm", 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLOBAL*", 
+        "name": "phglobal", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HWND_UserSize": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HWND_UserSize", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "285": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CreateStreamOnHGlobal", 
+    "arguments": [
+      {
+        "type": " HGLOBAL", 
+        "name": "hGlobal", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fDeleteOnRelease", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTREAM*", 
+        "name": "ppstm", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetMalloc": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetMalloc", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwMemContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMALLOC*", 
+        "name": "ppMalloc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoReleaseServerProcess": {
+    "cc": "__cdecl", 
+    "returns": "ULONG", 
+    "returns_float": false, 
+    "name": "CoReleaseServerProcess", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetErrorInfo": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "GetErrorInfo", 
+    "arguments": [
+      {
+        "type": " ULONG", 
+        "name": "dwReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " IErrorInfo**", 
+        "name": "pperrinfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoTaskMemFree": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "CoTaskMemFree", 
+    "arguments": [
+      {
+        "type": " LPVOID", 
+        "name": "pv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoCancelCall": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoCancelCall", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwThreadId", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "ulTimeout", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "381": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HWND_UserMarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HACCEL_UserMarshal64": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HACCEL_UserMarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HACCEL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoRegisterActivationFilter": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRegisterActivationFilter", 
+    "arguments": [
+      {
+        "type": " IActivationFilter*", 
+        "name": "pActivationFilter", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "384": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HWND_UserSize64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HDC_UserUnmarshal": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HDC_UserUnmarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "386": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HWND_UserUnmarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CLIPFORMAT_UserSize": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "CLIPFORMAT_UserSize", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " CLIPFORMAT*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "388": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "IIDFromString", 
+    "arguments": [
+      {
+        "type": " LPCOLESTR", 
+        "name": "lpsz", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPIID", 
+        "name": "lpiid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoImpersonateClient": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoImpersonateClient", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "342": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HICON_UserMarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HICON*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HGLOBAL_UserUnmarshal64": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HGLOBAL_UserUnmarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLOBAL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetMarshalSizeMax": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetMarshalSizeMax", 
+    "arguments": [
+      {
+        "type": " ULONG*", 
+        "name": "pulSize", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDestContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "pvDestContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "mshlflags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HMENU_UserUnmarshal": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HMENU_UserUnmarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HMENU*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HBITMAP_UserSize64": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HBITMAP_UserSize64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HBITMAP*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoMarshalHresult": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoMarshalHresult", 
+    "arguments": [
+      {
+        "type": " LPSTREAM", 
+        "name": "pstm", 
+        "is_float": false
+      }, 
+      {
+        "type": " HRESULT", 
+        "name": "hresult", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "303": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HACCEL_UserSize", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HACCEL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoIsHandlerConnected": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "CoIsHandlerConnected", 
+    "arguments": [
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnk", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetTreatAsClass": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetTreatAsClass", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "clsidOld", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCLSID", 
+        "name": "pClsidNew", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HACCEL_UserUnmarshal": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HACCEL_UserUnmarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HACCEL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CLIPFORMAT_UserMarshal64": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "CLIPFORMAT_UserMarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " CLIPFORMAT*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HGLOBAL_UserMarshal64": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HGLOBAL_UserMarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLOBAL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "327": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HDC_UserSize", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "328": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HDC_UserSize64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "243": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoQueryClientBlanket", 
+    "arguments": [
+      {
+        "type": " DWORD*", 
+        "name": "pAuthnSvc", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pAuthzSvc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOLESTR*", 
+        "name": "pServerPrincName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pAuthnLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pImpLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " RPC_AUTHZ_HANDLE*", 
+        "name": "pPrivs", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pCapabilities", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetPSClsid": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetPSClsid", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " CLSID*", 
+        "name": "pClsid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "330": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HDC_UserUnmarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetClassObject": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetClassObject", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwClsContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "pvReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "448": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "PropVariantClear", 
+    "arguments": [
+      {
+        "type": " PROPVARIANT*", 
+        "name": "pvar", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "383": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HWND_UserSize", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "331": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HGLOBAL_UserFree", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLOBAL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "348": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HMENU_UserFree64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HMENU*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HACCEL_UserMarshal": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HACCEL_UserMarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HACCEL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HDC_UserFree": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HDC_UserFree", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetApartmentType": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetApartmentType", 
+    "arguments": [
+      {
+        "type": " APTTYPE*", 
+        "name": "pAptType", 
+        "is_float": false
+      }, 
+      {
+        "type": " APTTYPEQUALIFIER*", 
+        "name": "pAptQualifier", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "247": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRegisterClassObject", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwClsContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "flags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwRegister", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoInvalidateRemoteMachineBindings": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoInvalidateRemoteMachineBindings", 
+    "arguments": [
+      {
+        "type": " LPOLESTR", 
+        "name": "pszMachineName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HICON_UserUnmarshal64": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HICON_UserUnmarshal64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HICON*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HICON_UserFree64": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HICON_UserFree64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HICON*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetStandardMarshal": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetStandardMarshal", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnk", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDestContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "pvDestContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "mshlflags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMARSHAL*", 
+        "name": "ppMarshal", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HICON_UserUnmarshal": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HICON_UserUnmarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HICON*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "PropVariantCopy": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "PropVariantCopy", 
+    "arguments": [
+      {
+        "type": " PROPVARIANT*", 
+        "name": "pvarDest", 
+        "is_float": false
+      }, 
+      {
+        "type": "const PROPVARIANT*", 
+        "name": "pvarSrc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoCreateFreeThreadedMarshaler": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoCreateFreeThreadedMarshaler", 
+    "arguments": [
+      {
+        "type": " LPUNKNOWN", 
+        "name": "punkOuter", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUNKNOWN*", 
+        "name": "ppunkMarshal", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DllGetClassObject": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllGetClassObject", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoRegisterSurrogate": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRegisterSurrogate", 
+    "arguments": [
+      {
+        "type": " LPSURROGATE", 
+        "name": "pSurrogate", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HGLOBAL_UserSize": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HGLOBAL_UserSize", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLOBAL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "337": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HGLOBAL_UserUnmarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLOBAL*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "488": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "StringFromIID", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOLESTR*", 
+        "name": "lplpsz", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "323": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HDC_UserFree", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CLSIDFromProgID": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CLSIDFromProgID", 
+    "arguments": [
+      {
+        "type": " LPCOLESTR", 
+        "name": "lpszProgID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCLSID", 
+        "name": "lpclsid", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HDC_UserSize": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HDC_UserSize", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoGetDefaultContext": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoGetDefaultContext", 
+    "arguments": [
+      {
+        "type": " APTTYPE", 
+        "name": "aptType", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " void**", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "385": {
+    "cc": "__cdecl", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "HWND_UserUnmarshal", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "339": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "HICON_UserFree", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HICON*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "235": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "CoIsHandlerConnected", 
+    "arguments": [
+      {
+        "type": " LPUNKNOWN", 
+        "name": "pUnk", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "254": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoRegisterSurrogate", 
+    "arguments": [
+      {
+        "type": " LPSURROGATE", 
+        "name": "pSurrogate", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoReleaseMarshalData": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoReleaseMarshalData", 
+    "arguments": [
+      {
+        "type": " LPSTREAM", 
+        "name": "pStm", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HICON_UserSize64": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HICON_UserSize64", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HICON*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "351": {
+    "cc": "__cdecl", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "HMENU_UserSize", 
+    "arguments": [
+      {
+        "type": " long*", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HMENU*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CoDecrementMTAUsage": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CoDecrementMTAUsage", 
+    "arguments": [
+      {
+        "type": " CO_MTA_USAGE_COOKIE", 
+        "name": "Cookie", 
+        "is_float": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,1058 @@
+{
+    "PropertySheetA": {
+        "cc": "__stdcall",
+        "returns": "INT_PTR",
+        "returns_float": false,
+        "name": "PropertySheetA",
+        "arguments": [
+            {
+                "type": " LPCPROPSHEETHEADERA",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "DestroyPropertySheetPage": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "DestroyPropertySheetPage",
+        "arguments": [
+            {
+                "type": " HPROPSHEETPAGE",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "CreatePropertySheetPageW": {
+        "cc": "__stdcall",
+        "returns": "HPROPSHEETPAGE",
+        "returns_float": false,
+        "name": "CreatePropertySheetPageW",
+        "arguments": [
+            {
+                "type": " LPCPROPSHEETPAGEW",
+                "name": "constPropSheetPagePointer",
+                "is_float": false
+            }
+        ]
+    },
+    "87": {
+        "cc": "__stdcall",
+        "returns": "INT_PTR",
+        "returns_float": false,
+        "name": "PropertySheetW",
+        "arguments": [
+            {
+                "type": " LPCPROPSHEETHEADERW",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "18": {
+        "cc": "__stdcall",
+        "returns": "HPROPSHEETPAGE",
+        "returns_float": false,
+        "name": "CreatePropertySheetPageA",
+        "arguments": [
+            {
+                "type": " LPCPROPSHEETPAGEA",
+                "name": "constPropSheetPagePointer",
+                "is_float": false
+            }
+        ]
+    },
+    "19": {
+        "cc": "__stdcall",
+        "returns": "HPROPSHEETPAGE",
+        "returns_float": false,
+        "name": "CreatePropertySheetPageW",
+        "arguments": [
+            {
+                "type": " LPCPROPSHEETPAGEW",
+                "name": "constPropSheetPagePointer",
+                "is_float": false
+            }
+        ]
+    },
+    "PropertySheetW": {
+        "cc": "__stdcall",
+        "returns": "INT_PTR",
+        "returns_float": false,
+        "name": "PropertySheetW",
+        "arguments": [
+            {
+                "type": " LPCPROPSHEETHEADERW",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "86": {
+        "cc": "__stdcall",
+        "returns": "INT_PTR",
+        "returns_float": false,
+        "name": "PropertySheetA",
+        "arguments": [
+            {
+                "type": " LPCPROPSHEETHEADERA",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "23": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "DestroyPropertySheetPage",
+        "arguments": [
+            {
+                "type": " HPROPSHEETPAGE",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "CreatePropertySheetPageA": {
+        "cc": "__stdcall",
+        "returns": "HPROPSHEETPAGE",
+        "returns_float": false,
+        "name": "CreatePropertySheetPageA",
+        "arguments": [
+            {
+                "type": " LPCPROPSHEETPAGEA",
+                "name": "constPropSheetPagePointer",
+                "is_float": false
+            }
+        ]
+    },
+    "InitCommonControls": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "InitCommonControls",
+        "arguments": []
+    },
+    "17": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "InitCommonControls",
+        "arguments": []
+    },
+    "ImageList_Create": {
+        "cc": "__stdcall",
+        "returns": "HIMAGELIST",
+        "returns_float": false,
+        "name": "ImageList_Create",
+        "arguments": [
+            {
+                "type": "int",
+                "name": "cx",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "cy",
+                "is_float": false
+            },
+            {
+                "type": "UINT",
+                "name": "flags",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "cInitial",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "cGrow",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_Destroy": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ImageList_Destroy",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_Copy": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ImageList_Copy",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himlDst",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "iDst",
+                "is_float": false
+            },
+            {
+                "type": "HIMAGELIST",
+                "name": "himlSrc",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "iSrc",
+                "is_float": false
+            },
+            {
+                "type": "UINT",
+                "name": "uFlags",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_DragEnter": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ImageList_DragEnter",
+        "arguments": [
+            {
+                "type": "HWND",
+                "name": "hwndLock",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "x",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "y",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_DragLeave": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ImageList_DragLeave",
+        "arguments": [
+            {
+                "type": "HWND",
+                "name": "hwndLock",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_DragMove": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ImageList_DragMove",
+        "arguments": [
+            {
+                "type": "int",
+                "name": "x",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "y",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_EndDrag": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "ImageList_EndDrag",
+        "arguments": [
+            {
+                "type": "void",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_BeginDrag": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ImageList_BeginDrag",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himlTrack",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "iTrack",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "dxHotspot",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "dyHotspot",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_ReplaceIcon": {
+        "cc": "__stdcall",
+        "returns": "int",
+        "returns_float": false,
+        "name": "ImageList_ReplaceIcon",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "i",
+                "is_float": false
+            },
+            {
+                "type": "HICON",
+                "name": "hicon",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_SetDragCursorImage": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ImageList_SetDragCursorImage",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himlDrag",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "iDrag",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "dxHotspot",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "dyHotspot",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_Remove": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ImageList_Remove",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "i",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_DragShowNolock": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ImageList_DragShowNolock",
+        "arguments": [
+            {
+                "type": "BOOL",
+                "name": "fShow",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_SetOverlayImage": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ImageList_SetOverlayImage",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "iImage",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "iOverlay",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_SetBkColor": {
+        "cc": "__stdcall",
+        "returns": "COLORREF",
+        "returns_float": false,
+        "name": "ImageList_SetBkColor",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl",
+                "is_float": false
+            },
+            {
+                "type": "COLORREF",
+                "name": "clrBk",
+                "is_float": false
+            }
+        ]
+    },
+    "InitializeFlatSB": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "InitializeFlatSB",
+        "arguments": [
+            {
+                "type": "HWND",
+                "name": "Arg1",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_GetImageInfo": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ImageList_GetImageInfo",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "i",
+                "is_float": false
+            },
+            {
+                "type": "IMAGEINFO",
+                "name": "pImageInfo",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_Read": {
+        "cc": "__stdcall",
+        "returns": "HIMAGELIST",
+        "returns_float": false,
+        "name": "ImageList_Read",
+        "arguments": [
+            {
+                "type": "IStream",
+                "name": "pstm",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_ReadEx": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "ImageList_ReadEx",
+        "arguments": [
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            },
+            {
+                "type": "IStream",
+                "name": "pstm",
+                "is_float": false
+            },
+            {
+                "type": "REFIID",
+                "name": "riid",
+                "is_float": false
+            },
+            {
+                "type": "PVOID",
+                "name": "ppv",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_Write": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ImageList_Write",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl",
+                "is_float": false
+            },
+            {
+                "type": "IStream",
+                "name": "pstm",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_WriteEx": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "ImageList_WriteEx",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            },
+            {
+                "type": "IStream",
+                "name": "pstm",
+                "is_float": false
+            }
+        ]
+    },
+    "FlatSB_GetScrollInfo": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "FlatSB_GetScrollInfo",
+        "arguments": [
+            {
+                "type": "HWND",
+                "name": "arg1",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "code",
+                "is_float": false
+            },
+            {
+                "type": "LPSCROLLINFO",
+                "name": "arg3",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_GetDragImage": {
+        "cc": "__stdcall",
+        "returns": "HIMAGELIST",
+        "returns_float": false,
+        "name": "ImageList_GetDragImage",
+        "arguments": [
+            {
+                "type": "POINT",
+                "name": "ppt",
+                "is_float": false
+            },
+            {
+                "type": "POINT",
+                "name": "pptHotspot",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_LoadImageW": {
+        "cc": "__stdcall",
+        "returns": "HIMAGELIST",
+        "returns_float": false,
+        "name": "ImageList_LoadImageW",
+        "arguments": [
+            {
+                "type": "HINSTANCE",
+                "name": "hi",
+                "is_float": false
+            },
+            {
+                "type": "LPCWSTR",
+                "name": "lpbmp",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "cx",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "cGrow",
+                "is_float": false
+            },
+            {
+                "type": "COLORREF",
+                "name": "crMask",
+                "is_float": false
+            },
+            {
+                "type": "UINT",
+                "name": "uType",
+                "is_float": false
+            },
+            {
+                "type": "UINT",
+                "name": "uFlags",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_Merge": {
+        "cc": "__stdcall",
+        "returns": "HIMAGELIST",
+        "returns_float": false,
+        "name": "ImageList_Merge",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl1",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "i1",
+                "is_float": false
+            },
+            {
+                "type": "HIMAGELIST",
+                "name": "himl2",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "i2",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "dx",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "dy",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_Add": {
+        "cc": "__stdcall",
+        "returns": "int",
+        "returns_float": false,
+        "name": "ImageList_Add",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl",
+                "is_float": false
+            },
+            {
+                "type": "HBITMAP",
+                "name": "hbmImage",
+                "is_float": false
+            },
+            {
+                "type": "HBITMAP",
+                "name": "hbmMask",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_SetImageCount": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ImageList_SetImageCount",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl",
+                "is_float": false
+            },
+            {
+                "type": "UINT",
+                "name": "uNewCount",
+                "is_float": false
+            }
+        ]
+    },
+    "FlatSB_SetScrollPos": {
+        "cc": "__stdcall",
+        "returns": "int",
+        "returns_float": false,
+        "name": "FlatSB_SetScrollPos",
+        "arguments": [
+            {
+                "type": "HWND",
+                "name": "arg1",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "code",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "pos",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "fRedraw",
+                "is_float": false
+            }
+        ]
+    },
+    "FlatSB_SetScrollProp": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "FlatSB_SetScrollProp",
+        "arguments": [
+            {
+                "type": "HWND",
+                "name": "arg1",
+                "is_float": false
+            },
+            {
+                "type": "UINT",
+                "name": "index",
+                "is_float": false
+            },
+            {
+                "type": "INT_PTR",
+                "name": "newValue",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "arg4",
+                "is_float": false
+            }
+        ]
+    },
+    "FlatSB_SetScrollInfo": {
+        "cc": "__stdcall",
+        "returns": "int",
+        "returns_float": false,
+        "name": "FlatSB_SetScrollInfo",
+        "arguments": [
+            {
+                "type": "HWND",
+                "name": "arg1",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "code",
+                "is_float": false
+            },
+            {
+                "type": "LPSCROLLINFO",
+                "name": "psi",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "fRedraw",
+                "is_float": false
+            }
+        ]
+    },
+    "FlatSB_GetScrollPos": {
+        "cc": "__stdcall",
+        "returns": "int",
+        "returns_float": false,
+        "name": "FlatSB_GetScrollPos",
+        "arguments": [
+            {
+                "type": "HWND",
+                "name": "arg1",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "code",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_Replace": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ImageList_Replace",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "i",
+                "is_float": false
+            },
+            {
+                "type": "HBITMAP",
+                "name": "hbmImage",
+                "is_float": false
+            },
+            {
+                "type": "HBITMAP",
+                "name": "hbmMask",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_SetIconSize": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ImageList_SetIconSize",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "cx",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "cy",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_GetIconSize": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ImageList_GetIconSize",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "cx",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "cy",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_GetIcon": {
+        "cc": "__stdcall",
+        "returns": "HICON",
+        "returns_float": false,
+        "name": "ImageList_GetIcon",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "i",
+                "is_float": false
+            },
+            {
+                "type": "UINT",
+                "name": "flags",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_GetImageCount": {
+        "cc": "__stdcall",
+        "returns": "int",
+        "returns_float": false,
+        "name": "ImageList_GetImageCount",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_GetBkColor": {
+        "cc": "__stdcall",
+        "returns": "COLORREF",
+        "returns_float": false,
+        "name": "ImageList_GetBkColor",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_Draw": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ImageList_Draw",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "i",
+                "is_float": false
+            },
+            {
+                "type": "HDC",
+                "name": "hdcDst",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "x",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "y",
+                "is_float": false
+            },
+            {
+                "type": "UINT",
+                "name": "fStyle",
+                "is_float": false
+            }
+        ]
+    },
+    "ImageList_DrawEx": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ImageList_DrawEx",
+        "arguments": [
+            {
+                "type": "HIMAGELIST",
+                "name": "himl",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "i",
+                "is_float": false
+            },
+            {
+                "type": "HDC",
+                "name": "hdcDst",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "x",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "y",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "dx",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "dy",
+                "is_float": false
+            },
+            {
+                "type": "COLORREF",
+                "name": "rgbBk",
+                "is_float": false
+            },
+            {
+                "type": "COLORREF",
+                "name": "rgbFg",
+                "is_float": false
+            },
+            {
+                "type": "UINT",
+                "name": "fStyle",
+                "is_float": false
+            }
+        ]
+    },
+    "_TrackMouseEvent": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "_TrackMouseEvent",
+        "arguments": [
+            {
+                "type": "LPTRACKMOUSEEVENT",
+                "name": "lpEventTrack",
+                "is_float": false
+            }
+        ]
+    }
+}

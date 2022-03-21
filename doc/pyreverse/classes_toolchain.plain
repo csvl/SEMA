@@ -1,0 +1,52 @@
+graph 1 66.653 20.597
+node 0 13.854 3.7153 2.6944 7.4306 "{collections.deque|iterable : list\lmaxlen : int\l|__add__(other)\l__bool__()\l__class_getitem__(item)\l__contains__(o)\l__copy__()\l__\
+delitem__(index)\l__getitem__(index)\l__iadd__(other)\l__imul__(other)\l__init__(iterable, maxlen)\l__iter__()\l__len__()\l__mul__(\
+other)\l__nonzero__()\l__reversed__()\l__rmul__(other)\l__setitem__(index, value)\lappend(x)\lappendleft(x)\lclear()\lcopy()\lcount(\
+x)\lextend(iterable)\lextendleft(iterable)\lindex(x, start, end)\linsert(x, i)\lpop()\lpopleft()\lremove(value)\lreverse()\lrotate(\
+n)\l}" solid record black lightgrey
+node 1 31.618 19.799 2.1528 1.5972 "{logging.Filterer|filters : list\l|__init__()\laddFilter(filter)\lfilter(record)\lremoveFilter(filter)\l}" solid record black lightgrey
+node 2 31.618 13.312 7.3194 7.4306 "{logging.Logger|_cache : dict\ldisabled : bool\lemittedNoHandlerWarning : bool\lfatal\lhandlers : list\llevel : int\lmanager\lname\lparent : \
+NoneType\lpropagate : bool\l|__init__(name, level)\l__reduce__()\l__repr__()\l_log(level, msg, args, exc_info, extra, stack_info, \
+stacklevel)\laddHandler(hdlr)\lcallHandlers(record)\lcritical(msg)\ldebug(msg)\lerror(msg)\lexception(msg)\lfindCaller(stack_info, \
+stacklevel)\lgetChild(suffix)\lgetEffectiveLevel()\lhandle(record)\lhasHandlers()\linfo(msg)\lisEnabledFor(level)\llog(level, msg)\lmakeRecord(\
+name, level, fn, lno, msg, args, exc_info, func, extra, sinfo)\lremoveHandler(hdlr)\lsetLevel(level)\lwarn(msg)\lwarning(msg)\l}" solid record black lightgrey
+node 3 38.049 13.312 5.0278 4.7222 "{logging.LoggerAdapter|extra\llogger\lmanager\lname\l|__init__(logger, extra)\l__repr__()\l_log(level, msg, args, exc_info, extra, \
+stack_info)\lcritical(msg)\ldebug(msg)\lerror(msg)\lexception(msg)\lgetEffectiveLevel()\lhasHandlers()\linfo(msg)\lisEnabledFor(\
+level)\llog(level, msg)\lprocess(msg, kwargs)\lsetLevel(level)\lwarn(msg)\lwarning(msg)\l}" solid record black lightgrey
+node 4 31.604 3.7153 3.5139 3.6806 "{logging.Manager|_disable\ldisable\ldisable : int\lemittedNoHandlerWarning : bool\llogRecordFactory : NoneType\lloggerClass : NoneType\lloggerDict : \
+dict\lroot\l|__init__(rootnode)\l_clear_cache()\l_fixupChildren(ph, alogger)\l_fixupParents(alogger)\lgetLogger(name)\lsetLogRecordFactory(\
+factory)\lsetLoggerClass(klass)\l}" solid record black lightgrey
+node 5 23.118 3.7153 2.1944 1.1944 "{logging.RootLogger|\l|__init__(level)\l__reduce__()\l}" solid record black lightgrey
+node 6 13.854 13.312 27.708 10.347 "{src.ToolChainWorker.ToolChainWorker|debug_error : bool\ldebug_string : bool\ldict_addr_vis : dict\lfast_main : bool\lforce_symbolique_\
+return : bool\ljump_concrete_dict : dict\ljump_dict : dict\ljump_it : int\llog : NoneType\lloopBreak_stack\lloop_counter_concrete : \
+int\lmax_end_state : int\lmax_in_pause_stach : int\lmax_simul_state : int\lmax_step : int\lprint_on : bool\lprint_sm_step : bool\lprint_\
+syscall : bool\lscdg : list\lscdg_fin : list\lstring_resolv : bool\ltimeout : int\ltimeout_tab : list\l|__add_SysCall(syscall, n_\
+args, state)\l__add_addr_call(state)\l__add_call(state)\l__add_call_debug(state)\l__change_main_state(sm, source_stash)\l__check_\
+constraint(state, value)\l__custom_hook_no_symbols(proj, syscall_table)\l__custom_hook_static(proj)\l__custom_hook_windows_symbols(\
+proj, syscall_table)\l__debug_instr(state)\l__debug_read(state)\l__debug_write(state)\l__init__(timeout, max_end_state, max_step, \
+timeout_tab, jump_it, loop_counter_concrete, jump_dict, jump_concrete_dict, max_simul_state, max_in_pause_stach, fast_main, force_\
+symbolique_return, string_resolv, print_on, print_sm_step, print_syscall, debug_error, debug_string)\l__mv_bad_active(sm)\l__mv_\
+new_addr_state(sm)\l__my_move_state(sm, dest_stash)\l__proper_formating(state, value)\l__rm_addr_call(state)\l__take_custom(sm, \
+source_stash, moves)\l__take_custom_deep(sm, source_stash)\l__take_longuest(sm, source_stash)\l__take_smallest(sm, source_stash)\l__\
+update_id_stash(sm, id, new_id)\lbuild_scdg()\l}" solid record black lightgrey
+node 7 41.826 3.7153 3.8611 1.1806 "{src.lib.EvalStatSCDG.EvalStatSCDG|dir : str\l|__init__(dir)\lrun()\l}" solid record black lightgrey
+node 8 45.104 3.7153 2.1944 1.1944 "{src.lib.Graph.Graph|\l|__init__()\lrun()\l}" solid record black lightgrey
+node 9 51.243 3.7153 9.5833 7.4306 "{src.lib.GraphBuilder.GraphBuilder|COMP_ARGS : bool\lDISCARD : set\lIGNORE_ZERO : bool\lMERGE_CALL : bool\lMIN_SIZE : int\lTAKE : \
+dict\lcurrent_trace_nodes : dict\ldico_addr : dict\lexisting_nodes : dict\lget_info : bool\lgraph_file : NoneType\lid : int\lid_\
+map : int\lmapping : NoneType, dict\lname : str, NoneType\lnodes : dict\lodir : NoneType, str\lon_flight : bool\ltablink : list\ltabnode : \
+list\ltotTrace : int\lusefullTraces : int\luselessTraces : int\lverbose : bool\l|__init__(mapping, name, merge_call, comp_args, \
+min_size, ignore_zero, odir, get_info, verbose)\largs_to_strings(args)\lbuild_graph(SCDG, format_out)\lbuild_links(trace, graph, \
+dico)\lcheck_duplicate(call)\lcreate_link(node1, node_list, dot, lab_type)\lcreate_mapping(mapping)\lis_in_curr_nodes(ID)\lis_match(\
+test_list, new_list)\l}" solid record black lightgrey
+node 10 57.896 3.7153 3.2361 1.1944 "{src.lib.PlotResults.PlotResults|\l|__init__()\lrun()\l}" solid record black lightgrey
+node 11 61.174 3.7153 2.8056 1.1944 "{src.lib.PrintStat.PrintStat|\l|__init__()\lrun()\l}" solid record black lightgrey
+node 12 64.743 3.7153 3.8194 1.1944 "{src.lib.ReverseGspan.ReverseGspan|\l|__init__()\lrun()\l}" solid record black lightgrey
+node 13 38.049 3.7153 3.1806 0.98611 "{src.lib.ToolLogger.ToolLogger|\l|__init__()\l}" solid record black lightgrey
+edge 0 6 4 13.854 7.429 13.854 7.6092 13.854 7.7915 13.854 7.975 loopBreak_stack 14.667 7.7847 solid black
+edge 2 1 4 31.618 17.022 31.618 17.706 31.618 18.36 31.618 18.861 solid black
+edge 4 2 7 31.278 5.5525 31.174 6.2197 31.072 6.9821 31.021 7.6806 30.979 8.2482 30.987 8.8473 31.024 9.4342 manager 31.465 7.7847 solid black
+edge 4 2 7 31.775 5.5521 31.829 6.2208 31.883 6.9844 31.91 7.6806 31.932 8.2469 31.929 8.8452 31.911 9.4319 manager 32.368 7.7847 solid black
+edge 5 2 7 23.811 4.3063 24.763 5.1159 26.51 6.6564 27.826 8.1389 28.204 8.5641 28.582 9.0254 28.945 9.4914 solid black
+edge 5 6 4 22.559 4.3062 21.815 5.0754 20.421 6.5155 18.963 8.0214 log 19.34 7.7847 solid black
+edge 13 3 4 38.049 4.2037 38.049 5.3904 38.049 8.5536 38.049 10.816 solid black
+stop

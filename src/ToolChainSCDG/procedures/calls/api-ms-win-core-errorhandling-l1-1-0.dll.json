@@ -1,0 +1,214 @@
+{
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "GetErrorMode", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetLastError": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetLastError", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "RaiseException", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwExceptionCode", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwExceptionFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nNumberOfArguments", 
+        "is_float": false
+      }, 
+      {
+        "type": "const ULONG_PTR*", 
+        "name": "lpArguments", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__cdecl", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "SetErrorMode", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uMode", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "RaiseException": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "RaiseException", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwExceptionCode", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwExceptionFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nNumberOfArguments", 
+        "is_float": false
+      }, 
+      {
+        "type": "const ULONG_PTR*", 
+        "name": "lpArguments", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "6": {
+    "cc": "__cdecl", 
+    "returns": "LPTOP_LEVEL_EXCEPTION_FILTER", 
+    "returns_float": false, 
+    "name": "SetUnhandledExceptionFilter", 
+    "arguments": [
+      {
+        "type": " LPTOP_LEVEL_EXCEPTION_FILTER", 
+        "name": "lpTopLevelExceptionFilter", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "7": {
+    "cc": "__cdecl", 
+    "returns": "LONG", 
+    "returns_float": false, 
+    "name": "UnhandledExceptionFilter", 
+    "arguments": [
+      {
+        "type": " struct*", 
+        "name": "ExceptionInfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetLastError", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetUnhandledExceptionFilter": {
+    "cc": "__cdecl", 
+    "returns": "LPTOP_LEVEL_EXCEPTION_FILTER", 
+    "returns_float": false, 
+    "name": "SetUnhandledExceptionFilter", 
+    "arguments": [
+      {
+        "type": " LPTOP_LEVEL_EXCEPTION_FILTER", 
+        "name": "lpTopLevelExceptionFilter", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "UnhandledExceptionFilter": {
+    "cc": "__cdecl", 
+    "returns": "LONG", 
+    "returns_float": false, 
+    "name": "UnhandledExceptionFilter", 
+    "arguments": [
+      {
+        "type": " struct*", 
+        "name": "ExceptionInfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetErrorMode": {
+    "cc": "__cdecl", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "SetErrorMode", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uMode", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetErrorMode": {
+    "cc": "__cdecl", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "GetErrorMode", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetLastError": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "SetLastError", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwErrCode", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "SetLastError", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwErrCode", 
+        "is_float": false
+      }
+    ]
+  }
+}

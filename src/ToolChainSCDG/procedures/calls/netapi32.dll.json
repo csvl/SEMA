@@ -1,0 +1,64 @@
+{
+    "257": {
+        "cc": "__stdcall",
+        "returns": "UCHAR",
+        "returns_float": false,
+        "name": "Netbios",
+        "arguments": [
+            {
+                "type": " PNCB",
+                "name": "pncb",
+                "is_float": false
+            }
+        ]
+    },
+    "Netbios": {
+        "cc": "__stdcall",
+        "returns": "UCHAR",
+        "returns_float": false,
+        "name": "Netbios",
+        "arguments": [
+            {
+                "type": " PNCB",
+                "name": "pncb",
+                "is_float": false
+            }
+        ]
+    },
+    "NetApiBufferFree": {
+        "cc": "__stdcall",
+        "returns": "NET_API_STATUS_NET_API_FUNCTION",
+        "returns_float": false,
+        "name": "NetApiBufferFree",
+        "arguments": [
+            {
+                "type": "_Frees_ptr_opt__LPVOID",
+                "name": "Buffer",
+                "is_float": false
+            }
+        ]
+    },
+    "NetWkstaGetInfo": {
+        "cc": "__stdcall",
+        "returns": "NET_API_STATUS_NET_API_FUNCTION",
+        "returns_float": false,
+        "name": "NetWkstaGetInfo",
+        "arguments": [
+            {
+                "type": "LMSTR",
+                "name": "servername",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "level",
+                "is_float": false
+            },
+            {
+                "type": "LPBYTE",
+                "name": "s_bufptr",
+                "is_float": false
+            }
+        ]
+    }
+}

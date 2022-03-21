@@ -1,0 +1,88 @@
+{
+  "FindCertsByIssuer": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "FindCertsByIssuer", 
+    "arguments": [
+      {
+        "type": " PCERT_CHAIN", 
+        "name": "pCertChains", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pcbCertChains", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pcCertChains", 
+        "is_float": false
+      }, 
+      {
+        "type": " BYTE*", 
+        "name": "pbEncodedIssuerName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "cbEncodedIssuerName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "pwszPurpose", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwKeySpec", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "63": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "FindCertsByIssuer", 
+    "arguments": [
+      {
+        "type": " PCERT_CHAIN", 
+        "name": "pCertChains", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pcbCertChains", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pcCertChains", 
+        "is_float": false
+      }, 
+      {
+        "type": " BYTE*", 
+        "name": "pbEncodedIssuerName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "cbEncodedIssuerName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "pwszPurpose", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwKeySpec", 
+        "is_float": false
+      }
+    ]
+  }
+}

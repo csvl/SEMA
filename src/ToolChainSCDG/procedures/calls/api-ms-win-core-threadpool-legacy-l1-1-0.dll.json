@@ -1,0 +1,334 @@
+{
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ChangeTimerQueueTimer", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "TimerQueue", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "Timer", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "DueTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "Period", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateTimerQueue", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "CreateTimerQueueTimer", 
+    "arguments": [
+      {
+        "type": " PHANDLE", 
+        "name": "phNewTimer", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "TimerQueue", 
+        "is_float": false
+      }, 
+      {
+        "type": " WAITORTIMERCALLBACK", 
+        "name": "Callback", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "Parameter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "DueTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "Period", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "Flags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "DeleteTimerQueueEx", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "TimerQueue", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "CompletionEvent", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "DeleteTimerQueueTimer", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "TimerQueue", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "Timer", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "CompletionEvent", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "6": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "QueueUserWorkItem", 
+    "arguments": [
+      {
+        "type": " LPTHREAD_START_ROUTINE", 
+        "name": "Function", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "Context", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "Flags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "7": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "UnregisterWaitEx", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "WaitHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "CompletionEvent", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "UnregisterWaitEx": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "UnregisterWaitEx", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "WaitHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "CompletionEvent", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ChangeTimerQueueTimer": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ChangeTimerQueueTimer", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "TimerQueue", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "Timer", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "DueTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "Period", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DeleteTimerQueueEx": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "DeleteTimerQueueEx", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "TimerQueue", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "CompletionEvent", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateTimerQueueTimer": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "CreateTimerQueueTimer", 
+    "arguments": [
+      {
+        "type": " PHANDLE", 
+        "name": "phNewTimer", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "TimerQueue", 
+        "is_float": false
+      }, 
+      {
+        "type": " WAITORTIMERCALLBACK", 
+        "name": "Callback", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "Parameter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "DueTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "Period", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "Flags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "QueueUserWorkItem": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "QueueUserWorkItem", 
+    "arguments": [
+      {
+        "type": " LPTHREAD_START_ROUTINE", 
+        "name": "Function", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "Context", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "Flags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateTimerQueue": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateTimerQueue", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DeleteTimerQueueTimer": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "DeleteTimerQueueTimer", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "TimerQueue", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "Timer", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "CompletionEvent", 
+        "is_float": false
+      }
+    ]
+  }
+}

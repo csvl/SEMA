@@ -1,0 +1,214 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4214016.main
+008a432f8e40b0472579b7c4c81ada69"]
+	1 [label="4209748.GetModuleHandleA
+0"]
+	2 [label="4204713.GetKeyboardType
+0"]
+	3 [label="4209431.GetCommandLineA
+"]
+	4 [label="4198654.GetStartupInfoA
+2147417628"]
+	5 [label="4209451.GetVersion
+"]
+	6 [label="4209468.GetVersion
+"]
+	7 [label="4209528.GetCurrentThreadId
+"]
+	8 [label="4204280.GetModuleFileNameA
+0
+008a432f8e40b0472579b7c4c81ada69
+261"]
+	0 -> 8 [label="(1-->2)"]
+	9 [label="4200442.InitializeCriticalSection
+4220344"]
+	4 -> 9 [label="(0-->0)"]
+	10 [label="4200503.LocalAlloc
+0
+4088"]
+	11 [label="4199211.VirtualAlloc
+0
+1048576
+8192
+1"]
+	12 [label="4198763.LocalAlloc
+0
+1604"]
+	13 [label="4199677.VirtualAlloc
+3222798336
+16384
+4096
+4"]
+	11 -> 13 [label="(0-->1)"]
+	2 -> 13 [label="(0-->4)"]
+	11 -> 13 [label="(0-->0)"]
+	14 [label="4211221.CreateFileA
+008a432f8e40b0472579b7c4c81ada69
+2147483648
+3
+0
+3
+128
+0"]
+	0 -> 14 [label="(1-->1)"]
+	8 -> 14 [label="(2-->1)"]
+	15 [label="4211369.SetFilePointer
+3
+0
+0
+1"]
+	14 -> 15 [label="(3-->1)"]
+	14 -> 15 [label="(5-->1)"]
+	14 -> 15 [label="(0-->1)"]
+	11 -> 15 [label="(4-->4)"]
+	16 [label="4211369.SetFilePointer
+3
+0
+0
+2"]
+	14 -> 16 [label="(3-->1)"]
+	14 -> 16 [label="(5-->1)"]
+	14 -> 16 [label="(0-->1)"]
+	15 -> 16 [label="(1-->1)"]
+	17 [label="4211369.SetFilePointer
+3
+retval_SetFilePointer_4434520_32
+0
+0"]
+	14 -> 17 [label="(3-->1)"]
+	14 -> 17 [label="(5-->1)"]
+	14 -> 17 [label="(0-->1)"]
+	15 -> 17 [label="(1-->1)"]
+	16 -> 17 [label="(1-->1)"]
+	18 [label="4211369.SetFilePointer
+3
+retval_SetFilePointer_4434521_32
+0
+0"]
+	14 -> 18 [label="(3-->1)"]
+	14 -> 18 [label="(5-->1)"]
+	14 -> 18 [label="(0-->1)"]
+	15 -> 18 [label="(1-->1)"]
+	16 -> 18 [label="(1-->1)"]
+	17 -> 18 [label="(1-->1)"]
+	19 [label="4211296.ReadFile
+3
+2147417476
+268
+2147416248
+0"]
+	14 -> 19 [label="(3-->1)"]
+	14 -> 19 [label="(5-->1)"]
+	14 -> 19 [label="(0-->1)"]
+	15 -> 19 [label="(1-->1)"]
+	16 -> 19 [label="(1-->1)"]
+	17 -> 19 [label="(1-->1)"]
+	18 -> 19 [label="(1-->1)"]
+	11 -> 19 [label="(4-->0)"]
+	15 -> 19 [label="(4-->0)"]
+	20 [label="4211233.CloseHandle
+3"]
+	14 -> 20 [label="(3-->1)"]
+	14 -> 20 [label="(5-->1)"]
+	14 -> 20 [label="(0-->1)"]
+	15 -> 20 [label="(1-->1)"]
+	16 -> 20 [label="(1-->1)"]
+	17 -> 20 [label="(1-->1)"]
+	18 -> 20 [label="(1-->1)"]
+	19 -> 20 [label="(1-->1)"]
+	21 [label="4199806.VirtualFree
+3222798336
+16384
+16384"]
+	11 -> 21 [label="(0-->1)"]
+	13 -> 21 [label="(1-->1)"]
+	13 -> 21 [label="(0-->1)"]
+	13 -> 21 [label="(2-->2)"]
+	13 -> 21 [label="(2-->3)"]
+	22 [label="4199484.VirtualFree
+3222798336
+0
+32768"]
+	11 -> 22 [label="(0-->1)"]
+	13 -> 22 [label="(1-->1)"]
+	13 -> 22 [label="(0-->1)"]
+	21 -> 22 [label="(1-->1)"]
+	23 [label="4200679.LocalFree
+3221258256"]
+	10 -> 23 [label="(0-->1)"]
+	24 [label="4200773.LocalFree
+3221262352"]
+	12 -> 24 [label="(0-->1)"]
+	25 [label="4200824.DeleteCriticalSection
+4220344"]
+	9 -> 25 [label="(1-->1)"]
+	4 -> 25 [label="(0-->0)"]
+	9 -> 25 [label="(0-->0)"]
+	26 [label="4207314.ExitProcess
+"]
+	27 [label="4209513.GetThreadLocale
+"]
+	28 [label="4209166.GetLocaleInfoA
+retval_GetThreadLocale_4434515_32
+4100
+
+7"]
+	29 [label="4211369.SetFilePointer
+3
+retval_SetFilePointer_4434523_32
+0
+0"]
+	14 -> 29 [label="(3-->1)"]
+	14 -> 29 [label="(5-->1)"]
+	14 -> 29 [label="(0-->1)"]
+	15 -> 29 [label="(1-->1)"]
+	16 -> 29 [label="(1-->1)"]
+	30 [label="4211369.SetFilePointer
+3
+retval_SetFilePointer_4434525_32
+0
+0"]
+	14 -> 30 [label="(3-->1)"]
+	14 -> 30 [label="(5-->1)"]
+	14 -> 30 [label="(0-->1)"]
+	15 -> 30 [label="(1-->1)"]
+	16 -> 30 [label="(1-->1)"]
+	29 -> 30 [label="(1-->1)"]
+	31 [label="4207108.MessageBoxA
+0
+Runtime error 204 at 004024DC
+Error
+0"]
+	11 -> 31 [label="(4-->0)"]
+	15 -> 31 [label="(4-->0)"]
+	19 -> 31 [label="(0-->0)"]
+	32 [label="4209496.GetThreadLocale
+"]
+	33 [label="4209166.GetLocaleInfoA
+retval_GetThreadLocale_4434518_32
+4100
+
+7"]
+	34 [label="4211369.SetFilePointer
+3
+retval_SetFilePointer_4434524_32
+0
+0"]
+	14 -> 34 [label="(3-->1)"]
+	14 -> 34 [label="(5-->1)"]
+	14 -> 34 [label="(0-->1)"]
+	15 -> 34 [label="(1-->1)"]
+	16 -> 34 [label="(1-->1)"]
+	35 [label="4211369.SetFilePointer
+3
+retval_SetFilePointer_4434527_32
+0
+0"]
+	14 -> 35 [label="(3-->1)"]
+	14 -> 35 [label="(5-->1)"]
+	14 -> 35 [label="(0-->1)"]
+	15 -> 35 [label="(1-->1)"]
+	16 -> 35 [label="(1-->1)"]
+	34 -> 35 [label="(1-->1)"]
+}

@@ -1,0 +1,4168 @@
+{
+    "DragQueryFileW": {
+        "cc": "__stdcall",
+        "returns": "UINT",
+        "returns_float": false,
+        "name": "DragQueryFileW",
+        "arguments": [
+            {
+                "type": " HDROP",
+                "name": "hDrop",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "iFile",
+                "is_float": false
+            },
+            {
+                "type": " LPWSTR",
+                "name": "lpszFile",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "cch",
+                "is_float": false
+            }
+        ]
+    },
+    "SHQueryRecycleBinW": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHQueryRecycleBinW",
+        "arguments": [
+            {
+                "type": " LPCWSTR",
+                "name": "pszRootPath",
+                "is_float": false
+            },
+            {
+                "type": " LPSHQUERYRBINFO",
+                "name": "pSHQueryRBInfo",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetLocalizedName": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHGetLocalizedName",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszPath",
+                "is_float": false
+            },
+            {
+                "type": " PWSTR",
+                "name": "pszResModule",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "cch",
+                "is_float": false
+            },
+            {
+                "type": " int*",
+                "name": "pidsRes",
+                "is_float": false
+            }
+        ]
+    },
+    "532": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHGetLocalizedName",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszPath",
+                "is_float": false
+            },
+            {
+                "type": " PWSTR",
+                "name": "pszResModule",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "cch",
+                "is_float": false
+            },
+            {
+                "type": " int*",
+                "name": "pidsRes",
+                "is_float": false
+            }
+        ]
+    },
+    "DragQueryFileA": {
+        "cc": "__stdcall",
+        "returns": "UINT",
+        "returns_float": false,
+        "name": "DragQueryFileA",
+        "arguments": [
+            {
+                "type": " HDROP",
+                "name": "hDrop",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "iFile",
+                "is_float": false
+            },
+            {
+                "type": " LPSTR",
+                "name": "lpszFile",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "cch",
+                "is_float": false
+            }
+        ]
+    },
+    "540": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHGetPropertyStoreForWindow",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": "const IID*const",
+                "name": "riid",
+                "is_float": false
+            },
+            {
+                "type": " void**",
+                "name": "ppv",
+                "is_float": false
+            }
+        ]
+    },
+    "SHCreateProcessAsUserW": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHCreateProcessAsUserW",
+        "arguments": [
+            {
+                "type": " PSHCREATEPROCESSINFOW",
+                "name": "pscpi",
+                "is_float": false
+            }
+        ]
+    },
+    "ShellExecuteExA": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ShellExecuteExA",
+        "arguments": [
+            {
+                "type": " SHELLEXECUTEINFOA*",
+                "name": "pExecInfo",
+                "is_float": false
+            }
+        ]
+    },
+    "547": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHGetStockIconInfo",
+        "arguments": [
+            {
+                "type": " SHSTOCKICONID",
+                "name": "siid",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "uFlags",
+                "is_float": false
+            },
+            {
+                "type": " SHSTOCKICONINFO*",
+                "name": "psii",
+                "is_float": false
+            }
+        ]
+    },
+    "549": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHGetUnreadMailCountW",
+        "arguments": [
+            {
+                "type": " HKEY",
+                "name": "hKeyUser",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "pszMailAddress",
+                "is_float": false
+            },
+            {
+                "type": " DWORD*",
+                "name": "pdwCount",
+                "is_float": false
+            },
+            {
+                "type": " FILETIME*",
+                "name": "pFileTime",
+                "is_float": false
+            },
+            {
+                "type": " LPWSTR",
+                "name": "pszShellExecuteCommand",
+                "is_float": false
+            },
+            {
+                "type": " int",
+                "name": "cchShellExecuteCommand",
+                "is_float": false
+            }
+        ]
+    },
+    "550": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHInvokePrinterCommandA",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "uAction",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "lpBuf1",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "lpBuf2",
+                "is_float": false
+            },
+            {
+                "type": " BOOL",
+                "name": "fModal",
+                "is_float": false
+            }
+        ]
+    },
+    "551": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHInvokePrinterCommandW",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "uAction",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "lpBuf1",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "lpBuf2",
+                "is_float": false
+            },
+            {
+                "type": " BOOL",
+                "name": "fModal",
+                "is_float": false
+            }
+        ]
+    },
+    "552": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHIsFileAvailableOffline",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pwszPath",
+                "is_float": false
+            },
+            {
+                "type": " DWORD*",
+                "name": "pdwStatus",
+                "is_float": false
+            }
+        ]
+    },
+    "41": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "IsLFNDriveA",
+        "arguments": [
+            {
+                "type": " LPCSTR",
+                "name": "pszPath",
+                "is_float": false
+            }
+        ]
+    },
+    "42": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "IsLFNDriveW",
+        "arguments": [
+            {
+                "type": " LPCWSTR",
+                "name": "pszPath",
+                "is_float": false
+            }
+        ]
+    },
+    "560": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHQueryRecycleBinA",
+        "arguments": [
+            {
+                "type": " LPCSTR",
+                "name": "pszRootPath",
+                "is_float": false
+            },
+            {
+                "type": " LPSHQUERYRBINFO",
+                "name": "pSHQueryRBInfo",
+                "is_float": false
+            }
+        ]
+    },
+    "561": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHQueryRecycleBinW",
+        "arguments": [
+            {
+                "type": " LPCWSTR",
+                "name": "pszRootPath",
+                "is_float": false
+            },
+            {
+                "type": " LPSHQUERYRBINFO",
+                "name": "pSHQueryRBInfo",
+                "is_float": false
+            }
+        ]
+    },
+    "562": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHQueryUserNotificationState",
+        "arguments": [
+            {
+                "type": " QUERY_USER_NOTIFICATION_STATE*",
+                "name": "pquns",
+                "is_float": false
+            }
+        ]
+    },
+    "563": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHRemoveLocalizedName",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszPath",
+                "is_float": false
+            }
+        ]
+    },
+    "ShellExecuteExW": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ShellExecuteExW",
+        "arguments": [
+            {
+                "type": " SHELLEXECUTEINFOW*",
+                "name": "pExecInfo",
+                "is_float": false
+            }
+        ]
+    },
+    "567": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHSetLocalizedName",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszPath",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "pszResModule",
+                "is_float": false
+            },
+            {
+                "type": " int",
+                "name": "idsRes",
+                "is_float": false
+            }
+        ]
+    },
+    "569": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHSetUnreadMailCountW",
+        "arguments": [
+            {
+                "type": " LPCWSTR",
+                "name": "pszMailAddress",
+                "is_float": false
+            },
+            {
+                "type": " DWORD",
+                "name": "dwCount",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "pszShellExecuteCommand",
+                "is_float": false
+            }
+        ]
+    },
+    "577": {
+        "cc": "__stdcall",
+        "returns": "INT",
+        "returns_float": false,
+        "name": "ShellAboutA",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hWnd",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "szApp",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "szOtherStuff",
+                "is_float": false
+            },
+            {
+                "type": " HICON",
+                "name": "hIcon",
+                "is_float": false
+            }
+        ]
+    },
+    "578": {
+        "cc": "__stdcall",
+        "returns": "INT",
+        "returns_float": false,
+        "name": "ShellAboutW",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hWnd",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "szApp",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "szOtherStuff",
+                "is_float": false
+            },
+            {
+                "type": " HICON",
+                "name": "hIcon",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetFileInfoW": {
+        "cc": "__stdcall",
+        "returns": "DWORD_PTR",
+        "returns_float": false,
+        "name": "SHGetFileInfoW",
+        "arguments": [
+            {
+                "type": " LPCWSTR",
+                "name": "pszPath",
+                "is_float": false
+            },
+            {
+                "type": " DWORD",
+                "name": "dwFileAttributes",
+                "is_float": false
+            },
+            {
+                "type": " SHFILEINFOW*",
+                "name": "psfi",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "cbFileInfo",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "uFlags",
+                "is_float": false
+            }
+        ]
+    },
+    "582": {
+        "cc": "__stdcall",
+        "returns": "HINSTANCE",
+        "returns_float": false,
+        "name": "ShellExecuteA",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "lpOperation",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "lpFile",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "lpParameters",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "lpDirectory",
+                "is_float": false
+            },
+            {
+                "type": " INT",
+                "name": "nShowCmd",
+                "is_float": false
+            }
+        ]
+    },
+    "584": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ShellExecuteExA",
+        "arguments": [
+            {
+                "type": " SHELLEXECUTEINFOA*",
+                "name": "pExecInfo",
+                "is_float": false
+            }
+        ]
+    },
+    "585": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "ShellExecuteExW",
+        "arguments": [
+            {
+                "type": " SHELLEXECUTEINFOW*",
+                "name": "pExecInfo",
+                "is_float": false
+            }
+        ]
+    },
+    "586": {
+        "cc": "__stdcall",
+        "returns": "HINSTANCE",
+        "returns_float": false,
+        "name": "ShellExecuteW",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "lpOperation",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "lpFile",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "lpParameters",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "lpDirectory",
+                "is_float": false
+            },
+            {
+                "type": " INT",
+                "name": "nShowCmd",
+                "is_float": false
+            }
+        ]
+    },
+    "ShellAboutW": {
+        "cc": "__stdcall",
+        "returns": "INT",
+        "returns_float": false,
+        "name": "ShellAboutW",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hWnd",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "szApp",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "szOtherStuff",
+                "is_float": false
+            },
+            {
+                "type": " HICON",
+                "name": "hIcon",
+                "is_float": false
+            }
+        ]
+    },
+    "591": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "Shell_NotifyIconA",
+        "arguments": [
+            {
+                "type": " DWORD",
+                "name": "dwMessage",
+                "is_float": false
+            },
+            {
+                "type": " PNOTIFYICONDATAA",
+                "name": "lpData",
+                "is_float": false
+            }
+        ]
+    },
+    "592": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "Shell_NotifyIconGetRect",
+        "arguments": [
+            {
+                "type": "const NOTIFYICONIDENTIFIER*",
+                "name": "identifier",
+                "is_float": false
+            },
+            {
+                "type": " RECT*",
+                "name": "iconLocation",
+                "is_float": false
+            }
+        ]
+    },
+    "593": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "Shell_NotifyIconW",
+        "arguments": [
+            {
+                "type": " DWORD",
+                "name": "dwMessage",
+                "is_float": false
+            },
+            {
+                "type": " PNOTIFYICONDATAW",
+                "name": "lpData",
+                "is_float": false
+            }
+        ]
+    },
+    "594": {
+        "cc": "__stdcall",
+        "returns": "PSTR",
+        "returns_float": false,
+        "name": "StrChrA",
+        "arguments": [
+            {
+                "type": " PCSTR",
+                "name": "pszStart",
+                "is_float": false
+            },
+            {
+                "type": " WORD",
+                "name": "wMatch",
+                "is_float": false
+            }
+        ]
+    },
+    "595": {
+        "cc": "__stdcall",
+        "returns": "PSTR",
+        "returns_float": false,
+        "name": "StrChrIA",
+        "arguments": [
+            {
+                "type": " PCSTR",
+                "name": "pszStart",
+                "is_float": false
+            },
+            {
+                "type": " WORD",
+                "name": "wMatch",
+                "is_float": false
+            }
+        ]
+    },
+    "596": {
+        "cc": "__stdcall",
+        "returns": "PWSTR",
+        "returns_float": false,
+        "name": "StrChrIW",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszStart",
+                "is_float": false
+            },
+            {
+                "type": " WCHAR",
+                "name": "wMatch",
+                "is_float": false
+            }
+        ]
+    },
+    "597": {
+        "cc": "__stdcall",
+        "returns": "PWSTR",
+        "returns_float": false,
+        "name": "StrChrW",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszStart",
+                "is_float": false
+            },
+            {
+                "type": " WCHAR",
+                "name": "wMatch",
+                "is_float": false
+            }
+        ]
+    },
+    "598": {
+        "cc": "__stdcall",
+        "returns": "int",
+        "returns_float": false,
+        "name": "StrCmpNA",
+        "arguments": [
+            {
+                "type": " PCSTR",
+                "name": "psz1",
+                "is_float": false
+            },
+            {
+                "type": " PCSTR",
+                "name": "psz2",
+                "is_float": false
+            },
+            {
+                "type": " int",
+                "name": "nChar",
+                "is_float": false
+            }
+        ]
+    },
+    "599": {
+        "cc": "__stdcall",
+        "returns": "int",
+        "returns_float": false,
+        "name": "StrCmpNIA",
+        "arguments": [
+            {
+                "type": " PCSTR",
+                "name": "psz1",
+                "is_float": false
+            },
+            {
+                "type": " PCSTR",
+                "name": "psz2",
+                "is_float": false
+            },
+            {
+                "type": " int",
+                "name": "nChar",
+                "is_float": false
+            }
+        ]
+    },
+    "600": {
+        "cc": "__stdcall",
+        "returns": "int",
+        "returns_float": false,
+        "name": "StrCmpNIW",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "psz1",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "psz2",
+                "is_float": false
+            },
+            {
+                "type": " int",
+                "name": "nChar",
+                "is_float": false
+            }
+        ]
+    },
+    "601": {
+        "cc": "__stdcall",
+        "returns": "int",
+        "returns_float": false,
+        "name": "StrCmpNW",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "psz1",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "psz2",
+                "is_float": false
+            },
+            {
+                "type": " int",
+                "name": "nChar",
+                "is_float": false
+            }
+        ]
+    },
+    "606": {
+        "cc": "__stdcall",
+        "returns": "PSTR",
+        "returns_float": false,
+        "name": "StrRChrA",
+        "arguments": [
+            {
+                "type": " PCSTR",
+                "name": "pszStart",
+                "is_float": false
+            },
+            {
+                "type": " PCSTR",
+                "name": "pszEnd",
+                "is_float": false
+            },
+            {
+                "type": " WORD",
+                "name": "wMatch",
+                "is_float": false
+            }
+        ]
+    },
+    "607": {
+        "cc": "__stdcall",
+        "returns": "PSTR",
+        "returns_float": false,
+        "name": "StrRChrIA",
+        "arguments": [
+            {
+                "type": " PCSTR",
+                "name": "pszStart",
+                "is_float": false
+            },
+            {
+                "type": " PCSTR",
+                "name": "pszEnd",
+                "is_float": false
+            },
+            {
+                "type": " WORD",
+                "name": "wMatch",
+                "is_float": false
+            }
+        ]
+    },
+    "608": {
+        "cc": "__stdcall",
+        "returns": "PWSTR",
+        "returns_float": false,
+        "name": "StrRChrIW",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszStart",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "pszEnd",
+                "is_float": false
+            },
+            {
+                "type": " WCHAR",
+                "name": "wMatch",
+                "is_float": false
+            }
+        ]
+    },
+    "609": {
+        "cc": "__stdcall",
+        "returns": "PWSTR",
+        "returns_float": false,
+        "name": "StrRChrW",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszStart",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "pszEnd",
+                "is_float": false
+            },
+            {
+                "type": " WCHAR",
+                "name": "wMatch",
+                "is_float": false
+            }
+        ]
+    },
+    "611": {
+        "cc": "__stdcall",
+        "returns": "PSTR",
+        "returns_float": false,
+        "name": "StrRStrIA",
+        "arguments": [
+            {
+                "type": " PCSTR",
+                "name": "pszSource",
+                "is_float": false
+            },
+            {
+                "type": " PCSTR",
+                "name": "pszLast",
+                "is_float": false
+            },
+            {
+                "type": " PCSTR",
+                "name": "pszSrch",
+                "is_float": false
+            }
+        ]
+    },
+    "612": {
+        "cc": "__stdcall",
+        "returns": "PWSTR",
+        "returns_float": false,
+        "name": "StrRStrIW",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszSource",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "pszLast",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "pszSrch",
+                "is_float": false
+            }
+        ]
+    },
+    "DragFinish": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "DragFinish",
+        "arguments": [
+            {
+                "type": " HDROP",
+                "name": "hDrop",
+                "is_float": false
+            }
+        ]
+    },
+    "614": {
+        "cc": "__stdcall",
+        "returns": "PSTR",
+        "returns_float": false,
+        "name": "StrStrA",
+        "arguments": [
+            {
+                "type": " PCSTR",
+                "name": "pszFirst",
+                "is_float": false
+            },
+            {
+                "type": " PCSTR",
+                "name": "pszSrch",
+                "is_float": false
+            }
+        ]
+    },
+    "615": {
+        "cc": "__stdcall",
+        "returns": "PSTR",
+        "returns_float": false,
+        "name": "StrStrIA",
+        "arguments": [
+            {
+                "type": " PCSTR",
+                "name": "pszFirst",
+                "is_float": false
+            },
+            {
+                "type": " PCSTR",
+                "name": "pszSrch",
+                "is_float": false
+            }
+        ]
+    },
+    "616": {
+        "cc": "__stdcall",
+        "returns": "PWSTR",
+        "returns_float": false,
+        "name": "StrStrIW",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszFirst",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "pszSrch",
+                "is_float": false
+            }
+        ]
+    },
+    "617": {
+        "cc": "__stdcall",
+        "returns": "PWSTR",
+        "returns_float": false,
+        "name": "StrStrW",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszFirst",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "pszSrch",
+                "is_float": false
+            }
+        ]
+    },
+    "StrRChrIA": {
+        "cc": "__stdcall",
+        "returns": "PSTR",
+        "returns_float": false,
+        "name": "StrRChrIA",
+        "arguments": [
+            {
+                "type": " PCSTR",
+                "name": "pszStart",
+                "is_float": false
+            },
+            {
+                "type": " PCSTR",
+                "name": "pszEnd",
+                "is_float": false
+            },
+            {
+                "type": " WORD",
+                "name": "wMatch",
+                "is_float": false
+            }
+        ]
+    },
+    "StrStrW": {
+        "cc": "__stdcall",
+        "returns": "PWSTR",
+        "returns_float": false,
+        "name": "StrStrW",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszFirst",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "pszSrch",
+                "is_float": false
+            }
+        ]
+    },
+    "SHQueryRecycleBinA": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHQueryRecycleBinA",
+        "arguments": [
+            {
+                "type": " LPCSTR",
+                "name": "pszRootPath",
+                "is_float": false
+            },
+            {
+                "type": " LPSHQUERYRBINFO",
+                "name": "pSHQueryRBInfo",
+                "is_float": false
+            }
+        ]
+    },
+    "ExtractIconA": {
+        "cc": "__stdcall",
+        "returns": "HICON",
+        "returns_float": false,
+        "name": "ExtractIconA",
+        "arguments": [
+            {
+                "type": " HINSTANCE",
+                "name": "hInst",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "pszExeFileName",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "nIconIndex",
+                "is_float": false
+            }
+        ]
+    },
+    "ShellExecuteW": {
+        "cc": "__stdcall",
+        "returns": "HINSTANCE",
+        "returns_float": false,
+        "name": "ShellExecuteW",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "lpOperation",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "lpFile",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "lpParameters",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "lpDirectory",
+                "is_float": false
+            },
+            {
+                "type": " INT",
+                "name": "nShowCmd",
+                "is_float": false
+            }
+        ]
+    },
+    "ExtractAssociatedIconExW": {
+        "cc": "__stdcall",
+        "returns": "HICON",
+        "returns_float": false,
+        "name": "ExtractAssociatedIconExW",
+        "arguments": [
+            {
+                "type": " HINSTANCE",
+                "name": "hInst",
+                "is_float": false
+            },
+            {
+                "type": " LPWSTR",
+                "name": "pszIconPath",
+                "is_float": false
+            },
+            {
+                "type": " WORD*",
+                "name": "piIconIndex",
+                "is_float": false
+            },
+            {
+                "type": " WORD*",
+                "name": "piIconId",
+                "is_float": false
+            }
+        ]
+    },
+    "StrRChrW": {
+        "cc": "__stdcall",
+        "returns": "PWSTR",
+        "returns_float": false,
+        "name": "StrRChrW",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszStart",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "pszEnd",
+                "is_float": false
+            },
+            {
+                "type": " WCHAR",
+                "name": "wMatch",
+                "is_float": false
+            }
+        ]
+    },
+    "SHFileOperationW": {
+        "cc": "__stdcall",
+        "returns": "int",
+        "returns_float": false,
+        "name": "SHFileOperationW",
+        "arguments": [
+            {
+                "type": " LPSHFILEOPSTRUCTW",
+                "name": "lpFileOp",
+                "is_float": false
+            }
+        ]
+    },
+    "ExtractAssociatedIconExA": {
+        "cc": "__stdcall",
+        "returns": "HICON",
+        "returns_float": false,
+        "name": "ExtractAssociatedIconExA",
+        "arguments": [
+            {
+                "type": " HINSTANCE",
+                "name": "hInst",
+                "is_float": false
+            },
+            {
+                "type": " LPSTR",
+                "name": "pszIconPath",
+                "is_float": false
+            },
+            {
+                "type": " WORD*",
+                "name": "piIconIndex",
+                "is_float": false
+            },
+            {
+                "type": " WORD*",
+                "name": "piIconId",
+                "is_float": false
+            }
+        ]
+    },
+    "StrRChrA": {
+        "cc": "__stdcall",
+        "returns": "PSTR",
+        "returns_float": false,
+        "name": "StrRChrA",
+        "arguments": [
+            {
+                "type": " PCSTR",
+                "name": "pszStart",
+                "is_float": false
+            },
+            {
+                "type": " PCSTR",
+                "name": "pszEnd",
+                "is_float": false
+            },
+            {
+                "type": " WORD",
+                "name": "wMatch",
+                "is_float": false
+            }
+        ]
+    },
+    "SHSetLocalizedName": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHSetLocalizedName",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszPath",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "pszResModule",
+                "is_float": false
+            },
+            {
+                "type": " int",
+                "name": "idsRes",
+                "is_float": false
+            }
+        ]
+    },
+    "ExtractIconW": {
+        "cc": "__stdcall",
+        "returns": "HICON",
+        "returns_float": false,
+        "name": "ExtractIconW",
+        "arguments": [
+            {
+                "type": " HINSTANCE",
+                "name": "hInst",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "pszExeFileName",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "nIconIndex",
+                "is_float": false
+            }
+        ]
+    },
+    "SHFileOperationA": {
+        "cc": "__stdcall",
+        "returns": "int",
+        "returns_float": false,
+        "name": "SHFileOperationA",
+        "arguments": [
+            {
+                "type": " LPSHFILEOPSTRUCTA",
+                "name": "lpFileOp",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetFileInfoA": {
+        "cc": "__stdcall",
+        "returns": "DWORD_PTR",
+        "returns_float": false,
+        "name": "SHGetFileInfoA",
+        "arguments": [
+            {
+                "type": " LPCSTR",
+                "name": "pszPath",
+                "is_float": false
+            },
+            {
+                "type": " DWORD",
+                "name": "dwFileAttributes",
+                "is_float": false
+            },
+            {
+                "type": " SHFILEINFOA*",
+                "name": "psfi",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "cbFileInfo",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "uFlags",
+                "is_float": false
+            }
+        ]
+    },
+    "ShellAboutA": {
+        "cc": "__stdcall",
+        "returns": "INT",
+        "returns_float": false,
+        "name": "ShellAboutA",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hWnd",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "szApp",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "szOtherStuff",
+                "is_float": false
+            },
+            {
+                "type": " HICON",
+                "name": "hIcon",
+                "is_float": false
+            }
+        ]
+    },
+    "179": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHGetNewLinkInfoA",
+        "arguments": [
+            {
+                "type": " LPCSTR",
+                "name": "pszLinkTo",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "pszDir",
+                "is_float": false
+            },
+            {
+                "type": " LPSTR",
+                "name": "pszName",
+                "is_float": false
+            },
+            {
+                "type": " BOOL*",
+                "name": "pfMustCopy",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "uFlags",
+                "is_float": false
+            }
+        ]
+    },
+    "180": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHGetNewLinkInfoW",
+        "arguments": [
+            {
+                "type": " LPCWSTR",
+                "name": "pszLinkTo",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "pszDir",
+                "is_float": false
+            },
+            {
+                "type": " LPWSTR",
+                "name": "pszName",
+                "is_float": false
+            },
+            {
+                "type": " BOOL*",
+                "name": "pfMustCopy",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "uFlags",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetStockIconInfo": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHGetStockIconInfo",
+        "arguments": [
+            {
+                "type": " SHSTOCKICONID",
+                "name": "siid",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "uFlags",
+                "is_float": false
+            },
+            {
+                "type": " SHSTOCKICONINFO*",
+                "name": "psii",
+                "is_float": false
+            }
+        ]
+    },
+    "182": {
+        "cc": "__cdecl",
+        "returns": "int",
+        "returns_float": false,
+        "name": "ShellMessageBoxW",
+        "arguments": [
+            {
+                "type": " HINSTANCE",
+                "name": "hAppInst",
+                "is_float": false
+            },
+            {
+                "type": " HWND",
+                "name": "hWnd",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "lpcText",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "lpcTitle",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "fuStyle",
+                "is_float": false
+            }
+        ]
+    },
+    "183": {
+        "cc": "__cdecl",
+        "returns": "int",
+        "returns_float": false,
+        "name": "ShellMessageBoxA",
+        "arguments": [
+            {
+                "type": " HINSTANCE",
+                "name": "hAppInst",
+                "is_float": false
+            },
+            {
+                "type": " HWND",
+                "name": "hWnd",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "lpcText",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "lpcTitle",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "fuStyle",
+                "is_float": false
+            }
+        ]
+    },
+    "SHTestTokenMembership": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHTestTokenMembership",
+        "arguments": [
+            {
+                "type": " HANDLE",
+                "name": "hToken",
+                "is_float": false
+            },
+            {
+                "type": " ULONG",
+                "name": "ulRID",
+                "is_float": false
+            }
+        ]
+    },
+    "SHInvokePrinterCommandW": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHInvokePrinterCommandW",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "uAction",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "lpBuf1",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "lpBuf2",
+                "is_float": false
+            },
+            {
+                "type": " BOOL",
+                "name": "fModal",
+                "is_float": false
+            }
+        ]
+    },
+    "AssocCreateForClasses": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "AssocCreateForClasses",
+        "arguments": [
+            {
+                "type": "const ASSOCIATIONELEMENT*",
+                "name": "rgClasses",
+                "is_float": false
+            },
+            {
+                "type": " ULONG",
+                "name": "cClasses",
+                "is_float": false
+            },
+            {
+                "type": "const IID*const",
+                "name": "riid",
+                "is_float": false
+            },
+            {
+                "type": " void**",
+                "name": "ppv",
+                "is_float": false
+            }
+        ]
+    },
+    "SHEmptyRecycleBinW": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHEmptyRecycleBinW",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "pszRootPath",
+                "is_float": false
+            },
+            {
+                "type": " DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            }
+        ]
+    },
+    "SHFreeNameMappings": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "SHFreeNameMappings",
+        "arguments": [
+            {
+                "type": " HANDLE",
+                "name": "hNameMappings",
+                "is_float": false
+            }
+        ]
+    },
+    "727": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHGetImageList",
+        "arguments": [
+            {
+                "type": " int",
+                "name": "iImageList",
+                "is_float": false
+            },
+            {
+                "type": "const IID*const",
+                "name": "riid",
+                "is_float": false
+            },
+            {
+                "type": " void**",
+                "name": "ppvObj",
+                "is_float": false
+            }
+        ]
+    },
+    "Shell_NotifyIconGetRect": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "Shell_NotifyIconGetRect",
+        "arguments": [
+            {
+                "type": "const NOTIFYICONIDENTIFIER*",
+                "name": "identifier",
+                "is_float": false
+            },
+            {
+                "type": " RECT*",
+                "name": "iconLocation",
+                "is_float": false
+            }
+        ]
+    },
+    "ShellMessageBoxW": {
+        "cc": "__cdecl",
+        "returns": "int",
+        "returns_float": false,
+        "name": "ShellMessageBoxW",
+        "arguments": [
+            {
+                "type": " HINSTANCE",
+                "name": "hAppInst",
+                "is_float": false
+            },
+            {
+                "type": " HWND",
+                "name": "hWnd",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "lpcText",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "lpcTitle",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "fuStyle",
+                "is_float": false
+            }
+        ]
+    },
+    "StrCmpNW": {
+        "cc": "__stdcall",
+        "returns": "int",
+        "returns_float": false,
+        "name": "StrCmpNW",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "psz1",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "psz2",
+                "is_float": false
+            },
+            {
+                "type": " int",
+                "name": "nChar",
+                "is_float": false
+            }
+        ]
+    },
+    "StrRChrIW": {
+        "cc": "__stdcall",
+        "returns": "PWSTR",
+        "returns_float": false,
+        "name": "StrRChrIW",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszStart",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "pszEnd",
+                "is_float": false
+            },
+            {
+                "type": " WCHAR",
+                "name": "wMatch",
+                "is_float": false
+            }
+        ]
+    },
+    "ShellExecuteA": {
+        "cc": "__stdcall",
+        "returns": "HINSTANCE",
+        "returns_float": false,
+        "name": "ShellExecuteA",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "lpOperation",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "lpFile",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "lpParameters",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "lpDirectory",
+                "is_float": false
+            },
+            {
+                "type": " INT",
+                "name": "nShowCmd",
+                "is_float": false
+            }
+        ]
+    },
+    "SHRemoveLocalizedName": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHRemoveLocalizedName",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszPath",
+                "is_float": false
+            }
+        ]
+    },
+    "StrCmpNA": {
+        "cc": "__stdcall",
+        "returns": "int",
+        "returns_float": false,
+        "name": "StrCmpNA",
+        "arguments": [
+            {
+                "type": " PCSTR",
+                "name": "psz1",
+                "is_float": false
+            },
+            {
+                "type": " PCSTR",
+                "name": "psz2",
+                "is_float": false
+            },
+            {
+                "type": " int",
+                "name": "nChar",
+                "is_float": false
+            }
+        ]
+    },
+    "SHAppBarMessage": {
+        "cc": "__stdcall",
+        "returns": "UINT_PTR",
+        "returns_float": false,
+        "name": "SHAppBarMessage",
+        "arguments": [
+            {
+                "type": " DWORD",
+                "name": "dwMessage",
+                "is_float": false
+            },
+            {
+                "type": " PAPPBARDATA",
+                "name": "pData",
+                "is_float": false
+            }
+        ]
+    },
+    "ShellMessageBoxA": {
+        "cc": "__cdecl",
+        "returns": "int",
+        "returns_float": false,
+        "name": "ShellMessageBoxA",
+        "arguments": [
+            {
+                "type": " HINSTANCE",
+                "name": "hAppInst",
+                "is_float": false
+            },
+            {
+                "type": " HWND",
+                "name": "hWnd",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "lpcText",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "lpcTitle",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "fuStyle",
+                "is_float": false
+            }
+        ]
+    },
+    "554": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHLoadNonloadedIconOverlayIdentifiers",
+        "arguments": [
+            {
+                "type": " void",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "SHEnumerateUnreadMailAccountsW": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHEnumerateUnreadMailAccountsW",
+        "arguments": [
+            {
+                "type": " HKEY",
+                "name": "hKeyUser",
+                "is_float": false
+            },
+            {
+                "type": " DWORD",
+                "name": "dwIndex",
+                "is_float": false
+            },
+            {
+                "type": " LPWSTR",
+                "name": "pszMailAddress",
+                "is_float": false
+            },
+            {
+                "type": " int",
+                "name": "cchMailAddress",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetUnreadMailCountW": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHGetUnreadMailCountW",
+        "arguments": [
+            {
+                "type": " HKEY",
+                "name": "hKeyUser",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "pszMailAddress",
+                "is_float": false
+            },
+            {
+                "type": " DWORD*",
+                "name": "pdwCount",
+                "is_float": false
+            },
+            {
+                "type": " FILETIME*",
+                "name": "pFileTime",
+                "is_float": false
+            },
+            {
+                "type": " LPWSTR",
+                "name": "pszShellExecuteCommand",
+                "is_float": false
+            },
+            {
+                "type": " int",
+                "name": "cchShellExecuteCommand",
+                "is_float": false
+            }
+        ]
+    },
+    "IsLFNDriveW": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "IsLFNDriveW",
+        "arguments": [
+            {
+                "type": " LPCWSTR",
+                "name": "pszPath",
+                "is_float": false
+            }
+        ]
+    },
+    "263": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "AssocCreateForClasses",
+        "arguments": [
+            {
+                "type": "const ASSOCIATIONELEMENT*",
+                "name": "rgClasses",
+                "is_float": false
+            },
+            {
+                "type": " ULONG",
+                "name": "cClasses",
+                "is_float": false
+            },
+            {
+                "type": "const IID*const",
+                "name": "riid",
+                "is_float": false
+            },
+            {
+                "type": " void**",
+                "name": "ppv",
+                "is_float": false
+            }
+        ]
+    },
+    "269": {
+        "cc": "__stdcall",
+        "returns": " LPWSTR",
+        "returns_float": false,
+        "name": "CommandLineToArgvW",
+        "arguments": [
+            {
+                "type": " LPCWSTR",
+                "name": "lpCmdLine",
+                "is_float": false
+            },
+            {
+                "type": " int*",
+                "name": "pNumArgs",
+                "is_float": false
+            }
+        ]
+    },
+    "IsLFNDriveA": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "IsLFNDriveA",
+        "arguments": [
+            {
+                "type": " LPCSTR",
+                "name": "pszPath",
+                "is_float": false
+            }
+        ]
+    },
+    "276": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllCanUnloadNow",
+        "arguments": [
+            {
+                "type": " void",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "302": {
+        "cc": "__stdcall",
+        "returns": "HINSTANCE",
+        "returns_float": false,
+        "name": "FindExecutableA",
+        "arguments": [
+            {
+                "type": " LPCSTR",
+                "name": "lpFile",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "lpDirectory",
+                "is_float": false
+            },
+            {
+                "type": " LPSTR",
+                "name": "lpResult",
+                "is_float": false
+            }
+        ]
+    },
+    "278": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllGetClassObject",
+        "arguments": [
+            {
+                "type": "const IID*const",
+                "name": "rclsid",
+                "is_float": false
+            },
+            {
+                "type": "const IID*const",
+                "name": "riid",
+                "is_float": false
+            },
+            {
+                "type": " LPVOID*",
+                "name": "ppv",
+                "is_float": false
+            }
+        ]
+    },
+    "280": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllInstall",
+        "arguments": [
+            {
+                "type": " BOOL",
+                "name": "bInstall",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "pszCmdLine",
+                "is_float": false
+            }
+        ]
+    },
+    "283": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "DoEnvironmentSubstA",
+        "arguments": [
+            {
+                "type": " LPSTR",
+                "name": "pszSrc",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "cchSrc",
+                "is_float": false
+            }
+        ]
+    },
+    "284": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "DoEnvironmentSubstW",
+        "arguments": [
+            {
+                "type": " LPWSTR",
+                "name": "pszSrc",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "cchSrc",
+                "is_float": false
+            }
+        ]
+    },
+    "285": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "DragAcceptFiles",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hWnd",
+                "is_float": false
+            },
+            {
+                "type": " BOOL",
+                "name": "fAccept",
+                "is_float": false
+            }
+        ]
+    },
+    "286": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "DragFinish",
+        "arguments": [
+            {
+                "type": " HDROP",
+                "name": "hDrop",
+                "is_float": false
+            }
+        ]
+    },
+    "288": {
+        "cc": "__stdcall",
+        "returns": "UINT",
+        "returns_float": false,
+        "name": "DragQueryFileA",
+        "arguments": [
+            {
+                "type": " HDROP",
+                "name": "hDrop",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "iFile",
+                "is_float": false
+            },
+            {
+                "type": " LPSTR",
+                "name": "lpszFile",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "cch",
+                "is_float": false
+            }
+        ]
+    },
+    "290": {
+        "cc": "__stdcall",
+        "returns": "UINT",
+        "returns_float": false,
+        "name": "DragQueryFileW",
+        "arguments": [
+            {
+                "type": " HDROP",
+                "name": "hDrop",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "iFile",
+                "is_float": false
+            },
+            {
+                "type": " LPWSTR",
+                "name": "lpszFile",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "cch",
+                "is_float": false
+            }
+        ]
+    },
+    "291": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "DragQueryPoint",
+        "arguments": [
+            {
+                "type": " HDROP",
+                "name": "hDrop",
+                "is_float": false
+            },
+            {
+                "type": " POINT*",
+                "name": "ppt",
+                "is_float": false
+            }
+        ]
+    },
+    "292": {
+        "cc": "__stdcall",
+        "returns": "HICON",
+        "returns_float": false,
+        "name": "DuplicateIcon",
+        "arguments": [
+            {
+                "type": " HINSTANCE",
+                "name": "hInst",
+                "is_float": false
+            },
+            {
+                "type": " HICON",
+                "name": "hIcon",
+                "is_float": false
+            }
+        ]
+    },
+    "293": {
+        "cc": "__stdcall",
+        "returns": "HICON",
+        "returns_float": false,
+        "name": "ExtractAssociatedIconA",
+        "arguments": [
+            {
+                "type": " HINSTANCE",
+                "name": "hInst",
+                "is_float": false
+            },
+            {
+                "type": " LPSTR",
+                "name": "pszIconPath",
+                "is_float": false
+            },
+            {
+                "type": " WORD*",
+                "name": "piIcon",
+                "is_float": false
+            }
+        ]
+    },
+    "294": {
+        "cc": "__stdcall",
+        "returns": "HICON",
+        "returns_float": false,
+        "name": "ExtractAssociatedIconExA",
+        "arguments": [
+            {
+                "type": " HINSTANCE",
+                "name": "hInst",
+                "is_float": false
+            },
+            {
+                "type": " LPSTR",
+                "name": "pszIconPath",
+                "is_float": false
+            },
+            {
+                "type": " WORD*",
+                "name": "piIconIndex",
+                "is_float": false
+            },
+            {
+                "type": " WORD*",
+                "name": "piIconId",
+                "is_float": false
+            }
+        ]
+    },
+    "295": {
+        "cc": "__stdcall",
+        "returns": "HICON",
+        "returns_float": false,
+        "name": "ExtractAssociatedIconExW",
+        "arguments": [
+            {
+                "type": " HINSTANCE",
+                "name": "hInst",
+                "is_float": false
+            },
+            {
+                "type": " LPWSTR",
+                "name": "pszIconPath",
+                "is_float": false
+            },
+            {
+                "type": " WORD*",
+                "name": "piIconIndex",
+                "is_float": false
+            },
+            {
+                "type": " WORD*",
+                "name": "piIconId",
+                "is_float": false
+            }
+        ]
+    },
+    "296": {
+        "cc": "__stdcall",
+        "returns": "HICON",
+        "returns_float": false,
+        "name": "ExtractAssociatedIconW",
+        "arguments": [
+            {
+                "type": " HINSTANCE",
+                "name": "hInst",
+                "is_float": false
+            },
+            {
+                "type": " LPWSTR",
+                "name": "pszIconPath",
+                "is_float": false
+            },
+            {
+                "type": " WORD*",
+                "name": "piIcon",
+                "is_float": false
+            }
+        ]
+    },
+    "297": {
+        "cc": "__stdcall",
+        "returns": "HICON",
+        "returns_float": false,
+        "name": "ExtractIconA",
+        "arguments": [
+            {
+                "type": " HINSTANCE",
+                "name": "hInst",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "pszExeFileName",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "nIconIndex",
+                "is_float": false
+            }
+        ]
+    },
+    "299": {
+        "cc": "__stdcall",
+        "returns": "UINT",
+        "returns_float": false,
+        "name": "ExtractIconExA",
+        "arguments": [
+            {
+                "type": " LPCSTR",
+                "name": "lpszFile",
+                "is_float": false
+            },
+            {
+                "type": " int",
+                "name": "nIconIndex",
+                "is_float": false
+            },
+            {
+                "type": " HICON*",
+                "name": "phiconLarge",
+                "is_float": false
+            },
+            {
+                "type": " HICON*",
+                "name": "phiconSmall",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "nIcons",
+                "is_float": false
+            }
+        ]
+    },
+    "300": {
+        "cc": "__stdcall",
+        "returns": "UINT",
+        "returns_float": false,
+        "name": "ExtractIconExW",
+        "arguments": [
+            {
+                "type": " LPCWSTR",
+                "name": "lpszFile",
+                "is_float": false
+            },
+            {
+                "type": " int",
+                "name": "nIconIndex",
+                "is_float": false
+            },
+            {
+                "type": " HICON*",
+                "name": "phiconLarge",
+                "is_float": false
+            },
+            {
+                "type": " HICON*",
+                "name": "phiconSmall",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "nIcons",
+                "is_float": false
+            }
+        ]
+    },
+    "301": {
+        "cc": "__stdcall",
+        "returns": "HICON",
+        "returns_float": false,
+        "name": "ExtractIconW",
+        "arguments": [
+            {
+                "type": " HINSTANCE",
+                "name": "hInst",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "pszExeFileName",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "nIconIndex",
+                "is_float": false
+            }
+        ]
+    },
+    "InitNetworkAddressControl": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "InitNetworkAddressControl",
+        "arguments": [
+            {
+                "type": " void",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "303": {
+        "cc": "__stdcall",
+        "returns": "HINSTANCE",
+        "returns_float": false,
+        "name": "FindExecutableW",
+        "arguments": [
+            {
+                "type": " LPCWSTR",
+                "name": "lpFile",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "lpDirectory",
+                "is_float": false
+            },
+            {
+                "type": " LPWSTR",
+                "name": "lpResult",
+                "is_float": false
+            }
+        ]
+    },
+    "306": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "InitNetworkAddressControl",
+        "arguments": [
+            {
+                "type": " void",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetDriveMedia": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHGetDriveMedia",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszDrive",
+                "is_float": false
+            },
+            {
+                "type": " DWORD*",
+                "name": "pdwMediaContent",
+                "is_float": false
+            }
+        ]
+    },
+    "SHEmptyRecycleBinA": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHEmptyRecycleBinA",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "pszRootPath",
+                "is_float": false
+            },
+            {
+                "type": " DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            }
+        ]
+    },
+    "DllCanUnloadNow": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllCanUnloadNow",
+        "arguments": [
+            {
+                "type": " void",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "Shell_NotifyIconW": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "Shell_NotifyIconW",
+        "arguments": [
+            {
+                "type": " DWORD",
+                "name": "dwMessage",
+                "is_float": false
+            },
+            {
+                "type": " PNOTIFYICONDATAW",
+                "name": "lpData",
+                "is_float": false
+            }
+        ]
+    },
+    "SHInvokePrinterCommandA": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHInvokePrinterCommandA",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "uAction",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "lpBuf1",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "lpBuf2",
+                "is_float": false
+            },
+            {
+                "type": " BOOL",
+                "name": "fModal",
+                "is_float": false
+            }
+        ]
+    },
+    "317": {
+        "cc": "__stdcall",
+        "returns": "UINT_PTR",
+        "returns_float": false,
+        "name": "SHAppBarMessage",
+        "arguments": [
+            {
+                "type": " DWORD",
+                "name": "dwMessage",
+                "is_float": false
+            },
+            {
+                "type": " PAPPBARDATA",
+                "name": "pData",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetPropertyStoreForWindow": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHGetPropertyStoreForWindow",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": "const IID*const",
+                "name": "riid",
+                "is_float": false
+            },
+            {
+                "type": " void**",
+                "name": "ppv",
+                "is_float": false
+            }
+        ]
+    },
+    "StrStrIA": {
+        "cc": "__stdcall",
+        "returns": "PSTR",
+        "returns_float": false,
+        "name": "StrStrIA",
+        "arguments": [
+            {
+                "type": " PCSTR",
+                "name": "pszFirst",
+                "is_float": false
+            },
+            {
+                "type": " PCSTR",
+                "name": "pszSrch",
+                "is_float": false
+            }
+        ]
+    },
+    "StrStrA": {
+        "cc": "__stdcall",
+        "returns": "PSTR",
+        "returns_float": false,
+        "name": "StrStrA",
+        "arguments": [
+            {
+                "type": " PCSTR",
+                "name": "pszFirst",
+                "is_float": false
+            },
+            {
+                "type": " PCSTR",
+                "name": "pszSrch",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetDiskFreeSpaceExA": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHGetDiskFreeSpaceExA",
+        "arguments": [
+            {
+                "type": " LPCSTR",
+                "name": "pszDirectoryName",
+                "is_float": false
+            },
+            {
+                "type": " ULARGE_INTEGER*",
+                "name": "pulFreeBytesAvailableToCaller",
+                "is_float": false
+            },
+            {
+                "type": " ULARGE_INTEGER*",
+                "name": "pulTotalNumberOfBytes",
+                "is_float": false
+            },
+            {
+                "type": " ULARGE_INTEGER*",
+                "name": "pulTotalNumberOfFreeBytes",
+                "is_float": false
+            }
+        ]
+    },
+    "ExtractAssociatedIconW": {
+        "cc": "__stdcall",
+        "returns": "HICON",
+        "returns_float": false,
+        "name": "ExtractAssociatedIconW",
+        "arguments": [
+            {
+                "type": " HINSTANCE",
+                "name": "hInst",
+                "is_float": false
+            },
+            {
+                "type": " LPWSTR",
+                "name": "pszIconPath",
+                "is_float": false
+            },
+            {
+                "type": " WORD*",
+                "name": "piIcon",
+                "is_float": false
+            }
+        ]
+    },
+    "StrStrIW": {
+        "cc": "__stdcall",
+        "returns": "PWSTR",
+        "returns_float": false,
+        "name": "StrStrIW",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszFirst",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "pszSrch",
+                "is_float": false
+            }
+        ]
+    },
+    "ExtractAssociatedIconA": {
+        "cc": "__stdcall",
+        "returns": "HICON",
+        "returns_float": false,
+        "name": "ExtractAssociatedIconA",
+        "arguments": [
+            {
+                "type": " HINSTANCE",
+                "name": "hInst",
+                "is_float": false
+            },
+            {
+                "type": " LPSTR",
+                "name": "pszIconPath",
+                "is_float": false
+            },
+            {
+                "type": " WORD*",
+                "name": "piIcon",
+                "is_float": false
+            }
+        ]
+    },
+    "346": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHCreateProcessAsUserW",
+        "arguments": [
+            {
+                "type": " PSHCREATEPROCESSINFOW",
+                "name": "pscpi",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetDiskFreeSpaceExW": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHGetDiskFreeSpaceExW",
+        "arguments": [
+            {
+                "type": " LPCWSTR",
+                "name": "pszDirectoryName",
+                "is_float": false
+            },
+            {
+                "type": " ULARGE_INTEGER*",
+                "name": "pulFreeBytesAvailableToCaller",
+                "is_float": false
+            },
+            {
+                "type": " ULARGE_INTEGER*",
+                "name": "pulTotalNumberOfBytes",
+                "is_float": false
+            },
+            {
+                "type": " ULARGE_INTEGER*",
+                "name": "pulTotalNumberOfFreeBytes",
+                "is_float": false
+            }
+        ]
+    },
+    "DoEnvironmentSubstA": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "DoEnvironmentSubstA",
+        "arguments": [
+            {
+                "type": " LPSTR",
+                "name": "pszSrc",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "cchSrc",
+                "is_float": false
+            }
+        ]
+    },
+    "SHEvaluateSystemCommandTemplate": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHEvaluateSystemCommandTemplate",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszCmdTemplate",
+                "is_float": false
+            },
+            {
+                "type": " PWSTR*",
+                "name": "ppszApplication",
+                "is_float": false
+            },
+            {
+                "type": " PWSTR*",
+                "name": "ppszCommandLine",
+                "is_float": false
+            },
+            {
+                "type": " PWSTR*",
+                "name": "ppszParameters",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetNewLinkInfoA": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHGetNewLinkInfoA",
+        "arguments": [
+            {
+                "type": " LPCSTR",
+                "name": "pszLinkTo",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "pszDir",
+                "is_float": false
+            },
+            {
+                "type": " LPSTR",
+                "name": "pszName",
+                "is_float": false
+            },
+            {
+                "type": " BOOL*",
+                "name": "pfMustCopy",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "uFlags",
+                "is_float": false
+            }
+        ]
+    },
+    "SHQueryUserNotificationState": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHQueryUserNotificationState",
+        "arguments": [
+            {
+                "type": " QUERY_USER_NOTIFICATION_STATE*",
+                "name": "pquns",
+                "is_float": false
+            }
+        ]
+    },
+    "DllInstall": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllInstall",
+        "arguments": [
+            {
+                "type": " BOOL",
+                "name": "bInstall",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "pszCmdLine",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetNewLinkInfoW": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHGetNewLinkInfoW",
+        "arguments": [
+            {
+                "type": " LPCWSTR",
+                "name": "pszLinkTo",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "pszDir",
+                "is_float": false
+            },
+            {
+                "type": " LPWSTR",
+                "name": "pszName",
+                "is_float": false
+            },
+            {
+                "type": " BOOL*",
+                "name": "pfMustCopy",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "uFlags",
+                "is_float": false
+            }
+        ]
+    },
+    "CommandLineToArgvW": {
+        "cc": "__stdcall",
+        "returns": " LPWSTR",
+        "returns_float": false,
+        "name": "CommandLineToArgvW",
+        "arguments": [
+            {
+                "type": " LPCWSTR",
+                "name": "lpCmdLine",
+                "is_float": false
+            },
+            {
+                "type": " int*",
+                "name": "pNumArgs",
+                "is_float": false
+            }
+        ]
+    },
+    "DoEnvironmentSubstW": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "DoEnvironmentSubstW",
+        "arguments": [
+            {
+                "type": " LPWSTR",
+                "name": "pszSrc",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "cchSrc",
+                "is_float": false
+            }
+        ]
+    },
+    "StrCmpNIW": {
+        "cc": "__stdcall",
+        "returns": "int",
+        "returns_float": false,
+        "name": "StrCmpNIW",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "psz1",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "psz2",
+                "is_float": false
+            },
+            {
+                "type": " int",
+                "name": "nChar",
+                "is_float": false
+            }
+        ]
+    },
+    "SHSetUnreadMailCountW": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHSetUnreadMailCountW",
+        "arguments": [
+            {
+                "type": " LPCWSTR",
+                "name": "pszMailAddress",
+                "is_float": false
+            },
+            {
+                "type": " DWORD",
+                "name": "dwCount",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "pszShellExecuteCommand",
+                "is_float": false
+            }
+        ]
+    },
+    "StrRStrIA": {
+        "cc": "__stdcall",
+        "returns": "PSTR",
+        "returns_float": false,
+        "name": "StrRStrIA",
+        "arguments": [
+            {
+                "type": " PCSTR",
+                "name": "pszSource",
+                "is_float": false
+            },
+            {
+                "type": " PCSTR",
+                "name": "pszLast",
+                "is_float": false
+            },
+            {
+                "type": " PCSTR",
+                "name": "pszSrch",
+                "is_float": false
+            }
+        ]
+    },
+    "StrCmpNIA": {
+        "cc": "__stdcall",
+        "returns": "int",
+        "returns_float": false,
+        "name": "StrCmpNIA",
+        "arguments": [
+            {
+                "type": " PCSTR",
+                "name": "psz1",
+                "is_float": false
+            },
+            {
+                "type": " PCSTR",
+                "name": "psz2",
+                "is_float": false
+            },
+            {
+                "type": " int",
+                "name": "nChar",
+                "is_float": false
+            }
+        ]
+    },
+    "ExtractIconExW": {
+        "cc": "__stdcall",
+        "returns": "UINT",
+        "returns_float": false,
+        "name": "ExtractIconExW",
+        "arguments": [
+            {
+                "type": " LPCWSTR",
+                "name": "lpszFile",
+                "is_float": false
+            },
+            {
+                "type": " int",
+                "name": "nIconIndex",
+                "is_float": false
+            },
+            {
+                "type": " HICON*",
+                "name": "phiconLarge",
+                "is_float": false
+            },
+            {
+                "type": " HICON*",
+                "name": "phiconSmall",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "nIcons",
+                "is_float": false
+            }
+        ]
+    },
+    "StrChrW": {
+        "cc": "__stdcall",
+        "returns": "PWSTR",
+        "returns_float": false,
+        "name": "StrChrW",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszStart",
+                "is_float": false
+            },
+            {
+                "type": " WCHAR",
+                "name": "wMatch",
+                "is_float": false
+            }
+        ]
+    },
+    "DuplicateIcon": {
+        "cc": "__stdcall",
+        "returns": "HICON",
+        "returns_float": false,
+        "name": "DuplicateIcon",
+        "arguments": [
+            {
+                "type": " HINSTANCE",
+                "name": "hInst",
+                "is_float": false
+            },
+            {
+                "type": " HICON",
+                "name": "hIcon",
+                "is_float": false
+            }
+        ]
+    },
+    "StrChrIW": {
+        "cc": "__stdcall",
+        "returns": "PWSTR",
+        "returns_float": false,
+        "name": "StrChrIW",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszStart",
+                "is_float": false
+            },
+            {
+                "type": " WCHAR",
+                "name": "wMatch",
+                "is_float": false
+            }
+        ]
+    },
+    "FindExecutableW": {
+        "cc": "__stdcall",
+        "returns": "HINSTANCE",
+        "returns_float": false,
+        "name": "FindExecutableW",
+        "arguments": [
+            {
+                "type": " LPCWSTR",
+                "name": "lpFile",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "lpDirectory",
+                "is_float": false
+            },
+            {
+                "type": " LPWSTR",
+                "name": "lpResult",
+                "is_float": false
+            }
+        ]
+    },
+    "StrChrA": {
+        "cc": "__stdcall",
+        "returns": "PSTR",
+        "returns_float": false,
+        "name": "StrChrA",
+        "arguments": [
+            {
+                "type": " PCSTR",
+                "name": "pszStart",
+                "is_float": false
+            },
+            {
+                "type": " WORD",
+                "name": "wMatch",
+                "is_float": false
+            }
+        ]
+    },
+    "StrChrIA": {
+        "cc": "__stdcall",
+        "returns": "PSTR",
+        "returns_float": false,
+        "name": "StrChrIA",
+        "arguments": [
+            {
+                "type": " PCSTR",
+                "name": "pszStart",
+                "is_float": false
+            },
+            {
+                "type": " WORD",
+                "name": "wMatch",
+                "is_float": false
+            }
+        ]
+    },
+    "SHLoadNonloadedIconOverlayIdentifiers": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHLoadNonloadedIconOverlayIdentifiers",
+        "arguments": [
+            {
+                "type": " void",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "245": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHTestTokenMembership",
+        "arguments": [
+            {
+                "type": " HANDLE",
+                "name": "hToken",
+                "is_float": false
+            },
+            {
+                "type": " ULONG",
+                "name": "ulRID",
+                "is_float": false
+            }
+        ]
+    },
+    "DragAcceptFiles": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "DragAcceptFiles",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hWnd",
+                "is_float": false
+            },
+            {
+                "type": " BOOL",
+                "name": "fAccept",
+                "is_float": false
+            }
+        ]
+    },
+    "SHIsFileAvailableOffline": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHIsFileAvailableOffline",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pwszPath",
+                "is_float": false
+            },
+            {
+                "type": " DWORD*",
+                "name": "pdwStatus",
+                "is_float": false
+            }
+        ]
+    },
+    "Shell_NotifyIconA": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "Shell_NotifyIconA",
+        "arguments": [
+            {
+                "type": " DWORD",
+                "name": "dwMessage",
+                "is_float": false
+            },
+            {
+                "type": " PNOTIFYICONDATAA",
+                "name": "lpData",
+                "is_float": false
+            }
+        ]
+    },
+    "DllGetClassObject": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllGetClassObject",
+        "arguments": [
+            {
+                "type": "const IID*const",
+                "name": "rclsid",
+                "is_float": false
+            },
+            {
+                "type": "const IID*const",
+                "name": "riid",
+                "is_float": false
+            },
+            {
+                "type": " LPVOID*",
+                "name": "ppv",
+                "is_float": false
+            }
+        ]
+    },
+    "FindExecutableA": {
+        "cc": "__stdcall",
+        "returns": "HINSTANCE",
+        "returns_float": false,
+        "name": "FindExecutableA",
+        "arguments": [
+            {
+                "type": " LPCSTR",
+                "name": "lpFile",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "lpDirectory",
+                "is_float": false
+            },
+            {
+                "type": " LPSTR",
+                "name": "lpResult",
+                "is_float": false
+            }
+        ]
+    },
+    "ExtractIconExA": {
+        "cc": "__stdcall",
+        "returns": "UINT",
+        "returns_float": false,
+        "name": "ExtractIconExA",
+        "arguments": [
+            {
+                "type": " LPCSTR",
+                "name": "lpszFile",
+                "is_float": false
+            },
+            {
+                "type": " int",
+                "name": "nIconIndex",
+                "is_float": false
+            },
+            {
+                "type": " HICON*",
+                "name": "phiconLarge",
+                "is_float": false
+            },
+            {
+                "type": " HICON*",
+                "name": "phiconSmall",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "nIcons",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetImageList": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHGetImageList",
+        "arguments": [
+            {
+                "type": " int",
+                "name": "iImageList",
+                "is_float": false
+            },
+            {
+                "type": "const IID*const",
+                "name": "riid",
+                "is_float": false
+            },
+            {
+                "type": " void**",
+                "name": "ppvObj",
+                "is_float": false
+            }
+        ]
+    },
+    "489": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHEmptyRecycleBinA",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": " LPCSTR",
+                "name": "pszRootPath",
+                "is_float": false
+            },
+            {
+                "type": " DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            }
+        ]
+    },
+    "490": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHEmptyRecycleBinW",
+        "arguments": [
+            {
+                "type": " HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": " LPCWSTR",
+                "name": "pszRootPath",
+                "is_float": false
+            },
+            {
+                "type": " DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            }
+        ]
+    },
+    "492": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHEnumerateUnreadMailAccountsW",
+        "arguments": [
+            {
+                "type": " HKEY",
+                "name": "hKeyUser",
+                "is_float": false
+            },
+            {
+                "type": " DWORD",
+                "name": "dwIndex",
+                "is_float": false
+            },
+            {
+                "type": " LPWSTR",
+                "name": "pszMailAddress",
+                "is_float": false
+            },
+            {
+                "type": " int",
+                "name": "cchMailAddress",
+                "is_float": false
+            }
+        ]
+    },
+    "493": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHEvaluateSystemCommandTemplate",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszCmdTemplate",
+                "is_float": false
+            },
+            {
+                "type": " PWSTR*",
+                "name": "ppszApplication",
+                "is_float": false
+            },
+            {
+                "type": " PWSTR*",
+                "name": "ppszCommandLine",
+                "is_float": false
+            },
+            {
+                "type": " PWSTR*",
+                "name": "ppszParameters",
+                "is_float": false
+            }
+        ]
+    },
+    "DragQueryPoint": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "DragQueryPoint",
+        "arguments": [
+            {
+                "type": " HDROP",
+                "name": "hDrop",
+                "is_float": false
+            },
+            {
+                "type": " POINT*",
+                "name": "ppt",
+                "is_float": false
+            }
+        ]
+    },
+    "496": {
+        "cc": "__stdcall",
+        "returns": "int",
+        "returns_float": false,
+        "name": "SHFileOperationA",
+        "arguments": [
+            {
+                "type": " LPSHFILEOPSTRUCTA",
+                "name": "lpFileOp",
+                "is_float": false
+            }
+        ]
+    },
+    "497": {
+        "cc": "__stdcall",
+        "returns": "int",
+        "returns_float": false,
+        "name": "SHFileOperationW",
+        "arguments": [
+            {
+                "type": " LPSHFILEOPSTRUCTW",
+                "name": "lpFileOp",
+                "is_float": false
+            }
+        ]
+    },
+    "499": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "SHFreeNameMappings",
+        "arguments": [
+            {
+                "type": " HANDLE",
+                "name": "hNameMappings",
+                "is_float": false
+            }
+        ]
+    },
+    "504": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHGetDiskFreeSpaceExA",
+        "arguments": [
+            {
+                "type": " LPCSTR",
+                "name": "pszDirectoryName",
+                "is_float": false
+            },
+            {
+                "type": " ULARGE_INTEGER*",
+                "name": "pulFreeBytesAvailableToCaller",
+                "is_float": false
+            },
+            {
+                "type": " ULARGE_INTEGER*",
+                "name": "pulTotalNumberOfBytes",
+                "is_float": false
+            },
+            {
+                "type": " ULARGE_INTEGER*",
+                "name": "pulTotalNumberOfFreeBytes",
+                "is_float": false
+            }
+        ]
+    },
+    "505": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHGetDiskFreeSpaceExW",
+        "arguments": [
+            {
+                "type": " LPCWSTR",
+                "name": "pszDirectoryName",
+                "is_float": false
+            },
+            {
+                "type": " ULARGE_INTEGER*",
+                "name": "pulFreeBytesAvailableToCaller",
+                "is_float": false
+            },
+            {
+                "type": " ULARGE_INTEGER*",
+                "name": "pulTotalNumberOfBytes",
+                "is_float": false
+            },
+            {
+                "type": " ULARGE_INTEGER*",
+                "name": "pulTotalNumberOfFreeBytes",
+                "is_float": false
+            }
+        ]
+    },
+    "506": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHGetDriveMedia",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszDrive",
+                "is_float": false
+            },
+            {
+                "type": " DWORD*",
+                "name": "pdwMediaContent",
+                "is_float": false
+            }
+        ]
+    },
+    "StrRStrIW": {
+        "cc": "__stdcall",
+        "returns": "PWSTR",
+        "returns_float": false,
+        "name": "StrRStrIW",
+        "arguments": [
+            {
+                "type": " PCWSTR",
+                "name": "pszSource",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "pszLast",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "pszSrch",
+                "is_float": false
+            }
+        ]
+    },
+    "508": {
+        "cc": "__stdcall",
+        "returns": "DWORD_PTR",
+        "returns_float": false,
+        "name": "SHGetFileInfoA",
+        "arguments": [
+            {
+                "type": " LPCSTR",
+                "name": "pszPath",
+                "is_float": false
+            },
+            {
+                "type": " DWORD",
+                "name": "dwFileAttributes",
+                "is_float": false
+            },
+            {
+                "type": " SHFILEINFOA*",
+                "name": "psfi",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "cbFileInfo",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "uFlags",
+                "is_float": false
+            }
+        ]
+    },
+    "509": {
+        "cc": "__stdcall",
+        "returns": "DWORD_PTR",
+        "returns_float": false,
+        "name": "SHGetFileInfoW",
+        "arguments": [
+            {
+                "type": " LPCWSTR",
+                "name": "pszPath",
+                "is_float": false
+            },
+            {
+                "type": " DWORD",
+                "name": "dwFileAttributes",
+                "is_float": false
+            },
+            {
+                "type": " SHFILEINFOW*",
+                "name": "psfi",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "cbFileInfo",
+                "is_float": false
+            },
+            {
+                "type": " UINT",
+                "name": "uFlags",
+                "is_float": false
+            }
+        ]
+    },
+    "680": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "IsUserAnAdmin",
+        "arguments": [
+            {
+                "type": " void",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetSpecialFolderPathW": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHGetSpecialFolderPathW",
+        "arguments": [
+            {
+                "type": "HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": "LPWSTR",
+                "name": "pszPath",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "csidl",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "fCreate",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetPathFromIDListA": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHGetPathFromIDListA",
+        "arguments": [
+            {
+                "type": "PCIDLIST_ABSOLUTE",
+                "name": "pidl",
+                "is_float": false
+            },
+            {
+                "type": "LPSTR",
+                "name": "pszPath",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetSpecialFolderLocation": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "SHGetSpecialFolderLocation",
+        "arguments": [
+            {
+                "type": "HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "csidl",
+                "is_float": false
+            },
+            {
+                "type": "PIDLIST_ABSOLUTE",
+                "name": "*ppidl",
+                "is_float": false
+            }
+        ]
+    },
+    "SHBrowseForFolderA": {
+        "cc": "__stdcall",
+        "returns": "PIDLIST_ABSOLUTE",
+        "returns_float": false,
+        "name": "SHBrowseForFolderA",
+        "arguments": [
+            {
+                "type": "LPBROWSEINFOA",
+                "name": "lpbi",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetDesktopFolder": {
+        "cc": "__stdcall",
+        "returns": "SHSTDAPI",
+        "returns_float": false,
+        "name": "SHGetDesktopFolder",
+        "arguments": [
+            {
+                "type": "IShellFolder",
+                "name": "**ppshf",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetMalloc": {
+        "cc": "__stdcall",
+        "returns": "SHSTDAPI",
+        "returns_float": false,
+        "name": "SHGetMalloc",
+        "arguments": [
+            {
+                "type": "IMalloc",
+                "name": "**ppMalloc",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetFolderPathA": {
+        "cc": "__stdcall",
+        "returns": "SHFOLDERAPI",
+        "returns_float": false,
+        "name": "SHGetFolderPathA",
+        "arguments": [
+            {
+                "type": "HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "csidl",
+                "is_float": false
+            },
+            {
+                "type": "HANDLE",
+                "name": "hToken",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            },
+            {
+                "type": "LPSTR",
+                "name": "pszPath",
+                "is_float": false
+            }
+        ]
+    },
+    "SHChangeNotify": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "SHChangeNotify",
+        "arguments": [
+            {
+                "type": "LONG",
+                "name": "wEventId",
+                "is_float": false
+            },
+            {
+                "type": "UINT",
+                "name": "uFlags",
+                "is_float": false
+            },
+            {
+                "type": "LPCVOID",
+                "name": "dwItem1",
+                "is_float": false
+            },
+            {
+                "type": "LPCVOID",
+                "name": "dwItem2",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetFolderPathW": {
+        "cc": "__stdcall",
+        "returns": "SHFOLDERAPI",
+        "returns_float": false,
+        "name": "SHGetFolderPathW",
+        "arguments": [
+            {
+                "type": "HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "csidl",
+                "is_float": false
+            },
+            {
+                "type": "HANDLE",
+                "name": "hToken",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            },
+            {
+                "type": "LPWSTR",
+                "name": "pszPath",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetPathFromIDListW": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "SHGetPathFromIDListW",
+        "arguments": [
+            {
+                "type": "PCIDLIST_ABSOLUTE",
+                "name": "pidl",
+                "is_float": false
+            },
+            {
+                "type": "LPWSTR",
+                "name": "pszPath",
+                "is_float": false
+            }
+        ]
+    },
+    "SHCreateShellItem": {
+        "cc": "__stdcall",
+        "returns": "SHSTDAPI",
+        "returns_float": false,
+        "name": "SHCreateShellItem",
+        "arguments": [
+            {
+                "type": "PCIDLIST_ABSOLUTE",
+                "name": "pidlParent",
+                "is_float": false
+            },
+            {
+                "type": "IShellFolder",
+                "name": "*psfParent",
+                "is_float": false
+            },
+            {
+                "type": "PCUITEMID_CHILD",
+                "name": "pidl",
+                "is_float": false
+            },
+            {
+                "type": "IShellItem",
+                "name": "**ppsi",
+                "is_float": false
+            }
+        ]
+    },
+    "SHBrowseForFolderW": {
+        "cc": "__stdcall",
+        "returns": "PIDLIST_ABSOLUTE",
+        "returns_float": false,
+        "name": "SHBrowseForFolderW",
+        "arguments": [
+            {
+                "type": "LPBROWSEINFOW",
+                "name": "lpbi",
+                "is_float": false
+            }
+        ]
+    }
+}

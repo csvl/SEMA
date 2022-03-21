@@ -1,0 +1,338 @@
+{
+  "CreateUriFromMultiByteString": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CreateUriFromMultiByteString", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "pszANSIInputUri", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwEncodingFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCodePage", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCreateFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUri**", 
+        "name": "ppUri", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateIUriBuilder": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CreateIUriBuilder", 
+    "arguments": [
+      {
+        "type": " IUri*", 
+        "name": "pIUri", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUriBuilder**", 
+        "name": "ppIUriBuilder", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DllGetClassObject": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllGetClassObject", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "118": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CreateUriWithFragment", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "pwzURI", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "pwzFragment", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUri**", 
+        "name": "ppURI", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "115": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CreateUri", 
+    "arguments": [
+      {
+        "type": " IUriBuilder*", 
+        "name": "This", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCreateFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwAllowEncodingPropertyMask", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUri**", 
+        "name": "ppIUri", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "114": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CreateIUriBuilder", 
+    "arguments": [
+      {
+        "type": " IUri*", 
+        "name": "pIUri", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUriBuilder**", 
+        "name": "ppIUriBuilder", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateUri": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CreateUri", 
+    "arguments": [
+      {
+        "type": " IUriBuilder*", 
+        "name": "This", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCreateFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwAllowEncodingPropertyMask", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUri**", 
+        "name": "ppIUri", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "116": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CreateUriFromMultiByteString", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "pszANSIInputUri", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwEncodingFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCodePage", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCreateFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUri**", 
+        "name": "ppUri", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DllCanUnloadNow": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllCanUnloadNow", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "119": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllCanUnloadNow", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "121": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllGetClassObject", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateUriWithFragment": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CreateUriWithFragment", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "pwzURI", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "pwzFragment", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUri**", 
+        "name": "ppURI", 
+        "is_float": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,102 @@
+{
+    "296": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllCanUnloadNow",
+        "arguments": [
+            {
+                "type": " void",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "297": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllGetClassObject",
+        "arguments": [
+            {
+                "type": "const IID*const",
+                "name": "rclsid",
+                "is_float": false
+            },
+            {
+                "type": "const IID*const",
+                "name": "riid",
+                "is_float": false
+            },
+            {
+                "type": " LPVOID*",
+                "name": "ppv",
+                "is_float": false
+            }
+        ]
+    },
+    "DllGetClassObject": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllGetClassObject",
+        "arguments": [
+            {
+                "type": "const IID*const",
+                "name": "rclsid",
+                "is_float": false
+            },
+            {
+                "type": "const IID*const",
+                "name": "riid",
+                "is_float": false
+            },
+            {
+                "type": " LPVOID*",
+                "name": "ppv",
+                "is_float": false
+            }
+        ]
+    },
+    "DllCanUnloadNow": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllCanUnloadNow",
+        "arguments": [
+            {
+                "type": " void",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "MsiGetComponentPathA": {
+        "cc": "__stdcall",
+        "returns": "INSTALLSTATE",
+        "returns_float": false,
+        "name": "MsiGetComponentPathA",
+        "arguments": [
+            {
+                "type": "LPCSTR",
+                "name": "szProduct",
+                "is_float": false
+            },
+            {
+                "type": "LPCSTR",
+                "name": "szComponent",
+                "is_float": false
+            },
+            {
+                "type": "LPSTR",
+                "name": "lpPathBuf",
+                "is_float": false
+            },
+            {
+                "type": "LPDWORD",
+                "name": "pcchBuf",
+                "is_float": false
+            }
+        ]
+    }
+}

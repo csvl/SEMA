@@ -1,0 +1,104 @@
+{
+  "8": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllGetClassObject", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DllGetClassObject": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllGetClassObject", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DllCanUnloadNow": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllCanUnloadNow", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "7": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllCanUnloadNow", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "823": {
+    "cc": "__cdecl", 
+    "returns": "void*", 
+    "returns_float": false, 
+    "name": "NewOp", 
+    "arguments": [
+      {
+        "type": "size_t", 
+        "name": "SIZE", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "825": {
+    "cc": "__cdecl", 
+    "returns": "void*", 
+    "returns_float": false, 
+    "name": "OperatorDelete", 
+    "arguments": [
+      {
+        "type": "void*", 
+        "name": "OBJ", 
+        "is_float": false
+      },      {
+        "type": "size_t", 
+        "name": "SIZE", 
+        "is_float": false
+      }
+    ]
+  }
+}

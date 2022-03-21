@@ -1,0 +1,164 @@
+{
+    "118": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllGetClassObject",
+        "arguments": [
+            {
+                "type": "const IID*const",
+                "name": "rclsid",
+                "is_float": false
+            },
+            {
+                "type": "const IID*const",
+                "name": "riid",
+                "is_float": false
+            },
+            {
+                "type": " LPVOID*",
+                "name": "ppv",
+                "is_float": false
+            }
+        ]
+    },
+    "DllGetClassObject": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllGetClassObject",
+        "arguments": [
+            {
+                "type": "const IID*const",
+                "name": "rclsid",
+                "is_float": false
+            },
+            {
+                "type": "const IID*const",
+                "name": "riid",
+                "is_float": false
+            },
+            {
+                "type": " LPVOID*",
+                "name": "ppv",
+                "is_float": false
+            }
+        ]
+    },
+    "117": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllCanUnloadNow",
+        "arguments": [
+            {
+                "type": " void",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "DllCanUnloadNow": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllCanUnloadNow",
+        "arguments": [
+            {
+                "type": " void",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "CreateEnvironmentBlock": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "CreateEnvironmentBlock",
+        "arguments": [
+            {
+                "type": "LPVOID",
+                "name": "*lpEnvironment",
+                "is_float": false
+            },
+            {
+                "type": "HANDLE",
+                "name": "hToken",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "bInherit",
+                "is_float": false
+            }
+        ]
+    },
+    "DestroyEnvironmentBlock": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "DestroyEnvironmentBlock",
+        "arguments": [
+            {
+                "type": "LPVOID",
+                "name": "lpEnvironment",
+                "is_float": false
+            }
+        ]
+    },
+    "LoadUserProfileW": {
+        "cc": "__stdcall",
+        "returns": "USERENVAPI_BOOL",
+        "returns_float": false,
+        "name": "LoadUserProfileW",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "hToken",
+                "is_float": false
+            },
+            {
+                "type": "LPPROFILEINFOW",
+                "name": "lpProfileInfo",
+                "is_float": false
+            }
+        ]
+    },
+    "LoadUserProfileA": {
+        "cc": "__stdcall",
+        "returns": "USERENVAPI_BOOL",
+        "returns_float": false,
+        "name": "LoadUserProfileA",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "hToken",
+                "is_float": false
+            },
+            {
+                "type": "LPPROFILEINFOA",
+                "name": "lpProfileInfo",
+                "is_float": false
+            }
+        ]
+    },
+    "UnloadUserProfile": {
+        "cc": "__stdcall",
+        "returns": "USERENVAPI_BOOL",
+        "returns_float": false,
+        "name": "UnloadUserProfile",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "hToken",
+                "is_float": false
+            },
+            {
+                "type": "HANDLE",
+                "name": "hProfile",
+                "is_float": false
+            }
+        ]
+    }
+}

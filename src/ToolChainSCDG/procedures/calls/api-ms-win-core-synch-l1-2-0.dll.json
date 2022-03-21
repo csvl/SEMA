@@ -1,0 +1,688 @@
+{
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "DeleteSynchronizationBarrier", 
+    "arguments": [
+      {
+        "type": " LPSYNCHRONIZATION_BARRIER", 
+        "name": "lpBarrier", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "EnterSynchronizationBarrier", 
+    "arguments": [
+      {
+        "type": " LPSYNCHRONIZATION_BARRIER", 
+        "name": "lpBarrier", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "InitOnceBeginInitialize", 
+    "arguments": [
+      {
+        "type": " LPINIT_ONCE", 
+        "name": "lpInitOnce", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " PBOOL", 
+        "name": "fPending", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "lpContext", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "InitOnceComplete", 
+    "arguments": [
+      {
+        "type": " LPINIT_ONCE", 
+        "name": "lpInitOnce", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpContext", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "InitOnceExecuteOnce": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "InitOnceExecuteOnce", 
+    "arguments": [
+      {
+        "type": " PINIT_ONCE", 
+        "name": "InitOnce", 
+        "is_float": false
+      }, 
+      {
+        "type": " PINIT_ONCE_FN", 
+        "name": "InitFn", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "Parameter", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "Context", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "6": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "InitOnceInitialize", 
+    "arguments": [
+      {
+        "type": " PINIT_ONCE", 
+        "name": "InitOnce", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "7": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "InitializeConditionVariable", 
+    "arguments": [
+      {
+        "type": " PCONDITION_VARIABLE", 
+        "name": "ConditionVariable", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "EnterSynchronizationBarrier": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "EnterSynchronizationBarrier", 
+    "arguments": [
+      {
+        "type": " LPSYNCHRONIZATION_BARRIER", 
+        "name": "lpBarrier", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "9": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "SignalObjectAndWait", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hObjectToSignal", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hObjectToWaitOn", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMilliseconds", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bAlertable", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WakeByAddressAll": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "WakeByAddressAll", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "Address", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "11": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SleepConditionVariableCS", 
+    "arguments": [
+      {
+        "type": " PCONDITION_VARIABLE", 
+        "name": "ConditionVariable", 
+        "is_float": false
+      }, 
+      {
+        "type": " PCRITICAL_SECTION", 
+        "name": "CriticalSection", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMilliseconds", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "InitOnceComplete": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "InitOnceComplete", 
+    "arguments": [
+      {
+        "type": " LPINIT_ONCE", 
+        "name": "lpInitOnce", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpContext", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "InitOnceInitialize": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "InitOnceInitialize", 
+    "arguments": [
+      {
+        "type": " PINIT_ONCE", 
+        "name": "InitOnce", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "14": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "WakeAllConditionVariable", 
+    "arguments": [
+      {
+        "type": " PCONDITION_VARIABLE", 
+        "name": "ConditionVariable", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "15": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "WakeByAddressAll", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "Address", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "16": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "WakeByAddressSingle", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "Address", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "17": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "WakeConditionVariable", 
+    "arguments": [
+      {
+        "type": " PCONDITION_VARIABLE", 
+        "name": "ConditionVariable", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SignalObjectAndWait": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "SignalObjectAndWait", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hObjectToSignal", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hObjectToWaitOn", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMilliseconds", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bAlertable", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "InitOnceExecuteOnce", 
+    "arguments": [
+      {
+        "type": " PINIT_ONCE", 
+        "name": "InitOnce", 
+        "is_float": false
+      }, 
+      {
+        "type": " PINIT_ONCE_FN", 
+        "name": "InitFn", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "Parameter", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "Context", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DeleteSynchronizationBarrier": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "DeleteSynchronizationBarrier", 
+    "arguments": [
+      {
+        "type": " LPSYNCHRONIZATION_BARRIER", 
+        "name": "lpBarrier", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WakeConditionVariable": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "WakeConditionVariable", 
+    "arguments": [
+      {
+        "type": " PCONDITION_VARIABLE", 
+        "name": "ConditionVariable", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WakeAllConditionVariable": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "WakeAllConditionVariable", 
+    "arguments": [
+      {
+        "type": " PCONDITION_VARIABLE", 
+        "name": "ConditionVariable", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "InitializeConditionVariable": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "InitializeConditionVariable", 
+    "arguments": [
+      {
+        "type": " PCONDITION_VARIABLE", 
+        "name": "ConditionVariable", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "8": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "InitializeSynchronizationBarrier", 
+    "arguments": [
+      {
+        "type": " LPSYNCHRONIZATION_BARRIER", 
+        "name": "lpBarrier", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "lTotalThreads", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "lSpinCount", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SleepConditionVariableSRW": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SleepConditionVariableSRW", 
+    "arguments": [
+      {
+        "type": " PCONDITION_VARIABLE", 
+        "name": "ConditionVariable", 
+        "is_float": false
+      }, 
+      {
+        "type": " PSRWLOCK", 
+        "name": "SRWLock", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMilliseconds", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "Flags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "10": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "Sleep", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwMilliseconds", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "12": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SleepConditionVariableSRW", 
+    "arguments": [
+      {
+        "type": " PCONDITION_VARIABLE", 
+        "name": "ConditionVariable", 
+        "is_float": false
+      }, 
+      {
+        "type": " PSRWLOCK", 
+        "name": "SRWLock", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMilliseconds", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "Flags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "13": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "WaitOnAddress", 
+    "arguments": [
+      {
+        "type": "volatile void*", 
+        "name": "Address", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "CompareAddress", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "AddressSize", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMilliseconds", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WakeByAddressSingle": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "WakeByAddressSingle", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "Address", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "InitializeSynchronizationBarrier": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "InitializeSynchronizationBarrier", 
+    "arguments": [
+      {
+        "type": " LPSYNCHRONIZATION_BARRIER", 
+        "name": "lpBarrier", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "lTotalThreads", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "lSpinCount", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SleepConditionVariableCS": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SleepConditionVariableCS", 
+    "arguments": [
+      {
+        "type": " PCONDITION_VARIABLE", 
+        "name": "ConditionVariable", 
+        "is_float": false
+      }, 
+      {
+        "type": " PCRITICAL_SECTION", 
+        "name": "CriticalSection", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMilliseconds", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "InitOnceBeginInitialize": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "InitOnceBeginInitialize", 
+    "arguments": [
+      {
+        "type": " LPINIT_ONCE", 
+        "name": "lpInitOnce", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " PBOOL", 
+        "name": "fPending", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "lpContext", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "Sleep": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "Sleep", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwMilliseconds", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WaitOnAddress": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "WaitOnAddress", 
+    "arguments": [
+      {
+        "type": "volatile void*", 
+        "name": "Address", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "CompareAddress", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "AddressSize", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMilliseconds", 
+        "is_float": false
+      }
+    ]
+  },
+  "InitializeCriticalSectionEx":{
+    "cc": "__stdcall",
+    "returns": "BOOL",
+    "returns_float": false,
+    "name": "InitializeCriticalSectionEx",
+    "arguments": [
+        {
+            "type": "LPCRITICAL_SECTION",
+            "name": "lpCriticalSection",
+            "is_float": false
+        },
+        {
+            "type": "DWORD",
+            "name": "dwSpinCount",
+            "is_float": false
+        },
+        {
+            "type": "DWORD",
+            "name": "Flags",
+            "is_float": false
+        }
+    ]
+  }
+
+}

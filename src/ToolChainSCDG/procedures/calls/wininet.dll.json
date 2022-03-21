@@ -1,0 +1,835 @@
+{
+    "DllGetClassObject": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllGetClassObject",
+        "arguments": [
+            {
+                "type": "const IID*const",
+                "name": "rclsid",
+                "is_float": false
+            },
+            {
+                "type": "const IID*const",
+                "name": "riid",
+                "is_float": false
+            },
+            {
+                "type": " LPVOID*",
+                "name": "ppv",
+                "is_float": false
+            }
+        ]
+    },
+    "DllInstall": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllInstall",
+        "arguments": [
+            {
+                "type": " BOOL",
+                "name": "bInstall",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "pszCmdLine",
+                "is_float": false
+            }
+        ]
+    },
+    "DllCanUnloadNow": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllCanUnloadNow",
+        "arguments": [
+            {
+                "type": " void",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "156": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllCanUnloadNow",
+        "arguments": [
+            {
+                "type": " void",
+                "name": null,
+                "is_float": false
+            }
+        ]
+    },
+    "157": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllGetClassObject",
+        "arguments": [
+            {
+                "type": "const IID*const",
+                "name": "rclsid",
+                "is_float": false
+            },
+            {
+                "type": "const IID*const",
+                "name": "riid",
+                "is_float": false
+            },
+            {
+                "type": " LPVOID*",
+                "name": "ppv",
+                "is_float": false
+            }
+        ]
+    },
+    "158": {
+        "cc": "__stdcall",
+        "returns": "HRESULT",
+        "returns_float": false,
+        "name": "DllInstall",
+        "arguments": [
+            {
+                "type": " BOOL",
+                "name": "bInstall",
+                "is_float": false
+            },
+            {
+                "type": " PCWSTR",
+                "name": "pszCmdLine",
+                "is_float": false
+            }
+        ]
+    },
+    "InternetOpenA": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "InternetOpenA",
+        "arguments": [
+            {
+                "type": "LPCSTR",
+                "name": "lpszAgent",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwAccessType",
+                "is_float": false
+            },
+            {
+                "type": "LPCSTR",
+                "name": "lpszProxy",
+                "is_float": false
+            },
+            {
+                "type": "LPCSTR",
+                "name": "lpszProxyBypass",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            }
+        ]
+    },
+    "InternetOpenUrlA": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "InternetOpenUrlA",
+        "arguments": [
+            {
+                "type": "HINTERNET",
+                "name": "hInternet",
+                "is_float": false
+            },
+            {
+                "type": "LPCSTR",
+                "name": "lpszUrl",
+                "is_float": false
+            },
+            {
+                "type": "LPCSTR",
+                "name": "lpszHeaders",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwHeadersLength",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            },
+            {
+                "type": "DWORD_PTR",
+                "name": "dwContext",
+                "is_float": false
+            }
+        ]
+    },
+    "HttpOpenRequestW": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "HttpOpenRequestW",
+        "arguments": [
+            {
+                "type": "HINTERNET",
+                "name": "hConnect",
+                "is_float": false
+            },
+            {
+                "type": "LPCWSTR",
+                "name": "lpszVerb",
+                "is_float": false
+            },
+            {
+                "type": "LPCWSTR",
+                "name": "lpszObjectName",
+                "is_float": false
+            },
+            {
+                "type": "LPCWSTR",
+                "name": "lpszVersion",
+                "is_float": false
+            },
+            {
+                "type": "LPCWSTR",
+                "name": "lpszReferrer",
+                "is_float": false
+            },
+            {
+                "type": "LPCWSTR",
+                "name": "*lplpszAcceptTypes",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            },
+            {
+                "type": "DWORD_PTR",
+                "name": "dwContext",
+                "is_float": false
+            }
+        ]
+    },
+    "InternetSetOptionW": {
+        "cc": "__stdcall",
+        "returns": "BOOLAPI",
+        "returns_float": false,
+        "name": "InternetSetOptionW",
+        "arguments": [
+            {
+                "type": "HINTERNET",
+                "name": "hInternet",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwOption",
+                "is_float": false
+            },
+            {
+                "type": "LPVOID",
+                "name": "lpBuffer",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwBufferLength",
+                "is_float": false
+            }
+        ]
+    },
+    "InternetConnectW": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "InternetConnectW",
+        "arguments": [
+            {
+                "type": "HINTERNET",
+                "name": "hInternet",
+                "is_float": false
+            },
+            {
+                "type": "LPCWSTR",
+                "name": "lpszServerName",
+                "is_float": false
+            },
+            {
+                "type": "INTERNET_PORT",
+                "name": "nServerPort",
+                "is_float": false
+            },
+            {
+                "type": "LPCWSTR",
+                "name": "lpszUserName",
+                "is_float": false
+            },
+            {
+                "type": "LPCWSTR",
+                "name": "lpszPassword",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwService",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            },
+            {
+                "type": "DWORD_PTR",
+                "name": "dwContext",
+                "is_float": false
+            }
+        ]
+    },
+    "InternetQueryOptionW": {
+        "cc": "__stdcall",
+        "returns": "BOOLAPI",
+        "returns_float": false,
+        "name": "InternetQueryOptionW",
+        "arguments": [
+            {
+                "type": "HINTERNET",
+                "name": "hInternet",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwOption",
+                "is_float": false
+            },
+            {
+                "type": "LPVOID",
+                "name": "lpBuffer",
+                "is_float": false
+            },
+            {
+                "type": "LPDWORD",
+                "name": "lpdwBufferLength",
+                "is_float": false
+            }
+        ]
+    },
+    "HttpSendRequestW": {
+        "cc": "__stdcall",
+        "returns": "BOOLAPI",
+        "returns_float": false,
+        "name": "HttpSendRequestW",
+        "arguments": [
+            {
+                "type": "HINTERNET",
+                "name": "hRequest",
+                "is_float": false
+            },
+            {
+                "type": "LPCWSTR",
+                "name": "lpszHeaders",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwHeadersLength",
+                "is_float": false
+            },
+            {
+                "type": "LPVOID",
+                "name": "lpOptional",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwOptionalLength",
+                "is_float": false
+            }
+        ]
+    },
+    "InternetOpenW": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "InternetOpenW",
+        "arguments": [
+            {
+                "type": "LPCWSTR",
+                "name": "lpszAgent",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwAccessType",
+                "is_float": false
+            },
+            {
+                "type": "LPCWSTR",
+                "name": "lpszProxy",
+                "is_float": false
+            },
+            {
+                "type": "LPCWSTR",
+                "name": "lpszProxyBypass",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            }
+        ]
+    },
+    "HttpQueryInfoW": {
+        "cc": "__stdcall",
+        "returns": "BOOLAPI",
+        "returns_float": false,
+        "name": "HttpQueryInfoW",
+        "arguments": [
+            {
+                "type": "HINTERNET",
+                "name": "hRequest",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwInfoLevel",
+                "is_float": false
+            },
+            {
+                "type": "LPVOID",
+                "name": "lpBuffer",
+                "is_float": false
+            },
+            {
+                "type": "LPDWORD",
+                "name": "lpdwBufferLength",
+                "is_float": false
+            },
+            {
+                "type": "LPDWORD",
+                "name": "lpdwIndex",
+                "is_float": false
+            }
+        ]
+    },
+    "InternetReadFile": {
+        "cc": "__stdcall",
+        "returns": "BOOLAPI",
+        "returns_float": false,
+        "name": "InternetReadFile",
+        "arguments": [
+            {
+                "type": "HINTERNET",
+                "name": "hFile",
+                "is_float": false
+            },
+            {
+                "type": "LPVOID",
+                "name": "lpBuffer",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwNumberOfBytesToRead",
+                "is_float": false
+            },
+            {
+                "type": "LPDWORD",
+                "name": "lpdwNumberOfBytesRead",
+                "is_float": false
+            }
+        ]
+    },
+    "FtpOpenFileW": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "FtpOpenFileW",
+        "arguments": [
+            {
+                "type": "HINTERNET",
+                "name": "hConnect",
+                "is_float": false
+            },
+            {
+                "type": "LPCWSTR",
+                "name": "lpszFileName",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwAccess",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            },
+            {
+                "type": "DWORD_PTR",
+                "name": "dwContext",
+                "is_float": false
+            }
+        ]
+    },
+    "FtpGetFileSize": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "FtpGetFileSize",
+        "arguments": [
+            {
+                "type": "HINTERNET",
+                "name": "hFile",
+                "is_float": false
+            },
+            {
+                "type": "LPDWORD",
+                "name": "lpdwFileSizeHigh",
+                "is_float": false
+            }
+        ]
+    },
+    "InternetQueryDataAvailable": {
+        "cc": "__stdcall",
+        "returns": "BOOLAPI",
+        "returns_float": false,
+        "name": "InternetQueryDataAvailable",
+        "arguments": [
+            {
+                "type": "HINTERNET",
+                "name": "hFile",
+                "is_float": false
+            },
+            {
+                "type": "LPDWORD",
+                "name": "lpdwNumberOfBytesAvailable",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            },
+            {
+                "type": "DWORD_PTR",
+                "name": "dwContext",
+                "is_float": false
+            }
+        ]
+    },
+    "InternetCloseHandle": {
+        "cc": "__stdcall",
+        "returns": "BOOLAPI",
+        "returns_float": false,
+        "name": "InternetCloseHandle",
+        "arguments": [
+            {
+                "type": "HINTERNET",
+                "name": "hInternet",
+                "is_float": false
+            }
+        ]
+    },
+    "InternetCrackUrlW": {
+        "cc": "__stdcall",
+        "returns": "BOOLAPI",
+        "returns_float": false,
+        "name": "InternetCrackUrlW",
+        "arguments": [
+            {
+                "type": "LPCWSTR",
+                "name": "lpszUrl",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwUrlLength",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            },
+            {
+                "type": "LPURL_COMPONENTSW",
+                "name": "lpUrlComponents",
+                "is_float": false
+            }
+        ]
+    },
+    "InternetOpenUrlW": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "InternetOpenUrlW",
+        "arguments": [
+            {
+                "type": "HINTERNET",
+                "name": "hInternet",
+                "is_float": false
+            },
+            {
+                "type": "LPCWSTR",
+                "name": "lpszUrl",
+                "is_float": false
+            },
+            {
+                "type": "LPCWSTR",
+                "name": "lpszHeaders",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwHeadersLength",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            },
+            {
+                "type": "DWORD_PTR",
+                "name": "dwContext",
+                "is_float": false
+            }
+        ]
+    },
+    "FindFirstUrlCacheEntryW": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "FindFirstUrlCacheEntryW",
+        "arguments": [
+            {
+                "type": "LPCWSTR",
+                "name": "lpszUrlSearchPattern",
+                "is_float": false
+            },
+            {
+                "type": "LPINTERNET_CACHE_ENTRY_INFOW",
+                "name": "lpFirstCacheEntryInfo",
+                "is_float": false
+            },
+            {
+                "type": "LPDWORD",
+                "name": "lpcbCacheEntryInfo",
+                "is_float": false
+            }
+        ]
+    },
+    "FindFirstUrlCacheEntryExW": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "FindFirstUrlCacheEntryExW",
+        "arguments": [
+            {
+                "type": "LPCWSTR",
+                "name": "lpszUrlSearchPattern",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFilter",
+                "is_float": false
+            },
+            {
+                "type": "GROUPID",
+                "name": "GroupId",
+                "is_float": false
+            },
+            {
+                "type": "LPINTERNET_CACHE_ENTRY_INFOW",
+                "name": "lpFirstCacheEntryInfo",
+                "is_float": false
+            },
+            {
+                "type": "LPDWORD",
+                "name": "lpcbCacheEntryInfo",
+                "is_float": false
+            },
+            {
+                "type": "LPVOID",
+                "name": "lpGroupAttributes",
+                "is_float": false
+            },
+            {
+                "type": "LPDWORD",
+                "name": "lpcbGroupAttributes",
+                "is_float": false
+            },
+            {
+                "type": "LPVOID",
+                "name": "lpReserved",
+                "is_float": false
+            }
+        ]
+    },
+    "FindCloseUrlCache": {
+        "cc": "__stdcall",
+        "returns": "BOOLAPI",
+        "returns_float": false,
+        "name": "FindCloseUrlCache",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "hEnumHandle",
+                "is_float": false
+            }
+        ]
+    },
+    "FindNextUrlCacheEntryW": {
+        "cc": "__stdcall",
+        "returns": "BOOLAPI",
+        "returns_float": false,
+        "name": "FindNextUrlCacheEntryW",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "hEnumHandle",
+                "is_float": false
+            },
+            {
+                "type": "LPINTERNET_CACHE_ENTRY_INFOW",
+                "name": "lpNextCacheEntryInfo",
+                "is_float": false
+            },
+            {
+                "type": "LPDWORD",
+                "name": "lpcbCacheEntryInfo",
+                "is_float": false
+            }
+        ]
+    },
+    "DeleteUrlCacheEntryW": {
+        "cc": "__stdcall",
+        "returns": "BOOLAPI",
+        "returns_float": false,
+        "name": "DeleteUrlCacheEntryW",
+        "arguments": [
+            {
+                "type": "LPCWSTR",
+                "name": "lpszUrlName",
+                "is_float": false
+            }
+        ]
+    },
+    "InternetCrackUrlA": {
+        "cc": "__stdcall",
+        "returns": "BOOLAPI",
+        "returns_float": false,
+        "name": "InternetCrackUrlA",
+        "arguments": [
+            {
+                "type": "LPCSTR",
+                "name": "lpszUrl",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwUrlLength",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            },
+            {
+                "type": "LPURL_COMPONENTSA",
+                "name": "lpUrlComponents",
+                "is_float": false
+            }
+        ]
+    },
+    "InternetCreateUrlA": {
+        "cc": "__stdcall",
+        "returns": "BOOLAPI",
+        "returns_float": false,
+        "name": "InternetCreateUrlA",
+        "arguments": [
+            {
+                "type": "LPURL_COMPONENTSA",
+                "name": "lpUrlComponents",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            },
+            {
+                "type": "LPSTR",
+                "name": "lpszUrl",
+                "is_float": false
+            },
+            {
+                "type": "LPDWORD",
+                "name": "lpdwUrlLength",
+                "is_float": false
+            }
+        ]
+    },
+    "FindFirstUrlCacheEntryA": {
+        "cc": "__stdcall",
+        "returns": "void",
+        "returns_float": false,
+        "name": "FindFirstUrlCacheEntryA",
+        "arguments": [
+            {
+                "type": "LPCSTR",
+                "name": "lpszUrlSearchPattern",
+                "is_float": false
+            },
+            {
+                "type": "LPINTERNET_CACHE_ENTRY_INFOA",
+                "name": "lpFirstCacheEntryInfo",
+                "is_float": false
+            },
+            {
+                "type": "LPDWORD",
+                "name": "lpcbCacheEntryInfo",
+                "is_float": false
+            }
+        ]
+    },
+    "DeleteUrlCacheEntry": {
+        "cc": "__stdcall",
+        "returns": "BOOLAPI",
+        "returns_float": false,
+        "name": "DeleteUrlCacheEntry",
+        "arguments": [
+            {
+                "type": "LPCSTR",
+                "name": "lpszUrlName",
+                "is_float": false
+            }
+        ]
+    }
+}

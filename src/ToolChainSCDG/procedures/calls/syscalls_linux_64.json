@@ -1,0 +1,1591 @@
+{
+  "0": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_read"
+  }, 
+  "1": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_write"
+  }, 
+  "2": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_open"
+  }, 
+  "3": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_close"
+  }, 
+  "4": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_newstat"
+  }, 
+  "5": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_newfstat"
+  }, 
+  "6": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_newlstat"
+  }, 
+  "7": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_poll"
+  }, 
+  "8": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_lseek"
+  }, 
+  "9": {
+    "return_type": "long", 
+    "num_args": 6, 
+    "name": "sys_mmap"
+  }, 
+  "10": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_mprotect"
+  }, 
+  "11": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_munmap"
+  }, 
+  "12": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_brk"
+  }, 
+  "13": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_rt_sigaction"
+  }, 
+  "14": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_rt_sigprocmask"
+  }, 
+  "15": {
+    "num_args": 0, 
+    "name": "sys_rt_sigreturn"
+  }, 
+  "16": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_ioctl"
+  }, 
+  "17": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_pread64"
+  }, 
+  "18": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_pwrite64"
+  }, 
+  "19": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_readv"
+  }, 
+  "20": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_writev"
+  }, 
+  "21": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_access"
+  }, 
+  "22": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_pipe"
+  }, 
+  "23": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_select"
+  }, 
+  "24": {
+    "return_type": "long", 
+    "num_args": 0, 
+    "name": "sys_sched_yield"
+  }, 
+  "25": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_mremap"
+  }, 
+  "26": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_msync"
+  }, 
+  "27": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_mincore"
+  }, 
+  "28": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_madvise"
+  }, 
+  "29": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_shmget"
+  }, 
+  "30": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_shmat"
+  }, 
+  "31": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_shmctl"
+  }, 
+  "32": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_dup"
+  }, 
+  "33": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_dup2"
+  }, 
+  "34": {
+    "return_type": "long", 
+    "num_args": 0, 
+    "name": "sys_pause"
+  }, 
+  "35": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_nanosleep"
+  }, 
+  "36": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_getitimer"
+  }, 
+  "37": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_alarm"
+  }, 
+  "38": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_setitimer"
+  }, 
+  "39": {
+    "return_type": "long", 
+    "num_args": 0, 
+    "name": "sys_getpid"
+  }, 
+  "40": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_sendfile64"
+  }, 
+  "41": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_socket"
+  }, 
+  "42": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_connect"
+  }, 
+  "43": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_accept"
+  }, 
+  "44": {
+    "return_type": "long", 
+    "num_args": 6, 
+    "name": "sys_sendto"
+  }, 
+  "45": {
+    "return_type": "long", 
+    "num_args": 6, 
+    "name": "sys_recvfrom"
+  }, 
+  "46": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_sendmsg"
+  }, 
+  "47": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_recvmsg"
+  }, 
+  "48": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_shutdown"
+  }, 
+  "49": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_bind"
+  }, 
+  "50": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_listen"
+  }, 
+  "51": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_getsockname"
+  }, 
+  "52": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_getpeername"
+  }, 
+  "53": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_socketpair"
+  }, 
+  "54": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_setsockopt"
+  }, 
+  "55": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_getsockopt"
+  }, 
+  "56": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_clone"
+  }, 
+  "57": {
+    "return_type": "long", 
+    "num_args": 0, 
+    "name": "sys_fork"
+  }, 
+  "58": {
+    "return_type": "long", 
+    "num_args": 0, 
+    "name": "sys_vfork"
+  }, 
+  "59": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_execve"
+  }, 
+  "60": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_exit"
+  }, 
+  "61": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_wait4"
+  }, 
+  "62": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_kill"
+  }, 
+  "63": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_newuname"
+  }, 
+  "64": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_semget"
+  }, 
+  "65": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_semop"
+  }, 
+  "66": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_semctl"
+  }, 
+  "67": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_shmdt"
+  }, 
+  "68": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_msgget"
+  }, 
+  "69": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_msgsnd"
+  }, 
+  "70": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_msgrcv"
+  }, 
+  "71": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_msgctl"
+  }, 
+  "72": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_fcntl"
+  }, 
+  "73": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_flock"
+  }, 
+  "74": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_fsync"
+  }, 
+  "75": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_fdatasync"
+  }, 
+  "76": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_truncate"
+  }, 
+  "77": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_ftruncate"
+  }, 
+  "78": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_getdents"
+  }, 
+  "79": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_getcwd"
+  }, 
+  "80": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_chdir"
+  }, 
+  "81": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_fchdir"
+  }, 
+  "82": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_rename"
+  }, 
+  "83": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_mkdir"
+  }, 
+  "84": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_rmdir"
+  }, 
+  "85": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_creat"
+  }, 
+  "86": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_link"
+  }, 
+  "87": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_unlink"
+  }, 
+  "88": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_symlink"
+  }, 
+  "89": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_readlink"
+  }, 
+  "90": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_chmod"
+  }, 
+  "91": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_fchmod"
+  }, 
+  "92": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_chown"
+  }, 
+  "93": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_fchown"
+  }, 
+  "94": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_lchown"
+  }, 
+  "95": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_umask"
+  }, 
+  "96": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_gettimeofday"
+  }, 
+  "97": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_getrlimit"
+  }, 
+  "98": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_getrusage"
+  }, 
+  "99": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_sysinfo"
+  }, 
+  "100": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_times"
+  }, 
+  "101": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_ptrace"
+  }, 
+  "102": {
+    "return_type": "long", 
+    "num_args": 0, 
+    "name": "sys_getuid"
+  }, 
+  "103": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_syslog"
+  }, 
+  "104": {
+    "return_type": "long", 
+    "num_args": 0, 
+    "name": "sys_getgid"
+  }, 
+  "105": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_setuid"
+  }, 
+  "106": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_setgid"
+  }, 
+  "107": {
+    "return_type": "long", 
+    "num_args": 0, 
+    "name": "sys_geteuid"
+  }, 
+  "108": {
+    "return_type": "long", 
+    "num_args": 0, 
+    "name": "sys_getegid"
+  }, 
+  "109": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_setpgid"
+  }, 
+  "110": {
+    "return_type": "long", 
+    "num_args": 0, 
+    "name": "sys_getppid"
+  }, 
+  "111": {
+    "return_type": "long", 
+    "num_args": 0, 
+    "name": "sys_getpgrp"
+  }, 
+  "112": {
+    "return_type": "long", 
+    "num_args": 0, 
+    "name": "sys_setsid"
+  }, 
+  "113": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_setreuid"
+  }, 
+  "114": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_setregid"
+  }, 
+  "115": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_getgroups"
+  }, 
+  "116": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_setgroups"
+  }, 
+  "117": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_setresuid"
+  }, 
+  "118": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_getresuid"
+  }, 
+  "119": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_setresgid"
+  }, 
+  "120": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_getresgid"
+  }, 
+  "121": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_getpgid"
+  }, 
+  "122": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_setfsuid"
+  }, 
+  "123": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_setfsgid"
+  }, 
+  "124": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_getsid"
+  }, 
+  "125": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_capget"
+  }, 
+  "126": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_capset"
+  }, 
+  "127": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_rt_sigpending"
+  }, 
+  "128": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_rt_sigtimedwait"
+  }, 
+  "129": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_rt_sigqueueinfo"
+  }, 
+  "130": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_rt_sigsuspend"
+  }, 
+  "131": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_sigaltstack"
+  }, 
+  "132": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_utime"
+  }, 
+  "133": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_mknod"
+  }, 
+  "135": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_personality"
+  }, 
+  "136": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_ustat"
+  }, 
+  "137": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_statfs"
+  }, 
+  "138": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_fstatfs"
+  }, 
+  "139": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_sysfs"
+  }, 
+  "140": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_getpriority"
+  }, 
+  "141": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_setpriority"
+  }, 
+  "142": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_sched_setparam"
+  }, 
+  "143": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_sched_getparam"
+  }, 
+  "144": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_sched_setscheduler"
+  }, 
+  "145": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_sched_getscheduler"
+  }, 
+  "146": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_sched_get_priority_max"
+  }, 
+  "147": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_sched_get_priority_min"
+  }, 
+  "148": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_sched_rr_get_interval"
+  }, 
+  "149": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_mlock"
+  }, 
+  "150": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_munlock"
+  }, 
+  "151": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_mlockall"
+  }, 
+  "152": {
+    "return_type": "long", 
+    "num_args": 0, 
+    "name": "sys_munlockall"
+  }, 
+  "153": {
+    "return_type": "long", 
+    "num_args": 0, 
+    "name": "sys_vhangup"
+  }, 
+  "154": {
+    "return_type": "int", 
+    "num_args": 3, 
+    "name": "sys_modify_ldt"
+  }, 
+  "155": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_pivot_root"
+  }, 
+  "156": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_sysctl"
+  }, 
+  "157": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_prctl"
+  }, 
+  "158": {
+    "return_type": "int", 
+    "num_args": 2, 
+    "name": "sys_arch_prctl"
+  }, 
+  "159": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_adjtimex"
+  }, 
+  "160": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_setrlimit"
+  }, 
+  "161": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_chroot"
+  }, 
+  "162": {
+    "return_type": "long", 
+    "num_args": 0, 
+    "name": "sys_sync"
+  }, 
+  "163": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_acct"
+  }, 
+  "164": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_settimeofday"
+  }, 
+  "165": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_mount"
+  }, 
+  "166": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_umount"
+  }, 
+  "167": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_swapon"
+  }, 
+  "168": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_swapoff"
+  }, 
+  "169": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_reboot"
+  }, 
+  "170": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_sethostname"
+  }, 
+  "171": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_setdomainname"
+  }, 
+  "172": {
+    "return_type": "int", 
+    "num_args": 1, 
+    "name": "sys_iopl"
+  }, 
+  "173": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_ioperm"
+  }, 
+  "175": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_init_module"
+  }, 
+  "176": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_delete_module"
+  }, 
+  "179": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_quotactl"
+  }, 
+  "186": {
+    "return_type": "long", 
+    "num_args": 0, 
+    "name": "sys_gettid"
+  }, 
+  "187": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_readahead"
+  }, 
+  "188": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_setxattr"
+  }, 
+  "189": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_lsetxattr"
+  }, 
+  "190": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_fsetxattr"
+  }, 
+  "191": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_getxattr"
+  }, 
+  "192": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_lgetxattr"
+  }, 
+  "193": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_fgetxattr"
+  }, 
+  "194": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_listxattr"
+  }, 
+  "195": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_llistxattr"
+  }, 
+  "196": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_flistxattr"
+  }, 
+  "197": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_removexattr"
+  }, 
+  "198": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_lremovexattr"
+  }, 
+  "199": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_fremovexattr"
+  }, 
+  "200": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_tkill"
+  }, 
+  "201": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_time"
+  }, 
+  "202": {
+    "return_type": "long", 
+    "num_args": 6, 
+    "name": "sys_futex"
+  }, 
+  "203": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_sched_setaffinity"
+  }, 
+  "204": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_sched_getaffinity"
+  }, 
+  "206": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_io_setup"
+  }, 
+  "207": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_io_destroy"
+  }, 
+  "208": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_io_getevents"
+  }, 
+  "209": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_io_submit"
+  }, 
+  "210": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_io_cancel"
+  }, 
+  "212": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_lookup_dcookie"
+  }, 
+  "213": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_epoll_create"
+  }, 
+  "216": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_remap_file_pages"
+  }, 
+  "217": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_getdents64"
+  }, 
+  "218": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_set_tid_address"
+  }, 
+  "219": {
+    "return_type": "long", 
+    "num_args": 0, 
+    "name": "sys_restart_syscall"
+  }, 
+  "220": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_semtimedop"
+  }, 
+  "221": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_fadvise64"
+  }, 
+  "222": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_timer_create"
+  }, 
+  "223": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_timer_settime"
+  }, 
+  "224": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_timer_gettime"
+  }, 
+  "225": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_timer_getoverrun"
+  }, 
+  "226": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_timer_delete"
+  }, 
+  "227": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_clock_settime"
+  }, 
+  "228": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_clock_gettime"
+  }, 
+  "229": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_clock_getres"
+  }, 
+  "230": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_clock_nanosleep"
+  }, 
+  "231": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_exit_group"
+  }, 
+  "232": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_epoll_wait"
+  }, 
+  "233": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_epoll_ctl"
+  }, 
+  "234": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_tgkill"
+  }, 
+  "235": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_utimes"
+  }, 
+  "237": {
+    "return_type": "long", 
+    "num_args": 6, 
+    "name": "sys_mbind"
+  }, 
+  "238": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_set_mempolicy"
+  }, 
+  "239": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_get_mempolicy"
+  }, 
+  "240": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_mq_open"
+  }, 
+  "241": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_mq_unlink"
+  }, 
+  "242": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_mq_timedsend"
+  }, 
+  "243": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_mq_timedreceive"
+  }, 
+  "244": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_mq_notify"
+  }, 
+  "245": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_mq_getsetattr"
+  }, 
+  "246": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_kexec_load"
+  }, 
+  "247": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_waitid"
+  }, 
+  "248": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_add_key"
+  }, 
+  "249": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_request_key"
+  }, 
+  "250": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_keyctl"
+  }, 
+  "251": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_ioprio_set"
+  }, 
+  "252": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_ioprio_get"
+  }, 
+  "253": {
+    "return_type": "long", 
+    "num_args": 0, 
+    "name": "sys_inotify_init"
+  }, 
+  "254": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_inotify_add_watch"
+  }, 
+  "255": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_inotify_rm_watch"
+  }, 
+  "256": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_migrate_pages"
+  }, 
+  "257": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_openat"
+  }, 
+  "258": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_mkdirat"
+  }, 
+  "259": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_mknodat"
+  }, 
+  "260": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_fchownat"
+  }, 
+  "261": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_futimesat"
+  }, 
+  "262": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_newfstatat"
+  }, 
+  "263": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_unlinkat"
+  }, 
+  "264": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_renameat"
+  }, 
+  "265": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_linkat"
+  }, 
+  "266": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_symlinkat"
+  }, 
+  "267": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_readlinkat"
+  }, 
+  "268": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_fchmodat"
+  }, 
+  "269": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_faccessat"
+  }, 
+  "270": {
+    "return_type": "long", 
+    "num_args": 6, 
+    "name": "sys_pselect6"
+  }, 
+  "271": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_ppoll"
+  }, 
+  "272": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_unshare"
+  }, 
+  "273": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_set_robust_list"
+  }, 
+  "274": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_get_robust_list"
+  }, 
+  "275": {
+    "return_type": "long", 
+    "num_args": 6, 
+    "name": "sys_splice"
+  }, 
+  "276": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_tee"
+  }, 
+  "277": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_sync_file_range"
+  }, 
+  "278": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_vmsplice"
+  }, 
+  "279": {
+    "return_type": "long", 
+    "num_args": 6, 
+    "name": "sys_move_pages"
+  }, 
+  "280": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_utimensat"
+  }, 
+  "281": {
+    "return_type": "long", 
+    "num_args": 6, 
+    "name": "sys_epoll_pwait"
+  }, 
+  "282": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_signalfd"
+  }, 
+  "283": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_timerfd_create"
+  }, 
+  "284": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_eventfd"
+  }, 
+  "285": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_fallocate"
+  }, 
+  "286": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_timerfd_settime"
+  }, 
+  "287": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_timerfd_gettime"
+  }, 
+  "288": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_accept4"
+  }, 
+  "289": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_signalfd4"
+  }, 
+  "290": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_eventfd2"
+  }, 
+  "291": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_epoll_create1"
+  }, 
+  "292": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_dup3"
+  }, 
+  "293": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_pipe2"
+  }, 
+  "294": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_inotify_init1"
+  }, 
+  "295": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_preadv"
+  }, 
+  "296": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_pwritev"
+  }, 
+  "297": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_rt_tgsigqueueinfo"
+  }, 
+  "298": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_perf_event_open"
+  }, 
+  "299": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_recvmmsg"
+  }, 
+  "300": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_fanotify_init"
+  }, 
+  "301": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_fanotify_mark"
+  }, 
+  "302": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_prlimit64"
+  }, 
+  "303": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_name_to_handle_at"
+  }, 
+  "304": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_open_by_handle_at"
+  }, 
+  "305": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_clock_adjtime"
+  }, 
+  "306": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_syncfs"
+  }, 
+  "307": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_sendmmsg"
+  }, 
+  "308": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_setns"
+  }, 
+  "309": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_getcpu"
+  }, 
+  "310": {
+    "return_type": "long", 
+    "num_args": 6, 
+    "name": "sys_process_vm_readv"
+  }, 
+  "311": {
+    "return_type": "long", 
+    "num_args": 6, 
+    "name": "sys_process_vm_writev"
+  }, 
+  "312": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_kcmp"
+  }, 
+  "313": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_finit_module"
+  }, 
+  "314": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_sched_setattr"
+  }, 
+  "315": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_sched_getattr"
+  }, 
+  "316": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_renameat2"
+  }, 
+  "317": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_seccomp"
+  }, 
+  "318": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_getrandom"
+  }, 
+  "319": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_memfd_create"
+  }, 
+  "320": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_kexec_file_load"
+  }, 
+  "321": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_bpf"
+  }, 
+  "322": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_execveat"
+  }, 
+  "323": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_userfaultfd"
+  }, 
+  "324": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_membarrier"
+  }, 
+  "325": {
+    "return_type": "long", 
+    "num_args": 3, 
+    "name": "sys_mlock2"
+  }, 
+  "326": {
+    "return_type": "long", 
+    "num_args": 6, 
+    "name": "sys_copy_file_range"
+  }, 
+  "327": {
+    "return_type": "long", 
+    "num_args": 6, 
+    "name": "sys_preadv2"
+  }, 
+  "328": {
+    "return_type": "long", 
+    "num_args": 6, 
+    "name": "sys_pwritev2"
+  }, 
+  "329": {
+    "return_type": "long", 
+    "num_args": 4, 
+    "name": "sys_pkey_mprotect"
+  }, 
+  "330": {
+    "return_type": "long", 
+    "num_args": 2, 
+    "name": "sys_pkey_alloc"
+  }, 
+  "331": {
+    "return_type": "long", 
+    "num_args": 1, 
+    "name": "sys_pkey_free"
+  }, 
+  "332": {
+    "return_type": "long", 
+    "num_args": 5, 
+    "name": "sys_statx"
+  }
+}

@@ -1,0 +1,336 @@
+{
+  "GetAcceptExSockaddrs": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "GetAcceptExSockaddrs", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "lpOutputBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReceiveDataLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwLocalAddressLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwRemoteAddressLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " struct**", 
+        "name": "LocalSockaddr", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPINT", 
+        "name": "LocalSockaddrLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " struct**", 
+        "name": "RemoteSockaddr", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPINT", 
+        "name": "RemoteSockaddrLength", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "AcceptEx", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "sListenSocket", 
+        "is_float": false
+      }, 
+      {
+        "type": " SOCKET", 
+        "name": "sAcceptSocket", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "lpOutputBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReceiveDataLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwLocalAddressLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwRemoteAddressLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwBytesReceived", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOVERLAPPED", 
+        "name": "lpOverlapped", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "AcceptEx": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "AcceptEx", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "sListenSocket", 
+        "is_float": false
+      }, 
+      {
+        "type": " SOCKET", 
+        "name": "sAcceptSocket", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "lpOutputBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReceiveDataLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwLocalAddressLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwRemoteAddressLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwBytesReceived", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOVERLAPPED", 
+        "name": "lpOverlapped", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "TransmitFile": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "TransmitFile", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "hSocket", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hFile", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nNumberOfBytesToWrite", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nNumberOfBytesPerSend", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOVERLAPPED", 
+        "name": "lpOverlapped", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPTRANSMIT_FILE_BUFFERS", 
+        "name": "lpTransmitBuffers", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReserved", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "53": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "TransmitFile", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "hSocket", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hFile", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nNumberOfBytesToWrite", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nNumberOfBytesPerSend", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOVERLAPPED", 
+        "name": "lpOverlapped", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPTRANSMIT_FILE_BUFFERS", 
+        "name": "lpTransmitBuffers", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReserved", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "54": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WSARecvEx", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "len", 
+        "is_float": false
+      }, 
+      {
+        "type": " int*", 
+        "name": "flags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "GetAcceptExSockaddrs", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "lpOutputBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReceiveDataLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwLocalAddressLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwRemoteAddressLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " struct**", 
+        "name": "LocalSockaddr", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPINT", 
+        "name": "LocalSockaddrLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " struct**", 
+        "name": "RemoteSockaddr", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPINT", 
+        "name": "RemoteSockaddrLength", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WSARecvEx": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WSARecvEx", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "len", 
+        "is_float": false
+      }, 
+      {
+        "type": " int*", 
+        "name": "flags", 
+        "is_float": false
+      }
+    ]
+  }
+}

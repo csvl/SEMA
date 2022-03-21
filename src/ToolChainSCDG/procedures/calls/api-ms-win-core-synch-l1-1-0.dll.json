@@ -1,0 +1,1718 @@
+{
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "AcquireSRWLockExclusive", 
+    "arguments": [
+      {
+        "type": " PSRWLOCK", 
+        "name": "SRWLock", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "AcquireSRWLockShared", 
+    "arguments": [
+      {
+        "type": " PSRWLOCK", 
+        "name": "SRWLock", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "InitializeCriticalSectionAndSpinCount": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "InitializeCriticalSectionAndSpinCount", 
+    "arguments": [
+      {
+        "type": " LPCRITICAL_SECTION", 
+        "name": "lpCriticalSection", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwSpinCount", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateWaitableTimerExW": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateWaitableTimerExW", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpTimerAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpTimerName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateEventExA", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpEventAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "EnterCriticalSection": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "EnterCriticalSection", 
+    "arguments": [
+      {
+        "type": " LPCRITICAL_SECTION", 
+        "name": "lpCriticalSection", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "7": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateEventW", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpEventAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bManualReset", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInitialState", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ReleaseMutex": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "ReleaseMutex", 
+    "arguments": [
+      {
+        "type": " ISynchronizeMutex*", 
+        "name": "This", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "9": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateMutexExA", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpMutexAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "10": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateMutexExW", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpMutexAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "11": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateMutexW", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpMutexAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInitialOwner", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "12": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateSemaphoreExW", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpSemaphoreAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "lInitialCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "lMaximumCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "13": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateWaitableTimerExW", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpTimerAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpTimerName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WaitForSingleObject": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WaitForSingleObject", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMilliseconds", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "15": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "EnterCriticalSection", 
+    "arguments": [
+      {
+        "type": " LPCRITICAL_SECTION", 
+        "name": "lpCriticalSection", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetEvent": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetEvent", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hEvent", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "17": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "InitializeCriticalSectionAndSpinCount", 
+    "arguments": [
+      {
+        "type": " LPCRITICAL_SECTION", 
+        "name": "lpCriticalSection", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwSpinCount", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "18": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "InitializeCriticalSectionEx", 
+    "arguments": [
+      {
+        "type": " LPCRITICAL_SECTION", 
+        "name": "lpCriticalSection", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwSpinCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "Flags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "CancelWaitableTimer", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hTimer", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "AcquireSRWLockShared": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "AcquireSRWLockShared", 
+    "arguments": [
+      {
+        "type": " PSRWLOCK", 
+        "name": "SRWLock", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "21": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "OpenEventA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "22": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "OpenEventW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "23": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "OpenMutexW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "24": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "OpenSemaphoreW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateEventA", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpEventAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bManualReset", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInitialState", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "InitializeCriticalSectionEx": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "InitializeCriticalSectionEx", 
+    "arguments": [
+      {
+        "type": " LPCRITICAL_SECTION", 
+        "name": "lpCriticalSection", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwSpinCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "Flags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WaitForSingleObjectEx": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WaitForSingleObjectEx", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMilliseconds", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bAlertable", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "28": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "ReleaseSRWLockShared", 
+    "arguments": [
+      {
+        "type": " PSRWLOCK", 
+        "name": "SRWLock", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "26": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "ReleaseMutex", 
+    "arguments": [
+      {
+        "type": " ISynchronizeMutex*", 
+        "name": "This", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "30": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ResetEvent", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hEvent", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "31": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "SetCriticalSectionSpinCount", 
+    "arguments": [
+      {
+        "type": " LPCRITICAL_SECTION", 
+        "name": "lpCriticalSection", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwSpinCount", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "14": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "DeleteCriticalSection", 
+    "arguments": [
+      {
+        "type": " LPCRITICAL_SECTION", 
+        "name": "lpCriticalSection", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "33": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetWaitableTimer", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hTimer", 
+        "is_float": false
+      }, 
+      {
+        "type": "const LARGE_INTEGER*", 
+        "name": "lpDueTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "lPeriod", 
+        "is_float": false
+      }, 
+      {
+        "type": " PTIMERAPCROUTINE", 
+        "name": "pfnCompletionRoutine", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpArgToCompletionRoutine", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fResume", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DeleteCriticalSection": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "DeleteCriticalSection", 
+    "arguments": [
+      {
+        "type": " LPCRITICAL_SECTION", 
+        "name": "lpCriticalSection", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CancelWaitableTimer": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "CancelWaitableTimer", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hTimer", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "36": {
+    "cc": "__cdecl", 
+    "returns": "BOOLEAN", 
+    "returns_float": false, 
+    "name": "TryAcquireSRWLockExclusive", 
+    "arguments": [
+      {
+        "type": " PSRWLOCK", 
+        "name": "SRWLock", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetCriticalSectionSpinCount": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "SetCriticalSectionSpinCount", 
+    "arguments": [
+      {
+        "type": " LPCRITICAL_SECTION", 
+        "name": "lpCriticalSection", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwSpinCount", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "35": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "SleepEx", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwMilliseconds", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bAlertable", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "39": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WaitForMultipleObjectsEx", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "nCount", 
+        "is_float": false
+      }, 
+      {
+        "type": "const HANDLE*", 
+        "name": "lpHandles", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bWaitAll", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMilliseconds", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bAlertable", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "40": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WaitForSingleObject", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMilliseconds", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "41": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WaitForSingleObjectEx", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMilliseconds", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bAlertable", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "AcquireSRWLockExclusive": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "AcquireSRWLockExclusive", 
+    "arguments": [
+      {
+        "type": " PSRWLOCK", 
+        "name": "SRWLock", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateMutexExW": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateMutexExW", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpMutexAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "29": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ReleaseSemaphore", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hSemaphore", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "lReleaseCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPLONG", 
+        "name": "lpPreviousCount", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "TryAcquireSRWLockShared": {
+    "cc": "__cdecl", 
+    "returns": "BOOLEAN", 
+    "returns_float": false, 
+    "name": "TryAcquireSRWLockShared", 
+    "arguments": [
+      {
+        "type": " PSRWLOCK", 
+        "name": "SRWLock", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "8": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateMutexA", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpMutexAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInitialOwner", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "OpenWaitableTimerW": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "OpenWaitableTimerW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpTimerName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "6": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateEventExW", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpEventAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "TryAcquireSRWLockExclusive": {
+    "cc": "__cdecl", 
+    "returns": "BOOLEAN", 
+    "returns_float": false, 
+    "name": "TryAcquireSRWLockExclusive", 
+    "arguments": [
+      {
+        "type": " PSRWLOCK", 
+        "name": "SRWLock", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateMutexExA": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateMutexExA", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpMutexAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "32": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetEvent", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hEvent", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateMutexA": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateMutexA", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpMutexAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInitialOwner", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateSemaphoreExW": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateSemaphoreExW", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpSemaphoreAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "lInitialCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "lMaximumCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ReleaseSemaphore": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ReleaseSemaphore", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hSemaphore", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "lReleaseCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPLONG", 
+        "name": "lpPreviousCount", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "27": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "ReleaseSRWLockExclusive", 
+    "arguments": [
+      {
+        "type": " PSRWLOCK", 
+        "name": "SRWLock", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "34": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetWaitableTimerEx", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hTimer", 
+        "is_float": false
+      }, 
+      {
+        "type": "const LARGE_INTEGER*", 
+        "name": "lpDueTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "lPeriod", 
+        "is_float": false
+      }, 
+      {
+        "type": " PTIMERAPCROUTINE", 
+        "name": "pfnCompletionRoutine", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpArgToCompletionRoutine", 
+        "is_float": false
+      }, 
+      {
+        "type": " PREASON_CONTEXT", 
+        "name": "WakeContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "TolerableDelay", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WaitForMultipleObjectsEx": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "WaitForMultipleObjectsEx", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "nCount", 
+        "is_float": false
+      }, 
+      {
+        "type": "const HANDLE*", 
+        "name": "lpHandles", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bWaitAll", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMilliseconds", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bAlertable", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateMutexW": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateMutexW", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpMutexAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInitialOwner", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "TryEnterCriticalSection": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "TryEnterCriticalSection", 
+    "arguments": [
+      {
+        "type": " LPCRITICAL_SECTION", 
+        "name": "lpCriticalSection", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "OpenMutexW": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "OpenMutexW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ReleaseSRWLockExclusive": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "ReleaseSRWLockExclusive", 
+    "arguments": [
+      {
+        "type": " PSRWLOCK", 
+        "name": "SRWLock", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetWaitableTimerEx": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetWaitableTimerEx", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hTimer", 
+        "is_float": false
+      }, 
+      {
+        "type": "const LARGE_INTEGER*", 
+        "name": "lpDueTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "lPeriod", 
+        "is_float": false
+      }, 
+      {
+        "type": " PTIMERAPCROUTINE", 
+        "name": "pfnCompletionRoutine", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpArgToCompletionRoutine", 
+        "is_float": false
+      }, 
+      {
+        "type": " PREASON_CONTEXT", 
+        "name": "WakeContext", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "TolerableDelay", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "37": {
+    "cc": "__cdecl", 
+    "returns": "BOOLEAN", 
+    "returns_float": false, 
+    "name": "TryAcquireSRWLockShared", 
+    "arguments": [
+      {
+        "type": " PSRWLOCK", 
+        "name": "SRWLock", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateEventExW": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateEventExW", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpEventAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ReleaseSRWLockShared": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "ReleaseSRWLockShared", 
+    "arguments": [
+      {
+        "type": " PSRWLOCK", 
+        "name": "SRWLock", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "OpenEventA": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "OpenEventA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "38": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "TryEnterCriticalSection", 
+    "arguments": [
+      {
+        "type": " LPCRITICAL_SECTION", 
+        "name": "lpCriticalSection", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "16": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "InitializeCriticalSection", 
+    "arguments": [
+      {
+        "type": " LPCRITICAL_SECTION", 
+        "name": "lpCriticalSection", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateEventW": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateEventW", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpEventAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bManualReset", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInitialState", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ResetEvent": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ResetEvent", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hEvent", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "InitializeCriticalSection": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "InitializeCriticalSection", 
+    "arguments": [
+      {
+        "type": " LPCRITICAL_SECTION", 
+        "name": "lpCriticalSection", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "OpenEventW": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "OpenEventW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateEventA": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateEventA", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpEventAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bManualReset", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInitialState", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "19": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "InitializeSRWLock", 
+    "arguments": [
+      {
+        "type": " PSRWLOCK", 
+        "name": "SRWLock", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "25": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "OpenWaitableTimerW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpTimerName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateEventExA": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateEventExA", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpEventAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "20": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "LeaveCriticalSection", 
+    "arguments": [
+      {
+        "type": " LPCRITICAL_SECTION", 
+        "name": "lpCriticalSection", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetWaitableTimer": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetWaitableTimer", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hTimer", 
+        "is_float": false
+      }, 
+      {
+        "type": "const LARGE_INTEGER*", 
+        "name": "lpDueTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "lPeriod", 
+        "is_float": false
+      }, 
+      {
+        "type": " PTIMERAPCROUTINE", 
+        "name": "pfnCompletionRoutine", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpArgToCompletionRoutine", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fResume", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "OpenSemaphoreW": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "OpenSemaphoreW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "InitializeSRWLock": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "InitializeSRWLock", 
+    "arguments": [
+      {
+        "type": " PSRWLOCK", 
+        "name": "SRWLock", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SleepEx": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "SleepEx", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwMilliseconds", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bAlertable", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "LeaveCriticalSection": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "LeaveCriticalSection", 
+    "arguments": [
+      {
+        "type": " LPCRITICAL_SECTION", 
+        "name": "lpCriticalSection", 
+        "is_float": false
+      }
+    ]
+  }
+}

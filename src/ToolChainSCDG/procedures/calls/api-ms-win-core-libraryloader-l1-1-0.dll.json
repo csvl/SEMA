@@ -1,0 +1,710 @@
+{
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "DisableThreadLibraryCalls", 
+    "arguments": [
+      {
+        "type": " HMODULE", 
+        "name": "hLibModule", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__cdecl", 
+    "returns": "HRSRC", 
+    "returns_float": false, 
+    "name": "FindResourceExW", 
+    "arguments": [
+      {
+        "type": " HMODULE", 
+        "name": "hModule", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpType", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " WORD", 
+        "name": "wLanguage", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "FindStringOrdinal", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFindStringOrdinalFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpStringSource", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchSource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpStringValue", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchValue", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bIgnoreCase", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "FreeLibrary", 
+    "arguments": [
+      {
+        "type": " HMODULE", 
+        "name": "hLibModule", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "FreeLibraryAndExitThread", 
+    "arguments": [
+      {
+        "type": " HMODULE", 
+        "name": "hLibModule", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwExitCode", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "6": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "FreeResource", 
+    "arguments": [
+      {
+        "type": " HGLOBAL", 
+        "name": "hResData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "7": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetModuleFileNameA", 
+    "arguments": [
+      {
+        "type": " HMODULE", 
+        "name": "hModule", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "8": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetModuleFileNameW", 
+    "arguments": [
+      {
+        "type": " HMODULE", 
+        "name": "hModule", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "9": {
+    "cc": "__cdecl", 
+    "returns": "HMODULE", 
+    "returns_float": false, 
+    "name": "GetModuleHandleA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpModuleName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "10": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetModuleHandleExA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpModuleName", 
+        "is_float": false
+      }, 
+      {
+        "type": " HMODULE*", 
+        "name": "phModule", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "11": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetModuleHandleExW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpModuleName", 
+        "is_float": false
+      }, 
+      {
+        "type": " HMODULE*", 
+        "name": "phModule", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetModuleFileNameW": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetModuleFileNameW", 
+    "arguments": [
+      {
+        "type": " HMODULE", 
+        "name": "hModule", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "13": {
+    "cc": "__cdecl", 
+    "returns": "FARPROC", 
+    "returns_float": false, 
+    "name": "GetProcAddress", 
+    "arguments": [
+      {
+        "type": " HMODULE", 
+        "name": "hModule", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpProcName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "14": {
+    "cc": "__cdecl", 
+    "returns": "HMODULE", 
+    "returns_float": false, 
+    "name": "LoadLibraryExA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpLibFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hFile", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "15": {
+    "cc": "__cdecl", 
+    "returns": "HMODULE", 
+    "returns_float": false, 
+    "name": "LoadLibraryExW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpLibFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hFile", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "FreeLibrary": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "FreeLibrary", 
+    "arguments": [
+      {
+        "type": " HMODULE", 
+        "name": "hLibModule", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "17": {
+    "cc": "__cdecl", 
+    "returns": "LPVOID", 
+    "returns_float": false, 
+    "name": "LockResource", 
+    "arguments": [
+      {
+        "type": " HGLOBAL", 
+        "name": "hResData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "18": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "SizeofResource", 
+    "arguments": [
+      {
+        "type": " HMODULE", 
+        "name": "hModule", 
+        "is_float": false
+      }, 
+      {
+        "type": " HRSRC", 
+        "name": "hResInfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DisableThreadLibraryCalls": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "DisableThreadLibraryCalls", 
+    "arguments": [
+      {
+        "type": " HMODULE", 
+        "name": "hLibModule", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetModuleFileNameA": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetModuleFileNameA", 
+    "arguments": [
+      {
+        "type": " HMODULE", 
+        "name": "hModule", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpFilename", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "LoadLibraryExA": {
+    "cc": "__cdecl", 
+    "returns": "HMODULE", 
+    "returns_float": false, 
+    "name": "LoadLibraryExA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpLibFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hFile", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SizeofResource": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "SizeofResource", 
+    "arguments": [
+      {
+        "type": " HMODULE", 
+        "name": "hModule", 
+        "is_float": false
+      }, 
+      {
+        "type": " HRSRC", 
+        "name": "hResInfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "LockResource": {
+    "cc": "__cdecl", 
+    "returns": "LPVOID", 
+    "returns_float": false, 
+    "name": "LockResource", 
+    "arguments": [
+      {
+        "type": " HGLOBAL", 
+        "name": "hResData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "LoadLibraryExW": {
+    "cc": "__cdecl", 
+    "returns": "HMODULE", 
+    "returns_float": false, 
+    "name": "LoadLibraryExW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpLibFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hFile", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetProcAddress": {
+    "cc": "__cdecl", 
+    "returns": "FARPROC", 
+    "returns_float": false, 
+    "name": "GetProcAddress", 
+    "arguments": [
+      {
+        "type": " HMODULE", 
+        "name": "hModule", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpProcName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "FindStringOrdinal": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "FindStringOrdinal", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFindStringOrdinalFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpStringSource", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchSource", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpStringValue", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchValue", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bIgnoreCase", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "12": {
+    "cc": "__cdecl", 
+    "returns": "HMODULE", 
+    "returns_float": false, 
+    "name": "GetModuleHandleW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpModuleName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetModuleHandleA": {
+    "cc": "__cdecl", 
+    "returns": "HMODULE", 
+    "returns_float": false, 
+    "name": "GetModuleHandleA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpModuleName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "FindResourceExW": {
+    "cc": "__cdecl", 
+    "returns": "HRSRC", 
+    "returns_float": false, 
+    "name": "FindResourceExW", 
+    "arguments": [
+      {
+        "type": " HMODULE", 
+        "name": "hModule", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpType", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpName", 
+        "is_float": false
+      }, 
+      {
+        "type": " WORD", 
+        "name": "wLanguage", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetModuleHandleW": {
+    "cc": "__cdecl", 
+    "returns": "HMODULE", 
+    "returns_float": false, 
+    "name": "GetModuleHandleW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpModuleName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "FreeResource": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "FreeResource", 
+    "arguments": [
+      {
+        "type": " HGLOBAL", 
+        "name": "hResData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "16": {
+    "cc": "__cdecl", 
+    "returns": "HGLOBAL", 
+    "returns_float": false, 
+    "name": "LoadResource", 
+    "arguments": [
+      {
+        "type": " HMODULE", 
+        "name": "hModule", 
+        "is_float": false
+      }, 
+      {
+        "type": " HRSRC", 
+        "name": "hResInfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetModuleHandleExW": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetModuleHandleExW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpModuleName", 
+        "is_float": false
+      }, 
+      {
+        "type": " HMODULE*", 
+        "name": "phModule", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "LoadResource": {
+    "cc": "__cdecl", 
+    "returns": "HGLOBAL", 
+    "returns_float": false, 
+    "name": "LoadResource", 
+    "arguments": [
+      {
+        "type": " HMODULE", 
+        "name": "hModule", 
+        "is_float": false
+      }, 
+      {
+        "type": " HRSRC", 
+        "name": "hResInfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetModuleHandleExA": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetModuleHandleExA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpModuleName", 
+        "is_float": false
+      }, 
+      {
+        "type": " HMODULE*", 
+        "name": "phModule", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "FreeLibraryAndExitThread": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "FreeLibraryAndExitThread", 
+    "arguments": [
+      {
+        "type": " HMODULE", 
+        "name": "hLibModule", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwExitCode", 
+        "is_float": false
+      }
+    ]
+  }
+}
