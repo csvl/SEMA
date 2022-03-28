@@ -1,150 +1,35 @@
 # :skull_and_crossbones: SEMA :skull_and_crossbones: - ToolChain using Symbolic Execution for Malware Analysis. 
 # :books:  Documentation
 
-1. [ Tools of the app ](#tc1)
-    1. [ `ToolChainSCDG` ](#tc2)
-    2. [ `ToolChainClassifier`](#tc4)
+1. [ Architecture ](#arch)
+
 2. [ Installation ](#install)
 
+3. [ SEMA ](#tc1)
+    1. [ `ToolChainSCDG` ](#tc2)
+    2. [ `ToolChainClassifier`](#tc4)
+    3. [ `ToolChainFL`](#tc3)
+
+
+:page_with_curl: Architecture
+====
+<a name="arch"></a>
 
 ![GitHub Logo](/doc/arch.png)
 
+* Main depencies: 
 
-:page_with_curl: ToolChain
-====
-<a name="tc1"></a>
+    * Python3
 
-Our toolchain is represented in the next figure  and works as follow. A collection of labelled binaries of different malwares families is collected and used as the input of the toolchain. **Angr**, a framework for symbolic execution, is used to execute symbolically binaries and extract execution traces. For this purpose, different heuristics have been developped to optimize symbolic execution. Several execution traces (i.e : API calls used and their arguments) corresponding to one binary are extracted with Angr and gather together thanks to several graph heuristics to construct a SCDG. These resulting SCDGs are then used as input to graph mining to extract common graph between SCDG of the same family and create a signature. Finally when a new sample has to be classified, its SCDG is build and compared with SCDG of known families (thanks to a simple similarity metric).
-
-
-### How to use ?
-Just run the script : 
-```bash
-pypy3 ToolChain.py FOLDER
-
-python3 ToolChain.py FOLDER
-```
-* `FOLDER` : Folder containing binaries to classify, these binaries must be ordered by familly (default : `databases/malware-inputs/Sample_paper`)
-
-#### Example
-
-```bash
-# For folder of malware
-pypy3 ToolChain.py  --method CDFS --verbose databases/malware-inputs/Sample_paper/
-
-# (virtual env/penv)
-python3 ToolChain.py  --method CDFS --verbose databases/malware-inputs/Sample_paper/
-```
-
-:page_with_curl: System Call Dependency Graphs extractor (ToolChainSCDG)
-====
-<a name="tc2"></a>
-
-This repository contains a first version of a SCDG extractor.
-During symbolic analysis of a binary, all system calls and their arguments found are recorded. After some stop conditions for symbolic analysis, a graph is build as follow : Nodes are systems Calls recorded, edges show that some arguments are shared between calls.
-
-### How to use ?
-Just run the script : 
-```bash
-pypy3 ToolChainSCDG.py BINARY_NAME
-
-python3 ToolChainSCDG.py BINARY_NAME
-```
-For syscall extraction, different optionals arguments are available :
-
-* `method` : Method used for the analysis among (DFS,BFS,CBFS,CDFS) (default : DFS)
-* `n_args` : Number of symbolic arguments given to the binary (default : 0)
-* `timeout` : Timeout in seconds before ending extraction (default : 600)
-* `symb_loop` : Number of iteration allowed for a symbolic loop (default : 3)
-* `conc_loop` : Number of symbolic arguments given to the binary (default : 1024)
-* `simul_state` : Number of simultaneous states we explore with simulation manager (default : 5)
-* `limit_pause` : Number of states allowed in pause stash (default : 200)
-* `max_step` : Maximum number of steps allowed for a state (default : 50 000)
-* `max_deadend` : Number of deadended state required to stop (default : 600)
-* `resolv_string` : Do we try to resolv references of string (default : True)
-* `familly` : Familly of the malware. if a folder instead of a binary is given, then the familly are associated to the subfolder containing the binaries.  ? (default : unknown)
-
-For the graph building, options are : 
-
-* `min_size` : Minimum size required for a trace to be used in SCDG (default : 3)
-* `merge_call` : Do we merge traces or use disjoint union ? (default : True = merge)
-* `comp_args` : Do we compare arguments to add new nodes when building graph ? (default : True)
-* `ignore_zero` : Do we ignore zero when building graph ? (default : True)
-
-You could also specify a directory (already created) to save outputs with option `-dir`.
-
-Program will output a graph in `.gs` format that could be exploited by `gspan`.
-
-You also have a script `merge_gspan.py` which could merge all `.gs` from a directory into only one file.
-
-Password for Examples archive is "infected". Warning : it contains real samples of malwares.
-
-#### Example
-
-```bash
-# +- 447 sec <SimulationManager with 61 deadended>
-pypy3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-inputs/Sample_paper/nitol/00b2f45c7befbced2efaeb92a725bb3d  
-
-# +- 512 sec <SimulationManager with 61 deadended>
-# (virtual env/penv)
-python3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-inputs/Sample_paper/nitol/00b2f45c7befbced2efaeb92a725bb3d 
-```
-
-```bash
-# timeout (+- 607 sec) 
-# <SimulationManager with 6 active, 168 deadended, 61 pause, 100 ExcessLoop> + 109 SCDG
-pypy3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-inputs/Sample_paper/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df 
-
-# timeout (611 sec) 
-# <SimulationManager with 5 active, 69 deadended, 63 pause, 100 ExcessLoop> + 53 SCDG
-# (virtual env/penv)
-python3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-inputs/Sample_paper/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df 
-```
-
-:page_with_curl: Model & Classification extractor (ToolChainClassifier)
-====
-<a name="tc4"></a>
-
-When a new sample has to be evaluated, its SCDG is first build as described previously. Then, `gspan` is applied to extract the biggest common subgraph and a similarity score is evaluated to decide if the graph is considered as part of the family or not.
-
-The similarity score S between graph $G'$ and $G''$ is computed as follow:
-
-<p align="center">
-![equation](http://www.sciweavers.org/tex2img.php?eq=S%28G%27%27%2CG%27%29%20%3D%20%5Cfrac%7Bnum%5C_edges%28G%27%27%29%7D%7Bnum%5C_edges%28G%27%29%7D&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
-</p>
-
-Since G'' is a subgraph of G', this is calculating how much G' appears in G''.
-
-
-### How to use ?
-
-Just run the script : 
-```bash
-python3 ToolChainClassifier.py FOLDER
-```
-* `FOLDER` : Folder containing binaries to classify, these binaries must be ordered by familly (default : `output/save-SCDG/`)
-* `mode`: `detection` = binary decision cleanware vs malware OR `classification` = malware family (default: classification) 
-* `classifier` : Classifier used [gspan,inria,wl] (default : wl)
-* `threshold` : Threshold used for the classifier [0..1] (default : 0.45)
-* `support` : Support used for the gspan classifier [0..1] (default : 0.75)
-* `ctimeout` : Timeout for gspan classifier (default : 3sec)
-* `biggest_subgraph` : Biggest subgraph used with gspan (default : 5)
-* `nthread` : Number of thread used (default : max)
-* `families`: Families considered (default : ['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT'])"
-
-#### Example
-
-```bash
-pypy3 ToolChainClassifier/ToolChainClassifier.py output/test_classifier_CDFS/
-
-python3 ToolChainClassifier/ToolChainClassifier.py output/test_classifier_CDFS/
-```
+    * KVM/QEMU
 
 :page_with_curl: Installation
 ====
 <a name="install"></a>
 
-General installation:
+Tested on Ubuntu 18 LTS.
+
+**General installation:**
 
 ```bash
 # WARNING: slow since one submodule contains preconfigure VMs
@@ -157,8 +42,8 @@ Optionals arguments are available for `install.sh`:
 
 * `--no_malware_db` : Unzip malware's DB (default : True)
 * `--vms_dl` : Download preconfigured cuckoo VMs (default : False)
-* `--vms_install` : Unzip downloaded VMs for cuckoo, vms_dl must be true (default : False)
-* `--pypy` : Install also with pypy3 compiler (default : False)
+* `--vms_install` : Unzip downloaded VMs for cuckoo, `vms_dl` must be true (default : False)
+* `--pypy` : Install also with `pypy3` compiler (default : False)
 
 #### Pip
 To run this SCDG extractor you first need to install pip.
@@ -260,3 +145,158 @@ PyPy3.7:
     ```
 
 Then in order to used it, replace the `python3` command by `pypy3`command.
+
+:page_with_curl: `SEMA - ToolChain`
+====
+<a name="tc1"></a>
+
+Our toolchain is represented in the next figure  and works as follow. A collection of labelled binaries of different malwares families is collected and used as the input of the toolchain. **Angr**, a framework for symbolic execution, is used to execute symbolically binaries and extract execution traces. For this purpose, different heuristics have been developped to optimize symbolic execution. Several execution traces (i.e : API calls used and their arguments) corresponding to one binary are extracted with Angr and gather together thanks to several graph heuristics to construct a SCDG. These resulting SCDGs are then used as input to graph mining to extract common graph between SCDG of the same family and create a signature. Finally when a new sample has to be classified, its SCDG is build and compared with SCDG of known families (thanks to a simple similarity metric).
+
+
+### How to use ?
+Just run the script : 
+```bash
+pypy3 ToolChain.py FOLDER
+
+python3 ToolChain.py FOLDER
+```
+* `FOLDER` : Folder containing binaries to classify, these binaries must be ordered by familly (default : `databases/malware-inputs/Sample_paper`)
+
+#### Example
+
+```bash
+# For folder of malware
+pypy3 ToolChain.py  --method CDFS --verbose databases/malware-inputs/Sample_paper/
+
+# (virtual env/penv)
+python3 ToolChain.py  --method CDFS --verbose databases/malware-inputs/Sample_paper/
+```
+
+:page_with_curl: System Call Dependency Graphs extractor (`ToolChainSCDG`)
+====
+<a name="tc2"></a>
+
+This repository contains a first version of a SCDG extractor.
+During symbolic analysis of a binary, all system calls and their arguments found are recorded. After some stop conditions for symbolic analysis, a graph is build as follow : Nodes are systems Calls recorded, edges show that some arguments are shared between calls.
+
+### How to use ?
+Just run the script : 
+```bash
+pypy3 ToolChainSCDG.py BINARY_NAME
+
+python3 ToolChainSCDG.py BINARY_NAME
+```
+For syscall extraction, different optionals arguments are available :
+
+* `method` : Method used for the analysis among (DFS,BFS,CBFS,CDFS) (default : DFS)
+* `n_args` : Number of symbolic arguments given to the binary (default : 0)
+* `timeout` : Timeout in seconds before ending extraction (default : 600)
+* `symb_loop` : Number of iteration allowed for a symbolic loop (default : 3)
+* `conc_loop` : Number of symbolic arguments given to the binary (default : 1024)
+* `simul_state` : Number of simultaneous states we explore with simulation manager (default : 5)
+* `limit_pause` : Number of states allowed in pause stash (default : 200)
+* `max_step` : Maximum number of steps allowed for a state (default : 50 000)
+* `max_deadend` : Number of deadended state required to stop (default : 600)
+* `resolv_string` : Do we try to resolv references of string (default : True)
+* `familly` : Familly of the malware. if a folder instead of a binary is given, then the familly are associated to the subfolder containing the binaries.  ? (default : unknown)
+
+For the graph building, options are : 
+
+* `min_size` : Minimum size required for a trace to be used in SCDG (default : 3)
+* `merge_call` : Do we merge traces or use disjoint union ? (default : True = merge)
+* `comp_args` : Do we compare arguments to add new nodes when building graph ? (default : True)
+* `ignore_zero` : Do we ignore zero when building graph ? (default : True)
+
+You could also specify a directory (already created) to save outputs with option `-dir`.
+
+Program will output a graph in `.gs` format that could be exploited by `gspan`.
+
+You also have a script `merge_gspan.py` which could merge all `.gs` from a directory into only one file.
+
+Password for Examples archive is "infected". Warning : it contains real samples of malwares.
+
+#### Example
+
+```bash
+# +- 447 sec <SimulationManager with 61 deadended>
+pypy3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-inputs/Sample_paper/nitol/00b2f45c7befbced2efaeb92a725bb3d  
+
+# +- 512 sec <SimulationManager with 61 deadended>
+# (virtual env/penv)
+python3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-inputs/Sample_paper/nitol/00b2f45c7befbced2efaeb92a725bb3d 
+```
+
+```bash
+# timeout (+- 607 sec) 
+# <SimulationManager with 6 active, 168 deadended, 61 pause, 100 ExcessLoop> + 109 SCDG
+pypy3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-inputs/Sample_paper/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df 
+
+# timeout (611 sec) 
+# <SimulationManager with 5 active, 69 deadended, 63 pause, 100 ExcessLoop> + 53 SCDG
+# (virtual env/penv)
+python3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-inputs/Sample_paper/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df 
+```
+
+:page_with_curl: Model & Classification extractor (`ToolChainClassifier`)
+====
+<a name="tc4"></a>
+
+When a new sample has to be evaluated, its SCDG is first build as described previously. Then, `gspan` is applied to extract the biggest common subgraph and a similarity score is evaluated to decide if the graph is considered as part of the family or not.
+
+The similarity score `S` between graph `G'` and `G''` is computed as follow:
+
+<p align="center">
+![equation](http://www.sciweavers.org/tex2img.php?eq=S%28G%27%27%2CG%27%29%20%3D%20%5Cfrac%7Bnum%5C_edges%28G%27%27%29%7D%7Bnum%5C_edges%28G%27%29%7D&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
+</p>
+
+Since `G''` is a subgraph of `G'`, this is calculating how much `G'` appears in `G''`.
+
+Another classifier we use is the Support Vector Machine (`SVM`) with INRIA graph kernel or the Weisfeiler-Lehman extension graph kernel.
+
+
+### How to use ?
+
+Just run the script : 
+```bash
+python3 ToolChainClassifier.py FOLDER
+```
+* `FOLDER` : Folder containing binaries to classify, these binaries must be ordered by familly (default : `output/save-SCDG/`)
+* `mode`: `detection` = binary decision cleanware vs malware OR `classification` = malware family (default: classification) 
+* `classifier` : Classifier used [gspan,inria,wl] (default : wl)
+* `threshold` : Threshold used for the classifier [0..1] (default : 0.45)
+* `support` : Support used for the gspan classifier [0..1] (default : 0.75)
+* `ctimeout` : Timeout for gspan classifier (default : 3sec)
+* `biggest_subgraph` : Biggest subgraph used with gspan (default : 5)
+* `nthread` : Number of thread used (default : max)
+* `families`: Families considered (default : ['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT'])"
+
+#### Example
+
+```bash
+pypy3 ToolChainClassifier/ToolChainClassifier.py output/test_classifier_CDFS/
+
+python3 ToolChainClassifier/ToolChainClassifier.py output/test_classifier_CDFS/
+```
+
+
+:page_with_curl: Federated Learning for collaborative works (`ToolChainFL`)
+====
+<a name="tc3"></a>
+
+TODO
+
+### How to use ?
+Just run the script : 
+```bash
+pypy3 ToolChainFL/ToolChainFL.py BINARY_NAME
+
+python3 ToolChainFL/ToolChainFL.py BINARY_NAME
+```
+
+#### Example
+
+```bash
+pypy3 ToolChainFL/ToolChainFL.py 
+
+python3 ToolChainFL/ToolChainFL.py 
+```
