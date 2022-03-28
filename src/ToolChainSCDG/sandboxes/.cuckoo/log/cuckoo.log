@@ -1,0 +1,1258 @@
+2022-03-02 18:27:36,728 [cuckoo.core.database] DEBUG: Using database-wide lock for sqlite
+2022-03-02 18:27:36,749 [cuckoo.core.startup] DEBUG: Imported modules...
+2022-03-02 18:27:36,779 [cuckoo.core.startup] DEBUG: Imported "auxiliary" modules:
+2022-03-02 18:27:36,779 [cuckoo.core.startup] DEBUG: 	 |-- MITM
+2022-03-02 18:27:36,779 [cuckoo.core.startup] DEBUG: 	 |-- Reboot
+2022-03-02 18:27:36,779 [cuckoo.core.startup] DEBUG: 	 |-- Replay
+2022-03-02 18:27:36,779 [cuckoo.core.startup] DEBUG: 	 |-- Services
+2022-03-02 18:27:36,779 [cuckoo.core.startup] DEBUG: 	 `-- Sniffer
+2022-03-02 18:27:36,780 [cuckoo.core.startup] DEBUG: Imported "machinery" modules:
+2022-03-02 18:27:36,780 [cuckoo.core.startup] DEBUG: 	 |-- vSphere
+2022-03-02 18:27:36,780 [cuckoo.core.startup] DEBUG: 	 |-- KVM
+2022-03-02 18:27:36,780 [cuckoo.core.startup] DEBUG: 	 |-- ESX
+2022-03-02 18:27:36,780 [cuckoo.core.startup] DEBUG: 	 |-- XenServer
+2022-03-02 18:27:36,780 [cuckoo.core.startup] DEBUG: 	 |-- VirtualBox
+2022-03-02 18:27:36,780 [cuckoo.core.startup] DEBUG: 	 |-- Avd
+2022-03-02 18:27:36,780 [cuckoo.core.startup] DEBUG: 	 |-- QEMU
+2022-03-02 18:27:36,780 [cuckoo.core.startup] DEBUG: 	 |-- VMware
+2022-03-02 18:27:36,780 [cuckoo.core.startup] DEBUG: 	 `-- Physical
+2022-03-02 18:27:36,780 [cuckoo.core.startup] DEBUG: Imported "processing" modules:
+2022-03-02 18:27:36,781 [cuckoo.core.startup] DEBUG: 	 |-- AnalysisInfo
+2022-03-02 18:27:36,781 [cuckoo.core.startup] DEBUG: 	 |-- ApkInfo
+2022-03-02 18:27:36,781 [cuckoo.core.startup] DEBUG: 	 |-- Baseline
+2022-03-02 18:27:36,781 [cuckoo.core.startup] DEBUG: 	 |-- BehaviorAnalysis
+2022-03-02 18:27:36,781 [cuckoo.core.startup] DEBUG: 	 |-- Debug
+2022-03-02 18:27:36,781 [cuckoo.core.startup] DEBUG: 	 |-- Droidmon
+2022-03-02 18:27:36,781 [cuckoo.core.startup] DEBUG: 	 |-- Dropped
+2022-03-02 18:27:36,781 [cuckoo.core.startup] DEBUG: 	 |-- DroppedBuffer
+2022-03-02 18:27:36,781 [cuckoo.core.startup] DEBUG: 	 |-- Extracted
+2022-03-02 18:27:36,781 [cuckoo.core.startup] DEBUG: 	 |-- GooglePlay
+2022-03-02 18:27:36,781 [cuckoo.core.startup] DEBUG: 	 |-- Irma
+2022-03-02 18:27:36,781 [cuckoo.core.startup] DEBUG: 	 |-- Memory
+2022-03-02 18:27:36,781 [cuckoo.core.startup] DEBUG: 	 |-- MetaInfo
+2022-03-02 18:27:36,782 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:27:36,782 [cuckoo.core.startup] DEBUG: 	 |-- NetworkAnalysis
+2022-03-02 18:27:36,782 [cuckoo.core.startup] DEBUG: 	 |-- ProcessMemory
+2022-03-02 18:27:36,782 [cuckoo.core.startup] DEBUG: 	 |-- Procmon
+2022-03-02 18:27:36,782 [cuckoo.core.startup] DEBUG: 	 |-- Screenshots
+2022-03-02 18:27:36,782 [cuckoo.core.startup] DEBUG: 	 |-- Snort
+2022-03-02 18:27:36,782 [cuckoo.core.startup] DEBUG: 	 |-- Static
+2022-03-02 18:27:36,782 [cuckoo.core.startup] DEBUG: 	 |-- Strings
+2022-03-02 18:27:36,782 [cuckoo.core.startup] DEBUG: 	 |-- Suricata
+2022-03-02 18:27:36,782 [cuckoo.core.startup] DEBUG: 	 |-- TargetInfo
+2022-03-02 18:27:36,782 [cuckoo.core.startup] DEBUG: 	 |-- TLSMasterSecrets
+2022-03-02 18:27:36,783 [cuckoo.core.startup] DEBUG: 	 `-- VirusTotal
+2022-03-02 18:27:36,783 [cuckoo.core.startup] DEBUG: Imported "signatures" modules:
+2022-03-02 18:27:36,783 [cuckoo.core.startup] DEBUG: 	 `-- SystemMetrics
+2022-03-02 18:27:36,783 [cuckoo.core.startup] DEBUG: Imported "reporting" modules:
+2022-03-02 18:27:36,783 [cuckoo.core.startup] DEBUG: 	 |-- ElasticSearch
+2022-03-02 18:27:36,783 [cuckoo.core.startup] DEBUG: 	 |-- Feedback
+2022-03-02 18:27:36,783 [cuckoo.core.startup] DEBUG: 	 |-- JsonDump
+2022-03-02 18:27:36,783 [cuckoo.core.startup] DEBUG: 	 |-- Mattermost
+2022-03-02 18:27:36,783 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:27:36,783 [cuckoo.core.startup] DEBUG: 	 |-- Moloch
+2022-03-02 18:27:36,783 [cuckoo.core.startup] DEBUG: 	 |-- MongoDB
+2022-03-02 18:27:36,783 [cuckoo.core.startup] DEBUG: 	 |-- Notification
+2022-03-02 18:27:36,783 [cuckoo.core.startup] DEBUG: 	 `-- SingleFile
+2022-03-02 18:27:36,785 [cuckoo.core.startup] DEBUG: Checking for locked tasks..
+2022-03-02 18:27:36,791 [cuckoo.core.startup] DEBUG: Checking for pending service tasks..
+2022-03-02 18:27:36,796 [cuckoo.core.startup] DEBUG: Initializing Yara...
+2022-03-02 18:27:36,799 [cuckoo.core.startup] DEBUG: 	 |-- binaries embedded.yar
+2022-03-02 18:27:36,799 [cuckoo.core.startup] DEBUG: 	 |-- binaries shellcodes.yar
+2022-03-02 18:27:36,799 [cuckoo.core.startup] DEBUG: 	 |-- binaries vmdetect.yar
+2022-03-02 18:27:36,801 [cuckoo] WARNING: It appears that you haven't loaded any Cuckoo Signatures. Signatures are highly recommended and improve & enrich the information extracted during an analysis. They also make up for the analysis score that you see in the Web Interface - so, pretty important!
+2022-03-02 18:27:36,801 [cuckoo] WARNING: You'll be able to fetch all the latest Cuckoo Signatures, Yara rules, and more goodies by running the following command:
+2022-03-02 18:27:36,802 [cuckoo] INFO: $ [32mcuckoo --cwd /home/crochetch/Documents/toolchain_malware_analysis/src/ToolChainSCDG/sandboxes/.cuckoo community[0m
+2022-03-02 18:27:36,803 [cuckoo.core.scheduler] INFO: Using "qemu" as machine manager
+2022-03-02 18:27:36,823 [cuckoo.core.scheduler] INFO: Loaded 1 machine/s
+2022-03-02 18:27:36,829 [cuckoo.core.scheduler] INFO: Waiting for analysis tasks.
+2022-03-02 18:27:37,857 [cuckoo.core.scheduler] DEBUG: Processing task #1
+2022-03-02 18:27:37,861 [cuckoo.core.scheduler] INFO: Starting analysis of FILE "0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df" (task #1, options "")
+2022-03-02 18:27:37,878 [cuckoo.core.scheduler] INFO: Task #1: acquired machine cuckoo1 (label=cuckoo1)
+2022-03-02 18:27:37,878 [cuckoo.core.resultserver] DEBUG: Now tracking machine 192.168.122.254 for task #1
+2022-03-02 18:27:37,879 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Replay
+2022-03-02 18:27:37,884 [cuckoo.auxiliary.sniffer] INFO: Started sniffer with PID 99133 (interface=qemubr, host=192.168.122.254)
+2022-03-02 18:27:37,885 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Sniffer
+2022-03-02 18:27:37,903 [cuckoo.machinery.qemu] DEBUG: Starting vm cuckoo1
+2022-03-02 18:27:37,921 [cuckoo.core.scheduler] ERROR: Error starting Virtual Machine! VM: cuckoo1, error: QEMU failed starting the machine: qemu-img: /home/crochetch/Documents/PhD/VMImages/images/snapshot_cuckoo1.qcow2: Could not open '/home/crochetch/Documents/PhD/VMImages/images/win7.qcow2': No such file or directory
+Could not open backing image to determine size.
+
+2022-03-02 18:27:37,922 [cuckoo.core.plugins] DEBUG: Stopped auxiliary module: Replay
+2022-03-02 18:27:37,940 [cuckoo.core.plugins] DEBUG: Stopped auxiliary module: Sniffer
+2022-03-02 18:27:37,941 [cuckoo.machinery.qemu] DEBUG: Stopping vm cuckoo1
+2022-03-02 18:27:37,946 [cuckoo.core.scheduler] WARNING: Unable to stop machine cuckoo1: Trying to stop an already stopped vm cuckoo1
+2022-03-02 18:27:37,951 [cuckoo.core.resultserver] DEBUG: Stopped tracking machine 192.168.122.254 for task #1
+2022-03-02 18:27:37,957 [cuckoo.core.scheduler] DEBUG: Released database task #1
+2022-03-02 18:27:37,970 [cuckoo.core.plugins] DEBUG: Executed processing module "AnalysisInfo" for task #1
+2022-03-02 18:27:37,970 [cuckoo.processing.behavior] WARNING: Analysis results folder does not contain any behavior log files.
+2022-03-02 18:27:37,971 [cuckoo.core.plugins] DEBUG: Executed processing module "BehaviorAnalysis" for task #1
+2022-03-02 18:27:37,971 [cuckoo.core.plugins] DEBUG: Executed processing module "Dropped" for task #1
+2022-03-02 18:27:37,971 [cuckoo.core.plugins] DEBUG: Executed processing module "DroppedBuffer" for task #1
+2022-03-02 18:27:37,971 [cuckoo.core.plugins] DEBUG: Executed processing module "MetaInfo" for task #1
+2022-03-02 18:27:37,972 [cuckoo.core.plugins] DEBUG: Executed processing module "ProcessMemory" for task #1
+2022-03-02 18:27:37,972 [cuckoo.core.plugins] DEBUG: Executed processing module "Procmon" for task #1
+2022-03-02 18:27:37,972 [cuckoo.core.plugins] DEBUG: Executed processing module "Screenshots" for task #1
+2022-03-02 18:27:38,191 [cuckoo.core.plugins] DEBUG: Executed processing module "Static" for task #1
+2022-03-02 18:27:38,212 [cuckoo.core.plugins] DEBUG: Executed processing module "Strings" for task #1
+2022-03-02 18:27:38,221 [cuckoo.core.plugins] DEBUG: Executed processing module "TargetInfo" for task #1
+2022-03-02 18:27:38,221 [cuckoo.processing.network] WARNING: The PCAP file does not exist at path "/home/crochetch/Documents/toolchain_malware_analysis/src/ToolChainSCDG/sandboxes/.cuckoo/storage/analyses/1/dump.pcap".
+2022-03-02 18:27:38,221 [cuckoo.core.plugins] DEBUG: Executed processing module "NetworkAnalysis" for task #1
+2022-03-02 18:27:38,222 [cuckoo.core.plugins] DEBUG: Executed processing module "Extracted" for task #1
+2022-03-02 18:27:38,222 [cuckoo.core.plugins] DEBUG: Executed processing module "TLSMasterSecrets" for task #1
+2022-03-02 18:27:38,222 [cuckoo.processing.debug] ERROR: Error processing task #1: it appears that the Virtual Machine hasn't been able to contact back to the Cuckoo Host. There could be a few reasons for this, please refer to our documentation on the matter: https://cuckoo.sh/docs/faq/index.html#troubleshooting-vm-network-configuration
+2022-03-02 18:27:38,228 [cuckoo.core.plugins] DEBUG: Executed processing module "Debug" for task #1
+2022-03-02 18:27:38,228 [cuckoo.core.plugins] DEBUG: Running 0 signatures
+2022-03-02 18:27:38,229 [cuckoo.core.plugins] DEBUG: Executed reporting module "JsonDump"
+2022-03-02 18:27:38,264 [cuckoo.core.plugins] DEBUG: Executed reporting module "SingleFile"
+2022-03-02 18:27:38,300 [cuckoo.core.plugins] DEBUG: Executed reporting module "MongoDB"
+2022-03-02 18:27:38,300 [cuckoo.core.scheduler] INFO: Task #1: reports generation completed
+2022-03-02 18:27:38,303 [cuckoo.core.scheduler] INFO: Task #1: analysis procedure completed
+2022-03-02 18:27:38,864 [cuckoo.core.scheduler] DEBUG: Reached max analysis count, exiting.
+2022-03-02 18:27:38,866 [cuckoo.core.scheduler] DEBUG: End of analyses.
+2022-03-02 18:34:05,656 [cuckoo.core.database] DEBUG: Using database-wide lock for sqlite
+2022-03-02 18:34:05,682 [cuckoo.core.startup] DEBUG: Imported modules...
+2022-03-02 18:34:05,685 [cuckoo.core.startup] DEBUG: Imported "auxiliary" modules:
+2022-03-02 18:34:05,686 [cuckoo.core.startup] DEBUG: 	 |-- MITM
+2022-03-02 18:34:05,686 [cuckoo.core.startup] DEBUG: 	 |-- Reboot
+2022-03-02 18:34:05,686 [cuckoo.core.startup] DEBUG: 	 |-- Replay
+2022-03-02 18:34:05,686 [cuckoo.core.startup] DEBUG: 	 |-- Services
+2022-03-02 18:34:05,686 [cuckoo.core.startup] DEBUG: 	 `-- Sniffer
+2022-03-02 18:34:05,686 [cuckoo.core.startup] DEBUG: Imported "machinery" modules:
+2022-03-02 18:34:05,686 [cuckoo.core.startup] DEBUG: 	 |-- vSphere
+2022-03-02 18:34:05,686 [cuckoo.core.startup] DEBUG: 	 |-- KVM
+2022-03-02 18:34:05,686 [cuckoo.core.startup] DEBUG: 	 |-- ESX
+2022-03-02 18:34:05,686 [cuckoo.core.startup] DEBUG: 	 |-- XenServer
+2022-03-02 18:34:05,686 [cuckoo.core.startup] DEBUG: 	 |-- VirtualBox
+2022-03-02 18:34:05,686 [cuckoo.core.startup] DEBUG: 	 |-- Avd
+2022-03-02 18:34:05,687 [cuckoo.core.startup] DEBUG: 	 |-- QEMU
+2022-03-02 18:34:05,687 [cuckoo.core.startup] DEBUG: 	 |-- VMware
+2022-03-02 18:34:05,687 [cuckoo.core.startup] DEBUG: 	 `-- Physical
+2022-03-02 18:34:05,687 [cuckoo.core.startup] DEBUG: Imported "processing" modules:
+2022-03-02 18:34:05,687 [cuckoo.core.startup] DEBUG: 	 |-- AnalysisInfo
+2022-03-02 18:34:05,687 [cuckoo.core.startup] DEBUG: 	 |-- ApkInfo
+2022-03-02 18:34:05,687 [cuckoo.core.startup] DEBUG: 	 |-- Baseline
+2022-03-02 18:34:05,687 [cuckoo.core.startup] DEBUG: 	 |-- BehaviorAnalysis
+2022-03-02 18:34:05,687 [cuckoo.core.startup] DEBUG: 	 |-- Debug
+2022-03-02 18:34:05,687 [cuckoo.core.startup] DEBUG: 	 |-- Droidmon
+2022-03-02 18:34:05,687 [cuckoo.core.startup] DEBUG: 	 |-- Dropped
+2022-03-02 18:34:05,687 [cuckoo.core.startup] DEBUG: 	 |-- DroppedBuffer
+2022-03-02 18:34:05,687 [cuckoo.core.startup] DEBUG: 	 |-- Extracted
+2022-03-02 18:34:05,687 [cuckoo.core.startup] DEBUG: 	 |-- GooglePlay
+2022-03-02 18:34:05,687 [cuckoo.core.startup] DEBUG: 	 |-- Irma
+2022-03-02 18:34:05,687 [cuckoo.core.startup] DEBUG: 	 |-- Memory
+2022-03-02 18:34:05,688 [cuckoo.core.startup] DEBUG: 	 |-- MetaInfo
+2022-03-02 18:34:05,688 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:34:05,688 [cuckoo.core.startup] DEBUG: 	 |-- NetworkAnalysis
+2022-03-02 18:34:05,688 [cuckoo.core.startup] DEBUG: 	 |-- ProcessMemory
+2022-03-02 18:34:05,688 [cuckoo.core.startup] DEBUG: 	 |-- Procmon
+2022-03-02 18:34:05,688 [cuckoo.core.startup] DEBUG: 	 |-- Screenshots
+2022-03-02 18:34:05,688 [cuckoo.core.startup] DEBUG: 	 |-- Snort
+2022-03-02 18:34:05,688 [cuckoo.core.startup] DEBUG: 	 |-- Static
+2022-03-02 18:34:05,688 [cuckoo.core.startup] DEBUG: 	 |-- Strings
+2022-03-02 18:34:05,688 [cuckoo.core.startup] DEBUG: 	 |-- Suricata
+2022-03-02 18:34:05,688 [cuckoo.core.startup] DEBUG: 	 |-- TargetInfo
+2022-03-02 18:34:05,688 [cuckoo.core.startup] DEBUG: 	 |-- TLSMasterSecrets
+2022-03-02 18:34:05,688 [cuckoo.core.startup] DEBUG: 	 `-- VirusTotal
+2022-03-02 18:34:05,689 [cuckoo.core.startup] DEBUG: Imported "signatures" modules:
+2022-03-02 18:34:05,689 [cuckoo.core.startup] DEBUG: 	 `-- SystemMetrics
+2022-03-02 18:34:05,689 [cuckoo.core.startup] DEBUG: Imported "reporting" modules:
+2022-03-02 18:34:05,689 [cuckoo.core.startup] DEBUG: 	 |-- ElasticSearch
+2022-03-02 18:34:05,689 [cuckoo.core.startup] DEBUG: 	 |-- Feedback
+2022-03-02 18:34:05,689 [cuckoo.core.startup] DEBUG: 	 |-- JsonDump
+2022-03-02 18:34:05,689 [cuckoo.core.startup] DEBUG: 	 |-- Mattermost
+2022-03-02 18:34:05,689 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:34:05,689 [cuckoo.core.startup] DEBUG: 	 |-- Moloch
+2022-03-02 18:34:05,689 [cuckoo.core.startup] DEBUG: 	 |-- MongoDB
+2022-03-02 18:34:05,689 [cuckoo.core.startup] DEBUG: 	 |-- Notification
+2022-03-02 18:34:05,689 [cuckoo.core.startup] DEBUG: 	 `-- SingleFile
+2022-03-02 18:34:05,691 [cuckoo.core.startup] DEBUG: Checking for locked tasks..
+2022-03-02 18:34:05,698 [cuckoo.core.startup] DEBUG: Checking for pending service tasks..
+2022-03-02 18:34:05,701 [cuckoo.core.startup] DEBUG: Initializing Yara...
+2022-03-02 18:34:05,704 [cuckoo.core.startup] DEBUG: 	 |-- binaries embedded.yar
+2022-03-02 18:34:05,704 [cuckoo.core.startup] DEBUG: 	 |-- binaries shellcodes.yar
+2022-03-02 18:34:05,704 [cuckoo.core.startup] DEBUG: 	 |-- binaries vmdetect.yar
+2022-03-02 18:34:05,707 [cuckoo] WARNING: It appears that you haven't loaded any Cuckoo Signatures. Signatures are highly recommended and improve & enrich the information extracted during an analysis. They also make up for the analysis score that you see in the Web Interface - so, pretty important!
+2022-03-02 18:34:05,707 [cuckoo] WARNING: You'll be able to fetch all the latest Cuckoo Signatures, Yara rules, and more goodies by running the following command:
+2022-03-02 18:34:05,707 [cuckoo] INFO: $ [32mcuckoo --cwd /home/crochetch/Documents/toolchain_malware_analysis/src/ToolChainSCDG/sandboxes/.cuckoo community[0m
+2022-03-02 18:34:05,708 [cuckoo.core.scheduler] INFO: Using "qemu" as machine manager
+2022-03-02 18:34:05,733 [cuckoo.core.scheduler] INFO: Loaded 1 machine/s
+2022-03-02 18:34:05,739 [cuckoo.core.scheduler] INFO: Waiting for analysis tasks.
+2022-03-02 18:34:06,769 [cuckoo.core.scheduler] DEBUG: Processing task #2
+2022-03-02 18:34:06,772 [cuckoo.core.scheduler] INFO: Starting analysis of FILE "0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df" (task #2, options "")
+2022-03-02 18:34:06,790 [cuckoo.core.scheduler] INFO: Task #2: acquired machine cuckoo1 (label=cuckoo1)
+2022-03-02 18:34:06,790 [cuckoo.core.resultserver] DEBUG: Now tracking machine 192.168.122.254 for task #2
+2022-03-02 18:34:06,791 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Replay
+2022-03-02 18:34:06,797 [cuckoo.auxiliary.sniffer] INFO: Started sniffer with PID 101444 (interface=qemubr, host=192.168.122.254)
+2022-03-02 18:34:06,797 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Sniffer
+2022-03-02 18:34:06,815 [cuckoo.machinery.qemu] DEBUG: Starting vm cuckoo1
+2022-03-02 18:34:06,832 [cuckoo.core.scheduler] ERROR: Error starting Virtual Machine! VM: cuckoo1, error: QEMU failed starting the machine: qemu-img: /home/crochetch/Documents/PhD/VMImages/images/snapshot_cuckoo1.qcow2: Could not open '/home/crochetch/Documents/PhD/VMImages/images/win7.qcow2': No such file or directory
+Could not open backing image to determine size.
+
+2022-03-02 18:34:06,832 [cuckoo.core.plugins] DEBUG: Stopped auxiliary module: Replay
+2022-03-02 18:34:06,864 [cuckoo.core.plugins] DEBUG: Stopped auxiliary module: Sniffer
+2022-03-02 18:34:06,865 [cuckoo.machinery.qemu] DEBUG: Stopping vm cuckoo1
+2022-03-02 18:34:06,870 [cuckoo.core.scheduler] WARNING: Unable to stop machine cuckoo1: Trying to stop an already stopped vm cuckoo1
+2022-03-02 18:34:06,874 [cuckoo.core.resultserver] DEBUG: Stopped tracking machine 192.168.122.254 for task #2
+2022-03-02 18:34:06,883 [cuckoo.core.scheduler] DEBUG: Released database task #2
+2022-03-02 18:34:06,898 [cuckoo.core.plugins] DEBUG: Executed processing module "AnalysisInfo" for task #2
+2022-03-02 18:34:06,898 [cuckoo.processing.behavior] WARNING: Analysis results folder does not contain any behavior log files.
+2022-03-02 18:34:06,898 [cuckoo.core.plugins] DEBUG: Executed processing module "BehaviorAnalysis" for task #2
+2022-03-02 18:34:06,899 [cuckoo.core.plugins] DEBUG: Executed processing module "Dropped" for task #2
+2022-03-02 18:34:06,899 [cuckoo.core.plugins] DEBUG: Executed processing module "DroppedBuffer" for task #2
+2022-03-02 18:34:06,899 [cuckoo.core.plugins] DEBUG: Executed processing module "MetaInfo" for task #2
+2022-03-02 18:34:06,900 [cuckoo.core.plugins] DEBUG: Executed processing module "ProcessMemory" for task #2
+2022-03-02 18:34:06,900 [cuckoo.core.plugins] DEBUG: Executed processing module "Procmon" for task #2
+2022-03-02 18:34:06,900 [cuckoo.core.plugins] DEBUG: Executed processing module "Screenshots" for task #2
+2022-03-02 18:34:07,133 [cuckoo.core.plugins] DEBUG: Executed processing module "Static" for task #2
+2022-03-02 18:34:07,145 [cuckoo.core.plugins] DEBUG: Executed processing module "Strings" for task #2
+2022-03-02 18:34:07,154 [cuckoo.core.plugins] DEBUG: Executed processing module "TargetInfo" for task #2
+2022-03-02 18:34:07,155 [cuckoo.processing.network] WARNING: The PCAP file does not exist at path "/home/crochetch/Documents/toolchain_malware_analysis/src/ToolChainSCDG/sandboxes/.cuckoo/storage/analyses/2/dump.pcap".
+2022-03-02 18:34:07,155 [cuckoo.core.plugins] DEBUG: Executed processing module "NetworkAnalysis" for task #2
+2022-03-02 18:34:07,155 [cuckoo.core.plugins] DEBUG: Executed processing module "Extracted" for task #2
+2022-03-02 18:34:07,155 [cuckoo.core.plugins] DEBUG: Executed processing module "TLSMasterSecrets" for task #2
+2022-03-02 18:34:07,156 [cuckoo.processing.debug] ERROR: Error processing task #2: it appears that the Virtual Machine hasn't been able to contact back to the Cuckoo Host. There could be a few reasons for this, please refer to our documentation on the matter: https://cuckoo.sh/docs/faq/index.html#troubleshooting-vm-network-configuration
+2022-03-02 18:34:07,161 [cuckoo.core.plugins] DEBUG: Executed processing module "Debug" for task #2
+2022-03-02 18:34:07,161 [cuckoo.core.plugins] DEBUG: Running 0 signatures
+2022-03-02 18:34:07,163 [cuckoo.core.plugins] DEBUG: Executed reporting module "JsonDump"
+2022-03-02 18:34:07,190 [cuckoo.core.plugins] DEBUG: Executed reporting module "SingleFile"
+2022-03-02 18:34:07,194 [cuckoo.core.plugins] DEBUG: Executed reporting module "MongoDB"
+2022-03-02 18:34:07,195 [cuckoo.core.scheduler] INFO: Task #2: reports generation completed
+2022-03-02 18:34:07,200 [cuckoo.core.scheduler] INFO: Task #2: analysis procedure completed
+2022-03-02 18:34:07,777 [cuckoo.core.scheduler] DEBUG: Reached max analysis count, exiting.
+2022-03-02 18:34:07,779 [cuckoo.core.scheduler] DEBUG: End of analyses.
+2022-03-02 18:39:28,459 [cuckoo.core.database] DEBUG: Using database-wide lock for sqlite
+2022-03-02 18:39:28,488 [cuckoo.core.startup] DEBUG: Imported modules...
+2022-03-02 18:39:28,491 [cuckoo.core.startup] DEBUG: Imported "auxiliary" modules:
+2022-03-02 18:39:28,492 [cuckoo.core.startup] DEBUG: 	 |-- MITM
+2022-03-02 18:39:28,492 [cuckoo.core.startup] DEBUG: 	 |-- Reboot
+2022-03-02 18:39:28,492 [cuckoo.core.startup] DEBUG: 	 |-- Replay
+2022-03-02 18:39:28,492 [cuckoo.core.startup] DEBUG: 	 |-- Services
+2022-03-02 18:39:28,492 [cuckoo.core.startup] DEBUG: 	 `-- Sniffer
+2022-03-02 18:39:28,492 [cuckoo.core.startup] DEBUG: Imported "machinery" modules:
+2022-03-02 18:39:28,492 [cuckoo.core.startup] DEBUG: 	 |-- vSphere
+2022-03-02 18:39:28,492 [cuckoo.core.startup] DEBUG: 	 |-- KVM
+2022-03-02 18:39:28,492 [cuckoo.core.startup] DEBUG: 	 |-- ESX
+2022-03-02 18:39:28,492 [cuckoo.core.startup] DEBUG: 	 |-- XenServer
+2022-03-02 18:39:28,493 [cuckoo.core.startup] DEBUG: 	 |-- VirtualBox
+2022-03-02 18:39:28,493 [cuckoo.core.startup] DEBUG: 	 |-- Avd
+2022-03-02 18:39:28,493 [cuckoo.core.startup] DEBUG: 	 |-- QEMU
+2022-03-02 18:39:28,493 [cuckoo.core.startup] DEBUG: 	 |-- VMware
+2022-03-02 18:39:28,493 [cuckoo.core.startup] DEBUG: 	 `-- Physical
+2022-03-02 18:39:28,493 [cuckoo.core.startup] DEBUG: Imported "processing" modules:
+2022-03-02 18:39:28,493 [cuckoo.core.startup] DEBUG: 	 |-- AnalysisInfo
+2022-03-02 18:39:28,493 [cuckoo.core.startup] DEBUG: 	 |-- ApkInfo
+2022-03-02 18:39:28,493 [cuckoo.core.startup] DEBUG: 	 |-- Baseline
+2022-03-02 18:39:28,493 [cuckoo.core.startup] DEBUG: 	 |-- BehaviorAnalysis
+2022-03-02 18:39:28,493 [cuckoo.core.startup] DEBUG: 	 |-- Debug
+2022-03-02 18:39:28,493 [cuckoo.core.startup] DEBUG: 	 |-- Droidmon
+2022-03-02 18:39:28,494 [cuckoo.core.startup] DEBUG: 	 |-- Dropped
+2022-03-02 18:39:28,494 [cuckoo.core.startup] DEBUG: 	 |-- DroppedBuffer
+2022-03-02 18:39:28,494 [cuckoo.core.startup] DEBUG: 	 |-- Extracted
+2022-03-02 18:39:28,494 [cuckoo.core.startup] DEBUG: 	 |-- GooglePlay
+2022-03-02 18:39:28,494 [cuckoo.core.startup] DEBUG: 	 |-- Irma
+2022-03-02 18:39:28,494 [cuckoo.core.startup] DEBUG: 	 |-- Memory
+2022-03-02 18:39:28,494 [cuckoo.core.startup] DEBUG: 	 |-- MetaInfo
+2022-03-02 18:39:28,494 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:39:28,494 [cuckoo.core.startup] DEBUG: 	 |-- NetworkAnalysis
+2022-03-02 18:39:28,495 [cuckoo.core.startup] DEBUG: 	 |-- ProcessMemory
+2022-03-02 18:39:28,495 [cuckoo.core.startup] DEBUG: 	 |-- Procmon
+2022-03-02 18:39:28,495 [cuckoo.core.startup] DEBUG: 	 |-- Screenshots
+2022-03-02 18:39:28,495 [cuckoo.core.startup] DEBUG: 	 |-- Snort
+2022-03-02 18:39:28,495 [cuckoo.core.startup] DEBUG: 	 |-- Static
+2022-03-02 18:39:28,495 [cuckoo.core.startup] DEBUG: 	 |-- Strings
+2022-03-02 18:39:28,495 [cuckoo.core.startup] DEBUG: 	 |-- Suricata
+2022-03-02 18:39:28,495 [cuckoo.core.startup] DEBUG: 	 |-- TargetInfo
+2022-03-02 18:39:28,495 [cuckoo.core.startup] DEBUG: 	 |-- TLSMasterSecrets
+2022-03-02 18:39:28,495 [cuckoo.core.startup] DEBUG: 	 `-- VirusTotal
+2022-03-02 18:39:28,495 [cuckoo.core.startup] DEBUG: Imported "signatures" modules:
+2022-03-02 18:39:28,496 [cuckoo.core.startup] DEBUG: 	 `-- SystemMetrics
+2022-03-02 18:39:28,496 [cuckoo.core.startup] DEBUG: Imported "reporting" modules:
+2022-03-02 18:39:28,496 [cuckoo.core.startup] DEBUG: 	 |-- ElasticSearch
+2022-03-02 18:39:28,496 [cuckoo.core.startup] DEBUG: 	 |-- Feedback
+2022-03-02 18:39:28,496 [cuckoo.core.startup] DEBUG: 	 |-- JsonDump
+2022-03-02 18:39:28,496 [cuckoo.core.startup] DEBUG: 	 |-- Mattermost
+2022-03-02 18:39:28,496 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:39:28,496 [cuckoo.core.startup] DEBUG: 	 |-- Moloch
+2022-03-02 18:39:28,496 [cuckoo.core.startup] DEBUG: 	 |-- MongoDB
+2022-03-02 18:39:28,496 [cuckoo.core.startup] DEBUG: 	 |-- Notification
+2022-03-02 18:39:28,496 [cuckoo.core.startup] DEBUG: 	 `-- SingleFile
+2022-03-02 18:39:28,498 [cuckoo.core.startup] DEBUG: Checking for locked tasks..
+2022-03-02 18:39:28,508 [cuckoo.core.startup] DEBUG: Checking for pending service tasks..
+2022-03-02 18:39:28,512 [cuckoo.core.startup] DEBUG: Initializing Yara...
+2022-03-02 18:39:28,515 [cuckoo.core.startup] DEBUG: 	 |-- binaries embedded.yar
+2022-03-02 18:39:28,515 [cuckoo.core.startup] DEBUG: 	 |-- binaries shellcodes.yar
+2022-03-02 18:39:28,515 [cuckoo.core.startup] DEBUG: 	 |-- binaries vmdetect.yar
+2022-03-02 18:39:28,518 [cuckoo] WARNING: It appears that you haven't loaded any Cuckoo Signatures. Signatures are highly recommended and improve & enrich the information extracted during an analysis. They also make up for the analysis score that you see in the Web Interface - so, pretty important!
+2022-03-02 18:39:28,518 [cuckoo] WARNING: You'll be able to fetch all the latest Cuckoo Signatures, Yara rules, and more goodies by running the following command:
+2022-03-02 18:39:28,518 [cuckoo] INFO: $ [32mcuckoo --cwd /home/crochetch/Documents/toolchain_malware_analysis/src/ToolChainSCDG/sandboxes/.cuckoo community[0m
+2022-03-02 18:39:28,519 [cuckoo.core.scheduler] INFO: Using "qemu" as machine manager
+2022-03-02 18:39:28,546 [cuckoo.core.scheduler] INFO: Loaded 1 machine/s
+2022-03-02 18:39:28,553 [cuckoo.core.scheduler] INFO: Waiting for analysis tasks.
+2022-03-02 18:39:29,577 [cuckoo.core.scheduler] DEBUG: Processing task #3
+2022-03-02 18:39:29,580 [cuckoo.core.scheduler] INFO: Starting analysis of FILE "0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df" (task #3, options "")
+2022-03-02 18:39:29,597 [cuckoo.core.scheduler] INFO: Task #3: acquired machine cuckoo1 (label=cuckoo1)
+2022-03-02 18:39:29,598 [cuckoo.core.resultserver] DEBUG: Now tracking machine 192.168.122.254 for task #3
+2022-03-02 18:39:29,598 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Replay
+2022-03-02 18:39:29,602 [cuckoo.auxiliary.sniffer] INFO: Started sniffer with PID 103650 (interface=qemubr, host=192.168.122.254)
+2022-03-02 18:39:29,603 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Sniffer
+2022-03-02 18:39:29,624 [cuckoo.machinery.qemu] DEBUG: Starting vm cuckoo1
+2022-03-02 18:39:29,634 [cuckoo.core.scheduler] ERROR: Error starting Virtual Machine! VM: cuckoo1, error: QEMU failed starting the machine: qemu-img: /home/crochetch/Documents/PhD/VMImages/images/snapshot_cuckoo1.qcow2: Could not open '/home/crochetch/Documents/PhD/VMImages/images/win7.qcow2': No such file or directory
+Could not open backing image to determine size.
+
+2022-03-02 18:39:29,634 [cuckoo.core.plugins] DEBUG: Stopped auxiliary module: Replay
+2022-03-02 18:39:29,657 [cuckoo.core.plugins] DEBUG: Stopped auxiliary module: Sniffer
+2022-03-02 18:39:29,657 [cuckoo.machinery.qemu] DEBUG: Stopping vm cuckoo1
+2022-03-02 18:39:29,663 [cuckoo.core.scheduler] WARNING: Unable to stop machine cuckoo1: Trying to stop an already stopped vm cuckoo1
+2022-03-02 18:39:29,669 [cuckoo.core.resultserver] DEBUG: Stopped tracking machine 192.168.122.254 for task #3
+2022-03-02 18:39:29,676 [cuckoo.core.scheduler] DEBUG: Released database task #3
+2022-03-02 18:39:29,688 [cuckoo.core.plugins] DEBUG: Executed processing module "AnalysisInfo" for task #3
+2022-03-02 18:39:29,688 [cuckoo.processing.behavior] WARNING: Analysis results folder does not contain any behavior log files.
+2022-03-02 18:39:29,688 [cuckoo.core.plugins] DEBUG: Executed processing module "BehaviorAnalysis" for task #3
+2022-03-02 18:39:29,688 [cuckoo.core.plugins] DEBUG: Executed processing module "Dropped" for task #3
+2022-03-02 18:39:29,689 [cuckoo.core.plugins] DEBUG: Executed processing module "DroppedBuffer" for task #3
+2022-03-02 18:39:29,689 [cuckoo.core.plugins] DEBUG: Executed processing module "MetaInfo" for task #3
+2022-03-02 18:39:29,689 [cuckoo.core.plugins] DEBUG: Executed processing module "ProcessMemory" for task #3
+2022-03-02 18:39:29,689 [cuckoo.core.plugins] DEBUG: Executed processing module "Procmon" for task #3
+2022-03-02 18:39:29,689 [cuckoo.core.plugins] DEBUG: Executed processing module "Screenshots" for task #3
+2022-03-02 18:39:29,948 [cuckoo.core.plugins] DEBUG: Executed processing module "Static" for task #3
+2022-03-02 18:39:29,961 [cuckoo.core.plugins] DEBUG: Executed processing module "Strings" for task #3
+2022-03-02 18:39:29,969 [cuckoo.core.plugins] DEBUG: Executed processing module "TargetInfo" for task #3
+2022-03-02 18:39:29,970 [cuckoo.processing.network] WARNING: The PCAP file does not exist at path "/home/crochetch/Documents/toolchain_malware_analysis/src/ToolChainSCDG/sandboxes/.cuckoo/storage/analyses/3/dump.pcap".
+2022-03-02 18:39:29,970 [cuckoo.core.plugins] DEBUG: Executed processing module "NetworkAnalysis" for task #3
+2022-03-02 18:39:29,970 [cuckoo.core.plugins] DEBUG: Executed processing module "Extracted" for task #3
+2022-03-02 18:39:29,970 [cuckoo.core.plugins] DEBUG: Executed processing module "TLSMasterSecrets" for task #3
+2022-03-02 18:39:29,971 [cuckoo.processing.debug] ERROR: Error processing task #3: it appears that the Virtual Machine hasn't been able to contact back to the Cuckoo Host. There could be a few reasons for this, please refer to our documentation on the matter: https://cuckoo.sh/docs/faq/index.html#troubleshooting-vm-network-configuration
+2022-03-02 18:39:29,979 [cuckoo.core.plugins] DEBUG: Executed processing module "Debug" for task #3
+2022-03-02 18:39:29,980 [cuckoo.core.plugins] DEBUG: Running 0 signatures
+2022-03-02 18:39:29,982 [cuckoo.core.plugins] DEBUG: Executed reporting module "JsonDump"
+2022-03-02 18:39:30,011 [cuckoo.core.plugins] DEBUG: Executed reporting module "SingleFile"
+2022-03-02 18:39:30,015 [cuckoo.core.plugins] DEBUG: Executed reporting module "MongoDB"
+2022-03-02 18:39:30,015 [cuckoo.core.scheduler] INFO: Task #3: reports generation completed
+2022-03-02 18:39:30,019 [cuckoo.core.scheduler] INFO: Task #3: analysis procedure completed
+2022-03-02 18:39:30,584 [cuckoo.core.scheduler] DEBUG: Reached max analysis count, exiting.
+2022-03-02 18:39:30,586 [cuckoo.core.scheduler] DEBUG: End of analyses.
+2022-03-02 18:43:42,583 [cuckoo.core.database] DEBUG: Using database-wide lock for sqlite
+2022-03-02 18:43:42,613 [cuckoo.core.startup] DEBUG: Imported modules...
+2022-03-02 18:43:42,616 [cuckoo.core.startup] DEBUG: Imported "auxiliary" modules:
+2022-03-02 18:43:42,616 [cuckoo.core.startup] DEBUG: 	 |-- MITM
+2022-03-02 18:43:42,617 [cuckoo.core.startup] DEBUG: 	 |-- Reboot
+2022-03-02 18:43:42,617 [cuckoo.core.startup] DEBUG: 	 |-- Replay
+2022-03-02 18:43:42,617 [cuckoo.core.startup] DEBUG: 	 |-- Services
+2022-03-02 18:43:42,617 [cuckoo.core.startup] DEBUG: 	 `-- Sniffer
+2022-03-02 18:43:42,617 [cuckoo.core.startup] DEBUG: Imported "machinery" modules:
+2022-03-02 18:43:42,617 [cuckoo.core.startup] DEBUG: 	 |-- vSphere
+2022-03-02 18:43:42,617 [cuckoo.core.startup] DEBUG: 	 |-- KVM
+2022-03-02 18:43:42,617 [cuckoo.core.startup] DEBUG: 	 |-- ESX
+2022-03-02 18:43:42,617 [cuckoo.core.startup] DEBUG: 	 |-- XenServer
+2022-03-02 18:43:42,617 [cuckoo.core.startup] DEBUG: 	 |-- VirtualBox
+2022-03-02 18:43:42,617 [cuckoo.core.startup] DEBUG: 	 |-- Avd
+2022-03-02 18:43:42,617 [cuckoo.core.startup] DEBUG: 	 |-- QEMU
+2022-03-02 18:43:42,617 [cuckoo.core.startup] DEBUG: 	 |-- VMware
+2022-03-02 18:43:42,618 [cuckoo.core.startup] DEBUG: 	 `-- Physical
+2022-03-02 18:43:42,618 [cuckoo.core.startup] DEBUG: Imported "processing" modules:
+2022-03-02 18:43:42,618 [cuckoo.core.startup] DEBUG: 	 |-- AnalysisInfo
+2022-03-02 18:43:42,618 [cuckoo.core.startup] DEBUG: 	 |-- ApkInfo
+2022-03-02 18:43:42,618 [cuckoo.core.startup] DEBUG: 	 |-- Baseline
+2022-03-02 18:43:42,618 [cuckoo.core.startup] DEBUG: 	 |-- BehaviorAnalysis
+2022-03-02 18:43:42,618 [cuckoo.core.startup] DEBUG: 	 |-- Debug
+2022-03-02 18:43:42,618 [cuckoo.core.startup] DEBUG: 	 |-- Droidmon
+2022-03-02 18:43:42,618 [cuckoo.core.startup] DEBUG: 	 |-- Dropped
+2022-03-02 18:43:42,618 [cuckoo.core.startup] DEBUG: 	 |-- DroppedBuffer
+2022-03-02 18:43:42,618 [cuckoo.core.startup] DEBUG: 	 |-- Extracted
+2022-03-02 18:43:42,618 [cuckoo.core.startup] DEBUG: 	 |-- GooglePlay
+2022-03-02 18:43:42,618 [cuckoo.core.startup] DEBUG: 	 |-- Irma
+2022-03-02 18:43:42,618 [cuckoo.core.startup] DEBUG: 	 |-- Memory
+2022-03-02 18:43:42,619 [cuckoo.core.startup] DEBUG: 	 |-- MetaInfo
+2022-03-02 18:43:42,619 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:43:42,619 [cuckoo.core.startup] DEBUG: 	 |-- NetworkAnalysis
+2022-03-02 18:43:42,619 [cuckoo.core.startup] DEBUG: 	 |-- ProcessMemory
+2022-03-02 18:43:42,619 [cuckoo.core.startup] DEBUG: 	 |-- Procmon
+2022-03-02 18:43:42,619 [cuckoo.core.startup] DEBUG: 	 |-- Screenshots
+2022-03-02 18:43:42,619 [cuckoo.core.startup] DEBUG: 	 |-- Snort
+2022-03-02 18:43:42,619 [cuckoo.core.startup] DEBUG: 	 |-- Static
+2022-03-02 18:43:42,619 [cuckoo.core.startup] DEBUG: 	 |-- Strings
+2022-03-02 18:43:42,619 [cuckoo.core.startup] DEBUG: 	 |-- Suricata
+2022-03-02 18:43:42,619 [cuckoo.core.startup] DEBUG: 	 |-- TargetInfo
+2022-03-02 18:43:42,619 [cuckoo.core.startup] DEBUG: 	 |-- TLSMasterSecrets
+2022-03-02 18:43:42,619 [cuckoo.core.startup] DEBUG: 	 `-- VirusTotal
+2022-03-02 18:43:42,619 [cuckoo.core.startup] DEBUG: Imported "signatures" modules:
+2022-03-02 18:43:42,619 [cuckoo.core.startup] DEBUG: 	 `-- SystemMetrics
+2022-03-02 18:43:42,619 [cuckoo.core.startup] DEBUG: Imported "reporting" modules:
+2022-03-02 18:43:42,620 [cuckoo.core.startup] DEBUG: 	 |-- ElasticSearch
+2022-03-02 18:43:42,620 [cuckoo.core.startup] DEBUG: 	 |-- Feedback
+2022-03-02 18:43:42,620 [cuckoo.core.startup] DEBUG: 	 |-- JsonDump
+2022-03-02 18:43:42,620 [cuckoo.core.startup] DEBUG: 	 |-- Mattermost
+2022-03-02 18:43:42,620 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:43:42,620 [cuckoo.core.startup] DEBUG: 	 |-- Moloch
+2022-03-02 18:43:42,620 [cuckoo.core.startup] DEBUG: 	 |-- MongoDB
+2022-03-02 18:43:42,620 [cuckoo.core.startup] DEBUG: 	 |-- Notification
+2022-03-02 18:43:42,620 [cuckoo.core.startup] DEBUG: 	 `-- SingleFile
+2022-03-02 18:43:42,622 [cuckoo.core.startup] DEBUG: Checking for locked tasks..
+2022-03-02 18:43:42,628 [cuckoo.core.startup] DEBUG: Checking for pending service tasks..
+2022-03-02 18:43:42,630 [cuckoo.core.startup] DEBUG: Initializing Yara...
+2022-03-02 18:43:42,632 [cuckoo.core.startup] DEBUG: 	 |-- binaries embedded.yar
+2022-03-02 18:43:42,632 [cuckoo.core.startup] DEBUG: 	 |-- binaries shellcodes.yar
+2022-03-02 18:43:42,633 [cuckoo.core.startup] DEBUG: 	 |-- binaries vmdetect.yar
+2022-03-02 18:43:42,634 [cuckoo] WARNING: It appears that you haven't loaded any Cuckoo Signatures. Signatures are highly recommended and improve & enrich the information extracted during an analysis. They also make up for the analysis score that you see in the Web Interface - so, pretty important!
+2022-03-02 18:43:42,634 [cuckoo] WARNING: You'll be able to fetch all the latest Cuckoo Signatures, Yara rules, and more goodies by running the following command:
+2022-03-02 18:43:42,634 [cuckoo] INFO: $ [32mcuckoo --cwd /home/crochetch/Documents/toolchain_malware_analysis/src/ToolChainSCDG/sandboxes/.cuckoo community[0m
+2022-03-02 18:43:42,636 [cuckoo.core.scheduler] INFO: Using "qemu" as machine manager
+2022-03-02 18:43:42,651 [cuckoo] ERROR: [31mIntegrityError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(sqlite3.IntegrityError) NOT NULL constraint failed: machines.ip
+[SQL: INSERT INTO machines (name, label, ip, platform, options, interface, snapshot, locked, locked_changed_on, status, status_changed_on, resultserver_ip, resultserver_port, rcparams) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('cuckoo1', 'cuckoo1', None, 'windows', '[]', 'qemubr', None, 0, None, None, None, '192.168.122.1', 2042, None)]
+(Background on this error at: http://sqlalche.me/e/gkpj)[0m
+Traceback (most recent call last):
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/main.py", line 299, in main
+    cuckoo_main(maxcount)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/main.py", line 244, in cuckoo_main
+    sched.start()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/scheduler.py", line 970, in start
+    self.initialize()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/scheduler.py", line 876, in initialize
+    machinery.initialize(machinery_name)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/common/abstracts.py", line 183, in initialize
+    self._initialize(module_name)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/common/abstracts.py", line 227, in _initialize
+    resultserver_port=port
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/common/utils.py", line 211, in inner
+    return f(self, *args, **kwargs)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/database.py", line 620, in add_machine
+    tag = self._get_or_create(session, Tag, name=tag.strip())
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/database.py", line 556, in _get_or_create
+    instance = session.query(model).filter_by(**kwargs).first()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 3215, in first
+    ret = list(self[0:1])
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 3007, in __getitem__
+    return list(res)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 3316, in __iter__
+    self.session._autoflush()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1587, in _autoflush
+    util.raise_from_cause(e)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 383, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1576, in _autoflush
+    self.flush()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2451, in flush
+    self._flush(objects)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2589, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2549, in _flush
+    flush_context.execute()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 422, in execute
+    rec.execute(self)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 589, in execute
+    uow,
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 245, in save_obj
+    insert,
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 1120, in _emit_insert_statements
+    statement, params
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 988, in execute
+    return meth(self, multiparams, params)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 287, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1107, in _execute_clauseelement
+    distilled_params,
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1248, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1466, in _handle_dbapi_exception
+    util.raise_from_cause(sqlalchemy_exception, exc_info)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 383, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1244, in _execute_context
+    cursor, statement, parameters, context
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 552, in do_execute
+    cursor.execute(statement, parameters)
+IntegrityError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(sqlite3.IntegrityError) NOT NULL constraint failed: machines.ip
+[SQL: INSERT INTO machines (name, label, ip, platform, options, interface, snapshot, locked, locked_changed_on, status, status_changed_on, resultserver_ip, resultserver_port, rcparams) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('cuckoo1', 'cuckoo1', None, 'windows', '[]', 'qemubr', None, 0, None, None, None, '192.168.122.1', 2042, None)]
+(Background on this error at: http://sqlalche.me/e/gkpj)
+2022-03-02 18:45:27,155 [cuckoo.core.database] DEBUG: Using database-wide lock for sqlite
+2022-03-02 18:45:27,180 [cuckoo.core.startup] DEBUG: Imported modules...
+2022-03-02 18:45:27,183 [cuckoo.core.startup] DEBUG: Imported "auxiliary" modules:
+2022-03-02 18:45:27,184 [cuckoo.core.startup] DEBUG: 	 |-- MITM
+2022-03-02 18:45:27,184 [cuckoo.core.startup] DEBUG: 	 |-- Reboot
+2022-03-02 18:45:27,184 [cuckoo.core.startup] DEBUG: 	 |-- Replay
+2022-03-02 18:45:27,184 [cuckoo.core.startup] DEBUG: 	 |-- Services
+2022-03-02 18:45:27,184 [cuckoo.core.startup] DEBUG: 	 `-- Sniffer
+2022-03-02 18:45:27,184 [cuckoo.core.startup] DEBUG: Imported "machinery" modules:
+2022-03-02 18:45:27,184 [cuckoo.core.startup] DEBUG: 	 |-- vSphere
+2022-03-02 18:45:27,184 [cuckoo.core.startup] DEBUG: 	 |-- KVM
+2022-03-02 18:45:27,184 [cuckoo.core.startup] DEBUG: 	 |-- ESX
+2022-03-02 18:45:27,184 [cuckoo.core.startup] DEBUG: 	 |-- XenServer
+2022-03-02 18:45:27,184 [cuckoo.core.startup] DEBUG: 	 |-- VirtualBox
+2022-03-02 18:45:27,184 [cuckoo.core.startup] DEBUG: 	 |-- Avd
+2022-03-02 18:45:27,184 [cuckoo.core.startup] DEBUG: 	 |-- QEMU
+2022-03-02 18:45:27,184 [cuckoo.core.startup] DEBUG: 	 |-- VMware
+2022-03-02 18:45:27,184 [cuckoo.core.startup] DEBUG: 	 `-- Physical
+2022-03-02 18:45:27,184 [cuckoo.core.startup] DEBUG: Imported "processing" modules:
+2022-03-02 18:45:27,184 [cuckoo.core.startup] DEBUG: 	 |-- AnalysisInfo
+2022-03-02 18:45:27,185 [cuckoo.core.startup] DEBUG: 	 |-- ApkInfo
+2022-03-02 18:45:27,185 [cuckoo.core.startup] DEBUG: 	 |-- Baseline
+2022-03-02 18:45:27,185 [cuckoo.core.startup] DEBUG: 	 |-- BehaviorAnalysis
+2022-03-02 18:45:27,185 [cuckoo.core.startup] DEBUG: 	 |-- Debug
+2022-03-02 18:45:27,185 [cuckoo.core.startup] DEBUG: 	 |-- Droidmon
+2022-03-02 18:45:27,185 [cuckoo.core.startup] DEBUG: 	 |-- Dropped
+2022-03-02 18:45:27,185 [cuckoo.core.startup] DEBUG: 	 |-- DroppedBuffer
+2022-03-02 18:45:27,185 [cuckoo.core.startup] DEBUG: 	 |-- Extracted
+2022-03-02 18:45:27,185 [cuckoo.core.startup] DEBUG: 	 |-- GooglePlay
+2022-03-02 18:45:27,185 [cuckoo.core.startup] DEBUG: 	 |-- Irma
+2022-03-02 18:45:27,185 [cuckoo.core.startup] DEBUG: 	 |-- Memory
+2022-03-02 18:45:27,185 [cuckoo.core.startup] DEBUG: 	 |-- MetaInfo
+2022-03-02 18:45:27,185 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:45:27,185 [cuckoo.core.startup] DEBUG: 	 |-- NetworkAnalysis
+2022-03-02 18:45:27,185 [cuckoo.core.startup] DEBUG: 	 |-- ProcessMemory
+2022-03-02 18:45:27,186 [cuckoo.core.startup] DEBUG: 	 |-- Procmon
+2022-03-02 18:45:27,186 [cuckoo.core.startup] DEBUG: 	 |-- Screenshots
+2022-03-02 18:45:27,186 [cuckoo.core.startup] DEBUG: 	 |-- Snort
+2022-03-02 18:45:27,186 [cuckoo.core.startup] DEBUG: 	 |-- Static
+2022-03-02 18:45:27,186 [cuckoo.core.startup] DEBUG: 	 |-- Strings
+2022-03-02 18:45:27,186 [cuckoo.core.startup] DEBUG: 	 |-- Suricata
+2022-03-02 18:45:27,186 [cuckoo.core.startup] DEBUG: 	 |-- TargetInfo
+2022-03-02 18:45:27,186 [cuckoo.core.startup] DEBUG: 	 |-- TLSMasterSecrets
+2022-03-02 18:45:27,186 [cuckoo.core.startup] DEBUG: 	 `-- VirusTotal
+2022-03-02 18:45:27,186 [cuckoo.core.startup] DEBUG: Imported "signatures" modules:
+2022-03-02 18:45:27,186 [cuckoo.core.startup] DEBUG: 	 `-- SystemMetrics
+2022-03-02 18:45:27,186 [cuckoo.core.startup] DEBUG: Imported "reporting" modules:
+2022-03-02 18:45:27,186 [cuckoo.core.startup] DEBUG: 	 |-- ElasticSearch
+2022-03-02 18:45:27,186 [cuckoo.core.startup] DEBUG: 	 |-- Feedback
+2022-03-02 18:45:27,186 [cuckoo.core.startup] DEBUG: 	 |-- JsonDump
+2022-03-02 18:45:27,187 [cuckoo.core.startup] DEBUG: 	 |-- Mattermost
+2022-03-02 18:45:27,187 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:45:27,187 [cuckoo.core.startup] DEBUG: 	 |-- Moloch
+2022-03-02 18:45:27,187 [cuckoo.core.startup] DEBUG: 	 |-- MongoDB
+2022-03-02 18:45:27,187 [cuckoo.core.startup] DEBUG: 	 |-- Notification
+2022-03-02 18:45:27,187 [cuckoo.core.startup] DEBUG: 	 `-- SingleFile
+2022-03-02 18:45:27,188 [cuckoo.core.startup] DEBUG: Checking for locked tasks..
+2022-03-02 18:45:27,194 [cuckoo.core.startup] DEBUG: Checking for pending service tasks..
+2022-03-02 18:45:27,197 [cuckoo.core.startup] DEBUG: Initializing Yara...
+2022-03-02 18:45:27,199 [cuckoo.core.startup] DEBUG: 	 |-- binaries embedded.yar
+2022-03-02 18:45:27,199 [cuckoo.core.startup] DEBUG: 	 |-- binaries shellcodes.yar
+2022-03-02 18:45:27,199 [cuckoo.core.startup] DEBUG: 	 |-- binaries vmdetect.yar
+2022-03-02 18:45:27,201 [cuckoo] WARNING: It appears that you haven't loaded any Cuckoo Signatures. Signatures are highly recommended and improve & enrich the information extracted during an analysis. They also make up for the analysis score that you see in the Web Interface - so, pretty important!
+2022-03-02 18:45:27,201 [cuckoo] WARNING: You'll be able to fetch all the latest Cuckoo Signatures, Yara rules, and more goodies by running the following command:
+2022-03-02 18:45:27,201 [cuckoo] INFO: $ [32mcuckoo --cwd /home/crochetch/Documents/toolchain_malware_analysis/src/ToolChainSCDG/sandboxes/.cuckoo community[0m
+2022-03-02 18:45:27,202 [cuckoo.core.scheduler] INFO: Using "qemu" as machine manager
+2022-03-02 18:45:27,217 [cuckoo] ERROR: [31mIntegrityError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(sqlite3.IntegrityError) NOT NULL constraint failed: machines.ip
+[SQL: INSERT INTO machines (name, label, ip, platform, options, interface, snapshot, locked, locked_changed_on, status, status_changed_on, resultserver_ip, resultserver_port, rcparams) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('cuckoo1', 'cuckoo1', None, 'windows', '[]', 'qemubr', None, 0, None, None, None, '192.168.122.1', 2042, None)]
+(Background on this error at: http://sqlalche.me/e/gkpj)[0m
+Traceback (most recent call last):
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/main.py", line 299, in main
+    cuckoo_main(maxcount)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/main.py", line 244, in cuckoo_main
+    sched.start()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/scheduler.py", line 970, in start
+    self.initialize()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/scheduler.py", line 876, in initialize
+    machinery.initialize(machinery_name)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/common/abstracts.py", line 183, in initialize
+    self._initialize(module_name)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/common/abstracts.py", line 227, in _initialize
+    resultserver_port=port
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/common/utils.py", line 211, in inner
+    return f(self, *args, **kwargs)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/database.py", line 620, in add_machine
+    tag = self._get_or_create(session, Tag, name=tag.strip())
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/database.py", line 556, in _get_or_create
+    instance = session.query(model).filter_by(**kwargs).first()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 3215, in first
+    ret = list(self[0:1])
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 3007, in __getitem__
+    return list(res)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 3316, in __iter__
+    self.session._autoflush()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1587, in _autoflush
+    util.raise_from_cause(e)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 383, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1576, in _autoflush
+    self.flush()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2451, in flush
+    self._flush(objects)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2589, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2549, in _flush
+    flush_context.execute()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 422, in execute
+    rec.execute(self)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 589, in execute
+    uow,
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 245, in save_obj
+    insert,
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 1120, in _emit_insert_statements
+    statement, params
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 988, in execute
+    return meth(self, multiparams, params)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 287, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1107, in _execute_clauseelement
+    distilled_params,
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1248, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1466, in _handle_dbapi_exception
+    util.raise_from_cause(sqlalchemy_exception, exc_info)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 383, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1244, in _execute_context
+    cursor, statement, parameters, context
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 552, in do_execute
+    cursor.execute(statement, parameters)
+IntegrityError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(sqlite3.IntegrityError) NOT NULL constraint failed: machines.ip
+[SQL: INSERT INTO machines (name, label, ip, platform, options, interface, snapshot, locked, locked_changed_on, status, status_changed_on, resultserver_ip, resultserver_port, rcparams) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('cuckoo1', 'cuckoo1', None, 'windows', '[]', 'qemubr', None, 0, None, None, None, '192.168.122.1', 2042, None)]
+(Background on this error at: http://sqlalche.me/e/gkpj)
+2022-03-02 18:46:17,316 [cuckoo.core.database] DEBUG: Using database-wide lock for sqlite
+2022-03-02 18:46:17,343 [cuckoo.core.startup] DEBUG: Imported modules...
+2022-03-02 18:46:17,346 [cuckoo.core.startup] DEBUG: Imported "auxiliary" modules:
+2022-03-02 18:46:17,346 [cuckoo.core.startup] DEBUG: 	 |-- MITM
+2022-03-02 18:46:17,346 [cuckoo.core.startup] DEBUG: 	 |-- Reboot
+2022-03-02 18:46:17,346 [cuckoo.core.startup] DEBUG: 	 |-- Replay
+2022-03-02 18:46:17,346 [cuckoo.core.startup] DEBUG: 	 |-- Services
+2022-03-02 18:46:17,346 [cuckoo.core.startup] DEBUG: 	 `-- Sniffer
+2022-03-02 18:46:17,346 [cuckoo.core.startup] DEBUG: Imported "machinery" modules:
+2022-03-02 18:46:17,346 [cuckoo.core.startup] DEBUG: 	 |-- vSphere
+2022-03-02 18:46:17,347 [cuckoo.core.startup] DEBUG: 	 |-- KVM
+2022-03-02 18:46:17,347 [cuckoo.core.startup] DEBUG: 	 |-- ESX
+2022-03-02 18:46:17,347 [cuckoo.core.startup] DEBUG: 	 |-- XenServer
+2022-03-02 18:46:17,347 [cuckoo.core.startup] DEBUG: 	 |-- VirtualBox
+2022-03-02 18:46:17,347 [cuckoo.core.startup] DEBUG: 	 |-- Avd
+2022-03-02 18:46:17,347 [cuckoo.core.startup] DEBUG: 	 |-- QEMU
+2022-03-02 18:46:17,347 [cuckoo.core.startup] DEBUG: 	 |-- VMware
+2022-03-02 18:46:17,347 [cuckoo.core.startup] DEBUG: 	 `-- Physical
+2022-03-02 18:46:17,347 [cuckoo.core.startup] DEBUG: Imported "processing" modules:
+2022-03-02 18:46:17,347 [cuckoo.core.startup] DEBUG: 	 |-- AnalysisInfo
+2022-03-02 18:46:17,347 [cuckoo.core.startup] DEBUG: 	 |-- ApkInfo
+2022-03-02 18:46:17,347 [cuckoo.core.startup] DEBUG: 	 |-- Baseline
+2022-03-02 18:46:17,347 [cuckoo.core.startup] DEBUG: 	 |-- BehaviorAnalysis
+2022-03-02 18:46:17,347 [cuckoo.core.startup] DEBUG: 	 |-- Debug
+2022-03-02 18:46:17,347 [cuckoo.core.startup] DEBUG: 	 |-- Droidmon
+2022-03-02 18:46:17,347 [cuckoo.core.startup] DEBUG: 	 |-- Dropped
+2022-03-02 18:46:17,347 [cuckoo.core.startup] DEBUG: 	 |-- DroppedBuffer
+2022-03-02 18:46:17,348 [cuckoo.core.startup] DEBUG: 	 |-- Extracted
+2022-03-02 18:46:17,348 [cuckoo.core.startup] DEBUG: 	 |-- GooglePlay
+2022-03-02 18:46:17,348 [cuckoo.core.startup] DEBUG: 	 |-- Irma
+2022-03-02 18:46:17,348 [cuckoo.core.startup] DEBUG: 	 |-- Memory
+2022-03-02 18:46:17,348 [cuckoo.core.startup] DEBUG: 	 |-- MetaInfo
+2022-03-02 18:46:17,348 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:46:17,348 [cuckoo.core.startup] DEBUG: 	 |-- NetworkAnalysis
+2022-03-02 18:46:17,348 [cuckoo.core.startup] DEBUG: 	 |-- ProcessMemory
+2022-03-02 18:46:17,348 [cuckoo.core.startup] DEBUG: 	 |-- Procmon
+2022-03-02 18:46:17,348 [cuckoo.core.startup] DEBUG: 	 |-- Screenshots
+2022-03-02 18:46:17,348 [cuckoo.core.startup] DEBUG: 	 |-- Snort
+2022-03-02 18:46:17,348 [cuckoo.core.startup] DEBUG: 	 |-- Static
+2022-03-02 18:46:17,348 [cuckoo.core.startup] DEBUG: 	 |-- Strings
+2022-03-02 18:46:17,348 [cuckoo.core.startup] DEBUG: 	 |-- Suricata
+2022-03-02 18:46:17,348 [cuckoo.core.startup] DEBUG: 	 |-- TargetInfo
+2022-03-02 18:46:17,348 [cuckoo.core.startup] DEBUG: 	 |-- TLSMasterSecrets
+2022-03-02 18:46:17,348 [cuckoo.core.startup] DEBUG: 	 `-- VirusTotal
+2022-03-02 18:46:17,349 [cuckoo.core.startup] DEBUG: Imported "signatures" modules:
+2022-03-02 18:46:17,349 [cuckoo.core.startup] DEBUG: 	 `-- SystemMetrics
+2022-03-02 18:46:17,349 [cuckoo.core.startup] DEBUG: Imported "reporting" modules:
+2022-03-02 18:46:17,349 [cuckoo.core.startup] DEBUG: 	 |-- ElasticSearch
+2022-03-02 18:46:17,349 [cuckoo.core.startup] DEBUG: 	 |-- Feedback
+2022-03-02 18:46:17,349 [cuckoo.core.startup] DEBUG: 	 |-- JsonDump
+2022-03-02 18:46:17,349 [cuckoo.core.startup] DEBUG: 	 |-- Mattermost
+2022-03-02 18:46:17,349 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:46:17,349 [cuckoo.core.startup] DEBUG: 	 |-- Moloch
+2022-03-02 18:46:17,349 [cuckoo.core.startup] DEBUG: 	 |-- MongoDB
+2022-03-02 18:46:17,349 [cuckoo.core.startup] DEBUG: 	 |-- Notification
+2022-03-02 18:46:17,349 [cuckoo.core.startup] DEBUG: 	 `-- SingleFile
+2022-03-02 18:46:17,351 [cuckoo.core.startup] DEBUG: Checking for locked tasks..
+2022-03-02 18:46:17,357 [cuckoo.core.startup] DEBUG: Checking for pending service tasks..
+2022-03-02 18:46:17,360 [cuckoo.core.startup] DEBUG: Initializing Yara...
+2022-03-02 18:46:17,362 [cuckoo.core.startup] DEBUG: 	 |-- binaries embedded.yar
+2022-03-02 18:46:17,362 [cuckoo.core.startup] DEBUG: 	 |-- binaries shellcodes.yar
+2022-03-02 18:46:17,362 [cuckoo.core.startup] DEBUG: 	 |-- binaries vmdetect.yar
+2022-03-02 18:46:17,365 [cuckoo] WARNING: It appears that you haven't loaded any Cuckoo Signatures. Signatures are highly recommended and improve & enrich the information extracted during an analysis. They also make up for the analysis score that you see in the Web Interface - so, pretty important!
+2022-03-02 18:46:17,365 [cuckoo] WARNING: You'll be able to fetch all the latest Cuckoo Signatures, Yara rules, and more goodies by running the following command:
+2022-03-02 18:46:17,365 [cuckoo] INFO: $ [32mcuckoo --cwd /home/crochetch/Documents/toolchain_malware_analysis/src/ToolChainSCDG/sandboxes/.cuckoo community[0m
+2022-03-02 18:46:17,366 [cuckoo.core.scheduler] INFO: Using "qemu" as machine manager
+2022-03-02 18:46:17,380 [cuckoo] ERROR: [31mIntegrityError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(sqlite3.IntegrityError) NOT NULL constraint failed: machines.ip
+[SQL: INSERT INTO machines (name, label, ip, platform, options, interface, snapshot, locked, locked_changed_on, status, status_changed_on, resultserver_ip, resultserver_port, rcparams) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('cuckoo1', 'cuckoo1', None, 'windows', '[]', 'qemubr', None, 0, None, None, None, '192.168.122.1', 2042, None)]
+(Background on this error at: http://sqlalche.me/e/gkpj)[0m
+Traceback (most recent call last):
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/main.py", line 299, in main
+    cuckoo_main(maxcount)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/main.py", line 244, in cuckoo_main
+    sched.start()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/scheduler.py", line 970, in start
+    self.initialize()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/scheduler.py", line 876, in initialize
+    machinery.initialize(machinery_name)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/common/abstracts.py", line 183, in initialize
+    self._initialize(module_name)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/common/abstracts.py", line 227, in _initialize
+    resultserver_port=port
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/common/utils.py", line 211, in inner
+    return f(self, *args, **kwargs)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/database.py", line 620, in add_machine
+    tag = self._get_or_create(session, Tag, name=tag.strip())
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/database.py", line 556, in _get_or_create
+    instance = session.query(model).filter_by(**kwargs).first()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 3215, in first
+    ret = list(self[0:1])
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 3007, in __getitem__
+    return list(res)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 3316, in __iter__
+    self.session._autoflush()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1587, in _autoflush
+    util.raise_from_cause(e)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 383, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1576, in _autoflush
+    self.flush()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2451, in flush
+    self._flush(objects)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2589, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2549, in _flush
+    flush_context.execute()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 422, in execute
+    rec.execute(self)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 589, in execute
+    uow,
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 245, in save_obj
+    insert,
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 1120, in _emit_insert_statements
+    statement, params
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 988, in execute
+    return meth(self, multiparams, params)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 287, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1107, in _execute_clauseelement
+    distilled_params,
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1248, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1466, in _handle_dbapi_exception
+    util.raise_from_cause(sqlalchemy_exception, exc_info)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 383, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1244, in _execute_context
+    cursor, statement, parameters, context
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 552, in do_execute
+    cursor.execute(statement, parameters)
+IntegrityError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(sqlite3.IntegrityError) NOT NULL constraint failed: machines.ip
+[SQL: INSERT INTO machines (name, label, ip, platform, options, interface, snapshot, locked, locked_changed_on, status, status_changed_on, resultserver_ip, resultserver_port, rcparams) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('cuckoo1', 'cuckoo1', None, 'windows', '[]', 'qemubr', None, 0, None, None, None, '192.168.122.1', 2042, None)]
+(Background on this error at: http://sqlalche.me/e/gkpj)
+2022-03-02 18:46:47,119 [cuckoo.core.database] DEBUG: Using database-wide lock for sqlite
+2022-03-02 18:46:47,151 [cuckoo.core.startup] DEBUG: Imported modules...
+2022-03-02 18:46:47,154 [cuckoo.core.startup] DEBUG: Imported "auxiliary" modules:
+2022-03-02 18:46:47,154 [cuckoo.core.startup] DEBUG: 	 |-- MITM
+2022-03-02 18:46:47,154 [cuckoo.core.startup] DEBUG: 	 |-- Reboot
+2022-03-02 18:46:47,154 [cuckoo.core.startup] DEBUG: 	 |-- Replay
+2022-03-02 18:46:47,154 [cuckoo.core.startup] DEBUG: 	 |-- Services
+2022-03-02 18:46:47,154 [cuckoo.core.startup] DEBUG: 	 `-- Sniffer
+2022-03-02 18:46:47,154 [cuckoo.core.startup] DEBUG: Imported "machinery" modules:
+2022-03-02 18:46:47,154 [cuckoo.core.startup] DEBUG: 	 |-- vSphere
+2022-03-02 18:46:47,155 [cuckoo.core.startup] DEBUG: 	 |-- KVM
+2022-03-02 18:46:47,155 [cuckoo.core.startup] DEBUG: 	 |-- ESX
+2022-03-02 18:46:47,155 [cuckoo.core.startup] DEBUG: 	 |-- XenServer
+2022-03-02 18:46:47,155 [cuckoo.core.startup] DEBUG: 	 |-- VirtualBox
+2022-03-02 18:46:47,155 [cuckoo.core.startup] DEBUG: 	 |-- Avd
+2022-03-02 18:46:47,155 [cuckoo.core.startup] DEBUG: 	 |-- QEMU
+2022-03-02 18:46:47,155 [cuckoo.core.startup] DEBUG: 	 |-- VMware
+2022-03-02 18:46:47,155 [cuckoo.core.startup] DEBUG: 	 `-- Physical
+2022-03-02 18:46:47,155 [cuckoo.core.startup] DEBUG: Imported "processing" modules:
+2022-03-02 18:46:47,155 [cuckoo.core.startup] DEBUG: 	 |-- AnalysisInfo
+2022-03-02 18:46:47,155 [cuckoo.core.startup] DEBUG: 	 |-- ApkInfo
+2022-03-02 18:46:47,155 [cuckoo.core.startup] DEBUG: 	 |-- Baseline
+2022-03-02 18:46:47,155 [cuckoo.core.startup] DEBUG: 	 |-- BehaviorAnalysis
+2022-03-02 18:46:47,155 [cuckoo.core.startup] DEBUG: 	 |-- Debug
+2022-03-02 18:46:47,156 [cuckoo.core.startup] DEBUG: 	 |-- Droidmon
+2022-03-02 18:46:47,156 [cuckoo.core.startup] DEBUG: 	 |-- Dropped
+2022-03-02 18:46:47,156 [cuckoo.core.startup] DEBUG: 	 |-- DroppedBuffer
+2022-03-02 18:46:47,156 [cuckoo.core.startup] DEBUG: 	 |-- Extracted
+2022-03-02 18:46:47,156 [cuckoo.core.startup] DEBUG: 	 |-- GooglePlay
+2022-03-02 18:46:47,156 [cuckoo.core.startup] DEBUG: 	 |-- Irma
+2022-03-02 18:46:47,156 [cuckoo.core.startup] DEBUG: 	 |-- Memory
+2022-03-02 18:46:47,156 [cuckoo.core.startup] DEBUG: 	 |-- MetaInfo
+2022-03-02 18:46:47,156 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:46:47,156 [cuckoo.core.startup] DEBUG: 	 |-- NetworkAnalysis
+2022-03-02 18:46:47,156 [cuckoo.core.startup] DEBUG: 	 |-- ProcessMemory
+2022-03-02 18:46:47,156 [cuckoo.core.startup] DEBUG: 	 |-- Procmon
+2022-03-02 18:46:47,156 [cuckoo.core.startup] DEBUG: 	 |-- Screenshots
+2022-03-02 18:46:47,156 [cuckoo.core.startup] DEBUG: 	 |-- Snort
+2022-03-02 18:46:47,157 [cuckoo.core.startup] DEBUG: 	 |-- Static
+2022-03-02 18:46:47,157 [cuckoo.core.startup] DEBUG: 	 |-- Strings
+2022-03-02 18:46:47,157 [cuckoo.core.startup] DEBUG: 	 |-- Suricata
+2022-03-02 18:46:47,157 [cuckoo.core.startup] DEBUG: 	 |-- TargetInfo
+2022-03-02 18:46:47,157 [cuckoo.core.startup] DEBUG: 	 |-- TLSMasterSecrets
+2022-03-02 18:46:47,157 [cuckoo.core.startup] DEBUG: 	 `-- VirusTotal
+2022-03-02 18:46:47,157 [cuckoo.core.startup] DEBUG: Imported "signatures" modules:
+2022-03-02 18:46:47,157 [cuckoo.core.startup] DEBUG: 	 `-- SystemMetrics
+2022-03-02 18:46:47,157 [cuckoo.core.startup] DEBUG: Imported "reporting" modules:
+2022-03-02 18:46:47,157 [cuckoo.core.startup] DEBUG: 	 |-- ElasticSearch
+2022-03-02 18:46:47,157 [cuckoo.core.startup] DEBUG: 	 |-- Feedback
+2022-03-02 18:46:47,157 [cuckoo.core.startup] DEBUG: 	 |-- JsonDump
+2022-03-02 18:46:47,157 [cuckoo.core.startup] DEBUG: 	 |-- Mattermost
+2022-03-02 18:46:47,157 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:46:47,158 [cuckoo.core.startup] DEBUG: 	 |-- Moloch
+2022-03-02 18:46:47,158 [cuckoo.core.startup] DEBUG: 	 |-- MongoDB
+2022-03-02 18:46:47,158 [cuckoo.core.startup] DEBUG: 	 |-- Notification
+2022-03-02 18:46:47,158 [cuckoo.core.startup] DEBUG: 	 `-- SingleFile
+2022-03-02 18:46:47,160 [cuckoo.core.startup] DEBUG: Checking for locked tasks..
+2022-03-02 18:46:47,167 [cuckoo.core.startup] DEBUG: Checking for pending service tasks..
+2022-03-02 18:46:47,170 [cuckoo.core.startup] DEBUG: Initializing Yara...
+2022-03-02 18:46:47,172 [cuckoo.core.startup] DEBUG: 	 |-- binaries embedded.yar
+2022-03-02 18:46:47,172 [cuckoo.core.startup] DEBUG: 	 |-- binaries shellcodes.yar
+2022-03-02 18:46:47,172 [cuckoo.core.startup] DEBUG: 	 |-- binaries vmdetect.yar
+2022-03-02 18:46:47,174 [cuckoo] WARNING: It appears that you haven't loaded any Cuckoo Signatures. Signatures are highly recommended and improve & enrich the information extracted during an analysis. They also make up for the analysis score that you see in the Web Interface - so, pretty important!
+2022-03-02 18:46:47,175 [cuckoo] WARNING: You'll be able to fetch all the latest Cuckoo Signatures, Yara rules, and more goodies by running the following command:
+2022-03-02 18:46:47,175 [cuckoo] INFO: $ [32mcuckoo --cwd /home/crochetch/Documents/toolchain_malware_analysis/src/ToolChainSCDG/sandboxes/.cuckoo community[0m
+2022-03-02 18:46:47,176 [cuckoo.core.scheduler] INFO: Using "qemu" as machine manager
+2022-03-02 18:46:47,191 [cuckoo] ERROR: [31mIntegrityError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(sqlite3.IntegrityError) NOT NULL constraint failed: machines.ip
+[SQL: INSERT INTO machines (name, label, ip, platform, options, interface, snapshot, locked, locked_changed_on, status, status_changed_on, resultserver_ip, resultserver_port, rcparams) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('cuckoo1', 'cuckoo1', None, 'windows', '[]', 'qemubr', None, 0, None, None, None, '192.168.122.1', 2042, None)]
+(Background on this error at: http://sqlalche.me/e/gkpj)[0m
+Traceback (most recent call last):
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/main.py", line 299, in main
+    cuckoo_main(maxcount)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/main.py", line 244, in cuckoo_main
+    sched.start()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/scheduler.py", line 970, in start
+    self.initialize()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/scheduler.py", line 876, in initialize
+    machinery.initialize(machinery_name)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/common/abstracts.py", line 183, in initialize
+    self._initialize(module_name)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/common/abstracts.py", line 227, in _initialize
+    resultserver_port=port
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/common/utils.py", line 211, in inner
+    return f(self, *args, **kwargs)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/database.py", line 620, in add_machine
+    tag = self._get_or_create(session, Tag, name=tag.strip())
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/database.py", line 556, in _get_or_create
+    instance = session.query(model).filter_by(**kwargs).first()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 3215, in first
+    ret = list(self[0:1])
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 3007, in __getitem__
+    return list(res)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 3316, in __iter__
+    self.session._autoflush()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1587, in _autoflush
+    util.raise_from_cause(e)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 383, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1576, in _autoflush
+    self.flush()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2451, in flush
+    self._flush(objects)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2589, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2549, in _flush
+    flush_context.execute()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 422, in execute
+    rec.execute(self)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 589, in execute
+    uow,
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 245, in save_obj
+    insert,
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 1120, in _emit_insert_statements
+    statement, params
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 988, in execute
+    return meth(self, multiparams, params)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 287, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1107, in _execute_clauseelement
+    distilled_params,
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1248, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1466, in _handle_dbapi_exception
+    util.raise_from_cause(sqlalchemy_exception, exc_info)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 383, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1244, in _execute_context
+    cursor, statement, parameters, context
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 552, in do_execute
+    cursor.execute(statement, parameters)
+IntegrityError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(sqlite3.IntegrityError) NOT NULL constraint failed: machines.ip
+[SQL: INSERT INTO machines (name, label, ip, platform, options, interface, snapshot, locked, locked_changed_on, status, status_changed_on, resultserver_ip, resultserver_port, rcparams) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('cuckoo1', 'cuckoo1', None, 'windows', '[]', 'qemubr', None, 0, None, None, None, '192.168.122.1', 2042, None)]
+(Background on this error at: http://sqlalche.me/e/gkpj)
+2022-03-02 18:47:54,474 [cuckoo.core.database] DEBUG: Using database-wide lock for sqlite
+2022-03-02 18:47:54,501 [cuckoo.core.startup] DEBUG: Imported modules...
+2022-03-02 18:47:54,504 [cuckoo.core.startup] DEBUG: Imported "auxiliary" modules:
+2022-03-02 18:47:54,504 [cuckoo.core.startup] DEBUG: 	 |-- MITM
+2022-03-02 18:47:54,504 [cuckoo.core.startup] DEBUG: 	 |-- Reboot
+2022-03-02 18:47:54,504 [cuckoo.core.startup] DEBUG: 	 |-- Replay
+2022-03-02 18:47:54,504 [cuckoo.core.startup] DEBUG: 	 |-- Services
+2022-03-02 18:47:54,504 [cuckoo.core.startup] DEBUG: 	 `-- Sniffer
+2022-03-02 18:47:54,504 [cuckoo.core.startup] DEBUG: Imported "machinery" modules:
+2022-03-02 18:47:54,504 [cuckoo.core.startup] DEBUG: 	 |-- vSphere
+2022-03-02 18:47:54,504 [cuckoo.core.startup] DEBUG: 	 |-- KVM
+2022-03-02 18:47:54,504 [cuckoo.core.startup] DEBUG: 	 |-- ESX
+2022-03-02 18:47:54,505 [cuckoo.core.startup] DEBUG: 	 |-- XenServer
+2022-03-02 18:47:54,505 [cuckoo.core.startup] DEBUG: 	 |-- VirtualBox
+2022-03-02 18:47:54,505 [cuckoo.core.startup] DEBUG: 	 |-- Avd
+2022-03-02 18:47:54,505 [cuckoo.core.startup] DEBUG: 	 |-- QEMU
+2022-03-02 18:47:54,505 [cuckoo.core.startup] DEBUG: 	 |-- VMware
+2022-03-02 18:47:54,505 [cuckoo.core.startup] DEBUG: 	 `-- Physical
+2022-03-02 18:47:54,505 [cuckoo.core.startup] DEBUG: Imported "processing" modules:
+2022-03-02 18:47:54,505 [cuckoo.core.startup] DEBUG: 	 |-- AnalysisInfo
+2022-03-02 18:47:54,505 [cuckoo.core.startup] DEBUG: 	 |-- ApkInfo
+2022-03-02 18:47:54,505 [cuckoo.core.startup] DEBUG: 	 |-- Baseline
+2022-03-02 18:47:54,505 [cuckoo.core.startup] DEBUG: 	 |-- BehaviorAnalysis
+2022-03-02 18:47:54,505 [cuckoo.core.startup] DEBUG: 	 |-- Debug
+2022-03-02 18:47:54,505 [cuckoo.core.startup] DEBUG: 	 |-- Droidmon
+2022-03-02 18:47:54,505 [cuckoo.core.startup] DEBUG: 	 |-- Dropped
+2022-03-02 18:47:54,505 [cuckoo.core.startup] DEBUG: 	 |-- DroppedBuffer
+2022-03-02 18:47:54,505 [cuckoo.core.startup] DEBUG: 	 |-- Extracted
+2022-03-02 18:47:54,505 [cuckoo.core.startup] DEBUG: 	 |-- GooglePlay
+2022-03-02 18:47:54,505 [cuckoo.core.startup] DEBUG: 	 |-- Irma
+2022-03-02 18:47:54,506 [cuckoo.core.startup] DEBUG: 	 |-- Memory
+2022-03-02 18:47:54,506 [cuckoo.core.startup] DEBUG: 	 |-- MetaInfo
+2022-03-02 18:47:54,506 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:47:54,506 [cuckoo.core.startup] DEBUG: 	 |-- NetworkAnalysis
+2022-03-02 18:47:54,506 [cuckoo.core.startup] DEBUG: 	 |-- ProcessMemory
+2022-03-02 18:47:54,506 [cuckoo.core.startup] DEBUG: 	 |-- Procmon
+2022-03-02 18:47:54,506 [cuckoo.core.startup] DEBUG: 	 |-- Screenshots
+2022-03-02 18:47:54,506 [cuckoo.core.startup] DEBUG: 	 |-- Snort
+2022-03-02 18:47:54,506 [cuckoo.core.startup] DEBUG: 	 |-- Static
+2022-03-02 18:47:54,506 [cuckoo.core.startup] DEBUG: 	 |-- Strings
+2022-03-02 18:47:54,509 [cuckoo.core.startup] DEBUG: 	 |-- Suricata
+2022-03-02 18:47:54,509 [cuckoo.core.startup] DEBUG: 	 |-- TargetInfo
+2022-03-02 18:47:54,509 [cuckoo.core.startup] DEBUG: 	 |-- TLSMasterSecrets
+2022-03-02 18:47:54,509 [cuckoo.core.startup] DEBUG: 	 `-- VirusTotal
+2022-03-02 18:47:54,510 [cuckoo.core.startup] DEBUG: Imported "signatures" modules:
+2022-03-02 18:47:54,510 [cuckoo.core.startup] DEBUG: 	 `-- SystemMetrics
+2022-03-02 18:47:54,510 [cuckoo.core.startup] DEBUG: Imported "reporting" modules:
+2022-03-02 18:47:54,510 [cuckoo.core.startup] DEBUG: 	 |-- ElasticSearch
+2022-03-02 18:47:54,510 [cuckoo.core.startup] DEBUG: 	 |-- Feedback
+2022-03-02 18:47:54,510 [cuckoo.core.startup] DEBUG: 	 |-- JsonDump
+2022-03-02 18:47:54,510 [cuckoo.core.startup] DEBUG: 	 |-- Mattermost
+2022-03-02 18:47:54,510 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:47:54,510 [cuckoo.core.startup] DEBUG: 	 |-- Moloch
+2022-03-02 18:47:54,510 [cuckoo.core.startup] DEBUG: 	 |-- MongoDB
+2022-03-02 18:47:54,510 [cuckoo.core.startup] DEBUG: 	 |-- Notification
+2022-03-02 18:47:54,510 [cuckoo.core.startup] DEBUG: 	 `-- SingleFile
+2022-03-02 18:47:54,512 [cuckoo.core.startup] DEBUG: Checking for locked tasks..
+2022-03-02 18:47:54,518 [cuckoo.core.startup] DEBUG: Checking for pending service tasks..
+2022-03-02 18:47:54,521 [cuckoo.core.startup] DEBUG: Initializing Yara...
+2022-03-02 18:47:54,524 [cuckoo.core.startup] DEBUG: 	 |-- binaries embedded.yar
+2022-03-02 18:47:54,524 [cuckoo.core.startup] DEBUG: 	 |-- binaries shellcodes.yar
+2022-03-02 18:47:54,524 [cuckoo.core.startup] DEBUG: 	 |-- binaries vmdetect.yar
+2022-03-02 18:47:54,526 [cuckoo] WARNING: It appears that you haven't loaded any Cuckoo Signatures. Signatures are highly recommended and improve & enrich the information extracted during an analysis. They also make up for the analysis score that you see in the Web Interface - so, pretty important!
+2022-03-02 18:47:54,526 [cuckoo] WARNING: You'll be able to fetch all the latest Cuckoo Signatures, Yara rules, and more goodies by running the following command:
+2022-03-02 18:47:54,526 [cuckoo] INFO: $ [32mcuckoo --cwd /home/crochetch/Documents/toolchain_malware_analysis/src/ToolChainSCDG/sandboxes/.cuckoo community[0m
+2022-03-02 18:47:54,527 [cuckoo.core.scheduler] INFO: Using "qemu" as machine manager
+2022-03-02 18:47:54,540 [cuckoo] ERROR: [31mIntegrityError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(sqlite3.IntegrityError) NOT NULL constraint failed: machines.ip
+[SQL: INSERT INTO machines (name, label, ip, platform, options, interface, snapshot, locked, locked_changed_on, status, status_changed_on, resultserver_ip, resultserver_port, rcparams) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('cuckoo1', 'cuckoo1', None, 'windows', '[]', 'qemubr', None, 0, None, None, None, '192.168.122.1', 2042, None)]
+(Background on this error at: http://sqlalche.me/e/gkpj)[0m
+Traceback (most recent call last):
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/main.py", line 299, in main
+    cuckoo_main(maxcount)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/main.py", line 244, in cuckoo_main
+    sched.start()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/scheduler.py", line 970, in start
+    self.initialize()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/scheduler.py", line 876, in initialize
+    machinery.initialize(machinery_name)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/common/abstracts.py", line 183, in initialize
+    self._initialize(module_name)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/common/abstracts.py", line 227, in _initialize
+    resultserver_port=port
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/common/utils.py", line 211, in inner
+    return f(self, *args, **kwargs)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/database.py", line 620, in add_machine
+    tag = self._get_or_create(session, Tag, name=tag.strip())
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/database.py", line 556, in _get_or_create
+    instance = session.query(model).filter_by(**kwargs).first()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 3215, in first
+    ret = list(self[0:1])
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 3007, in __getitem__
+    return list(res)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/query.py", line 3316, in __iter__
+    self.session._autoflush()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1587, in _autoflush
+    util.raise_from_cause(e)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 383, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1576, in _autoflush
+    self.flush()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2451, in flush
+    self._flush(objects)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2589, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2549, in _flush
+    flush_context.execute()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 422, in execute
+    rec.execute(self)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 589, in execute
+    uow,
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 245, in save_obj
+    insert,
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 1120, in _emit_insert_statements
+    statement, params
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 988, in execute
+    return meth(self, multiparams, params)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 287, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1107, in _execute_clauseelement
+    distilled_params,
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1248, in _execute_context
+    e, statement, parameters, cursor, context
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1466, in _handle_dbapi_exception
+    util.raise_from_cause(sqlalchemy_exception, exc_info)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 383, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1244, in _execute_context
+    cursor, statement, parameters, context
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 552, in do_execute
+    cursor.execute(statement, parameters)
+IntegrityError: (raised as a result of Query-invoked autoflush; consider using a session.no_autoflush block if this flush is occurring prematurely)
+(sqlite3.IntegrityError) NOT NULL constraint failed: machines.ip
+[SQL: INSERT INTO machines (name, label, ip, platform, options, interface, snapshot, locked, locked_changed_on, status, status_changed_on, resultserver_ip, resultserver_port, rcparams) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('cuckoo1', 'cuckoo1', None, 'windows', '[]', 'qemubr', None, 0, None, None, None, '192.168.122.1', 2042, None)]
+(Background on this error at: http://sqlalche.me/e/gkpj)
+2022-03-02 18:49:03,018 [cuckoo.core.database] DEBUG: Using database-wide lock for sqlite
+2022-03-02 18:49:03,043 [cuckoo.core.startup] DEBUG: Imported modules...
+2022-03-02 18:49:03,047 [cuckoo.core.startup] DEBUG: Imported "auxiliary" modules:
+2022-03-02 18:49:03,048 [cuckoo.core.startup] DEBUG: 	 |-- MITM
+2022-03-02 18:49:03,049 [cuckoo.core.startup] DEBUG: 	 |-- Reboot
+2022-03-02 18:49:03,049 [cuckoo.core.startup] DEBUG: 	 |-- Replay
+2022-03-02 18:49:03,049 [cuckoo.core.startup] DEBUG: 	 |-- Services
+2022-03-02 18:49:03,050 [cuckoo.core.startup] DEBUG: 	 `-- Sniffer
+2022-03-02 18:49:03,050 [cuckoo.core.startup] DEBUG: Imported "machinery" modules:
+2022-03-02 18:49:03,050 [cuckoo.core.startup] DEBUG: 	 |-- vSphere
+2022-03-02 18:49:03,050 [cuckoo.core.startup] DEBUG: 	 |-- KVM
+2022-03-02 18:49:03,051 [cuckoo.core.startup] DEBUG: 	 |-- ESX
+2022-03-02 18:49:03,051 [cuckoo.core.startup] DEBUG: 	 |-- XenServer
+2022-03-02 18:49:03,051 [cuckoo.core.startup] DEBUG: 	 |-- VirtualBox
+2022-03-02 18:49:03,051 [cuckoo.core.startup] DEBUG: 	 |-- Avd
+2022-03-02 18:49:03,052 [cuckoo.core.startup] DEBUG: 	 |-- QEMU
+2022-03-02 18:49:03,052 [cuckoo.core.startup] DEBUG: 	 |-- VMware
+2022-03-02 18:49:03,052 [cuckoo.core.startup] DEBUG: 	 `-- Physical
+2022-03-02 18:49:03,052 [cuckoo.core.startup] DEBUG: Imported "processing" modules:
+2022-03-02 18:49:03,052 [cuckoo.core.startup] DEBUG: 	 |-- AnalysisInfo
+2022-03-02 18:49:03,052 [cuckoo.core.startup] DEBUG: 	 |-- ApkInfo
+2022-03-02 18:49:03,052 [cuckoo.core.startup] DEBUG: 	 |-- Baseline
+2022-03-02 18:49:03,052 [cuckoo.core.startup] DEBUG: 	 |-- BehaviorAnalysis
+2022-03-02 18:49:03,052 [cuckoo.core.startup] DEBUG: 	 |-- Debug
+2022-03-02 18:49:03,052 [cuckoo.core.startup] DEBUG: 	 |-- Droidmon
+2022-03-02 18:49:03,052 [cuckoo.core.startup] DEBUG: 	 |-- Dropped
+2022-03-02 18:49:03,052 [cuckoo.core.startup] DEBUG: 	 |-- DroppedBuffer
+2022-03-02 18:49:03,053 [cuckoo.core.startup] DEBUG: 	 |-- Extracted
+2022-03-02 18:49:03,053 [cuckoo.core.startup] DEBUG: 	 |-- GooglePlay
+2022-03-02 18:49:03,053 [cuckoo.core.startup] DEBUG: 	 |-- Irma
+2022-03-02 18:49:03,053 [cuckoo.core.startup] DEBUG: 	 |-- Memory
+2022-03-02 18:49:03,053 [cuckoo.core.startup] DEBUG: 	 |-- MetaInfo
+2022-03-02 18:49:03,054 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:49:03,054 [cuckoo.core.startup] DEBUG: 	 |-- NetworkAnalysis
+2022-03-02 18:49:03,054 [cuckoo.core.startup] DEBUG: 	 |-- ProcessMemory
+2022-03-02 18:49:03,054 [cuckoo.core.startup] DEBUG: 	 |-- Procmon
+2022-03-02 18:49:03,054 [cuckoo.core.startup] DEBUG: 	 |-- Screenshots
+2022-03-02 18:49:03,054 [cuckoo.core.startup] DEBUG: 	 |-- Snort
+2022-03-02 18:49:03,055 [cuckoo.core.startup] DEBUG: 	 |-- Static
+2022-03-02 18:49:03,055 [cuckoo.core.startup] DEBUG: 	 |-- Strings
+2022-03-02 18:49:03,055 [cuckoo.core.startup] DEBUG: 	 |-- Suricata
+2022-03-02 18:49:03,055 [cuckoo.core.startup] DEBUG: 	 |-- TargetInfo
+2022-03-02 18:49:03,056 [cuckoo.core.startup] DEBUG: 	 |-- TLSMasterSecrets
+2022-03-02 18:49:03,056 [cuckoo.core.startup] DEBUG: 	 `-- VirusTotal
+2022-03-02 18:49:03,056 [cuckoo.core.startup] DEBUG: Imported "signatures" modules:
+2022-03-02 18:49:03,057 [cuckoo.core.startup] DEBUG: 	 `-- SystemMetrics
+2022-03-02 18:49:03,057 [cuckoo.core.startup] DEBUG: Imported "reporting" modules:
+2022-03-02 18:49:03,057 [cuckoo.core.startup] DEBUG: 	 |-- ElasticSearch
+2022-03-02 18:49:03,057 [cuckoo.core.startup] DEBUG: 	 |-- Feedback
+2022-03-02 18:49:03,058 [cuckoo.core.startup] DEBUG: 	 |-- JsonDump
+2022-03-02 18:49:03,058 [cuckoo.core.startup] DEBUG: 	 |-- Mattermost
+2022-03-02 18:49:03,058 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:49:03,059 [cuckoo.core.startup] DEBUG: 	 |-- Moloch
+2022-03-02 18:49:03,059 [cuckoo.core.startup] DEBUG: 	 |-- MongoDB
+2022-03-02 18:49:03,059 [cuckoo.core.startup] DEBUG: 	 |-- Notification
+2022-03-02 18:49:03,059 [cuckoo.core.startup] DEBUG: 	 `-- SingleFile
+2022-03-02 18:49:03,063 [cuckoo.core.startup] DEBUG: Checking for locked tasks..
+2022-03-02 18:49:03,073 [cuckoo.core.startup] DEBUG: Checking for pending service tasks..
+2022-03-02 18:49:03,078 [cuckoo.core.startup] DEBUG: Initializing Yara...
+2022-03-02 18:49:03,082 [cuckoo.core.startup] DEBUG: 	 |-- binaries embedded.yar
+2022-03-02 18:49:03,083 [cuckoo.core.startup] DEBUG: 	 |-- binaries shellcodes.yar
+2022-03-02 18:49:03,083 [cuckoo.core.startup] DEBUG: 	 |-- binaries vmdetect.yar
+2022-03-02 18:49:03,087 [cuckoo] WARNING: It appears that you haven't loaded any Cuckoo Signatures. Signatures are highly recommended and improve & enrich the information extracted during an analysis. They also make up for the analysis score that you see in the Web Interface - so, pretty important!
+2022-03-02 18:49:03,087 [cuckoo] WARNING: You'll be able to fetch all the latest Cuckoo Signatures, Yara rules, and more goodies by running the following command:
+2022-03-02 18:49:03,087 [cuckoo] INFO: $ [32mcuckoo --cwd /home/crochetch/Documents/toolchain_malware_analysis/src/ToolChainSCDG/sandboxes/.cuckoo community[0m
+2022-03-02 18:49:03,089 [cuckoo.core.scheduler] INFO: Using "qemu" as machine manager
+2022-03-02 18:49:03,121 [cuckoo.core.scheduler] INFO: Loaded 1 machine/s
+2022-03-02 18:49:03,127 [cuckoo.core.scheduler] INFO: Waiting for analysis tasks.
+2022-03-02 18:49:04,158 [cuckoo.core.scheduler] DEBUG: Processing task #4
+2022-03-02 18:49:04,161 [cuckoo.core.scheduler] INFO: Starting analysis of FILE "0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df" (task #4, options "")
+2022-03-02 18:49:04,180 [cuckoo.core.scheduler] INFO: Task #4: acquired machine cuckoo1 (label=cuckoo1)
+2022-03-02 18:49:04,180 [cuckoo.core.resultserver] DEBUG: Now tracking machine 192.168.122.254 for task #4
+2022-03-02 18:49:04,180 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Replay
+2022-03-02 18:49:04,187 [cuckoo.auxiliary.sniffer] INFO: Started sniffer with PID 108071 (interface=qemubr, host=192.168.122.254)
+2022-03-02 18:49:04,188 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Sniffer
+2022-03-02 18:49:04,208 [cuckoo.machinery.qemu] DEBUG: Starting vm cuckoo1
+2022-03-02 18:49:04,224 [cuckoo.core.scheduler] ERROR: Error starting Virtual Machine! VM: cuckoo1, error: QEMU failed starting the machine: qemu-img: /home/crochetch/Documents/PhD/VMImages/images/snapshot_cuckoo1.qcow2: Could not open '/home/crochetch/Documents/PhD/VMImages/images/win7.qcow2': No such file or directory
+Could not open backing image to determine size.
+
+2022-03-02 18:49:04,225 [cuckoo.core.plugins] DEBUG: Stopped auxiliary module: Replay
+2022-03-02 18:49:04,237 [cuckoo.core.plugins] DEBUG: Stopped auxiliary module: Sniffer
+2022-03-02 18:49:04,237 [cuckoo.machinery.qemu] DEBUG: Stopping vm cuckoo1
+2022-03-02 18:49:04,243 [cuckoo.core.scheduler] WARNING: Unable to stop machine cuckoo1: Trying to stop an already stopped vm cuckoo1
+2022-03-02 18:49:04,248 [cuckoo.core.resultserver] DEBUG: Stopped tracking machine 192.168.122.254 for task #4
+2022-03-02 18:49:04,256 [cuckoo.core.scheduler] DEBUG: Released database task #4
+2022-03-02 18:49:04,273 [cuckoo.core.plugins] DEBUG: Executed processing module "AnalysisInfo" for task #4
+2022-03-02 18:49:04,273 [cuckoo.processing.behavior] WARNING: Analysis results folder does not contain any behavior log files.
+2022-03-02 18:49:04,273 [cuckoo.core.plugins] DEBUG: Executed processing module "BehaviorAnalysis" for task #4
+2022-03-02 18:49:04,274 [cuckoo.core.plugins] DEBUG: Executed processing module "Dropped" for task #4
+2022-03-02 18:49:04,274 [cuckoo.core.plugins] DEBUG: Executed processing module "DroppedBuffer" for task #4
+2022-03-02 18:49:04,274 [cuckoo.core.plugins] DEBUG: Executed processing module "MetaInfo" for task #4
+2022-03-02 18:49:04,275 [cuckoo.core.plugins] DEBUG: Executed processing module "ProcessMemory" for task #4
+2022-03-02 18:49:04,275 [cuckoo.core.plugins] DEBUG: Executed processing module "Procmon" for task #4
+2022-03-02 18:49:04,275 [cuckoo.core.plugins] DEBUG: Executed processing module "Screenshots" for task #4
+2022-03-02 18:49:04,582 [cuckoo.core.plugins] DEBUG: Executed processing module "Static" for task #4
+2022-03-02 18:49:04,600 [cuckoo.core.plugins] DEBUG: Executed processing module "Strings" for task #4
+2022-03-02 18:49:04,607 [cuckoo.core.plugins] DEBUG: Executed processing module "TargetInfo" for task #4
+2022-03-02 18:49:04,608 [cuckoo.processing.network] WARNING: The PCAP file does not exist at path "/home/crochetch/Documents/toolchain_malware_analysis/src/ToolChainSCDG/sandboxes/.cuckoo/storage/analyses/4/dump.pcap".
+2022-03-02 18:49:04,608 [cuckoo.core.plugins] DEBUG: Executed processing module "NetworkAnalysis" for task #4
+2022-03-02 18:49:04,609 [cuckoo.core.plugins] DEBUG: Executed processing module "Extracted" for task #4
+2022-03-02 18:49:04,609 [cuckoo.core.plugins] DEBUG: Executed processing module "TLSMasterSecrets" for task #4
+2022-03-02 18:49:04,609 [cuckoo.processing.debug] ERROR: Error processing task #4: it appears that the Virtual Machine hasn't been able to contact back to the Cuckoo Host. There could be a few reasons for this, please refer to our documentation on the matter: https://cuckoo.sh/docs/faq/index.html#troubleshooting-vm-network-configuration
+2022-03-02 18:49:04,616 [cuckoo.core.plugins] DEBUG: Executed processing module "Debug" for task #4
+2022-03-02 18:49:04,616 [cuckoo.core.plugins] DEBUG: Running 0 signatures
+2022-03-02 18:49:04,618 [cuckoo.core.plugins] DEBUG: Executed reporting module "JsonDump"
+2022-03-02 18:49:04,652 [cuckoo.core.plugins] DEBUG: Executed reporting module "SingleFile"
+2022-03-02 18:49:04,658 [cuckoo.core.plugins] DEBUG: Executed reporting module "MongoDB"
+2022-03-02 18:49:04,658 [cuckoo.core.scheduler] INFO: Task #4: reports generation completed
+2022-03-02 18:49:04,663 [cuckoo.core.scheduler] INFO: Task #4: analysis procedure completed
+2022-03-02 18:49:05,166 [cuckoo.core.scheduler] DEBUG: Reached max analysis count, exiting.
+2022-03-02 18:49:05,168 [cuckoo.core.scheduler] DEBUG: End of analyses.
+2022-03-02 18:50:46,301 [cuckoo.core.database] DEBUG: Using database-wide lock for sqlite
+2022-03-02 18:50:46,334 [cuckoo.core.startup] DEBUG: Imported modules...
+2022-03-02 18:50:46,337 [cuckoo.core.startup] DEBUG: Imported "auxiliary" modules:
+2022-03-02 18:50:46,337 [cuckoo.core.startup] DEBUG: 	 |-- MITM
+2022-03-02 18:50:46,337 [cuckoo.core.startup] DEBUG: 	 |-- Reboot
+2022-03-02 18:50:46,337 [cuckoo.core.startup] DEBUG: 	 |-- Replay
+2022-03-02 18:50:46,337 [cuckoo.core.startup] DEBUG: 	 |-- Services
+2022-03-02 18:50:46,337 [cuckoo.core.startup] DEBUG: 	 `-- Sniffer
+2022-03-02 18:50:46,337 [cuckoo.core.startup] DEBUG: Imported "machinery" modules:
+2022-03-02 18:50:46,337 [cuckoo.core.startup] DEBUG: 	 |-- vSphere
+2022-03-02 18:50:46,337 [cuckoo.core.startup] DEBUG: 	 |-- KVM
+2022-03-02 18:50:46,337 [cuckoo.core.startup] DEBUG: 	 |-- ESX
+2022-03-02 18:50:46,337 [cuckoo.core.startup] DEBUG: 	 |-- XenServer
+2022-03-02 18:50:46,337 [cuckoo.core.startup] DEBUG: 	 |-- VirtualBox
+2022-03-02 18:50:46,337 [cuckoo.core.startup] DEBUG: 	 |-- Avd
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: 	 |-- QEMU
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: 	 |-- VMware
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: 	 `-- Physical
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: Imported "processing" modules:
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: 	 |-- AnalysisInfo
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: 	 |-- ApkInfo
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: 	 |-- Baseline
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: 	 |-- BehaviorAnalysis
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: 	 |-- Debug
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: 	 |-- Droidmon
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: 	 |-- Dropped
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: 	 |-- DroppedBuffer
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: 	 |-- Extracted
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: 	 |-- GooglePlay
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: 	 |-- Irma
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: 	 |-- Memory
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: 	 |-- MetaInfo
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:50:46,338 [cuckoo.core.startup] DEBUG: 	 |-- NetworkAnalysis
+2022-03-02 18:50:46,339 [cuckoo.core.startup] DEBUG: 	 |-- ProcessMemory
+2022-03-02 18:50:46,339 [cuckoo.core.startup] DEBUG: 	 |-- Procmon
+2022-03-02 18:50:46,339 [cuckoo.core.startup] DEBUG: 	 |-- Screenshots
+2022-03-02 18:50:46,339 [cuckoo.core.startup] DEBUG: 	 |-- Snort
+2022-03-02 18:50:46,339 [cuckoo.core.startup] DEBUG: 	 |-- Static
+2022-03-02 18:50:46,339 [cuckoo.core.startup] DEBUG: 	 |-- Strings
+2022-03-02 18:50:46,339 [cuckoo.core.startup] DEBUG: 	 |-- Suricata
+2022-03-02 18:50:46,339 [cuckoo.core.startup] DEBUG: 	 |-- TargetInfo
+2022-03-02 18:50:46,339 [cuckoo.core.startup] DEBUG: 	 |-- TLSMasterSecrets
+2022-03-02 18:50:46,339 [cuckoo.core.startup] DEBUG: 	 `-- VirusTotal
+2022-03-02 18:50:46,339 [cuckoo.core.startup] DEBUG: Imported "signatures" modules:
+2022-03-02 18:50:46,339 [cuckoo.core.startup] DEBUG: 	 `-- SystemMetrics
+2022-03-02 18:50:46,339 [cuckoo.core.startup] DEBUG: Imported "reporting" modules:
+2022-03-02 18:50:46,339 [cuckoo.core.startup] DEBUG: 	 |-- ElasticSearch
+2022-03-02 18:50:46,339 [cuckoo.core.startup] DEBUG: 	 |-- Feedback
+2022-03-02 18:50:46,339 [cuckoo.core.startup] DEBUG: 	 |-- JsonDump
+2022-03-02 18:50:46,339 [cuckoo.core.startup] DEBUG: 	 |-- Mattermost
+2022-03-02 18:50:46,340 [cuckoo.core.startup] DEBUG: 	 |-- MISP
+2022-03-02 18:50:46,340 [cuckoo.core.startup] DEBUG: 	 |-- Moloch
+2022-03-02 18:50:46,340 [cuckoo.core.startup] DEBUG: 	 |-- MongoDB
+2022-03-02 18:50:46,340 [cuckoo.core.startup] DEBUG: 	 |-- Notification
+2022-03-02 18:50:46,340 [cuckoo.core.startup] DEBUG: 	 `-- SingleFile
+2022-03-02 18:50:46,341 [cuckoo.core.startup] DEBUG: Checking for locked tasks..
+2022-03-02 18:50:46,348 [cuckoo.core.startup] DEBUG: Checking for pending service tasks..
+2022-03-02 18:50:46,351 [cuckoo.core.startup] DEBUG: Initializing Yara...
+2022-03-02 18:50:46,352 [cuckoo.core.startup] DEBUG: 	 |-- binaries embedded.yar
+2022-03-02 18:50:46,353 [cuckoo.core.startup] DEBUG: 	 |-- binaries shellcodes.yar
+2022-03-02 18:50:46,353 [cuckoo.core.startup] DEBUG: 	 |-- binaries vmdetect.yar
+2022-03-02 18:50:46,354 [cuckoo] WARNING: It appears that you haven't loaded any Cuckoo Signatures. Signatures are highly recommended and improve & enrich the information extracted during an analysis. They also make up for the analysis score that you see in the Web Interface - so, pretty important!
+2022-03-02 18:50:46,354 [cuckoo] WARNING: You'll be able to fetch all the latest Cuckoo Signatures, Yara rules, and more goodies by running the following command:
+2022-03-02 18:50:46,354 [cuckoo] INFO: $ [32mcuckoo --cwd /home/crochetch/Documents/toolchain_malware_analysis/src/ToolChainSCDG/sandboxes/.cuckoo community[0m
+2022-03-02 18:50:46,356 [cuckoo.core.scheduler] INFO: Using "qemu" as machine manager
+2022-03-02 18:50:46,380 [cuckoo.core.scheduler] INFO: Loaded 1 machine/s
+2022-03-02 18:50:46,386 [cuckoo.core.scheduler] INFO: Waiting for analysis tasks.
+2022-03-02 18:50:47,413 [cuckoo.core.scheduler] DEBUG: Processing task #5
+2022-03-02 18:50:47,417 [cuckoo.core.scheduler] INFO: Starting analysis of FILE "0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df" (task #5, options "")
+2022-03-02 18:50:47,435 [cuckoo.core.scheduler] INFO: Task #5: acquired machine cuckoo1 (label=cuckoo1)
+2022-03-02 18:50:47,435 [cuckoo.core.resultserver] DEBUG: Now tracking machine 192.168.122.254 for task #5
+2022-03-02 18:50:47,435 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Replay
+2022-03-02 18:50:47,439 [cuckoo.auxiliary.sniffer] INFO: Started sniffer with PID 108983 (interface=qemubr, host=192.168.122.254)
+2022-03-02 18:50:47,439 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Sniffer
+2022-03-02 18:50:47,459 [cuckoo.machinery.qemu] DEBUG: Starting vm cuckoo1
+2022-03-02 18:50:47,479 [cuckoo.machinery.qemu] DEBUG: Executing QEMU ['qemu-system-x86_64', '-display', 'none', '-m', '1024M', '-hda', '/home/crochetch/Documents/PhD/VMImages/images/snapshot_cuckoo1.qcow2', '-net', 'tap,ifname=tap_cuckoo1,script=no,downscript=no', '-net', 'nic,macaddr=52:54:00:12:34:56', '-enable-kvm']
+2022-03-02 18:50:47,498 [cuckoo.core.guest] INFO: Starting analysis #5 on guest (id=cuckoo1, ip=192.168.122.254)
+2022-03-02 18:50:47,540 [cuckoo.core.guest] INFO: Guest is running Cuckoo Agent 0.10 (id=cuckoo1, ip=192.168.122.254)
+2022-03-02 18:50:47,650 [cuckoo.core.guest] DEBUG: Uploading analyzer to guest (id=cuckoo1, ip=192.168.122.254, monitor=latest, size=1720485)
+2022-03-02 18:50:47,967 [cuckoo.core.resultserver] DEBUG: Task #5: live log analysis.log initialized.
+2022-03-02 18:50:52,360 [cuckoo.core.resultserver] DEBUG: Task #5 had connection reset for <Context for LOG>
+2022-03-02 18:50:55,735 [cuckoo.core.guest] INFO: cuckoo1: analysis completed successfully
+2022-03-02 18:50:55,747 [cuckoo.core.plugins] DEBUG: Stopped auxiliary module: Replay
+2022-03-02 18:50:55,748 [cuckoo.core.plugins] ERROR: Unable to stop auxiliary module: Sniffer
+Traceback (most recent call last):
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/plugins.py", line 164, in stop
+    module.stop()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/auxiliary/sniffer.py", line 156, in stop
+    (out, err, faq("permission-denied-for-tcpdump"))
+CuckooOperationalError: Error running tcpdump to sniff the network traffic during the analysis; stdout = '' and stderr = 'tcpdump: qemubr: No such device exists\n(SIOCGIFHWADDR: No such device)\n'. Did you enable the extra capabilities to allow running tcpdump as non-root user and disable AppArmor properly (the latter only applies to Ubuntu-based distributions with AppArmor, see also https://cuckoo.sh/docs/faq/index.html#permission-denied-for-tcpdump)?
+2022-03-02 18:50:55,757 [cuckoo.machinery.qemu] DEBUG: Stopping vm cuckoo1
+2022-03-02 18:50:55,767 [cuckoo.core.resultserver] DEBUG: Stopped tracking machine 192.168.122.254 for task #5
+2022-03-02 18:50:55,773 [cuckoo.core.scheduler] DEBUG: Released database task #5
+2022-03-02 18:50:55,787 [cuckoo.core.plugins] DEBUG: Executed processing module "AnalysisInfo" for task #5
+2022-03-02 18:50:55,788 [cuckoo.processing.behavior] WARNING: Analysis results folder does not contain any behavior log files.
+2022-03-02 18:50:55,788 [cuckoo.core.plugins] DEBUG: Executed processing module "BehaviorAnalysis" for task #5
+2022-03-02 18:50:55,788 [cuckoo.core.plugins] DEBUG: Executed processing module "Dropped" for task #5
+2022-03-02 18:50:55,788 [cuckoo.core.plugins] DEBUG: Executed processing module "DroppedBuffer" for task #5
+2022-03-02 18:50:55,789 [cuckoo.core.plugins] DEBUG: Executed processing module "MetaInfo" for task #5
+2022-03-02 18:50:55,789 [cuckoo.core.plugins] DEBUG: Executed processing module "ProcessMemory" for task #5
+2022-03-02 18:50:55,789 [cuckoo.core.plugins] DEBUG: Executed processing module "Procmon" for task #5
+2022-03-02 18:50:55,789 [cuckoo.core.plugins] DEBUG: Executed processing module "Screenshots" for task #5
+2022-03-02 18:50:56,030 [cuckoo.core.plugins] DEBUG: Executed processing module "Static" for task #5
+2022-03-02 18:50:56,043 [cuckoo.core.plugins] DEBUG: Executed processing module "Strings" for task #5
+2022-03-02 18:50:56,052 [cuckoo.core.plugins] DEBUG: Executed processing module "TargetInfo" for task #5
+2022-03-02 18:50:56,052 [cuckoo.processing.network] WARNING: The PCAP file does not exist at path "/home/crochetch/Documents/toolchain_malware_analysis/src/ToolChainSCDG/sandboxes/.cuckoo/storage/analyses/5/dump.pcap".
+2022-03-02 18:50:56,053 [cuckoo.core.plugins] DEBUG: Executed processing module "NetworkAnalysis" for task #5
+2022-03-02 18:50:56,053 [cuckoo.core.plugins] DEBUG: Executed processing module "Extracted" for task #5
+2022-03-02 18:50:56,053 [cuckoo.core.plugins] DEBUG: Executed processing module "TLSMasterSecrets" for task #5
+2022-03-02 18:50:56,055 [cuckoo.core.plugins] DEBUG: Executed processing module "Debug" for task #5
+2022-03-02 18:50:56,055 [cuckoo.core.plugins] DEBUG: Running 0 signatures
+2022-03-02 18:50:56,058 [cuckoo.core.plugins] DEBUG: Executed reporting module "JsonDump"
+2022-03-02 18:50:56,089 [cuckoo.core.plugins] DEBUG: Executed reporting module "SingleFile"
+2022-03-02 18:50:56,093 [cuckoo.core.plugins] DEBUG: Executed reporting module "MongoDB"
+2022-03-02 18:50:56,093 [cuckoo.core.scheduler] INFO: Task #5: reports generation completed
+2022-03-02 18:50:56,097 [cuckoo.core.scheduler] INFO: Task #5: analysis procedure completed
+2022-03-02 18:50:56,463 [cuckoo.core.scheduler] DEBUG: Reached max analysis count, exiting.
+2022-03-02 18:50:56,465 [cuckoo.core.scheduler] DEBUG: End of analyses.

@@ -18,6 +18,7 @@ for i in "$@"; do
     --vms_dl)
       VMS=true
       shift 
+      ;;
     --pypy)
       PYPY=true
       shift 
@@ -30,7 +31,7 @@ done
 echo "VMS    = ${VMS}"
 echo "VMI    = ${VMI}"
 echo "MALDB  = ${MALDB}"
-echo "PYPY  = ${PYPY}"
+echo "PYPY   = ${PYPY}"
 
 ROOTPATH=$PWD
 echo "Root path of the project is " ${ROOTPATH}
@@ -144,6 +145,16 @@ pip3 install .
 deactivate
 cd $ROOTPATH/
 
+printf '\n%s\n' "=============> Install cuckoo: =============>"
+
+# Install cuckoo
+virtualenv -p /usr/bin/python2.7 penv-2.7
+source penv-2.7/bin/activate
+cd $ROOTPATH/src/submodules/toolchain_cuckoo
+ls
+pip2 install -U distorm3
+python2 stuff/monitor.py
+pip2 install .
 
 printf '\n%s\n' "-------------> Install tcpdump: <-------------"
 
@@ -189,6 +200,17 @@ pip2 install .
 
 deactivate
 
+printf '\n%s\n' "-------------> Install malware custom_unipacker: <-------------"
+
+cd $ROOTPATH/
+source penv/bin/activate
+# Install custom_unipacker
+cd $ROOTPATH/src/submodules/unipacker-custom
+if [ $PYPY = true ]; then
+    pypy3 -m pip install .
+fi
+python3 -m pip install .
+deactivate
 
 cd $ROOTPATH/
 

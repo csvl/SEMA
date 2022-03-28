@@ -87,7 +87,7 @@ class ToolChain:
 
 def main():
     tc = ToolChain()
-    #tc.start_scdg()
+    tc.start_scdg()
     tc.start_training()
     tc.start_classify()
     elapsed_time = time.time() - tc.start_time

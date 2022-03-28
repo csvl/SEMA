@@ -198,6 +198,8 @@ For syscall extraction, different optionals arguments are available :
 * `max_deadend` : Number of deadended state required to stop (default : 600)
 * `resolv_string` : Do we try to resolv references of string (default : True)
 * `familly` : Familly of the malware. if a folder instead of a binary is given, then the familly are associated to the subfolder containing the binaries.  ? (default : unknown)
+* `packed` : Is the binary packed ? (default : False)
+* `unpack_method` : unpack with Symbion (linux only | todo) or with unipacker (windows only) [symbion|unipacker]. Automatically True if `--packed` is set with symbion as default
 
 For the graph building, options are : 
 

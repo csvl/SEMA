@@ -33,6 +33,7 @@ try:
     from .explorer.ToolChainExplorerCBFS import ToolChainExplorerCBFS
     from .clogging.CustomFormatter import CustomFormatter
     from .helper.ArgumentParserSCDG import ArgumentParserSCDG
+    from .sandboxes.CuckooInterface import CuckooInterface
 except:
     from helper.GraphBuilder import *
     from procedures.CustomSimProcedure import *
@@ -43,6 +44,7 @@ except:
     from explorer.ToolChainExplorerCBFS import ToolChainExplorerCBFS
     from clogging.CustomFormatter import CustomFormatter
     from helper.ArgumentParserSCDG import ArgumentParserSCDG
+    from sandboxes.CuckooInterface import CuckooInterface
 
 import subprocess
 import nose
@@ -51,6 +53,10 @@ import avatar2 as avatar2
 import angr
 import claripy
 
+from unipacker.core import Sample, SimpleClient, UnpackerEngine
+from unipacker.utils import RepeatedTimer, InvalidPEFile
+from unipacker.unpackers import get_unpacker
+from angr_targets import AvatarGDBConcreteTarget
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -59,6 +65,11 @@ class ToolChainSCDG:
     """
     TODO
     """
+
+    BINARY_OEP = None
+    UNPACK_ADDRESS = None  # unpacking address
+    VENV_DETECTED = None   # address for virtual environment obfuscation detection
+    BINARY_EXECUTION_END = None
 
     def __init__(
         self,
@@ -80,6 +91,8 @@ class ToolChainSCDG:
         print_syscall=False,
         debug_error=False,
         debug_string=False,
+        is_packed=False,
+        concrete_target_is_local = False,
         is_from_tc = False
     ):
         self.start_time = time.time()
@@ -129,6 +142,10 @@ class ToolChainSCDG:
         )
         self.eval_time = False
 
+        self.unpack_mode = None
+        self.is_packed = is_packed
+        self.concrete_target_is_local = concrete_target_is_local
+
     def build_scdg(self, args, nameFile, expl_method, family):
         # Create directory to store SCDG if it doesn't exist
         self.scdg.clear()
@@ -167,15 +184,126 @@ class ToolChainSCDG:
         """
 
         # Load a binary into a project = control base
-        proj = angr.Project(
-            nameFile,
-            use_sim_procedures=True,
-            load_options={
-                "auto_load_libs": True
-            },  # ,load_options={"auto_load_libs":False}
-            support_selfmodifying_code=True,
-            # arch="",
-        )
+        proj = None
+        cuckoo = None
+        if self.is_packed and self.unpack_mode == "symbion":
+            # nameFile = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+            #                               os.path.join('..', 'binaries',
+            #                               'tests','x86_64',
+            #                               'packed_elf64'))
+                        
+            #nameFile = "/home/crochetch/Documents/toolchain_malware_analysis/src/submodules/binaries/tests/x86_64/packed_elf64"
+            #st = os.stat(nameFile)
+            #os.chmod(nameFile, st.st_mode | stat.S_IEXEC)
+
+
+            print(nameFile)
+            analysis = nameFile
+
+            proj = angr.Project(
+                nameFile,
+                use_sim_procedures=True,
+                load_options={
+                    "auto_load_libs": True
+                },  # ,load_options={"auto_load_libs":False}
+                support_selfmodifying_code=True,
+                # arch="",
+            )
+
+            # Getting from a binary file to its representation in a virtual address space
+            main_obj = proj.loader.main_object
+            os_obj = main_obj.os
+
+            self.log.info("OS recognized as : " + str(os_obj))
+            self.log.info("CPU architecture recognized as : " + str(proj.arch))
+
+
+            # First set everything up
+
+            GDB_SERVER_IP = '127.0.0.1'
+            GDB_SERVER_PORT = 9876
+
+            if not self.concrete_target_is_local:
+                filename = "cuckoo_ubuntu18.04"
+                gos = "linux"
+                if "win" in os_obj:
+                    filename = "win7_x64_cuckoo"
+                    gos = "windows"
+
+                cuckoo = CuckooInterface(name=filename, ossys="linux", guestos=gos, create_vm=False)
+                GDB_SERVER_IP = cuckoo.start_sandbox(GDB_SERVER_PORT)
+                cuckoo.load_analysis(analysis)
+                cuckoo.start_analysis(analysis)       
+                print(GDB_SERVER_IP)     
+            else:
+                # TODO use the one in sandbox
+                print("gdbserver %s:%s %s" % (GDB_SERVER_IP,GDB_SERVER_PORT,nameFile))
+                subprocess.Popen("gdbserver %s:%s %s" % (GDB_SERVER_IP,GDB_SERVER_PORT,nameFile),
+                                        stdout=subprocess.PIPE,
+                                        stderr=subprocess.PIPE,
+                                        shell=True)
+            avatar_gdb = None
+            try:
+                self.log.info("AvatarGDBConcreteTarget("+ GDB_SERVER_IP+","+ str(GDB_SERVER_PORT) +")")
+                avatar_gdb = AvatarGDBConcreteTarget(avatar2.archs.x86.X86_64,
+                                                    GDB_SERVER_IP, GDB_SERVER_PORT) 
+            except Exception as e:
+                time.sleep(5)
+                self.log.info("AvatarGDBConcreteTarget failure")
+                try:
+                    avatar_gdb = AvatarGDBConcreteTarget(avatar2.archs.x86.X86_64,
+                                                    GDB_SERVER_IP, GDB_SERVER_PORT) 
+                except Exception as ee:
+                    exit(-1)
+            print(nameFile)                
+            proj = angr.Project(
+                nameFile,
+                use_sim_procedures=True,
+                load_options={
+                    "auto_load_libs": False
+                },  # ,load_options={"auto_load_libs":False}
+                support_selfmodifying_code=True,
+                concrete_target=avatar_gdb,
+            )
+        elif self.is_packed and self.unpack_mode == "unipacker":
+            try:
+                unpacker_heartbeat = RepeatedTimer(120, print, "- still running -", file=sys.stderr)
+                event = threading.Event()
+                client = SimpleClient(event)
+                sample = Sample(nameFile)
+                unpacked_file_path = nameFile.replace(nameFileShort,"unpacked_"+nameFileShort)
+                engine = UnpackerEngine(sample, unpacked_file_path)
+                self.log.info("Unpacking process with unipacker")
+                engine.register_client(client)
+                unpacker_heartbeat.start()
+                threading.Thread(target=engine.emu).start()
+                event.wait()
+                unpacker_heartbeat.stop()
+                engine.stop()
+                nameFile = unpacked_file_path
+                proj = angr.Project(
+                    nameFile,
+                    use_sim_procedures=True,
+                    load_options={
+                        "auto_load_libs": True
+                    },  # ,load_options={"auto_load_libs":False}
+                    support_selfmodifying_code=True,
+                    # arch="",
+                )
+            except InvalidPEFile as e:
+                self.unpack_mode = "symbion"
+                self.build_scdg(args, nameFile, expl_method)
+                return
+        else:
+            proj = angr.Project(
+                nameFile,
+                use_sim_procedures=True,
+                load_options={
+                    "auto_load_libs": True
+                },  # ,load_options={"auto_load_libs":False}
+                support_selfmodifying_code=True,
+                # arch="",
+            )
 
         # Getting from a binary file to its representation in a virtual address space
         main_obj = proj.loader.main_object
@@ -235,6 +363,9 @@ class ToolChainSCDG:
             # options.add(angr.options.TRACK_JMP_ACTIONS)
             # options.add(angr.options.TRACK_CONSTRAINT_ACTIONS)
             # options.add(angr.options.TRACK_JMP_ACTIONS)
+        if self.is_packed and self.unpack_mode == "symbion":
+            options.add(angr.options.SYMBION_SYNC_CLE)
+            options.add(angr.options.SYMBION_KEEP_STUBS_ON_SYNC) 
 
         # Contains a program's memory, registers, filesystem data... any "live data" that can be changed by execution has a home in the state
         self.log.info("Entry_state address = " + str(addr))
@@ -395,6 +526,20 @@ class ToolChainSCDG:
                 simgr, 0, args.exp_dir, nameFileShort, self
             )
 
+        if self.is_packed and self.unpack_mode == "symbion":   
+            self.log.info("Concolic unpacking process with Symbion")
+            
+            # cuckoo.start_analysis()           
+            # cuckoo.stop_sandbox() 
+            # unpack_add = cuckoo.get_address("UNPACK_ADDRESS")
+
+            unpack_add = 0
+
+            new_concrete_state = self.execute_concretly(proj, state, unpack_add, [])
+            for i in range(0,4): # 5
+                new_concrete_state = self.execute_concretly(proj, state, unpack_add, [])
+            simgr = proj.factory.simgr(new_concrete_state)
+      
         simgr.use_technique(exploration_tech)
 
         self.log.info(
@@ -512,6 +657,21 @@ class ToolChainSCDG:
             # self.log.info(dump_file)
             json_dumper.dump(dump_file, save_SCDG)  # ,indent=4)
             save_SCDG.close()
+
+    def execute_concretly(
+        self, p, state, address, memory_concretize=[], register_concretize=[], timeout=0
+    ):
+        simgr = p.factory.simgr(state)
+        simgr.use_technique(
+            angr.exploration_techniques.Symbion(
+                find=[address],
+                memory_concretize=memory_concretize,
+                register_concretize=register_concretize,
+                timeout=timeout,
+            )
+        )
+        exploration = simgr.run()
+        return exploration.stashes["found"][0]
 
     def print_memory_info(self, main_obj, dump_file):
         dump_file["sections"] = {}
