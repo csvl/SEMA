@@ -59,6 +59,9 @@ sudo apt-get --fix-missing -y install libcap2-bin
 sudo apt-get --fix-missing -y install libcairo2-dev libjpeg-turbo8-dev libpng-dev libossp-uuid-dev libfreerdp-dev
 sudo apt-get --fix-missing -y install libvirt-dev python3-wheel 
 
+#FL
+sudo apt install rabbitmq-server
+
 ## Install mongodb
 sudo apt-get -y install mongodb
 

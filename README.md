@@ -321,15 +321,15 @@ TODO
 ### How to use ?
 Just run the script : 
 ```bash
-pypy3 ToolChainFL/ToolChainFL.py BINARY_NAME
+pypy3 ToolChainFL.py BINARY_NAME
 
-python3 ToolChainFL/ToolChainFL.py BINARY_NAME
+python3 ToolChainFL.py BINARY_NAME
 ```
 
 #### Example
 
 ```bash
-pypy3 ToolChainFL/ToolChainFL.py 
+pypy3 ToolChainFL.py --method CDFS --verbose databases/malware-inputs/Sample_paper/
 
-python3 ToolChainFL/ToolChainFL.py 
+python3 ToolChainFL.py --method CDFS --verbose databases/malware-inputs/Sample_paper/
 ```

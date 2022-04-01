@@ -1,5 +1,4 @@
 
-
 from ToolChainSCDG.helper.ArgumentParserSCDG import ArgumentParserSCDG
 from ToolChainClassifier.helper.ArgumentParserClassifier import ArgumentParserClassifier
 
@@ -12,5 +11,3 @@ class ArgumentParserTC:
         
         self.tcc = tcc
         self.args_parser_class = ArgumentParserClassifier(tcc)
-        
-
