@@ -1,31 +1,16 @@
-# :skull_and_crossbones: SEMA :skull_and_crossbones: - ToolChain using Symbolic Execution for Malware Analysis. 
-# :books:  Documentation
+#  SEMA  - ToolChain using Symbolic Execution for Malware Analysis. 
+#  Documentation
 
-1. [ Architecture ](#arch)
-
-2. [ Installation ](#install)
-
-3. [ SEMA ](#tc1)
-    1. [ `ToolChainSCDG` ](#tc2)
-    2. [ `ToolChainClassifier`](#tc4)
-    3. [ `ToolChainFL`](#tc3)
+1. [ Installation ]
+2. [ SEMA ]
+    1. [ `ToolChainSCDG` ]
+    2. [ `ToolChainClassifier`]
+    3. [ `ToolChainFL`]
 
 
-:page_with_curl: Architecture
+
+Installation
 ====
-<a name="arch"></a>
-
-![GitHub Logo](/doc/arch.png)
-
-* Main depencies: 
-
-    * Python3
-
-    * KVM/QEMU
-
-:page_with_curl: Installation
-====
-<a name="install"></a>
 
 Tested on Ubuntu 18 LTS.
 
@@ -57,8 +42,6 @@ pyinstaller -F -w --path="src/:penv/lib/python3.8/site-packages" --onefile src/T
 ```
 
 #### Generate package
-
-TODO better setup.py
 
 https://test.pypi.org/account/register/
 
@@ -171,9 +154,8 @@ PyPy3.7:
 
 Then in order to used it, replace the `python3` command by `pypy3`command.
 
-:page_with_curl: `SEMA - ToolChain`
+ `SEMA - ToolChain`
 ====
-<a name="tc1"></a>
 
 Our toolchain is represented in the next figure  and works as follow. A collection of labelled binaries of different malwares families is collected and used as the input of the toolchain. **Angr**, a framework for symbolic execution, is used to execute symbolically binaries and extract execution traces. For this purpose, different heuristics have been developped to optimize symbolic execution. Several execution traces (i.e : API calls used and their arguments) corresponding to one binary are extracted with Angr and gather together thanks to several graph heuristics to construct a SCDG. These resulting SCDGs are then used as input to graph mining to extract common graph between SCDG of the same family and create a signature. Finally when a new sample has to be classified, its SCDG is build and compared with SCDG of known families (thanks to a simple similarity metric).
 
@@ -198,9 +180,8 @@ pypy3 ToolChain.py  --method CDFS --verbose databases/malware-inputs/Sample_pape
 python3 ToolChain.py  --method CDFS --verbose databases/malware-inputs/Sample_paper/
 ```
 
-:page_with_curl: System Call Dependency Graphs extractor (`ToolChainSCDG`)
+ System Call Dependency Graphs extractor (`ToolChainSCDG`)
 ====
-<a name="tc2"></a>
 
 This repository contains a first version of a SCDG extractor.
 During symbolic analysis of a binary, all system calls and their arguments found are recorded. After some stop conditions for symbolic analysis, a graph is build as follow : Nodes are systems Calls recorded, edges show that some arguments are shared between calls.
@@ -263,17 +244,10 @@ pypy3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-in
 python3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-inputs/Sample_paper/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df 
 ```
 
-:page_with_curl: Model & Classification extractor (`ToolChainClassifier`)
+ Model & Classification extractor (`ToolChainClassifier`)
 ====
-<a name="tc4"></a>
 
 When a new sample has to be evaluated, its SCDG is first build as described previously. Then, `gspan` is applied to extract the biggest common subgraph and a similarity score is evaluated to decide if the graph is considered as part of the family or not.
-
-The similarity score `S` between graph `G'` and `G''` is computed as follow:
-
-<p align="center">
-![equation](http://www.sciweavers.org/tex2img.php?eq=S%28G%27%27%2CG%27%29%20%3D%20%5Cfrac%7Bnum%5C_edges%28G%27%27%29%7D%7Bnum%5C_edges%28G%27%29%7D&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
-</p>
 
 Since `G''` is a subgraph of `G'`, this is calculating how much `G'` appears in `G''`.
 
@@ -312,9 +286,8 @@ python3 ToolChainClassifier/ToolChainClassifier.py output/test_classifier_CDFS/
 ```
 
 
-:page_with_curl: Federated Learning for collaborative works (`ToolChainFL`)
+Federated Learning for collaborative works (`ToolChainFL`)
 ====
-<a name="tc3"></a>
 
 TODO
 

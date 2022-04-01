@@ -2,18 +2,13 @@
 import os
 import sys
 
-# for pypy3
-# sys.path.insert(0, '/usr/local/lib')
-# sys.path.insert(0, os.path.expanduser('~/lib'))
-# sys.path.insert(0, os.path.expanduser('/home/crochetch/Documents/toolchain_malware_analysis/penv/lib'))
-
 import json as json_dumper
 from builtins import open as open_file
 import threading
 import time
 #from tkinter import E
 
-# from submodules.claripy import claripy
+# from submodules.claripy import claripy # TODO 
 import claripy
 import monkeyhex  # this will format numerical results in hexadecimal
 import logging
@@ -51,15 +46,12 @@ import avatar2 as avatar2
 import angr
 import claripy
 
-
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-
 
 class ToolChainSCDG:
     """
     TODO
     """
-
     def __init__(
         self,
         timeout=600,
@@ -230,7 +222,7 @@ class ToolChainSCDG:
         options.add(angr.options.SIMPLIFY_CONSTRAINTS)
         # options.add(angr.options.SYMBOLIC_WRITE_ADDRESSES)
         options.add(angr.options.SYMBOLIC_INITIAL_VALUES)
-        if self.debug_error:
+        if self.debug_error: # TODO better integration
             pass
             # options.add(angr.options.TRACK_JMP_ACTIONS)
             # options.add(angr.options.TRACK_CONSTRAINT_ACTIONS)

@@ -54,7 +54,30 @@ class ArgumentParserClassifier:
             "--mode",
             help="detection = binary decision cleanware vs malware (default) OR classification = malware family ",
         )
-
+        parser.add_argument(
+            "--epoch",
+            help="Only for deep learning model: number of epoch (default: 5)",
+            type=int,
+            default=5,
+        )
+        parser.add_argument(
+            "--data_scale",
+            help="Only for deep learning model: data scale value (default: 0.9)",
+            type=float,
+            default=0.9,
+        )
+        parser.add_argument(
+            "--vector_size",
+            help="Only for deep learning model: Size of the vector used (default: 4)",
+            type=int,
+            default=4,
+        )
+        parser.add_argument(
+            "--batch_size",
+            help="Only for deep learning model: Batch size for the model (default: 1)",
+            type=int,
+            default=1,
+        )
         
         parser.add_argument("binary", help="Name of the binary to analyze (Default: output/save-SCDG/, only that for ToolChain)")
         args = None

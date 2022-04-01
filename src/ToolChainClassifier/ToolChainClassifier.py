@@ -39,7 +39,7 @@ class ToolChainClassifier:
         elif self.classifier_name == "inria": 
             self.classifier = SVMInriaClassifier(path=ROOT_DIR,threshold=args.threshold,families=families)
         elif self.classifier_name == "wl": 
-            self.classifier = SVMWLClassifier(path=ROOT_DIR,threshold=args.threshold,families=families)
+            self.classifier = SVMWLClassifier(path=ROOT_DIR,threshold=args.threshold,families=families,epoch=args.epoch)
         elif self.classifier_name == "dl": # not working with pypy
             try:
                 from classifier.DL.DLTrainerClassifier import DLTrainerClassifier

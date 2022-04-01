@@ -34,7 +34,6 @@ class GetEnvironmentVariableA(angr.SimProcedure):
         return ret
 
     def run(self, lpName, lpBuffer, nSize):
-
         if lpName.symbolic or lpBuffer.symbolic or nSize.symbolic:
             return self.state.solver.BVS(
                 "retval_{}".format(self.display_name), self.arch.bits

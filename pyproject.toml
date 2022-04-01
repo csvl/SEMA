@@ -1,0 +1,20 @@
+[build-system]
+requires = ['pymongo', # malwexp
+          'pyzipper', 
+          'click',
+          'requests',
+          'graphviz',
+          'monkeyhex',
+          'angr==8.20.7.27', # 8.20.7.27 for symbion (not working after)
+          'researchpy',
+          'hypothesis',
+          'seaborn',
+          'scipy',
+          'scikit-learn', #'sklearn',
+          'grakel',
+          'torch',
+          'torchvision',
+          'gensim',
+          'avatar2',
+          'pyinstaller']
+build-backend = "setuptools.build_meta"

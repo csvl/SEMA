@@ -43,7 +43,7 @@ class Encoder(nn.Module):
     
 
 class Decoder(nn.Module):
-    def __init__(self,  input_dim=64, n_features=1):
+    def __init__(self,  input_dim=64, n_features=1): # TODO custom parameter
         super(Decoder, self).__init__()
         self.input_dim =  input_dim
         self.hidden_dim, self.n_features = 2 * input_dim, n_features
@@ -99,7 +99,7 @@ class ClassifierDL(nn.Module):
         n_hidden = 2*n_features
         self.Linear1 = nn.Linear(n_features, n_hidden)
         self.Linear2 = nn.Linear(n_hidden, n_classes)
-        self.L = nn.Softmax(dim = 1) # ????? dim????
+        self.L = nn.Softmax(dim = 1) # TODO ????? dim ????
 
     def forward(self, x):
         y1 = self.Linear1(x)

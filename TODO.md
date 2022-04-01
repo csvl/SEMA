@@ -1,10 +1,6 @@
 # TODO
 
-* __init__.py
-
 * set fixed version of submodule
-
-* Split argument parsers
 
 * Benchmarking module/Response quality
 
@@ -31,6 +27,14 @@
     * unittest
 
     * toy examples
+
+* TODO: packed the project in binaries
+
+* TODO Add gridsearch
+
+* TODO multhread version +++ need to reduce memory used
+
+* TODO check heap config WARNING | 2022-04-01 13:46:06,112 | angr.state_plugins.heap.heap_base | Allocation request of 4294967264 bytes exceeded maximum of 128 bytes; allocating 4294967264 bytes
 
 Normal command: 
 python3 ToolChainSCDG.py --method DFS --verbose databases/malware-inputs/Sample_paper/nitol/00b2f45c7befbced2efaeb92a725bb3d

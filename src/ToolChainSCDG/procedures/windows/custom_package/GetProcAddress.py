@@ -10,6 +10,7 @@ from angr.procedures import SIM_LIBRARIES
 # from ...CustomSimProcedure import *
 lw = logging.getLogger("CustomSimProcedureWindows")
 
+# TODO some errors in this custom procedure
 
 class GetProcAddress(angr.SimProcedure):
     def run(self, lib_handle, name_addr):

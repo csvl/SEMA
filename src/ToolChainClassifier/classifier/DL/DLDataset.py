@@ -1,20 +1,19 @@
-import logging
-from os.path import dirname, abspath,sep, basename
-import progressbar
-from gensim.test.utils import datapath
-from gensim.models.fasttext import FastText
-import numpy as np
-import glob
 try:
     import torch
     from torchvision.transforms import ToTensor, Lambda
 except:
     print("Deep learning model do no support pypy3")
     exit(-1)
-    
+import logging
+import progressbar
+from gensim.test.utils import datapath
+from gensim.models.fasttext import FastText
+import numpy as np
+import glob
+
+
 import json
 import os 
-from os.path import dirname, abspath,sep, basename
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
@@ -64,8 +63,6 @@ class DLDataset(torch.utils.data.Dataset):
         self.seq_data= list()
         for index in range(len(self.data)):
             fname, label = self.data[index]
-            #print(label)
-            #print(fname)
             seq = self.gs2seqvector(fname,self._apimap, self.model.wv)
             if seq is None: continue
             data.append((fname, label))
@@ -110,7 +107,6 @@ class DLDataset(torch.utils.data.Dataset):
         apimap = self.read_map(mappath) #os.path.join(dir_path, mappath)
         return model, apimap
 
-    #'/media/kdam/Data/UCL/Federated-Learning/tool/code/APInameseq.txt'
     def api2vector(self,apiname,vector_size=10, reset=0):
         save_model = os.path.join(dir_path, "wordmodel")
         if os.path.exists(save_model) and reset ==0:
