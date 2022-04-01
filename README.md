@@ -44,6 +44,8 @@ Optionals arguments are available for `install.sh`:
 * `--vms_dl` : Download preconfigured cuckoo VMs (default : False)
 * `--vms_install` : Unzip downloaded VMs for cuckoo, `vms_dl` must be true (default : False)
 * `--pypy` : Install also with `pypy3` compiler (default : False)
+* `--pytorch_cuda` : Install also CUDA core enable with `pytorch` (default : False)
+
 
 #### Pip
 To run this SCDG extractor you first need to install pip.
@@ -121,6 +123,8 @@ autoflake --in-place --remove-unused-variables --remove-all-unused-imports  --re
 
 In order to be faster, you should install `pypy` python interpreter. You can add `--pypy` to `install.sh` but some installation error are still possible. The following command are not enough to fully build the project with pypy3 that is why we recommend to use `install.sh --pypy`. Still some package problems.
 
+Note: `Pytorch` not working with `pypy`.
+
 PyPy3.7:
 
 * Linux x86 64 bit: 
@@ -165,7 +169,8 @@ python3 ToolChain.py FOLDER
 #### Example
 
 ```bash
-# For folder of malware
+# For folder of malware 
+# Deep learning not supported with pypy3 (--classifier dl)
 pypy3 ToolChain.py  --method CDFS --verbose databases/malware-inputs/Sample_paper/
 
 # (virtual env/penv)
@@ -262,7 +267,7 @@ python3 ToolChainClassifier.py FOLDER
 ```
 * `FOLDER` : Folder containing binaries to classify, these binaries must be ordered by familly (default : `output/save-SCDG/`)
 * `mode`: `detection` = binary decision cleanware vs malware OR `classification` = malware family (default: classification) 
-* `classifier` : Classifier used [gspan,inria,wl] (default : wl)
+* `classifier` : Classifier used [gspan,inria,wl,dl] (default : wl)
 * `threshold` : Threshold used for the classifier [0..1] (default : 0.45)
 * `support` : Support used for the gspan classifier [0..1] (default : 0.75)
 * `ctimeout` : Timeout for gspan classifier (default : 3sec)
@@ -273,6 +278,7 @@ python3 ToolChainClassifier.py FOLDER
 #### Example
 
 ```bash
+# Note: Deep learning model not supported by pypy --classifier dl
 pypy3 ToolChainClassifier/ToolChainClassifier.py output/test_classifier_CDFS/
 
 python3 ToolChainClassifier/ToolChainClassifier.py output/test_classifier_CDFS/

@@ -3,16 +3,16 @@ import os
 import time
 
 try:
-    from classifier.GSpanClassifier import GSpanClassifier
+    from classifier.GM.GSpanClassifier import GSpanClassifier
     from helper.ArgumentParserClassifier import ArgumentParserClassifier
-    from classifier.SVMInriaClassifier import SVMInriaClassifier
-    from classifier.SVMWLClassifier import SVMWLClassifier
+    from classifier.SVM.SVMInriaClassifier import SVMInriaClassifier
+    from classifier.SVM.SVMWLClassifier import SVMWLClassifier
     from clogging.CustomFormatter import CustomFormatter
 except:
-    from .classifier.GSpanClassifier import GSpanClassifier
+    from .classifier.GM.GSpanClassifier import GSpanClassifier
     from .helper.ArgumentParserClassifier import ArgumentParserClassifier
-    from .classifier.SVMInriaClassifier import SVMInriaClassifier
-    from .classifier.SVMWLClassifier import SVMWLClassifier
+    from .classifier.SVM.SVMInriaClassifier import SVMInriaClassifier
+    from .classifier.SVM.SVMWLClassifier import SVMWLClassifier
     from .clogging.CustomFormatter import CustomFormatter
 
 
@@ -40,10 +40,15 @@ class ToolChainClassifier:
             self.classifier = SVMInriaClassifier(path=ROOT_DIR,threshold=args.threshold,families=families)
         elif self.classifier_name == "wl": 
             self.classifier = SVMWLClassifier(path=ROOT_DIR,threshold=args.threshold,families=families)
+        elif self.classifier_name == "dl": # not working with pypy
+            try:
+                from classifier.DL.DLTrainerClassifier import DLTrainerClassifier
+            except:
+                from .classifier.DL.DLTrainerClassifier import DLTrainerClassifier
+            self.classifier = DLTrainerClassifier(path=ROOT_DIR,threshold=args.threshold)
         else:
-            self.log.info("Error: Unrecognize classifer (gspan|inria|wl)")
-            exit(-1)
-        
+            self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
+            exit(-1)      
 
 def main():
     tc = ToolChainClassifier()

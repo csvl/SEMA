@@ -1,9 +1,0 @@
-int_WSAAPI WSARecv(
-  SOCKET                             s,
-  LPWSABUF                           lpBuffers,
-  DWORD                              dwBufferCount,
-  LPDWORD                            lpNumberOfBytesRecvd,
-  LPDWORD                            lpFlags,
-  LPWSAOVERLAPPED                    lpOverlapped,
-  LPWSAOVERLAPPED_COMPLETION_ROUTINE lpCompletionRoutine
-);

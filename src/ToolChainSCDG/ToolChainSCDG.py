@@ -538,7 +538,7 @@ def main():
     )
     args_parser = ArgumentParserSCDG(toolc)
     args, nameFile, expl_method, familly = args_parser.parse_arguments()
-
+    import progressbar
     if os.path.isfile(nameFile):
         toolc.log.info("You decide to analyse a single binary: "+ nameFile)
         toolc.build_scdg(args, nameFile, expl_method, familly)
@@ -546,14 +546,20 @@ def main():
         last_familiy = "unknown"
         if os.path.isdir(nameFile):
             subfolder = [os.path.join(nameFile, f) for f in os.listdir(nameFile) if os.path.isdir(os.path.join(nameFile, f))]
+            bar_f = progressbar.ProgressBar(max_value=len(subfolder))
+            bar_f.start()
             for folder in subfolder:
                 toolc.log.info("You are currently building SCDG for " + folder)
                 files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
+                bar = progressbar.ProgressBar(max_value=len(files))
+                bar.start()
                 for file  in files:
                     args.exp_dir = args.exp_dir.exp_dir.replace(last_familiy,folder.split("/")[-1])
                     toolc.build_scdg(args, file, expl_method,folder.split("/")[-1])
                 toolc.families += last_familiy
                 last_familiy = folder.split("/")[-1]
+                bar.finish()
+            bar_f.finish()
         else:
             toolc.log.info("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/malware-inputs/Sample_paper")
             exit(-1)

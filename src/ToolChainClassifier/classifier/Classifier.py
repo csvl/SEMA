@@ -13,7 +13,6 @@ try:
 except:
     from ..clogging.CustomFormatter import CustomFormatter
         
-
 class Classifier():
     def __init__(self,path, name, threshold):
         ch = logging.StreamHandler()
@@ -231,8 +230,6 @@ class Classifier():
             g1comp = self.dico_precomputed[g1.__hash__()]['gcomp']
             counter1 = self.dico_precomputed[g1.__hash__()]['counter']
         else: 
-
-            
             f = open(filename,'w')
             f.write('t # 0\n')
             for key,value in g1.node_labels.items():

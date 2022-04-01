@@ -2,6 +2,7 @@ import os
 import time
 from re import sub
 import logging
+import progressbar
 from ToolChainClassifier.ToolChainClassifier import ToolChainClassifier
 from ToolChainSCDG.ToolChainSCDG import ToolChainSCDG
 from helper.ArgumentParserTC import ArgumentParserTC
@@ -43,14 +44,20 @@ class ToolChain:
         if os.path.isdir(self.folderName):
             subfolder = [os.path.join(self.folderName, f) for f in os.listdir(self.folderName) if os.path.isdir(os.path.join(self.folderName, f))]
             self.log.info(subfolder)
+            bar_f = progressbar.ProgressBar(max_value=len(subfolder))
+            bar_f.start()
             for folder in subfolder:
                 self.log.info("You are currently building SCDG for " + folder)
                 self.args_scdg.exp_dir = self.args_scdg.exp_dir.replace(last_familiy,folder.split("/")[-1])
                 last_familiy = folder.split("/")[-1]
                 files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
+                bar = progressbar.ProgressBar(max_value=len(files))
+                bar.start()
                 for file  in files:
                     self.toolc.build_scdg(self.args_scdg, file, self.expl_method,last_familiy)
                 self.families += last_familiy
+                bar.finish()
+            bar_f.finish()
         else:
             self.log.info("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/malware-inputs/Sample_paper")
             exit(-1)
@@ -87,7 +94,7 @@ class ToolChain:
 
 def main():
     tc = ToolChain()
-    #tc.start_scdg()
+    tc.start_scdg()
     tc.start_training()
     tc.start_classify()
     elapsed_time = time.time() - tc.start_time

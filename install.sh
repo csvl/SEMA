@@ -3,7 +3,7 @@
 MALDB=true
 VMS=false
 VMI=false
-PYPY=false
+CUDA=false
 
 for i in "$@"; do
   case $i in
@@ -18,8 +18,13 @@ for i in "$@"; do
     --vms_dl)
       VMS=true
       shift 
+      ;;
     --pypy)
       PYPY=true
+      shift 
+      ;;
+    --pytorch_cuda)
+      CUDA=true
       shift 
       ;;
     *)
@@ -31,6 +36,7 @@ echo "VMS    = ${VMS}"
 echo "VMI    = ${VMI}"
 echo "MALDB  = ${MALDB}"
 echo "PYPY  = ${PYPY}"
+echo "CUDA  = ${CUDA}"
 
 ROOTPATH=$PWD
 echo "Root path of the project is " ${ROOTPATH}
@@ -87,6 +93,16 @@ source penv/bin/activate
 pip3 install wheel
 pip3 install .
 
+if [ $CUDA = true ]; then
+  # CUDA core 
+  wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+  sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+  sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
+  sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
+  sudo apt-get update
+  sudo apt-get -y install cuda
+fi
+
 if [ $PYPY = true ]; then
     # your standard pip install folder could caused problems
     pypy3 -m ensurepip
@@ -102,6 +118,9 @@ if [ $PYPY = true ]; then
     pypy3 -m pip install  . 
     sudo apt-get install libjansson-dev
     pypy3 -m pip install unicorn
+    pypy3 -m pip install grakel
+    pypy3 -m pip install gensim
+    #pypy3 -m pip install torch
     pypy3 -m pip install --global-option="build" --global-option="--enable-cuckoo" --global-option="--enable-magic" yara-python
     #pypy3 -m pip install --global-option="build"  yara 
 

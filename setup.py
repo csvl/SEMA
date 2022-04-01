@@ -38,6 +38,9 @@ setup(name='ucl_tc_malware_analysis',
           'seaborn',
           'scipy',
           'scikit-learn', #'sklearn',
-          'grakel'
+          'grakel',
+          'torch',
+          'torchvision',
+          'gensim'
       ],
       zip_safe=False)

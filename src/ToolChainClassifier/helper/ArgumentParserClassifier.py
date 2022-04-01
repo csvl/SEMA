@@ -13,7 +13,7 @@ class ArgumentParserClassifier:
         parser = argparse.ArgumentParser()
         parser.add_argument(
             "--classifier",
-            help="Classifier used for the analysis among (gspan,inria,wl) (default : wl)",
+            help="Classifier used for the analysis among (gspan,inria,wl,dl) (default : wl)",
         )
         parser.add_argument(
             "--threshold",
@@ -70,7 +70,7 @@ class ArgumentParserClassifier:
         sys.setrecursionlimit(2000)
         if args.classifier:
             class_method = args.classifier
-            if class_method.lower() not in ["gspan","inria","wl"]:
+            if class_method.lower() not in ["gspan","inria","wl","dl"]:
                 self.tcw.classifier_name = "wl"
             else:
                 self.tcw.classifier_name = class_method
