@@ -25,7 +25,7 @@ except:
 	from .DLClassifier import DLClassifier	
 	from .DLDataset import DLDataset
 	from ..Classifier import Classifier
-	from clogging.CustomFormatter import CustomFormatter
+	from ...clogging.CustomFormatter import CustomFormatter
 	 
 
 class DLTrainerClassifier(Classifier):
