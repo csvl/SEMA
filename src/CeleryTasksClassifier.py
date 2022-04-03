@@ -45,6 +45,7 @@ def train(** args):
         toolcl = ToolChainClassifier()
         families = []
         last_familiy = "unknown"
+        toolcl.classifer_name = "dl"
         if os.path.isdir(input_path):
             subfolder = [os.path.join(input_path, f) for f in os.listdir(input_path) if os.path.isdir(os.path.join(input_path, f))]
             for folder in subfolder:
