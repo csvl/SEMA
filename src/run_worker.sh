@@ -12,6 +12,5 @@ for i in "$@"; do
 done
 
 source ../penv/bin/activate
-#celery -A tasks.CeleryTasksSCDG worker -Q $HOST -E
-celery -A CeleryTasksClassifier worker -Q $HOST -E
+celery -A CeleryTasksSCDG worker -Q $HOST -E -n worker.scdg & celery -A CeleryTasksClassifier worker -Q $HOST -E -n worker.classifier
 deactivate
