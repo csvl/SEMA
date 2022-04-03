@@ -19,7 +19,7 @@
 
 * Main depencies: 
 
-    * Python3
+    * Python3.8
 
     * KVM/QEMU
 
