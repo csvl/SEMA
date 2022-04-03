@@ -12,4 +12,5 @@ for i in "$@"; do
 done
 source ../../penv/bin/activate
 bash setup_network.sh
+celery -A tasks.CeleryTasksSCDG flower
 deactivate

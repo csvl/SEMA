@@ -45,7 +45,7 @@ setup(name='sema-tc',
           'avatar2',
           'pyinstaller',
           
-          'celery',
+          'celery==4.4.7',
           'tenseal',
           'cryptography'
         ],
