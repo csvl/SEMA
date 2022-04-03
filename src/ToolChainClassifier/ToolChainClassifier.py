@@ -49,25 +49,7 @@ class ToolChainClassifier:
         else:
             self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
             exit(-1)    
-
-    def init_classifer(self,threshold,support,ctimeout,nthread,biggest_subgraph,epoch,
-                      families=['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT']):
-        if self.classifier_name == "gspan":
-            self.classifier = GSpanClassifier(path=ROOT_DIR,threshold=threshold,support=support,timeout=ctimeout,thread=nthread,biggest_subgraphs=biggest_subgraph)
-        elif self.classifier_name == "inria": 
-            self.classifier = SVMInriaClassifier(path=ROOT_DIR,threshold=threshold,families=families)
-        elif self.classifier_name == "wl": 
-            self.classifier = SVMWLClassifier(path=ROOT_DIR,threshold=threshold,families=families,epoch=epoch)
-        elif self.classifier_name == "dl": # not working with pypy
-            try:
-                from classifier.DL.DLTrainerClassifier import DLTrainerClassifier
-            except:
-                from .classifier.DL.DLTrainerClassifier import DLTrainerClassifier
-            self.classifier = DLTrainerClassifier(path=ROOT_DIR,threshold=threshold)
-        else:
-            self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
-            exit(-1)       
-
+     
 def main():
     tc = ToolChainClassifier()
     args_parser = ArgumentParserClassifier(tc)
