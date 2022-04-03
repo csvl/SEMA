@@ -16,21 +16,25 @@ class ArgumentParserSCDG:
         parser.add_argument(
             "--n_args",
             help="Number of symbolic arguments given to the binary (default : 0)",
+            default=0,
             type=int,
         )
         parser.add_argument(
             "--timeout",
             help="Timeout in seconds before ending extraction (default : 600)",
+            default=600,
             type=int,
         )
         parser.add_argument(
             "--symb_loop",
             help="Number of iteration allowed for a symbolic loop (default : 3) ",
+            default=3,
             type=int,
         )
         parser.add_argument(
             "--conc_loop",
             help="Number of symbolic arguments given to the binary (default : 1024)",
+            default=1024,
             type=int,
         )
         parser.add_argument(
@@ -42,16 +46,19 @@ class ArgumentParserSCDG:
         parser.add_argument(
             "--limit_pause",
             help="Number of states allowed in pause stash (default : 200)",
+            default=200,
             type=int,
         )
         parser.add_argument(
             "--max_step",
             help="Maximum number of steps allowed for a state (default : 50 000)",
+            default=50000,
             type=int,
         )
         parser.add_argument(
             "--max_deadend",
             help="Number of deadended state required to stop (default : 600)",
+            default=600,
             type=int,
         )
         parser.add_argument(
@@ -91,7 +98,7 @@ class ArgumentParserSCDG:
         )
         parser.add_argument(
             "--discard_SCDG",
-            help="Do not keep intermediate SCDG in file  (default : False)",
+            help="Do not keep intermediate SCDG in file  (default : True)",
             action="store_false",
         )
         parser.add_argument(

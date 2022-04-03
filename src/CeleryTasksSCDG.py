@@ -36,7 +36,7 @@ def start_scdg(** args):
         log.info(subfolder)
         for folder in subfolder:
             log.info("You are currently building SCDG for " + folder)
-            args_scdg.exp_dir = args_scdg.exp_dir.replace(last_familiy,folder.split("/")[-1])
+            args_scdg["exp_dir"] = args_scdg["exp_dir"].replace(last_familiy,folder.split("/")[-1])
             last_familiy = folder.split("/")[-1]
             files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
             for file  in files:
