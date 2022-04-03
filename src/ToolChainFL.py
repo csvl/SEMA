@@ -38,7 +38,7 @@ class ToolChainFL:
        self.test_value = test_val
            
     def fl_scdg(self):
-        args = {"args_scdg":self.args_scdg,
+        args = {"args_scdg":self.args_scdg.__dict__,
                 "folderName":self.folderName,
                 "families":self.families,
                 "expl_method":self.expl_method}
@@ -82,7 +82,7 @@ class ToolChainFL:
                 "nround":0,
                 "test":runname,
                 "input_path":input_path,
-                "args_class":self.args_class}
+                "args_class":self.args_class.__dict__}
         
         tround = sround
         while tround < nrounds:
