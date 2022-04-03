@@ -26,8 +26,6 @@ app = celery.Celery('ToolChainFL',
                     broker=BROKER, 
                     backend=BACKEND)
 
-CELERY_WORKER_REDIRECT_STDOUTS = False
-
 context, key = F.init_encrypt()
 sk,pk = RSA.generate_key()
 

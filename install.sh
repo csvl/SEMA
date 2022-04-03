@@ -180,6 +180,9 @@ pip3 install .
 deactivate
 cd $ROOTPATH/
 
+# install fix
+rm penv/lib/python3.8/site-packages/z3/z3core.py
+cp penv-fix/z3/z3core.py penv/lib/python3.8/site-packages/z3/z3core.py
 
 printf '\n%s\n' "-------------> Install tcpdump: <-------------"
 

@@ -374,6 +374,7 @@ class ToolChainExplorer(ExplorationTechnique):
     def manage_error(self, simgr):
         if len(simgr.errored) > self.errored:
             new_errors = len(simgr.errored) - self.errored
+            self.log.info(simgr.errored)
             for i in range(new_errors):
                 id_cur = simgr.errored[-i - 1].state.globals["id"]
                 self.log.info("End of the trace number " + str(id_cur) + " with errors")
