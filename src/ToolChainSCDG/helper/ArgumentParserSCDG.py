@@ -139,7 +139,12 @@ class ArgumentParserSCDG:
             "--familly",
             help="Use a local GDB server instead of using cuckoo (default : False)",
         )
-        parser.add_argument("binary", help="Name of the binary to analyze")
+        parser.add_argument("binary", 
+                help="Name of the binary to analyze")
+
+        parser.add_argument('--hostnames',  # here because parsing error if not present TODO
+                            nargs='+',
+                            help='hostnames for celery clients')
         
         args = None
         if not allow_unk:

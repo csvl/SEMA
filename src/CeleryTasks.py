@@ -27,11 +27,6 @@ app = celery.Celery('ToolChainFL', broker=BROKER, backend=BACKEND)
 context, key = F.init_encrypt()
 sk,pk = RSA.generate_key()
 
-"""
-celery -A task.tasks flower
-ssh -i ~/.ssh/id_kdam -L 5555:130.104.229.26:5555 kdam@130.104.229.26
-"""
-
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
 ch.setFormatter(CustomFormatter())
@@ -68,6 +63,7 @@ def start_scdg(** args):
     families = args["families"]
     expl_method = args["expl_method"]
     last_familiy = "unknown"
+    log.info(args)
     if os.path.isdir(folderName):
         subfolder = [os.path.join(folderName, f) for f in os.listdir(folderName) if os.path.isdir(os.path.join(folderName, f))]
         log.info(subfolder)
