@@ -1,5 +1,3 @@
-import imp
-from matplotlib.pyplot import cla
 from ToolChainClassifier.ToolChainClassifier import ToolChainClassifier
 try:
     from .CeleryTasks import app, context, temp_path, pk, key
@@ -34,22 +32,28 @@ def train(** args):
     run_name  = args["run_name"]
     nround = args["nround"]
     input_path = args["input_path"]
-    args_class = args["args_class"]
 
+    threshold = args["threshold"]
+    support = args["support"]
+    ctimeout = args["ctimeout"]
+    nthread = args["nthread"]
+    biggest_subgraph = args["biggest_subgraph"]
+    epoch = args["epoch"]
 
     pwd = os.path.join(temp_path,run_name)   
     print(run_name)
-    
+        
     if nround<1:
-        toolcl = ToolChainClassifier(classifier_name="dl")
+        toolcl = ToolChainClassifier()
         families = []
         last_familiy = "unknown"
+        toolcl.classifer_name = "dl"
         if os.path.isdir(input_path):
             subfolder = [os.path.join(input_path, f) for f in os.listdir(input_path) if os.path.isdir(os.path.join(input_path, f))]
             for folder in subfolder:
                 last_familiy = folder.split("/")[-1]
                 families.append(str(last_familiy))
-        toolcl.init_classifer(args=args_class,families=families)
+        toolcl.init_classifer(threshold=threshold,support=support,families=families,ctimeout=ctimeout,nthread=nthread,biggest_subgraph=biggest_subgraph,epoch=epoch)
         trainer = toolcl.classifier
     else:
         trainer = load_object(os.path.join(pwd,f"R{nround-1}_{run_name}_model.pkl"))

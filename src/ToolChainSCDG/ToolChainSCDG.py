@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from ast import arg
 import os
 import sys
 
@@ -121,19 +122,43 @@ class ToolChainSCDG:
         )
         self.eval_time = False
 
-    def build_scdg(self, args, nameFile, expl_method, family):
+    def build_scdg(self, args, nameFile, expl_method, family,is_fl=False):
         # Create directory to store SCDG if it doesn't exist
         self.scdg.clear()
         self.scdg_fin.clear()
         self.call_sim.syscall_found.clear()
         self.call_sim.system_call_table.clear()
+        
+        if not is_fl:
+            exp_dir = args.exp_dir
+            nargs = args.n_args
+            disjoint_union = args.disjoint_union
+            not_comp_args = args.not_comp_args
+            min_size = args.min_size
+            not_ignore_zero = args.not_ignore_zero
+            dir = args.dir
+            verbose = args.verbose
+            format_out = args.format_out
+            discard_SCDG = args.discard_SCDG
+        else:
+            exp_dir = args["exp_dir"]
+            nargs = args["n_args"]
+            disjoint_union = args["disjoint_union"]
+            not_comp_args = args["not_comp_args"]
+            min_size = args["min_size"]
+            not_ignore_zero = args["not_ignore_zero"]
+            dir = args["dir"]
+            verbose = args["verbose"]
+            format_out = args["format_out"]
+            discard_SCDG = args["discard_SCDG"]
         try:
-            os.stat(args.exp_dir)
+            os.stat(exp_dir)
         except:
-            os.makedirs(args.exp_dir)
+            os.makedirs(exp_dir)
 
-        if args.exp_dir != "output/save-SCDG/"+family+"/":
-            setup = open_file(args.exp_dir + "setup.txt", "w")
+
+        if exp_dir != "output/save-SCDG/"+family+"/":
+            setup = open_file(exp_dir + "setup.txt", "w")
             setup.write(str(self.jump_it) + "\n")
             setup.write(str(self.loop_counter_concrete) + "\n")
             setup.write(str(self.max_simul_state) + "\n")
@@ -141,7 +166,6 @@ class ToolChainSCDG:
             setup.write(str(self.max_step) + "\n")
             setup.write(str(self.max_end_state))
             setup.close()
-
         # Take name of the sample without full path
         if "/" in nameFile:
             nameFileShort = nameFile.split("/")[-1]
@@ -192,8 +216,9 @@ class ToolChainSCDG:
 
         # Defining arguments given to the program (minimum is filename)
         args_binary = [nameFileShort]
-        if args.n_args:
-            for i in range(args.n_args):
+
+        if nargs:
+            for i in range(nargs):
                 args_binary.append(claripy.BVS("arg" + str(i), 8 * 16))
 
         # Load pre-defined syscall table
@@ -372,19 +397,19 @@ class ToolChainSCDG:
         simgr.stashes["temp"]
 
         exploration_tech = ToolChainExplorerDFS(
-            simgr, 0, args.exp_dir, nameFileShort, self
+            simgr, 0, exp_dir, nameFileShort, self
         )
         if expl_method == "CDFS":
             exploration_tech = ToolChainExplorerCDFS(
-                simgr, 0, args.exp_dir, nameFileShort, self
+                simgr, 0, exp_dir, nameFileShort, self
             )
         elif expl_method == "CBFS":
             exploration_tech = ToolChainExplorerCBFS(
-                simgr, 0, args.exp_dir, nameFileShort, self
+                simgr, 0, exp_dir, nameFileShort, self
             )
         elif expl_method == "BFS":
             exploration_tech = ToolChainExplorerBFS(
-                simgr, 0, args.exp_dir, nameFileShort, self
+                simgr, 0, exp_dir, nameFileShort, self
             )
 
         simgr.use_technique(exploration_tech)
@@ -409,22 +434,22 @@ class ToolChainSCDG:
         self.log.info("Total execution time to build scdg: " + str(elapsed_time))
 
 
-        self.build_scdg_fin(args, nameFileShort, main_obj, state, simgr)
+        self.build_scdg_fin(exp_dir, nameFileShort, main_obj, state, simgr, discard_SCDG)
 
         g = GraphBuilder(
             name=nameFileShort,
             mapping="mapping.txt",
-            merge_call=(not args.disjoint_union),
-            comp_args=(not args.not_comp_args),
-            min_size=args.min_size,
-            ignore_zero=(not args.not_ignore_zero),
-            odir=args.dir,
-            verbose=args.verbose,
+            merge_call=(not disjoint_union),
+            comp_args=(not not_comp_args),
+            min_size=min_size,
+            ignore_zero=(not not_ignore_zero),
+            odir=dir,
+            verbose=verbose,
             familly=family
         )
-        g.build_graph(self.scdg_fin, format_out=args.format_out)
+        g.build_graph(self.scdg_fin, format_out=format_out)
 
-    def build_scdg_fin(self, args, nameFileShort, main_obj, state, simgr):
+    def build_scdg_fin(self, exp_dir, nameFileShort, main_obj, state, simgr, discard_SCDG):
         dump_file = {}
         dump_id = 0
         dic_hash_SCDG = {}
@@ -496,9 +521,9 @@ class ToolChainSCDG:
                 self.scdg_fin.append(self.scdg[state.globals["id"]])
 
         self.print_memory_info(main_obj, dump_file)
-        if args.discard_SCDG:
+        if discard_SCDG:
             # self.log.info(dump_file)
-            ofilename = args.exp_dir + nameFileShort + "_SCDG.json"
+            ofilename = exp_dir + nameFileShort + "_SCDG.json"
             self.log.info(ofilename)
             save_SCDG = open_file(ofilename, "w")
             # self.log.info(dump_file)
