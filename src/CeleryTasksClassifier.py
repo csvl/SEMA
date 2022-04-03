@@ -1,9 +1,9 @@
 from ToolChainClassifier.ToolChainClassifier import ToolChainClassifier
 try:
-    from .CeleryTasks import app, context, temp_path, pk, key
+    from .CeleryTasks import app, context, pk, key
     from .HE.HE_SEALS import F, RSA
 except:
-    from CeleryTasks import app, context, temp_path, pk, key
+    from CeleryTasks import app, context, pk, key
     from HE.HE_SEALS import F, RSA
 import os
 import pickle
@@ -32,28 +32,20 @@ def train(** args):
     run_name  = args["run_name"]
     nround = args["nround"]
     input_path = args["input_path"]
-
-    threshold = args["threshold"]
-    support = args["support"]
-    ctimeout = args["ctimeout"]
-    nthread = args["nthread"]
-    biggest_subgraph = args["biggest_subgraph"]
-    epoch = args["epoch"]
-
-    pwd = os.path.join(temp_path,run_name)   
+    args_class = args["args_class"]
+    pwd = run_name
     print(run_name)
         
     if nround<1:
-        toolcl = ToolChainClassifier()
+        toolcl = ToolChainClassifier(classifier_name = "dl")
         families = []
         last_familiy = "unknown"
-        toolcl.classifer_name = "dl"
         if os.path.isdir(input_path):
             subfolder = [os.path.join(input_path, f) for f in os.listdir(input_path) if os.path.isdir(os.path.join(input_path, f))]
             for folder in subfolder:
                 last_familiy = folder.split("/")[-1]
                 families.append(str(last_familiy))
-        toolcl.init_classifer(threshold=threshold,support=support,families=families,ctimeout=ctimeout,nthread=nthread,biggest_subgraph=biggest_subgraph,epoch=epoch)
+        toolcl.init_classifer(args=args_class,families=families)
         trainer = toolcl.classifier
     else:
         trainer = load_object(os.path.join(pwd,f"R{nround-1}_{run_name}_model.pkl"))
@@ -82,7 +74,7 @@ def decryption(**args):
     ctx = args["ctx"]
     nround = args["nround"]
     num = float(args["num"])
-    pwd =os.path.join(temp_path,run_name)
+    pwd = run_name
     trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_model.pkl"))
     trainer.share_model = F.update_encrypt(key,context,para, num, trainer.share_model)
     save_object(trainer, os.path.join(pwd,f"R{nround}_{run_name}_model.pkl"))
@@ -108,7 +100,7 @@ def update(**args):
     v_enc = F.string_to_enc(args["v_enc"],context)
     num = 1.0
     nround = args["nround"]
-    pwd =os.path.join(temp_path,run_name)
+    pwd = run_name
     trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_model.pkl"))
     trainer.modelparameters = para
     save_object(trainer, f"{run_name}_model.pkl")
@@ -119,7 +111,7 @@ def update(**args):
 def test(**args):
     nround = args["nround"]
     run_name  = args["run_name"]
-    pwd = os.path.join(temp_path,run_name)
+    pwd = run_name
     trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_model.pkl"))
     trainer.classify()
     acc, loss = trainer.get_stat_classifier()

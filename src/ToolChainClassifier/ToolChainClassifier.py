@@ -33,40 +33,39 @@ class ToolChainClassifier:
         self.log.addHandler(ch)
         self.log.propagate = False
 
-    def init_classifer(self,args,families=['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT']):
-        if self.classifier_name == "gspan":
-            self.classifier = GSpanClassifier(path=ROOT_DIR,threshold=args.threshold,support=args.support,timeout=args.ctimeout,thread=args.nthread,biggest_subgraphs=args.biggest_subgraph)
-        elif self.classifier_name == "inria": 
-            self.classifier = SVMInriaClassifier(path=ROOT_DIR,threshold=args.threshold,families=families)
-        elif self.classifier_name == "wl": 
-            self.classifier = SVMWLClassifier(path=ROOT_DIR,threshold=args.threshold,families=families,epoch=args.epoch)
-        elif self.classifier_name == "dl": # not working with pypy
-            try:
-                from classifier.DL.DLTrainerClassifier import DLTrainerClassifier
-            except:
-                from .classifier.DL.DLTrainerClassifier import DLTrainerClassifier
-            self.classifier = DLTrainerClassifier(path=ROOT_DIR,threshold=args.threshold)
-        else:
-            self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
-            exit(-1)    
+    def init_classifer(self,args,families=['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT'],is_fl=False):
+        
+        self.log.info(args)
 
-    def init_classifer(self,threshold,support,ctimeout,nthread,biggest_subgraph,epoch,
-                      families=['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT']):
+        if not is_fl:
+            threshold = args.threshold
+            support = args.support
+            ctimeout = args.ctimeout
+            nthread = args.nthread
+            biggest_subgraph = args.biggest_subgraph
+            epoch = args.epoch
+        else:
+            threshold = args["threshold"]
+            support = args["support"]
+            ctimeout = args["ctimeout"]
+            nthread = args["nthread"]
+            biggest_subgraph = args["biggest_subgraph"]
+            epoch = args["epoch"]
         if self.classifier_name == "gspan":
             self.classifier = GSpanClassifier(path=ROOT_DIR,threshold=threshold,support=support,timeout=ctimeout,thread=nthread,biggest_subgraphs=biggest_subgraph)
         elif self.classifier_name == "inria": 
             self.classifier = SVMInriaClassifier(path=ROOT_DIR,threshold=threshold,families=families)
         elif self.classifier_name == "wl": 
-            self.classifier = SVMWLClassifier(path=ROOT_DIR,threshold=threshold,families=families,epoch=epoch)
+            self.classifier = SVMWLClassifier(path=ROOT_DIR,threshold=threshold,families=families)
         elif self.classifier_name == "dl": # not working with pypy
             try:
                 from classifier.DL.DLTrainerClassifier import DLTrainerClassifier
             except:
                 from .classifier.DL.DLTrainerClassifier import DLTrainerClassifier
-            self.classifier = DLTrainerClassifier(path=ROOT_DIR,threshold=threshold)
+            self.classifier = DLTrainerClassifier(path=ROOT_DIR,threshold=threshold,epoch=epoch)
         else:
             self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
-            exit(-1)       
+            exit(-1)     
 
 def main():
     tc = ToolChainClassifier()

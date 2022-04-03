@@ -6,8 +6,6 @@ except:
 
 import celery
 
-temp_path = "../temp/" # TODO
-
 # Celery config
 # Client: 130.104.229.26
 # Client: 130.104.229.85

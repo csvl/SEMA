@@ -73,8 +73,7 @@ class ToolChainFL:
         else:
             input_path = self.tools.toolmc.input_path
         input_path = input_path.replace("unknown/","") # todo
-
-
+        
         args = {"ctx":ctx_str,
                 "n_features":2,
                 "embedding_dim":64,
@@ -83,12 +82,7 @@ class ToolChainFL:
                 "nround":0,
                 "test":runname,
                 "input_path":input_path,
-                "support":self.args_class.support,
-                "ctimeout":self.args_class.ctimeout,
-                "nthread":self.args_class.nthread,
-                "biggest_subgraph":self.args_class.biggest_subgraph,
-                "epoch":self.args_class.epoch,
-                "threshold":self.args_class.threshold}
+                "args_class":self.args_class.__dict__}
         
         tround = sround
         while tround < nrounds:

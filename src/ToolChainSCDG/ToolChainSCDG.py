@@ -128,6 +128,8 @@ class ToolChainSCDG:
         self.scdg_fin.clear()
         self.call_sim.syscall_found.clear()
         self.call_sim.system_call_table.clear()
+
+        self.log.info(args)
         
         if not is_fl:
             exp_dir = args.exp_dir
