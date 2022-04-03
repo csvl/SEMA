@@ -28,7 +28,7 @@ class CeleryTasksSCDG:
                 last_familiy = folder.split("/")[-1]
                 files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
                 for file  in files:
-                    self.toolc.build_scdg(self.args_scdg, file, self.expl_method,last_familiy)
+                    self.toolcl.build_scdg(self.args_scdg, file, self.expl_method,last_familiy)
                 self.families += last_familiy
         else:
             print("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/malware-inputs/Sample_paper")

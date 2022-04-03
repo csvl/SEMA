@@ -35,6 +35,10 @@ class ToolChainFL:
         runname = "todo" #self.args.binary
         nround = 0 #self.args.nrounds
         sround = self.args.sround
+
+        for _ in self.hosts:
+            his_train.append(list())
+            
         select_id = 0
         args = {"n_features":2,
                 "embedding_dim":64,"nepochs":2,
@@ -44,7 +48,7 @@ class ToolChainFL:
             args["nround"] = tround
             job = []
             for i in range(len(self.hosts)):
-                job.append(self.celery_task_scdg.train.s(**args).set(queue=self.hosts[i]))
+                job.append(self.celery_task_scdg.start_scdg.s(self.celery_task_scdg,**args).set(queue=self.hosts[i]))
             ret = celery.group(job)().get()
             idx= 0
             for r in ret:
@@ -67,7 +71,7 @@ class ToolChainFL:
         
         job = []
         for i in range(len(self.hosts)):
-            job.append(self.celery_task_classifier.initHE.s(_,self.test_value).set(queue=self.hosts[i]))
+            job.append(self.celery_task_classifier.initHE.s(self.celery_task_classifier,self.test_value).set(queue=self.hosts[i]))
         ret_ctx = celery.group(job)().get()
         select_id = 0
         ctx_str = ret_ctx[select_id]["ctx"]
@@ -86,7 +90,7 @@ class ToolChainFL:
                 args["run_name"] = f"{runname}_part{i}"
                 args["ctx"] = ret_ctx[select_id]["ctx"]
                 args["smodel"] = smodel
-                job.append(self.celery_task_classifier.train.s(**args).set(queue=self.hosts[i]))
+                job.append(self.celery_task_classifier.train.s(self.celery_task_classifier,**args).set(queue=self.hosts[i]))
             ret = celery.group(job)().get()
             paras = list()
             idx= 0
@@ -104,7 +108,7 @@ class ToolChainFL:
             args["num"] = len(self.hosts)
             args["run_name"] = f"{runname}_part{select_id}"
             
-            ret = celery.group(self.celery_task_classifier.decryption.s(**args).set(queue=self.hosts[select_id]))().get()
+            ret = celery.group(self.celery_task_classifier.decryption.s(self.celery_task_classifier,**args).set(queue=self.hosts[select_id]))().get()
             
             enc_v = F.string_to_enc(ret[0]["v"],task.tasks.context)
             print(enc_v.decrypt(task.tasks.key))
@@ -121,7 +125,7 @@ class ToolChainFL:
                 args["para"]= para #F.encrypt_para(ctx, para)
                 args["v_enc"] = ret_ctx[i]["v"]
                 args["run_name"] = f"{runname}_part{i}"
-                job.append(self.celery_task_classifier.update.s(**args).set(queue=self.hosts[i]) )
+                job.append(self.celery_task_classifier.update.s(self.celery_task_classifier,**args).set(queue=self.hosts[i]) )
             ret = celery.group(job)().get()
             for r in ret:
                 print(r)
@@ -131,7 +135,7 @@ class ToolChainFL:
                 args["run_name"] = f"{runname}_part{i}"
                 args["test"] = f"{runname}_part{i}" #f"{runname}"
                 #args["test"] = f"{runname}"
-                job.append(self.celery_task_classifier.test.s(**args).set(queue=self.hosts[i]) )
+                job.append(self.celery_task_classifier.test.s(self.celery_task_classifier,**args).set(queue=self.hosts[i]) )
             ret = celery.group(job)().get()
             for r in ret:
                 print(f"{r}")

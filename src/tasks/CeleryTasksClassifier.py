@@ -30,7 +30,7 @@ class CeleryTasksClassifier:  #CeleryTasks
             return pickle.load(inp)
 
     @app.task
-    def initHE(self,v):
+    def initHE(self, v):
         import tenseal as ts
         v_enc = ts.ckks_vector(context,v)
         pem = RSA.serialize_pk(pk)
@@ -45,15 +45,14 @@ class CeleryTasksClassifier:  #CeleryTasks
         print(run_name)
         
         if nround<1:
-            self.families = []
+            families = []
             last_familiy = "unknown"
             if os.path.isdir(self.input_path):
                 subfolder = [os.path.join(self.input_path, f) for f in os.listdir(self.input_path) if os.path.isdir(os.path.join(self.input_path, f))]
-                self.log.info(subfolder)
                 for folder in subfolder:
                     last_familiy = folder.split("/")[-1]
-                    self.families.append(str(last_familiy))
-            self.toolmc.init_classifer(args=self.args_class,families=self.families)
+                    families.append(str(last_familiy))
+            self.toolcl.init_classifer(args=self.args_class,families=families)
             trainer = self.toolcl.classifier
         else:
             trainer = self.load_object(os.path.join(pwd,f"R{nround-1}_{run_name}_model.pkl"))
