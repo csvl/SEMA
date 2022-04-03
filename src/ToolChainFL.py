@@ -1,63 +1,54 @@
 from ast import parse
 import celery
 import os
+
 try:
+    from CeleryTasksClassifier import *
+    from CeleryTasksSCDG import *
     from ToolChain import ToolChain
-    from tasks.CeleryTasksClassifier import CeleryTasksClassifier
-    from tasks.CeleryTasksSCDG import CeleryTasksSCDG
-    from tasks.HE.HE_SEALS import F
+    from HE.HE_SEALS import F
     from helper.ArgumentParserFL import ArgumentParserFL
 except:
+    from .CeleryTasksClassifier import *
+    from .CeleryTasksSCDG import *
     from .ToolChain import ToolChain
-    from tasks.CeleryTasksClassifier import CeleryTasksClassifier
-    from tasks.CeleryTasksSCDG import CeleryTasksSCDG
-    from tasks.HE.HE_SEALS import F
+    from .HE.HE_SEALS import F
     from .helper.ArgumentParserFL import ArgumentParserFL
-import task
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # TODO should autodiscover hosts
 class ToolChainFL:
     def __init__(self,hosts=['host2','host3'], # ,'host4']
-                      test_val=[2.1, 2.1, 2.1]):
+                      test_val=[2.1, 2.1, 2.1],
+                      n_features=2
+                      ):
        self.tools = ToolChain()
+       self.families = self.tools.families
+       self.args_class = self.tools.args_class
+       self.folderName = self.tools.folderName
+       self.expl_method = self.tools.expl_method
+       self.familly = self.tools.familly
+       self.args_scdg = self.tools.args_scdg
        parser = ArgumentParserFL()
        self.args, _ = parser.parse_arguments()
-       self.celery_task_classifier = CeleryTasksClassifier(self.tools.toolmc,self.tools.args_parser)
-       self.celery_task_scdg = CeleryTasksSCDG(self.tools.toolc,self.tools.args_parser)
        self.hosts = hosts
        if self.args.hostnames and len(self.args.hostnames) > 0:
            self.hosts = self.args.hostnames
        self.test_value = test_val
            
     def fl_scdg(self):
-        runname = "todo" #self.args.binary
-        nround = 0 #self.args.nrounds
-        sround = self.args.sround
-
-        for _ in self.hosts:
-            his_train.append(list())
-            
-        select_id = 0
-        args = {"n_features":2,
-                "embedding_dim":64,"nepochs":2,
-                "run_name":"dataset20211020new","nround":0}
-        tround= sround
-        while tround < nround:
-            args["nround"] = tround
-            job = []
-            for i in range(len(self.hosts)):
-                job.append(self.celery_task_scdg.start_scdg.s(self.celery_task_scdg,**args).set(queue=self.hosts[i]))
-            ret = celery.group(job)().get()
-            idx= 0
-            for r in ret:
-                idx+=1
-
-            args["num"] = len(self.hosts)
-            args["run_name"] = f"{runname}_part{select_id}"     
-            tround+=1
-
+        args = {"args_scdg":self.args_scdg,
+                "folderName":self.folderName,
+                "families":self.families,
+                "expl_method":self.expl_method}
+        job = []
+        for i in range(len(self.hosts)):
+            job.append(start_scdg.s(**args).set(queue=self.hosts[i]))
+        ret = celery.group(job)().get()
+        idx= 0
+        for r in ret:
+            idx+=1
 
     def fl_classifier(self):
         runname = self.args.runname
@@ -71,18 +62,29 @@ class ToolChainFL:
         
         job = []
         for i in range(len(self.hosts)):
-            job.append(self.celery_task_classifier.initHE.s(self.celery_task_classifier,self.test_value).set(queue=self.hosts[i]))
+            job.append(initHE.s(self.test_value).set(queue=self.hosts[i]))
         ret_ctx = celery.group(job)().get()
         select_id = 0
         ctx_str = ret_ctx[select_id]["ctx"]
         test_value_enc = ret_ctx[select_id]["v"]
+
+        if self.tools.toolmc.input_path is None:
+            input_path = self.args_scdg.exp_dir
+        else:
+            input_path = self.tools.toolmc.input_path
+        input_path = input_path.replace("unknown/","") # todo
         
-        #runname = "2021-08-08_17-09-07_CDFS_10min"
-        #runname = "dataset20211020new"
-        args = {"ctx":ctx_str,"n_features":2,"embedding_dim":64,"nepochs":2,"run_name":"dataset20211020new","nround":0}
-        args["test"] = runname
-        args["nepochs"] = nepochs
-        tround= sround
+        args = {"ctx":ctx_str,
+                "n_features":2,
+                "embedding_dim":64,
+                "nepochs":nepochs,
+                "run_name":"christophe_test",
+                "nround":0,
+                "test":runname,
+                "input_path":input_path,
+                "args_class":self.args_class}
+        
+        tround = sround
         while tround < nrounds:
             args["nround"] = tround
             job = []
@@ -90,7 +92,7 @@ class ToolChainFL:
                 args["run_name"] = f"{runname}_part{i}"
                 args["ctx"] = ret_ctx[select_id]["ctx"]
                 args["smodel"] = smodel
-                job.append(self.celery_task_classifier.train.s(self.celery_task_classifier,**args).set(queue=self.hosts[i]))
+                job.append(train.s(**args).set(queue=self.hosts[i]))
             ret = celery.group(job)().get()
             paras = list()
             idx= 0
@@ -101,19 +103,19 @@ class ToolChainFL:
             enc_para = F.add_weight(paras,ret_ctx[select_id]["ctx"])
             #para = F.add_para(paras)
         
-            args["para"]= enc_para
+            args["para"] = enc_para
             args["v_enc"] = test_value_enc
-            ctx_str0 = F.bytes_to_string(task.tasks.context.serialize())
+            ctx_str0 = F.bytes_to_string(context.serialize())
             args["ctx"] = ctx_str0
             args["num"] = len(self.hosts)
             args["run_name"] = f"{runname}_part{select_id}"
             
-            ret = celery.group(self.celery_task_classifier.decryption.s(self.celery_task_classifier,**args).set(queue=self.hosts[select_id]))().get()
+            ret = celery.group(decryption.s(**args).set(queue=self.hosts[select_id]))().get()
             
-            enc_v = F.string_to_enc(ret[0]["v"],task.tasks.context)
-            print(enc_v.decrypt(task.tasks.key))
+            enc_v = F.string_to_enc(ret[0]["v"],context)
+            print(enc_v.decrypt(key))
         
-            #para = F.decrypt_para(task.tasks.key, task.tasks.context, ret[0]["para"])
+            #para = F.decrypt_para(key, context, ret[0]["para"])
             para = ret[0]["para"]
 
             ### Decrypt and encrypt again before sending updates
@@ -125,7 +127,7 @@ class ToolChainFL:
                 args["para"]= para #F.encrypt_para(ctx, para)
                 args["v_enc"] = ret_ctx[i]["v"]
                 args["run_name"] = f"{runname}_part{i}"
-                job.append(self.celery_task_classifier.update.s(self.celery_task_classifier,**args).set(queue=self.hosts[i]) )
+                job.append(update.s(**args).set(queue=self.hosts[i]) )
             ret = celery.group(job)().get()
             for r in ret:
                 print(r)
@@ -135,7 +137,7 @@ class ToolChainFL:
                 args["run_name"] = f"{runname}_part{i}"
                 args["test"] = f"{runname}_part{i}" #f"{runname}"
                 #args["test"] = f"{runname}"
-                job.append(self.celery_task_classifier.test.s(self.celery_task_classifier,**args).set(queue=self.hosts[i]) )
+                job.append(test.s(**args).set(queue=self.hosts[i]) )
             ret = celery.group(job)().get()
             for r in ret:
                 print(f"{r}")

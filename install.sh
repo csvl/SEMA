@@ -64,6 +64,7 @@ sudo apt-get --fix-missing -y install libcairo2-dev libjpeg-turbo8-dev libpng-de
 sudo apt-get --fix-missing -y install libvirt-dev python3-wheel 
 #FL
 sudo apt install rabbitmq-server
+sudo apt-get install zip
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 

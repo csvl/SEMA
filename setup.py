@@ -29,6 +29,7 @@ setup(name='sema-tc',
           'pymongo', # malwexp
           'pyzipper',  
           'click==7.1.2', # for task (8.0.3)
+          'task',
           'requests',
           'graphviz',
           'monkeyhex',
