@@ -73,7 +73,8 @@ class ToolChainSCDG:
         print_syscall=False,
         debug_error=False,
         debug_string=False,
-        is_from_tc = False
+        is_from_tc = False,
+        is_fl = False
     ):
         self.start_time = time.time()
         self.timeout = timeout  # In seconds
@@ -102,7 +103,7 @@ class ToolChainSCDG:
 
         self.scdg = []
         self.scdg_fin = []
-
+        
         logging.getLogger("angr").setLevel("WARNING")
         # logging.getLogger('angr').setLevel('INFO')
 

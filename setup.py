@@ -28,7 +28,7 @@ setup(name='sema-tc',
       install_requires=[
           'pymongo', # malwexp
           'pyzipper',  
-          'click==7.1.2', # for task (8.0.3)
+          'click==8.0.3', # for task (8.0.3) 7.1.2
           'task',
           'requests',
           'graphviz',
@@ -46,7 +46,7 @@ setup(name='sema-tc',
           'avatar2',
           'pyinstaller',
           'matplotlib',
-          'celery==4.4.7',
+          'celery', # ==4.4.7
           'tenseal',
           'dill',
           'cryptography'
