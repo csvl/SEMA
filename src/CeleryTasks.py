@@ -3,10 +3,8 @@ from ToolChainSCDG.ToolChainSCDG import ToolChainSCDG
 from ToolChainClassifier.ToolChainClassifier import ToolChainClassifier
 from ToolChainSCDG.clogging.CustomFormatter import CustomFormatter
 try:
-    from .CeleryTasks import app, context, pk, key
     from .HE.HE_SEALS import F, RSA
 except:
-    from CeleryTasks import app, context, pk, key
     from HE.HE_SEALS import F, RSA
 import os
 # import pickle
