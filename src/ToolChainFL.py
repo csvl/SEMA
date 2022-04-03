@@ -4,14 +4,12 @@ import celery
 import os
 from ToolChainSCDG.clogging.CustomFormatter import CustomFormatter
 try:
-    from CeleryTasksClassifier import *
-    from CeleryTasksSCDG import start_scdg
+    from CeleryTasks import *
     from ToolChain import ToolChain
     from HE.HE_SEALS import F
     from helper.ArgumentParserFL import ArgumentParserFL
 except:
-    from .CeleryTasksClassifier import *
-    from .CeleryTasksSCDG import start_scdg
+    from .CeleryTasks import *
     from .ToolChain import ToolChain
     from .HE.HE_SEALS import F
     from .helper.ArgumentParserFL import ArgumentParserFL
