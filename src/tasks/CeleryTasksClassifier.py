@@ -1,7 +1,7 @@
 import imp
 from matplotlib.pyplot import cla
 try:
-    from .CeleryTasks import app, context, temp_path
+    from .CeleryTasks import app, context, temp_path, pk
     from .HE.HE_SEALS import F, RSA
 except:
     from CeleryTasks import app, context, temp_path
@@ -33,7 +33,7 @@ class CeleryTasksClassifier:  #CeleryTasks
     def initHE(self,v):
         import tenseal as ts
         v_enc = ts.ckks_vector(context,v)
-        pem = RSA.serialize_pk(self.pk)
+        pem = RSA.serialize_pk(pk)
         return {"ctx":F.enc_to_string(context),"v":F.enc_to_string(v_enc), "pk": F.bytes_to_string(pem)}
 
     @app.task

@@ -77,9 +77,9 @@ class ToolChainFL:
         #runname = "dataset20211020new"
         args = {"ctx":ctx_str,"n_features":2,"embedding_dim":64,"nepochs":2,"run_name":"dataset20211020new","nround":0}
         args["test"] = runname
-        args["nepochs"] = nepoch
+        args["nepochs"] = nepochs
         tround= sround
-        while tround < nround:
+        while tround < nrounds:
             args["nround"] = tround
             job = []
             for i in range(len(self.hosts)):
@@ -143,7 +143,7 @@ class ToolChainFL:
             
 def main():
     fl = ToolChainFL()
-    fl.fl_scdg()
+    #fl.fl_scdg()
     fl.fl_classifier()
 
 if __name__=="__main__":
