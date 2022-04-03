@@ -175,7 +175,7 @@ class ToolChainSCDG:
         else:
             nameFileShort = nameFile
 
-        title = "--- Building SCDG of " + nameFileShort + " ---"
+        title = "--- Building SCDG of " + nameFileShort +"/" + family + " ---"
         self.log.info("\n" + "-" * len(title) + "\n" + title + "\n" + "-" * len(title))
 
         #####################################################

@@ -22,7 +22,11 @@ HOST = f'rabbitmq:9a55f70a841f18b97c3a7db939b7adc9e34a0f1d@{IP}'
 BROKER = f'amqp://{HOST}'
 BACKEND= f'rpc://{HOST}'
 
-app = celery.Celery('ToolChainFL', broker=BROKER, backend=BACKEND)
+app = celery.Celery('ToolChainFL', 
+                    broker=BROKER, 
+                    backend=BACKEND)
+
+CELERY_WORKER_REDIRECT_STDOUTS = False
 
 context, key = F.init_encrypt()
 sk,pk = RSA.generate_key()
