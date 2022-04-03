@@ -62,12 +62,11 @@ sudo apt-get --fix-missing -y install libcairo2-dev libjpeg-turbo8-dev libpng-de
 sudo apt-get --fix-missing -y install libvirt-dev python3-wheel 
 
 sudo apt-get --fix-missing -y install python3-pip
-
+sudo apt-get install python3-venv
 #FL
 sudo apt install rabbitmq-server
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-pip install --upgrade pip
 
 sudo apt remove --purge cmake
 sudo apt install snapd
@@ -105,6 +104,7 @@ printf '\n%s\n' "=============> Install toolchain: =============>"
 # Install ToolChain
 python3 -m venv penv
 source penv/bin/activate
+pip install --upgrade pip
 pip3 install wheel
 pip3 install setuptools_rust
 pip3 install .

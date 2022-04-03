@@ -19,7 +19,7 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # TODO should autodiscover hosts
 class ToolChainFL:
-    def __init__(self,hosts=['host2','host3','host4'],
+    def __init__(self,hosts=['host2','host3'], # ,'host4']
                       test_val=[2.1, 2.1, 2.1]):
        self.tools = ToolChain()
        parser = ArgumentParserFL()
@@ -27,6 +27,8 @@ class ToolChainFL:
        self.celery_task_classifier = CeleryTasksClassifier(self.tools.toolmc,self.tools.args_parser)
        self.celery_task_scdg = CeleryTasksSCDG(self.tools.toolc,self.tools.args_parser)
        self.hosts = hosts
+       if self.args.hostnames and len(self.args.hostnames) > 0:
+           self.hosts = self.args.hostnames
        self.test_value = test_val
            
     def fl_scdg(self):

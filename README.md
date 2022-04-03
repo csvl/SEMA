@@ -329,7 +329,7 @@ python3 ToolChainFL.py BINARY_NAME
 #### Example
 
 ```bash
-pypy3 ToolChainFL.py --method CDFS --verbose databases/malware-win/Sample_paper/
+pypy3 ToolChainFL.py --method CDFS --hostnames host2 host3 --verbose databases/malware-win/Sample_paper/
 
-python3 ToolChainFL.py --method CDFS --verbose databases/malware-win/Sample_paper/
+python3 ToolChainFL.py --method CDFS --hostnames host2 host3 --verbose databases/malware-win/Sample_paper/
 ```

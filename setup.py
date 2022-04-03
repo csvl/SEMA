@@ -44,7 +44,7 @@ setup(name='sema-tc',
           'gensim',
           'avatar2',
           'pyinstaller',
-          
+          'matplotlib',
           'celery==4.4.7',
           'tenseal',
           'cryptography'
