@@ -7,12 +7,12 @@
 [submodule "src/submodules/docker-packing-box"]
 	path = src/submodules/docker-packing-box
 	url = https://github.com/dhondta/docker-packing-box.git
-[submodule "src/submodules/toolchain_cuckoo"]
-	path = src/submodules/toolchain_cuckoo
-	url = https://forge.uclouvain.be/crochetch/toolchain_cuckoo.git
-[submodule "src/submodules/toolchain_quickspan"]
-	path = src/submodules/toolchain_quickspan
-	url = https://forge.uclouvain.be/crochetch/toolchain_quickspan.git
+[submodule "src/submodules/SEMA-Cuckoo"]
+	path = src/submodules/SEMA-Cuckoo
+	url = git@github.com:csvl/SEMA-Cuckoo.git
+[submodule "src/submodules/SEMA-quickspan"]
+	path = src/submodules/SEMA-quickspan
+	url = git@github.com:csvl/SEMA-quickspan.git
 [submodule "src/submodules/angr-targets"]
 	path = src/submodules/angr-targets
 	url = https://github.com/angr/angr-targets.git
@@ -22,6 +22,6 @@
 [submodule "src/submodules/unipacker-custom"]
 	path = src/submodules/unipacker-custom
 	url = https://github.com/ElNiak/unipacker.git
-[submodule "malwexp/malwexp"]
-	path = malwexp
-	url = git@forge.uclouvain.be:a-team/malwexp.git
+[submodule "src/submodules/malwexp"]
+	path = src/submodules/malwexp
+	url = git@github.com:csvl/malwexp.git

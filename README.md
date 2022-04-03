@@ -185,17 +185,17 @@ pypy3 ToolChain.py FOLDER
 
 python3 ToolChain.py FOLDER
 ```
-* `FOLDER` : Folder containing binaries to classify, these binaries must be ordered by familly (default : `databases/malware-inputs/Sample_paper`)
+* `FOLDER` : Folder containing binaries to classify, these binaries must be ordered by familly (default : `databases/malware-win/Sample_paper`)
 
 #### Example
 
 ```bash
 # For folder of malware 
 # Deep learning not supported with pypy3 (--classifier dl)
-pypy3 ToolChain.py  --method CDFS --verbose databases/malware-inputs/Sample_paper/
+pypy3 ToolChain.py  --method CDFS --verbose databases/malware-win/Sample_paper/
 
 # (virtual env/penv)
-python3 ToolChain.py  --method CDFS --verbose databases/malware-inputs/Sample_paper/
+python3 ToolChain.py  --method CDFS --verbose databases/malware-win/Sample_paper/
 ```
 
 :page_with_curl: System Call Dependency Graphs extractor (`ToolChainSCDG`)
@@ -245,22 +245,22 @@ Password for Examples archive is "infected". Warning : it contains real samples 
 
 ```bash
 # +- 447 sec <SimulationManager with 61 deadended>
-pypy3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-inputs/Sample_paper/nitol/00b2f45c7befbced2efaeb92a725bb3d  
+pypy3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-win/Sample_paper/nitol/00b2f45c7befbced2efaeb92a725bb3d  
 
 # +- 512 sec <SimulationManager with 61 deadended>
 # (virtual env/penv)
-python3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-inputs/Sample_paper/nitol/00b2f45c7befbced2efaeb92a725bb3d 
+python3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-win/Sample_paper/nitol/00b2f45c7befbced2efaeb92a725bb3d 
 ```
 
 ```bash
 # timeout (+- 607 sec) 
 # <SimulationManager with 6 active, 168 deadended, 61 pause, 100 ExcessLoop> + 109 SCDG
-pypy3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-inputs/Sample_paper/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df 
+pypy3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-win/Sample_paper/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df 
 
 # timeout (611 sec) 
 # <SimulationManager with 5 active, 69 deadended, 63 pause, 100 ExcessLoop> + 53 SCDG
 # (virtual env/penv)
-python3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-inputs/Sample_paper/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df 
+python3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-win/Sample_paper/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df 
 ```
 
 :page_with_curl: Model & Classification extractor (`ToolChainClassifier`)
@@ -329,7 +329,7 @@ python3 ToolChainFL.py BINARY_NAME
 #### Example
 
 ```bash
-pypy3 ToolChainFL.py --method CDFS --verbose databases/malware-inputs/Sample_paper/
+pypy3 ToolChainFL.py --method CDFS --verbose databases/malware-win/Sample_paper/
 
-python3 ToolChainFL.py --method CDFS --verbose databases/malware-inputs/Sample_paper/
+python3 ToolChainFL.py --method CDFS --verbose databases/malware-win/Sample_paper/
 ```

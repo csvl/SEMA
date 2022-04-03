@@ -1,12 +1,11 @@
-unzip malware-win.zip 
+cd malware-linux/
 
-unzip malware-win2.zip 
+unzip '*.zip'
 
-unzip malware-linux.zip 
+cd ../malware-win/Sample_paper/
 
-tar -xvzf PEPacker-dataset-1.tar.gz 
+unzip '*.zip'
 
-tar -xvzf upx-dataset-1.tar.gz 
+cd ../../malware-win2/Sample_paper/
 
-tar -xvzf kkrunchy-dataset-1.tar.gz 
-
+unzip '*.zip'

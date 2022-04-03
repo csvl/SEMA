@@ -4,6 +4,8 @@ MALDB=true
 VMS=false
 VMI=false
 CUDA=false
+PYPY=false
+
 
 for i in "$@"; do
   case $i in
@@ -61,6 +63,13 @@ sudo apt-get --fix-missing -y install libvirt-dev python3-wheel
 
 #FL
 sudo apt install rabbitmq-server
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+pip install --upgrade pip
+
+sudo apt remove --purge cmake
+sudo apt install snapd
+sudo snap install cmake --classic
 
 ## Install mongodb
 sudo apt-get -y install mongodb
@@ -147,7 +156,7 @@ deactivate
 if [ $MALDB = true ]; then
     printf '\n%s\n' "-------------> Install malware database: <-------------"
     ## Unzip database
-    cd $ROOTPATH/src/res/
+    cd $ROOTPATH/src/databases/
     bash extract_deploy_db.sh
     cd $ROOTPATH/
 fi
@@ -216,7 +225,7 @@ cd $ROOTPATH/
 
 printf '\n%s\n' "-------------> Install GSPAN: <-------------"
 
-cd $ROOTPATH/src/submodules/toolchain_quickspan
+cd $ROOTPATH/src/submodules/SEMA-quickspan
 mkdir build && cd build
 cmake ..
 make
