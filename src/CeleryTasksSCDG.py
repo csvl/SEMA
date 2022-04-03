@@ -1,9 +1,8 @@
+from ToolChainSCDG.ToolChainSCDG import ToolChainSCDG
 try:
-    from .CeleryTasks import app, context, temp_path
-    from .HE.HE_SEALS import F, RSA
+    from .CeleryTasks import app
 except:
-    from CeleryTasks import app, context, temp_path
-    from HE.HE_SEALS import F, RSA
+    from CeleryTasks import app
 import os
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -11,7 +10,6 @@ ROOT_DIR = ROOT_DIR.replace("tasks","")
 
 @app.task
 def start_scdg(** args):
-    from ToolChainSCDG.ToolChainSCDG import ToolChainSCDG
     toolcl = ToolChainSCDG()
     folderName  = args["folderName"]
     args_scdg = args["args_scdg"]
