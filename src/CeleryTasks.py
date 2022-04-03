@@ -51,7 +51,9 @@ log.setLevel(logging.INFO)
 log.addHandler(ch)
 log.propagate = False
 
+########################################
 # SCDGs creation
+########################################
 
 @app.task
 def start_scdg(** args):
@@ -82,7 +84,9 @@ def start_scdg(** args):
         exit(-1)
     return 0
 
+########################################
 # Classifier
+########################################
 
 def save_object(ob, path):
     with open(path, 'wb+') as output:
