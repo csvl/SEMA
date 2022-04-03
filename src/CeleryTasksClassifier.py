@@ -1,4 +1,6 @@
+import logging
 from ToolChainClassifier.ToolChainClassifier import ToolChainClassifier
+from ToolChainSCDG.clogging.CustomFormatter import CustomFormatter
 try:
     from .CeleryTasks import app, context, pk, key
     from .HE.HE_SEALS import F, RSA
@@ -8,6 +10,14 @@ except:
 import os
 # import pickle
 import dill
+
+ch = logging.StreamHandler()
+ch.setLevel(logging.INFO)
+ch.setFormatter(CustomFormatter())
+log = logging.getLogger("CeleryTasksClassifier")
+log.setLevel(logging.INFO)
+log.addHandler(ch)
+log.propagate = False
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = ROOT_DIR.replace("tasks","")
@@ -35,7 +45,7 @@ def train(** args):
     input_path = args["input_path"]
     args_class = args["args_class"]
     pwd = ROOT_DIR
-    print(run_name)
+    log.info(run_name)
         
     if nround<1:
         toolcl = ToolChainClassifier(classifier_name = "dl")

@@ -1,7 +1,8 @@
 from ast import parse
+import logging
 import celery
 import os
-
+from ToolChainSCDG.clogging.CustomFormatter import CustomFormatter
 try:
     from CeleryTasksClassifier import *
     from CeleryTasksSCDG import *
@@ -36,6 +37,14 @@ class ToolChainFL:
        if self.args.hostnames and len(self.args.hostnames) > 0:
            self.hosts = self.args.hostnames
        self.test_value = test_val
+       ch = logging.StreamHandler()
+       ch.setLevel(logging.INFO)
+       ch.setFormatter(CustomFormatter())
+       self.log = logging.getLogger("ToolChainFL")
+       self.log.setLevel(logging.INFO)
+       self.log.addHandler(ch)
+       self.log.propagate = False
+
            
     def fl_scdg(self):
         args = {"args_scdg":self.args_scdg,
@@ -74,7 +83,7 @@ class ToolChainFL:
             input_path = self.tools.toolmc.input_path
         input_path = input_path.replace("unknown/","") # todo
         
-        args = {"ctx":ctx_str,
+        args = {"ctx":ctx_str, # TODO extract from arg parser DAM
                 "n_features":2,
                 "embedding_dim":64,
                 "nepochs":nepochs,
@@ -97,6 +106,7 @@ class ToolChainFL:
             paras = list()
             idx= 0
             for r in ret:
+                self.log.info("Return value for train step: " + str(r))
                 paras.append(r['para'])
                 his_train[idx].extend(r['his']['train'])
                 idx+=1
@@ -113,7 +123,7 @@ class ToolChainFL:
             ret = celery.group(decryption.s(**args).set(queue=self.hosts[select_id]))().get()
             
             enc_v = F.string_to_enc(ret[0]["v"],context)
-            print(enc_v.decrypt(key))
+            self.log.info("Decrypt key: "+ str(enc_v.decrypt(key)))
         
             #para = F.decrypt_para(key, context, ret[0]["para"])
             para = ret[0]["para"]
@@ -130,7 +140,7 @@ class ToolChainFL:
                 job.append(update.s(**args).set(queue=self.hosts[i]) )
             ret = celery.group(job)().get()
             for r in ret:
-                print(r)
+                self.log.info("Return value for update step: " + str(r))
 
             job=[]
             for i in range(len(self.hosts)):
@@ -140,7 +150,7 @@ class ToolChainFL:
                 job.append(test.s(**args).set(queue=self.hosts[i]) )
             ret = celery.group(job)().get()
             for r in ret:
-                print(f"{r}")
+                self.log.info(f"{r}")
             tround+=1
         import matplotlib.pyplot as plt
         plt.plot(his_train)
@@ -149,7 +159,7 @@ class ToolChainFL:
             
 def main():
     fl = ToolChainFL()
-    #fl.fl_scdg()
+    fl.fl_scdg()
     fl.fl_classifier()
 
 if __name__=="__main__":

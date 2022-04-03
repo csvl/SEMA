@@ -330,7 +330,8 @@ bash run_worker --hostname=host2
 Then on the master node:
 
 ```bash
-pypy3 ToolChainFL.py --method CDFS --hostnames host1 host2 --verbose databases/malware-win/Sample_paper/
 
+bash 
+bash setup_network.sh
 python3 ToolChainFL.py --method CDFS --hostnames host1 host2 --verbose databases/malware-win/Sample_paper/
 ```
