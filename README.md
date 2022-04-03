@@ -99,19 +99,6 @@ Then, you can run your virtual environment with:
 source penv/bin/activate;
 ```
 
-#### Pip packages 
-Once pip is installed and in your virtual environment, use it to install the following packages:
-
-* `graphviz`
-* `monkeyhex`
-* `angr`
-* `researchpy`
-
-This can be done by using the command :
-```bash
-pip3 install graphviz monkeyhex angr researchpy;
-```
-
 ##### For testing: `hypothesis`
 
 For the testing environment, we use [`hypothesis`](https://hypothesis.readthedocs.io/en/latest/quickstart.html#installing) framework 
@@ -316,7 +303,7 @@ python3 ToolChainClassifier/ToolChainClassifier.py output/test_classifier_CDFS/
 ====
 <a name="tc3"></a>
 
-TODO
+Only support deep learning models for now.
 
 ### How to use ?
 

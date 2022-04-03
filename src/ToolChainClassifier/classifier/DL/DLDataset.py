@@ -1,6 +1,6 @@
 try:
     import torch
-    from torchvision.transforms import ToTensor, Lambda
+    from torchvision.transforms import Lambda
 except:
     print("Deep learning model do no support pypy3")
     exit(-1)

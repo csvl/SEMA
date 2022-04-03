@@ -6,18 +6,19 @@ except:
     from CeleryTasks import app, context, pk, key
     from HE.HE_SEALS import F, RSA
 import os
-import pickle
+# import pickle
+import dill
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = ROOT_DIR.replace("tasks","")
 
 def save_object(ob, path):
-    with open(path, 'wb') as output:
-        pickle.dump(ob, output)
+    with open(path, 'wb+') as output:
+        dill.dump(ob, output)
 
 def load_object(path):
     with open(path, 'rb') as inp:
-        return pickle.load(inp)
+        return dill.load(inp)
 
 @app.task
 def initHE( v):
@@ -33,7 +34,7 @@ def train(** args):
     nround = args["nround"]
     input_path = args["input_path"]
     args_class = args["args_class"]
-    pwd = run_name
+    pwd = ROOT_DIR
     print(run_name)
         
     if nround<1:
@@ -45,7 +46,7 @@ def train(** args):
             for folder in subfolder:
                 last_familiy = folder.split("/")[-1]
                 families.append(str(last_familiy))
-        toolcl.init_classifer(args=args_class,families=families)
+        toolcl.init_classifer(args=args_class,families=families,is_fl=True)
         trainer = toolcl.classifier
     else:
         trainer = load_object(os.path.join(pwd,f"R{nround-1}_{run_name}_model.pkl"))
@@ -74,7 +75,7 @@ def decryption(**args):
     ctx = args["ctx"]
     nround = args["nround"]
     num = float(args["num"])
-    pwd = run_name
+    pwd = ROOT_DIR
     trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_model.pkl"))
     trainer.share_model = F.update_encrypt(key,context,para, num, trainer.share_model)
     save_object(trainer, os.path.join(pwd,f"R{nround}_{run_name}_model.pkl"))
@@ -100,7 +101,7 @@ def update(**args):
     v_enc = F.string_to_enc(args["v_enc"],context)
     num = 1.0
     nround = args["nround"]
-    pwd = run_name
+    pwd = ROOT_DIR
     trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_model.pkl"))
     trainer.modelparameters = para
     save_object(trainer, f"{run_name}_model.pkl")
@@ -111,7 +112,7 @@ def update(**args):
 def test(**args):
     nround = args["nround"]
     run_name  = args["run_name"]
-    pwd = run_name
+    pwd = ROOT_DIR
     trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_model.pkl"))
     trainer.classify()
     acc, loss = trainer.get_stat_classifier()

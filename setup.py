@@ -48,6 +48,7 @@ setup(name='sema-tc',
           'matplotlib',
           'celery==4.4.7',
           'tenseal',
+          'dill',
           'cryptography'
         ],
       zip_safe=False)
