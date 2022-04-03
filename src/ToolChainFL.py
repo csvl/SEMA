@@ -47,7 +47,8 @@ class ToolChainFL:
 
            
     def fl_scdg(self):
-        args = {"args_scdg":self.args_scdg,
+        self.log.info("Starting SCDGs phase in FL")
+        args = {"args_scdg":self.args_scdg.__dict__,
                 "folderName":self.folderName,
                 "families":self.families,
                 "expl_method":self.expl_method}
@@ -58,8 +59,10 @@ class ToolChainFL:
         idx= 0
         for r in ret:
             idx+=1
+        self.log.info("Ending SCDGs phase in FL")
 
     def fl_classifier(self):
+        self.log.info("Starting classification phase in FL")
         runname = self.args.runname
         smodel = self.args.smodel
         nepochs = self.args.nepochs
@@ -95,6 +98,7 @@ class ToolChainFL:
         
         tround = sround
         while tround < nrounds:
+            self.log.info("-- Training phase in FL - round " + str(tround) + "/" +  str(nrounds))
             args["nround"] = tround
             job = []
             for i in range(len(self.hosts)):
@@ -130,6 +134,7 @@ class ToolChainFL:
 
             ### Decrypt and encrypt again before sending updates
             job=[]
+            self.log.info("-- Update phase in FL - round " + str(tround) + "/" +  str(nrounds))
             for i in range(len(self.hosts)):
                 if i == select_id:
                     continue
@@ -142,6 +147,7 @@ class ToolChainFL:
             for r in ret:
                 self.log.info("Return value for update step: " + str(r))
 
+            self.log.info("-- Testing phase in FL - round " + str(tround) + "/" +  str(nrounds))
             job=[]
             for i in range(len(self.hosts)):
                 args["run_name"] = f"{runname}_part{i}"
@@ -156,6 +162,7 @@ class ToolChainFL:
         plt.plot(his_train)
         plt.ylabel('Loss')
         plt.savefig(f"his_fig.png", bbox_inches='tight')
+        self.log.info("Ending classification phase in FL")
             
 def main():
     fl = ToolChainFL()
