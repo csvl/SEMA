@@ -38,7 +38,7 @@ class ToolChainFL:
        self.test_value = test_val
            
     def fl_scdg(self):
-        args = {"args_scdg":self.args_scdg.__dict__,
+        args = {"args_scdg":self.args_scdg,
                 "folderName":self.folderName,
                 "families":self.families,
                 "expl_method":self.expl_method}
@@ -73,7 +73,8 @@ class ToolChainFL:
         else:
             input_path = self.tools.toolmc.input_path
         input_path = input_path.replace("unknown/","") # todo
-        
+
+
         args = {"ctx":ctx_str,
                 "n_features":2,
                 "embedding_dim":64,
@@ -82,7 +83,12 @@ class ToolChainFL:
                 "nround":0,
                 "test":runname,
                 "input_path":input_path,
-                "args_class":self.args_class.__dict__}
+                "support":self.args_class.support,
+                "ctimeout":self.args_class.ctimeout,
+                "nthread":self.args_class.nthread,
+                "biggest_subgraph":self.args_class.biggest_subgraph,
+                "epoch":self.args_class.epoch,
+                "threshold":self.args_class.threshold}
         
         tround = sround
         while tround < nrounds:
