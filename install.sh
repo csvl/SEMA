@@ -46,8 +46,8 @@ echo "Root path of the project is " ${ROOTPATH}
 printf '\n%s\n' "=============> Install packages: =============>"
 
 # Toolchain
-sudo apt-get install python3.8-venv
-sudo apt-get install python3.8 python3.8-dev
+sudo apt-get --fix-missing -y install python3.8 python3.8-dev
+sudo apt-get --fix-missing -y install python3.8-venv
 sudo apt-get --fix-missing -y install python3-pip xterm
 sudo apt-get --fix-missing -y install virt-manager
 
@@ -62,8 +62,6 @@ sudo apt-get --fix-missing -y install libcap2-bin
 
 sudo apt-get --fix-missing -y install libcairo2-dev libjpeg-turbo8-dev libpng-dev libossp-uuid-dev libfreerdp-dev
 sudo apt-get --fix-missing -y install libvirt-dev python3-wheel 
-
-sudo apt-get --fix-missing -y install python3-pip
 #FL
 sudo apt install rabbitmq-server
 
