@@ -47,6 +47,7 @@ printf '\n%s\n' "=============> Install packages: =============>"
 
 # Toolchain
 sudo apt-get install python3.8-venv
+sudo apt-get install python3.8 python3.8-dev
 sudo apt-get --fix-missing -y install python3-pip xterm
 sudo apt-get --fix-missing -y install virt-manager
 
