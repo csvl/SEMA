@@ -24,7 +24,6 @@ app = celery.Celery('ToolChainFL', broker=BROKER, backend=BACKEND)
 context, key = F.init_encrypt()
 sk,pk = RSA.generate_key()
 
-    
 """
 celery -A task.tasks flower
 ssh -i ~/.ssh/id_kdam -L 5555:130.104.229.26:5555 kdam@130.104.229.26

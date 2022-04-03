@@ -1,7 +1,6 @@
 import imp
 from matplotlib.pyplot import cla
 
-from ToolChainClassifier.ToolChainClassifier import ToolChainClassifier
 try:
     from .CeleryTasks import app, context, temp_path, pk, key
     from .HE.HE_SEALS import F, RSA
@@ -40,8 +39,9 @@ def train(** args):
 
     pwd = os.path.join(temp_path,run_name)   
     print(run_name)
-        
+    
     if nround<1:
+        from ToolChainClassifier.ToolChainClassifier import ToolChainClassifier
         toolcl = ToolChainClassifier(classifier_name="dl")
         families = []
         last_familiy = "unknown"

@@ -319,17 +319,31 @@ python3 ToolChainClassifier/ToolChainClassifier.py output/test_classifier_CDFS/
 TODO
 
 ### How to use ?
+
+On each client you should run:
+```bash
+bash run_worker --hostname=<name>
+```
+
 Just run the script : 
 ```bash
-pypy3 ToolChainFL.py BINARY_NAME
+pypy3 ToolChainFL.py --hostnames <listname> BINARY_NAME
 
-python3 ToolChainFL.py BINARY_NAME
+python3 ToolChainFL.py --hostnames <listname> BINARY_NAME
 ```
 
 #### Example
 
+On each client you should run:
 ```bash
-pypy3 ToolChainFL.py --method CDFS --hostnames host2 host3 --verbose databases/malware-win/Sample_paper/
+bash run_worker --hostname=host1
+bash run_worker --hostname=host2
+```
 
-python3 ToolChainFL.py --method CDFS --hostnames host2 host3 --verbose databases/malware-win/Sample_paper/
+Then on the master node:
+
+```bash
+pypy3 ToolChainFL.py --method CDFS --hostnames host1 host2 --verbose databases/malware-win/Sample_paper/
+
+python3 ToolChainFL.py --method CDFS --hostnames host1 host2 --verbose databases/malware-win/Sample_paper/
 ```
