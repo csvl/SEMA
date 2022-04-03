@@ -61,6 +61,8 @@ sudo apt-get --fix-missing -y install libcap2-bin
 sudo apt-get --fix-missing -y install libcairo2-dev libjpeg-turbo8-dev libpng-dev libossp-uuid-dev libfreerdp-dev
 sudo apt-get --fix-missing -y install libvirt-dev python3-wheel 
 
+sudo apt-get --fix-missing -y install python3-pip
+
 #FL
 sudo apt install rabbitmq-server
 
@@ -87,6 +89,7 @@ if [ $PYPY = true ]; then
     sudo apt update
     sudo apt install pypy3 pypy3-dev
     #sudo snap install pypy3 --classic
+    sudo apt-get install g++
     sudo apt-get install libatlas-base-dev
 fi
 
@@ -103,6 +106,7 @@ printf '\n%s\n' "=============> Install toolchain: =============>"
 python3 -m venv penv
 source penv/bin/activate
 pip3 install wheel
+pip3 install setuptools_rust
 pip3 install .
 
 if [ $CUDA = true ]; then
@@ -119,6 +123,7 @@ if [ $PYPY = true ]; then
     # your standard pip install folder could caused problems
     pypy3 -m ensurepip
     pypy3 -m pip install --upgrade pip testresources setuptools wheel
+    pypy3 -m pip install setuptools_rust
     pypy3 -m pip install numpy pandas
     pypy3 -m pip install pybind11 avatar2
     pypy3 -m pip install yara-python # yara

@@ -8,9 +8,9 @@ import celery
 
 temp_path = "../temp/" # TODO
 # Celery config
-# IP = "130.104.229.26" 
-# HOST = f'rabbitmq:rabbitmq@{IP}'
-HOST = 'localhost'
+IP = "130.104.229.26" 
+HOST = f'rabbitmq:rabbitmq@{IP}'
+# HOST = 'localhost'
 BROKER = f'amqp://{HOST}'
 BACKEND= f'rpc://{HOST}'
 app = celery.Celery('ToolChainFL', broker=BROKER, backend=BACKEND)

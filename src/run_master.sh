@@ -11,5 +11,5 @@ for i in "$@"; do
   esac
 done
 source ../../penv/bin/activate
-
+bash setup_network.sh
 deactivate
