@@ -180,7 +180,7 @@ pip3 install .
 deactivate
 cd $ROOTPATH/
 
-# install fix
+# install fix for federated learning with celery (bug due to encoding argument of sys.stdout and ProxyLogger)
 rm penv/lib/python3.8/site-packages/z3/z3core.py
 cp penv-fix/z3/z3core.py penv/lib/python3.8/site-packages/z3/z3core.py
 

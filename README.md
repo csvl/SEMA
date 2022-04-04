@@ -5,10 +5,10 @@
 
 2. [ Installation ](#install)
 
-3. [ SEMA ](#tc1)
-    1. [ `ToolChainSCDG` ](#tc2)
-    2. [ `ToolChainClassifier`](#tc4)
-    3. [ `ToolChainFL`](#tc3)
+3. [ SEMA ](#tc)
+    1. [ `ToolChainSCDG` ](#tcscdg)
+    2. [ `ToolChainClassifier`](#tcc)
+    3. [ `ToolChainFL`](#tcfl)
 
 
 :page_with_curl: Architecture
@@ -22,6 +22,8 @@
     * Python3.8
 
     * KVM/QEMU
+
+    * Celery
 
 :page_with_curl: Installation
 ====
@@ -160,7 +162,7 @@ Then in order to used it, replace the `python3` command by `pypy3`command.
 
 :page_with_curl: `SEMA - ToolChain`
 ====
-<a name="tc1"></a>
+<a name="tc"></a>
 
 Our toolchain is represented in the next figure  and works as follow. A collection of labelled binaries of different malwares families is collected and used as the input of the toolchain. **Angr**, a framework for symbolic execution, is used to execute symbolically binaries and extract execution traces. For this purpose, different heuristics have been developped to optimize symbolic execution. Several execution traces (i.e : API calls used and their arguments) corresponding to one binary are extracted with Angr and gather together thanks to several graph heuristics to construct a SCDG. These resulting SCDGs are then used as input to graph mining to extract common graph between SCDG of the same family and create a signature. Finally when a new sample has to be classified, its SCDG is build and compared with SCDG of known families (thanks to a simple similarity metric).
 
@@ -187,7 +189,7 @@ python3 ToolChain.py  --method CDFS --verbose databases/malware-win/Sample_paper
 
 :page_with_curl: System Call Dependency Graphs extractor (`ToolChainSCDG`)
 ====
-<a name="tc2"></a>
+<a name="tcscdg"></a>
 
 This repository contains a first version of a SCDG extractor.
 During symbolic analysis of a binary, all system calls and their arguments found are recorded. After some stop conditions for symbolic analysis, a graph is build as follow : Nodes are systems Calls recorded, edges show that some arguments are shared between calls.
@@ -252,7 +254,7 @@ python3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-
 
 :page_with_curl: Model & Classification extractor (`ToolChainClassifier`)
 ====
-<a name="tc4"></a>
+<a name="tcc"></a>
 
 When a new sample has to be evaluated, its SCDG is first build as described previously. Then, `gspan` is applied to extract the biggest common subgraph and a similarity score is evaluated to decide if the graph is considered as part of the family or not.
 
@@ -301,7 +303,7 @@ python3 ToolChainClassifier/ToolChainClassifier.py output/test_classifier_CDFS/
 
 :page_with_curl: Federated Learning for collaborative works (`ToolChainFL`)
 ====
-<a name="tc3"></a>
+<a name="tcfl"></a>
 
 Only support deep learning models for now.
 
@@ -319,19 +321,51 @@ pypy3 ToolChainFL.py --hostnames <listname> BINARY_NAME
 python3 ToolChainFL.py --hostnames <listname> BINARY_NAME
 ```
 
+You can use any arguments of the toolchain in addition.
+
 #### Example
 
 On each client you should run:
 ```bash
-bash run_worker --hostname=host1
-bash run_worker --hostname=host2
+(screen) bash run_worker --hostname=host1
+(screen) bash run_worker --hostname=host2
 ```
 
 Then on the master node:
 
 ```bash
-
-bash 
 bash setup_network.sh
-python3 ToolChainFL.py --method CDFS --hostnames host1 host2 --verbose databases/malware-win/Sample_paper/
+(screen) python3 ToolChainFL.py --method CDFS --hostnames host1 host2 --verbose databases/malware-win/Sample_paper/
 ```
+
+#### Managing SSH sessions
+
+**Source**: https://unix.stackexchange.com/questions/479/keep-processes-running-after-ssh-session-disconnects
+
+```bash
+sudo apt-get install screen
+```
+
+To list detached programs
+```bash
+screen -list
+```
+To disconnect (but leave the session running) Hit `Ctrl + A` and then `Ctrl + D` in immediate succession. You will see the message [detached]
+
+To reconnect to an already running session
+
+```bash
+screen -r
+```
+
+To reconnect to an existing session, or create a new one if none exists
+
+```bash
+screen -D -r
+```
+
+To create a new window inside of a running screen session Hit `Ctrl + A` and then `C` in immediate succession. You will see a new prompt.
+
+To switch from one screen window to another Hit `Ctrl + A` and then `Ctrl + A` in immediate succession.
+
+To list open screen windows Hit `Ctrl + A` and then `W` in immediate succession

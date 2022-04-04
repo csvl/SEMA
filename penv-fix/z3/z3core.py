@@ -75,7 +75,7 @@ if sys.version < '3':
 else:
   def _str_to_bytes(s):
     if isinstance(s, str):
-        if hasattr(sys.stdout,"encoding"):
+        if hasattr(sys.stdout,"encoding"): # Christ update
           enc = sys.stdout.encoding
           return s.encode(enc if enc != None else 'latin-1')
         else:
@@ -85,7 +85,7 @@ else:
 
   def _to_pystr(s):
      if s != None:
-        if hasattr(sys.stdout,"encoding"):
+        if hasattr(sys.stdout,"encoding"): # Christ update
           enc = sys.stdout.encoding
           return s.decode(enc if enc != None else 'latin-1')
         else:
