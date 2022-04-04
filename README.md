@@ -314,7 +314,7 @@ On each client you should run:
 bash run_worker --hostname=<name>
 ```
 
-Just run the script : 
+Then run the script on the master node: 
 ```bash
 pypy3 ToolChainFL.py --hostnames <listname> BINARY_NAME
 
