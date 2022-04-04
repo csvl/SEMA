@@ -626,7 +626,7 @@ class ToolChainExplorer(ExplorationTechnique):
             self.log.info("Timeout expired for simulation !")
 
         if not (len(simgr.active) > 0 and self.deadended < self.max_end_state):
-            self.log.info("sm.active.len > 0 and deadended < max_end_state)")
+            self.log.info("sm.active.len > 0 and deadended < max_end_state")
 
         return elapsed_time > self.timeout or (
             len(simgr.active) <= 0 or self.deadended >= self.max_end_state

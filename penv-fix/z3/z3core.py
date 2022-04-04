@@ -74,16 +74,22 @@ if sys.version < '3':
      return s
 else:
   def _str_to_bytes(s):
-    if isinstance(s, str) and hasattr(sys.stdout,"encoding"):
-        enc = sys.stdout.encoding
-        return s.encode(enc if enc != None else 'latin-1')
+    if isinstance(s, str):
+        if hasattr(sys.stdout,"encoding"):
+          enc = sys.stdout.encoding
+          return s.encode(enc if enc != None else 'latin-1')
+        else:
+          return s.encode('latin-1')
     else:
         return s
 
   def _to_pystr(s):
-     if s != None and hasattr(sys.stdout,"encoding"):
-        enc = sys.stdout.encoding
-        return s.decode(enc if enc != None else 'latin-1')
+     if s != None:
+        if hasattr(sys.stdout,"encoding"):
+          enc = sys.stdout.encoding
+          return s.decode(enc if enc != None else 'latin-1')
+        else:
+          return s.decode('latin-1')
      else:
         return ""
 

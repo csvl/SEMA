@@ -1,5 +1,4 @@
 import logging
-from ToolChainSCDG.ToolChainSCDG import ToolChainSCDG
 from ToolChainClassifier.ToolChainClassifier import ToolChainClassifier
 from ToolChainSCDG.clogging.CustomFormatter import CustomFormatter
 try:
@@ -54,6 +53,8 @@ log.propagate = False
 
 @app.task
 def start_scdg(** args):
+    # Need to be imported here for correctness
+    from ToolChainSCDG.ToolChainSCDG import ToolChainSCDG
     toolcl = ToolChainSCDG(print_sm_step=True,
                             print_syscall=True,
                             debug_error=True,

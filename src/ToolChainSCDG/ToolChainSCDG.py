@@ -94,7 +94,7 @@ class ToolChainSCDG:
 
         self.fast_main = fast_main
         self.force_symbolique_return = force_symbolique_return
-
+        sys.setrecursionlimit(2000)
         self.print_on = print_on
         self.print_sm_step = print_sm_step
         self.print_syscall = print_syscall
@@ -105,7 +105,7 @@ class ToolChainSCDG:
         self.scdg_fin = []
         
         logging.getLogger("angr").setLevel("WARNING")
-        # logging.getLogger('angr').setLevel('INFO')
+        logging.getLogger('claripy').setLevel('WARNING')
 
         # create console handler with a higher log level
         ch = logging.StreamHandler()
@@ -159,7 +159,6 @@ class ToolChainSCDG:
         except:
             os.makedirs(exp_dir)
 
-
         if exp_dir != "output/save-SCDG/"+family+"/":
             setup = open_file(exp_dir + "setup.txt", "w")
             setup.write(str(self.jump_it) + "\n")
@@ -175,7 +174,7 @@ class ToolChainSCDG:
         else:
             nameFileShort = nameFile
 
-        title = "--- Building SCDG of " + nameFileShort +"/" + family + " ---"
+        title = "--- Building SCDG of " + family  +"/" + nameFileShort  + " ---"
         self.log.info("\n" + "-" * len(title) + "\n" + title + "\n" + "-" * len(title))
 
         #####################################################
@@ -219,7 +218,6 @@ class ToolChainSCDG:
 
         # Defining arguments given to the program (minimum is filename)
         args_binary = [nameFileShort]
-
         if nargs:
             for i in range(nargs):
                 args_binary.append(claripy.BVS("arg" + str(i), 8 * 16))
@@ -228,9 +226,7 @@ class ToolChainSCDG:
         if os_obj == "windows":
             self.call_sim.system_call_table = self.call_sim.ddl_loader.load(proj)
         else:
-            self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(
-                proj
-            )
+            self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(proj)
 
         # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows)
         addr_main = proj.loader.find_symbol("main")

@@ -156,7 +156,6 @@ class ArgumentParserSCDG:
         if not self.tcw.print_on:
             self.tcw.print_on = args.verbose
         self.tcw.debug_error = args.debug_error
-        sys.setrecursionlimit(2000)
         if args.method:
             expl_method = args.method.upper()
             if expl_method not in ["BFS", "DFS", "CDFS", "CBFS"]:

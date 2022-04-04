@@ -384,8 +384,8 @@ class CustomSimProcedure:
                         del dic_symbols[name]
 
                 angrlib.add_all_from_dict(newprocs)
-                # print('-----------symbols after hook--------------------' + libname)
-                # print(dic_symbols)
+                self.log.info('----------- Symbols after hook for libs ' + libname +'--------------------')
+                self.log.info(dic_symbols)
 
         project._sim_procedures = {
             addr: simprocedure for addr, simprocedure in project._sim_procedures.items()
@@ -485,9 +485,9 @@ class CustomSimProcedure:
                         del dic_symbols[name]
 
                 angrlib.add_all_from_dict(newprocs)
-                # print('-----------symbols after hook--------------------' + libname)
-                # print(dic_symbols)
-
+                self.log.info('----------- Symbols after hook for libs ' + libname +'--------------------')
+                self.log.info(dic_symbols)
+                
         project._sim_procedures = {
             addr: simprocedure for addr, simprocedure in project._sim_procedures.items()
         }
@@ -712,7 +712,7 @@ class CustomSimProcedure:
             and str(sim_proc.syscall_number) in self.system_call_table
             and self.print_syscall
         ):
-            self.log.info("syscall detected")
+            self.log.info("Syscall detected")
             # self.log.info(sim_proc.syscall_number)
             self.log.info(state.inspect.simprocedure_result)
             self.log.info(self.system_call_table[str(sim_proc.syscall_number)])
