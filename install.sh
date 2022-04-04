@@ -18,6 +18,7 @@ for i in "$@"; do
     --vms_dl)
       VMS=true
       shift 
+      ;;
     --pypy)
       PYPY=true
       shift 
