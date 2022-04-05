@@ -12,21 +12,18 @@ class ArgumentParserFL:
         parser.add_argument('--train', 
             help='Train',
             action='store_true')
-        parser.add_argument('--nepochs', 
-            type=int,help='n_epochs',
-            default =1)
         parser.add_argument('--sepoch', 
             type=int,
             help='Restart training from sepoch, default sepoch=1',
-            default =1)
+            default=1)
         parser.add_argument('--nrounds', 
             help='Number of rounds for training',
             type=int, 
-            default=1)
+            default=5)
         parser.add_argument('--sround', 
             help='Restart from sround',
             type=int, 
-            default= 0)
+            default=0)
         parser.add_argument('--smodel', 
             type=int,
             help='Share model type, 1 partly aggregation and 0 fully aggregation, default smodel=0',
