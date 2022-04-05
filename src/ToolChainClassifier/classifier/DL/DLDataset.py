@@ -1,6 +1,5 @@
 try:
     import torch
-    from torchvision.transforms import Lambda
 except:
     print("Deep learning model do no support pypy3")
     exit(-1)
@@ -38,21 +37,15 @@ class DLDataset(torch.utils.data.Dataset):
         self.rootdir = rootpath
         self.data = list()
         self.vector_size = vector_size
-        self.model = self.api2vector(apipath,vector_size)
-        self._apimap = self.read_map(mappath)
+        self.model, self._apimap = DLDataset.init_vector_model(vector_size, apipath,mappath)
         classes = set()
         for fname in glob.glob("{0}/*/*.gs".format(rootpath)):
-            dirname,name = self.get_label(fname)
+            dirname,name = DLDataset.get_label(fname)
             self.data.append((fname,dirname))
             classes.add(dirname)
             
         self._classes = sorted(list(classes))        
             
-        self.target_transform = Lambda(lambda y: torch.zeros(
-                len(self._classes), 
-                dtype=torch.float).scatter_(dim=0, 
-                            index=torch.tensor(y), value=1))
-        #self.seq_data = None
         self.load_data()
         
     def load_data(self):
@@ -63,7 +56,7 @@ class DLDataset(torch.utils.data.Dataset):
         self.seq_data= list()
         for index in range(len(self.data)):
             fname, label = self.data[index]
-            seq = self.gs2seqvector(fname,self._apimap, self.model.wv)
+            seq = DLDataset.gs2seqvector(fname,self._apimap, self.model.wv)
             if seq is None: continue
             data.append((fname, label))
             seq = torch.from_numpy(seq).float()
@@ -86,7 +79,8 @@ class DLDataset(torch.utils.data.Dataset):
     def __len__(self):
         return len(self.data)
     
-    def read_map(self,fname):
+    @staticmethod
+    def read_map(fname):
         f =open(fname)
         apimap = list()
         for line in f:
@@ -96,18 +90,21 @@ class DLDataset(torch.utils.data.Dataset):
         f.close()
         return apimap
 
-    def get_label(self,fname):
+    @staticmethod
+    def get_label(fname):
         name = os.path.basename(fname)
         dirname = os.path.basename(os.path.dirname(fname))
         dname = dirname.split("_")[0]
         return dname, name
-        
-    def init_vector_model(self,vector_size =10, apiname = "APInameseq.txt",mappath = "mapping.txt"):
-        model = self.api2vector(apiname,vector_size) # os.path.join(dir_path, apiname)
-        apimap = self.read_map(mappath) #os.path.join(dir_path, mappath)
+    
+    @staticmethod
+    def init_vector_model(vector_size =10, apiname = "APInameseq.txt",mappath = "mapping.txt"):
+        model = DLDataset.api2vector(apiname,vector_size) # os.path.join(dir_path, apiname)
+        apimap = DLDataset.read_map(mappath) #os.path.join(dir_path, mappath)
         return model, apimap
 
-    def api2vector(self,apiname,vector_size=10, reset=0):
+    @staticmethod
+    def api2vector(apiname,vector_size=10, reset=0):
         save_model = os.path.join(dir_path, "wordmodel")
         if os.path.exists(save_model) and reset ==0:
             model = FastText.load(save_model)
@@ -121,7 +118,8 @@ class DLDataset(torch.utils.data.Dataset):
         model.save(save_model)
         return model
 
-    def traces2vector(self,fname, wv):
+    @staticmethod
+    def traces2vector(fname, wv):
         with open(fname) as f:
             data = json.load(f)
         traces = list()
@@ -136,15 +134,14 @@ class DLDataset(torch.utils.data.Dataset):
             v+=wv[traces[i]]
         v = v/len(traces)
         return v
-        
-    def gs2seqvector(self,fname,apimap,wv):
-        G= self.read_gs(fname)
+	
+    @staticmethod        
+    def gs2seqvector(fname,apimap,wv):
+        G= DLDataset.read_gs(fname)
         seq = None
         for V,E in G:
             for v1,v2 in E:
-                #self.log.info(v1,v2,apimap[v1], apimap[v2])
-                #v = [v1,v2]#
-                v= wv[[apimap[v1],apimap[v2]]].reshape(1,-1) #wv[f"{apimap[v1]} {apimap[v2]}"]##
+                v= wv[[apimap[v1],apimap[v2]]].reshape(1,-1)
                 if seq is None:
                     seq = v
                 else:
@@ -154,13 +151,12 @@ class DLDataset(torch.utils.data.Dataset):
                     v = wv[[apimap[v1],apimap[v1]]].reshape(1,-1)
                     if seq is not None:
                         seq = np.append(seq,v, axis=0)
-                        #seq = np.append(seq,[v1,v1], axis=0)
                     else:
                         seq = v
-                        #seq = np.array([v1,v1])
         return seq
-
-    def read_gs(self,fname):
+        
+    @staticmethod 
+    def read_gs(fname):
         f = open(fname)
         G = list()
         V = list()
@@ -181,15 +177,7 @@ class DLDataset(torch.utils.data.Dataset):
             G.append((V,E))
         f.close()
         return G
-        
-    def encode_gs(self,E,V):
-        code = list()
-        for v1,v2 in E:
-            c = "{0:09b}{0:09b}".format(V[v1],V[v2])
-            x = np.array(list(c))
-            code.append((x=='1').astype(float))
-        return np.array(code)
-        
+                
     @property
     def classes(self):
         return self._classes
@@ -197,14 +185,4 @@ class DLDataset(torch.utils.data.Dataset):
     @classes.setter
     def classes(self, value):
         self._classes = value
-
-    """
-    def __getitem__(self, index:int):
-        if index < len(self.data) and index >=0:
-            fname, label = self.data[index]
-            seq = gs2seqvector(fname,self._apimap, self.model.wv)
-            idx = self.classes.index(label)
-            y = self.target_transform(idx)
-            return seq.reshape(1,-1, self.vector_size), y.reshape(1,-1)
-    """
         

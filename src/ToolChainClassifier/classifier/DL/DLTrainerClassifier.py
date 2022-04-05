@@ -30,7 +30,7 @@ except:
 
 class DLTrainerClassifier(Classifier):
 	def __init__(self, path, threshold=0.45, 
-				shared_type=0, epoch=5, data_scale=0.9, 
+				shared_type=0, epoch=1, data_scale=0.9, 
 				vector_size=4, batch_size=1):
 
 		super().__init__(path,'DLTrainerClassifier', threshold)
@@ -64,29 +64,37 @@ class DLTrainerClassifier(Classifier):
 		self._model = None
 		self.shared_type = shared_type
 	
-	def get_stat_classifier(self, save_path = None): # TODO custom parameter
-		self.TPR = self.TP/len(self.test_loader)
-		self.loss = self.loss/len(self.test_loader)
-		self.log.info(f"Labels: {len(self.labels)}\nDetect {self.TP}/{len(self.test_loader)}\nDetection rate: {self.TPR}\nLoss: {self.loss}")
-		
-		acc = accuracy_score(self.y_true, self.y_pred)
-		bacc = balanced_accuracy_score(self.y_true, self.y_pred)
-		fscore = f1_score(self.y_true,self.y_pred, average='weighted')
-		self.log.info(f"acc\t{acc}\nbacc\t{bacc}\nfscore\t{fscore}")
-		cm = confusion_matrix(self.y_true, self.y_pred,labels = sorted(self.labels))
-		disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=sorted(self.labels))
-		disp.plot()
-		if save_path is None:
-			plt.show()
-		else:
-			plt.savefig(f"{save_path}_CM_fig.png", bbox_inches='tight')
-		self.log.info(f"TPR\t{self.TPR}")
-		self.log.info(f"Loss\t{self.loss}")
-		return acc, self.loss
 
-	def classify(self):
+	def load_dataset(self, datapath,data_scale):
+		apiname = "APInameseq.txt" # TODO more customization
+		fname   = "/media/kdam/Data/UCL/Federated-Learning/tool/SEMA-ToolChain/src/mapping.txt" #"mapping.txt"
+		apipath = apiname #os.path.join(dir_path, apiname)
+		mappath = fname   #os.path.join(dir_path, fname)
+		data_train = DLDataset(datapath, mappath, apipath, self.vector_size)
+		d_train, d_val = random_split(data_train, [int(len(data_train)*data_scale), len(data_train)-int(len(data_train)*data_scale)])
+		train_dataset = DataLoader(d_train, batch_size=1,num_workers=0)
+		val_dataset = DataLoader(d_val, batch_size=1,num_workers=0)
+		return data_train, train_dataset, val_dataset
+	
+	def load_dl_model(self,n_features, embedding_dim, classe,model_path =None):
+		if model_path is not None:
+			pass # load model from model_path
+		else:
+			model = DLClassifier(n_features, embedding_dim, classe)
+			
+		self.n_features,self.embedding_dim, self.classe = model.n_features, model.embedding_dim, model.classes
+		
+		return model
+	
+
+	def classify(self,datapath=None):
+		# modify to get classify method with input datapath
+		datapath = "/media/kdam/Data/UCL/Federated-Learning/tool/Dataset/20210903/CDFS"
+		if self.test_loader is None:
+			data_test, self.test_loader,_ = self.load_dataset(datapath,1.0)
+	
 		self._model.eval()
-		criterion_x = nn.MSELoss(reduction='sum')
+		criterion_x = nn.MSELoss(reduction='mean')
 		criterion_y = nn.BCELoss()
 		
 		self.labels =[c for c in self._model.classes]
@@ -112,24 +120,16 @@ class DLTrainerClassifier(Classifier):
 		pass
 	
 	def train(self, input_path, sepoch=1):
-		apiname = "APInameseq.txt" # TODO more customization
-		fname   = "mapping.txt"
-		apipath = apiname #os.path.join(dir_path, apiname)
-		mappath = fname   #os.path.join(dir_path, fname)
-		self.data_train = DLDataset(input_path, mappath, apipath,self.vector_size)
-		d_train, d_val = random_split(self.data_train, [int(len(self.data_train)*self.data_scale), len(self.data_train)-int(len(self.data_train)*self.data_scale)])
-		self.train_dataset = DataLoader(d_train, batch_size=self.batch_size,num_workers=0)
-		self.val_dataset = DataLoader(d_val, batch_size=self.batch_size,num_workers=0)
-		self.n_features, self.embedding_dim, self.classe = self.vector_size*2, 64, self.data_train.classes
+		self.data_train, self.train_dataset, self.val_dataset = self.load_dataset(input_path,self.data_scale)
+		
+		n_features, embedding_dim, classe = self.vector_size*2, 64, self.data_train.classes
 
-		self.test_loader = DataLoader(self.data_train, batch_size=self.batch_size,num_workers=0) # before 4
-		self._model = DLClassifier(self.n_features,self.embedding_dim, self.classe)
+		self._model = self.load_dl_model(n_features, embedding_dim, classe)
 
 		loss_error =  False
 		optimizer = torch.optim.Adam(self._model.parameters(), lr=1e-3)
 		criterion_x = nn.MSELoss(reduction='mean')
 		criterion_y = nn.BCELoss()
-		# criterion_y = nn.CrossEntropyLoss()
 		
 		history = dict(train=[], val=[])
 		best_model_wts = copy.deepcopy(self._model.state_dict())
@@ -205,6 +205,27 @@ class DLTrainerClassifier(Classifier):
 			"""
 			return None
 		return loss_y+loss_x
+
+	def get_stat_classifier(self, save_path = None): # TODO custom parameter
+		self.TPR = self.TP/len(self.test_loader)
+		self.loss = self.loss/len(self.test_loader)
+		self.log.info(f"Labels: {len(self.labels)}\nDetect {self.TP}/{len(self.test_loader)}\nDetection rate: {self.TPR}\nLoss: {self.loss}")
+		
+		acc = accuracy_score(self.y_true, self.y_pred)
+		bacc = balanced_accuracy_score(self.y_true, self.y_pred)
+		fscore = f1_score(self.y_true,self.y_pred, average='weighted')
+		self.log.info(f"acc\t{acc}\nbacc\t{bacc}\nfscore\t{fscore}")
+		cm = confusion_matrix(self.y_true, self.y_pred,labels = sorted(self.labels))
+		disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=sorted(self.labels))
+		disp.plot()
+		if save_path is None:
+			#plt.show()
+			pass
+		else:
+			plt.savefig(f"{save_path}_CM_fig.png", bbox_inches='tight')
+		self.log.info(f"TPR\t{self.TPR}")
+		self.log.info(f"Loss\t{self.loss}")
+		return acc, self.loss
 	
 	@property
 	def classes(self):

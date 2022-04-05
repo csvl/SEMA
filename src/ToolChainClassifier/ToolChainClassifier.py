@@ -62,7 +62,7 @@ class ToolChainClassifier:
                 from classifier.DL.DLTrainerClassifier import DLTrainerClassifier
             except:
                 from .classifier.DL.DLTrainerClassifier import DLTrainerClassifier
-            self.classifier = DLTrainerClassifier(path=ROOT_DIR,threshold=threshold,epoch=epoch)
+            self.classifier = DLTrainerClassifier(path=ROOT_DIR,epoch=epoch)
         else:
             self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
             exit(-1)     
@@ -89,7 +89,7 @@ def main():
                 last_familiy = folder.split("/")[-1]
                 families.append(str(last_familiy))
         tc.init_classifer(args=args,families=families)
-    
+    # not always training, should put train in tc.mode
     if tc.input_path is None:
         tc.classifier.train(input_path)
     else:
@@ -97,16 +97,17 @@ def main():
     
     elapsed_time = time.time() - tc.start_time
     tc.log.info("Total training time: " + str(elapsed_time))
-
+    # path to the data for classification or detection
     if tc.mode == "classification":
         tc.classifier.classify()
+        tc.classifier.get_stat_classifier()
     else:
         tc.classifier.detection()
 
     elapsed_time = time.time() - tc.start_time
     tc.log.info("Total "+ tc.mode +" time: " + str(elapsed_time))
 
-    if tc.classifer_name == "gspan":
+    if tc.classifier_name == "gspan":
         tc.classifier.get_stat_classifier(target=tc.mode)
     else:
         tc.classifier.get_stat_classifier()
