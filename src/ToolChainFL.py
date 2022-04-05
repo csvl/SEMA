@@ -94,6 +94,7 @@ class ToolChainFL:
                 "nround":nrounds,
                 "test":runname,
                 "input_path":input_path,
+                "smodel":smodel,
                 "args_class":self.args_class.__dict__}
         
         tround = sround

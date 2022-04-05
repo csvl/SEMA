@@ -27,6 +27,11 @@ class ArgumentParserClassifier:
             type=float,
             default=0.75,
         )
+        parser.add_argument('--smodel', 
+            type=int,
+            help='Share model type, 1 partly aggregation and 0 fully aggregation, default smodel=0',
+            default=0
+        )
         parser.add_argument(
             "--nthread",
             help="Number of thread used (default: max)",
