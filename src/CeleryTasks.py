@@ -124,8 +124,7 @@ def train(** args):
     else:
         trainer = load_object(os.path.join(pwd,f"R{nround-1}_{run_name}_model.pkl"))
         
-    #model, his = trainer.train(input_path)
-    his = None
+    model, his = trainer.train(input_path)
         
     save_object(trainer, os.path.join(pwd,f"R{nround}_{run_name}_model.pkl"))
         

@@ -136,6 +136,7 @@ class DLTrainerClassifier(Classifier):
 		best_loss = 1e9
 		self._model.train()
 		for epoch in range(sepoch, self.n_epochs+1):
+			return self._model, None # TODO remove
 			train_losses = []
 			self.log.info(f"Epoch {epoch}/{self.n_epochs}:")
 			bar = progressbar.ProgressBar(max_value=len(self.train_dataset)+len(self.val_dataset))
