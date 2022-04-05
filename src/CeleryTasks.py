@@ -26,26 +26,24 @@ app = celery.Celery('ToolChainFL',
                     backend=BACKEND)
 
 context, key = F.init_encrypt()
-sk,pk = RSA.generate_key()
+sk, pk       = RSA.generate_key()
 
 ch = logging.StreamHandler()
 ch.setLevel(logging.INFO)
 ch.setFormatter(CustomFormatter())
-
 
 logc = logging.getLogger("CeleryTasksClassifier")
 logc.setLevel(logging.INFO)
 logc.addHandler(ch)
 logc.propagate = False
 
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-ROOT_DIR = ROOT_DIR.replace("tasks","")
-
-
 log = logging.getLogger("CeleryTasksSCDG")
 log.setLevel(logging.INFO)
 log.addHandler(ch)
 log.propagate = False
+
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = ROOT_DIR.replace("tasks","")
 
 ########################################
 # SCDGs creation
@@ -87,9 +85,9 @@ def start_scdg(** args):
 # Classifier
 ########################################
 
-def save_object(ob, path):
+def save_object(obj, path):
     with open(path, 'wb+') as output:
-        dill.dump(ob, output)
+        dill.dump(obj, output)
 
 def load_object(path):
     with open(path, 'rb') as inp:
@@ -126,20 +124,12 @@ def train(** args):
     else:
         trainer = load_object(os.path.join(pwd,f"R{nround-1}_{run_name}_model.pkl"))
         
-    model, his = trainer.train(input_path)
+    #model, his = trainer.train(input_path)
+    his = None
         
     save_object(trainer, os.path.join(pwd,f"R{nround}_{run_name}_model.pkl"))
         
-    """
-    test_path = os.path.join(temp_path,args["test"])
-    data = Dataset(os.path.join(test_path,"dataset_test.hdf5"))
-    test_loader = DataLoader(data, batch_size=1,num_workers=0)
-    acc_loss = trainer.test(test_loader)
-    """
-        
     para = F.encrypt_weight(ctx,trainer.share_model)
-    #para = trainer.get_model_parameter()
-    #return {"para":para,"his":his,"ctx":args["ctx"], "acc":acc_loss[0], "loss":acc_loss[1]}
     return {"para":para,"his":his}
 
 @app.task

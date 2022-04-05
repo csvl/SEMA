@@ -45,6 +45,7 @@ class ToolChainFL:
 
            
     def fl_scdg(self):
+        self.folderName = "".join(self.folderName.rstrip())
         self.log.info("Starting SCDGs phase in FL")
         args = {"args_scdg":self.args_scdg.__dict__,
                 "folderName":self.folderName,
@@ -63,10 +64,10 @@ class ToolChainFL:
         self.log.info("Starting classification phase in FL")
         runname = self.args.runname
         smodel = self.args.smodel
-        nepochs = self.args.nepochs
         nrounds = self.args.nrounds
         sround = self.args.sround
-        his_train = list()
+        
+        his_train = list()          # for expiments measure purposes
         for _ in self.hosts:
             his_train.append(list())
         
@@ -84,12 +85,13 @@ class ToolChainFL:
             input_path = self.tools.toolmc.input_path
         input_path = input_path.replace("unknown/","") # todo
         
+
         args = {"ctx":ctx_str, # TODO extract from arg parser DAM
                 "n_features":2,
                 "embedding_dim":64,
-                "nepochs":nepochs,
+                "nepochs":1, # always 1
                 "run_name":"christophe_test",
-                "nround":0,
+                "nround":nrounds,
                 "test":runname,
                 "input_path":input_path,
                 "args_class":self.args_class.__dict__}
@@ -112,6 +114,8 @@ class ToolChainFL:
                 paras.append(r['para'])
                 his_train[idx].extend(r['his']['train'])
                 idx+=1
+
+            # Aggragator = Master node 
             enc_para = F.add_weight(paras,ret_ctx[select_id]["ctx"])
             #para = F.add_para(paras)
         
@@ -122,6 +126,7 @@ class ToolChainFL:
             args["num"] = len(self.hosts)
             args["run_name"] = f"{runname}_part{select_id}"
             
+            # select_id = KEY client
             ret = celery.group(decryption.s(**args).set(queue=self.hosts[select_id]))().get()
             
             enc_v = F.string_to_enc(ret[0]["v"],context)

@@ -56,7 +56,7 @@ class ArgumentParserClassifier:
         )
         parser.add_argument(
             "--epoch",
-            help="Only for deep learning model: number of epoch (default: 5)",
+            help="Only for deep learning model: number of epoch (default: 5)\n Always 1 for FL model",
             type=int,
             default=5,
         )

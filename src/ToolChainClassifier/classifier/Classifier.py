@@ -33,7 +33,11 @@ class Classifier():
     # Classify malware use the model
     # in : path = list of samples to classify
     # TODO: not good way to write that ch
-    def classify(self):
+    # TODO 
+    # if path = none -> load model and test the path
+    # else: apply on test test from training set
+    # same for detection
+    def classify(self,path=None):
         """
         Sort by familly
         """
