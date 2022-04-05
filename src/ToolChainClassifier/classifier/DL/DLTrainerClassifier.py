@@ -60,6 +60,8 @@ class DLTrainerClassifier(Classifier):
 		self.TPR = 0
 		self.loss = 0
 
+		self.data_load = False
+
 		self.test_loader = None
 		self._model = None
 		self.shared_type = shared_type
@@ -116,14 +118,15 @@ class DLTrainerClassifier(Classifier):
 		fname   = "mapping.txt"
 		apipath = apiname #os.path.join(dir_path, apiname)
 		mappath = fname   #os.path.join(dir_path, fname)
-		self.data_train = DLDataset(input_path, mappath, apipath,self.vector_size)
-		d_train, d_val = random_split(self.data_train, [int(len(self.data_train)*self.data_scale), len(self.data_train)-int(len(self.data_train)*self.data_scale)])
-		self.train_dataset = DataLoader(d_train, batch_size=self.batch_size,num_workers=0)
-		self.val_dataset = DataLoader(d_val, batch_size=self.batch_size,num_workers=0)
-		self.n_features, self.embedding_dim, self.classe = self.vector_size*2, 64, self.data_train.classes
-
-		self.test_loader = DataLoader(self.data_train, batch_size=self.batch_size,num_workers=0) # before 4
-		self._model = DLClassifier(self.n_features,self.embedding_dim, self.classe)
+		if not self.data_load:
+			self.data_train = DLDataset(input_path, mappath, apipath,self.vector_size)
+			d_train, d_val = random_split(self.data_train, [int(len(self.data_train)*self.data_scale), len(self.data_train)-int(len(self.data_train)*self.data_scale)])
+			self.train_dataset = DataLoader(d_train, batch_size=self.batch_size,num_workers=0)
+			self.val_dataset = DataLoader(d_val, batch_size=self.batch_size,num_workers=0)
+			self.n_features, self.embedding_dim, self.classe = self.vector_size*2, 64, self.data_train.classes
+			self.test_loader = DataLoader(self.data_train, batch_size=self.batch_size,num_workers=0) # before 4
+			self._model = DLClassifier(self.n_features,self.embedding_dim, self.classe)
+			self.data_load = True
 
 		loss_error =  False
 		optimizer = torch.optim.Adam(self._model.parameters(), lr=1e-3)

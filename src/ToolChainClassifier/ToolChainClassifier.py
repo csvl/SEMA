@@ -44,6 +44,7 @@ class ToolChainClassifier:
             nthread = args.nthread
             biggest_subgraph = args.biggest_subgraph
             epoch = args.epoch
+            shared_type = args.smodel
         else:
             threshold = args["threshold"]
             support = args["support"]
@@ -51,6 +52,7 @@ class ToolChainClassifier:
             nthread = args["nthread"]
             biggest_subgraph = args["biggest_subgraph"]
             epoch = args["epoch"]
+            shared_type = args["smodel"]
         if self.classifier_name == "gspan":
             self.classifier = GSpanClassifier(path=ROOT_DIR,threshold=threshold,support=support,timeout=ctimeout,thread=nthread,biggest_subgraphs=biggest_subgraph)
         elif self.classifier_name == "inria": 
@@ -62,7 +64,7 @@ class ToolChainClassifier:
                 from classifier.DL.DLTrainerClassifier import DLTrainerClassifier
             except:
                 from .classifier.DL.DLTrainerClassifier import DLTrainerClassifier
-            self.classifier = DLTrainerClassifier(path=ROOT_DIR,threshold=threshold,epoch=epoch)
+            self.classifier = DLTrainerClassifier(path=ROOT_DIR,threshold=threshold,epoch=epoch,shared_type=shared_type)
         else:
             self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
             exit(-1)     

@@ -121,8 +121,14 @@ def train(** args):
                 families.append(str(last_familiy))
         toolcl.init_classifer(args=args_class,families=families,is_fl=True)
         trainer = toolcl.classifier
+        trainer.n_epochs = 1
     else:
         trainer = load_object(os.path.join(pwd,f"R{nround-1}_{run_name}_model.pkl"))
+        if len(trainer.data_train) > 0:
+            print("ok")
+        else:
+            exit(1)
+        trainer.n_epochs = 1
         
     model, his = trainer.train(input_path)
         

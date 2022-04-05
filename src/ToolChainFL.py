@@ -110,7 +110,7 @@ class ToolChainFL:
             paras = list()
             idx= 0
             for r in ret:
-                self.log.info("Return value for train step: " + str(r))
+                self.log.info("Return value for train step: " + str(r["his"]))
                 paras.append(r['para'])
                 his_train[idx].extend(r['his']['train'])
                 idx+=1

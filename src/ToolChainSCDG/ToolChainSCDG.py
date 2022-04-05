@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from ast import arg
 import os
-import sys
 
 import json as json_dumper
 from builtins import open as open_file
@@ -40,12 +39,15 @@ except:
     from clogging.CustomFormatter import CustomFormatter
     from helper.ArgumentParserSCDG import ArgumentParserSCDG
 
-import subprocess
-import nose
-import avatar2 as avatar2
-
 import angr
 import claripy
+
+MEMORY_PROFILING = True
+
+if MEMORY_PROFILING:
+    # TODO take snapshot in build_scdgs()
+    import tracemalloc 
+    memory_snapshots = []
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -94,7 +96,6 @@ class ToolChainSCDG:
 
         self.fast_main = fast_main
         self.force_symbolique_return = force_symbolique_return
-        sys.setrecursionlimit(2000)
         self.print_on = print_on
         self.print_sm_step = print_sm_step
         self.print_syscall = print_syscall
@@ -115,6 +116,8 @@ class ToolChainSCDG:
         self.log.setLevel(logging.INFO)
         self.log.addHandler(ch)
         self.log.propagate = False
+
+        self.families = []
 
         self.call_sim = CustomSimProcedure(
             self.scdg, self.scdg_fin, 
@@ -554,31 +557,50 @@ def main():
     )
     args_parser = ArgumentParserSCDG(toolc)
     args, nameFile, expl_method, familly = args_parser.parse_arguments()
-    import progressbar
+    nameFile = "".join(nameFile.rstrip())
     if os.path.isfile(nameFile):
+        # TODO update family
         toolc.log.info("You decide to analyse a single binary: "+ nameFile)
         toolc.build_scdg(args, nameFile, expl_method, familly)
     else:
+        import progressbar
         last_familiy = "unknown"
         if os.path.isdir(nameFile):
             subfolder = [os.path.join(nameFile, f) for f in os.listdir(nameFile) if os.path.isdir(os.path.join(nameFile, f))]
             bar_f = progressbar.ProgressBar(max_value=len(subfolder))
             bar_f.start()
+            ffc = 0
             for folder in subfolder:
                 toolc.log.info("You are currently building SCDG for " + folder)
                 files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
                 bar = progressbar.ProgressBar(max_value=len(files))
                 bar.start()
-                for file  in files:
-                    args.exp_dir = args.exp_dir.exp_dir.replace(last_familiy,folder.split("/")[-1])
+                fc = 0
+                for file in files:
+                    args.exp_dir = args.exp_dir.replace(last_familiy,folder.split("/")[-1])
                     toolc.build_scdg(args, file, expl_method,folder.split("/")[-1])
+                    fc+=1
+                    bar.update(fc)
                 toolc.families += last_familiy
                 last_familiy = folder.split("/")[-1]
                 bar.finish()
+                ffc+=1
+                bar_f.update(ffc)
             bar_f.finish()
         else:
             toolc.log.info("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/malware-inputs/Sample_paper")
             exit(-1)
 
 if __name__ == "__main__":
+    if MEMORY_PROFILING:
+        tracemalloc.start()
+    
     main()
+
+    if MEMORY_PROFILING:
+        snapshot = tracemalloc.take_snapshot()
+        top_stats = snapshot.statistics('lineno')
+        print("[ Top ]")
+        for stat in top_stats:
+            print(stat)
+

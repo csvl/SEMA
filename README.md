@@ -10,6 +10,7 @@
     2. [ `ToolChainClassifier`](#tcc)
     3. [ `ToolChainFL`](#tcfl)
 
+4. [ Credentials ](#credit)
 
 :page_with_curl: Architecture
 ====
@@ -19,11 +20,17 @@
 
 * Main depencies: 
 
-    * Python3.8
+    * Python 3.8 (angr)
 
     * KVM/QEMU
 
     * Celery
+
+##### Interesting links
+
+* https://angr.io/
+
+* https://bazaar.abuse.ch/
 
 :page_with_curl: Installation
 ====
@@ -325,17 +332,18 @@ You can use any arguments of the toolchain in addition.
 
 #### Example
 
-On each client you should run:
+On each client + master you should run:
 ```bash
 (screen) bash run_worker --hostname=host1
 (screen) bash run_worker --hostname=host2
+(screen) bash run_worker --hostname=host3
 ```
 
 Then on the master node:
 
 ```bash
 bash setup_network.sh
-(screen) python3 ToolChainFL.py --method CDFS --hostnames host1 host2 --verbose databases/malware-win/Sample_paper/
+(screen) python3 ToolChainFL.py --method CDFS --hostnames host1 host2 host3 --verbose databases/malware-win/Sample_paper/
 ```
 
 #### Managing SSH sessions
@@ -369,3 +377,19 @@ To create a new window inside of a running screen session Hit `Ctrl + A` and the
 To switch from one screen window to another Hit `Ctrl + A` and then `Ctrl + A` in immediate succession.
 
 To list open screen windows Hit `Ctrl + A` and then `W` in immediate succession
+
+:page_with_curl: Credentials
+====
+<a name="credit"></a>
+
+Main authors of the projects:
+
+* **Charles-Henry Bertrand Van Ouytsel** (UCLouvain)
+
+* **Christophe Crochet** (UCLouvain)
+
+* **Khanh Huu The Dam** (UCLouvain)
+
+Under the supervision and with the support of **Fabrizio Biondi** (Avast) 
+
+Under the supervision and with the support of our professor **Axel Legay** (UCLouvain) (:heart:)

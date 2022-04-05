@@ -41,11 +41,13 @@ class ToolChain:
       
     def start_scdg(self):
         last_familiy = "unknown"
+        nameFile = "".join(self.folderName.rstrip())
         if os.path.isdir(self.folderName):
             subfolder = [os.path.join(self.folderName, f) for f in os.listdir(self.folderName) if os.path.isdir(os.path.join(self.folderName, f))]
             self.log.info(subfolder)
             bar_f = progressbar.ProgressBar(max_value=len(subfolder))
             bar_f.start()
+            ffc = 0
             for folder in subfolder:
                 self.log.info("You are currently building SCDG for " + folder)
                 self.args_scdg.exp_dir = self.args_scdg.exp_dir.replace(last_familiy,folder.split("/")[-1])
@@ -53,10 +55,15 @@ class ToolChain:
                 files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
                 bar = progressbar.ProgressBar(max_value=len(files))
                 bar.start()
+                fc = 0
                 for file  in files:
                     self.toolc.build_scdg(self.args_scdg, file, self.expl_method,last_familiy)
+                    fc+=1
+                    bar.update(fc)
                 self.families += last_familiy
                 bar.finish()
+                ffc+=1
+                bar_f.update(ffc)
             bar_f.finish()
         else:
             self.log.info("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/malware-inputs/Sample_paper")

@@ -39,7 +39,6 @@ class GetProcAddress(angr.SimProcedure):
             return symb.rebased_addr
 
         lib_addr = self.state.solver.eval(lib_handle)
-
         # import pdb; pdb.set_trace()
         if self.state.solver.eval(lib_addr) in self.state.globals["loaded_libs"]:
             lib = self.state.globals["loaded_libs"][lib_addr]
