@@ -280,10 +280,11 @@ Another classifier we use is the Support Vector Machine (`SVM`) with INRIA graph
 
 Just run the script : 
 ```bash
-python3 ToolChainClassifier.py FOLDER
+python3 ToolChainClassifier.py FOLDER/FILE
 ```
 * `FOLDER` : Folder containing binaries to classify, these binaries must be ordered by familly (default : `output/save-SCDG/`)
-* `mode`: `detection` = binary decision cleanware vs malware OR `classification` = malware family (default: classification) 
+* `train` :  Launch training process, else classify/detect new sample with previously computed model (default : False)
+* `mode`: `detection` = binary decision cleanware vs malware | `classification` = malware family (default: classification) 
 * `classifier` : Classifier used [gspan,inria,wl,dl] (default : wl)
 * `threshold` : Threshold used for the classifier [0..1] (default : 0.45)
 * `support` : Support used for the gspan classifier [0..1] (default : 0.75)
@@ -292,21 +293,32 @@ python3 ToolChainClassifier.py FOLDER
 * `nthread` : Number of thread used (default : max)
 * `families`: Families considered (default : ['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT'])"
 * `epoch` : Only for deep learning model: number of epoch (default : 5)
+* `sepoch` : Only for deep learning model: starting epoch (default : 1)
 * `data_scale` : Only for deep learning model: data scale value (default: 0.9)
 * `vector_size` : Only for deep learning model: Size of the vector used (default: 4)
 * `batch_size` : Only for deep learning model: batch size for the model(default: 1)
+* `smodel` : Only for deep learning model: Share model type, 1 partly aggregation (client do not have necessary the same family samples) and 0 fully aggregation (default: 0)
 
 
 
 #### Example
 
+This will train models for input dataset
+
 ```bash
 # Note: Deep learning model not supported by pypy --classifier dl
+pypy3 ToolChainClassifier/ToolChainClassifier.py --train output/test_classifier_CDFS/
+
+python3 ToolChainClassifier/ToolChainClassifier.py --train output/test_classifier_CDFS/
+```
+
+This will classify input dataset based on previously computed models
+
+```bash
 pypy3 ToolChainClassifier/ToolChainClassifier.py output/test_classifier_CDFS/
 
 python3 ToolChainClassifier/ToolChainClassifier.py output/test_classifier_CDFS/
 ```
-
 
 :page_with_curl: Federated Learning for collaborative works (`ToolChainFL`)
 ====
@@ -334,16 +346,16 @@ You can use any arguments of the toolchain in addition.
 
 On each client + master you should run:
 ```bash
-(screen) bash run_worker --hostname=host1
-(screen) bash run_worker --hostname=host2
-(screen) bash run_worker --hostname=host3
+(screen) bash run_worker.sh --hostname=host1 # client 1
+(screen) bash run_worker.sh --hostname=host2 # client 2
+(screen) bash run_worker.sh --hostname=host3 # client 3 and also master node
 ```
 
 Then on the master node:
 
 ```bash
 bash setup_network.sh
-(screen) python3 ToolChainFL.py --method CDFS --hostnames host1 host2 host3 --verbose databases/malware-win/Sample_paper/
+(screen) python3 ToolChainFL.py --method CDFS --smodel 1 --hostnames host1 host2 host3 --verbose databases/malware-win/Sample_paper/
 ```
 
 #### Managing SSH sessions

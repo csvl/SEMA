@@ -12,6 +12,11 @@ class ArgumentParserClassifier:
     def parse_arguments(self, allow_unk=False):
         parser = argparse.ArgumentParser()
         parser.add_argument(
+            "--train",
+            help="Launch training process, else classify/detect new sample with previously computed model",
+            action='store_true'
+        )
+        parser.add_argument(
             "--classifier",
             help="Classifier used for the analysis among (gspan,inria,wl,dl) (default : wl)",
         )
@@ -64,6 +69,12 @@ class ArgumentParserClassifier:
             help="Only for deep learning model: number of epoch (default: 5)\n Always 1 for FL model",
             type=int,
             default=5,
+        )
+        parser.add_argument(
+            "--sepoch",
+            help="Only for deep learning model: starting epoch (default: 1)\n",
+            type=int,
+            default=1,
         )
         parser.add_argument(
             "--data_scale",

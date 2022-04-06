@@ -1,6 +1,7 @@
 import logging
 import os
 import time
+import dill
 
 try:
     from classifier.GM.GSpanClassifier import GSpanClassifier
@@ -33,10 +34,18 @@ class ToolChainClassifier:
         self.log.addHandler(ch)
         self.log.propagate = False
 
-    def init_classifer(self,args,families=['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT'],is_fl=False):
-        
-        self.log.info(args)
+    def save_model(self,object, path):
+        with open(path, 'wb+') as output:
+            dill.dump(object, output)
 
+    def load_model(self,path):
+        with open(path, 'rb') as inp:
+            return dill.load(inp)
+
+    def init_classifer(self,args,
+                families=['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT'],
+                is_fl=False, from_saved_model=False):
+        self.log.info(args)
         if not is_fl:
             threshold = args.threshold
             support = args.support
@@ -53,21 +62,38 @@ class ToolChainClassifier:
             biggest_subgraph = args["biggest_subgraph"]
             epoch = args["epoch"]
             shared_type = args["smodel"]
-        if self.classifier_name == "gspan":
-            self.classifier = GSpanClassifier(path=ROOT_DIR,threshold=threshold,support=support,timeout=ctimeout,thread=nthread,biggest_subgraphs=biggest_subgraph)
-        elif self.classifier_name == "inria": 
-            self.classifier = SVMInriaClassifier(path=ROOT_DIR,threshold=threshold,families=families)
-        elif self.classifier_name == "wl": 
-            self.classifier = SVMWLClassifier(path=ROOT_DIR,threshold=threshold,families=families)
-        elif self.classifier_name == "dl": # not working with pypy
-            try:
-                from classifier.DL.DLTrainerClassifier import DLTrainerClassifier
-            except:
-                from .classifier.DL.DLTrainerClassifier import DLTrainerClassifier
-            self.classifier = DLTrainerClassifier(path=ROOT_DIR,threshold=threshold,epoch=epoch,shared_type=shared_type)
-        else:
-            self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
-            exit(-1)     
+        if not from_saved_model:
+            if self.classifier_name == "gspan":
+                self.classifier = GSpanClassifier(path=ROOT_DIR,threshold=threshold,support=support,timeout=ctimeout,thread=nthread,biggest_subgraphs=biggest_subgraph)
+            elif self.classifier_name == "inria": 
+                self.classifier = SVMInriaClassifier(path=ROOT_DIR,threshold=threshold,families=families)
+            elif self.classifier_name == "wl": 
+                self.classifier = SVMWLClassifier(path=ROOT_DIR,threshold=threshold,families=families)
+            elif self.classifier_name == "dl": # not working with pypy
+                try:
+                    from classifier.DL.DLTrainerClassifier import DLTrainerClassifier
+                except:
+                    from .classifier.DL.DLTrainerClassifier import DLTrainerClassifier
+                self.classifier = DLTrainerClassifier(path=ROOT_DIR,threshold=threshold,epoch=epoch,shared_type=shared_type)
+            else:
+                self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
+                exit(-1)    
+        else: # TODO improve
+            if self.classifier_name == "gspan":
+                self.classifier = self.load_model(ROOT_DIR + "/classifier/saved_model/gspan_model.pkl")
+            elif self.classifier_name == "inria": 
+                self.classifier = self.load_model(ROOT_DIR + "/classifier/saved_model/inria_model.pkl")
+            elif self.classifier_name == "wl": 
+                self.classifier = self.load_model(ROOT_DIR + "/classifier/saved_model/wl_model.pkl")
+            elif self.classifier_name == "dl": # not working with pypy
+                try:
+                    from classifier.DL.DLTrainerClassifier import DLTrainerClassifier
+                except:
+                    from .classifier.DL.DLTrainerClassifier import DLTrainerClassifier
+                self.classifier = self.load_model(ROOT_DIR + "/classifier/saved_model/dl_model.pkl")
+            else:
+                self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
+                exit(-1)   
 
 def main():
     tc = ToolChainClassifier()
@@ -80,7 +106,7 @@ def main():
         input_path = tc.input_path
 
     if args.families:
-        tc.init_classifer(args=args,families=args.families)
+        tc.init_classifer(args=args,families=args.families ,from_saved_model=(not args.train))
     else:
         families = []
         last_familiy = "unknown"
@@ -90,28 +116,37 @@ def main():
             for folder in subfolder:
                 last_familiy = folder.split("/")[-1]
                 families.append(str(last_familiy))
-        tc.init_classifer(args=args,families=families)
+        tc.init_classifer(args=args,families=families,from_saved_model=(not args.train))
     
-    if tc.input_path is None:
-        tc.classifier.train(input_path)
-    else:
-        tc.classifier.train(tc.input_path)
+    if args.train: # TODO refactor
+        if tc.classifier_name == "dl":
+            if tc.input_path is None:
+                tc.classifier.train(input_path,sepoch=args.sepoch)
+            else:
+                tc.classifier.train(tc.input_path,sepoch=args.sepoch)
+        else:
+            if tc.input_path is None:
+                tc.classifier.train(input_path)
+            else:
+                tc.classifier.train(tc.input_path)
+        tc.save_model(tc.classifier,ROOT_DIR + "/classifier/saved_model/"+ tc.classifier_name +"_model.pkl")
     
     elapsed_time = time.time() - tc.start_time
     tc.log.info("Total training time: " + str(elapsed_time))
-
+    
     if tc.mode == "classification":
-        tc.classifier.classify()
+        tc.classifier.classify(path=(None if args.train else input_path))
     else:
-        tc.classifier.detection()
+        tc.classifier.detection(path=(None if args.train else input_path))
 
     elapsed_time = time.time() - tc.start_time
     tc.log.info("Total "+ tc.mode +" time: " + str(elapsed_time))
 
-    if tc.classifer_name == "gspan":
-        tc.classifier.get_stat_classifier(target=tc.mode)
-    else:
-        tc.classifier.get_stat_classifier()
+    if args.train:
+        if tc.classifier_name == "gspan":
+            tc.classifier.get_stat_classifier(target=tc.mode)
+        else:
+            tc.classifier.get_stat_classifier()
 
 
 if __name__ == "__main__":

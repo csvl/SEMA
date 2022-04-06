@@ -53,12 +53,6 @@ class SVMClassifier(Classifier):
         self.original_path = ""
         self.G_train, self.G_test, self.y_train, self.y_test = [],[],[],[]
 
-    def classify(self):
-        self.y_pred = self.clf.predict(self.K_test)
-
-    def detection(self):
-        pass
-
     def init_dataset(self, path):
         if path[-1] != "/":
             path += "/"

@@ -3,7 +3,6 @@ import logging
 import os
 import subprocess
 from matplotlib import pyplot as plt
-
 import numpy as np
 from grakel import Graph
 from grakel.datasets import fetch_dataset
@@ -43,12 +42,12 @@ class Classifier():
         """
         pass
 
-    def detection(self):
+    def detection(self,path=None):
         """
         Malware vs cleanware
         """
         pass
-    
+
     # Train the model
     def train(self,path):
         pass

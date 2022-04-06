@@ -38,10 +38,12 @@ class ToolChain:
         self.args_class  = self.args_parser.args_parser_class.parse_arguments(True)
 
         self.families = []
+
+        self.input_path = None
       
     def start_scdg(self):
         last_familiy = "unknown"
-        nameFile = "".join(self.folderName.rstrip())
+        self.folderName = "".join(self.folderName.rstrip())
         if os.path.isdir(self.folderName):
             subfolder = [os.path.join(self.folderName, f) for f in os.listdir(self.folderName) if os.path.isdir(os.path.join(self.folderName, f))]
             self.log.info(subfolder)
@@ -71,33 +73,36 @@ class ToolChain:
     
     def start_training(self):
         if self.toolmc.input_path is None:
-            input_path = self.args_scdg.exp_dir
+            self.input_path = self.args_scdg.exp_dir
         else:
-            input_path = self.toolmc.input_path
-        input_path = input_path.replace("unknown/","") # todo
+            self.input_path = self.toolmc.input_path
+        self.input_path = self.input_path.replace("unknown/","") # todo
         self.families = []
         last_familiy = "unknown"
-        if os.path.isdir(input_path):
-            subfolder = [os.path.join(input_path, f) for f in os.listdir(input_path) if os.path.isdir(os.path.join(input_path, f))]
+        if os.path.isdir(self.input_path):
+            subfolder = [os.path.join(self.input_path, f) for f in os.listdir(self.input_path) if os.path.isdir(os.path.join(self.input_path, f))]
             self.log.info(subfolder)
             for folder in subfolder:
                 last_familiy = folder.split("/")[-1]
                 self.families.append(str(last_familiy))
 
-        self.toolmc.init_classifer(args=self.args_class,families=self.families)
-        if self.toolmc.input_path is None:
-            print(input_path)
-            self.toolmc.classifier.train(input_path)
-        else:
-            self.toolmc.classifier.train(self.toolmc.input_path)
+        self.toolmc.init_classifer(args=self.args_class,families=self.families ,from_saved_model=(not self.args_class.train))
+        
+        if self.args_class.train:
+            if self.toolmc.input_path is None:
+                self.toolmc.classifier.train(self.input_path)
+            else:
+                self.toolmc.classifier.train(self.toolmc.input_path)
+            self.toolmc.save_model(self.toolmc.classifier,ROOT_DIR + "/ToolChainClassifier/classifier/saved_model/"+ self.toolmc.classifier_name +"_model.pkl")
 
     def start_classify(self):
         if self.toolmc.classifier.dataset_len > 0:
-            self.toolmc.classifier.classify()
-            if self.toolmc.classifer_name == "gspan":
-                self.toolmc.classifier.get_stat_classifier(target=self.toolmc.mode)
-            else:
-                self.toolmc.classifier.get_stat_classifier()
+            self.toolmc.classifier.classify(path=(None if self.args_class.train else self.input_path))
+            if self.args_class.train:
+                if self.toolmc.classifier_name == "gspan":
+                    self.toolmc.classifier.get_stat_classifier(target=self.toolmc.mode)
+                else:
+                    self.toolmc.classifier.get_stat_classifier()
 
 def main():
     tc = ToolChain()

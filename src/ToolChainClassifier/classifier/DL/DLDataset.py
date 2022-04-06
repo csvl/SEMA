@@ -56,7 +56,7 @@ class DLDataset(torch.utils.data.Dataset):
         self.load_data()
         
     def load_data(self):
-        self.log.info(f"loading data from {self.rootdir}")
+        self.log.info(f"Loading data from {self.rootdir}")
         bar = progressbar.ProgressBar(max_value=len(self.data))
         bar.start()
         data = list()

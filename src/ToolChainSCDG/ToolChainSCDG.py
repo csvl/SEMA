@@ -600,7 +600,7 @@ if __name__ == "__main__":
     if MEMORY_PROFILING:
         snapshot = tracemalloc.take_snapshot()
         top_stats = snapshot.statistics('lineno')
-        print("[ Top ]")
-        for stat in top_stats:
+        print("[ Top 50 ]")
+        for stat in top_stats[:50]:
             print(stat)
 

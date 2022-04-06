@@ -6,7 +6,6 @@ try:
 except:
     from HE.HE_SEALS import F, RSA
 import os
-# import pickle
 import dill
 import celery
 
@@ -124,10 +123,6 @@ def train(** args):
         trainer.n_epochs = 1
     else:
         trainer = load_object(os.path.join(pwd,f"R{nround-1}_{run_name}_model.pkl"))
-        if len(trainer.data_train) > 0:
-            print("ok")
-        else:
-            exit(1)
         trainer.n_epochs = 1
         
     model, his = trainer.train(input_path)
@@ -149,14 +144,7 @@ def decryption(**args):
     trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_model.pkl"))
     trainer.share_model = F.update_encrypt(key,context,para, num, trainer.share_model)
     save_object(trainer, os.path.join(pwd,f"R{nround}_{run_name}_model.pkl"))
-    para = trainer.get_model_parameter()
-    """
-    para =[]
-    for p in t.modelparameters:
-        v = p.flatten().tolist()
-        para.append(v)
-    """
-            
+    para = trainer.get_model_parameter()       
     ctx = F.string_to_bytes(args["ctx"])
     v_enc =  F.string_to_enc(args["v_enc"],context)
     v = v_enc.decrypt(key)

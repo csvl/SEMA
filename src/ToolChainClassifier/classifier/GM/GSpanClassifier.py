@@ -162,13 +162,14 @@ class GSpanClassifier(Classifier):
         bar.finish() 
             
      # todo filter files   
-    def classify(self):
+    def classify(self, path=None):
+        input_path = self.path_test if path is None else path
         predictions = []
-        bar = progressbar.ProgressBar(max_value=len(self.family))
+        bar = progressbar.ProgressBar(max_value=len(self.family)) # TODO update
         bar.start()
         for family in self.family:
             #Iterate through samples of the family to classify
-            for test_input in glob.glob(self.path_test+family+'/*'):
+            for test_input in glob.glob(input_path+family+'/*'):
                 score = []
                 fam_tar = []
                 #Iterate through signature to test in order to classify samples
@@ -195,12 +196,17 @@ class GSpanClassifier(Classifier):
                     predictions.append(['clean',family,score[max_score[0]]])
         bar.finish() 
         self.predictions = predictions
-        self.log.info(predictions)
+        if path is None:
+            self.log.info(predictions)
+        else:
+            print("Prediction:")
+            print(predictions)
         return predictions
 
-    def detection(self):
+    def detection(self, path=None):
+        input_path = self.path_clean if path is None else path
         predictions = []
-        test_inputs = glob.glob(self.path_clean+'/*')
+        test_inputs = glob.glob(input_path+'/*')
         bar = progressbar.ProgressBar(max_value=len(test_inputs))
         bar.start()
         #Iterate through samples of cleanware to classify
@@ -230,6 +236,11 @@ class GSpanClassifier(Classifier):
                 predictions.append(["clean","clean",score[max_score[0]]])
         bar.finish()
         self.predictions_clean = predictions
+        if path is None:
+            self.log.info(predictions)
+        else:
+            print("Prediction:")
+            print(predictions)
         return predictions
     
     def _calculate_sim(self,in_file,sig):

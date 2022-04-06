@@ -195,7 +195,7 @@ class CustomSimProcedure:
         
     def init_windows_sim_proc(self):
         # Import all classes under the current directory, and group them based on
-        self.custom_simproc_windows = {}
+        self.custom_simproc_windows.clear()
         path = os.path.dirname(os.path.abspath(__file__)) + "/windows"
         self.log.info("Windows lib path = " + str(path))
         skip_dirs = ["definitions"]
@@ -231,7 +231,7 @@ class CustomSimProcedure:
         # self.log.info(self.custom_simproc_windows)
 
     def init_linux_sim_proc(self):
-        self.custom_simproc = {}
+        self.custom_simproc.clear()
         path = os.path.dirname(os.path.abspath(__file__)) + "/linux"
         self.log.info("Linux lib path = " + str(path))
         skip_dirs = ["definitions"]
