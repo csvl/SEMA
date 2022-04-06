@@ -3,6 +3,7 @@ try:
 	import torch.nn as nn
 	from torch.nn import functional as F
 	from torch.utils.data import DataLoader, random_split
+	device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 except:
 	print("Deep learning model do no support pypy3")
 	exit(-1)
@@ -100,8 +101,8 @@ class DLTrainerClassifier(Classifier):
 		self.labels =[c for c in self._model.classes]
 		self.loss = 0.
 		for x,y in self.test_loader:
-			y_predict = self._model.predict(x[0])
-			l = self.loss_calc(x,y_predict, x,y[0],criterion_x,criterion_y)
+			y_predict = self._model.predict(x[0].to(device))
+			l = self.loss_calc(x,y_predict, x,y[0].to(device),criterion_x,criterion_y)
 			if l is not None:
 				self.loss+=l.item()
 			i = torch.argmax(y_predict).item()
@@ -134,8 +135,9 @@ class DLTrainerClassifier(Classifier):
 		history = dict(train=[], val=[])
 		best_model_wts = copy.deepcopy(self._model.state_dict())
 		best_loss = 1e9
-		self._model.train()
+		
 		for epoch in range(sepoch, self.n_epochs+1):
+			self._model.train()
 			train_losses = []
 			self.log.info(f"Epoch {epoch}/{self.n_epochs}:")
 			bar = progressbar.ProgressBar(max_value=len(self.train_dataset)+len(self.val_dataset))
@@ -143,8 +145,8 @@ class DLTrainerClassifier(Classifier):
 			i_count = 0
 			for seq_true,y_true in self.train_dataset:
 				optimizer.zero_grad()
-				x = seq_true[0] 
-				y= y_true[0]
+				x = seq_true[0].to(device) 
+				y= y_true[0].to(device)
 				x2,y_pred = self._model(x)
 				loss = self.loss_calc(x2,y_pred, 
 							x, y, 
@@ -161,9 +163,9 @@ class DLTrainerClassifier(Classifier):
 				self._model.eval()
 				with torch.no_grad():
 					for seq_true,y in self.val_dataset:
-						x = seq_true[0]
+						x = seq_true[0].to(device)
 						x2,y_pred = self._model(x)
-						loss = self.loss_calc(x2, y_pred, x, y[0], criterion_x, criterion_y)
+						loss = self.loss_calc(x2, y_pred, x, y[0].to(device), criterion_x, criterion_y)
 						val_losses.append(loss.item())
 						i_count+=1
 						bar.update(i_count)
