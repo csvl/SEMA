@@ -52,3 +52,5 @@
 * replace celery
 
 * decentralized version
+
+* Put same test data in each 

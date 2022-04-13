@@ -911,7 +911,7 @@ class CustomSimProcedure:
         TODO pre-post + automatization
         """
         self.log.info("custom_hook_static")
-        proj.loader
+        #proj.loader
         symbols = proj.loader.symbols
 
         custom_pack = self.custom_simproc_windows["custom_package"]
@@ -1063,7 +1063,7 @@ class CustomSimProcedure:
     def custom_hook_windows_symbols(self, proj):
         # self.ANG_CALLING_CONVENTION = {"__stdcall": SimCCStdcall, "__cdecl": SimCCCdecl}
         self.log.info("custom_hook_windows_symbols")
-        proj.loader
+        #proj.loader
         symbols = proj.loader.symbols
         custom_pack = self.custom_simproc["custom_package"]
         generic = {}

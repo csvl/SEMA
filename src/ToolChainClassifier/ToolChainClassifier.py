@@ -74,7 +74,7 @@ class ToolChainClassifier:
                     from classifier.DL.DLTrainerClassifier import DLTrainerClassifier
                 except:
                     from .classifier.DL.DLTrainerClassifier import DLTrainerClassifier
-                self.classifier = DLTrainerClassifier(path=ROOT_DIR,threshold=threshold,epoch=epoch,shared_type=shared_type)
+                self.classifier = DLTrainerClassifier(path=ROOT_DIR,epoch=epoch,shared_type=shared_type)
             else:
                 self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
                 exit(-1)    
@@ -94,6 +94,7 @@ class ToolChainClassifier:
             else:
                 self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
                 exit(-1)   
+            self.classifier.families = families
 
 def main():
     tc = ToolChainClassifier()
@@ -119,20 +120,18 @@ def main():
         tc.init_classifer(args=args,families=families,from_saved_model=(not args.train))
     
     if args.train: # TODO refactor
+        args_train = {}
         if tc.classifier_name == "dl":
-            if tc.input_path is None:
-                tc.classifier.train(input_path,sepoch=args.sepoch)
-            else:
-                tc.classifier.train(tc.input_path,sepoch=args.sepoch)
+            args_train["sepoch"] = args.sepoch
+        if tc.input_path is None:
+            args_train["path"] = input_path
         else:
-            if tc.input_path is None:
-                tc.classifier.train(input_path)
-            else:
-                tc.classifier.train(tc.input_path)
+            args_train["path"] = tc.input_path
+        tc.classifier.train(**args_train)
         tc.save_model(tc.classifier,ROOT_DIR + "/classifier/saved_model/"+ tc.classifier_name +"_model.pkl")
     
-    elapsed_time = time.time() - tc.start_time
-    tc.log.info("Total training time: " + str(elapsed_time))
+        elapsed_time = time.time() - tc.start_time
+        tc.log.info("Total training time: " + str(elapsed_time))
     
     if tc.mode == "classification":
         tc.classifier.classify(path=(None if args.train else input_path))
@@ -143,10 +142,10 @@ def main():
     tc.log.info("Total "+ tc.mode +" time: " + str(elapsed_time))
 
     if args.train:
+        args_res = {}
         if tc.classifier_name == "gspan":
-            tc.classifier.get_stat_classifier(target=tc.mode)
-        else:
-            tc.classifier.get_stat_classifier()
+            args_res["target"] = tc.mode
+        tc.classifier.get_stat_classifier(**args_res)
 
 
 if __name__ == "__main__":

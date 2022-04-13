@@ -1,3 +1,4 @@
+import glob
 import logging
 from ToolChainClassifier.ToolChainClassifier import ToolChainClassifier
 from ToolChainSCDG.clogging.CustomFormatter import CustomFormatter
@@ -8,6 +9,7 @@ except:
 import os
 import dill
 import celery
+import json
 
 # Celery config
 # Client: 130.104.229.26
@@ -92,6 +94,20 @@ def load_object(path):
     with open(path, 'rb') as inp:
         return dill.load(inp)
 
+def signature_to_json(path_sig):
+    #Iterate through samples of cleanware to classify
+    data = {}
+    for signature in glob.glob(path_sig+'*_sig.gs'):
+        f0 = open(signature,'r')
+        signature = signature.split("/")[-1] # keep name as index
+        data[signature] = {}
+        row = 0
+        for line in f0 :
+            data[signature][row] = line
+            row += 1
+    logc.log(data)
+    return data
+
 @app.task
 def initHE( v):
     import tenseal as ts
@@ -100,17 +116,38 @@ def initHE( v):
     return {"ctx":F.enc_to_string(context),"v":F.enc_to_string(v_enc), "pk": F.bytes_to_string(pem)}
 
 @app.task
+def decryption(**args):
+    import tenseal as ts
+    run_name  = args["run_name"]
+    para = args["para"]
+    classifier = args["classifier"]
+    ctx = args["ctx"]
+    nround = args["nround"]
+    num = float(args["num"])
+    pwd = ROOT_DIR
+    trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_{classifier}_model.pkl"))
+    trainer.share_model = F.update_encrypt(key,context,para, num, trainer.share_model)
+    save_object(trainer, os.path.join(pwd,f"R{nround}_{run_name}_{classifier}_model.pkl"))
+    para = trainer.get_model_parameter()       
+    ctx = F.string_to_bytes(args["ctx"])
+    v_enc =  F.string_to_enc(args["v_enc"],context)
+    v = v_enc.decrypt(key)
+    v_enc = ts.ckks_vector(ts.context_from(ctx),v)
+    return {"v":F.enc_to_string(v_enc), "para": para}
+
+@app.task
 def train(** args):
     ctx = F.string_to_bytes(args["ctx"])
     run_name  = args["run_name"]
     nround = args["nround"]
     input_path = args["input_path"]
+    classifier = args["classifier"]
     args_class = args["args_class"]
     pwd = ROOT_DIR
     logc.info(run_name)
         
     if nround<1:
-        toolcl = ToolChainClassifier(classifier_name = "dl")
+        toolcl = ToolChainClassifier(classifier_name=classifier)
         families = []
         last_familiy = "unknown"
         if os.path.isdir(input_path):
@@ -122,57 +159,75 @@ def train(** args):
         trainer = toolcl.classifier
         trainer.n_epochs = 1
     else:
-        trainer = load_object(os.path.join(pwd,f"R{nround-1}_{run_name}_model.pkl"))
+        trainer = load_object(os.path.join(pwd,f"R{nround-1}_{run_name}_{classifier}_model.pkl"))
         trainer.n_epochs = 1
+    
+    if classifier == "dl":
+        model, his = trainer.train(input_path)
+    elif classifier == "gspan":
+        trainer.train(input_path)
+    else:
+        exit(-1)
         
-    model, his = trainer.train(input_path)
-        
-    save_object(trainer, os.path.join(pwd,f"R{nround}_{run_name}_model.pkl"))
-        
-    para = F.encrypt_weight(ctx,trainer.share_model)
-    return {"para":para,"his":his}
+    save_object(trainer, os.path.join(pwd,f"R{nround}_{run_name}_{classifier}_model.pkl"))
+    
+    if classifier == "dl":
+        para = F.encrypt_weight(ctx,trainer.share_model)
+        return {"para":para,"his":his}
+    elif classifier == "gspan": 
+        # TODO graph concatenation instead
+        data = signature_to_json(trainer.path_sig)
+        data_string = json.dumps(data)
+        para = RSA.encrypt(pk,data_string)
+        return {"para":para}
 
-@app.task
-def decryption(**args):
-    import tenseal as ts
-    run_name  = args["run_name"]
-    para = args["para"]
-    ctx = args["ctx"]
-    nround = args["nround"]
-    num = float(args["num"])
-    pwd = ROOT_DIR
-    trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_model.pkl"))
-    trainer.share_model = F.update_encrypt(key,context,para, num, trainer.share_model)
-    save_object(trainer, os.path.join(pwd,f"R{nround}_{run_name}_model.pkl"))
-    para = trainer.get_model_parameter()       
-    ctx = F.string_to_bytes(args["ctx"])
-    v_enc =  F.string_to_enc(args["v_enc"],context)
-    v = v_enc.decrypt(key)
-    v_enc = ts.ckks_vector(ts.context_from(ctx),v)
-        
-    return {"v":F.enc_to_string(v_enc), "para": para}
-        
 @app.task
 def update(**args):
     run_name  = args["run_name"]
     para = args["para"]
     v_enc = F.string_to_enc(args["v_enc"],context)
-    num = 1.0
+    classifier = args["classifier"]
     nround = args["nround"]
     pwd = ROOT_DIR
-    trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_model.pkl"))
+    trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_{classifier}_model.pkl"))
     trainer.modelparameters = para
     save_object(trainer, f"{run_name}_model.pkl")
-    save_object(trainer, os.path.join(pwd,f"R{nround}_{run_name}_model.pkl"))
+    save_object(trainer, os.path.join(pwd,f"R{nround}_{run_name}_{classifier}_model.pkl"))
     return {"v":v_enc.decrypt(key)}
+
+@app.task
+def save_sig(**args):
+    enc_best_sig_string = args["enc_best_sig_string"]
+    clear_sig = RSA.decrypt(enc_best_sig_string)
+    data_sig = json.loads(clear_sig)
+    try: # TODO for now we replace standard signature folder with best one
+        if os.path.isdir(ROOT_DIR+"/ToolChainClassifier/classifier/sig/"):
+            os.rmdir(ROOT_DIR+"/ToolChainClassifier/classifier/sig/")
+        os.mkdir(ROOT_DIR+"/ToolChainClassifier/classifier/sig/")
+    except:
+        print('error')
+        return {"v": -1}
+    for signature in data_sig:
+        f = open(ROOT_DIR+"/ToolChainClassifier/classifier/sig/"+signature, "w")
+        for line in data_sig[signature]:
+            f.write(line)
+        f.close()
+    return {"v": 0}
         
 @app.task
 def test(**args):
     nround = args["nround"]
     run_name  = args["run_name"]
+    classifier = args["classifier"]
     pwd = ROOT_DIR
-    trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_model.pkl"))
-    trainer.classify()
-    acc, loss = trainer.get_stat_classifier()
-    return {"acc":acc, "loss":loss}
+    trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_{classifier}_model.pkl"))
+    if classifier == "dl":
+        trainer.classify() # TODO add custom path
+        acc, loss = trainer.get_stat_classifier()
+        return {"acc":acc, "loss":loss}
+    elif classifier == "gpsan":
+        sigpath = args["sigpath"]
+        trainer.classify(custom_sig_path=sigpath) # TODO add custom path
+        fscore = trainer.get_stat_classifier()
+        return {"fscore":fscore}
 

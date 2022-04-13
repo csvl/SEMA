@@ -363,7 +363,9 @@ class ToolChainSCDG:
                 }
             ]
         )
-
+        
+        self.jump_dict.clear()
+        self.jump_concrete_dict.clear()
         self.jump_dict[0] = {}
         self.jump_concrete_dict[0] = {}
 
@@ -440,7 +442,7 @@ class ToolChainSCDG:
 
         g = GraphBuilder(
             name=nameFileShort,
-            mapping="mapping.txt",
+            mapping=exp_dir+"mapping.txt",
             merge_call=(not disjoint_union),
             comp_args=(not not_comp_args),
             min_size=min_size,
@@ -572,17 +574,18 @@ def main():
             ffc = 0
             for folder in subfolder:
                 toolc.log.info("You are currently building SCDG for " + folder)
-                files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
+                files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and not f.endswith(".zip")]
                 bar = progressbar.ProgressBar(max_value=len(files))
                 bar.start()
                 fc = 0
+                current_family = folder.split("/")[-1]
+                args.exp_dir = args.exp_dir.replace(last_familiy,current_family) 
                 for file in files:
-                    args.exp_dir = args.exp_dir.replace(last_familiy,folder.split("/")[-1])
-                    toolc.build_scdg(args, file, expl_method,folder.split("/")[-1])
+                    toolc.build_scdg(args, file, expl_method, current_family)
                     fc+=1
                     bar.update(fc)
-                toolc.families += last_familiy
-                last_familiy = folder.split("/")[-1]
+                toolc.families += current_family
+                last_familiy = current_family
                 bar.finish()
                 ffc+=1
                 bar_f.update(ffc)

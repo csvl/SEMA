@@ -24,9 +24,13 @@ class Classifier():
         
         self.name = name
         self.threshold = threshold
-        self.gspan_path = path.replace("ToolChainClassifier","submodules/toolchain_quickspan/build/") 
+        self.gspan_path = path.replace("ToolChainClassifier","submodules/SEMA-quickspan/build/") 
         self.dico_precomputed = []
         self.dataset_len = 0
+
+        self.train_dataset = None
+        self.val_dataset = None
+        self.test_dataset = None
 
         
     # Classify malware use the model

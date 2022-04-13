@@ -130,6 +130,11 @@ class ArgumentParserSCDG:
             "--unpack_method",
             help="unpack with Symbion (linux only | todo) or with unipacker (windows only) [symbion|unipacker]\nTrue if --packed is set with symbion as default",
         )
+        parser.add_argument('--smodel', 
+            type=int,
+            help='Share model type, 1 partly aggregation and 0 fully aggregation, default smodel=0',
+            default=0
+        ) # TODO remove from here
         parser.add_argument(
             "--concrete_target_is_local",
             action="store_true",
@@ -180,7 +185,7 @@ class ArgumentParserSCDG:
             self.tcw.eval_time = True
 
         self.tcw.max_simul_state = args.simul_state
-
+        sys.setrecursionlimit(2000)
         self.tcw.string_resolv = not args.not_resolv_string
         if args.limit_pause:
             self.tcw.max_in_pause_stach = args.limit_pause

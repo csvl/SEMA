@@ -47,11 +47,11 @@ class SVMWLClassifier(SVMClassifier):
 
     def classify(self,path=None):
         if path is None:
-            self.y_pred = self.clf.predict(self.K_test)
+            self.y_pred = self.clf.predict(self.K_val)
         else:
             super().init_dataset(path)
-            data_test = self.gk.transform(self.dataset)
-            self.y_pred = self.clf.predict(data_test)
+            K_test = self.gk.transform(self.dataset)
+            self.y_pred = self.clf.predict(K_test)
             print("Prediction:")
             print(self.y_pred)
 
@@ -67,8 +67,8 @@ class SVMWLClassifier(SVMClassifier):
         if self.dataset_len > 0:
             super().split_dataset()
             self.gk = WeisfeilerLehmanOptimalAssignment(normalize=True)
-            self.K_train = self.gk.fit_transform(self.G_train)
-            self.K_test = self.gk.transform(self.G_test)
+            self.K_train = self.gk.fit_transform(self.train_dataset)
+            self.K_val = self.gk.transform(self.val_dataset)
             f = open(CLASS_DIR+'/dico/myDico6.pkl','wb')
             pickle.dump(self.dico_precomputed,f)
             f.close()

@@ -44,17 +44,16 @@ class SVMInriaClassifier(SVMClassifier):
     
     def classify(self,path=None):
         if path is None:
-            self.y_pred = self.clf.predict(self.K_test)
+            self.y_pred = self.clf.predict(self.K_val)
         else:
             super().init_dataset(path)
-            data_test = self.manual_kernel_gram_matrix(self.dataset,self.dataset)
-            self.y_pred = self.clf.predict(data_test)
+            K_test = self.manual_kernel_gram_matrix(self.dataset,self.train_dataset)
+            self.y_pred = self.clf.predict(K_test)
             print("Prediction:")
             print(self.y_pred)
 
     def detection(self,path=None):
         pass
-
 
     def train(self,path):
         super().init_dataset(path)
@@ -64,9 +63,9 @@ class SVMInriaClassifier(SVMClassifier):
         if len(self.dataset) > 0:
             super().split_dataset()
             self.log.info('-----------------------------------------')
-            self.K_train = self.manual_kernel_gram_matrix(self.G_train,self.G_train)
+            self.K_train = self.manual_kernel_gram_matrix(self.train_dataset,self.train_dataset)
             self.log.info('-----------------TRAIN OK-------------------')
-            self.K_test = self.manual_kernel_gram_matrix(self.G_test,self.G_train)
+            self.K_val = self.manual_kernel_gram_matrix(self.val_dataset,self.train_dataset)
             self.log.info('------------------TEST OK---------------')
             f = open(CLASS_DIR+'/dico/myDico6.pkl','wb')
             pickle.dump(self.dico_precomputed,f)

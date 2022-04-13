@@ -29,11 +29,11 @@ except:
 	 
 
 class DLTrainerClassifier(Classifier):
-	def __init__(self, path, threshold=0.45, 
+	def __init__(self, path, 
 				shared_type=0, epoch=5, data_scale=0.9, 
 				vector_size=4, batch_size=1):
 
-		super().__init__(path,'DLTrainerClassifier', threshold)
+		super().__init__(path,'DLTrainerClassifier', 0)
 		ch = logging.StreamHandler()
 		ch.setLevel(logging.INFO)
 		ch.setFormatter(CustomFormatter())
@@ -45,13 +45,14 @@ class DLTrainerClassifier(Classifier):
 		self.vector_size = vector_size
 		self.data_train = None
 		self.data_scale = data_scale
-		self.train_dataset = None
-		self.val_dataset = None
+
 		self.n_features = 0
 		self.embedding_dim = 0
 		self.classe = 0
 		self.n_epochs = epoch
 		self.batch_size = batch_size
+
+		self.families = []
 
 		self.y_true = []
 		self.y_pred = []
@@ -61,9 +62,6 @@ class DLTrainerClassifier(Classifier):
 		self.loss = 0
 
 		self.data_load = False
-
-		self.test_loader = None
-		self.data_loader = None
 		self._model = None
 		self.shared_type = shared_type
 
@@ -72,14 +70,14 @@ class DLTrainerClassifier(Classifier):
 		self.apipath = self.apiname #os.path.join(dir_path, apiname)
 		self.mappath = self.fname   #os.path.join(dir_path, fname)
 	
-	def get_stat_classifier(self, save_path=None, is_trained=False): # TODO custom parameter
-		self.TPR = self.TP/len(self.test_loader)
-		self.loss = self.loss/len(self.test_loader)
-		self.log.info(f"Labels: {len(self.labels)}\nDetect {self.TP}/{len(self.test_loader)}\nDetection rate: {self.TPR}\nLoss: {self.loss}")
+	def get_stat_classifier(self, save_path=None): # TODO custom parameter
+		self.TPR = self.TP/len(self.val_dataset)
+		self.loss = self.loss/len(self.val_dataset)
+		self.log.info(f"\nLabels: {len(self.labels)}\nDetect {self.TP}/{len(self.val_dataset)}\nDetection rate: {self.TPR}\nLoss: {self.loss}")
 		acc = accuracy_score(self.y_true, self.y_pred)
 		bacc = balanced_accuracy_score(self.y_true, self.y_pred)
 		fscore = f1_score(self.y_true,self.y_pred, average='weighted')
-		self.log.info(f"Acc\t{acc}\nBalanced Acc\t{bacc}\nFscore\t{fscore}")
+		self.log.info(f"\nAcc\t{acc}\nBalanced Acc\t{bacc}\nFscore\t{fscore}")
 		cm = confusion_matrix(self.y_true, self.y_pred,labels = sorted(self.labels))
 		disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=sorted(self.labels))
 		disp.plot()
@@ -100,7 +98,7 @@ class DLTrainerClassifier(Classifier):
 		self.loss = 0.
 
 		if path is None:
-			for x,y in self.test_loader:
+			for x,y in self.val_dataset:
 				y_predict = self._model.predict(x[0])
 				l = self.loss_calc(x,y_predict, x,y[0],criterion_x,criterion_y)
 				if l is not None:
@@ -112,23 +110,19 @@ class DLTrainerClassifier(Classifier):
 				self.y_true.append(self.labels[j])
 				self.y_pred.append(self.labels[i])
 		else:
+			'''
+			Already have a model -> classify new data
+			'''
 			import multiprocessing
 			ncpu = multiprocessing.cpu_count()
-			data_classify = DLDataset(path, self.mappath, self.apipath,self.vector_size)
-			self.data_loader = DataLoader(data_classify, batch_size=self.batch_size,num_workers=ncpu)
-			for x,y in self.data_loader:
+			data_classify = DLDataset(path, self.mappath, self.apipath, self.vector_size)
+			self.test_dataset = DataLoader(data_classify,num_workers=ncpu)
+			for x,y in self.test_dataset:
 				y_predict = self._model.predict(x[0])
-				l = self.loss_calc(x,y_predict, x,y[0],criterion_x,criterion_y)
-				if l is not None:
-					self.loss+=l.item()
 				i = torch.argmax(y_predict).item()
-				j = torch.argmax(y).item()
-				if i==j:
-					self.TP +=1
-				self.y_true.append(self.labels[j])
 				self.y_pred.append(self.labels[i])
-				print("Prediction:")
-				print(self.y_pred)
+			print("Prediction:")
+			print(self.y_pred)
 		
 	def detection(self, path=None):
 		"""
@@ -137,16 +131,15 @@ class DLTrainerClassifier(Classifier):
 		"""
 		pass
 	
-	def train(self, input_path, sepoch=1):
+	def train(self, path, sepoch=1):
 		if not self.data_load:
 			import multiprocessing
 			ncpu = multiprocessing.cpu_count()
-			self.data_train = DLDataset(input_path, self.mappath, self.apipath,self.vector_size)
+			self.data_train = DLDataset(path, self.mappath, self.apipath,self.vector_size)
 			d_train, d_val = random_split(self.data_train, [int(len(self.data_train)*self.data_scale), len(self.data_train)-int(len(self.data_train)*self.data_scale)])
 			self.train_dataset = DataLoader(d_train, batch_size=self.batch_size,num_workers=ncpu)
 			self.val_dataset = DataLoader(d_val, batch_size=self.batch_size,num_workers=ncpu)
 			self.n_features, self.embedding_dim, self.classe = self.vector_size*2, 64, self.data_train.classes
-			self.test_loader = DataLoader(self.data_train, batch_size=self.batch_size,num_workers=ncpu) # before 4
 			self._model = DLClassifier(self.n_features,self.embedding_dim, self.classe)
 			self.data_load = True
 
@@ -212,9 +205,6 @@ class DLTrainerClassifier(Classifier):
 			
 		self._model.load_state_dict(best_model_wts)
 		self.log.info(f"\tLoss: {best_loss}")
-
-
-
 		return self._model, history
 		
 	def loss_calc(self,x,y,x_target, y_target,criterion_x,criterion_y):

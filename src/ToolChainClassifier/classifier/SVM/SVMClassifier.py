@@ -46,12 +46,12 @@ class SVMClassifier(Classifier):
         self.families = families
         self.clf = None
         self.y_pred = None
-        self.y_test = None
-        self.K_test = None
+
+        self.K_val = None
         self.K_train = None
-        self.train_index, self.test_index = [],[]
+        self.train_index, self.val_index = [],[]
         self.original_path = ""
-        self.G_train, self.G_test, self.y_train, self.y_test = [],[],[],[]
+        self.train_dataset, self.val_dataset, self.y_train, self.y_val = [],[],[],[]
 
     def init_dataset(self, path):
         if path[-1] != "/":
@@ -90,24 +90,24 @@ class SVMClassifier(Classifier):
         sss = StratifiedShuffleSplit(n_splits=1, test_size=0.4, random_state=24)
         for train, test in sss.split(self.dataset, self.label):
             self.train_index = train
-            self.test_index = test
+            self.val_index = test
         for i in self.train_index:
-            self.G_train.append(self.dataset[i])
+            self.train_dataset.append(self.dataset[i])
             self.y_train.append(self.label[i])  
-        for i in self.test_index:
-            self.G_test.append(self.dataset[i])
-            self.y_test.append(self.label[i])
+        for i in self.val_index:
+            self.val_dataset.append(self.dataset[i])
+            self.y_val.append(self.label[i])
 
     def get_stat_classifier(self):
-        self.log.info("Accuracy %2.2f %%" %(accuracy_score(self.y_test, self.y_pred)*100))
-        self.log.info("Precision %2.2f %%" %(precision_score(self.y_test, self.y_pred,average='weighted')*100))
-        self.log.info("Recall %2.2f %%" %(recall_score(self.y_test, self.y_pred,average='weighted')*100))
-        self.log.info("F1-score %2.2f %%" %(f1_score(self.y_test, self.y_pred,average='weighted')*100))
+        self.log.info("Accuracy %2.2f %%" %(accuracy_score(self.y_val, self.y_pred)*100))
+        self.log.info("Precision %2.2f %%" %(precision_score(self.y_val, self.y_pred,average='weighted')*100))
+        self.log.info("Recall %2.2f %%" %(recall_score(self.y_val, self.y_pred,average='weighted')*100))
+        self.log.info("F1-score %2.2f %%" %(f1_score(self.y_val, self.y_pred,average='weighted')*100))
     
         if BINARY_CLASS:
-            conf = confusion_matrix(self.y_test,self.y_pred,labels=['clean','malware'])
-            y_score1 = self.clf.predict_proba(self.K_test)[:,1]
-            false_positive_rate1, true_positive_rate1, threshold1 = roc_curve(self.y_test, y_score1,pos_label='clean')
+            conf = confusion_matrix(self.y_val,self.y_pred,labels=['clean','malware'])
+            y_score1 = self.clf.predict_proba(self.K_val)[:,1]
+            false_positive_rate1, true_positive_rate1, threshold1 = roc_curve(self.y_val, y_score1,pos_label='clean')
             plt.subplots(1, figsize=(10,10))
             plt.title('Receiver Operating Characteristic - DecisionTree')
             plt.plot(false_positive_rate1, true_positive_rate1)
@@ -119,10 +119,10 @@ class SVMClassifier(Classifier):
             plt.savefig(self.original_path + "figure_binary.png")
 
         else:
-            conf = confusion_matrix(self.y_test,self.y_pred,labels=self.fam_idx)
+            conf = confusion_matrix(self.y_val,self.y_pred,labels=self.fam_idx)
 
         list_name =[]
-        for y in self.y_test:
+        for y in self.y_val:
             if y not in list_name:
                 list_name.append(y)
         figsize = (10,7)

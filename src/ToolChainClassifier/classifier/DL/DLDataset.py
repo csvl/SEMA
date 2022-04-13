@@ -113,8 +113,8 @@ class DLDataset(torch.utils.data.Dataset):
             model = FastText.load(save_model)
             return model
         corpus_file = datapath(apiname)
-        print(corpus_file)
-        print(apiname)
+        self.log.info(corpus_file)
+        self.log.info(apiname)
         model = FastText(vector_size=vector_size, epochs=100)
         model.build_vocab(corpus_file=apiname) # corpus_file
         model.train(corpus_file=apiname, epochs=model.epochs, total_examples=model.corpus_count, total_words= model.corpus_total_words)
