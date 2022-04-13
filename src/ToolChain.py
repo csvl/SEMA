@@ -15,7 +15,7 @@ class ToolChain:
         ch = logging.StreamHandler()
         ch.setLevel(logging.INFO)
         ch.setFormatter(CustomFormatter())
-        self.log = logging.getLoggetargetr("ToolChain")
+        self.log = logging.getLogger("ToolChain")
         self.log.setLevel(logging.INFO)
         self.log.addHandler(ch)
         self.log.propagate = False

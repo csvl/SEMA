@@ -105,7 +105,7 @@ def signature_to_json(path_sig):
         for line in f0 :
             data[signature][row] = line
             row += 1
-    logc.log(data)
+    logc.info(data)
     return data
 
 @app.task
@@ -143,8 +143,13 @@ def train(** args):
     input_path = args["input_path"]
     classifier = args["classifier"]
     args_class = args["args_class"]
+    demonstration = args["demonstration"]
+    client_id = args["client_id"]
     pwd = ROOT_DIR
     logc.info(run_name)
+
+    if demonstration:
+        input_path = input_path + "_client"+str(client_id)
         
     if nround<1:
         toolcl = ToolChainClassifier(classifier_name=classifier)

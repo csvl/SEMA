@@ -154,11 +154,12 @@ class GSpanClassifier(Classifier):
                     os.remove(f.name)
 
             N_MAX = 5 # TODO
-            for i in range(N_MAX):
-                id_max = len_file.index(max(len_file))
-                sig.write('t # '+str(i)+'\n')
-                sig.write(''.join(l for l in buf_temp_f[id_max]))
-                len_file[id_max] = -1
+            if len(len_file) > 0:
+                for i in range(N_MAX):
+                    id_max = len_file.index(max(len_file))
+                    sig.write('t # '+str(i)+'\n')
+                    sig.write(''.join(l for l in buf_temp_f[id_max]))
+                    len_file[id_max] = -1
             sig.close()
             cnt += 1
             bar.update(cnt)

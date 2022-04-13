@@ -34,6 +34,9 @@ class ToolChainClassifier:
         self.log.addHandler(ch)
         self.log.propagate = False
 
+        args_parser = ArgumentParserClassifier(self)
+        self.args = args_parser.parse_arguments()
+
     def save_model(self,object, path):
         with open(path, 'wb+') as output:
             dill.dump(object, output)
@@ -96,52 +99,58 @@ class ToolChainClassifier:
                 exit(-1)   
             self.classifier.families = families
 
+    def init(self):
+        if self.input_path is None:
+            self.input_path = ROOT_DIR.replace("ToolChainClassifier","output/save-SCDG") # todo add args
+
+        if self.args.families:
+            self.init_classifer(args=self.args,families=self.args.families ,from_saved_model=(not self.args.train))
+        else:
+            families = []
+            last_familiy = "unknown"
+            if os.path.isdir(self.input_path):
+                subfolder = [os.path.join(self.input_path, f) for f in os.listdir(self.input_path) if os.path.isdir(os.path.join(self.input_path, f))]
+                self.log.info(subfolder)
+                for folder in subfolder:
+                    last_familiy = folder.split("/")[-1]
+                    families.append(str(last_familiy))
+            self.init_classifer(args=self.args,families=families,from_saved_model=(not self.args.train))
+    
+    def train(self):
+        if self.args.train: # TODO refactor
+            args_train = {}
+            if self.classifier_name == "dl":
+                args_train["sepoch"] = self.args.sepoch
+            if self.input_path is None:
+                args_train["path"] = self.input_path
+            else:
+                args_train["path"] = self.input_path
+            self.classifier.train(**args_train)
+            self.save_model(self.classifier,ROOT_DIR + "/classifier/saved_model/"+ self.classifier_name +"_model.pkl")
+        
+            elapsed_time = time.time() - self.start_time
+            self.log.info("Total training time: " + str(elapsed_time))
+
+    def classify(self):
+        self.classifier.classify(path=(None if self.args.train else self.input_path))
+
+    def detect(self):
+        self.classifier.detection(path=(None if self.args.train else self.input_path))
+
 def main():
     tc = ToolChainClassifier()
-    args_parser = ArgumentParserClassifier(tc)
-    args = args_parser.parse_arguments()
-
-    if tc.input_path is None:
-        input_path = ROOT_DIR.replace("ToolChainClassifier","output/save-SCDG") # todo add args
-    else:
-        input_path = tc.input_path
-
-    if args.families:
-        tc.init_classifer(args=args,families=args.families ,from_saved_model=(not args.train))
-    else:
-        families = []
-        last_familiy = "unknown"
-        if os.path.isdir(input_path):
-            subfolder = [os.path.join(input_path, f) for f in os.listdir(input_path) if os.path.isdir(os.path.join(input_path, f))]
-            tc.log.info(subfolder)
-            for folder in subfolder:
-                last_familiy = folder.split("/")[-1]
-                families.append(str(last_familiy))
-        tc.init_classifer(args=args,families=families,from_saved_model=(not args.train))
-    
-    if args.train: # TODO refactor
-        args_train = {}
-        if tc.classifier_name == "dl":
-            args_train["sepoch"] = args.sepoch
-        if tc.input_path is None:
-            args_train["path"] = input_path
-        else:
-            args_train["path"] = tc.input_path
-        tc.classifier.train(**args_train)
-        tc.save_model(tc.classifier,ROOT_DIR + "/classifier/saved_model/"+ tc.classifier_name +"_model.pkl")
-    
-        elapsed_time = time.time() - tc.start_time
-        tc.log.info("Total training time: " + str(elapsed_time))
+    tc.init()
+    tc.train()
     
     if tc.mode == "classification":
-        tc.classifier.classify(path=(None if args.train else input_path))
+        tc.classify()
     else:
-        tc.classifier.detection(path=(None if args.train else input_path))
-
+        tc.detect()
+    
     elapsed_time = time.time() - tc.start_time
     tc.log.info("Total "+ tc.mode +" time: " + str(elapsed_time))
 
-    if args.train:
+    if tc.args.train:
         args_res = {}
         if tc.classifier_name == "gspan":
             args_res["target"] = tc.mode

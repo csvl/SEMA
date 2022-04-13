@@ -70,7 +70,7 @@ class ToolChainFL:
         sround = self.args.sround
         classifier = self.args_class.classifier
 
-        if classifier == "wl":
+        if classifier is None:
             classifier = "dl"
         elif classifier not in ["dl","gspan"]:
             self.log.info("Only deep learning model and GSpan allowed in federated learning mode")
@@ -102,6 +102,7 @@ class ToolChainFL:
                 "nround":nrounds,
                 "test":runname,
                 "input_path":input_path,
+                "demonstration":args.demonstration,
                 "smodel":smodel,
                 "classifier":classifier,
                 "args_class":self.args_class.__dict__}
@@ -117,6 +118,7 @@ class ToolChainFL:
                 args["run_name"] = f"{runname}_part{i}"
                 args["ctx"] = ret_ctx[select_id]["ctx"]
                 args["smodel"] = smodel
+                args["client_id"] = i
                 job.append(train.s(**args).set(queue=self.hosts[i]))
             ret = celery.group(job)().get()
             paras = list()
@@ -168,8 +170,10 @@ class ToolChainFL:
                 best_fscore = 0
                 # Master node get all signature, 
                 # test all signature and pick the best signature set (per familly TODO)
+                clear_sig = ""
                 for enc_sig in paras:
-                    clear_sig = RSA.decrypt(enc_sig)
+                    for chunck in enc_sig:
+                        clear_sig += RSA.decrypt(chunck)
                     data_sig = json.loads(clear_sig)
                     try:
                         if os.path.isdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"):
@@ -224,7 +228,7 @@ class ToolChainFL:
                 if classifier == "dl":
                     args["run_name"] = f"{runname}_part{i}"
                     args["test"] = f"{runname}_part{i}" #f"{runname}"
-                    #args["test"] = f"{runname}"
+                    # args["test"] = f"{runname}"
                 elif classifier == "gspan":
                     args["sigpath"] = None # use standard sig folder
                 job.append(test.s(**args).set(queue=self.hosts[i]) )
