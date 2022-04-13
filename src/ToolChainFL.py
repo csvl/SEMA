@@ -247,7 +247,7 @@ class ToolChainFL:
             
 def main():
     fl = ToolChainFL()
-    fl.fl_scdg()
+    #fl.fl_scdg() # TODO args parsing error unknow strange
     fl.fl_classifier()
 
 if __name__=="__main__":
