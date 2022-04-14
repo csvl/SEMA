@@ -102,7 +102,7 @@ class ToolChainFL:
                 "nround":nrounds,
                 "test":runname,
                 "input_path":input_path,
-                "demonstration":args.demonstration,
+                "demonstration":self.args.demonstration,
                 "smodel":smodel,
                 "classifier":classifier,
                 "args_class":self.args_class.__dict__}

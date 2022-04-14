@@ -1,0 +1,64 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4238164.main
+a055ffa93a97e641838d9fe11093f8e4"]
+	1 [label="4214456.GetModuleHandleA
+0"]
+	2 [label="4208381.GetKeyboardType
+0"]
+	3 [label="4214139.GetCommandLineA
+"]
+	4 [label="4198770.GetStartupInfoA
+2147417580"]
+	5 [label="4214159.GetVersion
+"]
+	6 [label="4214221.GetThreadLocale
+"]
+	7 [label="4213874.GetLocaleInfoA
+retval_GetThreadLocale_3968243_32
+4100
+
+7"]
+	8 [label="4214236.GetCurrentThreadId
+"]
+	9 [label="4237290.LoadLibraryA
+netapi32.dll"]
+	10 [label="4237303.GetProcAddress
+6295592
+NetRemoteTOD"]
+	9 -> 10 [label="(0-->1)"]
+	11 [label="4237319.GetProcAddress
+6295592
+NetScheduleJobAdd"]
+	9 -> 11 [label="(0-->1)"]
+	10 -> 11 [label="(1-->1)"]
+	12 [label="4234773.GetVersionExA
+2147417492"]
+	13 [label="4237378.GetProcAddress
+6295592
+NetShareEnum"]
+	9 -> 13 [label="(0-->1)"]
+	10 -> 13 [label="(1-->1)"]
+	11 -> 13 [label="(1-->1)"]
+	14 [label="4205520.QueryPerformanceCounter
+2147417688"]
+	15 [label="4232333.GetWindowsDirectoryA
+C:\Windows
+256"]
+	16 [label="4200939.InitializeCriticalSection
+4244916"]
+	4 -> 16 [label="(0-->0)"]
+	17 [label="4201000.LocalAlloc
+0
+4088"]
+	18 [label="4214176.GetVersion
+"]
+	19 [label="4214204.GetThreadLocale
+"]
+	18 -> 19 [label="(0-->0)"]
+	20 [label="4213874.GetLocaleInfoA
+retval_GetThreadLocale_3968246_32
+4100
+
+7"]
+}

@@ -1,7 +1,6 @@
 import tenseal as ts
 import torch
 import base64
-import json
 
 class F:
 	@staticmethod
@@ -57,41 +56,6 @@ class F:
 		#print(len(enc_para))
 		return enc_para
 
-	# @staticmethod
-	# def encrypt_signature(context, json_sig):
-	# 	"""
-	# 	Convert model parameters to encrypted text by context
-	# 	"""
-	# 	ctx = ts.context_from(context)
-	# 	para = list()
-	# 	for signature in json_sig:
-	# 		#print(p.size())
-	# 		v = json.dumps(json_sig[signature])
-	# 		para.extend(v)
-	# 	enc_para = list()
-	# 	chunk_offset = 4096
-	# 	chunk_start = 0
-	# 	chunk_end = chunk_offset
-	# 	#print(len(para))
-	# 	while chunk_end < len(para):
-	# 		#print(chunk_start, chunk_end, chunk_end-chunk_start)
-	# 		enc_v1 = ts.ckks_vector(ctx, para[chunk_start:chunk_end])
-	# 		txt = F.bytes_to_string(enc_v1.serialize())
-	# 		#enc_para.append(enc_v1)
-	# 		enc_para.append(txt)
-	# 		chunk_start = chunk_end
-	# 		chunk_end +=chunk_offset
-	# 	if chunk_end > len(para):
-	# 		chunk_end = len(para)
-	# 		enc_v1 = ts.ckks_vector(ctx, para[chunk_start:chunk_end])
-	# 		txt = F.bytes_to_string(enc_v1.serialize())
-	# 		#enc_para.append(enc_v1)
-	# 		enc_para.append(txt)
-	# 		#print(chunk_start, chunk_end, chunk_end-chunk_start)
-
-	# 	#print(len(enc_para))
-	# 	return enc_para
-
 	@staticmethod
 	def decrypt_para(key,context, enc_para):
 		para = list()
@@ -144,7 +108,7 @@ class F:
 		tb = F.string_to_bytes(x)
 		tenc = ts.ckks_vector_from(ctx,tb)
 		return tenc
-		
+
 	@staticmethod
 	def enc_to_string(x):
 		return F.bytes_to_string(x.serialize())
@@ -216,13 +180,31 @@ class RSA:
 	
 	@staticmethod
 	def encrypt(pk, msg):
-		ciphertext = pk.encrypt(msg.encode(),
-		padding.OAEP( mgf= padding.MGF1(algorithm=hashes.SHA256()), 
-					algorithm= hashes.SHA256(),
-					label= None
+		enc_para = list()
+		chunk_offset = 4096
+		chunk_start = 0
+		chunk_end = chunk_offset
+		#print(len(para))
+		while chunk_end < len(msg.encode()):
+			ciphertext = pk.encrypt(msg.encode()[chunk_start:chunk_end],
+						padding.OAEP(mgf= padding.MGF1(algorithm=hashes.SHA256()), 
+						algorithm= hashes.SHA256(),
+						label= None
+						)
 					)
-				)
-		return ciphertext
+			enc_para.append(ciphertext)
+			chunk_start = chunk_end
+			chunk_end +=chunk_offset
+		if chunk_end > len(msg.encode()):
+			chunk_end = len(msg.encode())
+			ciphertext = pk.encrypt(msg.encode()[chunk_start:chunk_end],
+						padding.OAEP(mgf= padding.MGF1(algorithm=hashes.SHA256()), 
+						algorithm= hashes.SHA256(),
+						label= None
+						)
+					)
+			enc_para.append(ciphertext)
+		return enc_para
 		
 	@staticmethod
 	def decrypt(sk, ciphertext):

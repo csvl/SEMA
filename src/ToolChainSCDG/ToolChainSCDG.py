@@ -442,7 +442,7 @@ class ToolChainSCDG:
 
         g = GraphBuilder(
             name=nameFileShort,
-            mapping=exp_dir+"mapping.txt",
+            mapping="mapping.txt",
             merge_call=(not disjoint_union),
             comp_args=(not not_comp_args),
             min_size=min_size,

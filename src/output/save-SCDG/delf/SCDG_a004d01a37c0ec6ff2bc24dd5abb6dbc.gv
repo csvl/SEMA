@@ -1,0 +1,204 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4460452.main
+a004d01a37c0ec6ff2bc24dd5abb6dbc"]
+	1 [label="4219135.GetModuleHandleA
+0"]
+	2 [label="4219079.GetModuleFileNameA
+4194304
+PZM
+261"]
+	1 -> 2 [label="(0-->1)"]
+	3 [label="4214804.GetModuleFileNameA
+0
+a004d01a37c0ec6ff2bc24dd5abb6dbc
+261"]
+	0 -> 3 [label="(1-->2)"]
+	2 -> 3 [label="(3-->3)"]
+	4 [label="4214834.RegOpenKeyExA
+2147483649
+Software\Borland\Locales
+0
+983103
+2147417452"]
+	5 [label="4214378.GetModuleHandleA
+kernel32.dll"]
+	6 [label="4214395.GetProcAddress
+6295592
+GetLongPathNameA"]
+	5 -> 6 [label="(0-->1)"]
+	7 [label="4214425.GetLongPathNameA
+a004d01a37c0ec6ff2bc24dd5abb6dbc
+
+261"]
+	0 -> 7 [label="(1-->1)"]
+	3 -> 7 [label="(2-->1)"]
+	2 -> 7 [label="(3-->3)"]
+	3 -> 7 [label="(3-->3)"]
+	6 -> 7 [label="(0-->0)"]
+	8 [label="4214543.lstrcpynA
+a0
+a004d01a37c0ec6ff2bc24dd5abb6dbc
+3"]
+	0 -> 8 [label="(1-->2)"]
+	3 -> 8 [label="(2-->2)"]
+	7 -> 8 [label="(1-->2)"]
+	2 -> 8 [label="(0-->3)"]
+	9 [label="4214335.CharNextA
+4d01a37c0ec6ff2bc24dd5abb6dbc"]
+	10 [label="4214335.CharNextA
+d01a37c0ec6ff2bc24dd5abb6dbc"]
+	11 [label="4214335.CharNextA
+01a37c0ec6ff2bc24dd5abb6dbc"]
+	12 [label="4214335.CharNextA
+1a37c0ec6ff2bc24dd5abb6dbc"]
+	13 [label="4214335.CharNextA
+a37c0ec6ff2bc24dd5abb6dbc"]
+	14 [label="4214335.CharNextA
+37c0ec6ff2bc24dd5abb6dbc"]
+	15 [label="4214335.CharNextA
+7c0ec6ff2bc24dd5abb6dbc"]
+	16 [label="4214335.CharNextA
+c0ec6ff2bc24dd5abb6dbc"]
+	17 [label="4214335.CharNextA
+0ec6ff2bc24dd5abb6dbc"]
+	18 [label="4214335.CharNextA
+ec6ff2bc24dd5abb6dbc"]
+	19 [label="4214335.CharNextA
+c6ff2bc24dd5abb6dbc"]
+	20 [label="4214335.CharNextA
+6ff2bc24dd5abb6dbc"]
+	21 [label="4214335.CharNextA
+ff2bc24dd5abb6dbc"]
+	22 [label="4214335.CharNextA
+f2bc24dd5abb6dbc"]
+	23 [label="4214335.CharNextA
+2bc24dd5abb6dbc"]
+	24 [label="4214335.CharNextA
+bc24dd5abb6dbc"]
+	25 [label="4214335.CharNextA
+c24dd5abb6dbc"]
+	26 [label="4214335.CharNextA
+24dd5abb6dbc"]
+	27 [label="4214335.CharNextA
+4dd5abb6dbc"]
+	28 [label="4214335.CharNextA
+dd5abb6dbc"]
+	29 [label="4214335.CharNextA
+d5abb6dbc"]
+	30 [label="4214335.CharNextA
+5abb6dbc"]
+	31 [label="4214335.CharNextA
+abb6dbc"]
+	32 [label="4214335.CharNextA
+bb6dbc"]
+	33 [label="4214335.CharNextA
+b6dbc"]
+	34 [label="4214335.CharNextA
+6dbc"]
+	35 [label="4214335.CharNextA
+dbc"]
+	36 [label="4214335.CharNextA
+bc"]
+	37 [label="4214335.CharNextA
+c"]
+	38 [label="4214596.lstrcpynA
+04d01a37c0ec6ff2bc24dd5abb6dbc
+04d01a37c0ec6ff2bc24dd5abb6dbc
+31"]
+	39 [label="4214615.FindFirstFileA
+a004d01a37c0ec6ff2bc24dd5abb6dbc
+2147416798"]
+	0 -> 39 [label="(1-->1)"]
+	3 -> 39 [label="(2-->1)"]
+	7 -> 39 [label="(1-->1)"]
+	8 -> 39 [label="(2-->1)"]
+	40 [label="4214922.RegQueryValueExA
+4219084
+a004d01a37c0ec6ff2bc24dd5abb6dbc
+0
+0
+2147417442
+2147417436"]
+	0 -> 40 [label="(1-->2)"]
+	3 -> 40 [label="(2-->2)"]
+	7 -> 40 [label="(1-->2)"]
+	8 -> 40 [label="(2-->2)"]
+	39 -> 40 [label="(1-->2)"]
+	41 [label="4214974.RegCloseKey
+4219084"]
+	40 -> 41 [label="(1-->1)"]
+	42 [label="4214998.lstrcpyA
+PZM
+PZM"]
+	2 -> 42 [label="(2-->1)"]
+	2 -> 42 [label="(2-->2)"]
+	43 [label="4215011.GetThreadLocale
+"]
+	44 [label="4215017.GetLocaleInfoA
+retval_GetThreadLocale_4230575_32
+3
+
+5"]
+	2 -> 44 [label="(0-->2)"]
+	8 -> 44 [label="(3-->2)"]
+	45 [label="4205621.GetKeyboardType
+0"]
+	46 [label="4218808.GetCommandLineA
+"]
+	47 [label="4199262.GetStartupInfoA
+2147417616"]
+	48 [label="4218828.GetCurrentThreadId
+"]
+	49 [label="4302897.GetModuleHandleA
+USER32.DLL"]
+	50 [label="4215697.LoadStringA
+4194304
+65494
+
+1024"]
+	1 -> 50 [label="(0-->1)"]
+	2 -> 50 [label="(1-->1)"]
+	51 [label="4215697.LoadStringA
+4194304
+65493
+
+1024"]
+	1 -> 51 [label="(0-->1)"]
+	2 -> 51 [label="(1-->1)"]
+	50 -> 51 [label="(1-->1)"]
+	50 -> 51 [label="(4-->4)"]
+	52 [label="4215697.LoadStringA
+4194304
+65491
+
+1024"]
+	1 -> 52 [label="(0-->1)"]
+	2 -> 52 [label="(1-->1)"]
+	50 -> 52 [label="(1-->1)"]
+	51 -> 52 [label="(1-->1)"]
+	50 -> 52 [label="(4-->4)"]
+	51 -> 52 [label="(4-->4)"]
+	53 [label="4201050.InitializeCriticalSection
+4469812"]
+	47 -> 53 [label="(0-->0)"]
+	54 [label="4201111.LocalAlloc
+0
+4088"]
+	55 [label="4214443.lstrcpyA
+
+"]
+	56 [label="4214922.RegQueryValueExA
+4219084
+
+0
+0
+2147417442
+2147417436"]
+	57 [label="4215017.GetLocaleInfoA
+retval_GetThreadLocale_4230556_32
+3
+
+5"]
+	2 -> 57 [label="(0-->2)"]
+}
