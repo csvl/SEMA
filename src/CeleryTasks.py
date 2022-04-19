@@ -152,7 +152,7 @@ def train(** args):
         input_path = input_path + "_client"+str(client_id)
         
     if nround<1:
-        toolcl = ToolChainClassifier(classifier_name=classifier)
+        toolcl = ToolChainClassifier(classifier_name=classifier, parse=False)
         families = []
         last_familiy = "unknown"
         if os.path.isdir(input_path):
