@@ -181,7 +181,7 @@ class RSA:
 	@staticmethod
 	def encrypt(pk, msg):
 		enc_para = list()
-		chunk_offset = 4096
+		chunk_offset = 128 
 		chunk_start = 0
 		chunk_end = chunk_offset
 		#print(len(para))
@@ -192,9 +192,10 @@ class RSA:
 						label= None
 						)
 					)
-			enc_para.append(ciphertext)
+			txt = F.bytes_to_string(ciphertext.serialize())
+			enc_para.append(txt)
 			chunk_start = chunk_end
-			chunk_end +=chunk_offset
+			chunk_end += chunk_offset
 		if chunk_end > len(msg.encode()):
 			chunk_end = len(msg.encode())
 			ciphertext = pk.encrypt(msg.encode()[chunk_start:chunk_end],
@@ -203,7 +204,8 @@ class RSA:
 						label= None
 						)
 					)
-			enc_para.append(ciphertext)
+			txt = F.bytes_to_string(ciphertext.serialize())
+			enc_para.append(txt)
 		return enc_para
 		
 	@staticmethod
