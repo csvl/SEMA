@@ -49,6 +49,15 @@ class ArgumentParserClassifier:
             type=int,
             default=5,
         )
+        parser.add_argument( # TODO 
+            "--verbose",
+            help="Verbose output during train/classification  (default : False)",
+            action="store_true",
+        )
+        parser.add_argument('--demonstration',  # TODO
+            help='If set, use specific dataset for each client (3) to simulate different dataset in clients, else use the same input folder dataset for all clients',
+            action='store_true'
+        )
         parser.add_argument(
             "--ctimeout",
             help="Timeout for gspan classifier (default : 3sec)",

@@ -20,7 +20,7 @@ except:
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class ToolChainClassifier:
-    def __init__(self, classifier_name="wl"):
+    def __init__(self, classifier_name="wl",parse=True):
         self.classifier = None
         self.input_path = None
         self.mode = "classification"
@@ -34,8 +34,9 @@ class ToolChainClassifier:
         self.log.addHandler(ch)
         self.log.propagate = False
 
-        args_parser = ArgumentParserClassifier(self)
-        self.args = args_parser.parse_arguments()
+        if parse: # TODO
+            args_parser = ArgumentParserClassifier(self)
+            self.args = args_parser.parse_arguments()
 
     def save_model(self,object, path):
         with open(path, 'wb+') as output:

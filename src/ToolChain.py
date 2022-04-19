@@ -31,7 +31,7 @@ class ToolChain:
             is_from_tc=True
         )
         
-        self.toolmc = ToolChainClassifier()
+        self.toolmc = ToolChainClassifier(parse=False)
 
         self.args_parser = ArgumentParserTC(self.toolc, self.toolmc)
         self.args_scdg, self.folderName, self.expl_method, self.familly = self.args_parser.args_parser_scdg.parse_arguments(True)
