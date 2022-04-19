@@ -204,7 +204,7 @@ class RSA:
 						label= None
 						)
 					)
-			txt = F.bytes_to_string(ciphertext.serialize())
+			txt = F.bytes_to_string(ciphertext)
 			enc_para.append(txt)
 		return enc_para
 		
