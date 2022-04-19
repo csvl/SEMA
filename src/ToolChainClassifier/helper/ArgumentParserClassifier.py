@@ -9,7 +9,7 @@ class ArgumentParserClassifier:
     def __init__(self, tcw):
         self.tcw = tcw
     
-    def parse_arguments(self):
+    def parse_arguments(self, allow_unk=False):
         parser = argparse.ArgumentParser()
         parser.add_argument(
             "--train",
@@ -88,6 +88,9 @@ class ArgumentParserClassifier:
             type=int,
             default=4,
         )
+        parser.add_argument('--hostnames',  # here because parsing error if not present TODO
+                            nargs='+',
+                            help='hostnames for celery clients')
         parser.add_argument(
             "--batch_size",
             help="Only for deep learning model: Batch size for the model (default: 1)",
@@ -97,9 +100,12 @@ class ArgumentParserClassifier:
         
         parser.add_argument("binary", help="Name of the binary to analyze (Default: output/save-SCDG/, only that for ToolChain)")
         args = None
-        args, unknown = parser.parse_known_args()
+        if not allow_unk:
+            args = parser.parse_args()
+        else:
+            args, unknown = parser.parse_known_args()
 
-        if args.binary:
+        if args.binary and not allow_unk:
             self.tcw.input_path = args.binary
         else:
             self.tcw.input_path = None

@@ -8,9 +8,6 @@ class ArgumentParserFL:
     def parse_arguments(self):
         parser = argparse.ArgumentParser()
         # TODO merge with parser of Classifier
-        parser.add_argument('--runname', 
-            help='run name in temp, each partition folder is the form of <runname>_part0,..'
-        )
         parser.add_argument('--train', 
             help='Train',
             action='store_true'
@@ -48,14 +45,12 @@ class ArgumentParserFL:
             help='If set, use specific dataset for each client (3) to simulate different dataset in clients, else use the same input folder dataset for all clients',
             action='store_true'
         )
-        parser.add_argument('--model', 
-            help='Path of model file'
-        )
         parser.add_argument('--hostnames', 
                             nargs='+',
                             help='hostnames for celery clients'
         )
-        parser.add_argument("binary", help="Name of the binary to analyze (Default: output/save-SCDG/, only that for ToolChain)")
+        parser.add_argument("binary", 
+                            help="Name of the binary to analyze (Default: output/save-SCDG/, only that for ToolChain)")
         args = None
         args, unknown = parser.parse_known_args()
         

@@ -64,7 +64,7 @@ class ToolChainFL:
 
     def fl_classifier(self):
         self.log.info("Starting classification phase in FL")
-        runname = self.args.runname
+        runname = "christophe_test" # TODO
         smodel = self.args.smodel
         nrounds = self.args.nrounds
         sround = self.args.sround
