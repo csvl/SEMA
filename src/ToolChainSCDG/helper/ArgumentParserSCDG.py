@@ -7,7 +7,7 @@ class ArgumentParserSCDG:
     def __init__(self, tcw):
         self.tcw = tcw
 
-    def parse_arguments(self, allow_unk = False):
+    def parse_arguments(self):
         parser = argparse.ArgumentParser()
         parser.add_argument(
             "--method",
@@ -152,10 +152,7 @@ class ArgumentParserSCDG:
                             help='hostnames for celery clients')
         
         args = None
-        if not allow_unk:
-            args = parser.parse_args()
-        else:
-            args, unknown = parser.parse_known_args()
+        args, unknown = parser.parse_known_args()
 
         nameFile = args.binary
         if not self.tcw.print_on:

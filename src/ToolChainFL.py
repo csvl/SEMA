@@ -33,7 +33,7 @@ class ToolChainFL:
        self.familly = self.tools.familly
        self.args_scdg = self.tools.args_scdg
        parser = ArgumentParserFL()
-       self.args, _ = parser.parse_arguments()
+       self.args = parser.parse_arguments()
        self.hosts = hosts
        if self.args.hostnames and len(self.args.hostnames) > 0:
            self.hosts = self.args.hostnames

@@ -5,8 +5,8 @@ class ArgumentParserFL:
     def __init__(self):
         pass
 
-    def parse_arguments(self,allow_unk=True):
-        parser = argparse.ArgumentParser(description='pipeline arguments', add_help=False)
+    def parse_arguments(self):
+        parser = argparse.ArgumentParser()
         # TODO merge with parser of Classifier
         parser.add_argument('--runname', 
             help='run name in temp, each partition folder is the form of <runname>_part0,..'
@@ -57,9 +57,6 @@ class ArgumentParserFL:
         )
         parser.add_argument("binary", help="Name of the binary to analyze (Default: output/save-SCDG/, only that for ToolChain)")
         args = None
-        if not allow_unk:
-            args = parser.parse_args()
-        else:
-            args, unknown = parser.parse_known_args()
+        args, unknown = parser.parse_known_args()
         
-        return args, unknown
+        return args

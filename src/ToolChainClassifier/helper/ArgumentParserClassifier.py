@@ -9,7 +9,7 @@ class ArgumentParserClassifier:
     def __init__(self, tcw):
         self.tcw = tcw
     
-    def parse_arguments(self, allow_unk=False):
+    def parse_arguments(self):
         parser = argparse.ArgumentParser()
         parser.add_argument(
             "--train",
@@ -45,7 +45,7 @@ class ArgumentParserClassifier:
         )
         parser.add_argument(
             "--biggest_subgraph",
-            help="Number of thread used (default: max)",
+            help="Biggest subgraph consider for Gspan (default: 5)",
             type=int,
             default=5,
         )
@@ -97,12 +97,9 @@ class ArgumentParserClassifier:
         
         parser.add_argument("binary", help="Name of the binary to analyze (Default: output/save-SCDG/, only that for ToolChain)")
         args = None
-        if not allow_unk:
-            args = parser.parse_args()
-        else:
-            args, unknown = parser.parse_known_args()
+        args, unknown = parser.parse_known_args()
 
-        if args.binary and not allow_unk:
+        if args.binary:
             self.tcw.input_path = args.binary
         else:
             self.tcw.input_path = None

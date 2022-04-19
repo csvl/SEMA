@@ -34,8 +34,8 @@ class ToolChain:
         self.toolmc = ToolChainClassifier()
 
         self.args_parser = ArgumentParserTC(self.toolc, self.toolmc)
-        self.args_scdg, self.folderName, self.expl_method, self.familly = self.args_parser.args_parser_scdg.parse_arguments(True)
-        self.args_class  = self.args_parser.args_parser_class.parse_arguments(True)
+        self.args_scdg, self.folderName, self.expl_method, self.familly = self.args_parser.args_parser_scdg.parse_arguments()
+        self.args_class  = self.args_parser.args_parser_class.parse_arguments()
 
         self.families = []
 

@@ -315,9 +315,9 @@ python3 ToolChainClassifier/ToolChainClassifier.py --train output/save-SCDG/
 This will classify input dataset based on previously computed models
 
 ```bash
-pypy3 ToolChainClassifier/ToolChainClassifier.py output/save-SCDG-100-CDFS/
+pypy3 ToolChainClassifier/ToolChainClassifier.py output/test-set/
 
-python3 ToolChainClassifier/ToolChainClassifier.py  output/save-SCDG-100-CDFS/
+python3 ToolChainClassifier/ToolChainClassifier.py  output/test-set/
 ```
 
 
