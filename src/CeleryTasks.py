@@ -213,22 +213,22 @@ def best_signature_selection(**args):
     for enc_sig in paras:
         for chunck in enc_sig:
             clear_sig += RSA.decrypt(sk,chunck)
-            data_sig = json.loads(clear_sig)
-            try:
-                if os.path.isdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"):
-                    os.rmdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/")
-                os.mkdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/")
-            except:
-                print('error')
-                pass
+        data_sig = json.loads(clear_sig)
+        try:
+            if os.path.isdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"):
+                os.rmdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/")
+            os.mkdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/")
+        except:
+            print('error')
+            pass
 
-            print(data_sig)
+        print(data_sig)
 
-            for signature in data_sig:
-                f = open(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  idx + "/" + signature, "w")
-                for line in data_sig[signature]:
-                    f.write(line)
-                f.close()
+        for signature in data_sig:
+            f = open(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  idx + "/" + signature, "w")
+            for line in data_sig[signature]:
+                f.write(line)
+            f.close()
 
         args["sigpath"] = ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  idx + "/" 
         ret_test = test(**args)
