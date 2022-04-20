@@ -120,7 +120,7 @@ class ToolChainFL:
                 args["ctx"] = ret_ctx[select_id]["ctx"]
                 args["smodel"] = smodel
                 args["client_id"] = i
-                args["master_pk"] = pk
+                args["master_pk"] = F.bytes_to_string(RSA.serialize_pk(pk))
                 job.append(train.s(**args).set(queue=self.hosts[i]))
             ret = celery.group(job)().get()
             paras = list()
@@ -217,7 +217,7 @@ class ToolChainFL:
 
                 idx = 0
                 for enc_sig in paras:
-                    enc_best_sig_string.append(RSA.encrypt(client_pks[idx],best_sig_string))
+                    enc_best_sig_string.append(RSA.encrypt(RSA.bytes_to_pk(client_pks[idx]),best_sig_string))
                     idx += 1
 
                 self.log.info("-- Distribution of the best signature selection phase FL")

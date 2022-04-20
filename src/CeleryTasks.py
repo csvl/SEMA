@@ -185,7 +185,7 @@ def train(** args):
         data_string = json.dumps(data)
         master_pk = args["master_pk"]
         para = RSA.encrypt(master_pk,data_string)
-        return {"para":para, "client_pk":pk}
+        return {"para":para, "client_pk": F.bytes_to_string(RSA.serialize_pk(pk))}
 
 @app.task
 def update(**args):
