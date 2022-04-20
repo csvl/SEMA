@@ -120,7 +120,7 @@ class ToolChainFL:
                 args["ctx"] = ret_ctx[select_id]["ctx"]
                 args["smodel"] = smodel
                 args["client_id"] = i
-                args["master_pk"] = F.bytes_to_string(RSA.serialize_pk(pk))
+                args["master_pk"] = ret_ctx[select_id]["pk"]
                 job.append(train.s(**args).set(queue=self.hosts[i]))
             ret = celery.group(job)().get()
             paras = list()

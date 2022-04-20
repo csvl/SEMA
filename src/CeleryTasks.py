@@ -217,9 +217,9 @@ def best_signature_selection(**args):
             clear_sig += RSA.decrypt(sk,chunck) # use master key
         data_sig = json.loads(clear_sig)
         try:
-            if os.path.isdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"):
-                os.rmdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/")
-            os.mkdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/")
+            if os.path.isdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"+  str(idx)):
+                os.rmdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"+  str(idx))
+            os.mkdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"+  str(idx))
         except:
             print('error')
             pass
