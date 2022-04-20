@@ -183,8 +183,9 @@ def train(** args):
         # TODO graph concatenation instead
         data = signature_to_json(trainer.path_sig)
         data_string = json.dumps(data)
-        para = RSA.encrypt(pk,data_string)
-        return {"para":para}
+        master_pk = args["master_pk"]
+        para = RSA.encrypt(master_pk,data_string)
+        return {"para":para, "client_pk":pk}
 
 @app.task
 def update(**args):
@@ -210,6 +211,7 @@ def best_signature_selection(**args):
     clear_sig = ""
     idx = 0
     paras = args["paras"]
+    args["client_pks"]
     for enc_sig in paras:
         for chunck in enc_sig:
             clear_sig += RSA.decrypt(sk,chunck)
@@ -225,19 +227,19 @@ def best_signature_selection(**args):
         print(data_sig)
 
         for signature in data_sig:
-            f = open(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  idx + "/" + signature, "w")
+            f = open(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  str(idx) + "/" + signature, "w")
             for line in data_sig[signature]:
                 f.write(line)
             f.close()
 
-        args["sigpath"] = ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  idx + "/" 
+        args["sigpath"] = ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  str(idx) + "/" 
         ret_test = test(**args)
         fscore = float(ret_test[0]["fscore"])
         if fscore > best_fscore:
             best_fscore = fscore
             best_para = idx
     try:
-        os.rename(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"+ best_para + "/" ,
+        os.rename(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"+ str(best_para) + "/" ,
             ROOT_DIR+"/ToolChainClassifier/classifier/best_sig/")
     except:
         print('error')
@@ -252,7 +254,8 @@ def best_signature_selection(**args):
 @app.task
 def save_sig(**args):
     enc_best_sig_string = args["enc_best_sig_string"]
-    clear_sig = RSA.decrypt(enc_best_sig_string)
+    idx = args["idx"]
+    clear_sig = RSA.decrypt(sk,enc_best_sig_string[idx])
     data_sig = json.loads(clear_sig)
     try: # TODO for now we replace standard signature folder with best one
         if os.path.isdir(ROOT_DIR+"/ToolChainClassifier/classifier/sig/"):
