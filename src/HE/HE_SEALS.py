@@ -192,7 +192,8 @@ class RSA:
 						label= None
 						)
 					)
-			txt = F.bytes_to_string(ciphertext.serialize())
+			txt = F.bytes_to_string(ciphertext)
+			print(ciphertext)
 			enc_para.append(txt)
 			chunk_start = chunk_end
 			chunk_end += chunk_offset
@@ -210,8 +211,8 @@ class RSA:
 		
 	@staticmethod
 	def decrypt(sk, ciphertext):
-		plaintext = sk.decrypt(ciphertext,
-			padding.OAEP( mgf= padding.MGF1(algorithm=hashes.SHA256()), 
+		plaintext = sk.decrypt(F.string_to_bytes(ciphertext),
+			padding.OAEP(mgf= padding.MGF1(algorithm=hashes.SHA256()), 
 					algorithm= hashes.SHA256(),
 					label= None
 					)
