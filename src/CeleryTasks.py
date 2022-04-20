@@ -284,7 +284,7 @@ def test(**args):
         return {"acc":acc, "loss":loss}
     elif classifier == "gpsan":
         sigpath = args["sigpath"]
-        trainer.classify(custom_sig_path=sigpath) # TODO add custom path
+        trainer.classify(custom_sig_path=sigpath)
         fscore = trainer.get_stat_classifier()
         return {"fscore":fscore}
 

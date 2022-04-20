@@ -162,7 +162,7 @@ class ToolChainFL:
                     args["para"]  = para #F.encrypt_para(ctx, para) # TODO should be encrypted
                     args["v_enc"] = ret_ctx[i]["v"] 
                     args["run_name"] = f"{runname}_part{i}"
-                    job.append(update.s(**args).set(queue=self.hosts[i]) )
+                    job.append(update.s(**args).set(queue=self.hosts[i]))
                 ret = celery.group(job)().get()
                 for r in ret:
                     self.log.info("Return value for update step: " + str(r))
@@ -177,16 +177,15 @@ class ToolChainFL:
                 # test all signature and pick the best signature set (per familly TODO)
                 clear_sig = ""
                 idx = 0
-                paras = args["paras"]
                 enc_best_sig_string = list()
                 for enc_sig in paras:
                     for chunck in enc_sig:
                         clear_sig += RSA.decrypt(sk,chunck)
                     data_sig = json.loads(clear_sig)
                     try:
-                        if os.path.isdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"):
-                            os.rmdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/")
-                        os.mkdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/")
+                        if os.path.isdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"+ str(idx)):
+                            os.rmdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"+ str(idx))
+                        os.mkdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"+ str(idx))
                     except:
                         print('error')
                         pass
@@ -199,9 +198,13 @@ class ToolChainFL:
                             f.write(line)
                         f.close()
 
-                    args["sigpath"] = ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  str(idx) + "/" 
-                    ret_test = test(**args)
-                    fscore = float(ret_test[0]["fscore"])
+                    sigpath = ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  str(idx) + "/" 
+                    pwd = ROOT_DIR
+                    run_name = f"{runname}_part{select_id}"
+                    trainer = load_object(os.path.join(pwd,f"R{tround}_{run_name}_{classifier}_model.pkl"))
+                    trainer.classify(custom_sig_path=sigpath)
+                    fscore = trainer.get_stat_classifier()
+                    fscore = float(fscore)
                     if fscore > best_fscore:
                         best_fscore = fscore
                         best_para = idx
@@ -244,7 +247,7 @@ class ToolChainFL:
                     # args["test"] = f"{runname}"
                 elif classifier == "gspan":
                     args["sigpath"] = None # use standard sig folder
-                job.append(test.s(**args).set(queue=self.hosts[i]) )
+                job.append(test.s(**args).set(queue=self.hosts[i]))
             ret = celery.group(job)().get()
             for r in ret:
                 self.log.info(f"{r}")
