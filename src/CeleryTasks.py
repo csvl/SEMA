@@ -229,10 +229,13 @@ def best_signature_selection(**args):
         for signature in data_sig:
             f = open(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  str(idx) + "/" + signature, "w")
             for line in data_sig[signature]:
-                f.write(line)
+                f.write(line.replace('\n',"")+"\n")
             f.close()
             
         pwd = ROOT_DIR
+        nround = args["nround"]
+        run_name  = args["run_name"]
+        classifier = args["classifier"]
         sigpath = ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  str(idx) + "/" 
         trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_{classifier}_model.pkl"))
         trainer.classify(custom_sig_path=sigpath)
@@ -273,7 +276,7 @@ def save_sig(**args):
     for signature in data_sig:
         f = open(ROOT_DIR+"/ToolChainClassifier/classifier/sig/"+signature, "w")
         for line in data_sig[signature]:
-            f.write(line)
+            f.write(line.replace('\n',"")+"\n")
         f.close()
     return {"v": 0}
         
