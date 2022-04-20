@@ -198,13 +198,9 @@ class ToolChainFL:
                             f.write(line)
                         f.close()
 
-                    sigpath = ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  str(idx) + "/" 
-                    pwd = ROOT_DIR
-                    run_name = f"{runname}_part{select_id}"
-                    trainer = load_object(os.path.join(pwd,f"R{tround}_{run_name}_{classifier}_model.pkl"))
-                    trainer.classify(custom_sig_path=sigpath)
-                    fscore = trainer.get_stat_classifier()
-                    fscore = float(fscore)
+                    args["sigpath"] = ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  str(idx) + "/" 
+                    ret_test = celery.group(test.s(**args).set(queue=self.hosts[select_id]))().get()
+                    fscore = float(ret_test[0]["fscore"])
                     if fscore > best_fscore:
                         best_fscore = fscore
                         best_para = idx
