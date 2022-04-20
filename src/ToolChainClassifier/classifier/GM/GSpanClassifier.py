@@ -33,8 +33,8 @@ class GSpanClassifier(Classifier):
         if '/' not in path:
             path = path +'/'
         self.path_sig = path+'/sig/'
-        self.path_test = path+'/test/'
-        self.path_clean = path+'/clean/'
+        self.path_test = path.replace("ToolChainClassifier","output/save-SCDG") +'/test-set/'
+        self.path_clean = path.replace("ToolChainClassifier","output/save-SCDG") +'/clean/'
         self.families = []
         self.support = support
         self.biggest_subgraphs = biggest_subgraphs

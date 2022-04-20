@@ -231,10 +231,12 @@ def best_signature_selection(**args):
             for line in data_sig[signature]:
                 f.write(line)
             f.close()
-
-        args["sigpath"] = ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  str(idx) + "/" 
-        ret_test = test(**args)
-        fscore = float(ret_test[0]["fscore"])
+            
+        pwd = ROOT_DIR
+        sigpath = ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  str(idx) + "/" 
+        trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_{classifier}_model.pkl"))
+        trainer.classify(custom_sig_path=sigpath)
+        fscore = trainer.get_stat_classifier()
         if fscore > best_fscore:
             best_fscore = fscore
             best_para = idx
