@@ -171,9 +171,10 @@ class ToolChainFL:
             elif classifier == "gspan":
                 self.log.info("-- Best signature selection phase FL")
                 # best_fscore_familly = {}
-
+                args["select_id"] = select_id
                 args["paras"] = paras
                 args["client_pks"] = client_pks
+                args["run_name"] = f"{runname}_part{select_id}"
                 ret = celery.group(best_signature_selection.s(**args).set(queue=self.hosts[select_id]))().get()
 
                 # best_fscore = 0
