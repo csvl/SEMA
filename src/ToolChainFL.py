@@ -217,7 +217,7 @@ class ToolChainFL:
 
                 idx = 0
                 for enc_sig in paras:
-                    enc_best_sig_string.append(RSA.encrypt(RSA.bytes_to_pk(client_pks[idx]),best_sig_string))
+                    enc_best_sig_string.append(RSA.encrypt(RSA.bytes_to_pk(F.string_to_bytes(client_pks[idx])),best_sig_string))
                     idx += 1
 
                 self.log.info("-- Distribution of the best signature selection phase FL")

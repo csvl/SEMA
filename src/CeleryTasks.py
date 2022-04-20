@@ -183,7 +183,7 @@ def train(** args):
         # TODO graph concatenation instead
         data = signature_to_json(trainer.path_sig)
         data_string = json.dumps(data)
-        master_pk = RSA.bytes_to_pk(args["master_pk"])
+        master_pk = RSA.bytes_to_pk(F.string_to_bytes(args["master_pk"]))
         para = RSA.encrypt(master_pk,data_string)
         return {"para":para, "client_pk": F.bytes_to_string(RSA.serialize_pk(pk))}
 
