@@ -211,10 +211,10 @@ def best_signature_selection(**args):
     clear_sig = ""
     idx = 0
     paras = args["paras"]
-    args["client_pks"]
+    client_pks = args["client_pks"]
     for enc_sig in paras:
         for chunck in enc_sig:
-            clear_sig += RSA.decrypt(sk,chunck)
+            clear_sig += RSA.decrypt(sk,chunck) # use master key
         data_sig = json.loads(clear_sig)
         try:
             if os.path.isdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"):
@@ -247,7 +247,11 @@ def best_signature_selection(**args):
 
     best_sig_json = signature_to_json(ROOT_DIR+"/ToolChainClassifier/classifier/best_sig/")
     best_sig_string = json.dumps(best_sig_json)
-    enc_best_sig_string = RSA.encrypt(pk,best_sig_string)
+    idx = 0
+    enc_best_sig_string = list()
+    for enc_sig in paras:
+        enc_best_sig_string.append(RSA.encrypt(RSA.bytes_to_pk(F.string_to_bytes(client_pks[idx])),best_sig_string))
+        idx += 1
     return {"enc_best_sig_string": enc_best_sig_string}
                     
 
