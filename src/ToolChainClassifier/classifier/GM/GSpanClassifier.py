@@ -48,14 +48,14 @@ class GSpanClassifier(Classifier):
         
         try: 
             os.mkdir(self.path_sig)
-            os.mkdir(self.path_test)
+            #os.mkdir(self.path_test)
         except:
             import shutil
             shutil.rmtree(self.path_sig)
-            shutil.rmtree(self.path_test)
+            #shutil.rmtree(self.path_test)
             
             os.mkdir(self.path_sig)
-            os.mkdir(self.path_test)
+            #os.mkdir(self.path_test)
         
         
     def add_clean(self,path):

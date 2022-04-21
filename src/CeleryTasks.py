@@ -268,17 +268,8 @@ def save_sig(**args):
     idx = args["idx"]
     clear_sig = ""
     for chunck in enc_best_sig_string[idx]:
-        clear_sig += RSA.decrypt(sk,chunck) # use master key
+        clear_sig += RSA.decrypt(sk,chunck) 
     data_sig = json.loads(clear_sig)
-    # clear_sig = RSA.decrypt(sk,enc_best_sig_string[idx])
-    # data_sig = json.loads(clear_sig)
-    try: # TODO for now we replace standard signature folder with best one
-        if os.path.isdir(ROOT_DIR+"/ToolChainClassifier/sig/"): 
-            os.rmdir(ROOT_DIR+"/ToolChainClassifier/sig/")
-        os.mkdir(ROOT_DIR+"/ToolChainClassifier/sig/")
-    except:
-        print('error')
-        return {"v": -1}
     for signature in data_sig:
         jdx = 0
         f = open(ROOT_DIR+"/ToolChainClassifier/sig/"+signature, "w")
