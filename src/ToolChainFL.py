@@ -200,6 +200,7 @@ class ToolChainFL:
                     # args["test"] = f"{runname}"
                 elif classifier == "gspan":
                     args["sigpath"] = None # use standard sig folder
+                    args["run_name"] = f"{runname}_part{i}"
                 job.append(test.s(**args).set(queue=self.hosts[i]))
             ret = celery.group(job)().get()
             for r in ret:
