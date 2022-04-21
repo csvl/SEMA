@@ -199,8 +199,8 @@ class GSpanClassifier(Classifier):
                     predictions.append([random.choice(best_fam),family,score[max_score[0]]])
                 else:
                     predictions.append(['clean',family,score[max_score[0]]])
+                #bar.update(cnt) # TODO update with families of test set, error for FL
                 cnt += 1
-                bar.update(cnt)
         bar.finish() 
         self.predictions = predictions
         if path is None:
@@ -243,8 +243,8 @@ class GSpanClassifier(Classifier):
             #best_fam = fam_tar[score.index(max_score)]
             else:
                 predictions.append(["clean","clean",score[max_score[0]]])
-            cnt += 1
             bar.update(cnt)
+            cnt += 1
         bar.finish()
         self.predictions_clean = predictions
         if path is None:

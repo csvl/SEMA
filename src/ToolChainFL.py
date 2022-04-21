@@ -170,67 +170,17 @@ class ToolChainFL:
 
             elif classifier == "gspan":
                 self.log.info("-- Best signature selection phase FL")
-                # best_fscore_familly = {}
                 args["select_id"] = select_id
                 args["paras"] = paras
                 args["client_pks"] = client_pks
                 args["run_name"] = f"{runname}_part{select_id}"
                 ret = celery.group(best_signature_selection.s(**args).set(queue=self.hosts[select_id]))().get()
-                
-                # best_fscore = 0
-                # best_para = 0
-                # # Master node get all signature, 
-                # # test all signature and pick the best signature set (per familly TODO)
-                # clear_sig = ""
-                # idx = 0
-                # enc_best_sig_string = list()
-                # for enc_sig in paras:
-                #     for chunck in enc_sig:
-                #         clear_sig += RSA.decrypt(sk,chunck)
-                #     data_sig = json.loads(clear_sig)
-                #     try:
-                #         if os.path.isdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"+ str(idx)):
-                #             os.rmdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"+ str(idx))
-                #         os.mkdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"+ str(idx))
-                #     except Exception as e:
-                #         print('error')
-                #         print(e)
-                #         pass
-
-                #     print(data_sig)
-
-                #     for signature in data_sig:
-                #         f = open(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  str(idx) + "/" + signature, "w")
-                #         for line in data_sig[signature]:
-                #             f.write(line)
-                #         f.close()
-
-                #     args["sigpath"] = ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  str(idx) + "/" 
-                #     ret_test = celery.group(test.s(**args).set(queue=self.hosts[select_id]))().get()
-                #     fscore = float(ret_test[0]["fscore"])
-                #     if fscore > best_fscore:
-                #         best_fscore = fscore
-                #         best_para = idx
-                # try:
-                #     os.rename(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"+ str(best_para) + "/" ,
-                #         ROOT_DIR+"/ToolChainClassifier/classifier/best_sig/")
-                # except:
-                #     print('error')
-                #     pass
-
-                # best_sig_json = signature_to_json(ROOT_DIR+"/ToolChainClassifier/classifier/best_sig/")
-                # best_sig_string = json.dumps(best_sig_json)
-
-                # idx = 0
-                # for enc_sig in paras:
-                #     enc_best_sig_string.append(RSA.encrypt(RSA.bytes_to_pk(F.string_to_bytes(client_pks[idx])),best_sig_string))
-                #     idx += 1
-
+               
                 self.log.info("-- Distribution of the best signature selection phase FL")
                 job=[]
                 # TODO +- useless
                 for i in range(len(self.hosts)):
-                    args["enc_best_sig_string"] = ret["enc_best_sig_string"]
+                    args["enc_best_sig_string"] = ret[0]["enc_best_sig_string"]
                     args["idx"] = i
                     job.append(save_sig.s(**args).set(queue=self.hosts[i]))
                 ret = celery.group(job)().get()

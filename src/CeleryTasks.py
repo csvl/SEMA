@@ -208,11 +208,11 @@ def best_signature_selection(**args):
     best_para = 0
     # Master node get all signature, 
     # test all signature and pick the best signature set (per familly TODO)
-    clear_sig = ""
     idx = 0
     paras = args["paras"]
     client_pks = args["client_pks"]
     for enc_sig in paras:
+        clear_sig = ""
         for chunck in enc_sig:
             clear_sig += RSA.decrypt(sk,chunck) # use master key
         data_sig = json.loads(clear_sig)
@@ -228,8 +228,10 @@ def best_signature_selection(**args):
 
         for signature in data_sig:
             f = open(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  str(idx) + "/" + signature, "w")
+            jdx = 0
             for line in data_sig[signature]:
-                f.write(line.replace('\n',"")+"\n")
+                f.write(data_sig[signature][line])
+                jdx += 1
             f.close()
             
         pwd = ROOT_DIR
@@ -264,19 +266,25 @@ def best_signature_selection(**args):
 def save_sig(**args):
     enc_best_sig_string = args["enc_best_sig_string"]
     idx = args["idx"]
-    clear_sig = RSA.decrypt(sk,enc_best_sig_string[idx])
+    clear_sig = ""
+    for chunck in enc_best_sig_string[idx]:
+        clear_sig += RSA.decrypt(sk,chunck) # use master key
     data_sig = json.loads(clear_sig)
+    # clear_sig = RSA.decrypt(sk,enc_best_sig_string[idx])
+    # data_sig = json.loads(clear_sig)
     try: # TODO for now we replace standard signature folder with best one
-        if os.path.isdir(ROOT_DIR+"/ToolChainClassifier/classifier/sig/"):
-            os.rmdir(ROOT_DIR+"/ToolChainClassifier/classifier/sig/")
-        os.mkdir(ROOT_DIR+"/ToolChainClassifier/classifier/sig/")
+        if os.path.isdir(ROOT_DIR+"/ToolChainClassifier/sig/"): 
+            os.rmdir(ROOT_DIR+"/ToolChainClassifier/sig/")
+        os.mkdir(ROOT_DIR+"/ToolChainClassifier/sig/")
     except:
         print('error')
         return {"v": -1}
     for signature in data_sig:
-        f = open(ROOT_DIR+"/ToolChainClassifier/classifier/sig/"+signature, "w")
+        jdx = 0
+        f = open(ROOT_DIR+"/ToolChainClassifier/sig/"+signature, "w")
         for line in data_sig[signature]:
-            f.write(line.replace('\n',"")+"\n")
+            f.write(data_sig[signature][line])
+            jdx += 1
         f.close()
     return {"v": 0}
         
