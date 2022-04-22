@@ -70,10 +70,11 @@ def start_scdg(** args):
 
     if demonstration:
         folderName = folderName + "_client"+str(client_id)
-        args_scdg["exp_dir"] = args_scdg["exp_dir"] + "_client"+str(client_id)
+        args_scdg["exp_dir"] = args_scdg["exp_dir"].replace("save-SCDG","save-SCDG"  + "_client"+str(client_id))
 
     log.info(args)
     if os.path.isdir(folderName):
+        print(folderName)
         subfolder = [os.path.join(folderName, f) for f in os.listdir(folderName) if os.path.isdir(os.path.join(folderName, f))]
         log.info(subfolder)
         for folder in subfolder:
