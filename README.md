@@ -347,16 +347,19 @@ You can use any arguments of the toolchain in addition.
 
 On each client + master you should run:
 ```bash
-(screen) bash run_worker.sh --hostname=host1 # client 1
+(screen) bash run_worker.sh --hostname=host1 # client 1 = master node
 (screen) bash run_worker.sh --hostname=host2 # client 2
-(screen) bash run_worker.sh --hostname=host3 # client 3 and also master node
+(screen) bash run_worker.sh --hostname=host2 # client 3
 ```
 
 Then on the master node:
 
 ```bash
 bash setup_network.sh
-(screen) python3 ToolChainFL.py --method CDFS --smodel 1 --hostnames host1 host2 host3 --verbose databases/malware-win/train/
+(screen) python3 ToolChainFL.py --demonstration --method CDFS --classifier dl --smodel 1 --hostnames host1 host2 host3 --verbose databases/malware-win/small_train/
+
+
+(screen) python3 ToolChainFL.py --demonstration --exp_dir output/test-set/ --method CDFS --classifier gspan --hostnames host1 host2 host3 --verbose databases/malware-win/small_train/
 ```
 
 #### Managing SSH sessions

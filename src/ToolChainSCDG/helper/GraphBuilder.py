@@ -54,8 +54,6 @@ class GraphBuilder:
         self.IGNORE_ZERO = ignore_zero
         ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
         ROOT_DIR = ROOT_DIR.replace("/helper", "")
-        self.odir = "output/save-SCDG/" + familly # ROOT_DIR +
-        self.lw.info("Output dir :" + self.odir)
 
         self.get_info = get_info
 
@@ -72,6 +70,9 @@ class GraphBuilder:
             self.odir = odir
             if not os.path.exists(odir):
                 os.makedirs(odir)
+        else:
+            self.odir = "output/save-SCDG/" + familly # ROOT_DIR +
+        self.lw.info("Output dir :" + self.odir)
 
     # Create a mapping for the different syscall name and an unique identifier.
     # args : mapping = name of the file for the mapping to use (format : id syscallname\n)

@@ -71,6 +71,7 @@ def start_scdg(** args):
     if demonstration:
         folderName = folderName + "_client"+str(client_id)
         args_scdg["exp_dir"] = args_scdg["exp_dir"].replace("save-SCDG","save-SCDG"  + "_client"+str(client_id))
+        args_scdg["dir"] = args_scdg["dir"].replace("output/small_train","output/small_train"  + "_client"+str(client_id))
 
     log.info(args)
     if os.path.isdir(folderName):
