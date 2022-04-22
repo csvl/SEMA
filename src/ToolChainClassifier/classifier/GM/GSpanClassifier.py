@@ -243,7 +243,7 @@ class GSpanClassifier(Classifier):
             #best_fam = fam_tar[score.index(max_score)]
             else:
                 predictions.append(["clean","clean",score[max_score[0]]])
-            bar.update(cnt)
+            #bar.update(cnt) TODO
             cnt += 1
         bar.finish()
         self.predictions_clean = predictions

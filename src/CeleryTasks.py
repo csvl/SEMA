@@ -64,7 +64,14 @@ def start_scdg(** args):
     args_scdg = args["args_scdg"]
     families = args["families"]
     expl_method = args["expl_method"]
+    demonstration = args["demonstration"]
+    client_id = args["client_id"]
     last_familiy = "unknown"
+
+    if demonstration:
+        folderName = folderName + "_client"+str(client_id)
+        args_scdg["exp_dir"] = args_scdg["exp_dir"] + "_client"+str(client_id)
+
     log.info(args)
     if os.path.isdir(folderName):
         subfolder = [os.path.join(folderName, f) for f in os.listdir(folderName) if os.path.isdir(os.path.join(folderName, f))]
@@ -287,7 +294,7 @@ def test(**args):
     pwd = ROOT_DIR
     trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_{classifier}_model.pkl"))
     if classifier == "dl":
-        trainer.classify(path=pwd.replace("ToolChainClassifier","output/") +'/test-set/') # TODO add custom path
+        trainer.classify() 
         acc, loss = trainer.get_stat_classifier()
         return {"acc":acc, "loss":loss}
     elif classifier == "gpsan":

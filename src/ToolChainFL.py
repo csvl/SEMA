@@ -23,7 +23,6 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 class ToolChainFL:
     def __init__(self,hosts=['host2','host3'], # ,'host4']
                       test_val=[2.1, 2.1, 2.1],
-                      n_features=2
                       ):
        self.tools = ToolChain()
        self.families = self.tools.families
@@ -52,9 +51,11 @@ class ToolChainFL:
         args = {"args_scdg":self.args_scdg.__dict__,
                 "folderName":self.folderName,
                 "families":self.families,
+                "demonstration":self.args.demonstration,
                 "expl_method":self.expl_method}
         job = []
         for i in range(len(self.hosts)):
+            args["client_id"] = i
             job.append(start_scdg.s(**args).set(queue=self.hosts[i]))
         ret = celery.group(job)().get()
         idx= 0
@@ -217,7 +218,7 @@ class ToolChainFL:
             
 def main():
     fl = ToolChainFL()
-    #fl.fl_scdg() # TODO args parsing error unknow strange
+    fl.fl_scdg() # TODO args parsing error unknow strange
     fl.fl_classifier()
 
 if __name__=="__main__":
