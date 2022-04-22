@@ -107,6 +107,11 @@ class ArgumentParserSCDG:
             action="store_true",
         )
         parser.add_argument(
+            "--classifier",
+            help="Keep intermediate SCDG in file  (default : False)",
+            default="dl"
+        )
+        parser.add_argument(
             "--verbose",
             help="Verbose output during calls extraction  (default : False)",
             action="store_true",
