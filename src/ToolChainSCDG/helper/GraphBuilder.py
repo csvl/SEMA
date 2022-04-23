@@ -67,9 +67,9 @@ class GraphBuilder:
             self.name = name
 
         if odir:
-            self.odir = odir
-            if not os.path.exists(odir):
-                os.makedirs(odir)
+            self.odir = odir + familly
+            if not os.path.exists(self.odir):
+                os.makedirs(self.odir)
         else:
             self.odir = "output/save-SCDG/" + familly # ROOT_DIR +
         self.lw.info("Output dir :" + self.odir)

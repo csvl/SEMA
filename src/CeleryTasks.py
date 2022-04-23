@@ -71,7 +71,7 @@ def start_scdg(** args):
     if demonstration:
         folderName = folderName + "_client"+str(client_id)
         args_scdg["exp_dir"] = args_scdg["exp_dir"].replace("save-SCDG","save-SCDG"  + "_client"+str(client_id))
-        args_scdg["dir"] = args_scdg["dir"].replace("output/small_train","output/small_train"  + "_client"+str(client_id))
+        args_scdg["dir"] = args_scdg["dir"].replace("save-SCDG","save-SCDG"  + "_client"+str(client_id))
 
     log.info(args)
     if os.path.isdir(folderName):
@@ -156,9 +156,10 @@ def train(** args):
     client_id = args["client_id"]
     pwd = ROOT_DIR
     logc.info(run_name)
+    logc.info(args_class)
 
     if demonstration:
-        input_path = input_path + "_client"+str(client_id)
+        input_path = input_path.replace("save-SCDG","save-SCDG"  + "_client"+str(client_id))
         
     if nround<1:
         toolcl = ToolChainClassifier(classifier_name=classifier, parse=False)
