@@ -297,7 +297,7 @@ def test(**args):
     pwd = ROOT_DIR
     trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_{classifier}_model.pkl"))
     if classifier == "dl":
-        trainer.classify() 
+        trainer.classify(path=pwd +'output/test-set/') 
         acc, loss = trainer.get_stat_classifier()
         return {"acc":acc, "loss":loss}
     elif classifier == "gpsan":

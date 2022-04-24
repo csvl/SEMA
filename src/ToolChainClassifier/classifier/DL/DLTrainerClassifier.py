@@ -97,19 +97,9 @@ class DLTrainerClassifier(Classifier):
 		self.labels =[c for c in self._model.classes]
 		self.loss = 0.
 
-		if path is None:
-			for x,y in self.val_dataset:
-				y_predict = self._model.predict(x[0])
-				l = self.loss_calc(x,y_predict, x,y[0],criterion_x,criterion_y)
-				if l is not None:
-					self.loss+=l.item()
-				i = torch.argmax(y_predict).item()
-				j = torch.argmax(y).item()
-				if i==j:
-					self.TP +=1
-				self.y_true.append(self.labels[j])
-				self.y_pred.append(self.labels[i])
-		else:
+		consider_dataset = self.val_dataset
+
+		if path is not None:
 			'''
 			Already have a model -> classify new data
 			'''
@@ -117,13 +107,22 @@ class DLTrainerClassifier(Classifier):
 			ncpu = multiprocessing.cpu_count()
 			data_classify = DLDataset(path, self.mappath, self.apipath, self.vector_size)
 			self.test_dataset = DataLoader(data_classify,num_workers=ncpu)
-			for x,y in self.test_dataset:
-				y_predict = self._model.predict(x[0])
-				i = torch.argmax(y_predict).item()
-				self.y_pred.append(self.labels[i])
+			consider_dataset = self.test_dataset
+		
+		for x,y in consider_dataset:
+			y_predict = self._model.predict(x[0])
+			l = self.loss_calc(x,y_predict, x,y[0],criterion_x,criterion_y)
+			if l is not None:
+				self.loss+=l.item()
+			i = torch.argmax(y_predict).item()
+			j = torch.argmax(y).item()
+			if i==j:
+				self.TP +=1
+			self.y_true.append(self.labels[j])
+			self.y_pred.append(self.labels[i])
 			print("Prediction:")
 			print(self.y_pred)
-		
+
 	def detection(self, path=None):
 		"""
 		Malware vs cleanware
