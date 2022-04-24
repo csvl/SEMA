@@ -67,11 +67,11 @@ class GraphBuilder:
             self.name = name
 
         if odir:
-            self.odir = odir + familly
+            self.odir = odir + "/" + familly
             if not os.path.exists(self.odir):
                 os.makedirs(self.odir)
         else:
-            self.odir = "output/save-SCDG/" + familly # ROOT_DIR +
+            self.odir = "output/save-SCDG/"  + "/" + familly # ROOT_DIR +
         self.lw.info("Output dir :" + self.odir)
 
     # Create a mapping for the different syscall name and an unique identifier.
