@@ -88,8 +88,8 @@ def start_scdg(** args):
             families += last_familiy
     else:
         log.info("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/malware-inputs/Sample_paper")
-        exit(-1)
-    return 0
+        return {"v": -1}
+    return {"v": 0}
 
 ########################################
 # Classifier
@@ -255,6 +255,7 @@ def best_signature_selection(**args):
         if fscore > best_fscore:
             best_fscore = fscore
             best_para = idx
+        idx+=1
     try:
         os.rename(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"+ str(best_para) + "/" ,
             ROOT_DIR+"/ToolChainClassifier/classifier/best_sig/")
@@ -272,7 +273,7 @@ def best_signature_selection(**args):
     return {"enc_best_sig_string": enc_best_sig_string}
                     
 
-@app.task
+@app.task13951
 def save_sig(**args):
     enc_best_sig_string = args["enc_best_sig_string"]
     idx = args["idx"]

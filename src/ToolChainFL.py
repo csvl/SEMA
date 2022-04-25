@@ -58,9 +58,6 @@ class ToolChainFL:
             args["client_id"] = i+1
             job.append(start_scdg.s(**args).set(queue=self.hosts[i]))
         ret = celery.group(job)().get()
-        idx= 0
-        for r in ret:
-            idx+=1
         self.log.info("Ending SCDGs phase in FL")
 
     def fl_classifier(self):
@@ -215,7 +212,9 @@ class ToolChainFL:
                 plt.savefig(f"his_fig.png", bbox_inches='tight')
 
         self.log.info("Ending classification phase in FL")
-            
+
+# TODO add FL stop procedure 
+#         
 def main():
     fl = ToolChainFL()
     fl.fl_scdg() # TODO args parsing error unknow strange

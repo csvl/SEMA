@@ -68,7 +68,8 @@ class SVMClassifier(Classifier):
                 self.log.info("Dataset should be a folder containing malware classify by familly in subfolder")
                 exit(-1)
             else:
-                filenames = glob.glob(path+'/SCDG_*') + glob.glob(path+'test/SCDG_*')
+                #filenames = glob.glob(path+'/SCDG_*') + glob.glob(path+'test/SCDG_*')
+                filenames = [os.path.join(path, f) for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
                 if len(filenames) > 1 :
                     self.fam_idx.append(family)
                 for file in filenames:
