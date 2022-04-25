@@ -273,7 +273,7 @@ def best_signature_selection(**args):
     return {"enc_best_sig_string": enc_best_sig_string}
                     
 
-@app.task13951
+@app.task
 def save_sig(**args):
     enc_best_sig_string = args["enc_best_sig_string"]
     idx = args["idx"]
