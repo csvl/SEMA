@@ -14,7 +14,7 @@
 ====
 <a name="arch"></a>
 
-![GitHub Logo](/doc/arch.png)
+![GitHub Logo](/doc/SEMA_illustration.png)
 
 * Main depencies: 
 
