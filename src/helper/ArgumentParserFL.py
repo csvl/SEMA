@@ -12,17 +12,20 @@ class ArgumentParserFL:
         self.parser = argparse.ArgumentParser(conflict_handler='resolve',
                                 parents=[self.args_parser_scdg.parser,self.args_parser_class.parser]) 
         self.group = self.parser.add_argument_group('Federated learning module arguments')
-        self.group.add_argument('--nrounds', 
+        self.group.add_argument(
+            '--nrounds', 
             help='Number of rounds for training',
             type=int, 
             default=5
         )
-        self.group.add_argument('--sround', 
+        self.group.add_argument(
+            '--sround', 
             help='Restart from sround',
             type=int, 
             default=0
         )
-        self.group.add_argument('--nparts', 
+        self.group.add_argument(
+            '--nparts', 
             help='number of partitions',
             type=int,
             default=3

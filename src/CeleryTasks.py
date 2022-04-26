@@ -11,6 +11,8 @@ import dill
 import celery
 import json
 
+# TODO parametrise with arguments
+
 # Celery config
 # Client: 130.104.229.26
 # Client: 130.104.229.85

@@ -331,6 +331,12 @@ pypy3 ToolChainFL.py --hostnames <listname> BINARY_NAME
 
 python3 ToolChainFL.py --hostnames <listname> BINARY_NAME
 ```
+* `nrounds` :  Number of rounds for training (default : 5)
+* `sround` :  Restart from sround (default : 0)
+* `nparts` :  Number of partitions (default : 3)
+* `FLRtrain` :  FL train rotate (default : False)
+* `demonstration` :  If set, use specific dataset for each client (up to 3) to simulate different dataset in clients, else use the same input folder dataset for all clients (default : False)
+* `hostnames` : Hostnames for celery clients
 
 You can use any arguments of the toolchain in addition.
 
