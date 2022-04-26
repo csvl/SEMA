@@ -32,11 +32,8 @@ class ToolChainClassifier:
         self.log = logging.getLogger("ToolChainClassifier")
         self.log.setLevel(logging.INFO)
         self.log.addHandler(ch)
-        self.log.propagate = False
-
-        if parse: # TODO
-            args_parser = ArgumentParserClassifier(self)
-            self.args = args_parser.parse_arguments()
+        self.log.propagate = False    
+        self.args = None        
 
     def save_model(self,object, path):
         with open(path, 'wb+') as output:
@@ -140,6 +137,9 @@ class ToolChainClassifier:
 
 def main():
     tc = ToolChainClassifier()
+    args_parser = ArgumentParserClassifier(tc)
+    tc.args = args_parser.parse_arguments()
+    args_parser.update_tool(tc.args)
     tc.init()
     tc.train()
     

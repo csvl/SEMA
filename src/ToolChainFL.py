@@ -6,14 +6,14 @@ import os
 from matplotlib.pyplot import cla
 from numpy import double
 from ToolChainSCDG.clogging.CustomFormatter import CustomFormatter
+from ToolChainClassifier.ToolChainClassifier import ToolChainClassifier
+from ToolChainSCDG.ToolChainSCDG import ToolChainSCDG
 try:
     from CeleryTasks import *
-    from ToolChain import ToolChain
     from HE.HE_SEALS import F
     from helper.ArgumentParserFL import ArgumentParserFL
 except:
     from .CeleryTasks import *
-    from .ToolChain import ToolChain
     from .HE.HE_SEALS import F
     from .helper.ArgumentParserFL import ArgumentParserFL
 
@@ -24,34 +24,40 @@ class ToolChainFL:
     def __init__(self,hosts=['host2','host3'], # ,'host4']
                       test_val=[2.1, 2.1, 2.1],
                       ):
-       self.tools = ToolChain()
-       self.families = self.tools.families
-       self.args_class = self.tools.args_class
-       self.folderName = self.tools.folderName
-       self.expl_method = self.tools.expl_method
-       self.familly = self.tools.familly
-       self.args_scdg = self.tools.args_scdg
-       parser = ArgumentParserFL()
-       self.args = parser.parse_arguments()
-       self.hosts = hosts
-       if self.args.hostnames and len(self.args.hostnames) > 0:
-           self.hosts = self.args.hostnames
-       self.test_value = test_val
-       ch = logging.StreamHandler()
-       ch.setLevel(logging.INFO)
-       ch.setFormatter(CustomFormatter())
-       self.log = logging.getLogger("ToolChainFL")
-       self.log.setLevel(logging.INFO)
-       self.log.addHandler(ch)
-       self.log.propagate = False
+        self.toolc = ToolChainSCDG(
+            print_sm_step=True,
+            print_syscall=True,
+            debug_error=True,
+            debug_string=True,
+            print_on=True,
+            is_from_tc=True
+        )
+        self.families = []
+        self.toolmc = ToolChainClassifier(parse=False)
+        
+        self.args_parser = ArgumentParserFL(self.toolc, self.toolmc)
+        self.args = self.args_parser.parse_arguments()
+        self.folderName, self.expl_method, self.familly = self.args_parser.args_parser_scdg.update_tool(self.args)
+        self.args_parser.args_parser_class.update_tool(self.args)
+        
+        self.hosts = hosts
+        if self.args.hostnames and len(self.args.hostnames) > 0:
+            self.hosts = self.args.hostnames
+        self.test_value = test_val
+        ch = logging.StreamHandler()
+        ch.setLevel(logging.INFO)
+        ch.setFormatter(CustomFormatter())
+        self.log = logging.getLogger("ToolChainFL")
+        self.log.setLevel(logging.INFO)
+        self.log.addHandler(ch)
+        self.log.propagate = False
 
     def fl_scdg(self):
         self.folderName = "".join(self.folderName.rstrip())
         self.log.info("Starting SCDGs phase in FL")
-        args = {"args_scdg":self.args_scdg.__dict__,
+        args = {"args_scdg":self.args.__dict__,
                 "folderName":self.folderName,
                 "families":self.families,
-                "demonstration":self.args.demonstration,
                 "expl_method":self.expl_method}
         job = []
         for i in range(len(self.hosts)):
@@ -66,7 +72,7 @@ class ToolChainFL:
         smodel = self.args.smodel
         nrounds = self.args.nrounds
         sround = self.args.sround
-        classifier = self.args_class.classifier
+        classifier = self.args.classifier
 
         if classifier is None:
             classifier = "dl"
@@ -103,7 +109,7 @@ class ToolChainFL:
                 "demonstration":self.args.demonstration,
                 "smodel":smodel,
                 "classifier":classifier,
-                "args_class":self.args_class.__dict__}
+                "args_class":self.args.__dict__}
         
         # TODO train argument
         tround = sround 
@@ -217,7 +223,7 @@ class ToolChainFL:
 #         
 def main():
     fl = ToolChainFL()
-    fl.fl_scdg() # TODO args parsing error unknow strange
+    fl.fl_scdg() 
     fl.fl_classifier()
 
 if __name__=="__main__":

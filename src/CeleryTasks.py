@@ -64,9 +64,10 @@ def start_scdg(** args):
     args_scdg = args["args_scdg"]
     families = args["families"]
     expl_method = args["expl_method"]
-    demonstration = args["demonstration"]
+    demonstration = args_scdg["demonstration"]
     client_id = args["client_id"]
     last_familiy = "unknown"
+    args_scdg["dir"] = args_scdg["binaries"]
 
     if demonstration:
         folderName = folderName + "_client"+str(client_id)
@@ -152,7 +153,7 @@ def train(** args):
     input_path = args["input_path"]
     classifier = args["classifier"]
     args_class = args["args_class"]
-    demonstration = args["demonstration"]
+    demonstration = args_class["demonstration"]
     client_id = args["client_id"]
     pwd = ROOT_DIR
     logc.info(run_name)

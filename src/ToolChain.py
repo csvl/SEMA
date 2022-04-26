@@ -32,11 +32,10 @@ class ToolChain:
         )
         
         self.toolmc = ToolChainClassifier(parse=False)
-
         self.args_parser = ArgumentParserTC(self.toolc, self.toolmc)
-        self.args_scdg, self.folderName, self.expl_method, self.familly = self.args_parser.args_parser_scdg.parse_arguments(True)
-        self.args_class  = self.args_parser.args_parser_class.parse_arguments(True)
-
+        self.args = self.args_parser.parse_arguments()
+        self.folderName, self.expl_method, self.familly = self.args_parser.args_parser_scdg.update_tool(self.args)
+        self.args_parser.args_parser_class.update_tool(self.args)
         self.families = []
 
         self.input_path = None
@@ -52,14 +51,14 @@ class ToolChain:
             ffc = 0
             for folder in subfolder:
                 self.log.info("You are currently building SCDG for " + folder)
-                self.args_scdg.exp_dir = self.args_scdg.exp_dir.replace(last_familiy,folder.split("/")[-1])
+                self.args.exp_dir = self.args.exp_dir.replace(last_familiy,folder.split("/")[-1])
                 last_familiy = folder.split("/")[-1]
                 files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
                 bar = progressbar.ProgressBar(max_value=len(files))
                 bar.start()
                 fc = 0
                 for file  in files:
-                    self.toolc.build_scdg(self.args_scdg, file, self.expl_method,last_familiy)
+                    self.toolc.build_scdg(self.args, file, self.expl_method,last_familiy)
                     fc+=1
                     bar.update(fc)
                 self.families += last_familiy
@@ -73,7 +72,7 @@ class ToolChain:
     
     def start_training(self):
         if self.toolmc.input_path is None:
-            self.input_path = self.args_scdg.exp_dir
+            self.input_path = self.args.exp_dir
         else:
             self.input_path = self.toolmc.input_path
         self.input_path = self.input_path.replace("unknown/","") # todo
@@ -86,9 +85,9 @@ class ToolChain:
                 last_familiy = folder.split("/")[-1]
                 self.families.append(str(last_familiy))
 
-        self.toolmc.init_classifer(args=self.args_class,families=self.families ,from_saved_model=(not self.args_class.train))
+        self.toolmc.init_classifer(args=self.args,families=self.families ,from_saved_model=(not self.args.train))
         
-        if self.args_class.train:
+        if self.args.train:
             if self.toolmc.input_path is None:
                 self.toolmc.classifier.train(self.input_path)
             else:
@@ -97,8 +96,8 @@ class ToolChain:
 
     def start_classify(self):
         if self.toolmc.classifier.dataset_len > 0:
-            self.toolmc.classifier.classify(path=(None if self.args_class.train else self.input_path))
-            if self.args_class.train:
+            self.toolmc.classifier.classify(path=(None if self.args.train else self.input_path))
+            if self.args.train:
                 if self.toolmc.classifier_name == "gspan":
                     self.toolmc.classifier.get_stat_classifier(target=self.toolmc.mode)
                 else:

@@ -54,3 +54,26 @@
 * decentralized version
 
 * Put same test data in each 
+
+#### Generate executable
+
+https://pyinstaller.readthedocs.io/en/stable/requirements.html
+
+TODO
+
+```bash
+pyinstaller -F -w --path="src/:penv/lib/python3.8/site-packages" --onefile src/ToolChain.py
+```
+
+#### Generate package
+
+TODO better setup.py
+
+https://test.pypi.org/account/register/
+
+```bash
+python3 -m pip install --upgrade build
+python3 -m build
+twine upload --repository testpypi dist/*
+```
+

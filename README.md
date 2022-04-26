@@ -171,9 +171,9 @@ Our toolchain is represented in the next figure  and works as follow. A collecti
 ### How to use ?
 Just run the script : 
 ```bash
-pypy3 ToolChain.py FOLDER
+pypy3 ToolChain.py FOLDER_OF_BINARIES FOLDER_OF_SIGNATURE
 
-python3 ToolChain.py FOLDER
+python3 ToolChain.py FOLDER_OF_BINARIES FOLDER_OF_SIGNATURE
 ```
 * `FOLDER` : Folder containing binaries to classify, these binaries must be ordered by familly (default : `databases/malware-win/train`)
 
@@ -182,10 +182,10 @@ python3 ToolChain.py FOLDER
 ```bash
 # For folder of malware 
 # Deep learning not supported with pypy3 (--classifier dl)
-pypy3 ToolChain.py  --method CDFS --train --verbose databases/malware-win/train/
+pypy3 ToolChain.py  --method CDFS --train --verbose_scdg --verbose_classifier databases/malware-win/train/ output/save-SCDG/
 
 # (virtual env/penv)
-python3 ToolChain.py  --method CDFS --train --verbose databases/malware-win/train/
+python3 ToolChain.py  --method CDFS --train --verbose_scdg --verbose_classifier databases/malware-win/train/ output/save-SCDG/
 ```
 
 :page_with_curl: System Call Dependency Graphs extractor (`ToolChainSCDG`)
@@ -235,22 +235,22 @@ Password for Examples archive is "infected". Warning : it contains real samples 
 
 ```bash
 # +- 447 sec <SimulationManager with 61 deadended>
-pypy3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-win/train/nitol/00b2f45c7befbced2efaeb92a725bb3d  
+pypy3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose_scdg databases/malware-win/train/nitol/00b2f45c7befbced2efaeb92a725bb3d  
 
 # +- 512 sec <SimulationManager with 61 deadended>
 # (virtual env/penv)
-python3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-win/train/nitol/00b2f45c7befbced2efaeb92a725bb3d 
+python3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose_scdg databases/malware-win/train/nitol/00b2f45c7befbced2efaeb92a725bb3d 
 ```
 
 ```bash
 # timeout (+- 607 sec) 
 # <SimulationManager with 6 active, 168 deadended, 61 pause, 100 ExcessLoop> + 109 SCDG
-pypy3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-win/train/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df 
+pypy3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose_scdg databases/malware-win/train/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df 
 
 # timeout (611 sec) 
 # <SimulationManager with 5 active, 69 deadended, 63 pause, 100 ExcessLoop> + 53 SCDG
 # (virtual env/penv)
-python3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose databases/malware-win/train/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df 
+python3 ToolChainSCDG/ToolChainSCDG.py --method DFS --verbose_scdg databases/malware-win/train/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df 
 ```
 
 :page_with_curl: Model & Classification extractor (`ToolChainClassifier`)
@@ -347,10 +347,10 @@ Then on the master node:
 
 ```bash
 bash setup_network.sh
-(screen) python3 ToolChainFL.py --demonstration --method CDFS --classifier dl --smodel 1 --hostnames host1 host2 host3 --verbose databases/malware-win/small_train/
+(screen) python3 ToolChainFL.py --demonstration --method CDFS --classifier dl --smodel 1 --hostnames host1 host2 host3 --verbose_scdg databases/malware-win/small_train/ output/save-SCDG/
 
 
-(screen) python3 ToolChainFL.py --demonstration --exp_dir output/test-set/ --method CDFS --classifier gspan --hostnames host1 host2 host3 --verbose databases/malware-win/small_train/
+(screen) python3 ToolChainFL.py --demonstration --method CDFS --classifier gspan --hostnames host1 host2 host3 --verbose_scdg databases/malware-win/small_train/ output/save-SCDG/
 ```
 
 #### Managing SSH sessions

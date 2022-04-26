@@ -42,7 +42,7 @@ except:
 import angr
 import claripy
 
-MEMORY_PROFILING = True
+MEMORY_PROFILING = False
 
 if MEMORY_PROFILING:
     # TODO take snapshot in build_scdgs()
@@ -143,7 +143,7 @@ class ToolChainSCDG:
             min_size = args.min_size
             not_ignore_zero = args.not_ignore_zero
             dir = args.dir
-            verbose = args.verbose
+            verbose = args.verbose_scdg
             format_out = args.format_out
             discard_SCDG = args.discard_SCDG
         else:
@@ -154,7 +154,7 @@ class ToolChainSCDG:
             min_size = args["min_size"]
             not_ignore_zero = args["not_ignore_zero"]
             dir = args["dir"]
-            verbose = args["verbose"]
+            verbose = args["verbose_scdg"]
             format_out = args["format_out"]
             discard_SCDG = args["discard_SCDG"]
         try:
@@ -558,7 +558,8 @@ def main():
         print_on=True,
     )
     args_parser = ArgumentParserSCDG(toolc)
-    args, nameFile, expl_method, familly = args_parser.parse_arguments()
+    args = args_parser.parse_arguments()
+    nameFile, expl_method, familly = args_parser.update_tool(args)
     nameFile = "".join(nameFile.rstrip())
     if os.path.isfile(nameFile):
         # TODO update family
