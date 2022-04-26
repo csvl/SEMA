@@ -247,7 +247,7 @@ class ToolChainSCDG:
         # options = {angr.options.USE_SYSTEM_TIMES}
         options = {angr.options.SIMPLIFY_MEMORY_READS}
         options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS)
-        options.add(angr.options.USE_SYSTEM_TIMES)
+        #options.add(angr.options.USE_SYSTEM_TIMES)
         options.add(angr.options.ZERO_FILL_UNCONSTRAINED_MEMORY)
         options.add(angr.options.SIMPLIFY_MEMORY_READS)
         options.add(angr.options.SIMPLIFY_MEMORY_WRITES)
@@ -486,7 +486,7 @@ class ToolChainSCDG:
                 self.scdg_fin.append(self.scdg[state.globals["id"]])
 
         for error in simgr.errored:
-            hashVal = hash(str(self.scdg[state.globals["id"]]))
+            hashVal = hash(str(self.scdg[error.state.globals["id"]]))
             if hashVal not in dic_hash_SCDG:
                 dic_hash_SCDG[hashVal] = 1
                 dump_file[dump_id] = {
@@ -494,7 +494,7 @@ class ToolChainSCDG:
                     "trace": self.scdg[error.state.globals["id"]],
                 }
                 dump_id = dump_id + 1
-                self.scdg_fin.append(self.scdg[state.globals["id"]])
+                self.scdg_fin.append(self.scdg[error.state.globals["id"]])
 
         for state in simgr.stashes["ExcessLoop"]:
             hashVal = hash(str(self.scdg[state.globals["id"]]))

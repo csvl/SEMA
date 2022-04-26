@@ -43,6 +43,20 @@
 * https://bazaar.abuse.ch/
 
 :page_with_curl: Installation
+=======
+:page_with_curl: Architecture
+====
+<a name="arch"></a>
+
+![GitHub Logo](/doc/SEMA_illustration.png)
+
+* Main depencies: 
+
+    * `Python3`
+
+    * `KVM/QEMU`
+
+:page_with_curl: Installation
 ====
 <a name="install"></a>
 
