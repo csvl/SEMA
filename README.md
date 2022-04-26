@@ -2,6 +2,8 @@
 # :books:  Documentation
 
 1. [ Architecture ](#arch)
+    1. [ Toolchain architecture ](#arch_std)
+    2. [ Federated learning architecture ](#arch_fl)
 
 2. [ Installation ](#install)
 
@@ -16,9 +18,17 @@
 ====
 <a name="arch"></a>
 
-![GitHub Logo](/doc/arch.png)
+##### Toolchain architecture
+<a name="arch_std"></a>
 
-* Main depencies: 
+![GitHub Logo](/doc/SEMA_illustration.png)
+
+##### Federated learning architecture
+<a name="arch_fl"></a>
+
+![GitHub Logo](/doc/SEMA-FL.png)
+
+##### Main depencies: 
 
     * Python 3.8 (angr)
 
@@ -55,29 +65,8 @@ Optionals arguments are available for `install.sh`:
 * `--pypy` : Install also with `pypy3` compiler (default : False)
 * `--pytorch_cuda` : Install also CUDA core enable with `pytorch` (default : False)
 
-#### Generate executable
-
-https://pyinstaller.readthedocs.io/en/stable/requirements.html
-
-TODO
-
-```bash
-pyinstaller -F -w --path="src/:penv/lib/python3.8/site-packages" --onefile src/ToolChain.py
-```
-
-#### Generate package
-
-TODO better setup.py
-
-https://test.pypi.org/account/register/
-
-```bash
-python3 -m pip install --upgrade build
-python3 -m build
-twine upload --repository testpypi dist/*
-```
-
 #### Pip
+
 To run this SCDG extractor you first need to install pip.
 
 ##### Debian (and Debian-based)
@@ -118,9 +107,14 @@ pip3 install pytest hypothesis;
 
 ###### Usage 
 
-
 ```bash
 python3 -m pytest test/HypothesisExamples.py;
+```
+
+##### For extracting test database
+
+```bash
+cd src/databases; bash extract_deploy_db.sh
 ```
 
 ##### For code cleaning
@@ -267,14 +261,11 @@ When a new sample has to be evaluated, its SCDG is first build as described prev
 
 The similarity score `S` between graph `G'` and `G''` is computed as follow:
 
-<p align="center">
-![equation](http://www.sciweavers.org/tex2img.php?eq=S%28G%27%27%2CG%27%29%20%3D%20%5Cfrac%7Bnum%5C_edges%28G%27%27%29%7D%7Bnum%5C_edges%28G%27%29%7D&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0)
-</p>
+![GitHub Logo](/doc/tex2img.png)
 
 Since `G''` is a subgraph of `G'`, this is calculating how much `G'` appears in `G''`.
 
 Another classifier we use is the Support Vector Machine (`SVM`) with INRIA graph kernel or the Weisfeiler-Lehman extension graph kernel.
-
 
 ### How to use ?
 
