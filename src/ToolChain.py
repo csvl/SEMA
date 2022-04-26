@@ -2,6 +2,7 @@ import os
 import time
 from re import sub
 import logging
+import progressbar
 from ToolChainClassifier.ToolChainClassifier import ToolChainClassifier
 from ToolChainSCDG.ToolChainSCDG import ToolChainSCDG
 from helper.ArgumentParserTC import ArgumentParserTC
@@ -30,64 +31,81 @@ class ToolChain:
             is_from_tc=True
         )
         
-        self.toolmc = ToolChainClassifier()
-
-        args_parser = ArgumentParserTC(self.toolc, self.toolmc)
-        self.args_scdg, self.folderName, self.expl_method, self.familly = args_parser.args_parser_scdg.parse_arguments(True)
-        self.args_class  = args_parser.args_parser_class.parse_arguments(True)
-
+        self.toolmc = ToolChainClassifier(parse=False)
+        self.args_parser = ArgumentParserTC(self.toolc, self.toolmc)
+        self.args = self.args_parser.parse_arguments()
+        self.folderName, self.expl_method, self.familly = self.args_parser.args_parser_scdg.update_tool(self.args)
+        self.args_parser.args_parser_class.update_tool(self.args)
         self.families = []
+
+        self.input_path = None
       
     def start_scdg(self):
         last_familiy = "unknown"
+        self.folderName = "".join(self.folderName.rstrip())
         if os.path.isdir(self.folderName):
             subfolder = [os.path.join(self.folderName, f) for f in os.listdir(self.folderName) if os.path.isdir(os.path.join(self.folderName, f))]
             self.log.info(subfolder)
+            bar_f = progressbar.ProgressBar(max_value=len(subfolder))
+            bar_f.start()
+            ffc = 0
             for folder in subfolder:
                 self.log.info("You are currently building SCDG for " + folder)
-                self.args_scdg.exp_dir = self.args_scdg.exp_dir.replace(last_familiy,folder.split("/")[-1])
+                self.args.exp_dir = self.args.exp_dir.replace(last_familiy,folder.split("/")[-1])
                 last_familiy = folder.split("/")[-1]
                 files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
+                bar = progressbar.ProgressBar(max_value=len(files))
+                bar.start()
+                fc = 0
                 for file  in files:
-                    self.toolc.build_scdg(self.args_scdg, file, self.expl_method,last_familiy)
+                    self.toolc.build_scdg(self.args, file, self.expl_method,last_familiy)
+                    fc+=1
+                    bar.update(fc)
                 self.families += last_familiy
+                bar.finish()
+                ffc+=1
+                bar_f.update(ffc)
+            bar_f.finish()
         else:
             self.log.info("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/malware-inputs/Sample_paper")
             exit(-1)
     
     def start_training(self):
         if self.toolmc.input_path is None:
-            input_path = self.args_scdg.exp_dir
+            self.input_path = self.args.exp_dir
         else:
-            input_path = self.toolmc.input_path
-        input_path = input_path.replace("unknown/","") # todo
+            self.input_path = self.toolmc.input_path
+        self.input_path = self.input_path.replace("unknown/","") # todo
         self.families = []
         last_familiy = "unknown"
-        if os.path.isdir(input_path):
-            subfolder = [os.path.join(input_path, f) for f in os.listdir(input_path) if os.path.isdir(os.path.join(input_path, f))]
+        if os.path.isdir(self.input_path):
+            subfolder = [os.path.join(self.input_path, f) for f in os.listdir(self.input_path) if os.path.isdir(os.path.join(self.input_path, f))]
             self.log.info(subfolder)
             for folder in subfolder:
                 last_familiy = folder.split("/")[-1]
                 self.families.append(str(last_familiy))
 
-        self.toolmc.init_classifer(args=self.args_class,families=self.families)
-        if self.toolmc.input_path is None:
-            print(input_path)
-            self.toolmc.classifier.train(input_path)
-        else:
-            self.toolmc.classifier.train(self.toolmc.input_path)
+        self.toolmc.init_classifer(args=self.args,families=self.families ,from_saved_model=(not self.args.train))
+        
+        if self.args.train:
+            if self.toolmc.input_path is None:
+                self.toolmc.classifier.train(self.input_path)
+            else:
+                self.toolmc.classifier.train(self.toolmc.input_path)
+            self.toolmc.save_model(self.toolmc.classifier,ROOT_DIR + "/ToolChainClassifier/classifier/saved_model/"+ self.toolmc.classifier_name +"_model.pkl")
 
     def start_classify(self):
         if self.toolmc.classifier.dataset_len > 0:
-            self.toolmc.classifier.classify()
-            if self.toolmc.classifer_name == "gspan":
-                self.toolmc.classifier.get_stat_classifier(target=self.toolmc.mode)
-            else:
-                self.toolmc.classifier.get_stat_classifier()
+            self.toolmc.classifier.classify(path=(None if self.args.train else self.input_path))
+            if self.args.train:
+                if self.toolmc.classifier_name == "gspan":
+                    self.toolmc.classifier.get_stat_classifier(target=self.toolmc.mode)
+                else:
+                    self.toolmc.classifier.get_stat_classifier()
 
 def main():
     tc = ToolChain()
-    #tc.start_scdg()
+    tc.start_scdg()
     tc.start_training()
     tc.start_classify()
     elapsed_time = time.time() - tc.start_time

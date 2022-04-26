@@ -195,7 +195,7 @@ class CustomSimProcedure:
         
     def init_windows_sim_proc(self):
         # Import all classes under the current directory, and group them based on
-        self.custom_simproc_windows = {}
+        self.custom_simproc_windows.clear()
         path = os.path.dirname(os.path.abspath(__file__)) + "/windows"
         self.log.info("Windows lib path = " + str(path))
         skip_dirs = ["definitions"]
@@ -231,7 +231,7 @@ class CustomSimProcedure:
         # self.log.info(self.custom_simproc_windows)
 
     def init_linux_sim_proc(self):
-        self.custom_simproc = {}
+        self.custom_simproc.clear()
         path = os.path.dirname(os.path.abspath(__file__)) + "/linux"
         self.log.info("Linux lib path = " + str(path))
         skip_dirs = ["definitions"]
@@ -384,8 +384,8 @@ class CustomSimProcedure:
                         del dic_symbols[name]
 
                 angrlib.add_all_from_dict(newprocs)
-                # print('-----------symbols after hook--------------------' + libname)
-                # print(dic_symbols)
+                self.log.info('----------- Symbols after hook for libs ' + libname +'--------------------')
+                self.log.info(dic_symbols)
 
         project._sim_procedures = {
             addr: simprocedure for addr, simprocedure in project._sim_procedures.items()
@@ -485,9 +485,9 @@ class CustomSimProcedure:
                         del dic_symbols[name]
 
                 angrlib.add_all_from_dict(newprocs)
-                # print('-----------symbols after hook--------------------' + libname)
-                # print(dic_symbols)
-
+                self.log.info('----------- Symbols after hook for libs ' + libname +'--------------------')
+                self.log.info(dic_symbols)
+                
         project._sim_procedures = {
             addr: simprocedure for addr, simprocedure in project._sim_procedures.items()
         }
@@ -712,7 +712,7 @@ class CustomSimProcedure:
             and str(sim_proc.syscall_number) in self.system_call_table
             and self.print_syscall
         ):
-            self.log.info("syscall detected")
+            self.log.info("Syscall detected")
             # self.log.info(sim_proc.syscall_number)
             self.log.info(state.inspect.simprocedure_result)
             self.log.info(self.system_call_table[str(sim_proc.syscall_number)])
@@ -911,7 +911,7 @@ class CustomSimProcedure:
         TODO pre-post + automatization
         """
         self.log.info("custom_hook_static")
-        proj.loader
+        #proj.loader
         symbols = proj.loader.symbols
 
         custom_pack = self.custom_simproc_windows["custom_package"]
@@ -1063,7 +1063,7 @@ class CustomSimProcedure:
     def custom_hook_windows_symbols(self, proj):
         # self.ANG_CALLING_CONVENTION = {"__stdcall": SimCCStdcall, "__cdecl": SimCCCdecl}
         self.log.info("custom_hook_windows_symbols")
-        proj.loader
+        #proj.loader
         symbols = proj.loader.symbols
         custom_pack = self.custom_simproc["custom_package"]
         generic = {}

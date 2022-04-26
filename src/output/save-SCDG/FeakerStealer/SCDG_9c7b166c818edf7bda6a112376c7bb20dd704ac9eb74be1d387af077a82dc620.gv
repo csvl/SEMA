@@ -1,0 +1,118 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4202673.main
+9c7b166c818edf7bda6a112376c7bb20dd704ac9eb74be1d387af077a82dc620"]
+	1 [label="4202728.GetLastError
+"]
+	2 [label="4202821.GetWindowThreadProcessId
+0
+4294967227"]
+	3 [label="4202902.lstrlenA
+oa,'G"]
+	4 [label="4202931.lstrlenA
+GHt\"]"]
+	3 -> 4 [label="(0-->0)"]
+	5 [label="4203062.GetKeyboardType
+2"]
+	6 [label="4211675.lstrlenA
+9PPhzh"]
+	7 [label="4211705.lstrlenA
+\38-"]
+	8 [label="4211826.lstrlenA
+dWw"]
+	9 [label="4211856.lstrlenA
+'Ts%{@"]
+	6 -> 9 [label="(0-->0)"]
+	10 [label="4211911.lstrcatA
+'Ts%{@dWw
+dWw"]
+	8 -> 10 [label="(1-->2)"]
+	11 [label="4211976.GetGUIThreadInfo
+0
+4661685"]
+	12 [label="4211995.GetProcessId
+4294967295"]
+	13 [label="4212053.GetGUIThreadInfo
+0
+4662937"]
+	14 [label="4212125.GetWindowThreadProcessId
+0
+4294967295"]
+	12 -> 14 [label="(1-->2)"]
+	15 [label="4212191.GetWindowDC
+0"]
+	16 [label="4212256.GetAsyncKeyState
+70"]
+	17 [label="4212319.GetLastError
+"]
+	18 [label="4212385.GetAsyncKeyState
+218"]
+	19 [label="4212447.GetWindowThreadProcessId
+0
+2147417524"]
+	20 [label="4212518.GetGUIThreadInfo
+0
+4661925"]
+	21 [label="4212589.GetAsyncKeyState
+188"]
+	22 [label="4212663.GetProcessId
+4294967295"]
+	12 -> 22 [label="(1-->1)"]
+	14 -> 22 [label="(2-->1)"]
+	23 [label="4212723.GetWindowDC
+4294967295"]
+	12 -> 23 [label="(1-->1)"]
+	14 -> 23 [label="(2-->1)"]
+	22 -> 23 [label="(1-->1)"]
+	24 [label="4212762.GetAsyncKeyState
+192"]
+	25 [label="4243223.GetLastError
+"]
+	26 [label="4243282.lstrlenA
+G*'"]
+	8 -> 26 [label="(0-->0)"]
+	27 [label="4243317.lstrlenA
+)!Glv"]
+	3 -> 27 [label="(0-->0)"]
+	4 -> 27 [label="(0-->0)"]
+	28 [label="4243388.lstrcatA
+)!GlvG*'
+G*'"]
+	26 -> 28 [label="(1-->2)"]
+	29 [label="4243431.GetKeyboardType
+0"]
+	7 -> 29 [label="(0-->0)"]
+	30 [label="4243461.GetAsyncKeyState
+60"]
+	31 [label="4243486.GetActiveWindow
+"]
+	32 [label="4243557.GetAsyncKeyState
+6"]
+	6 -> 32 [label="(0-->1)"]
+	9 -> 32 [label="(0-->1)"]
+	33 [label="4243616.GetLastError
+"]
+	34 [label="4243679.GetLastError
+"]
+	35 [label="4243731.GetProcessId
+1"]
+	36 [label="4243797.GetWindowDC
+0"]
+	37 [label="4243862.GetKeyboardType
+1"]
+	35 -> 37 [label="(1-->1)"]
+	38 [label="4243884.GetGUIThreadInfo
+0
+4662598"]
+	39 [label="4243918.GetKeyboardType
+0"]
+	7 -> 39 [label="(0-->0)"]
+	29 -> 39 [label="(0-->0)"]
+	40 [label="4244006.GetWindowDC
+1"]
+	35 -> 40 [label="(1-->1)"]
+	37 -> 40 [label="(1-->1)"]
+	41 [label="4243317.lstrlenA
+)!GlvG*'"]
+	28 -> 41 [label="(1-->1)"]
+}

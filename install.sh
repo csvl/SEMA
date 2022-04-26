@@ -3,7 +3,9 @@
 MALDB=true
 VMS=false
 VMI=false
+CUDA=false
 PYPY=false
+
 
 for i in "$@"; do
   case $i in
@@ -23,6 +25,10 @@ for i in "$@"; do
       PYPY=true
       shift 
       ;;
+    --pytorch_cuda)
+      CUDA=true
+      shift 
+      ;;
     *)
       # unknown option
       ;;
@@ -32,6 +38,7 @@ echo "VMS    = ${VMS}"
 echo "VMI    = ${VMI}"
 echo "MALDB  = ${MALDB}"
 echo "PYPY  = ${PYPY}"
+echo "CUDA  = ${CUDA}"
 
 ROOTPATH=$PWD
 echo "Root path of the project is " ${ROOTPATH}
@@ -39,6 +46,8 @@ echo "Root path of the project is " ${ROOTPATH}
 printf '\n%s\n' "=============> Install packages: =============>"
 
 # Toolchain
+sudo apt-get --fix-missing -y install python3.8 python3.8-dev
+sudo apt-get --fix-missing -y install python3.8-venv
 sudo apt-get --fix-missing -y install python3-pip xterm
 sudo apt-get --fix-missing -y install virt-manager
 
@@ -53,6 +62,15 @@ sudo apt-get --fix-missing -y install libcap2-bin
 
 sudo apt-get --fix-missing -y install libcairo2-dev libjpeg-turbo8-dev libpng-dev libossp-uuid-dev libfreerdp-dev
 sudo apt-get --fix-missing -y install libvirt-dev python3-wheel 
+#FL
+sudo apt install rabbitmq-server
+sudo apt-get install zip
+
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+sudo apt remove --purge cmake
+sudo apt install snapd
+sudo snap install cmake --classic
 
 ## Install mongodb
 sudo apt-get -y install mongodb
@@ -70,6 +88,7 @@ if [ $PYPY = true ]; then
     sudo apt update
     sudo apt install pypy3 pypy3-dev
     #sudo snap install pypy3 --classic
+    sudo apt-get install g++
     sudo apt-get install libatlas-base-dev
 fi
 
@@ -83,15 +102,28 @@ git submodule update --recursive
 printf '\n%s\n' "=============> Install toolchain: =============>"
 
 # Install ToolChain
-python3 -m venv penv
+python3.8 -m venv penv
 source penv/bin/activate
+pip install --upgrade pip
 pip3 install wheel
+pip3 install setuptools_rust
 pip3 install .
+
+if [ $CUDA = true ]; then
+  # CUDA core 
+  wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+  sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+  sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
+  sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
+  sudo apt-get update
+  sudo apt-get -y install cuda
+fi
 
 if [ $PYPY = true ]; then
     # your standard pip install folder could caused problems
     pypy3 -m ensurepip
     pypy3 -m pip install --upgrade pip testresources setuptools wheel
+    pypy3 -m pip install setuptools_rust
     pypy3 -m pip install numpy pandas
     pypy3 -m pip install pybind11 avatar2
     pypy3 -m pip install yara-python # yara
@@ -103,6 +135,9 @@ if [ $PYPY = true ]; then
     pypy3 -m pip install  . 
     sudo apt-get install libjansson-dev
     pypy3 -m pip install unicorn
+    pypy3 -m pip install grakel
+    pypy3 -m pip install gensim
+    #pypy3 -m pip install torch
     pypy3 -m pip install --global-option="build" --global-option="--enable-cuckoo" --global-option="--enable-magic" yara-python
     #pypy3 -m pip install --global-option="build"  yara 
 
@@ -126,7 +161,7 @@ deactivate
 if [ $MALDB = true ]; then
     printf '\n%s\n' "-------------> Install malware database: <-------------"
     ## Unzip database
-    cd $ROOTPATH/src/res/
+    cd $ROOTPATH/src/databases/
     bash extract_deploy_db.sh
     cd $ROOTPATH/
 fi
@@ -145,6 +180,9 @@ pip3 install .
 deactivate
 cd $ROOTPATH/
 
+# install fix for federated learning with celery (bug due to encoding argument of sys.stdout and ProxyLogger)
+rm penv/lib/python3.8/site-packages/z3/z3core.py
+cp penv-fix/z3/z3core.py penv/lib/python3.8/site-packages/z3/z3core.py
 
 printf '\n%s\n' "-------------> Install tcpdump: <-------------"
 
@@ -195,7 +233,7 @@ cd $ROOTPATH/
 
 printf '\n%s\n' "-------------> Install GSPAN: <-------------"
 
-cd $ROOTPATH/src/submodules/toolchain_quickspan
+cd $ROOTPATH/src/submodules/SEMA-quickspan
 mkdir build && cd build
 cmake ..
 make

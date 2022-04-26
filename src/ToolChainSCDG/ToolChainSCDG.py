@@ -1,22 +1,20 @@
 #!/usr/bin/env python3
+from ast import arg
 import os
-import sys
-
-# for pypy3
-# sys.path.insert(0, '/usr/local/lib')
-# sys.path.insert(0, os.path.expanduser('~/lib'))
-# sys.path.insert(0, os.path.expanduser('/home/crochetch/Documents/toolchain_malware_analysis/penv/lib'))
 
 import json as json_dumper
 from builtins import open as open_file
-import threading
 import time
 #from tkinter import E
 
-# from submodules.claripy import claripy
+# from submodules.claripy import claripy # TODO 
 import claripy
 import monkeyhex  # this will format numerical results in hexadecimal
+
 import logging
+# from logbook import Logger, StreamHandler
+# StreamHandler(sys.stdout).push_application()
+
 from capstone import *
 
 # Syscall table stuff
@@ -32,6 +30,7 @@ try:
     from .explorer.ToolChainExplorerBFS import ToolChainExplorerBFS
     from .explorer.ToolChainExplorerCBFS import ToolChainExplorerCBFS
     from .clogging.CustomFormatter import CustomFormatter
+    from .clogging.LogBookFormatter import *
     from .helper.ArgumentParserSCDG import ArgumentParserSCDG
 except:
     from helper.GraphBuilder import *
@@ -42,24 +41,25 @@ except:
     from explorer.ToolChainExplorerBFS import ToolChainExplorerBFS
     from explorer.ToolChainExplorerCBFS import ToolChainExplorerCBFS
     from clogging.CustomFormatter import CustomFormatter
+    from clogging.LogBookFormatter import * # TODO
     from helper.ArgumentParserSCDG import ArgumentParserSCDG
-
-import subprocess
-import nose
-import avatar2 as avatar2
 
 import angr
 import claripy
 
+MEMORY_PROFILING = False
+
+if MEMORY_PROFILING:
+    # TODO take snapshot in build_scdgs()
+    import tracemalloc 
+    memory_snapshots = []
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-
 
 class ToolChainSCDG:
     """
     TODO
     """
-
     def __init__(
         self,
         timeout=600,
@@ -80,7 +80,8 @@ class ToolChainSCDG:
         print_syscall=False,
         debug_error=False,
         debug_string=False,
-        is_from_tc = False
+        is_from_tc = False,
+        is_fl = False
     ):
         self.start_time = time.time()
         self.timeout = timeout  # In seconds
@@ -100,7 +101,6 @@ class ToolChainSCDG:
 
         self.fast_main = fast_main
         self.force_symbolique_return = force_symbolique_return
-
         self.print_on = print_on
         self.print_sm_step = print_sm_step
         self.print_syscall = print_syscall
@@ -109,9 +109,9 @@ class ToolChainSCDG:
 
         self.scdg = []
         self.scdg_fin = []
-
+        
         logging.getLogger("angr").setLevel("WARNING")
-        # logging.getLogger('angr').setLevel('INFO')
+        logging.getLogger('claripy').setLevel('WARNING')
 
         # create console handler with a higher log level
         ch = logging.StreamHandler()
@@ -122,6 +122,8 @@ class ToolChainSCDG:
         self.log.addHandler(ch)
         self.log.propagate = False
 
+        self.families = []
+
         self.call_sim = CustomSimProcedure(
             self.scdg, self.scdg_fin, 
             string_resolv=string_resolv, print_on=print_on, 
@@ -129,19 +131,44 @@ class ToolChainSCDG:
         )
         self.eval_time = False
 
-    def build_scdg(self, args, nameFile, expl_method, family):
+    def build_scdg(self, args, nameFile, expl_method, family,is_fl=False):
         # Create directory to store SCDG if it doesn't exist
         self.scdg.clear()
         self.scdg_fin.clear()
         self.call_sim.syscall_found.clear()
         self.call_sim.system_call_table.clear()
-        try:
-            os.stat(args.exp_dir)
-        except:
-            os.makedirs(args.exp_dir)
 
-        if args.exp_dir != "output/save-SCDG/"+family+"/":
-            setup = open_file(args.exp_dir + "setup.txt", "w")
+        self.log.info(args)
+        
+        if not is_fl:
+            exp_dir = args.exp_dir
+            nargs = args.n_args
+            disjoint_union = args.disjoint_union
+            not_comp_args = args.not_comp_args
+            min_size = args.min_size
+            not_ignore_zero = args.not_ignore_zero
+            dir = args.dir
+            verbose = args.verbose_scdg
+            format_out = args.format_out
+            discard_SCDG = args.discard_SCDG
+        else:
+            exp_dir = args["exp_dir"]
+            nargs = args["n_args"]
+            disjoint_union = args["disjoint_union"]
+            not_comp_args = args["not_comp_args"]
+            min_size = args["min_size"]
+            not_ignore_zero = args["not_ignore_zero"]
+            dir = args["dir"]
+            verbose = args["verbose_scdg"]
+            format_out = args["format_out"]
+            discard_SCDG = args["discard_SCDG"]
+        try:
+            os.stat(exp_dir)
+        except:
+            os.makedirs(exp_dir)
+
+        if exp_dir != "output/save-SCDG/"+family+"/":
+            setup = open_file(exp_dir + "setup.txt", "w")
             setup.write(str(self.jump_it) + "\n")
             setup.write(str(self.loop_counter_concrete) + "\n")
             setup.write(str(self.max_simul_state) + "\n")
@@ -149,14 +176,13 @@ class ToolChainSCDG:
             setup.write(str(self.max_step) + "\n")
             setup.write(str(self.max_end_state))
             setup.close()
-
         # Take name of the sample without full path
         if "/" in nameFile:
             nameFileShort = nameFile.split("/")[-1]
         else:
             nameFileShort = nameFile
 
-        title = "--- Building SCDG of " + nameFileShort + " ---"
+        title = "--- Building SCDG of " + family  +"/" + nameFileShort  + " ---"
         self.log.info("\n" + "-" * len(title) + "\n" + title + "\n" + "-" * len(title))
 
         #####################################################
@@ -200,17 +226,15 @@ class ToolChainSCDG:
 
         # Defining arguments given to the program (minimum is filename)
         args_binary = [nameFileShort]
-        if args.n_args:
-            for i in range(args.n_args):
+        if nargs:
+            for i in range(nargs):
                 args_binary.append(claripy.BVS("arg" + str(i), 8 * 16))
 
         # Load pre-defined syscall table
         if os_obj == "windows":
             self.call_sim.system_call_table = self.call_sim.ddl_loader.load(proj)
         else:
-            self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(
-                proj
-            )
+            self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(proj)
 
         # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows)
         addr_main = proj.loader.find_symbol("main")
@@ -230,7 +254,7 @@ class ToolChainSCDG:
         options.add(angr.options.SIMPLIFY_CONSTRAINTS)
         # options.add(angr.options.SYMBOLIC_WRITE_ADDRESSES)
         options.add(angr.options.SYMBOLIC_INITIAL_VALUES)
-        if self.debug_error:
+        if self.debug_error: # TODO better integration
             pass
             # options.add(angr.options.TRACK_JMP_ACTIONS)
             # options.add(angr.options.TRACK_CONSTRAINT_ACTIONS)
@@ -344,7 +368,9 @@ class ToolChainSCDG:
                 }
             ]
         )
-
+        
+        self.jump_dict.clear()
+        self.jump_concrete_dict.clear()
         self.jump_dict[0] = {}
         self.jump_concrete_dict[0] = {}
 
@@ -380,19 +406,19 @@ class ToolChainSCDG:
         simgr.stashes["temp"]
 
         exploration_tech = ToolChainExplorerDFS(
-            simgr, 0, args.exp_dir, nameFileShort, self
+            simgr, 0, exp_dir, nameFileShort, self
         )
         if expl_method == "CDFS":
             exploration_tech = ToolChainExplorerCDFS(
-                simgr, 0, args.exp_dir, nameFileShort, self
+                simgr, 0, exp_dir, nameFileShort, self
             )
         elif expl_method == "CBFS":
             exploration_tech = ToolChainExplorerCBFS(
-                simgr, 0, args.exp_dir, nameFileShort, self
+                simgr, 0, exp_dir, nameFileShort, self
             )
         elif expl_method == "BFS":
             exploration_tech = ToolChainExplorerBFS(
-                simgr, 0, args.exp_dir, nameFileShort, self
+                simgr, 0, exp_dir, nameFileShort, self
             )
 
         simgr.use_technique(exploration_tech)
@@ -417,22 +443,22 @@ class ToolChainSCDG:
         self.log.info("Total execution time to build scdg: " + str(elapsed_time))
 
 
-        self.build_scdg_fin(args, nameFileShort, main_obj, state, simgr)
+        self.build_scdg_fin(exp_dir, nameFileShort, main_obj, state, simgr, discard_SCDG)
 
         g = GraphBuilder(
             name=nameFileShort,
             mapping="mapping.txt",
-            merge_call=(not args.disjoint_union),
-            comp_args=(not args.not_comp_args),
-            min_size=args.min_size,
-            ignore_zero=(not args.not_ignore_zero),
-            odir=args.dir,
-            verbose=args.verbose,
+            merge_call=(not disjoint_union),
+            comp_args=(not not_comp_args),
+            min_size=min_size,
+            ignore_zero=(not not_ignore_zero),
+            odir=dir,
+            verbose=verbose,
             familly=family
         )
-        g.build_graph(self.scdg_fin, format_out=args.format_out)
+        g.build_graph(self.scdg_fin, format_out=format_out)
 
-    def build_scdg_fin(self, args, nameFileShort, main_obj, state, simgr):
+    def build_scdg_fin(self, exp_dir, nameFileShort, main_obj, state, simgr, discard_SCDG):
         dump_file = {}
         dump_id = 0
         dic_hash_SCDG = {}
@@ -504,9 +530,9 @@ class ToolChainSCDG:
                 self.scdg_fin.append(self.scdg[state.globals["id"]])
 
         self.print_memory_info(main_obj, dump_file)
-        if args.discard_SCDG:
+        if discard_SCDG:
             # self.log.info(dump_file)
-            ofilename = args.exp_dir + nameFileShort + "_SCDG.json"
+            ofilename = exp_dir + nameFileShort + "_SCDG.json"
             self.log.info(ofilename)
             save_SCDG = open_file(ofilename, "w")
             # self.log.info(dump_file)
@@ -537,26 +563,53 @@ def main():
         print_on=True,
     )
     args_parser = ArgumentParserSCDG(toolc)
-    args, nameFile, expl_method, familly = args_parser.parse_arguments()
-
+    args = args_parser.parse_arguments()
+    nameFile, expl_method, familly = args_parser.update_tool(args)
+    nameFile = "".join(nameFile.rstrip())
     if os.path.isfile(nameFile):
+        # TODO update family
         toolc.log.info("You decide to analyse a single binary: "+ nameFile)
         toolc.build_scdg(args, nameFile, expl_method, familly)
     else:
+        import progressbar
         last_familiy = "unknown"
         if os.path.isdir(nameFile):
             subfolder = [os.path.join(nameFile, f) for f in os.listdir(nameFile) if os.path.isdir(os.path.join(nameFile, f))]
+            bar_f = progressbar.ProgressBar(max_value=len(subfolder))
+            bar_f.start()
+            ffc = 0
             for folder in subfolder:
                 toolc.log.info("You are currently building SCDG for " + folder)
-                files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
-                for file  in files:
-                    args.exp_dir = args.exp_dir.exp_dir.replace(last_familiy,folder.split("/")[-1])
-                    toolc.build_scdg(args, file, expl_method,folder.split("/")[-1])
-                toolc.families += last_familiy
-                last_familiy = folder.split("/")[-1]
+                files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and not f.endswith(".zip")]
+                bar = progressbar.ProgressBar(max_value=len(files))
+                bar.start()
+                fc = 0
+                current_family = folder.split("/")[-1]
+                args.exp_dir = args.exp_dir.replace(last_familiy,current_family) 
+                for file in files:
+                    toolc.build_scdg(args, file, expl_method, current_family)
+                    fc+=1
+                    bar.update(fc)
+                toolc.families += current_family
+                last_familiy = current_family
+                bar.finish()
+                ffc+=1
+                bar_f.update(ffc)
+            bar_f.finish()
         else:
             toolc.log.info("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/malware-inputs/Sample_paper")
             exit(-1)
 
 if __name__ == "__main__":
+    if MEMORY_PROFILING:
+        tracemalloc.start()
+    
     main()
+
+    if MEMORY_PROFILING:
+        snapshot = tracemalloc.take_snapshot()
+        top_stats = snapshot.statistics('lineno')
+        print("[ Top 50 ]")
+        for stat in top_stats[:50]:
+            print(stat)
+

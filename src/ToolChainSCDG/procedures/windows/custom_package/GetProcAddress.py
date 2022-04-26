@@ -10,6 +10,7 @@ from angr.procedures import SIM_LIBRARIES
 # from ...CustomSimProcedure import *
 lw = logging.getLogger("CustomSimProcedureWindows")
 
+# TODO some errors in this custom procedure
 
 class GetProcAddress(angr.SimProcedure):
     def run(self, lib_handle, name_addr):
@@ -38,7 +39,6 @@ class GetProcAddress(angr.SimProcedure):
             return symb.rebased_addr
 
         lib_addr = self.state.solver.eval(lib_handle)
-
         # import pdb; pdb.set_trace()
         if self.state.solver.eval(lib_addr) in self.state.globals["loaded_libs"]:
             lib = self.state.globals["loaded_libs"][lib_addr]
