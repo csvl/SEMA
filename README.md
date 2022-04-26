@@ -18,12 +18,12 @@
 ====
 <a name="arch"></a>
 
-##### Toolchain architecture
+### Toolchain architecture
 <a name="arch_std"></a>
 
 ![GitHub Logo](/doc/SEMA_illustration.png)
 
-##### Federated learning architecture
+### Federated learning architecture
 <a name="arch_fl"></a>
 
 ![GitHub Logo](/doc/SEMA-FL.png)
@@ -41,20 +41,6 @@
 * https://angr.io/
 
 * https://bazaar.abuse.ch/
-
-:page_with_curl: Installation
-=======
-:page_with_curl: Architecture
-====
-<a name="arch"></a>
-
-![GitHub Logo](/doc/SEMA_illustration.png)
-
-* Main depencies: 
-
-    * `Python3`
-
-    * `KVM/QEMU`
 
 :page_with_curl: Installation
 ====
