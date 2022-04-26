@@ -4,14 +4,17 @@ import os
 
 import json as json_dumper
 from builtins import open as open_file
-import threading
 import time
 #from tkinter import E
 
 # from submodules.claripy import claripy # TODO 
 import claripy
 import monkeyhex  # this will format numerical results in hexadecimal
+
 import logging
+# from logbook import Logger, StreamHandler
+# StreamHandler(sys.stdout).push_application()
+
 from capstone import *
 
 # Syscall table stuff
@@ -27,6 +30,7 @@ try:
     from .explorer.ToolChainExplorerBFS import ToolChainExplorerBFS
     from .explorer.ToolChainExplorerCBFS import ToolChainExplorerCBFS
     from .clogging.CustomFormatter import CustomFormatter
+    from .clogging.LogBookFormatter import *
     from .helper.ArgumentParserSCDG import ArgumentParserSCDG
 except:
     from helper.GraphBuilder import *
@@ -37,6 +41,7 @@ except:
     from explorer.ToolChainExplorerBFS import ToolChainExplorerBFS
     from explorer.ToolChainExplorerCBFS import ToolChainExplorerCBFS
     from clogging.CustomFormatter import CustomFormatter
+    from clogging.LogBookFormatter import * # TODO
     from helper.ArgumentParserSCDG import ArgumentParserSCDG
 
 import angr

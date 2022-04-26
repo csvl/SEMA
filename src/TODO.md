@@ -4,6 +4,8 @@
 
 * modify args parser split per tools  !!!
 
+* stop execution if memoery limite reach
+
 * set fixed version of submodule
 
 * Cleanup & improve installer
@@ -45,16 +47,6 @@
     logging.basicConfig(level=logging.DEBUG, format="%(asctime)s  %(message)s", handlers=[queue_handler])
     ```
 
-# FL TODO 
-
-* Add other classifier
-
-* replace celery
-
-* decentralized version
-
-* Put same test data in each 
-
 #### Generate executable
 
 https://pyinstaller.readthedocs.io/en/stable/requirements.html
@@ -76,4 +68,15 @@ python3 -m pip install --upgrade build
 python3 -m build
 twine upload --repository testpypi dist/*
 ```
+
+
+# FL TODO 
+
+* Add other classifier
+
+* replace celery
+
+* decentralized version
+
+* Put same test data in each 
 

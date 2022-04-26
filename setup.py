@@ -49,6 +49,7 @@ setup(name='sema-tc',
           'celery', # ==4.4.7
           'tenseal',
           'dill',
-          'cryptography'
+          'cryptography',
+          'logbook'
         ],
       zip_safe=False)
