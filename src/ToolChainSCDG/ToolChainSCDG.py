@@ -212,7 +212,7 @@ class ToolChainSCDG:
                 proj
             )
 
-        # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows)
+        # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows)       
         addr_main = proj.loader.find_symbol("main")
         if addr_main and self.fast_main:
             addr = addr_main.rebased_addr
@@ -426,6 +426,7 @@ class ToolChainSCDG:
             comp_args=(not args.not_comp_args),
             min_size=args.min_size,
             ignore_zero=(not args.not_ignore_zero),
+            three_edges=args.three_edges,
             odir=args.dir,
             verbose=args.verbose,
             familly=family
