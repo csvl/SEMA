@@ -8,6 +8,8 @@
 
 * set fixed version of submodule
 
+* Rajouter Jnkins
+
 * Cleanup & improve installer
 
     * multiple os and python version support

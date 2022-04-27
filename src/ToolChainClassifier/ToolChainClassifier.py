@@ -151,11 +151,11 @@ def main():
     elapsed_time = time.time() - tc.start_time
     tc.log.info("Total "+ tc.mode +" time: " + str(elapsed_time))
 
-    if tc.args.train:
-        args_res = {}
-        if tc.classifier_name == "gspan":
-            args_res["target"] = tc.mode
-        tc.classifier.get_stat_classifier(**args_res)
+    #if tc.args.train: # TODO
+    args_res = {}
+    if tc.classifier_name == "gspan":
+        args_res["target"] = tc.mode
+    tc.log.info(tc.classifier.get_stat_classifier(**args_res))
 
 
 if __name__ == "__main__":

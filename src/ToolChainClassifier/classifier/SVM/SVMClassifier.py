@@ -2,6 +2,7 @@ import glob
 import logging
 import os
 import pickle
+import re
 import subprocess
 import numpy as np
 import progressbar
@@ -103,7 +104,8 @@ class SVMClassifier(Classifier):
         self.log.info("Accuracy %2.2f %%" %(accuracy_score(self.y_val, self.y_pred)*100))
         self.log.info("Precision %2.2f %%" %(precision_score(self.y_val, self.y_pred,average='weighted')*100))
         self.log.info("Recall %2.2f %%" %(recall_score(self.y_val, self.y_pred,average='weighted')*100))
-        self.log.info("F1-score %2.2f %%" %(f1_score(self.y_val, self.y_pred,average='weighted')*100))
+        f_score = f1_score(self.y_val, self.y_pred,average='weighted')*100
+        self.log.info("F1-score %2.2f %%" %(f_score))
     
         if BINARY_CLASS:
             conf = confusion_matrix(self.y_val,self.y_pred,labels=['clean','malware'])
@@ -143,4 +145,5 @@ class SVMClassifier(Classifier):
         plt.xlabel('Predicted label')
         plt.show()
         plt.savefig(self.original_path + "figure.png")
+        return f_score
     

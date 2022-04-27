@@ -92,10 +92,10 @@ class ToolChainFL:
         ctx_str = ret_ctx[select_id]["ctx"]      # client public key
         test_value_enc = ret_ctx[select_id]["v"]
 
-        if self.tools.toolmc.input_path is None:
+        if self.toolmc.input_path is None:
             input_path = self.args_scdg.exp_dir
         else:
-            input_path = self.tools.toolmc.input_path
+            input_path = self.toolmc.input_path
         input_path = input_path.replace("unknown/","") # todo
         
         args = {"ctx":ctx_str, # TODO extract from arg parser DAM

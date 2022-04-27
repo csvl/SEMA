@@ -31,6 +31,7 @@ class Classifier():
         self.train_dataset = None
         self.val_dataset = None
         self.test_dataset = None
+        self.stat_dataset = None
 
         
     # Classify malware use the model

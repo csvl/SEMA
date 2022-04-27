@@ -71,9 +71,9 @@ class DLTrainerClassifier(Classifier):
 		self.mappath = self.fname   #os.path.join(dir_path, fname)
 	
 	def get_stat_classifier(self, save_path=None): # TODO custom parameter
-		self.TPR = self.TP/len(self.val_dataset)
-		self.loss = self.loss/len(self.val_dataset)
-		self.log.info(f"\nLabels: {len(self.labels)}\nDetect {self.TP}/{len(self.val_dataset)}\nDetection rate: {self.TPR}\nLoss: {self.loss}")
+		self.TPR = self.TP/len(self.stat_dataset)
+		self.loss = self.loss/len(self.stat_dataset)
+		self.log.info(f"\nLabels: {len(self.labels)}\nDetect {self.TP}/{len(self.stat_dataset)}\nDetection rate: {self.TPR}\nLoss: {self.loss}")
 		acc = accuracy_score(self.y_true, self.y_pred)
 		bacc = balanced_accuracy_score(self.y_true, self.y_pred)
 		fscore = f1_score(self.y_true,self.y_pred, average='weighted')
@@ -89,7 +89,7 @@ class DLTrainerClassifier(Classifier):
 		self.log.info(f"Loss\t{self.loss}")
 		return acc, self.loss
 
-	def classify(self, path=None):
+	def classify(self, path=None): # TODO test acc on val_set & test_set
 		self._model.eval()
 		criterion_x = nn.MSELoss(reduction='sum')
 		criterion_y = nn.BCELoss()
@@ -97,7 +97,7 @@ class DLTrainerClassifier(Classifier):
 		self.labels =[c for c in self._model.classes]
 		self.loss = 0.
 
-		consider_dataset = self.val_dataset
+		self.stat_dataset = self.val_dataset
 
 		if path is not None:
 			'''
@@ -107,9 +107,9 @@ class DLTrainerClassifier(Classifier):
 			ncpu = multiprocessing.cpu_count()
 			data_classify = DLDataset(path, self.mappath, self.apipath, self.vector_size)
 			self.test_dataset = DataLoader(data_classify,num_workers=ncpu)
-			consider_dataset = self.test_dataset
+			self.stat_dataset = self.test_dataset
 		
-		for x,y in consider_dataset:
+		for x,y in self.stat_dataset:
 			y_predict = self._model.predict(x[0])
 			l = self.loss_calc(x,y_predict, x,y[0],criterion_x,criterion_y)
 			if l is not None:
@@ -120,8 +120,8 @@ class DLTrainerClassifier(Classifier):
 				self.TP +=1
 			self.y_true.append(self.labels[j])
 			self.y_pred.append(self.labels[i])
-			print("Prediction:")
-			print(self.y_pred)
+		print("Prediction:")
+		print(self.y_pred)
 
 	def detection(self, path=None):
 		"""
