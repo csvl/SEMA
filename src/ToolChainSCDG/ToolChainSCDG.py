@@ -124,6 +124,10 @@ class ToolChainSCDG:
 
         self.families = []
 
+        self.inputs = None
+        self.expl_method = None
+        self.familly = None
+
         self.call_sim = CustomSimProcedure(
             self.scdg, self.scdg_fin, 
             string_resolv=string_resolv, print_on=print_on, 
@@ -131,7 +135,7 @@ class ToolChainSCDG:
         )
         self.eval_time = False
 
-    def build_scdg(self, args, nameFile, expl_method, family,is_fl=False):
+    def build_scdg(self, args, is_fl=False):
         # Create directory to store SCDG if it doesn't exist
         self.scdg.clear()
         self.scdg_fin.clear()
@@ -167,7 +171,7 @@ class ToolChainSCDG:
         except:
             os.makedirs(exp_dir)
 
-        if exp_dir != "output/save-SCDG/"+family+"/":
+        if exp_dir != "output/save-SCDG/"+self.familly+"/":
             setup = open_file(exp_dir + "setup.txt", "w")
             setup.write(str(self.jump_it) + "\n")
             setup.write(str(self.loop_counter_concrete) + "\n")
@@ -177,12 +181,12 @@ class ToolChainSCDG:
             setup.write(str(self.max_end_state))
             setup.close()
         # Take name of the sample without full path
-        if "/" in nameFile:
-            nameFileShort = nameFile.split("/")[-1]
+        if "/" in self.inputs:
+            nameFileShort = self.inputs.split("/")[-1]
         else:
-            nameFileShort = nameFile
+            nameFileShort = self.inputs
 
-        title = "--- Building SCDG of " + family  +"/" + nameFileShort  + " ---"
+        title = "--- Building SCDG of " + self.familly  +"/" + nameFileShort  + " ---"
         self.log.info("\n" + "-" * len(title) + "\n" + title + "\n" + "-" * len(title))
 
         #####################################################
@@ -194,7 +198,7 @@ class ToolChainSCDG:
 
         # Load a binary into a project = control base
         proj = angr.Project(
-            nameFile,
+            self.inputs,
             use_sim_procedures=True,
             load_options={
                 "auto_load_libs": True
@@ -222,7 +226,7 @@ class ToolChainSCDG:
                 "Stack executable ?  " + str(main_obj.execstack)
             )  # TODO could be use for heuristic ?
             self.log.info("Binary position-independent ?  " + str(main_obj.pic))
-            self.log.info("Exploration method:  " + str(expl_method))
+            self.log.info("Exploration method:  " + str(self.expl_method))
 
         # Defining arguments given to the program (minimum is filename)
         args_binary = [nameFileShort]
@@ -286,7 +290,7 @@ class ToolChainSCDG:
             ComSpec_bv = state.solver.BVV(ComSpec)
             state.memory.store(state.plugin_env_var.env_block, ComSpec_bv)
             state.plugin_env_var.env_var["COMSPEC"] = "C:\Windows\system32\cmd.exe\0"
-        state.plugin_env_var.expl_method = expl_method
+        state.plugin_env_var.expl_method = self.expl_method
 
         # Constraint arguments to ASCII
         for i in range(1, len(args_binary)):
@@ -408,15 +412,15 @@ class ToolChainSCDG:
         exploration_tech = ToolChainExplorerDFS(
             simgr, 0, exp_dir, nameFileShort, self
         )
-        if expl_method == "CDFS":
+        if self.expl_method == "CDFS":
             exploration_tech = ToolChainExplorerCDFS(
                 simgr, 0, exp_dir, nameFileShort, self
             )
-        elif expl_method == "CBFS":
+        elif self.expl_method == "CBFS":
             exploration_tech = ToolChainExplorerCBFS(
                 simgr, 0, exp_dir, nameFileShort, self
             )
-        elif expl_method == "BFS":
+        elif self.expl_method == "BFS":
             exploration_tech = ToolChainExplorerBFS(
                 simgr, 0, exp_dir, nameFileShort, self
             )
@@ -454,7 +458,7 @@ class ToolChainSCDG:
             ignore_zero=(not not_ignore_zero),
             odir=dir,
             verbose=verbose,
-            familly=family
+            familly=self.familly
         )
         g.build_graph(self.scdg_fin, format_out=format_out)
 
@@ -554,6 +558,45 @@ class ToolChainSCDG:
             self.log.info(name)
             self.log.info(dump_file["sections"][name])
 
+    def start_scdg(self, args):
+        self.inputs = "".join(self.inputs.rstrip())
+        if os.path.isfile(self.inputs):
+            # TODO update familly
+            self.log.info("You decide to analyse a single binary: "+ self.inputs)
+            self.build_scdg(args)
+        else:
+            import progressbar
+            last_familiy = "unknown"
+            if os.path.isdir(self.inputs):
+                subfolder = [os.path.join(self.inputs, f) for f in os.listdir(self.inputs) if os.path.isdir(os.path.join(self.inputs, f))]
+                bar_f = progressbar.ProgressBar(max_value=len(subfolder))
+                bar_f.start()
+                ffc = 0
+                for folder in subfolder:
+                    self.log.info("You are currently building SCDG for " + folder)
+                    files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and not f.endswith(".zip")]
+                    bar = progressbar.ProgressBar(max_value=len(files))
+                    bar.start()
+                    fc = 0
+                    current_family = folder.split("/")[-1]
+                    args.exp_dir = args.exp_dir.replace(last_familiy,current_family) 
+                    for file in files:
+                        self.inputs = file
+                        self.familly = current_family
+                        self.build_scdg(args)
+                        fc+=1
+                        bar.update(fc)
+                    self.families += current_family
+                    last_familiy = current_family
+                    bar.finish()
+                    ffc+=1
+                    bar_f.update(ffc)
+                bar_f.finish()
+            else:
+                self.log.info("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/malware-inputs/Sample_paper")
+                exit(-1)
+
+
 def main():
     toolc = ToolChainSCDG(
         print_sm_step=True,
@@ -564,41 +607,8 @@ def main():
     )
     args_parser = ArgumentParserSCDG(toolc)
     args = args_parser.parse_arguments()
-    nameFile, expl_method, familly = args_parser.update_tool(args)
-    nameFile = "".join(nameFile.rstrip())
-    if os.path.isfile(nameFile):
-        # TODO update family
-        toolc.log.info("You decide to analyse a single binary: "+ nameFile)
-        toolc.build_scdg(args, nameFile, expl_method, familly)
-    else:
-        import progressbar
-        last_familiy = "unknown"
-        if os.path.isdir(nameFile):
-            subfolder = [os.path.join(nameFile, f) for f in os.listdir(nameFile) if os.path.isdir(os.path.join(nameFile, f))]
-            bar_f = progressbar.ProgressBar(max_value=len(subfolder))
-            bar_f.start()
-            ffc = 0
-            for folder in subfolder:
-                toolc.log.info("You are currently building SCDG for " + folder)
-                files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and not f.endswith(".zip")]
-                bar = progressbar.ProgressBar(max_value=len(files))
-                bar.start()
-                fc = 0
-                current_family = folder.split("/")[-1]
-                args.exp_dir = args.exp_dir.replace(last_familiy,current_family) 
-                for file in files:
-                    toolc.build_scdg(args, file, expl_method, current_family)
-                    fc+=1
-                    bar.update(fc)
-                toolc.families += current_family
-                last_familiy = current_family
-                bar.finish()
-                ffc+=1
-                bar_f.update(ffc)
-            bar_f.finish()
-        else:
-            toolc.log.info("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/malware-inputs/Sample_paper")
-            exit(-1)
+    args_parser.update_tool(args)
+    toolc.start_scdg(args)
 
 if __name__ == "__main__":
     if MEMORY_PROFILING:

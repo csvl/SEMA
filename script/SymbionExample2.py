@@ -12,7 +12,7 @@ except ImportError:
     raise nose.SkipTest()
 
 
-binary_x64 = "/home/crochetch/Documents/toolchain_malware_analysis/src/submodules/binaries/tests/x86_64/not_packed_elf64"
+binary_x64 = "/home/crochetch/Documents/SEMA-ToolChain/src/submodules/binaries/tests/x86_64/not_packed_elf64"
 # os.path.join(os.path.dirname(os.path.realpath(__file__)),
 #                           os.path.join('..', '..', 'binaries', 'tests', 'x86_64', 'not_packed_elf64'))
 

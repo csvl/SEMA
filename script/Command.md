@@ -16,9 +16,9 @@ databases/upx-dataset/upx-malware-inputs/files/0f1153b16dce8a116e175a92d04d463ec
 databases/upx-dataset/upx-malware-inputs/files/011c6e496c387c0c79dc06be853e19df
 databases/upx-dataset/upx-malware-inputs/files/a0064b700bc765a90cf6bc906925280e
 
-python3 ToolChainSCDG.py --method DFS --verbose --packed /home/crochetch/Documents/toolchain_malware_analysis/src/submodules/binaries/tests/x86_64/packed_elf64
+python3 ToolChainSCDG.py --method DFS --verbose --packed /home/crochetch/Documents/SEMA-ToolChain/src/submodules/binaries/tests/x86_64/packed_elf64
 
-python3 ToolChainSCDG.py --method DFS --verbose /home/crochetch/Documents/toolchain_malware_analysis/src/submodules/binaries/tests/x86_64/not_packed_elf64
+python3 ToolChainSCDG.py --method DFS --verbose /home/crochetch/Documents/SEMA-ToolChain/src/submodules/binaries/tests/x86_64/not_packed_elf64
 
 
-python3 ToolChainSCDG.py --method DFS --verbose /home/crochetch/Documents/toolchain_malware_analysis/src/databases/upx-dataset/upx-malware-inputs/files/unpacked_0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df
+python3 ToolChainSCDG.py --method DFS --verbose /home/crochetch/Documents/SEMA-ToolChain/src/databases/upx-dataset/upx-malware-inputs/files/unpacked_0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df

@@ -24,7 +24,7 @@ class ToolChainFL:
     def __init__(self,hosts=['host2','host3'], # ,'host4']
                       test_val=[2.1, 2.1, 2.1],
                       ):
-        self.toolc = ToolChainSCDG(
+        self.tool_scdg = ToolChainSCDG(
             print_sm_step=True,
             print_syscall=True,
             debug_error=True,
@@ -33,11 +33,11 @@ class ToolChainFL:
             is_from_tc=True
         )
         self.families = []
-        self.toolmc = ToolChainClassifier(parse=False)
+        self.tool_classifier = ToolChainClassifier(parse=False)
         
-        self.args_parser = ArgumentParserFL(self.toolc, self.toolmc)
+        self.args_parser = ArgumentParserFL(self.tool_scdg, self.tool_classifier)
         self.args = self.args_parser.parse_arguments()
-        self.folderName, self.expl_method, self.familly = self.args_parser.args_parser_scdg.update_tool(self.args)
+        self.args_parser.args_parser_scdg.update_tool(self.args)
         self.args_parser.args_parser_class.update_tool(self.args)
         
         self.hosts = hosts
@@ -53,12 +53,12 @@ class ToolChainFL:
         self.log.propagate = False
 
     def fl_scdg(self):
-        self.folderName = "".join(self.folderName.rstrip())
+        self.tool_scdg.inputs = "".join(self.tool_scdg.inputs.rstrip())
         self.log.info("Starting SCDGs phase in FL")
         args = {"args_scdg":self.args.__dict__,
-                "folderName":self.folderName,
+                "folderName":self.tool_scdg.inputs,
                 "families":self.families,
-                "expl_method":self.expl_method}
+                "expl_method":self.tool_scdg.expl_method}
         job = []
         for i in range(len(self.hosts)):
             args["client_id"] = i+1
@@ -92,10 +92,10 @@ class ToolChainFL:
         ctx_str = ret_ctx[select_id]["ctx"]      # client public key
         test_value_enc = ret_ctx[select_id]["v"]
 
-        if self.toolmc.input_path is None:
+        if self.tool_classifier.input_path is None:
             input_path = self.args_scdg.exp_dir
         else:
-            input_path = self.toolmc.input_path
+            input_path = self.tool_classifier.input_path
         input_path = input_path.replace("unknown/","") # todo
         
         args = {"ctx":ctx_str, # TODO extract from arg parser DAM

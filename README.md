@@ -52,9 +52,9 @@ Tested on Ubuntu 18 LTS.
 
 ```bash
 # WARNING: slow since one submodule contains preconfigure VMs
-git clone --recurse-submodules git@github.com:csvl/SEMA-ToolChain.git;
+git clone --recurse-submodules https://github.com/csvl/SEMA-ToolChain.git;
 # Full installation (ubuntu)
-cd toolchain_malware_analysis/; source install.sh;
+cd SEMA-ToolChain/; source install.sh;
 ```
 
 Optionals arguments are available for `install.sh`:
@@ -353,10 +353,10 @@ Then on the master node:
 
 ```bash
 bash setup_network.sh
-(screen) python3 ToolChainFL.py --demonstration --method CDFS --classifier dl --smodel 1 --hostnames host1 host2 host3 --verbose_scdg databases/malware-win/small_train/ output/save-SCDG/
+(screen) python3 ToolChainFL.py --demonstration --timeout 100 --method CDFS --classifier dl --smodel 1 --hostnames host1 host2 host3 --verbose_scdg databases/malware-win/small_train/ output/save-SCDG/
 
 
-(screen) python3 ToolChainFL.py --demonstration --method CDFS --classifier gspan --hostnames host1 host2 host3 --verbose_scdg databases/malware-win/small_train/ output/save-SCDG/
+(screen) python3 ToolChainFL.py --demonstration --timeout 100 --method CDFS --classifier gspan --hostnames host1 host2 host3 --verbose_scdg databases/malware-win/small_train/ output/save-SCDG/
 ```
 
 #### Managing SSH sessions

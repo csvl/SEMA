@@ -19,6 +19,8 @@ except:
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
+
+# TODO make usage of method in main file
 class ToolChainClassifier:
     def __init__(self, classifier_name="wl",parse=True):
         self.classifier = None
@@ -33,7 +35,8 @@ class ToolChainClassifier:
         self.log.setLevel(logging.INFO)
         self.log.addHandler(ch)
         self.log.propagate = False    
-        self.args = None        
+        self.args = None  
+        self.families = []      
 
     def save_model(self,object, path):
         with open(path, 'wb+') as output:
@@ -97,9 +100,13 @@ class ToolChainClassifier:
                 exit(-1)   
             self.classifier.families = families
 
-    def init(self):
-        if self.input_path is None:
+    def init(self,exp_dir=None):
+        # TODO args.binaries vs binary
+        if self.input_path is None and exp_dir is None:
             self.input_path = ROOT_DIR.replace("ToolChainClassifier","output/save-SCDG") # todo add args
+        elif self.input_path is None:
+            self.input_path = exp_dir
+        self.input_path = self.input_path.replace("unknown/","") # todo
 
         if self.args.families:
             self.init_classifer(args=self.args,families=self.args.families ,from_saved_model=(not self.args.train))
@@ -141,6 +148,7 @@ def main():
     tc.args = args_parser.parse_arguments()
     args_parser.update_tool(tc.args)
     tc.init()
+
     tc.train()
     
     if tc.mode == "classification":
@@ -151,11 +159,11 @@ def main():
     elapsed_time = time.time() - tc.start_time
     tc.log.info("Total "+ tc.mode +" time: " + str(elapsed_time))
 
-    #if tc.args.train: # TODO
-    args_res = {}
-    if tc.classifier_name == "gspan":
-        args_res["target"] = tc.mode
-    tc.log.info(tc.classifier.get_stat_classifier(**args_res))
+    if tc.args.train: # TODO
+        args_res = {}
+        if tc.classifier_name == "gspan":
+            args_res["target"] = tc.mode
+        tc.log.info(tc.classifier.get_stat_classifier(**args_res))
 
 
 if __name__ == "__main__":

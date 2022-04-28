@@ -24,7 +24,7 @@ GDB_SERVER_PORT = 9876
 #                                           'tests','x86_64',
 #                                           'packed_elf64'))
 
-binary_x64 = "/home/crochetch/Documents/toolchain_malware_analysis/src/submodules/binaries/tests/x86_64/packed_elf64"
+binary_x64 = "/home/crochetch/Documents/SEMA-ToolChain/src/submodules/binaries/tests/x86_64/packed_elf64"
 
 # Spawning of the gdbserver analysis environment
 print("gdbserver %s:%s %s" % (GDB_SERVER_IP,GDB_SERVER_PORT,binary_x64))

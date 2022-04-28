@@ -7,8 +7,6 @@
     2. [ `ToolChainClassifier`]
     3. [ `ToolChainFL`]
 
-
-
 Installation
 ====
 
@@ -18,9 +16,9 @@ Tested on Ubuntu 18 LTS.
 
 ```bash
 # WARNING: slow since one submodule contains preconfigure VMs
-git clone --recurse-submodules https://forge.uclouvain.be/bertrandvano/toolchain_malware_analysis.git;
+git clone --recurse-submodules https://github.com/csvl/SEMA-ToolChain.git;
 # Full installation (ubuntu)
-cd toolchain_malware_analysis/; source install.sh;
+cd SEMA-ToolChain/; source install.sh;
 ```
 
 Optionals arguments are available for `install.sh`:

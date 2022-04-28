@@ -147,7 +147,7 @@ class ArgumentParserSCDG:
         self.tcw = tcw
 
     def update_tool(self,args):
-        nameFile = args.binary
+        inputs = args.binary
         if not self.tcw.print_on:
             self.tcw.print_on = args.verbose
         self.tcw.debug_error = args.debug_error
@@ -200,7 +200,9 @@ class ArgumentParserSCDG:
                 #TODO
                 pass
 
-        return nameFile, expl_method, familly
+        self.tcw.inputs = inputs
+        self.tcw.expl_method = expl_method
+        self.tcw.familly = familly
 
     def parse_arguments(self, allow_unk = False):
         args = None

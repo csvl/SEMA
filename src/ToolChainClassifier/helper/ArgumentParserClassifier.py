@@ -49,7 +49,7 @@ class ArgumentParserClassifier:
             default=multiprocessing.cpu_count(),
         )
         self.group.add_argument( # TODO 
-            "--verbose_classification",
+            "--verbose_classifier",
             help="Verbose output during train/classification  (default : False)",
             action="store_true",
         )

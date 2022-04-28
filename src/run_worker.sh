@@ -10,7 +10,7 @@ for i in "$@"; do
       ;;
   esac
 done
-
+DATE=$(date +"%d.%m.%y-%H.%M.%S")
 source ../penv/bin/activate
-celery -A CeleryTasks worker -Q $HOST -n worker.scdg.classifier.$HOST -P threads -E -f logs/celery.logs
+celery -A CeleryTasks worker -Q $HOST -n worker.scdg.classifier.$HOST -P threads -E -f logs/celery_$HOST_$DATE.logs
 deactivate
