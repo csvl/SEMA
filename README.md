@@ -279,16 +279,16 @@ python3 ToolChainClassifier.py FOLDER/FILE
 * `classifier` : Classifier used [gspan,inria,wl,dl] (default : wl)
 * `threshold` : Threshold used for the classifier [0..1] (default : 0.45)
 * `support` : Support used for the gspan classifier [0..1] (default : 0.75)
-* `ctimeout` : Timeout for gspan classifier (default : 3sec)
+* `ctimeout` : Timeout for gspan classifier (default : 3sec) (??? what is 3sec?? can one write  the command with the argument like "ctimeout 3sec" or "ctimeout 3". What does it (3sec) mean?)
 * `biggest_subgraph` : Biggest subgraph used with gspan (default : 5)
-* `nthread` : Number of thread used (default : max)
+* `nthread` : Number of thread used (default : max) (?? what is max ?)
 * `families`: Families considered (default : ['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT'])"
 * `epoch` : Only for deep learning model: number of epoch (default : 5)
-* `sepoch` : Only for deep learning model: starting epoch (default : 1)
-* `data_scale` : Only for deep learning model: data scale value (default: 0.9)
-* `vector_size` : Only for deep learning model: Size of the vector used (default: 4)
-* `batch_size` : Only for deep learning model: batch size for the model(default: 1)
-* `smodel` : Only for deep learning model: Share model type, 1 partly aggregation (client do not have necessary the same family samples) and 0 fully aggregation (default: 0)
+* `sepoch` : Only for deep learning model: starting epoch (default : 1) (Remove)
+* `data_scale` : Only for deep learning model: data scale value (default: 0.9) (Remove)
+* `vector_size` : Only for deep learning model: Size of the vector used (default: 4) (Remove)
+* `batch_size` : Only for deep learning model: batch size for the model(default: 1) (Remove.. It is always 1)
+* `smodel` : Only for deep learning model: Share model type, 1 partly aggregation (client do not have necessary the same family samples) and 0 fully aggregation (default: 0) (Remove here, it is used for only Federated learning)
 
 
 
@@ -332,9 +332,9 @@ pypy3 ToolChainFL.py --hostnames <listname> BINARY_NAME
 python3 ToolChainFL.py --hostnames <listname> BINARY_NAME
 ```
 * `nrounds` :  Number of rounds for training (default : 5)
-* `sround` :  Restart from sround (default : 0)
-* `nparts` :  Number of partitions (default : 3)
-* `FLRtrain` :  FL train rotate (default : False)
+* `sround` :  Restart from sround (default : 0) (Remove)
+* `nparts` :  Number of partitions (default : 3) (what is nparts here? remove)
+* `FLRtrain` :  FL train rotate (default : False) (Remove)
 * `demonstration` :  If set, use specific dataset for each client (up to 3) to simulate different dataset in clients, else use the same input folder dataset for all clients (default : False)
 * `hostnames` : Hostnames for celery clients
 
