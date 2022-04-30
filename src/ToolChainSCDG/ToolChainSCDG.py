@@ -588,7 +588,7 @@ class ToolChainSCDG:
                     for file in files:
                         self.inputs = file
                         self.familly = current_family
-                        self.build_scdg(args)
+                        self.build_scdg(args, is_fl)
                         fc+=1
                         bar.update(fc)
                     self.families += current_family
