@@ -37,12 +37,6 @@ class ArgumentParserClassifier:
             default=0.75,
         )
         self.group.add_argument(
-            '--smodel', 
-            type=int,
-            help='Share model type, 1 partly aggregation and 0 fully aggregation, default smodel=0',
-            default=0
-        )
-        self.group.add_argument(
             "--nthread",
             help="Number of thread used (default: max)",
             type=int,

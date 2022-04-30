@@ -283,13 +283,14 @@ python3 ToolChainClassifier.py FOLDER/FILE
 * `ctimeout` : Timeout for gspan classifier (default : 3sec)
 * `biggest_subgraph` : Biggest subgraph used with gspan (default : 5)
 * `nthread` : Number of thread used (default : max)
-* `families`: Families considered (default : ['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT'])"
+* `families`: Families considered
 * `epoch` : Only for deep learning model: number of epoch (default : 5)
+
+Experiments purpose arguments:
 * `sepoch` : Only for deep learning model: starting epoch (default : 1)
 * `data_scale` : Only for deep learning model: data scale value (default: 0.9)
 * `vector_size` : Only for deep learning model: Size of the vector used (default: 4)
 * `batch_size` : Only for deep learning model: batch size for the model(default: 1)
-* `smodel` : Only for deep learning model: Share model type, 1 partly aggregation (client do not have necessary the same family samples) and 0 fully aggregation (default: 0)
 
 
 
@@ -334,11 +335,14 @@ python3 ToolChainFL.py --hostnames <listname> BINARY_NAME
 ```
 * `run_name` :  Name for the experiments (default : "")
 * `nrounds` :  Number of rounds for training (default : 5)
+* `demonstration` :  If set, use specific dataset for each client (up to 3) to simulate different dataset in clients, else use the same input folder dataset for all clients (default : False)
+* `hostnames` : Hostnames for celery clients
+* `smodel` : Only for deep learning model: Share model type, 1 partly aggregation (client do not have necessary the same family samples) and 0 fully aggregation (default: 0)
+
+Experiments purpose arguments:
 * `sround` :  Restart from sround (default : 0)
 * `nparts` :  Number of partitions (default : 3)
 * `FLRtrain` :  FL train rotate (default : False)
-* `demonstration` :  If set, use specific dataset for each client (up to 3) to simulate different dataset in clients, else use the same input folder dataset for all clients (default : False)
-* `hostnames` : Hostnames for celery clients
 
 You can use any arguments of the toolchain in addition.
 
@@ -355,10 +359,10 @@ Then on the master node:
 
 ```bash
 bash setup_network.sh
-(screen) python3 ToolChainFL.py --demonstration --timeout 100 --method CDFS --classifier dl --smodel 1 --hostnames host1 host2 host3 --verbose_scdg databases/malware-win/small_train/ output/save-SCDG/
+(screen) python3 ToolChainFL.py --limit_memory --demonstration --timeout 100 --method CDFS --classifier dl --smodel 1 --hostnames host1 host2 host3 --verbose_scdg databases/malware-win/small_train/ output/save-SCDG/
 
 
-(screen) python3 ToolChainFL.py --demonstration --timeout 100 --method CDFS --classifier gspan --hostnames host1 host2 host3 --verbose_scdg databases/malware-win/small_train/ output/save-SCDG/
+(screen) python3 ToolChainFL.py --limit_memory --demonstration --timeout 100 --method CDFS --classifier gspan --hostnames host1 host2 host3 --verbose_scdg databases/malware-win/small_train/ output/save-SCDG/
 ```
 
 #### Managing SSH sessions

@@ -56,43 +56,25 @@ ROOT_DIR = ROOT_DIR.replace("tasks","")
 def start_scdg(** args):
     # Need to be imported here for correctness
     from ToolChainSCDG.ToolChainSCDG import ToolChainSCDG
-    toolcl = ToolChainSCDG(print_sm_step=True,
+    tool_scdg = ToolChainSCDG(print_sm_step=True,
                             print_syscall=True,
                             debug_error=True,
                             debug_string=True,
                             print_on=True,
                             is_from_tc=True)
                             
-    folderName  = args["folderName"]
     args_scdg = args["args_scdg"]
-    families = args["families"]
-    expl_method = args["expl_method"]
     demonstration = args_scdg["demonstration"]
     client_id = args["client_id"]
-    last_familiy = "unknown"
     args_scdg["dir"] = args_scdg["binaries"]
 
     if demonstration:
-        folderName = folderName + "_client"+str(client_id)
+        tool_scdg.inputs = tool_scdg.inputs + "_client"+str(client_id)
         args_scdg["exp_dir"] = args_scdg["exp_dir"].replace("save-SCDG","save-SCDG"  + "_client"+str(client_id))
         args_scdg["dir"] = args_scdg["dir"].replace("save-SCDG","save-SCDG"  + "_client"+str(client_id))
 
-    log.info(args)
-    if os.path.isdir(folderName):
-        print(folderName)
-        subfolder = [os.path.join(folderName, f) for f in os.listdir(folderName) if os.path.isdir(os.path.join(folderName, f))]
-        log.info(subfolder)
-        for folder in subfolder:
-            log.info("You are currently building SCDG for " + folder)
-            args_scdg["exp_dir"] = args_scdg["exp_dir"].replace(last_familiy,folder.split("/")[-1])
-            last_familiy = folder.split("/")[-1]
-            files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
-            for file  in files:
-                toolcl.build_scdg(args_scdg, file, expl_method,last_familiy,is_fl=True)
-            families += last_familiy
-    else:
-        log.info("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/malware-inputs/Sample_paper")
-        return {"v": -1}
+    tool_scdg.start_scdg(args_scdg)
+
     return {"v": 0}
 
 ########################################

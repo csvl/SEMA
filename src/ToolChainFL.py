@@ -38,9 +38,12 @@ class ToolChainFL:
         
         self.args_parser = ArgumentParserFL(self.tool_scdg, self.tool_classifier)
         self.args = self.args_parser.parse_arguments()
+        self.tool_classifier.args = self.args
         self.args_parser.args_parser_scdg.update_tool(self.args)
         self.args_parser.args_parser_class.update_tool(self.args)
-        
+        self.args.exp_dir = self.args.binaries
+        self.args.dir = self.args.binaries
+
         self.hosts = hosts
         if self.args.hostnames and len(self.args.hostnames) > 0:
             self.hosts = self.args.hostnames
@@ -58,10 +61,7 @@ class ToolChainFL:
     def fl_scdg(self):
         self.tool_scdg.inputs = "".join(self.tool_scdg.inputs.rstrip())
         self.log.info("Starting SCDGs phase in FL")
-        args = {"args_scdg":self.args.__dict__,
-                "folderName":self.tool_scdg.inputs,
-                "families":self.families,
-                "expl_method":self.tool_scdg.expl_method}
+        args = {"args_scdg":self.args.__dict__}
         job = []
         for i in range(len(self.hosts)):
             args["client_id"] = i+1

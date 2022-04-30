@@ -40,6 +40,12 @@ class ArgumentParserFL:
             help='FL train rotate',
             action='store_true'
         )
+        self.group.add_argument(
+            '--smodel', 
+            type=int,
+            help='Share model type, 1 partly aggregation and 0 fully aggregation, default smodel=0',
+            default=0
+        )
         self.group.add_argument('--demonstration', 
             help='If set, use specific dataset for each client (3) to simulate different dataset in clients, else use the same input folder dataset for all clients',
             action='store_true'
