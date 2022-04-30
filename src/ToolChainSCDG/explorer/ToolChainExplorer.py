@@ -4,6 +4,7 @@ import sys
 import logging
 from collections import deque
 from angr.exploration_techniques import ExplorationTechnique
+import psutil
 
 class ToolChainExplorer(ExplorationTechnique):
     """
@@ -33,7 +34,9 @@ class ToolChainExplorer(ExplorationTechnique):
         print_sm_step=False,
         print_syscall=False,
         debug_error=False,
+        limit_memory=False
     ):
+        #TODO refactor
         super(ToolChainExplorer, self).__init__()
         self._max_length = max_length
         self.timeout = timeout
@@ -83,6 +86,7 @@ class ToolChainExplorer(ExplorationTechnique):
         self.call_sim = call_sim
 
         self.expl_method = "DFS"
+        self.limit_memory = limit_memory
 
     def _filter(self, s):
         return True  
@@ -625,6 +629,13 @@ class ToolChainExplorer(ExplorationTechnique):
 
         if not (len(simgr.active) > 0 and self.deadended < self.max_end_state):
             self.log.info("sm.active.len > 0 and deadended < max_end_state")
+        
+        if self.limit_memory:
+            vmem = psutil.virtual_memory()
+            if vmem.percent > 90:
+                # TODO return in logs file the malware hash
+                self.log.info("Memory limit reach")
+                return True
 
         return elapsed_time > self.timeout or (
             len(simgr.active) <= 0 or self.deadended >= self.max_end_state

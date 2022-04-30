@@ -108,7 +108,7 @@ class ToolChainClassifier:
             self.input_path = exp_dir
         self.input_path = self.input_path.replace("unknown/","") # todo
 
-        if self.args.families:
+        if self.args.families: # TODO
             self.init_classifer(args=self.args,families=self.args.families ,from_saved_model=(not self.args.train))
         else:
             families = []

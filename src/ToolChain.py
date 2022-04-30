@@ -34,14 +34,18 @@ class ToolChain:
         self.tool_classifier = ToolChainClassifier(parse=False)
         self.args_parser = ArgumentParserTC(self.tool_scdg, self.tool_classifier)
         self.args = self.args_parser.parse_arguments()
+        self.tool_classifier.args = self.args
         self.args_parser.args_parser_scdg.update_tool(self.args)
         self.args_parser.args_parser_class.update_tool(self.args)
         self.families = []
+        self.args.exp_dir = self.args.binaries
+        self.args.dir = self.args.binaries
         self.input_path = None
       
 def main():
     tc = ToolChain()
     tc.tool_scdg.start_scdg(tc.args)
+    
     tc.tool_classifier.init(exp_dir=tc.args.exp_dir)
     tc.tool_classifier.train()
 

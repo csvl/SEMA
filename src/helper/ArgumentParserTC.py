@@ -7,9 +7,9 @@ from ToolChainClassifier.helper.ArgumentParserClassifier import ArgumentParserCl
 class ArgumentParserTC:
 
     def __init__(self,tcw,tcc):        
-        self.tcw = tcw
+        self.tool_scdg = tcw
         self.args_parser_scdg = ArgumentParserSCDG(tcw)
-        self.tcc = tcc
+        self.tool_classifier = tcc
         self.args_parser_class = ArgumentParserClassifier(tcc)
         self.parser = argparse.ArgumentParser(conflict_handler='resolve',
                                 parents=[self.args_parser_scdg.parser,self.args_parser_class.parser]) #,self.args_parser_class.parser

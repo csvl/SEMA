@@ -26,5 +26,10 @@ class LinuxTableLoader:
             to_load = self.syscall_libraries["linux"]
         else:
             return {}
-        syscall_lib = to_load[project.loader.main_object.arch.name]
-        return self.read_file(syscall_lib)
+        arch_name = project.loader.main_object.arch.name
+        if arch_name in to_load.keys():
+            syscall_lib = to_load[arch_name]
+            return self.read_file(syscall_lib)
+        else:
+            print("CPU architecture not supported") # TODO only stop build_scdg
+            exit(0)

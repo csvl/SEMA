@@ -35,6 +35,7 @@ class ToolChainExplorerDFS(ToolChainExplorer):
             worker.print_sm_step,
             worker.print_syscall,
             worker.debug_error,
+            worker.limit_memory
         )
         self.log = logging.getLogger("ToolChainExplorerDFS")
         self.log.setLevel("INFO")

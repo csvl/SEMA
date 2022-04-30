@@ -107,6 +107,8 @@ class ToolChainSCDG:
         self.debug_error = debug_error
         self.debug_string = debug_string
 
+        self.skip_memory = False
+
         self.scdg = []
         self.scdg_fin = []
         

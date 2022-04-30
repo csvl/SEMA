@@ -182,10 +182,10 @@ python3 ToolChain.py FOLDER_OF_BINARIES FOLDER_OF_SIGNATURE
 ```bash
 # For folder of malware 
 # Deep learning not supported with pypy3 (--classifier dl)
-pypy3 ToolChain.py  --method CDFS --train --verbose_scdg --verbose_classifier databases/malware-win/train/ output/save-SCDG/
+pypy3 ToolChain.py  --limit_memory --method CDFS --train --verbose_scdg --verbose_classifier databases/malware-win/train/ output/save-SCDG/
 
 # (virtual env/penv)
-python3 ToolChain.py  --method CDFS --train --verbose_scdg --verbose_classifier databases/malware-win/train/ output/save-SCDG/
+python3 ToolChain.py --limit_memory --method CDFS --train --verbose_scdg --verbose_classifier databases/malware-win/train/ output/save-SCDG/
 ```
 
 :page_with_curl: System Call Dependency Graphs extractor (`ToolChainSCDG`)
@@ -215,6 +215,7 @@ For syscall extraction, different optionals arguments are available :
 * `max_deadend` : Number of deadended state required to stop (default : 600)
 * `resolv_string` : Do we try to resolv references of string (default : True)
 * `familly` : Familly of the malware. if a folder instead of a binary is given, then the familly are associated to the subfolder containing the binaries.  ? (default : unknown)
+* `limit_memory` : Skip binary experiment when memory > 90% (default : False)
 
 For the graph building, options are : 
 
@@ -331,6 +332,7 @@ pypy3 ToolChainFL.py --hostnames <listname> BINARY_NAME
 
 python3 ToolChainFL.py --hostnames <listname> BINARY_NAME
 ```
+* `run_name` :  Name for the experiments (default : "")
 * `nrounds` :  Number of rounds for training (default : 5)
 * `sround` :  Restart from sround (default : 0)
 * `nparts` :  Number of partitions (default : 3)

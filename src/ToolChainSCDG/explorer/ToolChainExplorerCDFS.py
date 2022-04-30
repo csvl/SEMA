@@ -36,6 +36,7 @@ class ToolChainExplorerCDFS(ToolChainExplorer):
             worker.print_sm_step,
             worker.print_syscall,
             worker.debug_error,
+            worker.limit_memory
         )
         self.pause_stash = deque()
         self.log = logging.getLogger("ToolChainExplorerCDFS")
@@ -45,6 +46,7 @@ class ToolChainExplorerCDFS(ToolChainExplorer):
         try:
             simgr = simgr.step(stash=stash, **kwargs)
         except Exception as inst:
+            # TODO allow to skip sample or stop exeuction
             self.log.warning("ERROR IN STEP() - YOU ARE NOT SUPPOSED TO BE THERE !")
             # self.log.warning(type(inst))    # the exception instance
             self.log.warning(inst)  # __str__ allows args to be printed directly,

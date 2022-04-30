@@ -5,13 +5,19 @@ from ToolChainClassifier.helper.ArgumentParserClassifier import ArgumentParserCl
 class ArgumentParserFL:
     # TODO add logs
     def __init__(self,tcw,tcc):        
-        self.tcw = tcw
+        self.tool_scdg = tcw
         self.args_parser_scdg = ArgumentParserSCDG(tcw)
-        self.tcc = tcc
+        self.tool_classifier = tcc
         self.args_parser_class = ArgumentParserClassifier(tcc)
         self.parser = argparse.ArgumentParser(conflict_handler='resolve',
                                 parents=[self.args_parser_scdg.parser,self.args_parser_class.parser]) 
         self.group = self.parser.add_argument_group('Federated learning module arguments')
+        self.group.add_argument(
+            '--run_name', 
+            help='Name for the experiments',
+            type=str, 
+            default=""
+        )
         self.group.add_argument(
             '--nrounds', 
             help='Number of rounds for training',

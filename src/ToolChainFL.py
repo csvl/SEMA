@@ -20,6 +20,7 @@ except:
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # TODO should autodiscover hosts
+# TODO add logger in file for master node 
 class ToolChainFL:
     def __init__(self,hosts=['host2','host3'], # ,'host4']
                       test_val=[2.1, 2.1, 2.1],
@@ -50,6 +51,8 @@ class ToolChainFL:
         self.log = logging.getLogger("ToolChainFL")
         self.log.setLevel(logging.INFO)
         self.log.addHandler(ch)
+        output_file_handler = logging.FileHandler("logs/ToolChainFL.log") # TODO path
+        self.log.addHandler(output_file_handler)
         self.log.propagate = False
 
     def fl_scdg(self):
@@ -68,7 +71,7 @@ class ToolChainFL:
 
     def fl_classifier(self):
         self.log.info("Starting classification phase in FL")
-        runname = "christophe_test" # TODO
+        runname = self.args.run_name # TODO
         smodel = self.args.smodel
         nrounds = self.args.nrounds
         sround = self.args.sround
@@ -77,10 +80,11 @@ class ToolChainFL:
         if classifier is None:
             classifier = "dl"
         elif classifier not in ["dl","gspan"]:
+            # Note gspan still in progression
             self.log.info("Only deep learning model and GSpan allowed in federated learning mode")
             exit(-1)
         
-        his_train = list()          # for expiments measure purposes
+        his_train = list()  # for expiments measure purposes
         for _ in self.hosts:
             his_train.append(list())
         
@@ -102,7 +106,7 @@ class ToolChainFL:
                 "n_features":2,
                 "embedding_dim":64,
                 "nepochs":1, # always 1
-                "run_name":"christophe_test",
+                "run_name":runname,
                 "nround":nrounds,
                 "test":runname,
                 "input_path":input_path,

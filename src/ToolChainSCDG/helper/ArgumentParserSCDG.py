@@ -6,7 +6,7 @@ from matplotlib.pyplot import title
 
 class ArgumentParserSCDG:
     # TODO customize for other tools
-    def __init__(self, tcw):
+    def __init__(self, tool_scdg):
         self.parser = argparse.ArgumentParser(description="SCDG module arguments")
         #self.parser._optionals.title = "SCDG module arguments"
         self.group = self.parser.add_argument_group('SCDG module arguments')
@@ -140,22 +140,27 @@ class ArgumentParserSCDG:
             "--familly",
             help="Familly of the malware (default : unknown)",
         )
+        self.group.add_argument(
+            "--limit_memory",
+            help="Skip binary experiment when memory > 90% (default : False)",
+            action="store_true",
+        )
         self.group.add_argument("binary", 
                 help="Name of the binary to analyze")
 
     
-        self.tcw = tcw
+        self.tool_scdg = tool_scdg
 
     def update_tool(self,args):
         inputs = args.binary
-        if not self.tcw.print_on:
-            self.tcw.print_on = args.verbose
-        self.tcw.debug_error = args.debug_error
+        if not self.tool_scdg.print_on:
+            self.tool_scdg.print_on = args.verbose
+        self.tool_scdg.debug_error = args.debug_error
         if args.method:
             expl_method = args.method.upper()
             if expl_method not in ["BFS", "DFS", "CDFS", "CBFS"]:
-                self.tcw.log.info("Method of exploration not recognized")
-                self.tcw.log.info("Changed to default DFS")
+                self.tool_scdg.log.info("Method of exploration not recognized")
+                self.tool_scdg.log.info("Changed to default DFS")
                 expl_method = "DFS"
         else:
             expl_method = "DFS"
@@ -166,43 +171,44 @@ class ArgumentParserSCDG:
         args.exp_dir = args.exp_dir + familly + "/"
 
         if args.timeout:
-            self.tcw.timeout = args.timeout
+            self.tool_scdg.timeout = args.timeout
         if args.symb_loop:
-            self.tcw.jump_it = args.symb_loop
+            self.tool_scdg.jump_it = args.symb_loop
         if args.conc_loop:
-            self.tcw.loop_counter_concrete = args.conc_loop
+            self.tool_scdg.loop_counter_concrete = args.conc_loop
         if args.eval_time:
-            self.tcw.eval_time = True
+            self.tool_scdg.eval_time = True
 
-        self.tcw.max_simul_state = args.simul_state
+        self.tool_scdg.max_simul_state = args.simul_state
         sys.setrecursionlimit(2000)
-        self.tcw.string_resolv = not args.not_resolv_string
+        self.tool_scdg.string_resolv = not args.not_resolv_string
         if args.limit_pause:
-            self.tcw.max_in_pause_stach = args.limit_pause
+            self.tool_scdg.max_in_pause_stach = args.limit_pause
         if args.max_step:
-            self.tcw.max_step = args.max_step
+            self.tool_scdg.max_step = args.max_step
         if args.max_deadend:
-            self.tcw.max_end_state = args.max_deadend
+            self.tool_scdg.max_end_state = args.max_deadend
         
-        self.tcw.is_packed = args.packed
-        if self.tcw.is_packed:
-            self.tcw.unpack_mode = "symbion"
+        self.tool_scdg.is_packed = args.packed
+        if self.tool_scdg.is_packed:
+            self.tool_scdg.unpack_mode = "symbion"
 
         if args.concrete_target_is_local:
-            self.tcw.concrete_target_is_local = True
+            self.tool_scdg.concrete_target_is_local = True
         if args.unpack_method:
             mode = args.unpack_method
             if mode in ["unipacker", "symbion"]:
-                self.tcw.log.info("Unpack with %s",mode)
-                self.tcw.unpack_mode = mode
-                self.tcw.is_packed = True
+                self.tool_scdg.log.info("Unpack with %s",mode)
+                self.tool_scdg.unpack_mode = mode
+                self.tool_scdg.is_packed = True
             else:
                 #TODO
                 pass
 
-        self.tcw.inputs = inputs
-        self.tcw.expl_method = expl_method
-        self.tcw.familly = familly
+        self.tool_scdg.inputs = inputs
+        self.tool_scdg.expl_method = expl_method
+        self.tool_scdg.familly = familly
+        self.tool_scdg.limit_memory = args.limit_memory # Add custom value
 
     def parse_arguments(self, allow_unk = False):
         args = None

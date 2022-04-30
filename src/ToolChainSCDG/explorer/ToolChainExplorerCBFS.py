@@ -36,6 +36,7 @@ class ToolChainExplorerCBFS(ToolChainExplorer):
             worker.print_sm_step,
             worker.print_syscall,
             worker.debug_error,
+            worker.limit_memory
         )
         self.pause_stash = deque()
         self.log = logging.getLogger("ToolChainExplorerCBFS")
