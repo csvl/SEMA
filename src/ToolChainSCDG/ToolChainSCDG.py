@@ -560,7 +560,7 @@ class ToolChainSCDG:
             self.log.info(name)
             self.log.info(dump_file["sections"][name])
 
-    def start_scdg(self, args):
+    def start_scdg(self, args, is_fl=False):
         self.inputs = "".join(self.inputs.rstrip())
         if os.path.isfile(self.inputs):
             # TODO update familly
@@ -581,7 +581,10 @@ class ToolChainSCDG:
                     bar.start()
                     fc = 0
                     current_family = folder.split("/")[-1]
-                    args.exp_dir = args.exp_dir.replace(last_familiy,current_family) 
+                    if not is_fl:
+                        args.exp_dir = args.exp_dir.replace(last_familiy,current_family) 
+                    else:
+                        args["exp_dir"] = args["exp_dir"].replace(last_familiy,current_family) 
                     for file in files:
                         self.inputs = file
                         self.familly = current_family

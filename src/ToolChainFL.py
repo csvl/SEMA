@@ -48,6 +48,7 @@ class ToolChainFL:
         if self.args.hostnames and len(self.args.hostnames) > 0:
             self.hosts = self.args.hostnames
         self.test_value = test_val
+        
         ch = logging.StreamHandler()
         ch.setLevel(logging.INFO)
         ch.setFormatter(CustomFormatter())
@@ -59,7 +60,6 @@ class ToolChainFL:
         self.log.propagate = False
 
     def fl_scdg(self):
-        self.tool_scdg.inputs = "".join(self.tool_scdg.inputs.rstrip())
         self.log.info("Starting SCDGs phase in FL")
         args = {"args_scdg":self.args.__dict__}
         job = []

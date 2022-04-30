@@ -40,7 +40,6 @@ class ToolChain:
         self.families = []
         self.args.exp_dir = self.args.binaries
         self.args.dir = self.args.binaries
-        self.input_path = None
       
 def main():
     tc = ToolChain()

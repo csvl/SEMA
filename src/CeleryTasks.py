@@ -67,13 +67,14 @@ def start_scdg(** args):
     demonstration = args_scdg["demonstration"]
     client_id = args["client_id"]
     args_scdg["dir"] = args_scdg["binaries"]
-
+    tool_scdg.inputs = args_scdg["binary"] 
+    
     if demonstration:
         tool_scdg.inputs = tool_scdg.inputs + "_client"+str(client_id)
         args_scdg["exp_dir"] = args_scdg["exp_dir"].replace("save-SCDG","save-SCDG"  + "_client"+str(client_id))
         args_scdg["dir"] = args_scdg["dir"].replace("save-SCDG","save-SCDG"  + "_client"+str(client_id))
 
-    tool_scdg.start_scdg(args_scdg)
+    tool_scdg.start_scdg(args_scdg,is_fl=True)
 
     return {"v": 0}
 
