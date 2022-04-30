@@ -108,6 +108,7 @@ class ToolChainSCDG:
         self.debug_string = debug_string
 
         self.skip_memory = False
+        self.limit_memory = False
 
         self.scdg = []
         self.scdg_fin = []
