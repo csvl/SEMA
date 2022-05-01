@@ -1,0 +1,70 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="134513000.main
+mirai035"]
+	1 [label="134516613.ioctl
+0
+21505
+"]
+	2 [label="134516613.ioctl
+1
+21505
+"]
+	1 -> 2 [label="(2-->2)"]
+	3 [label="134514031.time
+0"]
+	4 [label="134514038.getpid
+"]
+	5 [label="134514060.time
+0"]
+	6 [label="134514067.getpid
+"]
+	7 [label="134514084.unlink
+mirai035"]
+	0 -> 7 [label="(1-->1)"]
+	8 [label="134514098.open
+/dev/watchdog
+2
+0"]
+	9 [label="134514163.ioctl
+3
+2147768068
+"]
+	8 -> 9 [label="(0-->1)"]
+	10 [label="134514171.close
+3"]
+	8 -> 10 [label="(0-->1)"]
+	9 -> 10 [label="(1-->1)"]
+	11 [label="134514216.prctl
+15
+134525140
+8
+2147417644
+0"]
+	12 [label="134514233.fork
+"]
+	13 [label="134514267.fork
+"]
+	14 [label="134520884.exit
+0"]
+	15 [label="134522637.exit
+0"]
+	16 [label="134515446.wait4
+fork_parent_804620_-1
+2147417780
+0
+0"]
+	17 [label="134515446.wait4
+fork_parent_804617_-1
+2147417780
+0
+0"]
+	18 [label="134523316.write
+1
+gosh that chinese family at the other table sure ate alot
+
+58"]
+	2 -> 18 [label="(1-->1)"]
+	19 [label="134514286.setsid
+"]
+}

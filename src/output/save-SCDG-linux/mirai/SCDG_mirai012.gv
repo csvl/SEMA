@@ -1,0 +1,85 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="134512996.main
+mirai012"]
+	1 [label="134602089.ioctl
+0
+21505
+"]
+	2 [label="134602089.ioctl
+1
+21505
+"]
+	1 -> 2 [label="(2-->2)"]
+	3 [label="134527029.unlink
+mirai012"]
+	0 -> 3 [label="(1-->1)"]
+	4 [label="134527063.rt_sigprocmask
+0
+2147417560
+0
+8"]
+	5 [label="134609426.rt_sigaction
+17
+2147417064"]
+	6 [label="134609426.rt_sigaction
+5
+2147417064"]
+	5 -> 6 [label="(2-->2)"]
+	7 [label="134527102.open
+/dev/watchdog
+2
+0"]
+	8 [label="134527147.ioctl
+3
+2147768068
+"]
+	7 -> 8 [label="(0-->1)"]
+	9 [label="134527155.close
+3"]
+	7 -> 9 [label="(0-->1)"]
+	8 -> 9 [label="(1-->1)"]
+	10 [label="134602820.getpid
+"]
+	11 [label="134602832.kill
+1337
+5"]
+	6 -> 11 [label="(1-->2)"]
+	12 [label="134531526.time
+0"]
+	13 [label="134531536.getpid
+"]
+	14 [label="134531543.getppid
+"]
+	15 [label="134595089.times
+2147417484"]
+	16 [label="134528059.prctl
+15
+2147417724
+2147417756
+2147417756
+2147418032"]
+	17 [label="134528107.write
+1
+
+
+0"]
+	2 -> 17 [label="(1-->1)"]
+	18 [label="134528141.fork
+"]
+	19 [label="134607820.exit
+0"]
+	20 [label="134609693.exit
+0"]
+	21 [label="134528209.setsid
+"]
+	22 [label="134528219.close
+0"]
+	23 [label="134528231.close
+1"]
+	2 -> 23 [label="(1-->1)"]
+	17 -> 23 [label="(1-->1)"]
+	24 [label="134528243.close
+2"]
+	7 -> 24 [label="(2-->1)"]
+}
