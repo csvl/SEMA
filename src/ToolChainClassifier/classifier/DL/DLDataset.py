@@ -75,7 +75,7 @@ class DLDataset(torch.utils.data.Dataset):
     
     def __getitem__(self, index:int):
         if index < len(self.data) and index >=0:
-            return self.seq_data[index].view(1,-1, self.vector_size*2), self.y[index].view(1,-1)
+            return self.seq_data[index].view(1,-1, self.vector_size*2), self.y[index].view(1,-1),self.data[index]
         
     def __len__(self):
         return len(self.data)

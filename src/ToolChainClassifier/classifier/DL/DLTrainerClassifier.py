@@ -109,18 +109,18 @@ class DLTrainerClassifier(Classifier):
 			self.test_dataset = DataLoader(data_classify,num_workers=ncpu)
 			self.stat_dataset = self.test_dataset
 		
-		for x,y in self.stat_dataset:
-			y_predict = self._model.predict(x[0])
+		for x,y, z in self.stat_dataset:
+			y_predict = self._model.predict(x[0]).reshape(-1)
 			l = self.loss_calc(x,y_predict, x,y[0],criterion_x,criterion_y)
 			if l is not None:
 				self.loss+=l.item()
-			i = torch.argmax(y_predict).item()
-			j = torch.argmax(y).item()
+			i = torch.argmax(y_predict.detach()).item()
+			j = torch.argmax(y.reshape(-1).detach()).item()
 			if i==j:
 				self.TP +=1
 			self.y_true.append(self.labels[j])
 			self.y_pred.append(self.labels[i])
-			print(f"{self.labels[j]} is predicted as {self.labels[i]}")
+			print(f"({os.path.basename(z[0][0])}, {self.labels[j]}) is predicted as {self.labels[i]} (prob {y_predict.detach()[i]:.2f})")
 		return (self.y_pred, self.y_true)
 
 	def detection(self, path=None):
@@ -158,7 +158,7 @@ class DLTrainerClassifier(Classifier):
 			bar = progressbar.ProgressBar(max_value=len(self.train_dataset)+len(self.val_dataset))
 			bar.start()
 			i_count = 0
-			for seq_true,y_true in self.train_dataset:
+			for seq_true,y_true,_ in self.train_dataset:
 				optimizer.zero_grad()
 				x = seq_true[0] 
 				y= y_true[0]
@@ -177,7 +177,7 @@ class DLTrainerClassifier(Classifier):
 				val_losses = []
 				self._model.eval()
 				with torch.no_grad():
-					for seq_true,y in self.val_dataset:
+					for seq_true,y,_ in self.val_dataset:
 						x = seq_true[0]
 						x2,y_pred = self._model(x)
 						loss = self.loss_calc(x2, y_pred, x, y[0], criterion_x, criterion_y)
@@ -212,8 +212,6 @@ class DLTrainerClassifier(Classifier):
 			loss_x = criterion_x(f(x),f(x_target))
 			loss_y = criterion_y(y,y_target)
 		except:
-			self.log.info(f"y {y}")
-			self.log.info(f"y target {y_target}")
 			return None
 		return loss_y+loss_x
 	
