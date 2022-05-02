@@ -90,28 +90,6 @@ class RecurrentAutoencoder(nn.Module):
         with torch.no_grad():
             return self.decoder(x,seq_len)
 
-
-class ClassifierDL(nn.Module):
-    def __init__(self, n_features, n_classes):
-        super(ClassifierDL, self).__init__()
-        self.n_features = n_features
-        self.n_classes = n_classes
-        n_hidden = 2*n_features
-        self.Linear1 = nn.Linear(n_features, n_hidden)
-        self.Linear2 = nn.Linear(n_hidden, n_classes)
-        self.L = nn.Softmax(dim = 1) # TODO ????? dim ????
-
-    def forward(self, x):
-        y1 = self.Linear1(x)
-        y2 = self.Linear2(y1)
-        return self.L(y2)
-
-    def predict(self, x):
-        with torch.no_grad():
-            y1 = self.Linear1(x)
-            y2 = self.Linear2(y1)
-            return self.L(y2)
-
 class mClassifier(nn.Module):
     def __init__(self, n_features):
         super(mClassifier, self).__init__()
@@ -119,12 +97,6 @@ class mClassifier(nn.Module):
         n_hidden = 2*n_features
         self.Linear1 = nn.Linear(n_features, n_hidden)
         self.Linear2 = nn.Linear(n_hidden, 1)
-
-    def init_weight(self):
-        self.Linear1.weight.data.fill_(0.0)
-        self.Linear1.bias.data.fill_(0.0)
-        self.Linear2.weight.data.fill_(0.0)
-        self.Linear2.bias.data.fill_(0.0)
 
     def forward(self, x):
         y1 = self.Linear1(x)

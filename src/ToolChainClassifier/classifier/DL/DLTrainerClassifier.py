@@ -151,8 +151,8 @@ class DLTrainerClassifier(Classifier):
 		history = dict(train=[], val=[])
 		best_model_wts = copy.deepcopy(self._model.state_dict())
 		best_loss = 1e9
-		self._model.train()
 		for epoch in range(sepoch, self.n_epochs+1):
+			self._model.train()
 			train_losses = []
 			self.log.info(f"Epoch {epoch}/{self.n_epochs}:")
 			bar = progressbar.ProgressBar(max_value=len(self.train_dataset)+len(self.val_dataset))
