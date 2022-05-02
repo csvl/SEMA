@@ -1,5 +1,6 @@
 try:
     import torch
+    device = torch.device("cuda" if torch.cuda.is_available()
 except:
     print("Deep learning model do no support pypy3")
     exit(-1)
@@ -60,7 +61,7 @@ class DLDataset(torch.utils.data.Dataset):
             if seq is None: continue
             data.append((fname, label))
             seq = torch.from_numpy(seq).float()
-            self.seq_data.append(seq)
+            self.seq_data.append(seq.to(device))
             bar.update(index+1)
         bar.finish()    
         self.data= data
@@ -70,11 +71,11 @@ class DLDataset(torch.utils.data.Dataset):
             if label in self._classes:
                 l = self._classes.index(label)
                 self.y[index][l] = 1.0
-        self.y = torch.from_numpy(self.y).float()
+        self.y = torch.from_numpy(self.y).float().to(device)
     
     def __getitem__(self, index:int):
         if index < len(self.data) and index >=0:
-            return self.seq_data[index].view(1,-1, self.vector_size*2), self.y[index].view(1,-1)
+            return self.seq_data[index].view(1,-1, self.vector_size*2), self.y[index].view(1,-1),self.data[index]
         
     def __len__(self):
         return len(self.data)

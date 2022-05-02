@@ -100,13 +100,13 @@ class DLTrainerClassifier(Classifier):
 		
 		self.labels =[c for c in self._model.classes]
 		self.loss = 0.
-		for x,y in self.test_loader:
-			y_predict = self._model.predict(x[0].to(device))
-			l = self.loss_calc(x,y_predict, x,y[0].to(device),criterion_x,criterion_y)
+		for x,y,_ in self.test_loader:
+			y_predict = self._model.predict(x[0])
+			l = self.loss_calc(x,y_predict, x,y[0],criterion_x,criterion_y)
 			if l is not None:
 				self.loss+=l.item()
-			i = torch.argmax(y_predict).item()
-			j = torch.argmax(y).item()
+			i = torch.argmax(y_predict.detach()).item()
+			j = torch.argmax(y.detach()).item()
 			if i==j:
 				self.TP +=1
 			self.y_true.append(self.labels[j])
@@ -143,10 +143,10 @@ class DLTrainerClassifier(Classifier):
 			bar = progressbar.ProgressBar(max_value=len(self.train_dataset)+len(self.val_dataset))
 			bar.start()
 			i_count = 0
-			for seq_true,y_true in self.train_dataset:
+			for seq_true,y_true,_ in self.train_dataset:
 				optimizer.zero_grad()
-				x = seq_true[0].to(device) 
-				y= y_true[0].to(device)
+				x = seq_true[0] 
+				y= y_true[0]
 				x2,y_pred = self._model(x)
 				loss = self.loss_calc(x2,y_pred, 
 							x, y, 
@@ -162,10 +162,10 @@ class DLTrainerClassifier(Classifier):
 				val_losses = []
 				self._model.eval()
 				with torch.no_grad():
-					for seq_true,y in self.val_dataset:
-						x = seq_true[0].to(device)
+					for seq_true,y,_ in self.val_dataset:
+						x = seq_true[0]
 						x2,y_pred = self._model(x)
-						loss = self.loss_calc(x2, y_pred, x, y[0].to(device), criterion_x, criterion_y)
+						loss = self.loss_calc(x2, y_pred, x, y[0], criterion_x, criterion_y)
 						val_losses.append(loss.item())
 						i_count+=1
 						bar.update(i_count)
@@ -199,12 +199,6 @@ class DLTrainerClassifier(Classifier):
 		except:
 			self.log.info(f"y {y}")
 			self.log.info(f"y target {y_target}")
-			"""
-			self.log.info(f"loss x {loss_x}")
-			self.log.info(f"loss y {loss_y}")
-			message = f"\nx={x}\nx_target={x_target}\ny={y}\ny_target={y_target}"
-			logging.info(message)
-			"""
 			return None
 		return loss_y+loss_x
 
