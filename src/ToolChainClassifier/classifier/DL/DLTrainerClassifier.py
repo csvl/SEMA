@@ -85,8 +85,8 @@ class DLTrainerClassifier(Classifier):
 			plt.show()
 		else:
 			plt.savefig(f"{save_path}_CM_fig.png", bbox_inches='tight')
-		self.log.info(f"TPR\t{self.TPR}")
-		self.log.info(f"Loss\t{self.loss}")
+		self.log.info(f"TPR\{self.TPR}")
+		self.log.info(f"Loss\{self.loss}")
 		return acc, self.loss
 
 	def classify(self, path=None): # TODO test acc on val_set & test_set
@@ -120,8 +120,8 @@ class DLTrainerClassifier(Classifier):
 				self.TP +=1
 			self.y_true.append(self.labels[j])
 			self.y_pred.append(self.labels[i])
-		print("Prediction:")
-		print(self.y_pred)
+			print(f"{self.labels[j]} is predicted as {self.labels[i]}")
+		return (self.y_pred, self.y_true)
 
 	def detection(self, path=None):
 		"""
@@ -214,12 +214,6 @@ class DLTrainerClassifier(Classifier):
 		except:
 			self.log.info(f"y {y}")
 			self.log.info(f"y target {y_target}")
-			"""
-			self.log.info(f"loss x {loss_x}")
-			self.log.info(f"loss y {loss_y}")
-			message = f"\nx={x}\nx_target={x_target}\ny={y}\ny_target={y_target}"
-			logging.info(message)
-			"""
 			return None
 		return loss_y+loss_x
 	

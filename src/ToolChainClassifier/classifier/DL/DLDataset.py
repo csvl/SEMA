@@ -46,13 +46,7 @@ class DLDataset(torch.utils.data.Dataset):
             self.data.append((fname,dirname))
             classes.add(dirname)
             
-        self._classes = sorted(list(classes))        
-            
-        self.target_transform = Lambda(lambda y: torch.zeros(
-                len(self._classes), 
-                dtype=torch.float).scatter_(dim=0, 
-                            index=torch.tensor(y), value=1))
-        #self.seq_data = None
+        self._classes = sorted(list(classes))
         self.load_data()
         
     def load_data(self):

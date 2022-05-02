@@ -57,7 +57,7 @@ class ToolChainClassifier:
             nthread = args.nthread
             biggest_subgraph = args.biggest_subgraph
             epoch = args.epoch
-            shared_type = args.smodel
+            shared_type = 1#args.smodel
         else:
             threshold = args["threshold"]
             support = args["support"]
@@ -65,7 +65,7 @@ class ToolChainClassifier:
             nthread = args["nthread"]
             biggest_subgraph = args["biggest_subgraph"]
             epoch = args["epoch"]
-            shared_type = args["smodel"]
+            shared_type = 1#args["smodel"]
         if not from_saved_model:
             if self.classifier_name == "gspan":
                 self.classifier = GSpanClassifier(path=ROOT_DIR,threshold=threshold,support=support,timeout=ctimeout,thread=nthread,biggest_subgraphs=biggest_subgraph)
@@ -125,7 +125,7 @@ class ToolChainClassifier:
         if self.args.train: # TODO refactor
             args_train = {}
             if self.classifier_name == "dl":
-                args_train["sepoch"] = self.args.sepoch
+                args_train["sepoch"] = 1#self.args.sepoch
             if self.input_path is None:
                 args_train["path"] = self.input_path
             else:
@@ -138,7 +138,7 @@ class ToolChainClassifier:
 
     def classify(self):
         self.classifier.classify(path=(None if self.args.train else self.input_path))
-
+        self.log.info(self.classifier.get_stat_classifier())
     def detect(self):
         self.classifier.detection(path=(None if self.args.train else self.input_path))
 
@@ -148,23 +148,23 @@ def main():
     tc.args = args_parser.parse_arguments()
     args_parser.update_tool(tc.args)
     tc.init()
-
-    tc.train()
-    
-    if tc.mode == "classification":
+    if tc.args.train:
+        tc.train()
+    elif tc.mode == "classification":
         tc.classify()
-    else:
+    elif tc.mode == "detection":
         tc.detect()
     
     elapsed_time = time.time() - tc.start_time
     tc.log.info("Total "+ tc.mode +" time: " + str(elapsed_time))
 
+    """
     if tc.args.train: # TODO
         args_res = {}
         if tc.classifier_name == "gspan":
             args_res["target"] = tc.mode
         tc.log.info(tc.classifier.get_stat_classifier(**args_res))
-
+    """
 
 if __name__ == "__main__":
     main()
