@@ -1,6 +1,6 @@
 try:
     import torch
-    device = torch.device("cuda" if torch.cuda.is_available()
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 except:
     print("Deep learning model do no support pypy3")
     exit(-1)

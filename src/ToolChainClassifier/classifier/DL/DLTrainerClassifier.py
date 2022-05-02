@@ -68,7 +68,7 @@ class DLTrainerClassifier(Classifier):
 
 	def load_dataset(self, datapath,data_scale):
 		apiname = "APInameseq.txt" # TODO more customization
-		fname   = "/media/kdam/Data/UCL/Federated-Learning/tool/SEMA-ToolChain/src/mapping.txt" #"mapping.txt"
+		fname   = "mapping.txt" #"mapping.txt"
 		apipath = apiname #os.path.join(dir_path, apiname)
 		mappath = fname   #os.path.join(dir_path, fname)
 		data_train = DLDataset(datapath, mappath, apipath, self.vector_size)
