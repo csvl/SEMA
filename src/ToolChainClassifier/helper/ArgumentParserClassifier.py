@@ -68,30 +68,30 @@ class ArgumentParserClassifier:
             type=int,
             default=5,
         )
-        self.group.add_argument(
-            "--sepoch",
-            help="Only for deep learning model: starting epoch (default: 1)\n",
-            type=int,
-            default=1,
-        )
-        self.group.add_argument(
-            "--data_scale",
-            help="Only for deep learning model: data scale value (default: 0.9)",
-            type=float,
-            default=0.9,
-        )
-        self.group.add_argument(
-            "--vector_size",
-            help="Only for deep learning model: Size of the vector used (default: 4)",
-            type=int,
-            default=4,
-        )                            
-        self.group.add_argument(
-            "--batch_size",
-            help="Only for deep learning model: Batch size for the model (default: 1)",
-            type=int,
-            default=1,
-        )
+#        self.group.add_argument(
+#            "--sepoch",
+#            help="Only for deep learning model: starting epoch (default: 1)\n",
+#            type=int,
+#            default=1,
+#        )
+#        self.group.add_argument(
+#            "--data_scale",
+#            help="Only for deep learning model: data scale value (default: 0.9)",
+#            type=float,
+#            default=0.9,
+#        )
+#        self.group.add_argument(
+#            "--vector_size",
+#            help="Only for deep learning model: Size of the vector used (default: 4)",
+#            type=int,
+#            default=4,
+#        )                            
+#        self.group.add_argument(
+#            "--batch_size",
+#            help="Only for deep learning model: Batch size for the model (default: 1)",
+#            type=int,
+#            default=1,
+#        )
         self.group.add_argument("binaries", help="Name of the folder containing binary'signatures to analyze (Default: output/save-SCDG/, only that for ToolChain)")
         self.tcw = tcw
 
