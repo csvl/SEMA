@@ -17,37 +17,21 @@ class ToolChainExplorer(ExplorationTechnique):
         max_length,
         exp_dir,
         nameFileShort,
-        scdg,
-        call_sim,
-        eval_time=False,
-        timeout=600,
-        max_end_state=600,
-        max_step=50000,
-        timeout_tab=[1200, 2400, 3600],
-        jump_it=1,
-        loop_counter_concrete=102400,
-        jump_dict={},
-        jump_concrete_dict={},
-        max_simul_state=5,
-        max_in_pause_stach=500,
-        print_on=False,
-        print_sm_step=False,
-        print_syscall=False,
-        debug_error=False,
-        limit_memory=False
+        worker
     ):
         #TODO refactor
         super(ToolChainExplorer, self).__init__()
         self._max_length = max_length
-        self.timeout = timeout
-        self.jump_it = jump_it
-        self.timeout_tab = timeout_tab
+        self.worker = worker
+        self.timeout = worker.timeout
+        self.jump_it = worker.jump_it
+        self.timeout_tab = worker.timeout_tab
 
         self.start_time = timer.time()
         self.log = logging.getLogger("ToolChainExplorer")
         self.log.setLevel("INFO")
 
-        self.max_end_state = max_end_state
+        self.max_end_state = worker.max_end_state
         self.errored = 0
         self.unconstrained = 0
         self.deadended = 0
@@ -58,35 +42,35 @@ class ToolChainExplorer(ExplorationTechnique):
         self.pause_stash = simgr.stashes["pause"]
         self.exp_dir = exp_dir
         self.nameFileShort = nameFileShort
-        self.eval_time = eval_time
+        self.eval_time = worker.eval_time
         self.time_id = 0
         self.print_sm_step = True
 
         self.loopBreak_stack = deque()
-        self.jump_concrete_dict = jump_concrete_dict
-        self.jump_dict = jump_dict
+        self.jump_concrete_dict = worker.jump_concrete_dict
+        self.jump_dict = worker.jump_dict
         self.jump_dict[0] = {}
         self.jump_concrete_dict[0] = {}
-        self.loop_counter_concrete = loop_counter_concrete
-        self.max_step = max_step
-        self.max_simul_state = max_simul_state
-        self.max_in_pause_stach = max_in_pause_stach
+        self.loop_counter_concrete = worker.loop_counter_concrete
+        self.max_step = worker.max_step
+        self.max_simul_state = worker.max_simul_state
+        self.max_in_pause_stach = worker.max_in_pause_stach
 
-        self.scdg = scdg
+        self.scdg = worker.scdg
         self.scdg_fin = [] # TODO from main 
         self.dict_addr_vis = {}
 
-        self.print_on = print_on
-        self.print_sm_step = print_sm_step
-        self.print_syscall = print_syscall
-        self.debug_error = debug_error
+        self.print_on = worker.print_on
+        self.print_sm_step = worker.print_sm_step
+        self.print_syscall = worker.print_syscall
+        self.debug_error = worker.debug_error
 
         self.loopBreak_stack = deque()
 
-        self.call_sim = call_sim
+        self.call_sim = worker.call_sim
 
         self.expl_method = "DFS"
-        self.limit_memory = limit_memory
+        self.memory_limit = worker.memory_limit
 
     def _filter(self, s):
         return True  
@@ -630,7 +614,7 @@ class ToolChainExplorer(ExplorationTechnique):
         if not (len(simgr.active) > 0 and self.deadended < self.max_end_state):
             self.log.info("sm.active.len > 0 and deadended < max_end_state")
         
-        if self.limit_memory:
+        if self.memory_limit:
             vmem = psutil.virtual_memory()
             if vmem.percent > 90:
                 # TODO return in logs file the malware hash

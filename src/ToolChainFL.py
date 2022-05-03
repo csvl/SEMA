@@ -71,10 +71,6 @@ class ToolChainFL:
 
     def fl_classifier(self):
         self.log.info("Starting classification phase in FL")
-        runname = self.args.run_name # TODO
-        smodel = self.args.smodel
-        nrounds = self.args.nrounds
-        sround = self.args.sround
         classifier = self.args.classifier
 
         if classifier is None:
@@ -105,28 +101,25 @@ class ToolChainFL:
         args = {"ctx":ctx_str, # TODO extract from arg parser DAM
                 "n_features":2,
                 "embedding_dim":64,
-                "nepochs":1, # always 1
-                "run_name":runname,
-                "nround":nrounds,
-                "test":runname,
+                "nepochs":1,        # always 1
+                "run_name":self.args.run_name,
+                "nround":self.args.nrounds,
                 "input_path":input_path,
                 "demonstration":self.args.demonstration,
-                "smodel":smodel,
+                "smodel":self.args.smodel,
                 "classifier":classifier,
                 "args_class":self.args.__dict__}
         
-        # TODO train argument
-        tround = sround 
+        tround = self.args.sround 
         if classifier == "gspan": # TODO put that in argument parser
-            nrounds = 1
-        while tround < nrounds:
-            self.log.info("-- Training phase in FL - round " + str(tround+1) + "/" +  str(nrounds))
+            self.args.nrounds = 1
+        while tround < self.args.nrounds:
+            self.log.info("-- Training phase in FL - round " + str(tround+1) + "/" +  str(self.args.nrounds))
             args["nround"] = tround
             job = []
             for i in range(len(self.hosts)):
-                args["run_name"] = f"{runname}_part{i}"
+                args["run_name"] = f"{self.args.run_name}_part{i}"
                 args["ctx"] = ret_ctx[select_id]["ctx"]
-                args["smodel"] = smodel
                 args["client_id"] = i+1
                 args["master_pk"] = ret_ctx[select_id]["pk"]
                 job.append(train.s(**args).set(queue=self.hosts[i]))
@@ -153,8 +146,8 @@ class ToolChainFL:
                 ctx_str0 = F.bytes_to_string(context.serialize())
                 args["ctx"] = ctx_str0
                 args["num"] = len(self.hosts)
-                args["run_name"] = f"{runname}_part{select_id}"
-                # select_id = KEY client
+                args["run_name"] = f"{self.args.run_name}_part{select_id}"
+                # select_id = KEY master node
                 ret = celery.group(decryption.s(**args).set(queue=self.hosts[select_id]))().get()
                 enc_v = F.string_to_enc(ret[0]["v"],context)
                 self.log.info("Decrypt key: "+ str(enc_v.decrypt(key)))
@@ -162,14 +155,14 @@ class ToolChainFL:
                 para = ret[0]["para"]
                 ### Decrypt and encrypt again before sending updates
                 job=[]
-                self.log.info("-- Update phase in FL - round " + str(tround+1) + "/" +  str(nrounds))
+                self.log.info("-- Update phase in FL - round " + str(tround+1) + "/" +  str(self.args.nrounds))
                 for i in range(len(self.hosts)):
                     if i == select_id:
                         continue
                     ctx = F.context_from_string(ret_ctx[i]["ctx"])
                     args["para"]  = para #F.encrypt_para(ctx, para) # TODO should be encrypted
                     args["v_enc"] = ret_ctx[i]["v"] 
-                    args["run_name"] = f"{runname}_part{i}"
+                    args["run_name"] = f"{self.args.run_name}_part{i}"
                     job.append(update.s(**args).set(queue=self.hosts[i]))
                 ret = celery.group(job)().get()
                 for r in ret:
@@ -181,7 +174,7 @@ class ToolChainFL:
                 args["select_id"] = select_id
                 args["paras"] = paras
                 args["client_pks"] = client_pks
-                args["run_name"] = f"{runname}_part{select_id}"
+                args["run_name"] = f"{self.args.run_name}_part{select_id}"
                 ret = celery.group(best_signature_selection.s(**args).set(queue=self.hosts[select_id]))().get()
                
                 self.log.info("-- Distribution of the best signature selection phase FL")
@@ -195,7 +188,7 @@ class ToolChainFL:
                 for r in ret:
                     self.log.info(f"{r}")
 
-            self.log.info("-- Testing phase in FL - round " + str(tround+1) + "/" +  str(nrounds))
+            self.log.info("-- Testing phase in FL - round " + str(tround+1) + "/" +  str(self.args.nrounds))
             # Should all have the same test set -> we assume all client have the same test set
             # TODO may be only do this on master node -> easier for deployement
             # But less good when swithing to fully decentralized architecture
@@ -203,12 +196,12 @@ class ToolChainFL:
             job=[]
             for i in range(len(self.hosts)):
                 if classifier == "dl":
-                    args["run_name"] = f"{runname}_part{i}"
-                    args["test"] = f"{runname}_part{i}" #f"{runname}"
+                    args["run_name"] = f"{self.args.run_name}_part{i}"
+                    args["test"] = f"{self.args.run_name}_part{i}" #f"{runname}"
                     # args["test"] = f"{runname}"
                 elif classifier == "gspan":
                     args["sigpath"] = None # use standard sig folder
-                    args["run_name"] = f"{runname}_part{i}"
+                    args["run_name"] = f"{self.args.run_name}_part{i}"
                 job.append(test.s(**args).set(queue=self.hosts[i]))
             ret = celery.group(job)().get()
             for r in ret:
@@ -224,10 +217,10 @@ class ToolChainFL:
         self.log.info("Ending classification phase in FL")
 
 # TODO add FL stop procedure 
-#         
 def main():
     fl = ToolChainFL()
-    fl.fl_scdg() 
+    if not fl.args.no_scdg_create:
+        fl.fl_scdg() 
     fl.fl_classifier()
 
 if __name__=="__main__":

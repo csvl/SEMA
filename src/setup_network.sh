@@ -2,6 +2,8 @@
 
 # sudo systemctl status rabbitmq-server
 
+# TODO better interface
+
 sudo apt install rabbitmq-server
 
 sudo rabbitmqctl add_user 'rabbitmq' '9a55f70a841f18b97c3a7db939b7adc9e34a0f1d'

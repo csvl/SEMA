@@ -108,7 +108,7 @@ class ToolChainSCDG:
         self.debug_string = debug_string
 
         self.skip_memory = False
-        self.limit_memory = False
+        self.memory_limit = False
 
         self.scdg = []
         self.scdg_fin = []
@@ -205,7 +205,8 @@ class ToolChainSCDG:
             use_sim_procedures=True,
             load_options={
                 "auto_load_libs": True
-            },  # ,load_options={"auto_load_libs":False}
+            },  
+            # ,load_options={"auto_load_libs":False}
             support_selfmodifying_code=True,
             # arch="",
         )
@@ -254,7 +255,7 @@ class ToolChainSCDG:
         # options = {angr.options.USE_SYSTEM_TIMES}
         options = {angr.options.SIMPLIFY_MEMORY_READS}
         options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS)
-        #options.add(angr.options.USE_SYSTEM_TIMES)
+        # options.add(angr.options.USE_SYSTEM_TIMES)
         options.add(angr.options.ZERO_FILL_UNCONSTRAINED_MEMORY)
         options.add(angr.options.SIMPLIFY_MEMORY_READS)
         options.add(angr.options.SIMPLIFY_MEMORY_WRITES)
