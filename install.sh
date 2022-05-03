@@ -228,7 +228,6 @@ pip2 install .
 
 deactivate
 
-
 cd $ROOTPATH/
 
 printf '\n%s\n' "-------------> Install GSPAN: <-------------"
@@ -237,3 +236,5 @@ cd $ROOTPATH/src/submodules/SEMA-quickspan
 mkdir build && cd build
 cmake ..
 make
+
+cd $ROOTPATH/

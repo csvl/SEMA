@@ -141,7 +141,7 @@ class ArgumentParserSCDG:
             help="Familly of the malware (default : unknown)",
         )
         self.group.add_argument(
-            "--limit_memory",
+            "--memory_limit",
             help="Skip binary experiment when memory > 90% (default : False)",
             action="store_true",
         )
@@ -208,7 +208,7 @@ class ArgumentParserSCDG:
         self.tool_scdg.inputs = inputs
         self.tool_scdg.expl_method = expl_method
         self.tool_scdg.familly = familly
-        self.tool_scdg.limit_memory = args.limit_memory # Add custom value
+        self.tool_scdg.memory_limit = args.memory_limit # Add custom value
 
     def parse_arguments(self, allow_unk = False):
         args = None

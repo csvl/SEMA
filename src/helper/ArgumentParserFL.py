@@ -47,7 +47,11 @@ class ArgumentParserFL:
             default=0
         )
         self.group.add_argument('--demonstration', 
-            help='If set, use specific dataset for each client (3) to simulate different dataset in clients, else use the same input folder dataset for all clients',
+            help='If set, use specific dataset for each client (3) to simulate different dataset in clients, else use the same input folder dataset for all clients (default: False)',
+            action='store_true'
+        )
+        self.group.add_argument('--no_scdg_create', 
+            help='Skip SCDGs create phase (default: False)',
             action='store_true'
         )
         self.group.add_argument('--hostnames', 

@@ -65,6 +65,8 @@ Optionals arguments are available for `install.sh`:
 * `--pypy` : Install also with `pypy3` compiler (default : False)
 * `--pytorch_cuda` : Install also CUDA core enable with `pytorch` (default : False)
 
+## Installation details (optional)
+
 #### Pip
 
 To run this SCDG extractor you first need to install pip.
@@ -182,10 +184,10 @@ python3 ToolChain.py FOLDER_OF_BINARIES FOLDER_OF_SIGNATURE
 ```bash
 # For folder of malware 
 # Deep learning not supported with pypy3 (--classifier dl)
-pypy3 ToolChain.py  --limit_memory --method CDFS --train --verbose_scdg --verbose_classifier databases/malware-win/train/ output/save-SCDG/
+pypy3 ToolChain.py  --memory_limit --method CDFS --train --verbose_scdg --verbose_classifier databases/malware-win/train/ output/save-SCDG/
 
 # (virtual env/penv)
-python3 ToolChain.py --limit_memory --method CDFS --train --verbose_scdg --verbose_classifier databases/malware-win/train/ output/save-SCDG/
+python3 ToolChain.py --memory_limit --method CDFS --train --verbose_scdg --verbose_classifier databases/malware-win/train/ output/save-SCDG/
 ```
 
 :page_with_curl: System Call Dependency Graphs extractor (`ToolChainSCDG`)
@@ -215,7 +217,7 @@ For syscall extraction, different optionals arguments are available :
 * `max_deadend` : Number of deadended state required to stop (default : 600)
 * `resolv_string` : Do we try to resolv references of string (default : True)
 * `familly` : Familly of the malware. if a folder instead of a binary is given, then the familly are associated to the subfolder containing the binaries.  ? (default : unknown)
-* `limit_memory` : Skip binary experiment when memory > 90% (default : False)
+* `memory_limit` : Skip binary experiment when memory > 90% (default : False)
 
 For the graph building, options are : 
 
@@ -336,6 +338,7 @@ python3 ToolChainFL.py --hostnames <listname> BINARY_NAME
 * `run_name` :  Name for the experiments (default : "")
 * `nrounds` :  Number of rounds for training (default : 5)
 * `demonstration` :  If set, use specific dataset for each client (up to 3) to simulate different dataset in clients, else use the same input folder dataset for all clients (default : False)
+* `no_scdg_create` :  Skip SCDGs create phase (default: False)
 * `hostnames` : Hostnames for celery clients
 * `smodel` : Only for deep learning model: Share model type, 1 partly aggregation (client do not have necessary the same family samples) and 0 fully aggregation (default: 0)
 
@@ -359,10 +362,10 @@ Then on the master node:
 
 ```bash
 bash setup_network.sh
-(screen) python3 ToolChainFL.py --limit_memory --demonstration --timeout 100 --method CDFS --classifier dl --smodel 1 --hostnames host1 host2 host3 --verbose_scdg databases/malware-win/small_train/ output/save-SCDG/
+(screen) python3 ToolChainFL.py --memory_limit --demonstration --timeout 100 --method CDFS --classifier dl --smodel 1 --hostnames host1 host2 host3 --verbose_scdg databases/malware-win/small_train/ output/save-SCDG/
 
 
-(screen) python3 ToolChainFL.py --limit_memory --demonstration --timeout 100 --method CDFS --classifier gspan --hostnames host1 host2 host3 --verbose_scdg databases/malware-win/small_train/ output/save-SCDG/
+(screen) python3 ToolChainFL.py --memory_limit --demonstration --timeout 100 --method CDFS --classifier gspan --hostnames host1 host2 host3 --verbose_scdg databases/malware-win/small_train/ output/save-SCDG/
 ```
 
 #### Managing SSH sessions
