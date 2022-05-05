@@ -3,7 +3,6 @@ import logging
 import os
 import subprocess
 from matplotlib import pyplot as plt
-
 import numpy as np
 from grakel import Graph
 from grakel.datasets import fetch_dataset
@@ -13,7 +12,6 @@ try:
 except:
     from ..clogging.CustomFormatter import CustomFormatter
         
-
 class Classifier():
     def __init__(self,path, name, threshold):
         ch = logging.StreamHandler()
@@ -26,26 +24,34 @@ class Classifier():
         
         self.name = name
         self.threshold = threshold
-        self.gspan_path = path.replace("ToolChainClassifier","submodules/toolchain_quickspan/build/") 
+        self.gspan_path = path.replace("ToolChainClassifier","submodules/SEMA-quickspan/build/") 
         self.dico_precomputed = []
         self.dataset_len = 0
+
+        self.train_dataset = None
+        self.val_dataset = None
+        self.test_dataset = None
 
         
     # Classify malware use the model
     # in : path = list of samples to classify
     # TODO: not good way to write that ch
-    def classify(self):
+    # TODO 
+    # if path = none -> load model and test the path
+    # else: apply on test test from training set
+    # same for detection
+    def classify(self,path=None):
         """
         Sort by familly
         """
         pass
 
-    def detection(self):
+    def detection(self,path=None):
         """
         Malware vs cleanware
         """
         pass
-    
+
     # Train the model
     def train(self,path):
         pass
@@ -154,7 +160,7 @@ class Classifier():
         common_edges = 0
         key_dic = str(g1.__hash__()) +'-'+ str(g2.__hash__())
         rev_key_dic = str(g2.__hash__()) +'-'+ str(g1.__hash__())
-        self.log.info(key_dic)
+        self.log.info("key_dic : " + key_dic)
         if key_dic in self.dico_precomputed :
             self.log.info(self.dico_precomputed)
             #self.log.info(Dico_precomputed[g1.__hash__()])
@@ -231,8 +237,6 @@ class Classifier():
             g1comp = self.dico_precomputed[g1.__hash__()]['gcomp']
             counter1 = self.dico_precomputed[g1.__hash__()]['counter']
         else: 
-
-            
             f = open(filename,'w')
             f.write('t # 0\n')
             for key,value in g1.node_labels.items():
@@ -343,14 +347,13 @@ class Classifier():
                     res2.close()
                 except:
                     g2comp=len(g2.edge_labels)
-            self.dico_precomputed[g2.__hash__()] =  {'gcomp':g2comp,'counter':counter2}
+            self.dico_precomputed[g2.__hash__()] = {'gcomp':g2comp,'counter':counter2}
         self.log.info("edges g2 : "+str(g2comp))
         
         nef = 0.25
         try:
             nodes_factor = common_nodes/(min(counter1,counter2))
             edges_factor = common_edges/(min(g1comp,g2comp))
-        
             return min(1,nef * nodes_factor + (1-nef) * edges_factor)
         except:
             return 0

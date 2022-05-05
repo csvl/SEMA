@@ -38,6 +38,7 @@ class CustomSimProcedure:
         "ShellMessageBoxW",
         "wsprintfA",
         "sprintf",
+        "strcat"
     ]
 
     ANGR_LIBS = {
@@ -195,7 +196,7 @@ class CustomSimProcedure:
         
     def init_windows_sim_proc(self):
         # Import all classes under the current directory, and group them based on
-        self.custom_simproc_windows = {}
+        self.custom_simproc_windows.clear()
         path = os.path.dirname(os.path.abspath(__file__)) + "/windows"
         self.log.info("Windows lib path = " + str(path))
         skip_dirs = ["definitions"]
@@ -231,7 +232,7 @@ class CustomSimProcedure:
         # self.log.info(self.custom_simproc_windows)
 
     def init_linux_sim_proc(self):
-        self.custom_simproc = {}
+        self.custom_simproc.clear()
         path = os.path.dirname(os.path.abspath(__file__)) + "/linux"
         self.log.info("Linux lib path = " + str(path))
         skip_dirs = ["definitions"]
@@ -384,8 +385,8 @@ class CustomSimProcedure:
                         del dic_symbols[name]
 
                 angrlib.add_all_from_dict(newprocs)
-                # print('-----------symbols after hook--------------------' + libname)
-                # print(dic_symbols)
+                self.log.info('----------- Symbols after hook for libs ' + libname +'--------------------')
+                self.log.info(dic_symbols)
 
         project._sim_procedures = {
             addr: simprocedure for addr, simprocedure in project._sim_procedures.items()
@@ -485,9 +486,9 @@ class CustomSimProcedure:
                         del dic_symbols[name]
 
                 angrlib.add_all_from_dict(newprocs)
-                # print('-----------symbols after hook--------------------' + libname)
-                # print(dic_symbols)
-
+                self.log.info('----------- Symbols after hook for libs ' + libname +'--------------------')
+                self.log.info(dic_symbols)
+                
         project._sim_procedures = {
             addr: simprocedure for addr, simprocedure in project._sim_procedures.items()
         }
@@ -706,13 +707,14 @@ class CustomSimProcedure:
 
         callee = None
         callee_arg = None
+        ret_type = None
         if (
             sim_proc
             and sim_proc.is_syscall
             and str(sim_proc.syscall_number) in self.system_call_table
             and self.print_syscall
         ):
-            self.log.info("syscall detected")
+            self.log.info("Syscall detected")
             # self.log.info(sim_proc.syscall_number)
             self.log.info(state.inspect.simprocedure_result)
             self.log.info(self.system_call_table[str(sim_proc.syscall_number)])
@@ -724,6 +726,7 @@ class CustomSimProcedure:
             if name in self.system_call_table[key]:
                 callee = self.system_call_table[key][name]
                 callee_arg = callee["arguments"]
+                ret_type = callee["returns"]
                 break
         if not callee and state.globals["loaded_libs"]:
             for k, lib in state.globals["loaded_libs"].items():
@@ -765,6 +768,7 @@ class CustomSimProcedure:
                             or "LPWSTR" in callee_arg[i]["type"]
                             or "wchar_t*const" in callee_arg[i]["type"]
                             or "OLECHAR" in callee_arg[i]["type"]
+                            or "char*" in callee_arg[i]["type"]
                         )
                     ):
                         temp = args[i]
@@ -791,6 +795,7 @@ class CustomSimProcedure:
                             or "LPSTR" in callee_arg[i]["type"]
                             or "const char*" in callee_arg[i]["type"]
                             or "LPCVOID" in callee_arg[i]["type"]
+                            or "char*" in callee_arg[i]["type"]
                         )
                     ):
                         string = state.mem[args[i]].string.concrete
@@ -814,24 +819,7 @@ class CustomSimProcedure:
                     pass
 
             self.scdg[id][-1]["args"] = args
-
-            if (
-                self.scdg[id][-1]["ret"] != "symbolic"
-                and name not in self.FUNCTION_RETURNS
-            ):
-                ret = -22
-                try:
-                    ret = state.solver.eval_one(state.inspect.simprocedure_result)
-                except Exception:
-                    stub = state.inspect.simprocedure_result
-                    if hasattr(stub, "to_claripy"):
-                        stub = stub.to_claripy()
-                    if hasattr(stub, "name"):
-                        ret = stub.name
-                    else:
-                        ret = str(stub)
-
-                self.scdg[id][-1]["ret"] = ret
+            
 
             if (
                 name == "write"
@@ -845,7 +833,6 @@ class CustomSimProcedure:
                 )
                 self.scdg[id].pop()
 
-            return
         elif self.scdg[id][-1]["name"] == "writev" and name == "write" and args:
             self.scdg[id][-1]["name"] = "write"
             for i in range(len(args)):
@@ -905,13 +892,48 @@ class CustomSimProcedure:
             self.scdg[id][-1]["ret"] = ret
         else:
             pass
+        if ret_type and (
+            "LPCSTR" in ret_type
+            or "LPSTR" in ret_type
+            or "const char*" in ret_type
+            or "LPCVOID" in ret_type
+            or "char*" in ret_type
+            ):
+            try: 
+                retval = state.solver.eval_one(state.inspect.simprocedure_result)
+                str_mem = state.mem[retval].string.concrete
+                if hasattr(str_mem, "decode"):
+                    str_mem = state.mem[retval].string.concrete.decode("utf-8")
+                self.scdg[id][-1]["ret"] = str_mem
+            except:
+                self.scdg[id][-1]["ret"] = retval
+        elif (
+            self.scdg[id][-1]["ret"] != "symbolic"
+            and name not in self.FUNCTION_RETURNS
+        ):
+            ret = -22
+            try:
+                ret = state.solver.eval_one(state.inspect.simprocedure_result)
+            except Exception:
+                stub = state.inspect.simprocedure_result
+                if hasattr(stub, "to_claripy"):
+                    stub = stub.to_claripy()
+                if hasattr(stub, "name"):
+                    ret = stub.name
+                else:
+                    ret = str(stub)
+
+            self.scdg[id][-1]["ret"] = ret
+        else:
+            pass
+        return
 
     def custom_hook_static(self, proj):
         """
         TODO pre-post + automatization
         """
         self.log.info("custom_hook_static")
-        proj.loader
+        #proj.loader
         symbols = proj.loader.symbols
 
         custom_pack = self.custom_simproc_windows["custom_package"]
@@ -1063,7 +1085,7 @@ class CustomSimProcedure:
     def custom_hook_windows_symbols(self, proj):
         # self.ANG_CALLING_CONVENTION = {"__stdcall": SimCCStdcall, "__cdecl": SimCCCdecl}
         self.log.info("custom_hook_windows_symbols")
-        proj.loader
+        #proj.loader
         symbols = proj.loader.symbols
         custom_pack = self.custom_simproc["custom_package"]
         generic = {}
@@ -1164,8 +1186,8 @@ class CustomSimProcedure:
     # Break at specific instruction and open debug mode.
     def debug_instr(self, state):
         if state.inspect.instruction == int(
-            "0x0040123f", 16
-        ) or state.inspect.instruction == int("0x0040126e", 16):
+            "0x004015a3", 16
+        ) or state.inspect.instruction == int("0x0040159b", 16):
             self.log.info("Debug function\n\n")
             self.log.info(hex(state.inspect.instruction))
             import pdb

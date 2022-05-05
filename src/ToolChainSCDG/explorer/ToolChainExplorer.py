@@ -70,7 +70,7 @@ class ToolChainExplorer(ExplorationTechnique):
         self.max_in_pause_stach = max_in_pause_stach
 
         self.scdg = scdg
-        self.scdg_fin = []
+        self.scdg_fin = [] # TODO from main 
         self.dict_addr_vis = {}
 
         self.print_on = print_on
@@ -320,7 +320,6 @@ class ToolChainExplorer(ExplorationTechnique):
             self.log.info("Debug function\n\n")
             self.log.info(hex(state.inspect.instruction))
             import pdb
-
             pdb.set_trace()
 
     def __debug_read(self, state):
@@ -328,7 +327,6 @@ class ToolChainExplorer(ExplorationTechnique):
             self.log.info("Read function\n\n")
             self.log.info(state.inspect.mem_read_address)
             import pdb
-
             pdb.set_trace()
 
     def __debug_write(self, state):
@@ -374,6 +372,7 @@ class ToolChainExplorer(ExplorationTechnique):
     def manage_error(self, simgr):
         if len(simgr.errored) > self.errored:
             new_errors = len(simgr.errored) - self.errored
+            self.log.info(simgr.errored)
             for i in range(new_errors):
                 id_cur = simgr.errored[-i - 1].state.globals["id"]
                 self.log.info("End of the trace number " + str(id_cur) + " with errors")
@@ -387,7 +386,7 @@ class ToolChainExplorer(ExplorationTechnique):
 
     def drop_excessed_loop(self, simgr):
         excess_loop = len(simgr.stashes["ExcessLoop"]) - (self.max_in_pause_stach / 5)
-        excess_loop = int(excess_loop)  # TODO chris check where we round (up-down)
+        excess_loop = int(excess_loop)  # TODO chris check how we round (up-down)
         if excess_loop > 0:
             id_to_stash = []
             # print(excess_loop)
@@ -625,7 +624,7 @@ class ToolChainExplorer(ExplorationTechnique):
             self.log.info("Timeout expired for simulation !")
 
         if not (len(simgr.active) > 0 and self.deadended < self.max_end_state):
-            self.log.info("sm.active.len > 0 and deadended < max_end_state)")
+            self.log.info("sm.active.len > 0 and deadended < max_end_state")
 
         return elapsed_time > self.timeout or (
             len(simgr.active) <= 0 or self.deadended >= self.max_end_state

@@ -9,7 +9,6 @@ class PluginEnvVar(angr.SimStatePlugin):
         self.env_var = {}
         self.stop_flag = False
         self.dict_calls = {}
-        self.expl_method = "BFS"
 
     def update_dic(self, call_name):
         if call_name in self.dict_call:

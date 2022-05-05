@@ -1,12 +1,41 @@
-unzip malware-win.zip 
+ROOTPATH=$PWD
 
-unzip malware-win2.zip 
+cd $ROOTPATH/malware-linux/
 
-unzip malware-linux.zip 
+unzip '*.zip'
 
-tar -xvzf PEPacker-dataset-1.tar.gz 
+cd $ROOTPATH/malware-win1/train/
 
-tar -xvzf upx-dataset-1.tar.gz 
+unzip '*.zip'
 
-tar -xvzf kkrunchy-dataset-1.tar.gz 
+cd $ROOTPATH/malware-win1/small_train/
 
+unzip '*.zip'
+
+cd $ROOTPATH/malware-win2/train/
+
+unzip '*.zip'
+
+cd $ROOTPATH/malware-win2/small_train/
+
+unzip '*.zip'
+
+cd $ROOTPATH/malware-win/train/
+
+unzip '*.zip'
+
+cd $ROOTPATH/malware-win/small_train/
+
+unzip '*.zip'
+
+cd $ROOTPATH/malware-win/small_train_client1/
+
+unzip '*.zip'
+
+cd $ROOTPATH/malware-win/small_train_client2/
+
+unzip '*.zip'
+
+cd $ROOTPATH/malware-win/small_train_client3/
+
+unzip '*.zip'

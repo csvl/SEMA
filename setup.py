@@ -7,7 +7,7 @@ import platform
 # Get the long description from the README file
 here = os.path.abspath(os.path.dirname(__file__))
 try:
-  with codecs.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
+  with codecs.open(os.path.join(here, 'READMEPACKAGE.md'), encoding='utf-8') as f:
       long_description = f.read()
 except:
   # This happens when running tests
@@ -15,11 +15,11 @@ except:
 
 # TODO test if good
 
-setup(name='ucl_tc_malware_analysis',
+setup(name='sema-tc',
       version='0.1',
-      description='ToolChain for Malware Analysis',
+      description='SEMA: ToolChain for Malware Analysis',
       long_description=long_description,
-      url='https://forge.uclouvain.be/crochetch/toolchain_malware_analysis.git',
+      url='https://github.com/csvl/SEMA-ToolChain/tree/production',
       author='A-Team from UCLouvain',
       author_email='nomail@uclouvain.com',
       license='MIT', # lol we dont know
@@ -27,8 +27,9 @@ setup(name='ucl_tc_malware_analysis',
       setup_requires=['wheel'],
       install_requires=[
           'pymongo', # malwexp
-          'pyzipper', 
-          'click',
+          'pyzipper',  
+          'click==8.0.3', # for task (8.0.3) 7.1.2
+          'task',
           'requests',
           'graphviz',
           'monkeyhex',
@@ -38,6 +39,17 @@ setup(name='ucl_tc_malware_analysis',
           'seaborn',
           'scipy',
           'scikit-learn', #'sklearn',
-          'grakel'
-      ],
+          'grakel',
+          'torch',
+          'torchvision',
+          'gensim',
+          'avatar2',
+          'pyinstaller',
+          'matplotlib',
+          'celery', # ==4.4.7
+          'tenseal',
+          'dill',
+          'cryptography',
+          'logbook'
+        ],
       zip_safe=False)
