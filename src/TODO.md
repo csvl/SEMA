@@ -4,8 +4,6 @@
 
 * modify args parser split per tools  !!!
 
-* stop execution if memoery limite reach
-
 * set fixed version of submodule
 
 * Cleanup & improve installer
@@ -18,7 +16,6 @@
 
     * unittest/hypothesis
 
-    * toy examples
 
 * packed the project in binaries
 
