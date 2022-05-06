@@ -17,6 +17,7 @@ class GraphBuilder:
         comp_args=True,
         min_size=3,
         ignore_zero=True,
+        three_edges = False,
         odir=None,
         get_info=False,
         verbose=False,
@@ -52,6 +53,7 @@ class GraphBuilder:
         self.COMP_ARGS = comp_args
         self.MIN_SIZE = min_size
         self.IGNORE_ZERO = ignore_zero
+        self.three_edges = three_edges
         ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
         ROOT_DIR = ROOT_DIR.replace("/helper", "")
 
@@ -207,12 +209,12 @@ class GraphBuilder:
                             dico[ret].append((self.id, 0))
                         else:
                             dico[ret] = [(self.id, 0)]
-
-                addr = str(call["addr_func"])
-                if addr not in self.dico_addr:
-                    self.dico_addr[addr] = (str(self.id), 0)
-                if addr in dico:
-                    self.create_link((str(self.id), 0), dico[addr], graph, lab_type="2")
+                if self.three_edges:
+                    addr = str(call["addr_func"])
+                    if addr not in self.dico_addr:
+                        self.dico_addr[addr] = (str(self.id), 0)
+                    if addr in dico:
+                        self.create_link((str(self.id), 0), dico[addr], graph, lab_type="2")
 
                 self.id = self.id + 1
         if self.totTrace < 500:

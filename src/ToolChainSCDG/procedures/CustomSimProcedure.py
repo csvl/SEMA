@@ -38,6 +38,7 @@ class CustomSimProcedure:
         "ShellMessageBoxW",
         "wsprintfA",
         "sprintf",
+        "strcat"
     ]
 
     ANGR_LIBS = {
@@ -706,6 +707,7 @@ class CustomSimProcedure:
 
         callee = None
         callee_arg = None
+        ret_type = None
         if (
             sim_proc
             and sim_proc.is_syscall
@@ -724,6 +726,7 @@ class CustomSimProcedure:
             if name in self.system_call_table[key]:
                 callee = self.system_call_table[key][name]
                 callee_arg = callee["arguments"]
+                ret_type = callee["returns"]
                 break
         if not callee and state.globals["loaded_libs"]:
             for k, lib in state.globals["loaded_libs"].items():
@@ -765,6 +768,7 @@ class CustomSimProcedure:
                             or "LPWSTR" in callee_arg[i]["type"]
                             or "wchar_t*const" in callee_arg[i]["type"]
                             or "OLECHAR" in callee_arg[i]["type"]
+                            or "char*" in callee_arg[i]["type"]
                         )
                     ):
                         temp = args[i]
@@ -791,6 +795,7 @@ class CustomSimProcedure:
                             or "LPSTR" in callee_arg[i]["type"]
                             or "const char*" in callee_arg[i]["type"]
                             or "LPCVOID" in callee_arg[i]["type"]
+                            or "char*" in callee_arg[i]["type"]
                         )
                     ):
                         string = state.mem[args[i]].string.concrete
@@ -814,24 +819,7 @@ class CustomSimProcedure:
                     pass
 
             self.scdg[id][-1]["args"] = args
-
-            if (
-                self.scdg[id][-1]["ret"] != "symbolic"
-                and name not in self.FUNCTION_RETURNS
-            ):
-                ret = -22
-                try:
-                    ret = state.solver.eval_one(state.inspect.simprocedure_result)
-                except Exception:
-                    stub = state.inspect.simprocedure_result
-                    if hasattr(stub, "to_claripy"):
-                        stub = stub.to_claripy()
-                    if hasattr(stub, "name"):
-                        ret = stub.name
-                    else:
-                        ret = str(stub)
-
-                self.scdg[id][-1]["ret"] = ret
+            
 
             if (
                 name == "write"
@@ -845,7 +833,6 @@ class CustomSimProcedure:
                 )
                 self.scdg[id].pop()
 
-            return
         elif self.scdg[id][-1]["name"] == "writev" and name == "write" and args:
             self.scdg[id][-1]["name"] = "write"
             for i in range(len(args)):
@@ -905,6 +892,41 @@ class CustomSimProcedure:
             self.scdg[id][-1]["ret"] = ret
         else:
             pass
+        if ret_type and (
+            "LPCSTR" in ret_type
+            or "LPSTR" in ret_type
+            or "const char*" in ret_type
+            or "LPCVOID" in ret_type
+            or "char*" in ret_type
+            ):
+            try: 
+                retval = state.solver.eval_one(state.inspect.simprocedure_result)
+                str_mem = state.mem[retval].string.concrete
+                if hasattr(str_mem, "decode"):
+                    str_mem = state.mem[retval].string.concrete.decode("utf-8")
+                self.scdg[id][-1]["ret"] = str_mem
+            except:
+                self.scdg[id][-1]["ret"] = retval
+        elif (
+            self.scdg[id][-1]["ret"] != "symbolic"
+            and name not in self.FUNCTION_RETURNS
+        ):
+            ret = -22
+            try:
+                ret = state.solver.eval_one(state.inspect.simprocedure_result)
+            except Exception:
+                stub = state.inspect.simprocedure_result
+                if hasattr(stub, "to_claripy"):
+                    stub = stub.to_claripy()
+                if hasattr(stub, "name"):
+                    ret = stub.name
+                else:
+                    ret = str(stub)
+
+            self.scdg[id][-1]["ret"] = ret
+        else:
+            pass
+        return
 
     def custom_hook_static(self, proj):
         """
@@ -1164,8 +1186,8 @@ class CustomSimProcedure:
     # Break at specific instruction and open debug mode.
     def debug_instr(self, state):
         if state.inspect.instruction == int(
-            "0x0040123f", 16
-        ) or state.inspect.instruction == int("0x0040126e", 16):
+            "0x004015a3", 16
+        ) or state.inspect.instruction == int("0x0040159b", 16):
             self.log.info("Debug function\n\n")
             self.log.info(hex(state.inspect.instruction))
             import pdb

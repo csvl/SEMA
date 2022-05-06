@@ -4,8 +4,6 @@
 
 * modify args parser split per tools  !!!
 
-* stop execution if memoery limite reach
-
 * set fixed version of submodule
 
 * Rajouter Jnkins
@@ -20,7 +18,6 @@
 
     * unittest/hypothesis
 
-    * toy examples
 
 * packed the project in binaries
 

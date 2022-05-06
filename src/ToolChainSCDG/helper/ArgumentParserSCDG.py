@@ -84,6 +84,11 @@ class ArgumentParserSCDG:
             action="store_true",
         )
         self.group.add_argument(
+            "--three_edges",
+            help="Do we use the three-edges strategy ? (default : False)",
+            action="store_true",
+        )
+        self.group.add_argument(
             "--not_ignore_zero",
             help="Do we ignore zero when building graph ? (default : Discard zero)",
             action="store_true",

@@ -14,8 +14,11 @@ a003186da11c64da7e3e8e8f0ccd824c"]
 2147417668
 0
 2147417660"]
+	3 -> 4 [label="(0-->0)"]
 	5 [label="4209610.GetStartupInfoA
 2147417676"]
+	3 -> 5 [label="(0-->0)"]
+	4 -> 5 [label="(0-->0)"]
 	6 [label="4209646.GetModuleHandleA
 0"]
 	7 [label="4209124.LoadLibraryA
@@ -57,7 +60,6 @@ SYSTEM\CurrentControlSet\Services\Serpiei
 0
 983103
 2147417272"]
-	12 -> 13 [label="(0-->0)"]
 	14 [label="4205764.LoadLibraryA
 KERNEL32.dll"]
 	15 [label="4205773.GetProcAddress
@@ -117,12 +119,10 @@ CopyFileA"]
 a003186da11c64da7e3e8e8f0ccd824c
 260"]
 	0 -> 22 [label="(1-->2)"]
-	19 -> 22 [label="(0-->0)"]
 	23 [label="4205846.GetWindowsDirectoryA
 C:\Windows
 260"]
 	22 -> 23 [label="(3-->2)"]
-	17 -> 23 [label="(0-->0)"]
 	24 [label="4209771.LoadLibraryA
 KERNEL32.dll"]
 	14 -> 24 [label="(1-->1)"]
@@ -151,13 +151,12 @@ GetTickCount"]
 	24 -> 25 [label="(0-->1)"]
 	26 [label="4209784.GetTickCount
 "]
-	25 -> 26 [label="(0-->0)"]
 	27 [label="4209788.rand
 "]
 	28 [label="4205956.wsprintfA
 %c%c%chost.exe
 %c%c%chost.exe
-rand_231389_31_retval_GetTickCount_231388_32
+retval_GetTickCount_231388_32_rand_231389_31
 retval_GetTickCount_231386_32_rand_231387_31
 rand_231385_31_retval_GetTickCount_231384_32"]
 	29 [label="4206104.CopyFileA
@@ -166,7 +165,6 @@ C:\Windows\Debug\%c%c%chost.exe
 0"]
 	0 -> 29 [label="(1-->1)"]
 	22 -> 29 [label="(2-->1)"]
-	21 -> 29 [label="(0-->0)"]
 	30 [label="4205643.CreateFileA
 C:\Windows\Debug\%c%c%chost.exe
 1073741824
@@ -187,22 +185,26 @@ C:\Windows\Debug\%c%c%chost.exe
 "]
 	33 [label="4201474.srand
 "]
+	3 -> 33 [label="(0-->0)"]
+	4 -> 33 [label="(0-->0)"]
+	5 -> 33 [label="(0-->0)"]
 	34 [label="4201487.rand
 "]
 	35 [label="4201514.sprintf
 "]
 	36 [label="4205714.WriteFile
 3
-W3iRxZ6wLe
+GNNpi4i2gv
 10
 2147416600
 0"]
 	30 -> 36 [label="(0-->1)"]
 	31 -> 36 [label="(1-->1)"]
 	23 -> 36 [label="(0-->3)"]
+	35 -> 36 [label="(0-->0)"]
 	37 [label="4205714.WriteFile
 3
-u1iMHc3r
+cSKD0zyUmU
 10
 2147416600
 0"]
@@ -212,10 +214,11 @@ u1iMHc3r
 	23 -> 37 [label="(0-->3)"]
 	36 -> 37 [label="(3-->3)"]
 	36 -> 37 [label="(4-->4)"]
+	35 -> 37 [label="(0-->0)"]
 	36 -> 37 [label="(0-->0)"]
 	38 [label="4205714.WriteFile
 3
-vYshqU6Kea
+0KUYnk7XI
 10
 2147416600
 0"]
@@ -228,11 +231,12 @@ vYshqU6Kea
 	37 -> 38 [label="(3-->3)"]
 	36 -> 38 [label="(4-->4)"]
 	37 -> 38 [label="(4-->4)"]
+	35 -> 38 [label="(0-->0)"]
 	36 -> 38 [label="(0-->0)"]
 	37 -> 38 [label="(0-->0)"]
 	39 [label="4205714.WriteFile
 3
-xagLvxt35
+1HtbHl7wm
 10
 2147416600
 0"]
@@ -248,12 +252,13 @@ xagLvxt35
 	36 -> 39 [label="(4-->4)"]
 	37 -> 39 [label="(4-->4)"]
 	38 -> 39 [label="(4-->4)"]
+	35 -> 39 [label="(0-->0)"]
 	36 -> 39 [label="(0-->0)"]
 	37 -> 39 [label="(0-->0)"]
 	38 -> 39 [label="(0-->0)"]
 	40 [label="4205714.WriteFile
 3
-z7uscL1Uf1
+dPbW1FW85K
 10
 2147416600
 0"]
@@ -272,6 +277,7 @@ z7uscL1Uf1
 	37 -> 40 [label="(4-->4)"]
 	38 -> 40 [label="(4-->4)"]
 	39 -> 40 [label="(4-->4)"]
+	35 -> 40 [label="(0-->0)"]
 	36 -> 40 [label="(0-->0)"]
 	37 -> 40 [label="(0-->0)"]
 	38 -> 40 [label="(0-->0)"]
@@ -288,7 +294,6 @@ z7uscL1Uf1
 	42 [label="4206303.WinExec
 attrib +a +s +h +r C:\Windows\Debug\%c%c%chost.exe
 0"]
-	15 -> 42 [label="(0-->0)"]
 	43 [label="4207095.LoadLibraryA
 ADVAPI32.dll"]
 	7 -> 43 [label="(1-->1)"]
@@ -1220,29 +1225,20 @@ CloseServiceHandle"]
 0
 983103"]
 	13 -> 80 [label="(4-->3)"]
-	46 -> 80 [label="(0-->0)"]
-	73 -> 80 [label="(0-->0)"]
 	81 [label="4202276.OpenServiceA
 retval_OpenSCManagerA_231454_32
 Serpiei
 983551"]
 	69 -> 81 [label="(3-->2)"]
-	48 -> 81 [label="(0-->0)"]
-	75 -> 81 [label="(0-->0)"]
 	82 [label="4202286.DeleteService
 retval_OpenServiceA_231457_32"]
-	77 -> 82 [label="(0-->0)"]
 	83 [label="4202290.CloseServiceHandle
 retval_OpenServiceA_231457_32"]
 	82 -> 83 [label="(1-->1)"]
-	50 -> 83 [label="(0-->0)"]
-	79 -> 83 [label="(0-->0)"]
 	84 [label="4202293.CloseServiceHandle
 retval_OpenServiceA_231457_32"]
 	82 -> 84 [label="(1-->1)"]
 	83 -> 84 [label="(1-->1)"]
-	50 -> 84 [label="(0-->0)"]
-	79 -> 84 [label="(0-->0)"]
 	85 [label="4207528.sprintf
 "]
 	86 [label="4207549.SHDeleteKeyA
@@ -1256,8 +1252,6 @@ SYSTEM\CurrentControlSet\Services\Serpiei"]
 983103"]
 	13 -> 87 [label="(4-->3)"]
 	80 -> 87 [label="(3-->3)"]
-	46 -> 87 [label="(0-->0)"]
-	73 -> 87 [label="(0-->0)"]
 	88 [label="4207636.CreateServiceA
 retval_OpenSCManagerA_231724_32
 Serpiei
@@ -1277,6 +1271,7 @@ C:\Windows\Debug\%c%c%chost.exe
 	81 -> 88 [label="(3-->4)"]
 	30 -> 88 [label="(3-->6)"]
 	31 -> 88 [label="(4-->6)"]
+	35 -> 88 [label="(0-->7)"]
 	36 -> 88 [label="(0-->7)"]
 	37 -> 88 [label="(0-->7)"]
 	38 -> 88 [label="(0-->7)"]
@@ -1284,22 +1279,20 @@ C:\Windows\Debug\%c%c%chost.exe
 	40 -> 88 [label="(0-->7)"]
 	29 -> 88 [label="(2-->8)"]
 	30 -> 88 [label="(1-->8)"]
-	62 -> 88 [label="(0-->0)"]
 	89 [label="4207646.LockServiceDatabase
 retval_OpenSCManagerA_231724_32"]
 	88 -> 89 [label="(1-->1)"]
-	64 -> 89 [label="(0-->0)"]
 	90 [label="4207681.ChangeServiceConfig2A
 retval_CreateServiceA_231737_32
 1
 2147416644"]
+	35 -> 90 [label="(0-->2)"]
 	36 -> 90 [label="(0-->2)"]
 	37 -> 90 [label="(0-->2)"]
 	38 -> 90 [label="(0-->2)"]
 	39 -> 90 [label="(0-->2)"]
 	40 -> 90 [label="(0-->2)"]
 	88 -> 90 [label="(7-->2)"]
-	60 -> 90 [label="(0-->0)"]
 	91 [label="4207800.ChangeServiceConfig2A
 retval_CreateServiceA_231737_32
 2
@@ -1308,17 +1301,14 @@ retval_CreateServiceA_231737_32
 	30 -> 91 [label="(3-->2)"]
 	31 -> 91 [label="(4-->2)"]
 	88 -> 91 [label="(6-->2)"]
-	60 -> 91 [label="(0-->0)"]
 	92 [label="4207812.UnlockServiceDatabase
 retval_LockServiceDatabase_231738_32"]
-	58 -> 92 [label="(0-->0)"]
 	93 [label="4207895.StartServiceA
 retval_CreateServiceA_231737_32
 0
 0"]
 	90 -> 93 [label="(1-->1)"]
 	91 -> 93 [label="(1-->1)"]
-	54 -> 93 [label="(0-->0)"]
 	94 [label="4208259.RegOpenKeyA
 2147483650
 SYSTEM\CurrentControlSet\Services\Serpiei
@@ -1327,9 +1317,9 @@ SYSTEM\CurrentControlSet\Services\Serpiei
 	86 -> 94 [label="(1-->1)"]
 	13 -> 94 [label="(2-->2)"]
 	86 -> 94 [label="(2-->2)"]
-	56 -> 94 [label="(0-->0)"]
 	95 [label="4208351.lstrlenA
 Microsoft .NET COM+ Integration with SOAP"]
+	85 -> 95 [label="(0-->0)"]
 	96 [label="4208377.RegSetValueExA
 0
 Description
@@ -1337,6 +1327,7 @@ Description
 1
 4228720
 41"]
+	35 -> 96 [label="(0-->4)"]
 	36 -> 96 [label="(0-->4)"]
 	37 -> 96 [label="(0-->4)"]
 	38 -> 96 [label="(0-->4)"]
@@ -1344,21 +1335,17 @@ Description
 	40 -> 96 [label="(0-->4)"]
 	88 -> 96 [label="(7-->4)"]
 	90 -> 96 [label="(2-->4)"]
+	85 -> 96 [label="(0-->6)"]
 	95 -> 96 [label="(0-->6)"]
-	52 -> 96 [label="(0-->0)"]
 	97 [label="4208423.CloseServiceHandle
 retval_CreateServiceA_231737_32"]
 	90 -> 97 [label="(1-->1)"]
 	91 -> 97 [label="(1-->1)"]
 	93 -> 97 [label="(1-->1)"]
-	50 -> 97 [label="(0-->0)"]
-	79 -> 97 [label="(0-->0)"]
 	98 [label="4208443.CloseServiceHandle
 retval_OpenSCManagerA_231724_32"]
 	88 -> 98 [label="(1-->1)"]
 	89 -> 98 [label="(1-->1)"]
-	50 -> 98 [label="(0-->0)"]
-	79 -> 98 [label="(0-->0)"]
 	99 [label="4203060.LoadLibraryA
 KERNEL32.dll"]
 	14 -> 99 [label="(1-->1)"]
@@ -1843,8 +1830,6 @@ a003186da11c64da7e3e8e8f0ccd824c
 	22 -> 115 [label="(3-->3)"]
 	23 -> 115 [label="(2-->3)"]
 	22 -> 115 [label="(0-->0)"]
-	19 -> 115 [label="(0-->0)"]
-	104 -> 115 [label="(0-->0)"]
 	116 [label="4203269.GetShortPathNameA
 a003186da11c64da7e3e8e8f0ccd824c
 a003186da11c64da7e3e8e8f0ccd824c
@@ -1860,7 +1845,6 @@ a003186da11c64da7e3e8e8f0ccd824c
 	22 -> 116 [label="(3-->3)"]
 	23 -> 116 [label="(2-->3)"]
 	115 -> 116 [label="(3-->3)"]
-	100 -> 116 [label="(0-->0)"]
 	117 [label="4203315.GetEnvironmentVariableA
 COMSPEC
 
@@ -1869,6 +1853,7 @@ COMSPEC
 	23 -> 117 [label="(2-->3)"]
 	115 -> 117 [label="(3-->3)"]
 	116 -> 117 [label="(3-->3)"]
+	35 -> 117 [label="(0-->0)"]
 	36 -> 117 [label="(0-->0)"]
 	37 -> 117 [label="(0-->0)"]
 	38 -> 117 [label="(0-->0)"]
@@ -1877,11 +1862,9 @@ COMSPEC
 	88 -> 117 [label="(7-->0)"]
 	90 -> 117 [label="(2-->0)"]
 	96 -> 117 [label="(4-->0)"]
-	102 -> 117 [label="(0-->0)"]
 	118 [label="4203387.lstrcatA
 /c del 
 /c del "]
-	106 -> 118 [label="(0-->0)"]
 	119 [label="4203404.lstrcatA
 /c del a003186da11c64da7e3e8e8f0ccd824c
 a003186da11c64da7e3e8e8f0ccd824c"]
@@ -1891,14 +1874,9 @@ a003186da11c64da7e3e8e8f0ccd824c"]
 	115 -> 119 [label="(2-->2)"]
 	116 -> 119 [label="(1-->2)"]
 	116 -> 119 [label="(2-->2)"]
-	118 -> 119 [label="(0-->0)"]
-	106 -> 119 [label="(0-->0)"]
 	120 [label="4203418.lstrcatA
 /c del a003186da11c64da7e3e8e8f0ccd824c > nul
  > nul"]
-	118 -> 120 [label="(0-->0)"]
-	119 -> 120 [label="(0-->0)"]
-	106 -> 120 [label="(0-->0)"]
 	121 [label="4203498.SetFileAttributesA
 a003186da11c64da7e3e8e8f0ccd824c
 128"]
@@ -1910,34 +1888,34 @@ a003186da11c64da7e3e8e8f0ccd824c
 	116 -> 121 [label="(2-->1)"]
 	119 -> 121 [label="(2-->1)"]
 	30 -> 121 [label="(6-->2)"]
-	114 -> 121 [label="(0-->0)"]
 	122 [label="4203506.Sleep
 500"]
+	3 -> 122 [label="(0-->0)"]
+	4 -> 122 [label="(0-->0)"]
 	5 -> 122 [label="(0-->0)"]
+	33 -> 122 [label="(0-->0)"]
 	123 [label="4203516.ShellExecuteExA
 2147417200"]
 	124 [label="4203530.SetPriorityClass
 1952797548
 64"]
-	108 -> 124 [label="(0-->0)"]
 	125 [label="4203538.GetCurrentProcess
 "]
 	126 [label="4203545.SetPriorityClass
 retval_GetCurrentProcess_231814_32
 256"]
-	108 -> 126 [label="(0-->0)"]
 	127 [label="4203550.GetCurrentThread
 "]
 	128 [label="4203557.SetThreadPriority
 retval_GetCurrentThread_231816_32
 15"]
-	110 -> 128 [label="(0-->0)"]
 	129 [label="4203572.SHChangeNotify
 4
 1
 a003186da11c64da7e3e8e8f0ccd824c
 0"]
 	30 -> 129 [label="(5-->1)"]
+	35 -> 129 [label="(0-->2)"]
 	36 -> 129 [label="(0-->2)"]
 	37 -> 129 [label="(0-->2)"]
 	38 -> 129 [label="(0-->2)"]
@@ -1955,8 +1933,17 @@ a003186da11c64da7e3e8e8f0ccd824c
 	116 -> 129 [label="(2-->3)"]
 	119 -> 129 [label="(2-->3)"]
 	121 -> 129 [label="(1-->3)"]
+	3 -> 129 [label="(0-->0)"]
+	4 -> 129 [label="(0-->0)"]
 	5 -> 129 [label="(0-->0)"]
+	33 -> 129 [label="(0-->0)"]
 	122 -> 129 [label="(0-->0)"]
 	130 [label="4209257.ExitProcess
 "]
+	3 -> 130 [label="(0-->0)"]
+	4 -> 130 [label="(0-->0)"]
+	5 -> 130 [label="(0-->0)"]
+	33 -> 130 [label="(0-->0)"]
+	122 -> 130 [label="(0-->0)"]
+	129 -> 130 [label="(0-->0)"]
 }

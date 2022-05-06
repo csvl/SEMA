@@ -22,7 +22,7 @@ setup(name='sema-tc',
       url='https://github.com/csvl/SEMA-ToolChain/tree/production',
       author='A-Team from UCLouvain',
       author_email='nomail@uclouvain.com',
-      license='MIT', # lol we dont know
+      license='MIT', 
       packages=find_packages(),
       setup_requires=['wheel'],
       install_requires=[
@@ -44,6 +44,7 @@ setup(name='sema-tc',
           'torchvision',
           'gensim',
           'avatar2',
+          'r2pipe',
           'pyinstaller',
           'matplotlib',
           'celery', # ==4.4.7

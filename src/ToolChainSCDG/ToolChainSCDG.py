@@ -5,6 +5,7 @@ import os
 import json as json_dumper
 from builtins import open as open_file
 import time
+import r2pipe
 #from tkinter import E
 
 # from submodules.claripy import claripy # TODO 
@@ -72,7 +73,7 @@ class ToolChainSCDG:
         jump_concrete_dict={},
         max_simul_state=5,
         max_in_pause_stach=500,
-        fast_main=False,
+        fast_main=True,
         force_symbolique_return=False,
         string_resolv=True,
         print_on=False,
@@ -154,6 +155,7 @@ class ToolChainSCDG:
             not_comp_args = args.not_comp_args
             min_size = args.min_size
             not_ignore_zero = args.not_ignore_zero
+            three_edges = args.three_edges
             dir = args.dir
             verbose = args.verbose_scdg
             format_out = args.format_out
@@ -165,6 +167,7 @@ class ToolChainSCDG:
             not_comp_args = args["not_comp_args"]
             min_size = args["min_size"]
             not_ignore_zero = args["not_ignore_zero"]
+            three_edges = args["three_edges"]
             dir = args["dir"]
             verbose = args["verbose_scdg"]
             format_out = args["format_out"]
@@ -244,10 +247,21 @@ class ToolChainSCDG:
         else:
             self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(proj)
 
-        # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows)
+        # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows) 
+        r = r2pipe.open(self.inputs)
+        out_r2 = r.cmd('f ~sym._main')   
         addr_main = proj.loader.find_symbol("main")
         if addr_main and self.fast_main:
             addr = addr_main.rebased_addr
+        elif out_r2:
+            addr= None
+            try:
+                iter = out_r2.split("\n")
+                for s in iter:
+                    if s.endswith("._main"):
+                        addr = int(s.split(" ")[0],16)
+            except:
+                pass
         else:
             addr = None
 
@@ -350,9 +364,9 @@ class ToolChainSCDG:
         # Improved Break point for debugging purpose for specific read/write/instructions
         if self.debug_error:
             pass
-            # state.inspect.b('instruction',when=angr.BP_BEFORE, action=debug_instr)
-            # state.inspect.b('mem_read',when=angr.BP_BEFORE, action=debug_read)
-            # state.inspect.b('mem_write',when=angr.BP_BEFORE, action=debug_write)
+            #state.inspect.b('instruction',when=angr.BP_BEFORE, action=self.call_sim.debug_instr)
+            # state.inspect.b('mem_read',when=angr.BP_BEFORE, action=self.call_sim.debug_read)
+            # state.inspect.b('mem_write',when=angr.BP_BEFORE, action=self.call_sim.debug_write)
 
         # TODO : make plugins out of these globals values
         # Globals is a simple dict already managed by Angr which is deeply copied from states to states
@@ -460,6 +474,7 @@ class ToolChainSCDG:
             comp_args=(not not_comp_args),
             min_size=min_size,
             ignore_zero=(not not_ignore_zero),
+            three_edges=three_edges,
             odir=dir,
             verbose=verbose,
             familly=self.familly
