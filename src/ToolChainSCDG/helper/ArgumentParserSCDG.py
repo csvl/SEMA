@@ -147,7 +147,7 @@ class ArgumentParserSCDG:
         )
         self.group.add_argument(
             "--memory_limit",
-            help="Skip binary experiment when memory > 90% (default : False)",
+            help="Skip binary experiment when memory > 90%% (default : False)",
             action="store_true",
         )
         self.group.add_argument("binary", 
