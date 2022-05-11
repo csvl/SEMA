@@ -249,6 +249,7 @@ class ToolChainSCDG:
 
         # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows) 
         r = r2pipe.open(self.inputs)
+        out_r2 = r.cmd('f ~sym._main')
         out_r2 = r.cmd('f ~sym._main')   
         addr_main = proj.loader.find_symbol("main")
         if addr_main and self.fast_main:
@@ -541,7 +542,8 @@ class ToolChainSCDG:
                 dump_id = dump_id + 1
                 self.scdg_fin.append(self.scdg[state.globals["id"]])
 
-        for state in simgr.unconstrained:
+        #TODO : Add better management for unconstrained paths
+        """for state in simgr.unconstrained:
             hashVal = hash(str(self.scdg[state.globals["id"]]))
             if hashVal not in dic_hash_SCDG:
                 dic_hash_SCDG[hashVal] = 1
@@ -550,7 +552,7 @@ class ToolChainSCDG:
                     "trace": self.scdg[state.globals["id"]],
                 }
                 dump_id = dump_id + 1
-                self.scdg_fin.append(self.scdg[state.globals["id"]])
+                self.scdg_fin.append(self.scdg[state.globals["id"]])"""
 
         self.print_memory_info(main_obj, dump_file)
         if discard_SCDG:
