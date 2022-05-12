@@ -58,6 +58,7 @@ class ToolChainClassifier:
             biggest_subgraph = args.biggest_subgraph
             epoch = args.epoch
             shared_type = 1#args.smodel
+            self.mode = args.mode
         else:
             threshold = args["threshold"]
             support = args["support"]
@@ -152,6 +153,7 @@ def main():
         tc.train()
     elif tc.mode == "classification":
         tc.classify()
+        tc.classifier.get_stat_classifier()
     elif tc.mode == "detection":
         tc.detect()
     
@@ -159,11 +161,11 @@ def main():
     tc.log.info("Total "+ tc.mode +" time: " + str(elapsed_time))
 
 
-    if tc.args.train: # TODO
+    """if tc.args.train: # TODO
         args_res = {}
         if tc.classifier_name == "gspan":
             args_res["target"] = tc.mode
-        tc.log.info(tc.classifier.get_stat_classifier(**args_res))
+        tc.log.info(tc.classifier.get_stat_classifier(**args_res))"""
 
 if __name__ == "__main__":
     main()

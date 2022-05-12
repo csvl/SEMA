@@ -60,7 +60,8 @@ class ArgumentParserClassifier:
         )
         self.group.add_argument(
             "--mode",
-            help="detection = binary decision cleanware vs malware (default) OR classification = malware family ",
+            help="detection = binary decision cleanware vs malware OR classification = malware family (default) ",
+            default="classification",
         )
         self.group.add_argument(
             "--epoch",
