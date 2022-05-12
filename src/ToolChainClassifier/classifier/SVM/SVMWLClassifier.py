@@ -34,7 +34,7 @@ class SVMWLClassifier(SVMClassifier):
     def __init__(self,path,threshold=0.45, 
                  families=['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT']):
         
-        super().__init__(path,'WL', threshold,families)
+        super().__init__(path,'WL', threshold, families)
 
         ch = logging.StreamHandler()
         ch.setLevel(logging.INFO)
@@ -52,11 +52,16 @@ class SVMWLClassifier(SVMClassifier):
             super().init_dataset(path)
             K_test = self.gk.transform(self.dataset)
             self.y_pred = self.clf.predict(K_test)
-            print("Prediction:")
-            print(self.y_pred)
+
 
     def detection(self,path=None):
-        pass
+        if path is None:
+            self.y_pred = self.clf.predict(self.K_val)
+        else:
+            super().init_dataset(path)
+            K_test = self.gk.transform(self.dataset)
+            self.y_pred = self.clf.predict(K_test)
+
 
     def train(self,path):
         super().init_dataset(path)
