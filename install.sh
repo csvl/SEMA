@@ -95,6 +95,7 @@ fi
 # gspan
 sudo apt-get install libgoogle-glog-*
 sudo apt-get install libgflags-*
+sudo apt-get install radare2
 
 git submodule update --init --recursive
 git submodule update --recursive
