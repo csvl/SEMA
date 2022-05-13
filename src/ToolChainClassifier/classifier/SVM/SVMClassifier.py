@@ -101,16 +101,19 @@ class SVMClassifier(Classifier):
             self.y_val.append(self.label[i])
 
     def get_stat_classifier(self):
-        self.log.info("Accuracy %2.2f %%" %(accuracy_score(self.y_val, self.y_pred)*100))
-        self.log.info("Precision %2.2f %%" %(precision_score(self.y_val, self.y_pred,average='weighted')*100))
-        self.log.info("Recall %2.2f %%" %(recall_score(self.y_val, self.y_pred,average='weighted')*100))
-        f_score = f1_score(self.y_val, self.y_pred,average='weighted')*100
+        logging.basicConfig(level=logging.INFO)
+        
+
+        self.log.info("Accuracy %2.2f %%" %(accuracy_score(self.label, self.y_pred)*100))
+        self.log.info("Precision %2.2f %%" %(precision_score(self.label, self.y_pred,average='weighted')*100))
+        self.log.info("Recall %2.2f %%" %(recall_score(self.label, self.y_pred,average='weighted')*100))
+        f_score = f1_score(self.label, self.y_pred,average='weighted')*100
         self.log.info("F1-score %2.2f %%" %(f_score))
     
         if BINARY_CLASS:
-            conf = confusion_matrix(self.y_val,self.y_pred,labels=['clean','malware'])
+            conf = confusion_matrix(self.label,self.y_pred,labels=['clean','malware'])
             y_score1 = self.clf.predict_proba(self.K_val)[:,1]
-            false_positive_rate1, true_positive_rate1, threshold1 = roc_curve(self.y_val, y_score1,pos_label='clean')
+            false_positive_rate1, true_positive_rate1, threshold1 = roc_curve(self.label, y_score1,pos_label='clean')
             plt.subplots(1, figsize=(10,10))
             plt.title('Receiver Operating Characteristic - DecisionTree')
             plt.plot(false_positive_rate1, true_positive_rate1)
@@ -119,13 +122,13 @@ class SVMClassifier(Classifier):
             plt.ylabel('True Positive Rate')
             plt.xlabel('False Positive Rate')
             plt.show()
-            plt.savefig(self.original_path + "figure_binary.png")
+            #plt.savefig(self.original_path + "figure_binary.png")
 
         else:
-            conf = confusion_matrix(self.y_val,self.y_pred,labels=self.fam_idx)
+            conf = confusion_matrix(self.label,self.y_pred,labels=self.fam_idx)
 
         list_name =[]
-        for y in self.y_val:
+        for y in self.label:
             if y not in list_name:
                 list_name.append(y)
         figsize = (10,7)
@@ -144,6 +147,6 @@ class SVMClassifier(Classifier):
         plt.ylabel('True label')
         plt.xlabel('Predicted label')
         plt.show()
-        plt.savefig(self.original_path + "figure.png")
+        #plt.savefig(self.original_path + "figure.png")
         return f_score
     

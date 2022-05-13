@@ -206,8 +206,9 @@ class GSpanClassifier(Classifier):
         if path is None:
             self.log.info(predictions)
         else:
-            print("Prediction:")
-            print(predictions)
+            #print("Prediction:")
+            #print(predictions)
+            pass
         return predictions
 
     def detection(self, path=None, custom_sig_path=None):
@@ -377,6 +378,7 @@ class GSpanClassifier(Classifier):
         precision = sum(precision)
         recall = sum(recall)
         fscore = (2* precision * recall)/(precision + recall)
+        logging.basicConfig(level=logging.INFO)
         self.log.info("Precision obtained : "+str(precision))
         self.log.info("Recall obtained : "+str(recall))
         self.log.info("Fscore obtained : "+str(fscore))
