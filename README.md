@@ -12,8 +12,8 @@
     2. [ `ToolChainClassifier`](#tcc)
     3. [ `ToolChainFL`](#tcfl)
 
-4. [Quickstart](#)
-    1. [ `Extract SCDG from binaries` ](https://github.com/csvl/SEMA-ToolChain/blob/production/Tutorial/Notebook/SEMA-SCDG%20Demo.ipynb)
+4. [Quick Start Demos](#)
+    1. [ `Extract SCDGs from binaries` ](https://github.com/csvl/SEMA-ToolChain/blob/production/Tutorial/Notebook/SEMA-SCDG%20Demo.ipynb)
     2. [ `SVM and gSpan Classifiers`](https://github.com/csvl/SEMA-ToolChain/blob/production/Tutorial/Notebook/SEMA-Classifier.ipynb)
     3. [ `Deep learning Classifier`](https://github.com/csvl/SEMA-ToolChain/blob/production/Tutorial/Notebook/Deep%20Learning%20Model%20Demo.ipynb)
 
