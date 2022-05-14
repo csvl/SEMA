@@ -70,7 +70,7 @@ class ToolChainFL:
         self.log.info("Ending SCDGs phase in FL")
 
     def fl_classifier(self):
-        self.log.info("Starting classification phase in FL")
+        self.log.info("Starting SEMA FL training")
         classifier = self.args.classifier
 
         if classifier is None:
@@ -222,7 +222,7 @@ class ToolChainFL:
             plt.ylabel('Loss')
             plt.savefig(f"his_fig.png", bbox_inches='tight')
 
-        self.log.info("Ending classification phase in FL")
+        self.log.info("Ending SEMA FL")
 
     def fl_test(self):
         if self.tool_classifier.input_path is None:
