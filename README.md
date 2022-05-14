@@ -347,7 +347,7 @@ python3 ToolChainFL.py --hostnames <listname> BINARY_NAME
 * `no_scdg_create` :  Skip SCDGs create phase (default: False)
 * `hostnames` : Hostnames for celery clients
 * `smodel` : Only for deep learning model: Share model type, 1 partly aggregation (client do not have necessary the same family samples) and 0 fully aggregation (default: 0)
-* 'classification' : Enable the pre-train classifier
+* `classification` : Enable the pre-train classifier
 
 Experiments purpose arguments:
 * `sround` :  Restart from sround (default : 0)
