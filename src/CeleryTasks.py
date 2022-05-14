@@ -1,7 +1,12 @@
 import glob
 import logging
-from ToolChainClassifier.ToolChainClassifier import ToolChainClassifier
-from ToolChainSCDG.clogging.CustomFormatter import CustomFormatter
+try:
+    from ToolChainClassifier.ToolChainClassifier import ToolChainClassifier
+    from ToolChainSCDG.clogging.CustomFormatter import CustomFormatter
+except:
+    from .ToolChainClassifier import ToolChainClassifier
+    from ..ToolChainSCDG.clogging.CustomFormatter import CustomFormatter
+
 try:
     from .HE.HE_SEALS import F, RSA
 except:
@@ -285,7 +290,11 @@ def test(**args):
     if classifier == "dl":
         trainer.classify() # path=pwd +'output/test-set/'
         acc, loss = trainer.get_stat_classifier(f"{classifier}_{nround}")
-        save_object(trainer,ROOT_DIR + "/ToolChainClassifier/classifier/saved_model/"+ classifier +"_model.pkl")
+        save_object(trainer,ROOT_DIR + "/ToolChainClassifier/classifier/saved_model/"+ classifier +"_FLmodel.pkl")
+        """os.chdir('./ToolChainClassifier')
+        toolcl = ToolChainClassifier(classifier_name=classifier, parse=False)
+        toolcl.classifier = trainer
+        toolcl.save_model(toolcl.classifier,"classifier/saved_model/"+ classifier +"_FLmodel.pkl")"""
         return {"acc":acc, "loss":loss}
     elif classifier == "gpsan":
         sigpath = args["sigpath"]

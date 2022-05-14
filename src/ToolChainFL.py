@@ -224,12 +224,26 @@ class ToolChainFL:
 
         self.log.info("Ending classification phase in FL")
 
+    def fl_test(self):
+        if self.tool_classifier.input_path is None:
+            input_path = self.args_scdg.exp_dir
+        else:
+            input_path = self.tool_classifier.input_path
+        input_path = input_path.replace("unknown/","") # todo
+        
+        trainer = load_object(ROOT_DIR+"/ToolChainClassifier/classifier/saved_model/"+ self.args.classifier +"_FLmodel.pkl")
+        trainer.classify(input_path)
+        acc, loss = trainer.get_stat_classifier()
+        self.log.info(f"Accuracy: {acc}")
 # TODO add FL stop procedure 
 def main():
     fl = ToolChainFL()
-    if not fl.args.no_scdg_create:
-        fl.fl_scdg() 
-    fl.fl_classifier()
+    if fl.args.classification:
+        fl.fl_test()
+    else:
+        if not fl.args.no_scdg_create:
+            fl.fl_scdg() 
+        fl.fl_classifier()
 
 if __name__=="__main__":
     main()

@@ -36,8 +36,12 @@ class ArgumentParserFL:
             type=int,
             default=3
         )
-        self.group.add_argument('--FLRtrain', 
+        """self.group.add_argument('--FLRtrain', 
             help='FL train rotate',
+            action='store_true'
+        )"""
+        self.group.add_argument('-c','--classification', 
+            help='Classification mode',
             action='store_true'
         )
         self.group.add_argument(
