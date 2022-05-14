@@ -102,7 +102,7 @@ class ToolChainFL:
                 "n_features":2,
                 "embedding_dim":64,
                 "nepochs":1,        # always 1
-                "run_name":self.args.run_name,
+                "run_name": "TESTRUNNAME",#self.args.run_name,
                 "nround":self.args.nrounds,
                 "input_path":input_path,
                 "demonstration":self.args.demonstration,
@@ -115,15 +115,18 @@ class ToolChainFL:
             self.args.nrounds = 1
         while tround < self.args.nrounds:
             self.log.info("-- Training phase in FL - round " + str(tround+1) + "/" +  str(self.args.nrounds))
+            
+            #TRAINING PHASE
             args["nround"] = tround
             job = []
             for i in range(len(self.hosts)):
-                args["run_name"] = f"{self.args.run_name}_part{i}"
+                #args["run_name"] = f"{self.args.run_name}_part{i}"
                 args["ctx"] = ret_ctx[select_id]["ctx"]
                 args["client_id"] = i+1
                 args["master_pk"] = ret_ctx[select_id]["pk"]
                 job.append(train.s(**args).set(queue=self.hosts[i]))
             ret = celery.group(job)().get()
+            #GET LOCAL PARAMETERS FROM CLIENTS AFTER A ROUND
             paras = list()
             idx= 0
             client_pks = list()
@@ -138,6 +141,8 @@ class ToolChainFL:
                     paras.append(r['para'])
                     client_pks.append(r['client_pk'])
 
+
+            #PARAMETER AGGREGATION
             if classifier == "dl":
                 # Aggragator = Master node = select_id
                 enc_para = F.add_weight(paras,ret_ctx[select_id]["ctx"])
@@ -146,8 +151,10 @@ class ToolChainFL:
                 ctx_str0 = F.bytes_to_string(context.serialize())
                 args["ctx"] = ctx_str0
                 args["num"] = len(self.hosts)
-                args["run_name"] = f"{self.args.run_name}_part{select_id}"
+                #args["run_name"] = f"{self.args.run_name}_part{select_id}"
                 # select_id = KEY master node
+                
+                #DECRYPT THE AGGREGATED PARAMETERS
                 ret = celery.group(decryption.s(**args).set(queue=self.hosts[select_id]))().get()
                 enc_v = F.string_to_enc(ret[0]["v"],context)
                 self.log.info("Decrypt key: "+ str(enc_v.decrypt(key)))
@@ -162,7 +169,7 @@ class ToolChainFL:
                     ctx = F.context_from_string(ret_ctx[i]["ctx"])
                     args["para"]  = para #F.encrypt_para(ctx, para) # TODO should be encrypted
                     args["v_enc"] = ret_ctx[i]["v"] 
-                    args["run_name"] = f"{self.args.run_name}_part{i}"
+                    #args["run_name"] = f"{self.args.run_name}_part{i}"
                     job.append(update.s(**args).set(queue=self.hosts[i]))
                 ret = celery.group(job)().get()
                 for r in ret:
@@ -174,7 +181,7 @@ class ToolChainFL:
                 args["select_id"] = select_id
                 args["paras"] = paras
                 args["client_pks"] = client_pks
-                args["run_name"] = f"{self.args.run_name}_part{select_id}"
+                #args["run_name"] = f"{self.args.run_name}_part{select_id}"
                 ret = celery.group(best_signature_selection.s(**args).set(queue=self.hosts[select_id]))().get()
                
                 self.log.info("-- Distribution of the best signature selection phase FL")
@@ -196,9 +203,10 @@ class ToolChainFL:
             job=[]
             for i in range(len(self.hosts)):
                 if classifier == "dl":
-                    args["run_name"] = f"{self.args.run_name}_part{i}"
-                    args["test"] = f"{self.args.run_name}_part{i}" #f"{runname}"
-                    # args["test"] = f"{runname}"
+                    #args["run_name"] = f"{self.args.run_name}_part{i}"
+                    #args["test"] = f"{self.args.run_name}_part{i}" #f"{runname}"
+                    #args["test"] = f"{runname}"
+                    pass
                 elif classifier == "gspan":
                     args["sigpath"] = None # use standard sig folder
                     args["run_name"] = f"{self.args.run_name}_part{i}"
@@ -208,11 +216,11 @@ class ToolChainFL:
                 self.log.info(f"{r}")
             tround+=1
             
-            if classifier == "dl":
-                import matplotlib.pyplot as plt
-                plt.plot(his_train)
-                plt.ylabel('Loss')
-                plt.savefig(f"his_fig.png", bbox_inches='tight')
+        if classifier == "dl":
+            import matplotlib.pyplot as plt
+            plt.plot(his_train)
+            plt.ylabel('Loss')
+            plt.savefig(f"his_fig.png", bbox_inches='tight')
 
         self.log.info("Ending classification phase in FL")
 

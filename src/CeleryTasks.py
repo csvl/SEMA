@@ -19,7 +19,7 @@ import json
 IP = "130.104.229.84/qa1"  # Master node
 HOST = f'rabbitmq:9a55f70a841f18b97c3a7db939b7adc9e34a0f1d@{IP}'
 
-# HOST = 'localhost'
+HOST = 'localhost'
 
 BROKER = f'amqp://{HOST}'
 BACKEND= f'rpc://{HOST}'
@@ -284,11 +284,12 @@ def test(**args):
     trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_{classifier}_model.pkl"))
     if classifier == "dl":
         trainer.classify() # path=pwd +'output/test-set/'
-        acc, loss = trainer.get_stat_classifier()
+        acc, loss = trainer.get_stat_classifier(f"{classifier}_{nround}")
+        save_object(trainer,ROOT_DIR + "/ToolChainClassifier/classifier/saved_model/"+ classifier +"_model.pkl")
         return {"acc":acc, "loss":loss}
     elif classifier == "gpsan":
         sigpath = args["sigpath"]
         trainer.classify(custom_sig_path=sigpath)
-        fscore = trainer.get_stat_classifier()
+        fscore = trainer.get_stat_classifier(f"{classifier}_{nround}")
         return {"fscore":fscore}
 
