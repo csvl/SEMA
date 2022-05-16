@@ -109,6 +109,8 @@ class DLTrainerClassifier(Classifier):
 			self.test_dataset = DataLoader(data_classify,num_workers=ncpu)
 			self.stat_dataset = self.test_dataset
 		
+		self.y_true = list()
+		self.y_pred = list()
 		for x,y, z in self.stat_dataset:
 			y_predict = self._model.predict(x[0]).reshape(-1)
 			l = self.loss_calc(x,y_predict, x,y[0],criterion_x,criterion_y)
