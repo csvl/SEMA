@@ -61,6 +61,8 @@ class SVMClassifier(Classifier):
         bar = progressbar.ProgressBar(max_value=len(self.families))
         bar.start()
         self.original_path = path
+        self.dataset = []
+        self.label = []
         for family in self.families:
             path = self.path + '/'  + self.original_path + family + '/'
             path = path.replace("ToolChainClassifier/","") # todo
@@ -71,7 +73,7 @@ class SVMClassifier(Classifier):
             else:
                 #filenames = glob.glob(path+'/SCDG_*') + glob.glob(path+'test/SCDG_*')
                 filenames = [os.path.join(path, f) for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
-                if len(filenames) > 1 :
+                if len(filenames) > 1 and family not in self.fam_idx :
                     self.fam_idx.append(family)
                 for file in filenames:
                     if file.endswith(".gs"):
