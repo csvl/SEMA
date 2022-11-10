@@ -105,7 +105,7 @@ class ToolChainExplorerCDFS(ToolChainExplorer):
                 len(simgr.stashes["pause"]),
             )
             for m in range(moves):
-                super().take_smallest(simgr, "pause")
+                super().take_longuest(simgr, "pause")
 
         super().manage_pause(simgr)
 
