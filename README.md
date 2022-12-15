@@ -1,4 +1,16 @@
 # :skull_and_crossbones: SEMA :skull_and_crossbones: - ToolChain using Symbolic Execution for Malware Analysis. 
+
+  ██████ ▓█████  ███▄ ▄███▓ ▄▄▄      
+▒██    ▒ ▓█   ▀ ▓██▒▀█▀ ██▒▒████▄    
+░ ▓██▄   ▒███   ▓██    ▓██░▒██  ▀█▄  
+  ▒   ██▒▒▓█  ▄ ▒██    ▒██ ░██▄▄▄▄██ 
+▒██████▒▒░▒████▒▒██▒   ░██▒ ▓█   ▓██▒
+▒ ▒▓▒ ▒ ░░░ ▒░ ░░ ▒░   ░  ░ ▒▒   ▓▒█░
+░ ░▒  ░ ░ ░ ░  ░░  ░      ░  ▒   ▒▒ ░
+░  ░  ░     ░   ░      ░     ░   ▒   
+      ░     ░  ░       ░         ░  ░
+                                     
+
 # :books:  Documentation
 
 1. [ Architecture ](#arch)
