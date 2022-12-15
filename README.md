@@ -1,5 +1,6 @@
 # :skull_and_crossbones: SEMA :skull_and_crossbones: - ToolChain using Symbolic Execution for Malware Analysis. 
 
+```
    _     _      _     _      _     _      _     _   
   (c).-.(c)    (c).-.(c)    (c).-.(c)    (c).-.(c)                                                                                                         
    / ._. \      / ._. \      / ._. \      / ._. \   
@@ -9,7 +10,7 @@
  _.' `-' '._  _.' `-' '._  _.' `-' '._  _.' `-' '._                                                                                                         
 (.-./`-`\.-.)(.-./`-'\.-.)(.-./`-'\.-.)(.-./`-'\.-.)                                                                                                       
  `-'     `-'  `-'     `-'  `-'     `-'  `-'     `-'    
-
+```
                                                                                                                
                                    
 # :books:  Documentation
