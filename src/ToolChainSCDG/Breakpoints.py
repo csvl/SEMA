@@ -84,19 +84,18 @@ class Breakpoints:
         offset11 = cont.find(b'\x55\x8b\xec\x51\xb9\xe5\x17\x42\x00\xc7\x45\xfc\x4d\x5a\x90\x00\x8d\x45\xfc\x8b\x00\x3b\x01\x74\x03\x49\xeb\xf4\x8b\xc1\xc9')
         if(offset11 != -1):
             self.hooks["findstart5"] = offset11+total
+            
+            
     def debug_instr(self, state):
 
         # print addresss
-        if True:
+        if False:
             print(hex(state.addr))
         
         # ITALIEN
                 
         if self.ital and state.inspect.instruction == int("0xC21004A9", 16):    #address payload (c2100000) - entry (402bb0) + debut loop (403059) => 0xc2100000 + 0x4a9
             state.globals["loop"] = state.globals["loop"] + 1
-            
-        if state.inspect.instruction == int("0x4299b8", 16):
-            state.regs.esi = 0x0
             
             
             
