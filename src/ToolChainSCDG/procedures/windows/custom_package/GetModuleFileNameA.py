@@ -18,7 +18,6 @@ class GetModuleFileNameA(angr.SimProcedure):
         return lib
 
     def run(self, module, buf_filename, size_buf):
-
         self.state.project
         size = self.state.solver.eval(size_buf)
 

@@ -21,3 +21,4 @@ class GetFileSize(angr.SimProcedure):
             return size
         else:
             return self.state.solver.BVS("retval_{}".format(self.display_name), 32)
+

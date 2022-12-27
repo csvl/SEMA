@@ -1,6 +1,7 @@
 import json
 import os
 
+
 class DDLLoader:
     def __init__(self):
         self.calls_dir = os.path.abspath(

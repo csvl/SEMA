@@ -8,24 +8,16 @@ lw = logging.getLogger("CustomSimProcedureWindows")
 class LoadLibraryExA(angr.SimProcedure):
     def run(self, lib_ptr, flag1, flag2):
         global system_call_table
-        
-        call_sim = None
-        try:
-            from procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],False)
-        except Exception as e:
-            from ....procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],True)
+        from procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix
 
+        call_sim = CustomSimProcedure([], [])
         proj = self.state.project
         try:
             lib = self.state.mem[lib_ptr].string.concrete
             if hasattr(lib, "decode"):
                 lib = lib.decode("utf-8")
         except:
-            lib = self.state.mem[lib_ptr].string.concrete
-            if hasattr(lib, "decode"):
-                lib = lib.decode("utf-8",errors="ignore")
+            pass
             # import pdb; pdb.set_trace()
         lib = str(lib).lower()
         # We will create a fake symbol to represent the handle to the library

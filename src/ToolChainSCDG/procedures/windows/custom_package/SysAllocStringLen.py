@@ -19,11 +19,8 @@ class SysAllocStringLen(angr.SimProcedure):
         # import pdb; pdb.set_trace()
 
         if hasattr(string, "decode"):
-            try:
-                str_BVV = string.decode("utf-8")[:len_str]
-            except:
-                str_BVV = string.decode("utf-8",errors="ignore")[:len_str]
-            str_BVV = str_BVV + "\0"                
+            str_BVV = string.decode("utf-8")[:len_str]
+            str_BVV = str_BVV + "\0"
         else:
             str_BVV = string[:len_str]
             str_BVV = str_BVV + "\0"

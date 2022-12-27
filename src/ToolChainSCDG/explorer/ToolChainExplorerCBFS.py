@@ -1,8 +1,21 @@
 #!/usr/bin/env python3
-import sys
+import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from collections import deque
-from .ToolChainExplorer import ToolChainExplorer
+
+
+# Personnal stuf
+
+
+# Syscall table stuff
+
+# import sim_procedure.dll_table as dll
+# from sim_procedure.SimProceduresLoader import SimProcedures
+
+# from sim_procedure.simprocedures import *
+# from sim_procedure.CustomSimProcedureWindows import custom_simproc_windows
+
+from explorer.ToolChainExplorer import ToolChainExplorer
 
 
 class ToolChainExplorerCBFS(ToolChainExplorer):
@@ -19,7 +32,23 @@ class ToolChainExplorerCBFS(ToolChainExplorer):
             max_length,
             exp_dir,
             nameFileShort,
-            worker
+            worker.scdg,
+            worker.call_sim,
+            worker.eval_time,
+            worker.timeout,
+            worker.max_end_state,
+            worker.max_step,
+            worker.timeout_tab,
+            worker.jump_it,
+            worker.loop_counter_concrete,
+            worker.jump_dict,
+            worker.jump_concrete_dict,
+            worker.max_simul_state,
+            worker.max_in_pause_stach,
+            worker.print_on,
+            worker.print_sm_step,
+            worker.print_syscall,
+            worker.debug_error,
         )
         self.pause_stash = deque()
         self.log = logging.getLogger("ToolChainExplorerCBFS")
@@ -83,8 +112,10 @@ class ToolChainExplorerCBFS(ToolChainExplorer):
             while excess > 0:
                 self.pause_stash.append(simgr.active.pop())
                 excess = excess - 1
+                
         while simgr.active:
             self.pause_stash.append(simgr.active.pop())
+            
         while (
             len(simgr.stashes["new_addr"]) > 0
             and len(simgr.active) < self.max_simul_state

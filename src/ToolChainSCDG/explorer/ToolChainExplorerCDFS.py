@@ -1,8 +1,21 @@
 #!/usr/bin/env python3
+import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from collections import deque
-import sys
-from .ToolChainExplorer import ToolChainExplorer
+
+
+# Personnal stuf
+
+
+# Syscall table stuff
+
+# import sim_procedure.dll_table as dll
+# from sim_procedure.SimProceduresLoader import SimProcedures
+
+# from sim_procedure.simprocedures import *
+# from sim_procedure.CustomSimProcedureWindows import custom_simproc_windows
+
+from explorer.ToolChainExplorer import ToolChainExplorer
 
 
 class ToolChainExplorerCDFS(ToolChainExplorer):
@@ -19,7 +32,23 @@ class ToolChainExplorerCDFS(ToolChainExplorer):
             max_length,
             exp_dir,
             nameFileShort,
-            worker
+            worker.scdg,
+            worker.call_sim,
+            worker.eval_time,
+            worker.timeout,
+            worker.max_end_state,
+            worker.max_step,
+            worker.timeout_tab,
+            worker.jump_it,
+            worker.loop_counter_concrete,
+            worker.jump_dict,
+            worker.jump_concrete_dict,
+            worker.max_simul_state,
+            worker.max_in_pause_stach,
+            worker.print_on,
+            worker.print_sm_step,
+            worker.print_syscall,
+            worker.debug_error,
         )
         self.pause_stash = deque()
         self.log = logging.getLogger("ToolChainExplorerCDFS")
@@ -29,7 +58,6 @@ class ToolChainExplorerCDFS(ToolChainExplorer):
         try:
             simgr = simgr.step(stash=stash, **kwargs)
         except Exception as inst:
-            # TODO allow to skip sample or stop exeuction
             self.log.warning("ERROR IN STEP() - YOU ARE NOT SUPPOSED TO BE THERE !")
             # self.log.warning(type(inst))    # the exception instance
             self.log.warning(inst)  # __str__ allows args to be printed directly,
@@ -44,7 +72,7 @@ class ToolChainExplorerCDFS(ToolChainExplorer):
             len(self.fork_stack) > 0 or len(simgr.deadended) > self.deadended
         ):
             self.log.info(
-                "A new block of execution have been executed with changes in sim_manager.\n"
+                "A new block of execution have been executed with changes in sim_manager."
             )
             self.log.info("Currently, simulation manager is :\n" + str(simgr))
             self.log.info("pause stash len :" + str(len(self.pause_stash)))

@@ -7,14 +7,9 @@ lw = logging.getLogger("CustomSimProcedureWindows")
 class WNetGetConnectionW(angr.SimProcedure):
     def get_netRessource(self, size, buf_src):
         localName = self.state.mem[buf_src].wstring.concrete
-        try:
-            return (("net_" + localName.decode("utf-8"))[: size - 1] + "\0").encode(
-                "utf-16-le"
-            )
-        except:
-            return (("net_" + localName.decode("utf-8",errors="ignore"))[: size - 1] + "\0").encode(
-                "utf-16-le"
-            )
+        return (("net_" + localName.decode("utf-8"))[: size - 1] + "\0").encode(
+            "utf-16-le"
+        )
 
     def run(self, lpLocalName, lpRemoteName, lpnLength):
         if lpLocalName.symbolic or lpRemoteName.symbolic or lpnLength.symbolic:

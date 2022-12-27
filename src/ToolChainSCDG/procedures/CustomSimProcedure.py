@@ -10,15 +10,11 @@ from angr.procedures import SIM_LIBRARIES
 from angr.procedures.definitions import SimLibrary
 from angr.calling_conventions import SimCCStdcall, SimCCCdecl
 
-try:
-    from ..clogging.CustomFormatter import CustomFormatter
-except:
-    from clogging.CustomFormatter import CustomFormatter
-
-from .DDLLoader import DDLLoader
-from .LinuxTableLoader import LinuxTableLoader
+from procedures.DDLLoader import DDLLoader
+from procedures.LinuxTableLoader import LinuxTableLoader
 
 builtins = dir(__builtins__)
+
 
 class CustomSimProcedure:
 
@@ -38,7 +34,6 @@ class CustomSimProcedure:
         "ShellMessageBoxW",
         "wsprintfA",
         "sprintf",
-        "strcat"
     ]
 
     ANGR_LIBS = {
@@ -48,6 +43,21 @@ class CustomSimProcedure:
         "advapi32.dll": "advapi32.dll",
         "user32.dll": "user32.dll",
     }
+    
+    EVASION_LIBS = [
+        "dwmapi.dll",
+        "avghookx.dll",
+        "avghooka.dll",
+        "sbiedll.dll",
+        "dbghelp.dll",
+        "snxhk.dll",
+        "api_log.dll",
+        "dir_watch.dll",
+        "vmcheck.dll",
+        "wpespy.dll",
+        "pstorec.dll",
+        "snxhk64.dll",
+        "sxIn.dll"]
 
     ## --- Functions where strings could/shoud be resolved with number of the argument -- ##
     FUNCTION_STRING = {
@@ -162,16 +172,12 @@ class CustomSimProcedure:
 
     FUNCTION_HANDLER = {}
 
-    def __init__(self, scdg, scdg_fin, is_from_tc, string_resolv=True, print_on=True, print_syscall=True):
-        # ch = logging.StreamHandler() # TODO bug duplicate logs
-        # ch.setLevel(logging.INFO)
-        # ch.setFormatter(CustomFormatter())
-        self.log = logging.getLogger("CustomSimProcedure")
-        self.log.setLevel(logging.INFO)
-        # self.log.addHandler(ch)
-        # self.log.propagate = False
+    def __init__(self, scdg, scdg_fin, string_resolv=True, print_on=True):
+        self.lm = logging.getLogger("CustomSimProcedure")
+        logging.getLogger("CustomSimProcedure").setLevel("INFO")
 
-        self.is_from_tc = is_from_tc
+        self.log = logging.getLogger("CustomSimProcedure")
+        logging.getLogger("CustomSimProcedure").setLevel("INFO")
 
         self.custom_simproc_windows = {}
         self.init_windows_sim_proc()
@@ -192,24 +198,22 @@ class CustomSimProcedure:
 
         self.syscall_found = {}
 
-        self.print_syscall = print_syscall
-        
     def init_windows_sim_proc(self):
         # Import all classes under the current directory, and group them based on
-        self.custom_simproc_windows.clear()
+        # lib names.
+        self.custom_simproc_windows = {}
         path = os.path.dirname(os.path.abspath(__file__)) + "/windows"
-        self.log.info("Windows lib path = " + str(path))
+        self.log.debug("Windows lib path = " + str(path))
         skip_dirs = ["definitions"]
-        pkg = "procedures.windows"
-        if self.is_from_tc:
-            pkg = "ToolChainSCDG.procedures.windows"
+
         for pkg_name, package in autoimport.auto_import_packages(
-            pkg , path, skip_dirs
+            "procedures.windows", path, skip_dirs
         ):
             for _, mod in autoimport.filter_module(package, type_req=type(os)):
                 for name, proc in autoimport.filter_module(
                     mod, type_req=type, subclass_req=angr.SimProcedure
                 ):
+                    # print(name)
                     if hasattr(proc, "__provides__"):
                         for custom_pkg_name, custom_func_name in proc.__provides__:
                             if custom_pkg_name not in self.custom_simproc_windows:
@@ -232,20 +236,19 @@ class CustomSimProcedure:
         # self.log.info(self.custom_simproc_windows)
 
     def init_linux_sim_proc(self):
-        self.custom_simproc.clear()
+        self.custom_simproc = {}
         path = os.path.dirname(os.path.abspath(__file__)) + "/linux"
-        self.log.info("Linux lib path = " + str(path))
+        self.log.debug("Linux lib path = " + str(path))
         skip_dirs = ["definitions"]
-        pkg = "procedures.linux"
-        if self.is_from_tc:
-            pkg = "ToolChainSCDG.procedures.linux"
+
         for pkg_name, package in autoimport.auto_import_packages(
-            pkg, path, skip_dirs
+            "procedures.linux", path, skip_dirs
         ):
             for _, mod in autoimport.filter_module(package, type_req=type(os)):
                 for name, proc in autoimport.filter_module(
                     mod, type_req=type, subclass_req=angr.SimProcedure
                 ):
+                    # print(name)
                     if hasattr(proc, "__provides__"):
                         for custom_pkg_name, custom_func_name in proc.__provides__:
                             if custom_pkg_name not in self.custom_simproc:
@@ -324,7 +327,7 @@ class CustomSimProcedure:
     def loadlibs_proc(self, dlls_functions, project):
         symbols = project.loader.symbols
         dic_symbols = {symb.name: symb.rebased_addr for symb in symbols}
-        self.log.info(dic_symbols)
+        self.lm.info(dic_symbols)
 
         for dllname in project.loader.requested_names:
             libname = dllname
@@ -332,7 +335,7 @@ class CustomSimProcedure:
                 if len(dlls_functions[libname]) == 0 or libname.startswith("syscalls"):
                     continue
                 if libname in self.ANGR_LIBS:
-                    self.log.info("Was in angr :" + str(libname))
+                    self.lm.info("Was in angr :" + str(libname))
 
                     angrlib = SIM_LIBRARIES[self.ANGR_LIBS[libname]]
                     cc = list(dlls_functions[libname].values())[0]["cc"]
@@ -385,8 +388,8 @@ class CustomSimProcedure:
                         del dic_symbols[name]
 
                 angrlib.add_all_from_dict(newprocs)
-                self.log.info('----------- Symbols after hook for libs ' + libname +'--------------------')
-                self.log.info(dic_symbols)
+                # print('-----------symbols after hook--------------------' + libname)
+                # print(dic_symbols)
 
         project._sim_procedures = {
             addr: simprocedure for addr, simprocedure in project._sim_procedures.items()
@@ -417,14 +420,13 @@ class CustomSimProcedure:
 
         for s in ok:
             del dic_symbols[s]
-        self.log.info("No hooks for: %s", str(dic_symbols))
-        # self.log.info(dic_symbols)
+        self.lm.info("No hooks for: %s", str(dic_symbols))
+        # self.lm.info(dic_symbols)
 
     def loadlibs(self, project):
         symbols = project.loader.symbols
         dic_symbols = {symb.name: symb.rebased_addr for symb in symbols}
         self.log.info(dic_symbols)
-
         for dllname in project.loader.requested_names:
             libname = dllname
 
@@ -435,7 +437,6 @@ class CustomSimProcedure:
                     continue
                 if libname in self.ANGR_LIBS:
                     self.log.info("Was in angr :" + str(libname))
-
                     angrlib = SIM_LIBRARIES[self.ANGR_LIBS[libname]]
                     cc = list(self.system_call_table[libname].values())[0]["cc"]
 
@@ -463,6 +464,7 @@ class CustomSimProcedure:
                     ):
                         newprocs[name] = simprocedure
                         if name in dic_symbols and name not in self.EXCEPTIONS:
+
                             project.hook(
                                 dic_symbols[name],
                                 simprocedure(cc=SimCCStdcall(project.arch)),
@@ -486,9 +488,9 @@ class CustomSimProcedure:
                         del dic_symbols[name]
 
                 angrlib.add_all_from_dict(newprocs)
-                self.log.info('----------- Symbols after hook for libs ' + libname +'--------------------')
-                self.log.info(dic_symbols)
-                
+                # print('-----------symbols after hook--------------------' + libname)
+                # print(dic_symbols)
+
         project._sim_procedures = {
             addr: simprocedure for addr, simprocedure in project._sim_procedures.items()
         }
@@ -522,7 +524,6 @@ class CustomSimProcedure:
         # self.log.info(dic_symbols)
 
     def add_call_debug(self, state):
-
         name = state.inspect.simprocedure_name
         sim_proc = state.inspect.simprocedure
         n_args = 0
@@ -533,9 +534,9 @@ class CustomSimProcedure:
         if sim_proc:
             n_args = sim_proc.num_args
 
-        self.add_syscall(name, n_args, state)
+        self.add_SysCall(name, n_args, state)
 
-    def add_syscall(self, syscall, n_args, state):
+    def add_SysCall(self, syscall, n_args, state):
         # global SCDG
         dic = {}
 
@@ -599,15 +600,7 @@ class CustomSimProcedure:
                             dic["ref_str"] = {(index_str + 1): arg_str}
                         # self.log.info(string)
                     except Exception:
-                        string = state.mem[arg_str].string.concrete
-                        if hasattr(string, "decode"):
-                            args[index_str] = string.decode("utf-8", errors="ignore")
-                        else:
-                            args[index_str] = string
-                        if i > 0:
-                            dic["ref_str"][(index_str + 1)] = arg_str
-                        else:
-                            dic["ref_str"] = {(index_str + 1): arg_str}
+                        pass
 
         if syscall in self.FUNCTION_HANDLER:
             self.FUNCTION_HANDLER[syscall](state)
@@ -633,12 +626,10 @@ class CustomSimProcedure:
             dic["ret"] = 0
 
         id = state.globals["id"]
-        #print(id)
 
         if len(self.scdg) == 0:
             self.scdg.append([dic])
         else:
-            #print(self.scdg[id])
             if len(self.scdg[id][-1]) != 0:
                 # if same address and different name, we have an inline call (call to another simprocedure used during the hook), discard !
                 if (
@@ -707,14 +698,13 @@ class CustomSimProcedure:
 
         callee = None
         callee_arg = None
-        ret_type = None
         if (
             sim_proc
             and sim_proc.is_syscall
             and str(sim_proc.syscall_number) in self.system_call_table
             and self.print_syscall
         ):
-            self.log.info("Syscall detected")
+            self.log.info("syscall detected")
             # self.log.info(sim_proc.syscall_number)
             self.log.info(state.inspect.simprocedure_result)
             self.log.info(self.system_call_table[str(sim_proc.syscall_number)])
@@ -726,7 +716,6 @@ class CustomSimProcedure:
             if name in self.system_call_table[key]:
                 callee = self.system_call_table[key][name]
                 callee_arg = callee["arguments"]
-                ret_type = callee["returns"]
                 break
         if not callee and state.globals["loaded_libs"]:
             for k, lib in state.globals["loaded_libs"].items():
@@ -749,6 +738,7 @@ class CustomSimProcedure:
                 self.syscall_found[key_name] = 1
             else:
                 self.syscall_found[key_name] = self.syscall_found[key_name] + 1
+                
 
         if name and self.print_on:
             self.log.info("Syscall found:  " + str(name) + str(args))
@@ -768,9 +758,9 @@ class CustomSimProcedure:
                             or "LPWSTR" in callee_arg[i]["type"]
                             or "wchar_t*const" in callee_arg[i]["type"]
                             or "OLECHAR" in callee_arg[i]["type"]
-                            or "char*" in callee_arg[i]["type"]
                         )
                     ):
+
                         temp = args[i]
                         string = state.mem[args[i]].wstring.concrete
 
@@ -781,6 +771,7 @@ class CustomSimProcedure:
 
                         if self.debug_string:
                             # import pdb
+
                             # pdb.set_trace()
                             self.log.info("Args string Resolved : " + str(string))
                 except:
@@ -795,7 +786,6 @@ class CustomSimProcedure:
                             or "LPSTR" in callee_arg[i]["type"]
                             or "const char*" in callee_arg[i]["type"]
                             or "LPCVOID" in callee_arg[i]["type"]
-                            or "char*" in callee_arg[i]["type"]
                         )
                     ):
                         string = state.mem[args[i]].string.concrete
@@ -819,7 +809,24 @@ class CustomSimProcedure:
                     pass
 
             self.scdg[id][-1]["args"] = args
-            
+
+            if (
+                self.scdg[id][-1]["ret"] != "symbolic"
+                and name not in self.FUNCTION_RETURNS
+            ):
+                ret = -22
+                try:
+                    ret = state.solver.eval_one(state.inspect.simprocedure_result)
+                except Exception:
+                    stub = state.inspect.simprocedure_result
+                    if hasattr(stub, "to_claripy"):
+                        stub = stub.to_claripy()
+                    if hasattr(stub, "name"):
+                        ret = stub.name
+                    else:
+                        ret = str(stub)
+
+                self.scdg[id][-1]["ret"] = ret
 
             if (
                 name == "write"
@@ -833,6 +840,7 @@ class CustomSimProcedure:
                 )
                 self.scdg[id].pop()
 
+            return
         elif self.scdg[id][-1]["name"] == "writev" and name == "write" and args:
             self.scdg[id][-1]["name"] = "write"
             for i in range(len(args)):
@@ -892,48 +900,13 @@ class CustomSimProcedure:
             self.scdg[id][-1]["ret"] = ret
         else:
             pass
-        if ret_type and (
-            "LPCSTR" in ret_type
-            or "LPSTR" in ret_type
-            or "const char*" in ret_type
-            or "LPCVOID" in ret_type
-            or "char*" in ret_type
-            ):
-            try: 
-                retval = state.solver.eval_one(state.inspect.simprocedure_result)
-                str_mem = state.mem[retval].string.concrete
-                if hasattr(str_mem, "decode"):
-                    str_mem = state.mem[retval].string.concrete.decode("utf-8")
-                self.scdg[id][-1]["ret"] = str_mem
-            except:
-                self.scdg[id][-1]["ret"] = retval
-        elif (
-            self.scdg[id][-1]["ret"] != "symbolic"
-            and name not in self.FUNCTION_RETURNS
-        ):
-            ret = -22
-            try:
-                ret = state.solver.eval_one(state.inspect.simprocedure_result)
-            except Exception:
-                stub = state.inspect.simprocedure_result
-                if hasattr(stub, "to_claripy"):
-                    stub = stub.to_claripy()
-                if hasattr(stub, "name"):
-                    ret = stub.name
-                else:
-                    ret = str(stub)
-
-            self.scdg[id][-1]["ret"] = ret
-        else:
-            pass
-        return
 
     def custom_hook_static(self, proj):
         """
         TODO pre-post + automatization
         """
         self.log.info("custom_hook_static")
-        #proj.loader
+        proj.loader
         symbols = proj.loader.symbols
 
         custom_pack = self.custom_simproc_windows["custom_package"]
@@ -1002,6 +975,8 @@ class CustomSimProcedure:
                 # symb.name = self.system_call_table[lib_part][ord_part]['name']
             else:
                 pass
+
+    ["win32", "win_user32", "ntdll", "msvcr", "advapi32"]  # TODO what is it ?
 
     def custom_hook_no_symbols(self, proj):
         self.log.info("custom_hook_no_symbols")
@@ -1085,7 +1060,7 @@ class CustomSimProcedure:
     def custom_hook_windows_symbols(self, proj):
         # self.ANG_CALLING_CONVENTION = {"__stdcall": SimCCStdcall, "__cdecl": SimCCCdecl}
         self.log.info("custom_hook_windows_symbols")
-        #proj.loader
+        proj.loader
         symbols = proj.loader.symbols
         custom_pack = self.custom_simproc["custom_package"]
         generic = {}
@@ -1147,6 +1122,7 @@ class CustomSimProcedure:
 
                         if symb.name and "ordinal" in symb.name:
                             # ex : ordinal.680.b'shell32.dll'
+
                             part_names = symb.name.split(".")
                             lib_part = part_names[2][2:] + ".dll"
                             ord_part = part_names[1]
@@ -1167,8 +1143,7 @@ class CustomSimProcedure:
                                 proj.hook(
                                     symb.rebased_addr,
                                     self.custom_simproc_windows["custom_package"][
-                                        #symb.name # before
-                                        real_name
+                                        symb.name
                                     ](cc=SimCCStdcall(proj.arch)),
                                 )
                             elif lib_part == lib:
@@ -1186,11 +1161,12 @@ class CustomSimProcedure:
     # Break at specific instruction and open debug mode.
     def debug_instr(self, state):
         if state.inspect.instruction == int(
-            "0x004015a3", 16
-        ) or state.inspect.instruction == int("0x0040159b", 16):
+            "0x0040123f", 16
+        ) or state.inspect.instruction == int("0x0040126e", 16):
             self.log.info("Debug function\n\n")
             self.log.info(hex(state.inspect.instruction))
             import pdb
+
             pdb.set_trace()
 
     def debug_read(self, state):
@@ -1198,6 +1174,7 @@ class CustomSimProcedure:
             self.log.info("Read function\n\n")
             self.log.info(state.inspect.mem_read_address)
             import pdb
+
             pdb.set_trace()
 
     def debug_write(self, state):
@@ -1205,6 +1182,7 @@ class CustomSimProcedure:
             self.log.info("Write function\n\n")
             self.log.info(state.inspect.mem_write_address)
             import pdb
+
             pdb.set_trace()
 
     def add_addr_call(self, state):
@@ -1216,3 +1194,5 @@ class CustomSimProcedure:
         if len(calls) > 1:
             state.globals["addr_call"] = calls[1:]
 
+
+# call_sim = CustomSimProcedure() #TODO fix

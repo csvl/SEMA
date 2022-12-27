@@ -1,0 +1,28 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4199136.main
+loop.exe"]
+	1 [label="4199633.VirtualAlloc
+0
+100000
+8192
+4"]
+	2 [label="4199673.VirtualAlloc
+3221749760
+100000
+4096
+4"]
+	1 -> 2 [label="(0-->1)"]
+	1 -> 2 [label="(2-->2)"]
+	1 -> 2 [label="(4-->4)"]
+	1 -> 2 [label="(0-->0)"]
+	3 [label="4199738.VirtualFree
+3866624
+0
+32768"]
+	4 [label="4199777.MessageBoxA
+0
+That's all !
+Toy Example allocation
+0"]
+}

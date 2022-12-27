@@ -1,0 +1,34 @@
+2021-12-02 18:59:56,879 [cuckoo.core.scheduler] INFO: Task #18: acquired machine cuckoo1 (label=cuckoo1)
+2021-12-02 18:59:56,879 [cuckoo.core.resultserver] DEBUG: Now tracking machine 192.168.122.254 for task #18
+2021-12-02 18:59:56,880 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Replay
+2021-12-02 18:59:56,885 [cuckoo.auxiliary.sniffer] INFO: Started sniffer with PID 25105 (interface=qemubr, host=192.168.122.254)
+2021-12-02 18:59:56,886 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Sniffer
+2021-12-02 18:59:56,910 [cuckoo.machinery.qemu] DEBUG: Starting vm cuckoo1
+2021-12-02 18:59:56,931 [cuckoo.machinery.qemu] DEBUG: Executing QEMU ['qemu-system-x86_64', '-display', 'none', '-m', '1024M', '-hda', '/home/crochetch/Documents/PhD/VMImages/images/snapshot_cuckoo1.qcow2', '-net', 'tap,ifname=tap_cuckoo1,script=no,downscript=no', '-net', 'nic,macaddr=52:54:00:12:34:56', '-enable-kvm']
+2021-12-02 18:59:56,951 [cuckoo.core.guest] INFO: Starting analysis #18 on guest (id=cuckoo1, ip=192.168.122.254)
+2021-12-02 18:59:56,990 [cuckoo.core.guest] INFO: Guest is running Cuckoo Agent 0.10 (id=cuckoo1, ip=192.168.122.254)
+2021-12-02 18:59:57,023 [cuckoo.core.plugins] DEBUG: Stopped auxiliary module: Replay
+2021-12-02 18:59:57,024 [cuckoo.core.plugins] ERROR: Unable to stop auxiliary module: Sniffer
+Traceback (most recent call last):
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/plugins.py", line 164, in stop
+    module.stop()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/auxiliary/sniffer.py", line 156, in stop
+    (out, err, faq("permission-denied-for-tcpdump"))
+CuckooOperationalError: Error running tcpdump to sniff the network traffic during the analysis; stdout = '' and stderr = 'tcpdump: qemubr: No such device exists\n(SIOCGIFHWADDR: No such device)\n'. Did you enable the extra capabilities to allow running tcpdump as non-root user and disable AppArmor properly (the latter only applies to Ubuntu-based distributions with AppArmor, see also https://cuckoo.sh/docs/faq/index.html#permission-denied-for-tcpdump)?
+2021-12-02 18:59:57,031 [cuckoo.machinery.qemu] DEBUG: Stopping vm cuckoo1
+2021-12-02 18:59:57,039 [cuckoo.core.resultserver] DEBUG: Stopped tracking machine 192.168.122.254 for task #18
+2021-12-02 18:59:57,046 [cuckoo.core.scheduler] ERROR: Failure in AnalysisManager.run
+Traceback (most recent call last):
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/scheduler.py", line 755, in run
+    self.launch_analysis()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/scheduler.py", line 541, in launch_analysis
+    self.guest_manage(options)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/scheduler.py", line 404, in guest_manage
+    self.guest_manager.start_analysis(options, monitor)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/guest.py", line 488, in start_analysis
+    self.get("/pinning")
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/guest.py", line 320, in get
+    do_raise and r.raise_for_status()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/requests-2.13.0-py2.7.egg/requests/models.py", line 909, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+HTTPError: 500 Server Error: Internal Server Error for url: http://192.168.122.254:8000/pinning

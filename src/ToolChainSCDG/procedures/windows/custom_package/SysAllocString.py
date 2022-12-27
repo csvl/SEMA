@@ -17,10 +17,7 @@ class SysAllocString(angr.SimProcedure):
 
         ptr = self.state.heap.malloc(len_str + 1)
         if hasattr(string, "decode"):
-            try:
-                str_BVV = string.decode("utf-8") + "\0"
-            except:
-                str_BVV = string.decode("utf-8",errors="ignore") + "\0"
+            str_BVV = string.decode("utf-8") + "\0"
         else:
             str_BVV = string + "\0"
 

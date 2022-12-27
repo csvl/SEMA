@@ -19,7 +19,6 @@ class ReadFile(angr.SimProcedure):
         bytes_read = simfd.read(
             lpBuffer, nNumberOfBytesToRead, endness=self.arch.memory_endness
         )
-        lw.info(bytes_read)
         self.state.memory.store(
             lpNumberOfBytesRead, bytes_read, endness=self.arch.memory_endness
         )

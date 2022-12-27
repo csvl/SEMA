@@ -1,6 +1,6 @@
 import logging
 import angr
-
+from procedures.CustomSimProcedure import CustomSimProcedure
 lw = logging.getLogger("CustomSimProcedureWindows")
 
 
@@ -27,7 +27,9 @@ class GetModuleHandleW(angr.SimProcedure):
         lw.info(
             "GetModuleHandleW: {}  asks for handle to {}".format(self.display_name, lib)
         )
-
+        if(lib in CustomSimProcedure.EVASION_LIBS):
+            #self.state.plugin_evasion.libraries.append(lib)
+            return 0
         # We will create a fake symbol to represent the handle to the library
         # Check first if we already did that before
         symb = proj.loader.find_symbol(lib)

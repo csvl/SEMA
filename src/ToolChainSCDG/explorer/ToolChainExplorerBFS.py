@@ -1,7 +1,20 @@
 #!/usr/bin/env python3
-import sys
+import monkeyhex  # this will format numerical results in hexadecimal
 import logging
-from .ToolChainExplorer import ToolChainExplorer
+
+
+# Personnal stuf
+
+
+# Syscall table stuff
+
+# import sim_procedure.dll_table as dll
+# from sim_procedure.SimProceduresLoader import SimProcedures
+
+# from sim_procedure.simprocedures import *
+# from sim_procedure.CustomSimProcedureWindows import custom_simproc_windows
+
+from explorer.ToolChainExplorer import ToolChainExplorer
 
 
 class ToolChainExplorerBFS(ToolChainExplorer):
@@ -18,7 +31,23 @@ class ToolChainExplorerBFS(ToolChainExplorer):
             max_length,
             exp_dir,
             nameFileShort,
-            worker
+            worker.scdg,
+            worker.call_sim,
+            worker.eval_time,
+            worker.timeout,
+            worker.max_end_state,
+            worker.max_step,
+            worker.timeout_tab,
+            worker.jump_it,
+            worker.loop_counter_concrete,
+            worker.jump_dict,
+            worker.jump_concrete_dict,
+            worker.max_simul_state,
+            worker.max_in_pause_stach,
+            worker.print_on,
+            worker.print_sm_step,
+            worker.print_syscall,
+            worker.debug_error,
         )
         self.log = logging.getLogger("ToolChainExplorerBFS")
         self.log.setLevel("INFO")
@@ -44,7 +73,7 @@ class ToolChainExplorerBFS(ToolChainExplorer):
                 "A new block of execution have been executed with changes in sim_manager.\n"
             )
             self.log.info("Currently, simulation manager is :\n" + str(simgr))
-            self.log.info("pause stash len :" + str(len(self.pause_stash)))
+            self.log.info("pause stash len :" + str(len(simgr.stashes["pause"])))
 
         if self.print_sm_step and len(self.fork_stack) > 0:
             self.log.info("fork_stack : " + str(len(self.fork_stack)))
@@ -65,6 +94,9 @@ class ToolChainExplorerBFS(ToolChainExplorer):
         super().mv_bad_active(simgr)
         # import pdb; pdb.set_trace()
 
+        while simgr.active:
+            simgr.stashes["pause"].append(simgr.active.pop())
+            
         # If limit of simultaneous state is not reached and we have some states available in pause stash
         if len(simgr.stashes["pause"]) > 0 and len(simgr.active) < self.max_simul_state:
             moves = min(

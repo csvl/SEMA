@@ -23,15 +23,9 @@ class GetTempFileNameA(angr.SimProcedure):
         hexnum = "{0:0{1}x}".format(uid, 2)
 
         if hasattr(dirname, "decode"):
-            try:
-                dirname = dirname.decode("utf-8")
-            except:
-                dirname = dirname.decode("utf-8",errors="ignore")
+            dirname = dirname.decode("utf-8")
         if hasattr(name, "decode"):
-            try:
-                name = name.decode("utf-8")
-            except:
-                name = name.decode("utf-8",errors="ignore")
+            name = name.decode("utf-8")
 
         fd = self.state.posix.open(
             dirname + name + hexnum + ".TMP\0", self.state.solver.BVV(2, self.arch.bits)

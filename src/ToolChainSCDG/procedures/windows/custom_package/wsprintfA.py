@@ -8,10 +8,7 @@ class wsprintfA(angr.SimProcedure):
     def getVarString(self, ptr):
         string = self.state.mem[ptr].string.concrete
         if hasattr(string, "decode"):
-            try:
-                string = string.decode("utf-8")
-            except:
-                string = string.decode("utf-8",errors="ignore")
+            string = string.decode("utf-8")
         return string
 
     def run(self, arg1, arg2):

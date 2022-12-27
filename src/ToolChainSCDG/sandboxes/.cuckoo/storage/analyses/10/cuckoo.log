@@ -1,0 +1,19 @@
+2021-12-02 18:40:40,484 [cuckoo.core.scheduler] INFO: Task #10: acquired machine cuckoo1 (label=cuckoo1)
+2021-12-02 18:40:40,484 [cuckoo.core.resultserver] DEBUG: Now tracking machine :ip: for task #10
+2021-12-02 18:40:40,484 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Replay
+2021-12-02 18:40:40,489 [cuckoo.auxiliary.sniffer] INFO: Started sniffer with PID 18409 (interface=qemubr, host=:ip:)
+2021-12-02 18:40:40,490 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Sniffer
+2021-12-02 18:40:40,516 [cuckoo.machinery.qemu] DEBUG: Starting vm cuckoo1
+2021-12-02 18:40:40,536 [cuckoo.machinery.qemu] DEBUG: Executing QEMU ['qemu-system-x86_64', '-display', 'none', '-m', '1024M', '-hda', '/home/crochetch/Documents/PhD/VMImages/images/snapshot_cuckoo1.qcow2', '-net', 'tap,ifname=tap_cuckoo1,script=no,downscript=no', '-net', 'nic,macaddr=52:54:00:12:34:56', '-enable-kvm']
+2021-12-02 18:40:40,560 [cuckoo.core.guest] INFO: Starting analysis #10 on guest (id=cuckoo1, ip=:ip:)
+2021-12-02 18:40:40,561 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:40:41,567 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:40:42,572 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:40:43,578 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:40:44,583 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:40:45,587 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:40:46,592 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:40:47,596 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:40:48,601 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:40:49,604 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:40:50,608 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet

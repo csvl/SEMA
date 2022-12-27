@@ -16,13 +16,13 @@ class lstrcatA(angr.SimProcedure):
         if hasattr(first_str, "decode"):
             try:
                 first_str = first_str.decode("utf-8")
-            except:
-                first_str = first_str.decode("utf-8",errors="ignore")
+            except (UnicodeDecodeError):
+                first_str = ""
         if hasattr(second_str, "decode"):
             try:
                 second_str = second_str.decode("utf-8")
-            except:
-                second_str = second_str.decode("utf-8",errors="ignore")
+            except (UnicodeDecodeError):
+                second_str = ""
         new_str = first_str + second_str + "\0"
         new_str = self.state.solver.BVV(new_str)
         self.state.memory.store(string1, new_str)  # ,endness=self.arch.memory_endness)

@@ -2,7 +2,6 @@ import json
 import logging
 import sys
 import angr
-
 # import procedures.dll_table as dll
 from angr.calling_conventions import SimCCStdcall
 from angr.procedures import SIM_LIBRARIES
@@ -10,27 +9,21 @@ from angr.procedures import SIM_LIBRARIES
 # from ...CustomSimProcedure import *
 lw = logging.getLogger("CustomSimProcedureWindows")
 
-# TODO some errors in this custom procedure
 
 class GetProcAddress(angr.SimProcedure):
     def run(self, lib_handle, name_addr):
-        call_sim = None
-        try:
-            from procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],False)
-        except Exception as e:
-            from ....procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],True)
+        from procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix
+
+        call_sim = CustomSimProcedure([], [])
         # Let's take the name of the function we are looking for and check if a symbol already exists.
 
         name = self.state.mem[name_addr].string.concrete
         if not isinstance(name, str):
-            try:
-                name = name.decode("utf-8")
-            except:
-                name = name.decode("utf-8",errors="ignore")
+            name = name.decode("utf-8")
         lw.info("GetProcAddress: " + str(name))
-
+        if(str(name) == "wine_get_unix_file_name"):
+            #self.state.plugin_evasion.syscalls.append("GetProcAddress(wine_get_unix_file_name)")
+            return 0x0
         # import pdb; pdb.set_trace()
         proj = self.project
         symb = proj.loader.find_symbol(name)
@@ -39,6 +32,7 @@ class GetProcAddress(angr.SimProcedure):
             return symb.rebased_addr
 
         lib_addr = self.state.solver.eval(lib_handle)
+
         # import pdb; pdb.set_trace()
         if self.state.solver.eval(lib_addr) in self.state.globals["loaded_libs"]:
             lib = self.state.globals["loaded_libs"][lib_addr]
@@ -50,7 +44,6 @@ class GetProcAddress(angr.SimProcedure):
                 lib = self.state.mem[lib_handle].string.concrete.decode("utf-8")
             except:
                 lib = self.state.mem[lib_handle].wstring.concrete
-                
             test = lib + ".dll"
             if lib not in SIM_LIBRARIES and (test in SIM_LIBRARIES):
                 lib = test
@@ -82,8 +75,14 @@ class GetProcAddress(angr.SimProcedure):
             lw.info("GetProcAddress: Symbol not found")
             extern = proj.loader.extern_object
             addr = extern.get_pseudo_addr(name)
-
-            if name in call_sim.custom_simproc_windows:
+            if name in call_sim.custom_simproc_windows["custom_package"]:
+                proj.hook(
+                    addr,
+                    call_sim.custom_simproc_windows["custom_package"][name](
+                        cc=SimCCStdcall(proj.arch)
+                    ),
+                )
+            elif name in call_sim.custom_simproc_windows:
                 proj.hook_symbol(
                     name,
                     call_sim.custom_simproc_windows[name](cc=SimCCStdcall(proj.arch)),

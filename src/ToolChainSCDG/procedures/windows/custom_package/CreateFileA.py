@@ -26,7 +26,13 @@ class CreateFileA(angr.SimProcedure):
         dwFlagsAndAttributes,
         hTemplateFile,
     ):
-
+    
+        last_byte = self.state.memory.load(lpFilename, size=1)
+        if self.state.solver.symbolic(last_byte):
+            return self.state.solver.BVS(
+                "retval_{}".format(self.display_name), self.arch.bits
+            )
+            
         self.state.project
         # import pdb; pdb.set_trace()
         name = self.decodeString(lpFilename)
