@@ -29,7 +29,9 @@ class KVMInterface(VMInterface):
         self.name = name
         self.new_name = name
         if not guestos == "linux":
-            self.new_name = "win7" #todo
+            self.new_name = "win10" #todo
+            if False:#TODO
+                self.new_name="win7"
         self.mem_mb = mem_mb
         self.image = image
         self.vcpu = vcpu

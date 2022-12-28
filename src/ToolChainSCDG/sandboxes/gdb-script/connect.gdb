@@ -1,11 +1,21 @@
 # http://sourceware.org/gdb/wiki/FAQ: to disable the
 # "---Type <return> to continue, or q <return> to quit---"
 # in batch mode:
+# https://sourceware.org/gdb/wiki/BuildingCrossGDBandGDBserver
 
-target extended-remote 192.168.122.254:9876
 
-remote put /home/crochetch/Documents/toolchain_malware_analysis/src/databases/upx-dataset/upx-malware-inputs/files/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df C:\Users\user\Desktop\0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df
+#set sysroot remote:/
 
-set remote exec-file C:\Users\user\Desktop\0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df
 
-r
+#file /home/crochetch/Documents/Projects/MalwareAnalysis/SEMA-ToolChain-packing/src/submodules/binaries/tests/x86/windows/packed_pe32.exe
+
+#set debug remote on
+
+target extended-remote 192.168.122.8:9876 
+
+remote put /home/crochetch/Documents/Projects/MalwareAnalysis/SEMA-ToolChain-packing/src/submodules/binaries/tests/x86/windows/packed_pe32.exe C:\\Users\\user\\Desktop\\packed_pe32.exe
+
+set remote exec-file C:\\Users\\user\\Desktop\\packed_pe32.exe
+
+#quit
+# cont

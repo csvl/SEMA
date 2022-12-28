@@ -43,7 +43,13 @@ class ToolChainExplorerCDFS(ToolChainExplorer):
 
     def step(self, simgr, stash="active", **kwargs):
         try:
+            # for s in simgr.stashes["active"]:
+            #     self.log.info(s)
+            # for s in simgr.active:
+            #     print(s.history.jump_targets)
             simgr = simgr.step(stash=stash, **kwargs)
+            # for s in simgr.active:
+            #     print(s.history.jump_targets)
         except Exception as inst:
             self.log.warning("ERROR IN STEP() - YOU ARE NOT SUPPOSED TO BE THERE !")
             # self.log.warning(type(inst))    # the exception instance
@@ -81,7 +87,10 @@ class ToolChainExplorerCDFS(ToolChainExplorer):
         super().manage_deadended(simgr)
 
         for s in simgr.active:
+            #print(s.history)
             vis_addr = str(self.check_constraint(s, s.history.jump_target))
+            #print("prout")
+            #print(hex(int(vis_addr)))
             id_to_stash = []
             if vis_addr not in self.dict_addr_vis:
                 id_to_stash.append(s.globals["id"])
@@ -157,5 +166,5 @@ class ToolChainExplorerCDFS(ToolChainExplorer):
         super().excessed_loop_to_active(simgr)
 
         super().time_evaluation(simgr)
-
+        #exit(0)
         return simgr

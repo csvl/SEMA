@@ -38,6 +38,13 @@ setup(name='ucl_tc_malware_analysis',
           'seaborn',
           'scipy',
           'scikit-learn', #'sklearn',
-          'grakel'
+          'grakel',
+          'claripy',
+          'protobuf==3.20.*',
+          "unix",
+          'kvm',
+          'libvirt-python',
+          'unipacker',
+          "minidump==0.0.10"
       ],
       zip_safe=False)

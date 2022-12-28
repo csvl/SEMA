@@ -1,6 +1,6 @@
 # TODO
-source /home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/bin/activate
+source /home/crochetch/Documents/Projects/MalwareAnalysis/SEMA-ToolChain-packing/penv-2.7/bin/activate
 echo "cool"
 echo $1
-cuckoo -d --cwd /home/crochetch/Documents/toolchain_malware_analysis/src/ToolChainSCDG/sandboxes/.cuckoo submit $1
+cuckoo -d --cwd /home/crochetch/Documents/Projects/MalwareAnalysis/SEMA-ToolChain-packing/src/ToolChainSCDG/sandboxes/.cuckoo submit $1
 deactivate

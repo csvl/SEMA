@@ -106,7 +106,7 @@ class ToolChainExplorerCBFS(ToolChainExplorer):
             and len(simgr.active) < self.max_simul_state
         ):
             simgr.active.append(simgr.stashes["new_addr"].pop())
-            self.log.info("Hey new addr !")
+           # self.log.info("Hey new addr !")
         while len(simgr.active) < self.max_simul_state and len(self.pause_stash) > 0:
             simgr.active.append(self.pause_stash.popleft())
 

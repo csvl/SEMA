@@ -89,10 +89,13 @@ class ToolChainExplorer(ExplorationTechnique):
 
     def check_constraint(self, state, value):
         try:
+            #print(value)
             val = state.solver.eval_one(value)
+            #print(val)
             is_sao = hasattr(val, "to_claripy")
             if is_sao:
                 val = val.to_claripy()
+            #print(val)
 
         except Exception:
             if self.print_on:

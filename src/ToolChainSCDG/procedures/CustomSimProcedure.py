@@ -419,14 +419,17 @@ class CustomSimProcedure:
         self.log.info("No hooks for: %s", str(dic_symbols))
         # self.log.info(dic_symbols)
 
-    def loadlibs(self, project):
-        symbols = project.loader.symbols
+    def loadlibs(self, project, symbs=None, dll=None):
+        symbols = project.loader.symbols if not symbs else symbs
         dic_symbols = {symb.name: symb.rebased_addr for symb in symbols}
         self.log.info(dic_symbols)
-
-        for dllname in project.loader.requested_names:
+        reqName = project.loader.requested_names if not dll else dll
+        print(reqName)
+        for dllname in reqName:
             libname = dllname
-
+            print(libname)
+            print(self.system_call_table.keys())
+            #exit()
             if libname in self.system_call_table.keys():
                 if len(self.system_call_table[libname]) == 0 or libname.startswith(
                     "syscalls"
@@ -913,6 +916,7 @@ class CustomSimProcedure:
         self.log.info("custom_hook_static")
         proj.loader
         symbols = proj.loader.symbols
+        self.log.info(symbols)
 
         custom_pack = self.custom_simproc_windows["custom_package"]
 
@@ -1060,11 +1064,13 @@ class CustomSimProcedure:
                     name, generic[str(self.system_call_table[key]["num_args"])]
                 )
 
-    def custom_hook_windows_symbols(self, proj):
+    def custom_hook_windows_symbols(self, proj,force=False, symbs=None):
         # self.ANG_CALLING_CONVENTION = {"__stdcall": SimCCStdcall, "__cdecl": SimCCCdecl}
         self.log.info("custom_hook_windows_symbols")
         proj.loader
-        symbols = proj.loader.symbols
+        symbols = proj.loader.symbols if not symbs else symbs
+        print(symbols)
+        
         custom_pack = self.custom_simproc["custom_package"]
         generic = {}
         generic["0"] = custom_pack["gen_simproc0"]
@@ -1092,10 +1098,15 @@ class CustomSimProcedure:
                     and (name not in angr.SIM_PROCEDURES["msvcr"])
                     and len(self.system_call_table[lib][key]["arguments"]) != 0
                 ):
-                    symbols = proj.loader.symbols
+                    #print(name)
+                    #exit()
+                    symbols = proj.loader.symbols if not force else self.system_call_table[lib].keys()
                     for symb in symbols:
+                        # if force:
+                        #     temps = symb
+                        #     symb = Symbol()
                         if (
-                            name == symb.name
+                            (name == symb.name)
                             and (name not in angr.SIM_PROCEDURES["posix"])
                             and (name not in angr.SIM_PROCEDURES["linux_kernel"])
                             and (name not in angr.SIM_PROCEDURES["libc"])

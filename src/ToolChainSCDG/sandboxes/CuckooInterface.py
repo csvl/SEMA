@@ -21,20 +21,28 @@ class CuckooInterface(SandBoxInterface):
         self.guest_ip = ""
         self.gdb_port = 0
         self.home_dir = ""
+        self.win_name = ""
         self.init_vm(name, ossys, guestos, create_vm)
 
     def init_vm(self, name, ossys, guestos, create_vm):
         if ossys == "linux":
             import libvirt
-            conf= ROOT_DIR + "/vm/kvm/config/win7.xml"
+            if False:
+                conf= ROOT_DIR + "/vm/kvm/config/win7.xml"
+                image="/var/lib/libvirt/images/en_windows_7_ultimate_x64_dvd.iso" 
+                self.win_name="win7"
+            else:
+                conf= ROOT_DIR + "/vm/kvm/config/win10.xml"
+                image="/home/crochetch/Documents/PhD/VMImages/images/Win10_22H2_English_x64.iso" # TODO
+                self.win_name="win10"
             conf_vol=ROOT_DIR + "/vm/kvm/config/vol.xml"
             conf_pool= ROOT_DIR + "/vm/kvm/config/pool.xml"
-            self.home_dir = "C:\\Users\\user\\Desktop\\"
+            self.home_dir = "C:\\\\Users\\\\user\\\\Desktop\\\\" # Users\\\\user\\\\Desktop\\\\
             if guestos == "linux":
                 conf= ROOT_DIR + "/vm/kvm/config/ub18.xml"
                 self.home_dir = "/home/user/"
             self.vm = KVMInterface(name, name+"_filename", config_vol=conf_vol, config_pool=conf_pool, 
-                                   config=conf, create_vm=create_vm, image="/var/lib/libvirt/images/en_windows_7_ultimate_x64_dvd.iso",
+                                   config=conf, create_vm=create_vm, image=image,
                                    guestos=self.guestos)
             
         elif ossys == "windows":
@@ -58,11 +66,11 @@ class CuckooInterface(SandBoxInterface):
         self.gdb_port = gdb_port
         try:
             self.vm.start_vm()
-            time.sleep(10) # TODO
+            time.sleep(10) # TODO wait for VM to be up
         except Exception as e:
             pass
         if "win" in self.name:
-            cmd='for mac in `virsh domiflist ' + "win7" + ' |grep -o -E "([0-9a-f]{2}:){5}([0-9a-f]{2})"` ; do arp -e |grep $mac  |grep -o -P "^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}" ; done'
+            cmd='for mac in `virsh domiflist ' + self.win_name + ' |grep -o -E "([0-9a-f]{2}:){5}([0-9a-f]{2})"` ; do arp -e |grep $mac  |grep -o -P "^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}" ; done'
         else:
             cmd='for mac in `virsh domiflist ' + self.name + ' |grep -o -E "([0-9a-f]{2}:){5}([0-9a-f]{2})"` ; do arp -e |grep $mac  |grep -o -P "^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}" ; done'
         print(cmd)
@@ -77,12 +85,14 @@ class CuckooInterface(SandBoxInterface):
 
     def load_analysis(self,file):
         # TODO pre post, check sandbox started etc
-        cmd = "source " + ROOT_DIR + "/load_analysis_cuckoo.sh " + file
+        cmd = "bash " + ROOT_DIR + "/load_analysis_cuckoo.sh " + file
         rc = subprocess.call(cmd,shell=True, executable='/bin/bash')
 
     def start_analysis(self,file):
-        cmd =  "source " + ROOT_DIR + "/start_analysis_cuckoo.sh "
+        cmd =  "bash " + ROOT_DIR + "/start_analysis_cuckoo.sh "
         rc = subprocess.call(cmd,shell=True, executable='/bin/bash')
+        
+        # Note: the following command is now integrated directly in avatar target
         filet = open(ROOT_DIR + "/gdb-script/connect_template.gdb",mode='r')
         gdb_conf = filet.read()
         gdb_conf = gdb_conf.replace(":ip:",self.guest_ip)
@@ -96,7 +106,9 @@ class CuckooInterface(SandBoxInterface):
         filet = open(ROOT_DIR + "/gdb-script/connect.gdb",mode='w')
         filet.write(gdb_conf)
         filet.close()
-        subprocess.call("gdb --batch --command="+ ROOT_DIR + "/gdb-script/connect.gdb",shell=True, executable='/bin/bash')
+        print("gdb --batch --command="+ ROOT_DIR + "/gdb-script/connect.gdb")
+        #subprocess.call("gdb --batch --command="+ ROOT_DIR + "/gdb-script/connect.gdb",shell=True, executable='/bin/bash')
+        return [file,self.home_dir+output]
 
     def stop_sandbox(self):
         self.vm.stop_vm()

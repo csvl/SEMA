@@ -155,6 +155,10 @@ ls
 pip2 install -U distorm3
 python2 stuff/monitor.py
 pip2 install .
+# create .cwd file in dist/cuckoo/private with .git/HEAD inside
+sudo apt-get install mingw-w64 make flex bison texinfo
+# create db
+
 
 printf '\n%s\n' "-------------> Install tcpdump: <-------------"
 

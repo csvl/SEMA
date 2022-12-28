@@ -16,9 +16,14 @@ class LoadLibraryExW(LoadLibraryA):
             from ....procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
             call_sim = CustomSimProcedure([], [],True)
         proj = self.state.project
+        print(lib_ptr)
         lib = self.state.mem[lib_ptr].wstring.concrete
 
         lib = str(lib).lower()
+        
+        # if not lib or lib == "":
+        #     return 0
+        
         # We will create a fake symbol to represent the handle to the library
         # Check first if we already did that before
         symb = proj.loader.find_symbol(lib)
@@ -27,7 +32,7 @@ class LoadLibraryExW(LoadLibraryA):
             self.state.globals["loaded_libs"][symb.rebased_addr] = lib
             return symb.rebased_addr
         else:
-            lw.info("LoadLibraryExW: Symbol not found")
+            lw.info("LoadLibraryExW: Symbol not found :" + str(lib))
             extern = proj.loader.extern_object
             addr = extern.get_pseudo_addr(lib)
             self.state.globals["loaded_libs"][addr] = lib
