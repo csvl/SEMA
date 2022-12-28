@@ -32,6 +32,8 @@
 
     * toy examples
 
+* update modififications in penv !!!
+
 Normal command: 
 python3 ToolChainSCDG.py --method DFS --verbose databases/malware-inputs/Sample_paper/nitol/00b2f45c7befbced2efaeb92a725bb3d
 python3 ToolChainSCDG.py --method DFS --packed --verbose /malware-linux/mirai/27802001c9df792dc8e5741565d78188afbefc286076681dbdf6386863c7355c.elf
