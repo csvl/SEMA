@@ -217,10 +217,10 @@ python3 Sema.py FOLDER_OF_BINARIES FOLDER_OF_SIGNATURE
 ```bash
 # For folder of malware 
 # Deep learning not supported with pypy3 (--classifier dl)
-pypy3 Sema.py  --memory_limit --CDFS --train --verbose_scdg --verbose_classifier databases/malware-win/train/ output/save-SCDG/
+pypy3 Sema.py  --memory_limit --method CDFS --train --verbose_scdg --verbose_classifier databases/malware-win/train/ output/save-SCDG/
 
 # (virtual env/penv)
-python3 Sema.py --memory_limit --CDFS --train --verbose_scdg --verbose_classifier databases/malware-win/train/ output/save-SCDG/
+python3 Sema.py --memory_limit --method CDFS --train --verbose_scdg --verbose_classifier databases/malware-win/train/ output/save-SCDG/
 ```
 
 :page_with_curl: System Call Dependency Graphs extractor (`SemaSCDG`)
@@ -237,66 +237,7 @@ pypy3 SemaSCDG.py BINARY_NAME
 
 python3 SemaSCDG.py BINARY_NAME
 
-usage: update_readme_usage.py [--DFS | --BFS | --CDFS | --CBFS] [--gs | --json] [--symbion | --unipacker] [--packed] [--concrete_target_is_local] [--symb_loop SYMB_LOOP]
-                              [--limit_pause LIMIT_PAUSE] [--max_step MAX_STEP] [--max_deadend MAX_DEADEND] [--simul_state SIMUL_STATE] [--n_args N_ARGS] [--conc_loop CONC_LOOP]
-                              [--min_size MIN_SIZE] [--disjoint_union] [--not_comp_args] [--three_edges] [--not_ignore_zero] [--dir DIR] [--discard_SCDG] [--eval_time]
-                              [--timeout TIMEOUT] [--not_resolv_string] [--exp_dir EXP_DIR] [--memory_limit] [--verbose_scdg] [--debug_error] [--familly FAMILLY]
-                              binary
-
-SCDG module arguments
-
-optional arguments:
-  help                  show this help message and exit
-  --DFS                 TODO
-  --BFS                 TODO
-  --CDFS                TODO
-  --CBFS                TODO
-  --gs                  .GS format
-  --json                .JSON format
-  --symbion             Concolic unpacking method (linux | windows [in progress])
-  --unipacker           Emulation unpacking method (windows only)
-
-Packed malware:
-  --packed              Is the binary packed ? (default : False)
-  --concrete_target_is_local
-                        Use a local GDB server instead of using cuckoo (default : False)
-
-SCDG exploration techniques parameters:
-  --symb_loop SYMB_LOOP
-                        Number of iteration allowed for a symbolic loop (default : 3)
-  --limit_pause LIMIT_PAUSE
-                        Number of states allowed in pause stash (default : 200)
-  --max_step MAX_STEP   Maximum number of steps allowed for a state (default : 50 000)
-  --max_deadend MAX_DEADEND
-                        Number of deadended state required to stop (default : 600)
-  --simul_state SIMUL_STATE
-                        Number of simultaneous states we explore with simulation manager (default : 5)
-
-Binary parameters:
-  --n_args N_ARGS       Number of symbolic arguments given to the binary (default : 0)
-  --conc_loop CONC_LOOP
-                        Number of symbolic arguments given to the binary (default : 1024)
-
-SCDG creation parameter:
-  --min_size MIN_SIZE   Minimum size required for a trace to be used in SCDG (default : 3)
-  --disjoint_union      Do we merge traces or use disjoint union ? (default : merge)
-  --not_comp_args       Do we compare arguments to add new nodes when building graph ? (default : comparison enabled)
-  --three_edges         Do we use the three-edges strategy ? (default : False)
-  --not_ignore_zero     Do we ignore zero when building graph ? (default : Discard zero)
-  --dir DIR             Directory to save outputs graph for gspan (default : output/)
-  --discard_SCDG        Do not keep intermediate SCDG in file (default : True)
-  --eval_time           Keep intermediate SCDG in file (default : False)
-
-Global parameter:
-  --timeout TIMEOUT     Timeout in seconds before ending extraction (default : 600)
-  --not_resolv_string   Do we try to resolv references of string (default : False)
-  --exp_dir EXP_DIR     Directory to save SCDG extracted (default : output/save-SCDG/)
-  --memory_limit        Skip binary experiment when memory > 90% (default : False)
-  --verbose_scdg        Verbose output during calls extraction (default : False)
-  --debug_error         Debug error states (default : False)
-  --familly FAMILLY     Familly of the malware (default : unknown)
-  binary                Name of the binary to analyze
-
+$$SemaSCDG_usage$$
 ```
 
 Program will output a graph in `.gs` format that could be exploited by `gspan`.
@@ -347,67 +288,7 @@ Just run the script :
 ```bash
 python3 SemaClassifier.py FOLDER/FILE
 
-usage: update_readme_usage.py [-h] [--threshold THRESHOLD] [--biggest_subgraph BIGGEST_SUBGRAPH] [--support SUPPORT] [--ctimeout CTIMEOUT] [--epoch EPOCH] [--sepoch SEPOCH]
-                              [--data_scale DATA_SCALE] [--vector_size VECTOR_SIZE] [--batch_size BATCH_SIZE] (--classification | --detection) (--wl | --inria | --dl | --gspan)
-                              [--bancteian] [--delf] [--FeakerStealer] [--gandcrab] [--ircbot] [--lamer] [--nitol] [--RedLineStealer] [--sfone] [--sillyp2p] [--simbot]
-                              [--Sodinokibi] [--sytro] [--upatre] [--wabot] [--RemcosRAT] [--verbose_classifier] [--train] [--nthread NTHREAD]
-                              binaries
-
-Classification module arguments
-
-optional arguments:
-  -h, --help            show this help message and exit
-  --classification      By malware family
-  --detection           Cleanware vs Malware
-  --wl                  TODO
-  --inria               TODO
-  --dl                  TODO
-  --gspan               TODOe
-
-Global classifiers parameters:
-  --threshold THRESHOLD
-                        Threshold used for the classifier [0..1] (default : 0.45)
-
-Gspan options:
-  --biggest_subgraph BIGGEST_SUBGRAPH
-                        Biggest subgraph consider for Gspan (default: 5)
-  --support SUPPORT     Support used for the gpsan classifier [0..1] (default : 0.75)
-  --ctimeout CTIMEOUT   Timeout for gspan classifier (default : 3sec)
-
-Deep Learning options:
-  --epoch EPOCH         Only for deep learning model: number of epoch (default: 5) Always 1 for FL model
-  --sepoch SEPOCH       Only for deep learning model: starting epoch (default: 1)
-  --data_scale DATA_SCALE
-                        Only for deep learning model: data scale value (default: 0.9)
-  --vector_size VECTOR_SIZE
-                        Only for deep learning model: Size of the vector used (default: 4)
-  --batch_size BATCH_SIZE
-                        Only for deep learning model: Batch size for the model (default: 1)
-
-Malware familly:
-  --bancteian
-  --delf
-  --FeakerStealer
-  --gandcrab
-  --ircbot
-  --lamer
-  --nitol
-  --RedLineStealer
-  --sfone
-  --sillyp2p
-  --simbot
-  --Sodinokibi
-  --sytro
-  --upatre
-  --wabot
-  --RemcosRAT
-
-Global parameter:
-  --verbose_classifier  Verbose output during train/classification (default : False)
-  --train               Launch training process, else classify/detect new sample with previously computed model
-  --nthread NTHREAD     Number of thread used (default: max)
-  binaries              Name of the folder containing binary'signatures to analyze (Default: output/save-SCDG/, only that for ToolChain)
-
+$$SemaClassifier_usage$$
 ```
 
 #### Example

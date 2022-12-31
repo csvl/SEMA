@@ -1,0 +1,69 @@
+{
+    "SHGetFolderPathA" : {
+        "cc": "__stdcall",
+        "returns": "SHFOLDERAPI",
+        "returns_float": false,
+        "name": "SHGetFolderPathA",
+        "arguments": [
+            {
+                "type": "HWND",
+                "name": "hwnd",
+                "is_float": false
+            },
+            {
+                "type": "int",
+                "name": "csidl",
+                "is_float": false
+            },
+            {
+                "type": "HANDLE",
+                "name": "hToken",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            },
+            {
+                "type": "LPSTR",
+                "name": "pszPath",
+                "is_float": false
+            }
+        ]
+    },
+    "SHGetFolderPathW" : {
+    "cc": "__stdcall",
+    "returns": "SHFOLDERAPI",
+    "returns_float": false,
+    "name": "SHGetFolderPathW",
+    "arguments": [
+        {
+            "type": "HWND",
+            "name": "hwnd",
+            "is_float": false
+        },
+        {
+            "type": "int",
+            "name": "csidl",
+            "is_float": false
+        },
+        {
+            "type": "HANDLE",
+            "name": "hToken",
+            "is_float": false
+        },
+        {
+            "type": "DWORD",
+            "name": "dwFlags",
+            "is_float": false
+        },
+        {
+            "type": "LPWSTR",
+            "name": "pszPath",
+            "is_float": false
+        }
+    ]
+}
+
+}

@@ -1,0 +1,182 @@
+{
+  "3": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "InstallELAMCertificateInfo", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "ELAMFile", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "DnsHostnameToComputerNameExW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "Hostname", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "ComputerName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "nSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetPhysicallyInstalledSystemMemory", 
+    "arguments": [
+      {
+        "type": " PULONGLONG", 
+        "name": "TotalMemoryInKilobytes", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DnsHostnameToComputerNameExW": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "DnsHostnameToComputerNameExW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "Hostname", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "ComputerName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "nSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetPhysicallyInstalledSystemMemory": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetPhysicallyInstalledSystemMemory", 
+    "arguments": [
+      {
+        "type": " PULONGLONG", 
+        "name": "TotalMemoryInKilobytes", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetSystemTimeAdjustment", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwTimeAdjustment", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bTimeAdjustmentDisabled", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "InstallELAMCertificateInfo": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "InstallELAMCertificateInfo", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "ELAMFile", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetComputerNameEx2W": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetComputerNameEx2W", 
+    "arguments": [
+      {
+        "type": " COMPUTER_NAME_FORMAT", 
+        "name": "NameType", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "Flags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetComputerNameEx2W", 
+    "arguments": [
+      {
+        "type": " COMPUTER_NAME_FORMAT", 
+        "name": "NameType", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "Flags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpBuffer", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetSystemTimeAdjustment": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetSystemTimeAdjustment", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwTimeAdjustment", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bTimeAdjustmentDisabled", 
+        "is_float": false
+      }
+    ]
+  }
+}

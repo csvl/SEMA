@@ -1,0 +1,2096 @@
+{
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "CreateProcessA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpApplicationName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpCommandLine", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpProcessAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpThreadAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandles", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCreationFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpEnvironment", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpCurrentDirectory", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTARTUPINFOA", 
+        "name": "lpStartupInfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPPROCESS_INFORMATION", 
+        "name": "lpProcessInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "CreateProcessAsUserW", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hToken", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpApplicationName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpCommandLine", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpProcessAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpThreadAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandles", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCreationFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpEnvironment", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpCurrentDirectory", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTARTUPINFOW", 
+        "name": "lpStartupInfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPPROCESS_INFORMATION", 
+        "name": "lpProcessInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "CreateProcessW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpApplicationName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpCommandLine", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpProcessAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpThreadAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandles", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCreationFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpEnvironment", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpCurrentDirectory", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTARTUPINFOW", 
+        "name": "lpStartupInfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPPROCESS_INFORMATION", 
+        "name": "lpProcessInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateRemoteThread", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpThreadAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "dwStackSize", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPTHREAD_START_ROUTINE", 
+        "name": "lpStartAddress", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpParameter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCreationFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpThreadId", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateRemoteThreadEx", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpThreadAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "dwStackSize", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPTHREAD_START_ROUTINE", 
+        "name": "lpStartAddress", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpParameter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCreationFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPPROC_THREAD_ATTRIBUTE_LIST", 
+        "name": "lpAttributeList", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpThreadId", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "6": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateThread", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpThreadAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "dwStackSize", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPTHREAD_START_ROUTINE", 
+        "name": "lpStartAddress", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpParameter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCreationFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpThreadId", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "7": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "DeleteProcThreadAttributeList", 
+    "arguments": [
+      {
+        "type": " LPPROC_THREAD_ATTRIBUTE_LIST", 
+        "name": "lpAttributeList", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "8": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "ExitProcess", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uExitCode", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "9": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "ExitThread", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwExitCode", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "TerminateThread": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "TerminateThread", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwExitCode", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetThreadPriorityBoost": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetThreadPriorityBoost", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " PBOOL", 
+        "name": "pDisablePriorityBoost", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "12": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetCurrentProcessId", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "13": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "GetCurrentThread", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "14": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetCurrentThreadId", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "15": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetExitCodeProcess", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpExitCode", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetExitCodeProcess": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetExitCodeProcess", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpExitCode", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "17": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetPriorityClass", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "18": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetProcessId", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "Process", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "19": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetProcessIdOfThread", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "Thread", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "20": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetProcessTimes", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPFILETIME", 
+        "name": "lpCreationTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPFILETIME", 
+        "name": "lpExitTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPFILETIME", 
+        "name": "lpKernelTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPFILETIME", 
+        "name": "lpUserTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "21": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetProcessVersion", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "ProcessId", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "TlsAlloc": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "TlsAlloc", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetThreadPriorityBoost": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetThreadPriorityBoost", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bDisablePriorityBoost", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "24": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "GetThreadPriority", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "25": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetThreadPriorityBoost", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " PBOOL", 
+        "name": "pDisablePriorityBoost", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "QueueUserAPC": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "QueueUserAPC", 
+    "arguments": [
+      {
+        "type": " PAPCFUNC", 
+        "name": "pfnAPC", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG_PTR", 
+        "name": "dwData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "27": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "OpenProcessToken", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "ProcessHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "DesiredAccess", 
+        "is_float": false
+      }, 
+      {
+        "type": " PHANDLE", 
+        "name": "TokenHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "28": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "OpenThread", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwThreadId", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "29": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "OpenThreadToken", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "ThreadHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "DesiredAccess", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "OpenAsSelf", 
+        "is_float": false
+      }, 
+      {
+        "type": " PHANDLE", 
+        "name": "TokenHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "30": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ProcessIdToSessionId", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwProcessId", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pSessionId", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "31": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "QueryProcessAffinityUpdateMode", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetProcessId": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetProcessId", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "Process", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "33": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ResumeThread", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "34": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetPriorityClass", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwPriorityClass", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetCurrentProcess": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "GetCurrentProcess", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "36": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetProcessShutdownParameters", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "37": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetThreadPriority", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "nPriority", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "OpenProcessToken": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "OpenProcessToken", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "ProcessHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "DesiredAccess", 
+        "is_float": false
+      }, 
+      {
+        "type": " PHANDLE", 
+        "name": "TokenHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "39": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetThreadStackGuarantee", 
+    "arguments": [
+      {
+        "type": " PULONG", 
+        "name": "StackSizeInBytes", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "40": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetThreadToken", 
+    "arguments": [
+      {
+        "type": " PHANDLE", 
+        "name": "Thread", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "Token", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "41": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "SuspendThread", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "42": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SwitchToThread", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "43": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "TerminateProcess", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uExitCode", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "44": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "TerminateThread", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwExitCode", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "45": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "TlsAlloc", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "46": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "TlsFree", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwTlsIndex", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "47": {
+    "cc": "__cdecl", 
+    "returns": "LPVOID", 
+    "returns_float": false, 
+    "name": "TlsGetValue", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwTlsIndex", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "48": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "TlsSetValue", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwTlsIndex", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpTlsValue", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "49": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "UpdateProcThreadAttribute", 
+    "arguments": [
+      {
+        "type": " LPPROC_THREAD_ATTRIBUTE_LIST", 
+        "name": "lpAttributeList", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "Attribute", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "lpValue", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cbSize", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "lpPreviousValue", 
+        "is_float": false
+      }, 
+      {
+        "type": " Pint", 
+        "name": "lpReturnSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetStartupInfoW": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "GetStartupInfoW", 
+    "arguments": [
+      {
+        "type": " LPSTARTUPINFOW", 
+        "name": "lpStartupInfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "10": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "FlushProcessWriteBuffers", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "FlushProcessWriteBuffers": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "FlushProcessWriteBuffers", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "OpenThreadToken": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "OpenThreadToken", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "ThreadHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "DesiredAccess", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "OpenAsSelf", 
+        "is_float": false
+      }, 
+      {
+        "type": " PHANDLE", 
+        "name": "TokenHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "26": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "InitializeProcThreadAttributeList", 
+    "arguments": [
+      {
+        "type": " LPPROC_THREAD_ATTRIBUTE_LIST", 
+        "name": "lpAttributeList", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwAttributeCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " Pint", 
+        "name": "lpSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetThreadPriority": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "GetThreadPriority", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "16": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetExitCodeThread", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpExitCode", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ResumeThread": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ResumeThread", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "UpdateProcThreadAttribute": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "UpdateProcThreadAttribute", 
+    "arguments": [
+      {
+        "type": " LPPROC_THREAD_ATTRIBUTE_LIST", 
+        "name": "lpAttributeList", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "Attribute", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "lpValue", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cbSize", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "lpPreviousValue", 
+        "is_float": false
+      }, 
+      {
+        "type": " Pint", 
+        "name": "lpReturnSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "TlsGetValue": {
+    "cc": "__cdecl", 
+    "returns": "LPVOID", 
+    "returns_float": false, 
+    "name": "TlsGetValue", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwTlsIndex", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "TlsSetValue": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "TlsSetValue", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwTlsIndex", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpTlsValue", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetProcessTimes": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetProcessTimes", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPFILETIME", 
+        "name": "lpCreationTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPFILETIME", 
+        "name": "lpExitTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPFILETIME", 
+        "name": "lpKernelTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPFILETIME", 
+        "name": "lpUserTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "OpenThread": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "OpenThread", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwThreadId", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "22": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "GetStartupInfoW", 
+    "arguments": [
+      {
+        "type": " LPSTARTUPINFOW", 
+        "name": "lpStartupInfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "23": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetThreadId", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "Thread", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetProcessIdOfThread": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetProcessIdOfThread", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "Thread", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "11": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "GetCurrentProcess", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ExitProcess": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "ExitProcess", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uExitCode", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetProcessShutdownParameters": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetProcessShutdownParameters", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwLevel", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateRemoteThread": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateRemoteThread", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpThreadAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "dwStackSize", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPTHREAD_START_ROUTINE", 
+        "name": "lpStartAddress", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpParameter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCreationFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpThreadId", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetProcessAffinityUpdateMode": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetProcessAffinityUpdateMode", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetPriorityClass": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetPriorityClass", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SwitchToThread": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SwitchToThread", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetThreadPriority": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetThreadPriority", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "nPriority", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetCurrentProcessId": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetCurrentProcessId", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ProcessIdToSessionId": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ProcessIdToSessionId", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwProcessId", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD*", 
+        "name": "pSessionId", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "InitializeProcThreadAttributeList": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "InitializeProcThreadAttributeList", 
+    "arguments": [
+      {
+        "type": " LPPROC_THREAD_ATTRIBUTE_LIST", 
+        "name": "lpAttributeList", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwAttributeCount", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " Pint", 
+        "name": "lpSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetCurrentThread": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "GetCurrentThread", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SuspendThread": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "SuspendThread", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "32": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "QueueUserAPC", 
+    "arguments": [
+      {
+        "type": " PAPCFUNC", 
+        "name": "pfnAPC", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG_PTR", 
+        "name": "dwData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateThread": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateThread", 
+    "arguments": [
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpThreadAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "dwStackSize", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPTHREAD_START_ROUTINE", 
+        "name": "lpStartAddress", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpParameter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCreationFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpThreadId", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "TlsFree": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "TlsFree", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwTlsIndex", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetExitCodeThread": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetExitCodeThread", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpExitCode", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "35": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetProcessAffinityUpdateMode", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateRemoteThreadEx": {
+    "cc": "__cdecl", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "CreateRemoteThreadEx", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpThreadAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "dwStackSize", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPTHREAD_START_ROUTINE", 
+        "name": "lpStartAddress", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpParameter", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCreationFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPPROC_THREAD_ATTRIBUTE_LIST", 
+        "name": "lpAttributeList", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpThreadId", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetThreadStackGuarantee": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetThreadStackGuarantee", 
+    "arguments": [
+      {
+        "type": " PULONG", 
+        "name": "StackSizeInBytes", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ExitThread": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "ExitThread", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwExitCode", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "QueryProcessAffinityUpdateMode": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "QueryProcessAffinityUpdateMode", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateProcessAsUserW": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "CreateProcessAsUserW", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hToken", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpApplicationName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpCommandLine", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpProcessAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpThreadAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandles", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCreationFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpEnvironment", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpCurrentDirectory", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTARTUPINFOW", 
+        "name": "lpStartupInfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPPROCESS_INFORMATION", 
+        "name": "lpProcessInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetPriorityClass": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetPriorityClass", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwPriorityClass", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DeleteProcThreadAttributeList": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "DeleteProcThreadAttributeList", 
+    "arguments": [
+      {
+        "type": " LPPROC_THREAD_ATTRIBUTE_LIST", 
+        "name": "lpAttributeList", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "TerminateProcess": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "TerminateProcess", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uExitCode", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "38": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetThreadPriorityBoost", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bDisablePriorityBoost", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateProcessA": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "CreateProcessA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpApplicationName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpCommandLine", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpProcessAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpThreadAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandles", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCreationFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpEnvironment", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpCurrentDirectory", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTARTUPINFOA", 
+        "name": "lpStartupInfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPPROCESS_INFORMATION", 
+        "name": "lpProcessInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetThreadId": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetThreadId", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "Thread", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateProcessW": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "CreateProcessW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpApplicationName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpCommandLine", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpProcessAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSECURITY_ATTRIBUTES", 
+        "name": "lpThreadAttributes", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandles", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCreationFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpEnvironment", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpCurrentDirectory", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTARTUPINFOW", 
+        "name": "lpStartupInfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPPROCESS_INFORMATION", 
+        "name": "lpProcessInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetProcessVersion": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetProcessVersion", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "ProcessId", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetThreadToken": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetThreadToken", 
+    "arguments": [
+      {
+        "type": " PHANDLE", 
+        "name": "Thread", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "Token", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetCurrentThreadId": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetCurrentThreadId", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }
+}

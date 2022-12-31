@@ -1,0 +1,330 @@
+{
+  "2": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "AlphaBlend", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": "hdcDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "xoriginDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "yoriginDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "wDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "hDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC", 
+        "name": "hdcSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "xoriginSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "yoriginSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "wSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "hSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " BLENDFUNCTION", 
+        "name": "ftn", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GradientFill", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": "hdc", 
+        "is_float": false
+      }, 
+      {
+        "type": " PTRIVERTEX", 
+        "name": "pVertex", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "nVertex", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "pMesh", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "nMesh", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "ulMode", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "TransparentBlt", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": "hdcDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "xoriginDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "yoriginDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "wDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "hDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC", 
+        "name": "hdcSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "xoriginSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "yoriginSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "wSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "hSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "crTransparent", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "AlphaBlend": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "AlphaBlend", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": "hdcDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "xoriginDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "yoriginDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "wDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "hDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC", 
+        "name": "hdcSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "xoriginSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "yoriginSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "wSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "hSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " BLENDFUNCTION", 
+        "name": "ftn", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GradientFill": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GradientFill", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": "hdc", 
+        "is_float": false
+      }, 
+      {
+        "type": " PTRIVERTEX", 
+        "name": "pVertex", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "nVertex", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "pMesh", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "nMesh", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "ulMode", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "TransparentBlt": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "TransparentBlt", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": "hdcDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "xoriginDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "yoriginDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "wDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "hDest", 
+        "is_float": false
+      }, 
+      {
+        "type": " HDC", 
+        "name": "hdcSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "xoriginSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "yoriginSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "wSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "hSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "crTransparent", 
+        "is_float": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "QueryDepthSList": {
+    "cc": "__cdecl", 
+    "returns": "USHORT", 
+    "returns_float": false, 
+    "name": "QueryDepthSList", 
+    "arguments": [
+      {
+        "type": " PSLIST_HEADER", 
+        "name": "ListHead", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__cdecl", 
+    "returns": "PSLIST_ENTRY", 
+    "returns_float": false, 
+    "name": "InterlockedFlushSList", 
+    "arguments": [
+      {
+        "type": " PSLIST_HEADER", 
+        "name": "ListHead", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__cdecl", 
+    "returns": "PSLIST_ENTRY", 
+    "returns_float": false, 
+    "name": "InterlockedPopEntrySList", 
+    "arguments": [
+      {
+        "type": " PSLIST_HEADER", 
+        "name": "ListHead", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__cdecl", 
+    "returns": "PSLIST_ENTRY", 
+    "returns_float": false, 
+    "name": "InterlockedPushEntrySList", 
+    "arguments": [
+      {
+        "type": " PSLIST_HEADER", 
+        "name": "ListHead", 
+        "is_float": false
+      }, 
+      {
+        "type": " PSLIST_ENTRY", 
+        "name": "ListEntry", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__cdecl", 
+    "returns": "USHORT", 
+    "returns_float": false, 
+    "name": "QueryDepthSList", 
+    "arguments": [
+      {
+        "type": " PSLIST_HEADER", 
+        "name": "ListHead", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "InitializeSListHead", 
+    "arguments": [
+      {
+        "type": " PSLIST_HEADER", 
+        "name": "ListHead", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "InterlockedPopEntrySList": {
+    "cc": "__cdecl", 
+    "returns": "PSLIST_ENTRY", 
+    "returns_float": false, 
+    "name": "InterlockedPopEntrySList", 
+    "arguments": [
+      {
+        "type": " PSLIST_HEADER", 
+        "name": "ListHead", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "InterlockedFlushSList": {
+    "cc": "__cdecl", 
+    "returns": "PSLIST_ENTRY", 
+    "returns_float": false, 
+    "name": "InterlockedFlushSList", 
+    "arguments": [
+      {
+        "type": " PSLIST_HEADER", 
+        "name": "ListHead", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "InitializeSListHead": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "InitializeSListHead", 
+    "arguments": [
+      {
+        "type": " PSLIST_HEADER", 
+        "name": "ListHead", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "InterlockedPushEntrySList": {
+    "cc": "__cdecl", 
+    "returns": "PSLIST_ENTRY", 
+    "returns_float": false, 
+    "name": "InterlockedPushEntrySList", 
+    "arguments": [
+      {
+        "type": " PSLIST_HEADER", 
+        "name": "ListHead", 
+        "is_float": false
+      }, 
+      {
+        "type": " PSLIST_ENTRY", 
+        "name": "ListEntry", 
+        "is_float": false
+      }
+    ]
+  }
+}

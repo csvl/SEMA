@@ -1,11 +1,11 @@
 import glob
 import logging
 try:
-    from ToolChainClassifier.ToolChainClassifier import ToolChainClassifier
-    from ToolChainSCDG.clogging.CustomFormatter import CustomFormatter
+    from src.SemaClassifier.SemaClassifier import SemaClassifier
+    from SemaSCDG.clogging.CustomFormatter import CustomFormatter
 except:
-    from .ToolChainClassifier import ToolChainClassifier
-    from ..ToolChainSCDG.clogging.CustomFormatter import CustomFormatter
+    from .SemaClassifier import SemaClassifier
+    from ..SemaSCDG.clogging.CustomFormatter import CustomFormatter
 
 try:
     from .HE.HE_SEALS import F, RSA
@@ -60,8 +60,8 @@ ROOT_DIR = ROOT_DIR.replace("tasks","")
 @app.task
 def start_scdg(** args):
     # Need to be imported here for correctness
-    from ToolChainSCDG.ToolChainSCDG import ToolChainSCDG
-    tool_scdg = ToolChainSCDG(print_sm_step=True,
+    from src.SemaSCDG.SemaSCDG import SemaSCDG
+    tool_scdg = SemaSCDG(print_sm_step=True,
                             print_syscall=True,
                             debug_error=True,
                             debug_string=True,
@@ -154,7 +154,7 @@ def train(** args):
         input_path = input_path.replace("save-SCDG","save-SCDG"  + "_client"+str(client_id))
         
     if nround<1:
-        toolcl = ToolChainClassifier(classifier_name=classifier, parse=False)
+        toolcl = SemaClassifier(classifier_name=classifier, parse=False)
         families = []
         last_familiy = "unknown"
         if os.path.isdir(input_path):

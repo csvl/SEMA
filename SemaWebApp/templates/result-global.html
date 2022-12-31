@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Dashboard</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="static/css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-3.6.2.min.js" integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="index.html">SEMA</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <a class="nav-link" href="index.html">
+                               <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                               SEMA tools
+                            </a>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                               <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                               SEMA results
+                               <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                               <nav class="sb-sidenav-menu-nested nav">
+                                   <a class="nav-link" href="results.html">
+                                       <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                       SEMA results viewer
+                                   </a>
+                                   <a class="nav-link" href="results-global.html">
+                                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                       SEMA results global
+                                   </a>
+                               </nav>
+                           </div>
+                         </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        version 0.1
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <form method=post enctype=multipart/form-data>
+                        <div class="container-fluid px-4">
+                           <h1>
+                              SEMA statistics
+                           </h1>
+                           <div class="rainbowContainer2">
+                            <h3>Filter parameters</h3>
+                        <div class="row" style="padding-bottom: 10px">
+                           <div class="card-group">
+                              <div class="card">
+                                 <div class="card-body">
+                                    <p class="card-text">
+                                        <div class="col-auto">
+                                            <label for="exec_mode" class="col-form-label">Experiments range</label>
+                                        </div>
+                                        <div id="slider-outer-div">
+                                            <div id="slider-max-label" class="slider-label"></div>
+                                            <div id="slider-min-label" class="slider-label"></div>
+                                            <div id="slider-div">
+                                            <div>From</div>
+                                            <div>
+                                                <input id="ex2" type="text" data-slider-min="0"
+                                                data-slider-max="{{nb_exp}}" data-slider-value="[0,{{nb_exp}}]"
+                                                data-slider-tooltip="hide" name="iter_range"/>
+                                            </div>
+                                            <div>To</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label for="date_mode" class="col-form-label">Date range</label>
+                                        </div>
+                                        <div id="slider-outer-div-1">
+                                            <div id="slider-max-label-1" class="slider-label"></div>
+                                            <div id="slider-min-label-1" class="slider-label"></div>
+                                            <div id="slider-div-1">
+                                            <div>From</div>
+                                            <div>
+                                                <input id="ex3" type="text" data-slider-min="0"
+                                                data-slider-max="{{df_nb_date-1}}" data-slider-value="[0,{{df_nb_date-1}}]"
+                                                data-slider-tooltip="hide" name="date_range"/>
+                                            </div>
+                                            <div>To</div>
+                                            </div>
+                                        </div>
+                                    </p>
+                                 </div>
+                              </div>
+                              <div class="card">
+                                 <div class="card-body">
+                                    <p class="card-text">
+                                    <div class="col-auto">
+                                       <label for="ver_mode" class="col-form-label">Initial Version</label>
+                                    </div>
+                                    <div class="form-check" id="ver_mode">
+                                       <input class="form-check-input" type="radio" name="version" id="draft28" value="28">
+                                       <label class="form-check-label" for="draft28">
+                                       draft-28
+                                       </label>
+                                    </div>
+                                    <div class="form-check">
+                                       <input class="form-check-input" type="radio" name="version" id="draft29" value="29">
+                                       <label class="form-check-label" for="draft29">
+                                       draft-29
+                                       </label>
+                                    </div>
+                                    <div class="form-check">
+                                       <input class="form-check-input" type="radio" name="version" id="rfc9000" value="1">
+                                       <label class="form-check-label" for="rfc9000">
+                                       RFC9000
+                                       </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="version" id="all" value="all" checked>
+                                        <label class="form-check-label" for="all">
+                                        All
+                                        </label>
+                                     </div>
+                                    <div class="col-auto">
+                                       <label for="alpn_mode" class="col-form-label">Initial ALPN</label>
+                                    </div>
+                                    <div class="form-check" id="alpn_mode">
+                                       <input class="form-check-input" type="radio" name="ALPN" id="hq-28" value="hq-28" >
+                                       <label class="form-check-label" for="hq-28">
+                                       hq-28
+                                       </label>
+                                    </div>
+                                    <div class="form-check">
+                                       <input class="form-check-input" type="radio" name="ALPN" id="hq-29" value="hq-29">
+                                       <label class="form-check-label" for="hq-29">
+                                       hq-29
+                                       </label>
+                                    </div>
+                                    <div class="form-check">
+                                       <input class="form-check-input" type="radio" name="ALPN" id="hq-interop" value="hq-interop">
+                                       <label class="form-check-label" for="hq-interop">
+                                       hq-interop
+                                       </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="ALPN" id="all" value="all" checked>
+                                        <label class="form-check-label" for="all">
+                                        All
+                                        </label>
+                                     </div>
+                                    </p>
+                                    <p class="card-text"><small class="text-muted"></small></p>
+                                 </div>
+                              </div>
+                              <div class="card">
+                                 <div class="card-body">
+                                    <p class="card-text">
+                                        <div class="col-auto">
+                                            <label for="is_pass" class="col-form-label">Test results</label>
+                                         </div>
+                                         <div class="form-check" id="is_pass">
+                                            <input class="form-check-input" type="radio" name="isPass" id="True" value="True" >
+                                            <label class="form-check-label" for="isPass">
+                                            isPass
+                                            </label>
+                                         </div>
+                                         <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="isPass" id="False" value="False">
+                                            <label class="form-check-label" for="isFail">
+                                            isFail
+                                            </label>
+                                         </div>
+                                         <div class="form-check">
+                                             <input class="form-check-input" type="radio" name="isPass" id="all" value="all" checked>
+                                             <label class="form-check-label" for="all">
+                                             All
+                                             </label>
+                                          </div>
+                                          <div class="col-auto">
+                                            <label for="is_pass" class="col-form-label">Test type</label>
+                                         </div>
+                                         <div class="form-check" id="is_pass">
+                                            <input class="form-check-input" type="radio" name="test_type" id="Client" value="Client" >
+                                            <label class="form-check-label" for="Client">
+                                            Client
+                                            </label>
+                                         </div>
+                                         <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="test_type" id="Server" value="Server">
+                                            <label class="form-check-label" for="Server">
+                                            Server
+                                            </label>
+                                         </div>
+                                         <div class="form-check">
+                                             <input class="form-check-input" type="radio" name="test_type" id="all" value="all" checked>
+                                             <label class="form-check-label" for="all">
+                                             All
+                                             </label>
+                                          </div>
+                                    </p>
+                                    <p class="card-text">
+                                    {% if iteration and iteration > 0 %}
+                                       <div class="d-grid gap-2">
+                                          <button class="btn btn-primary submitter" disabled type=submit>Filter</button>
+                                       </div>
+                                    {% else %}
+                                       <div class="d-grid gap-2">
+                                          <button class="btn btn-primary submitter" type=submit>Filter</button>
+                                       </div>
+                                    {% endif %}
+                                    </p>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="row" style="padding-top: 10px">
+                            <div class="col-xl-4">
+                               <div class="card">
+                                  <div class="card-header" id="heading1">
+                                    <a class="btn btn-link" data-bs-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapse1" role="button">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                    </a>
+                                     SEMA server tests
+                                  </div>
+                                  <div id="collapse1" class="collapse" aria-labelledby="heading1" data-parent="#accordion">
+                                    <div class="card-body test">
+                                        {% for server_test in server_tests %}
+                                        <div class="form-check">
+                                            <input class="form-check-input"  type="checkbox" name="server_test" value={{ server_test }} id={{ server_test }}>
+                                            <label class="form-check-label" for={{ server_test }}>
+                                            {{ server_test }}
+                                            </label>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                               </div>
+                            </div>
+                            <div class="col-xl-4">
+                               <div class="card">
+                                  <div class="card-header" id="heading2">
+                                    <a class="btn btn-link" data-bs-toggle="collapse" href="#collapse2" aria-expanded="false" aria-controls="collapse2" role="button">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                    </a>
+                                     SEMA client tests
+                                  </div>
+                                  <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordion">
+                                    <div class="card-body test">
+                                        {% for client_test in client_tests %}
+                                        <div class="form-check">
+                                            <input class="form-check-input"  type="checkbox" name="client_test" value={{ client_test }} id={{ client_test }}>
+                                            <label class="form-check-label" for={{ client_test }}>
+                                            {{ client_test }}
+                                            </label>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                               </div>
+                            </div>
+                            <div class="col-xl-4">
+                               <div class="card">
+                                  <div class="card-header" id="heading3">
+                                    <a class="btn btn-link" data-bs-toggle="collapse" href="#collapse3" aria-expanded="false" aria-controls="collapse3" role="button">
+                                        <i class="fas fa-chart-bar me-1"></i>
+                                    </a>
+                                     SEMA implementations
+                                  </div>
+                                  <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordion">
+                                    <div class="card-body implem">
+                                        {% for implem in implems %}
+                                        <div class="form-check">
+                                            <input class="form-check-input"  type="checkbox" name="implem" value={{ implem }} id={{ implem }} >
+                                            <label class="form-check-label" for={{ implem }}>
+                                            {{ implem }}
+                                            </label>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                               </div>
+                            </div>
+                         </div>
+                              <div class="row" style="padding-top: 10px">
+                                <table id="datatablesSimple">
+
+                                </table>
+                              </div>
+                           </div>
+                        </div>
+                     </form>
+                    <footer class="py-4 bg-light mt-auto">
+                        <div class="container-fluid px-4">
+                            <div class="d-flex align-items-center justify-content-between small">
+                                <div class="text-muted">Copyright &copy; SEMA 2022 - Christophe Crochet</div>
+                                <div>
+                                    <a href="#">Privacy Policy</a>
+                                    &middot;
+                                    <a href="#">Terms &amp; Conditions</a>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </main>
+            </div>
+        </div>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.css" integrity="sha512-SZgE3m1he0aEF3tIxxnz/3mXu/u/wlMNxQSnE0Cni9j/O8Gs+TjM9tm1NX34nRQ7GiLwUEzwuE3Wv2FLz2667w==" crossorigin="anonymous" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="static/js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="static/assets/demo/chart-area-demo.js"></script>
+        <script src="static/assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="static/js/datatables-simple-demo.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js" integrity="sha512-f0VlzJbcEB6KiW8ZVtL+5HWPDyW1+nJEjguZ5IVnSQkvZbwBt2RfCBY0CBO1PsMAqxxrG4Di6TfsCPP3ZRwKpA==" crossorigin="anonymous"></script>
+        <script src="https://cdn.rawgit.com/okfn/csv.js/master/csv.min.js"></script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.css" integrity="sha512-SZgE3m1he0aEF3tIxxnz/3mXu/u/wlMNxQSnE0Cni9j/O8Gs+TjM9tm1NX34nRQ7GiLwUEzwuE3Wv2FLz2667w==" crossorigin="anonymous" />
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js" integrity="sha512-f0VlzJbcEB6KiW8ZVtL+5HWPDyW1+nJEjguZ5IVnSQkvZbwBt2RfCBY0CBO1PsMAqxxrG4Di6TfsCPP3ZRwKpA==" crossorigin="anonymous"></script>
+
+        <script>
+            $(document).ready(function() {
+                
+                  const setLabel = (lbl, val) => {
+                    const label = $(`#slider-${lbl}-label`);
+                    label.text(val);
+                    const slider = $(`#slider-div .${lbl}-slider-handle`);
+                    const rect = slider[0].getBoundingClientRect();
+                    label.offset({
+                      top: rect.top - 30,
+                      left: rect.left
+                    });
+                  }
+                  
+                  const setLabels = (values) => {
+                    setLabel("min", values[0]);
+                    setLabel("max", values[1]);
+                  }
+                  
+                  
+                  $('#ex2').slider().on('slide', function(ev) {
+                    setLabels(ev.value);
+                  });
+                  setLabels($('#ex2').attr("data-value").split(","));
+                
+                  let dates = {{ df_dates | safe }};
+                  const setLabel2 = (lbl, val) => {
+                    const label = $(`#slider-${lbl}-label-1`);
+                    label.text(dates[val]);
+                    const slider = $(`#slider-div-1 .${lbl}-slider-handle`);
+                    const rect = slider[0].getBoundingClientRect();
+                    label.offset({
+                      top: rect.top - 30,
+                      left: rect.left
+                    });
+                  }
+                  
+                const setLabels2 = (values) => {
+                    setLabel2("min", values[0]);
+                    setLabel2("max", values[1]);
+                  }
+                  
+                  
+                  $('#ex3').slider().on('slide', function(ev) {
+                    setLabels2(ev.value);
+                  });
+                  setLabels2($('#ex3').attr("data-value").split(","));
+                
+                  // (A) FILE READER + HTML ELEMENTS
+                let table = document.getElementById("datatablesSimple");
+                var index = 0;
+                var body = null;
+                table.innerHTML = "";
+                    for (let row of CSV.parse(`{{csv_text}}`)) {
+                        if(index == 0){
+                            let tr = table.createTHead();
+                            for (let col of row) {
+                                let th = document.createElement("th");
+                                th.innerHTML = col;
+                                tr.appendChild(th);
+                            }
+                            body = table.createTBody();
+                        }
+                        else{
+                            let tr = body.insertRow();
+                            let i = 0;
+                            for (let col of row) {
+                                let td = tr.insertCell();
+                                if (i == 0){
+                                    td.innerHTML = "<a href='/results.html?page="+ (parseInt({{nb_exp}}) - parseInt(col)) +"'>" + col + "</a>";
+                                } else {
+                                    td.innerHTML = col;
+                                }
+                                i++;
+                            }
+                        }
+                        index++;
+                }
+            });
+        </script>
+    </body>
+</html>

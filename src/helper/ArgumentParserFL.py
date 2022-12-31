@@ -1,6 +1,6 @@
 import argparse
-from ToolChainSCDG.helper.ArgumentParserSCDG import ArgumentParserSCDG
-from ToolChainClassifier.helper.ArgumentParserClassifier import ArgumentParserClassifier
+from SemaSCDG.helper.ArgumentParserSCDG import ArgumentParserSCDG
+from SemaClassifier.helper.ArgumentParserClassifier import ArgumentParserClassifier
 
 class ArgumentParserFL:
     # TODO add logs
