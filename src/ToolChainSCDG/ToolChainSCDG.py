@@ -27,7 +27,7 @@ from helper.GraphBuilder import *
 import angr
 
 from procedures.CustomSimProcedure import *
-from Breakpoints import *
+from Hooks import *
 from plugin.PluginEnvVar import *
 from plugin.PluginEvasion import *
 from explorer.ToolChainExplorerDFS import ToolChainExplorerDFS
@@ -141,7 +141,7 @@ class ToolChainSCDG:
         self.call_sim = CustomSimProcedure(
             self.scdg, self.scdg_fin, string_resolv, print_on
         )
-        self.breakpoints = Breakpoints(-1)
+        self.hooks = Hooks()
         self.eval_time = False
 
         self.unpack_mode = None
@@ -198,6 +198,7 @@ class ToolChainSCDG:
         main_obj = proj.loader.main_object
         os_obj = main_obj.os
 
+        # count total number of blocks and instructions
         vaddr = 0
         memsize = 0
         for sec in main_obj.sections:
@@ -217,8 +218,6 @@ class ToolChainSCDG:
                 nbblocks -= 1
             else:
                 i += len(block.bytes)
-        print(nbblocks)
-        print(nbinstr)
             
             
         # Informations about program
@@ -342,8 +341,8 @@ class ToolChainSCDG:
         else:
             self.call_sim.custom_hook_windows_symbols(proj)
 
-        self.breakpoints.initialization(cont)
-        self.breakpoints.Hooks(state,proj)
+        self.hooks.initialization(cont)
+        self.hooks.hook(state,proj)
                 
         # Creation of simulation manager, primary interface in angr for performing execution
         simgr = proj.factory.simulation_manager(state)
@@ -355,6 +354,9 @@ class ToolChainSCDG:
         ##########         Exploration           ############
         #####################################################
         
+        def nothing(state):
+            pass
+                
         instr_dict = {}
         def count(state):
             if state.addr not in instr_dict:
@@ -376,7 +378,7 @@ class ToolChainSCDG:
         state.inspect.b("call", when=angr.BP_BEFORE, action=self.call_sim.add_addr_call)
         state.inspect.b("call", when=angr.BP_AFTER, action=self.call_sim.rm_addr_call)
         
-        state.inspect.b("instruction",when=angr.BP_BEFORE, action=self.breakpoints.debug_instr)
+        state.inspect.b("instruction",when=angr.BP_BEFORE, action=nothing)
         state.inspect.b("instruction",when=angr.BP_AFTER, action=count)
         state.inspect.b("irsb",when=angr.BP_BEFORE, action=countblock)
 
@@ -463,11 +465,7 @@ class ToolChainSCDG:
             exploration_tech = ToolChainExplorerBFS(
                 simgr, 0, args.exp_dir, nameFileShort, self
             )
-        if False:
-            exploration_tech = ToolChainExplorerDBFS(
-                simgr, 0, args.exp_dir, nameFileShort, self
-            )
-        if False:
+        if True:
             exploration_tech = ToolChainExplorerAnotherCDFS(
                 simgr, 0, args.exp_dir, nameFileShort, self
             )
@@ -521,7 +519,6 @@ class ToolChainSCDG:
         with open_file("out.log", 'w') as f:
             f.write(brutto_result + '\n')
             
-        print("out done")
         # Build SCDG
         #self.warzone(nameFileShort,simgr,tracked)
         self.build_scdg_fin(args, nameFileShort, main_obj, state, simgr)
