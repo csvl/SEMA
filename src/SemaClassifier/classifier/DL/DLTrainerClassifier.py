@@ -87,6 +87,12 @@ class DLTrainerClassifier(Classifier):
 			plt.savefig(f"{save_path}_CM_fig.png", bbox_inches='tight')
 		self.log.info(f"TPR\{self.TPR}")
 		self.log.info(f"Loss\{self.loss}")
+  
+		self.tpr = self.TPR
+		self.balanced_accuracy = bacc
+		self.fscore = fscore
+		self.accuracy = acc
+  
 		return acc, self.loss
 
 	def classify(self, path=None): # TODO test acc on val_set & test_set

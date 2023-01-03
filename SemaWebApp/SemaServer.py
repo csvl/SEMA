@@ -14,7 +14,7 @@ import threading
 import sys
 import requests
 # from tkinter import N
-from flask import Flask, flash, request, redirect, url_for, send_from_directory, Response, session, render_template
+from flask import Flask, flash, request, redirect, url_for, send_from_directory, Response, session, render_template, Markup
 from werkzeug.utils import secure_filename
 from base64 import b64encode
 from django.core.paginator import (
@@ -31,6 +31,10 @@ import pandas as pd
 from src.Sema import *
 import threading
 
+import dill
+import pyzipper
+import shutil
+
 class SemaServer:
     ROOTPATH = os.getcwd()
     print(ROOTPATH)
@@ -40,6 +44,7 @@ class SemaServer:
     app.config['SESSION_PERMANENT'] = False
     app.config['APPLICATION_ROOT'] = ROOTPATH + '/SemaWebApp/templates/'
     app.debug = True
+    app.jinja_env.filters['json'] = lambda v: Markup(json.dumps(v)) # not safe
     
     # enable CORS
     CORS(app, resources={r'/*': {'origins': '*'}})
@@ -157,6 +162,8 @@ class SemaServer:
         # SemaServer.vizualiser_ip = vizualiser_ip
         
         SemaServer.exps = []
+        SemaServer.sema_res_dir = "src/output/runs/" # TODO dynamic
+        SemaServer.current_exp = 0
 
 
     @app.after_request
@@ -191,6 +198,10 @@ class SemaServer:
     @app.route('/iteration-scdg', methods = ['GET', 'POST'])
     def iteration():
         return str(SemaServer.sema.tool_scdg.nb_exps)
+    
+    @app.route('/progress-dl', methods = ['GET', 'POST'])
+    def progress_dl():
+        return str(0) ## TODO
 
     @app.route('/index.html', methods = ['GET', 'POST'])
     def serve_index():
@@ -201,12 +212,16 @@ class SemaServer:
         if request.method == 'POST':
             print(request.form)
             
+            scdg_args = {}
+            class_args = {}
+            fl_args = {}
             if "scdg_enable" in request.form or True: # TODO refactor
                 exp_args = []
                 exp_args_str = ""
                 for group in SemaServer.sema.args_parser.args_parser_scdg.parser._mutually_exclusive_groups:
                     if group.title in request.form:
                         exp_args.append("--" + request.form[group.title])
+                        scdg_args[request.form[group.title]] = True
                 for group in SemaServer.sema.args_parser.args_parser_scdg.parser._action_groups:
                     for action in group._group_actions:
                         if action.dest == "binary":
@@ -218,6 +233,7 @@ class SemaServer:
                             else:
                                 exp_args.append("--" + action.dest)
                                 exp_args.append(request.form[action.dest])
+                                scdg_args[action.dest] = request.form[action.dest]
                         elif action.dest == "dir":
                             if len(request.files["dir"].filename) > 0:
                                 exp_args.append("--" + action.dest)
@@ -225,16 +241,19 @@ class SemaServer:
                             else:
                                 exp_args.append("--" + action.dest)
                                 exp_args.append(request.form[action.dest])
+                                scdg_args[action.dest] = request.form[action.dest]
                         elif action.dest in request.form:
                             # TODO add group_name in new dictionary
                             group_name = group.title
                             if isinstance(action, argparse._StoreTrueAction) or isinstance(action, argparse._StoreFalseAction):
                                 exp_args.append("--" + action.dest)
                                 exp_args_str += "--" + action.dest + " "
+                                scdg_args[action.dest] = True
                             else:
                                 exp_args.append("--" + action.dest)
                                 exp_args.append(request.form[action.dest])
-                                exp_args_str += "--" + action.dest + " " + request.form[action.dest] + " "       
+                                exp_args_str += "--" + action.dest + " " + request.form[action.dest] + " "  
+                                scdg_args[action.dest] = request.form[action.dest]     
                 if len(request.form["binary"]) > 0:
                     binary = request.form["binary"]
                     binary_split = binary.split("/src")
@@ -242,13 +261,16 @@ class SemaServer:
                     #exit()
                     binary = "/app/src" + binary_split[1]
                     exp_args.append(binary)
+                    scdg_args["binary"] = binary
                 else: # TODO
                     exp_args.append(str(request.files["binary"].filename))
                     exp_args_str += str(request.files["binary"].filename)        
-            if "classifier_enable" in request.form or True: # TODO refactor
+            if "class_enable" in request.form or True: # TODO refactor
                 for group in SemaServer.sema.args_parser.args_parser_class.parser._mutually_exclusive_groups:
+                    #print(group.title)
                     if group.title in request.form:
                         exp_args.append("--" + request.form[group.title])
+                        class_args[request.form[group.title]] = True
                 for group in SemaServer.sema.args_parser.args_parser_class.parser._action_groups:
                     for action in group._group_actions:
                         if action.dest == "binaries":
@@ -258,15 +280,28 @@ class SemaServer:
                             group_name = group.title
                             if isinstance(action, argparse._StoreTrueAction) or isinstance(action, argparse._StoreFalseAction):
                                 exp_args.append("--" + action.dest)
+                                class_args[action.dest] = True
                             else:
                                 exp_args.append("--" + action.dest)
                                 exp_args.append(request.form[action.dest])
+                                class_args[action.dest] = request.form[action.dest]
                 
-                if len(request.files["binaries"].filename) > 0:
-                    exp_args.append(request.files["binaries"].split("/")[0])
+                if len(request.form["binaries"]) > 0:
+                    binaries = request.form["binaries"]
+                    binary_split = binaries.split("/src")
+                    print(binary_split)
+                    #exit()
+                    if len(binary_split) > 1:
+                        binaries = "/app/src/" + binary_split[1]
+                    else:
+                        binaries = "/app/src/" + binary_split[0]
+                    exp_args.append(binaries)
+                    class_args["binaries"] = binaries
+                    
+                    #exp_args.append(request.files["binaries"].split("/")[0])
                 else:
                     exp_args.append("None")
-            if "fl_enable" in request.form  or True: # TODO refactor + implement
+            if "fl_enable" in request.form: # TODO refactor + implement
                 for group in SemaServer.sema.args_parser.args_parser_scdg.parser._mutually_exclusive_groups:
                     if group.title in request.form:
                         exp_args.append("--" + request.form[group.title])
@@ -280,23 +315,43 @@ class SemaServer:
                             else:
                                 exp_args.append("--" + action.dest)
                                 exp_args.append(request.form[action.dest])
-        
 
+            # TODO dir per malware
+            
             print(exp_args)
-            print(exp_args_str.split())
+            #print(exp_args_str.split())
             #exit(0)
             #sys.argv = exp_args_str.split()
-            args = SemaServer.sema.args_parser.parse_arguments(args_list=exp_args,allow_unk=True) # TODO
+            args = SemaServer.sema.args_parser.parse_arguments(args_list=exp_args,allow_unk=False) # TODO
             print(args)
             #exit(0)
             # print(unknow)
+            if args.exp_dir == "output/runs/" and "scdg_enable" in request.form:
+                SemaServer.sema.current_exp_dir = len(glob.glob("src/" + args.exp_dir + "/*")) + 1
+                args.exp_dir = "src/" + args.exp_dir + str(SemaServer.sema.current_exp_dir) + "/"
+                args.dir = "src/" + args.dir + str(SemaServer.sema.current_exp_dir) + "/"
+                args.binaries = args.exp_dir
+            elif args.binaries == "output/runs/" and "class_enable" in request.form:
+                SemaServer.sema.current_exp_dir = len(glob.glob("src/" + args.exp_dir + "/*")) + 1
+                args.binaries = "src/" + args.exp_dir + str(SemaServer.sema.current_exp_dir) + "/"
+                    
             if "scdg_enable" in request.form:
+                SemaServer.sema.tool_classifier.args = args
                 SemaServer.sema.args_parser.args_parser_scdg.update_tool(args)
-                SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_scdg.start_scdg, args=([args])))
+                csv_scdg_file = "src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/" + "scdg.csv"
+                print(csv_scdg_file)
+                
+                SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_scdg.save_conf, args=([scdg_args,"src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/"])))
+        
+                SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_scdg.start_scdg, args=([args, False, csv_scdg_file])))
             
-            if "classifier_enable" in request.form:
-                SemaServer.sema.args = 0 # TODO
-                SemaServer.sema.tool_classifier.init(exp_dir=SemaServer.sema.args.exp_dir)
+            if "class_enable" in request.form:
+                SemaServer.sema.tool_classifier.args = args
+                SemaServer.sema.args_parser.args_parser_class.update_tool(args)
+                csv_class_file =  "src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/" + "classifier.csv"
+                SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.init, args=([args.exp_dir, [], csv_class_file]))) # TODO familly
+                
+                SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.save_conf,args=([class_args,"src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/"])))
                 
                 SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.train, args=()))
 
@@ -305,11 +360,18 @@ class SemaServer:
                     
                 else:
                     SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.detect, args=()))
+                
+                SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.save_csv, args=()))
             
             if "fl_enable" in request.form:
                 pass
             
-            threading.Thread(target=SemaServer.manage_exps, args=()).start()
+            try:
+                os.mkdir("src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/")
+                SemaServer.sema.tool_scdg.current_exp_dir =SemaServer.sema.current_exp_dir
+            except:
+                pass
+            threading.Thread(target=SemaServer.manage_exps, args=([args])).start()
             
             return render_template('index.html', 
                                 actions_scdg=SemaServer.actions_scdg, 
@@ -321,9 +383,9 @@ class SemaServer:
                                 actions_classifier=SemaServer.actions_classifier,
                                 progress=0)
             
-    def manage_exps():
-        for x in range(len(SemaServer.exps)):
-            elem = SemaServer.exps.pop(x)
+    def manage_exps(args):
+        while len(SemaServer.exps) > 0:
+            elem = SemaServer.exps.pop(0)
             elem.start()  
             elem.join()  
     
@@ -361,11 +423,56 @@ class SemaServer:
     
     @app.route('/directory/<int:directory>/file/<path:file>')
     def send_file(directory,file):
-        return send_from_directory(SemaServer.ivy_temps_path + str(directory), file)
+        return send_from_directory(SemaServer.sema_res_dir + str(directory), file)
     
     @app.route('/key/<string:implem>')
     def send_key(implem):
         return send_from_directory(SemaServer.key_path, implem)
+    
+    @app.route('/downloader.html', methods = ['GET', 'POST'])
+    def serve_download():
+        if request.method == 'POST':
+            tag = request.form['TAG']
+            db_path = "src/" + request.form['db'] + '/' + tag +  "/"
+            try:
+                os.mkdir(db_path)
+            except:
+                pass
+            limit = request.form['max_sample']
+            res = requests.post("https://mb-api.abuse.ch/api/v1/", data = {'query': 'get_siginfo', 'signature': tag, 'limit': limit})
+            #print(res.json())
+            try:
+                for i in res.json()['data']:
+                    print(i)
+                    print(i['sha256_hash'])
+                    res_file = requests.post("https://mb-api.abuse.ch/api/v1/", data = {'query': 'get_file', 'sha256_hash': i['sha256_hash']})
+                    #print(res_file.json())
+                    #print(res_file.content)
+                    with open(db_path + i['sha256_hash'], 'wb') as s:
+                        s.write(res_file.content)
+                    with pyzipper.AESZipFile(db_path + i['sha256_hash'],"r", compression=pyzipper.ZIP_DEFLATED, encryption=pyzipper.WZ_AES) as zip_ref:
+                        zip_ref.extractall(db_path + i['sha256_hash'] + "_dir",pwd=bytes("infected", 'utf-8'))
+                    os.remove(db_path + i['sha256_hash'])
+                
+                    for file in glob.glob(db_path + i['sha256_hash'] + "_dir/*"):
+                        print(file)
+                        # out = os.popen('file ' + file + " | grep PE32").read()
+                        # print(out)
+                        out = os.popen('file ' + file + " | grep Nullsoft").read()
+                        print(out)
+                        if len(out) > 0:
+                            os.remove(file)
+                            continue
+                        out = os.popen('file ' + file + " | grep Mono/.Net").read()
+                        if len(out) > 0:
+                            os.remove(file)
+                            continue                        
+                        print(out)
+                        shutil.copyfile(file, db_path + file.split("/")[-1])
+                    shutil.rmtree(db_path + i['sha256_hash'] + "_dir")
+            except Exception as e:
+                print(e) # TODO
+        return render_template('downloader.html')
     
     @app.route('/results.html', methods = ['GET', 'POST'])
     def serve_results():
@@ -374,11 +481,11 @@ class SemaServer:
         :return: the upload function.
         """
         # TODO
-        print(SemaServer.ivy_temps_path)
-        print(os.listdir(SemaServer.ivy_temps_path))
-        SemaServer.nb_exp = len(os.listdir(SemaServer.ivy_temps_path)) - 2
+        print(SemaServer.sema_res_dir)
+        print(os.listdir(SemaServer.sema_res_dir))
+        nb_exp = len(os.listdir(SemaServer.sema_res_dir))
         
-        
+        summary = {}
         default_page = 0
         page = request.args.get('page', default_page)
         try:
@@ -386,7 +493,7 @@ class SemaServer:
         except:
             pass
         # Get queryset of items to paginate
-        rge = range(SemaServer.nb_exp,0,-1)
+        rge = range(nb_exp,0,-1)
         print([i for i in rge])
         print(page)
         items = [i for i in rge]
@@ -401,121 +508,91 @@ class SemaServer:
             items_page = paginator.page(default_page)
         except EmptyPage:
             items_page = paginator.page(paginator.num_pages)
+        
+        scdgs = {}
+        
+        try:
+            scdg_params = json.loads(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg_conf.json').read())
+            summary["scdg_used"] = True
+            summary["date"] = os.path.getctime(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg_conf.json')
+        except:
+            scdg_params = {}
+            summary["scdg_used"] = False
+        
+        try:    
+            class_params = json.loads(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/class_conf.json').read())
+            summary["class_used"] = True
+            summary["date"] = os.path.getctime(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/class_conf.json')
+        except:
+            class_params = {}
+            summary["class_used"] = False
+        
+        summary["familly_cnt"] = 0
+        summary["sample_cnt"] = 0
+        for subdir in os.listdir(SemaServer.sema_res_dir + str(nb_exp-int(page))):
+            if os.path.isdir(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir):
+                summary["familly_cnt"] += 1
+                scdgs[subdir] = {}
+                for malware in os.listdir(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir):
+                    summary["sample_cnt"] += 1
+                    if os.path.isdir(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware):
+                        scdgs[subdir][malware] = {}
+                        for file in os.listdir(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware):
+                            if file.endswith(".json"):
+                                scdgs[subdir][malware]["json"] = json.dumps(json.load(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir  + '/' + malware + '/' + file)), indent=2)
+                            elif file.endswith(".log"):
+                                scdgs[subdir][malware]["log"] = open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware  + '/' + file,"r").read() #.close()
+        # scdg_logs = json.loads(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg_conf.json').read())
+        # class_logs = json.loads(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.json').read())
+        
+        if os.path.isfile(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg.csv'):
+            df_csv_scdg = pd.read_csv(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg.csv',sep=";")
+        else:
+            df_csv_scdg = pd.DataFrame()
             
-        df_csv = pd.read_csv(SemaServer.ivy_temps_path + 'data.csv').set_index('Run')
-        result_row = df_csv.iloc[SemaServer.nb_exp-int(page)-1]
-        summary = {}
-        summary["nb_pkt"] = result_row["NbPktSend"]
-        summary["initial_version"] = result_row["initial_version"]
-    
-        SemaServer.current_exp = SemaServer.ivy_temps_path + str(SemaServer.nb_exp-int(page))
-        SemaServer.local_exp = SemaServer.local_path + str(SemaServer.nb_exp-int(page))
+        if os.path.isfile(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.csv'):
+            df_csv_classifier = pd.read_csv(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.csv',sep=";") 
+        else:
+            df_csv_classifier = pd.DataFrame()
+            
+        if os.path.isfile(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.log'):
+            log_csv_classifier = open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.log').read()
+        else:
+            log_csv_classifier = ""
+        
+        SemaServer.current_exp = SemaServer.sema_res_dir + str(nb_exp-int(page))
         exp_dir = os.listdir(SemaServer.current_exp)
-        ivy_stderr = "No output"
-        ivy_stdout = "No output"
-        implem_err = "No output" 
-        implem_out = "No output"
-        iev_out = "No output"
-        qlog_file=""
-        pcap_file=""
-        for file in exp_dir:
-            print(file)
-            if 'ivy_stderr.txt' in file:
-                with open(SemaServer.current_exp + '/' + file, 'r') as f:
-                    content = f.read()
-                    if content == '':
-                        pass
-                    else:
-                        ivy_stderr = content
-            elif 'ivy_stdout.txt' in file:
-                with open(SemaServer.current_exp + '/' + file, 'r') as f:
-                    content = f.read()
-                    if content == '':
-                        pass
-                    else:
-                        ivy_stdout = content
-            elif '.err' in file:
-                with open(SemaServer.current_exp + '/' + file, 'r') as f:
-                    content = f.read()
-                    if content == '':
-                        pass
-                    else:
-                        implem_err =content
-            elif '.out' in file:
-                with open(SemaServer.current_exp + '/' + file, 'r') as f:
-                    content = f.read()
-                    if content == '':
-                        pass
-                    else:
-                        implem_out = content
-            elif '.iev' in file:
-                # TODO use csv file
-                # file creation timestamp in float
-                c_time = os.path.getctime(SemaServer.current_exp + '/' + file)
-                # convert creation timestamp into DateTime object
-                dt_c = datetime.datetime.fromtimestamp(c_time)
-                print('Created on:', dt_c)
-                summary["date"] = dt_c
-                test_name = file.replace('.iev', '')[0:-1]
-                summary["test_name"] = test_name
-                with open(SemaServer.current_exp + '/' + file, 'r') as f:
-                    content = f.read()
-                    summary["test_result"] = "Pass" if "test_completed" in content else "Fail"
-                    
-                try:
-                    plantuml_file = SemaServer.current_exp + "/plantuml.puml"
-                    generate_graph_input(SemaServer.current_exp + '/' + file, plantuml_file)
-                    plantuml_obj = PlantUML(url="http://www.plantuml.com/plantuml/img/",  basic_auth={}, form_auth={}, http_opts={}, request_opts={})
-
-                    plantuml_file_png = plantuml_file.replace('.puml', '.png') #"media/" + str(nb_exp) + "_plantuml.png"
-                    plantuml_obj.processes_file(plantuml_file,  plantuml_file_png)
-                    
-                    with open(SemaServer.current_exp + '/' + file, 'r') as f:
-                        content = f.read()
-                        if content == '':
-                            pass
-                        else:
-                            iev_out = content
-                except:
-                    pass
-            elif '.pcap' in file:
-                pcap_file = file
-                # Now we need qlogs and pcap informations
-                summary["implementation"] = file.split('_')[0] 
-                summary["test_type"] = file.split('_')[2]
-          
-            elif ".qlog" in file:
-                qlog_file = file
-            
+       
         # Get page number from request, 
         # default to first page
-        try:
-            binary_fc       = open(plantuml_file_png, 'rb').read()  # fc aka file_content
-            base64_utf8_str = b64encode(binary_fc).decode('utf-8')
+        # try:
+        #     binary_fc       = open(plantuml_file_png, 'rb').read()  # fc aka file_content
+        #     base64_utf8_str = b64encode(binary_fc).decode('utf-8')
 
-            ext     = plantuml_file_png.split('.')[-1]
-        except:
-            base64_utf8_str = ''
-            ext = 'png'
-        dataurl = f'data:image/{ext};base64,{base64_utf8_str}'
+        #     ext     = plantuml_file_png.split('.')[-1]
+        # except:
+        #     base64_utf8_str = ''
+        #     ext = 'png'
+        # dataurl = f'data:image/{ext};base64,{base64_utf8_str}'
+        
         print(items_page)
         print(paginator)
     
         
         return render_template('results.html', 
                            items_page=items_page,
-                           nb_exp=SemaServer.nb_exp,
+                           nb_exp=nb_exp,
                            page=int(page),
                            current_exp=SemaServer.current_exp,
-                           ivy_stderr=ivy_stderr,
-                           ivy_stdout=ivy_stdout,
-                           implem_err=implem_err,
-                           implem_out=implem_out,
-                           iev_out=iev_out,
-                           plantuml_file_png=dataurl,
-                           summary=summary, # "http://"+SemaServer.vizualiser_ip+":80/?file=http://"
-                           pcap_frame_link="http://ivy-visualizer:80/?file=http://ivy-standalone:80/directory/" +  str(SemaServer.nb_exp-int(page)) + "/file/" + pcap_file + "&secrets=http://ivy-standalone:80/key/" + summary["implementation"] +'_key.log' if pcap_file != '' else None,
-                           qlog_frame_link="http://ivy-visualizer:80/?file=http://ivy-standalone:80/directory/" +  str(SemaServer.nb_exp-int(page)) + "/file/" + qlog_file if qlog_file != '' else None,)
+                           scdg_params=scdg_params,
+                           class_params=class_params,
+                           scdgs=scdgs,
+                           summary=summary,
+                           log_csv_classifier=log_csv_classifier,
+                           df_csv_scdg=df_csv_scdg.to_csv(),
+                           df_csv_classifier=df_csv_classifier.to_csv(),
+                           exp_dir="src/output/runs/", # "http://"+SemaServer.vizualiser_ip+":80/?file=http://"
+                        )
 
     @app.route('/results-global.html', methods = ['GET', 'POST'])
     def serve_results_global():
@@ -523,12 +600,12 @@ class SemaServer:
         It creates a folder for the project, and then calls the upload function
         :return: the upload function.
         """
-        SemaServer.nb_exp = len(os.listdir(SemaServer.ivy_temps_path)) - 2
+        nb_exp = len(os.listdir(SemaServer.sema_res_dir)) - 2
         
         print(request.form)
         
         summary = {}
-        df_csv = pd.read_csv(SemaServer.ivy_temps_path + 'data.csv',parse_dates=['date'])
+        df_csv = pd.read_csv(SemaServer.sema_res_dir + 'data.csv',parse_dates=['date'])
         
         df_simplify_date = df_csv
         df_simplify_date['date'] = df_csv['date'].dt.strftime('%d/%m/%Y')
@@ -611,7 +688,7 @@ class SemaServer:
         csv_text = df_csv.to_csv()
             
         return render_template('result-global.html', 
-                           nb_exp=SemaServer.nb_exp,
+                           nb_exp=nb_exp,
                            current_exp=SemaServer.current_exp,
                            summary=summary,
                            csv_text=csv_text,

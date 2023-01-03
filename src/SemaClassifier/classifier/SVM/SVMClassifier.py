@@ -30,7 +30,6 @@ except:
 CLASS_DIR = os.path.dirname(os.path.abspath(__file__))
 BINARY_CLASS = False # TODO
 
-
 class SVMClassifier(Classifier):
     def __init__(self,path,name, threshold=0.45, 
                  families=['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT']):
@@ -39,6 +38,7 @@ class SVMClassifier(Classifier):
         self.dico_precomputed = pickle.load(f)
         f.close()
         self.path = path  
+        self.path = self.path.replace("/usr/local/lib/python3.8/dist-packages/","/app/")
         self.mapping = self.read_mapping('mapping.txt')
         self.mapping_inv = self.read_mapping_inverse('mapping.txt')
         self.dataset = []
@@ -65,29 +65,31 @@ class SVMClassifier(Classifier):
         self.label = []
         for family in self.families:
             path = self.path + '/'  + self.original_path + family + '/'
-            path = path.replace("ToolChainClassifier/","") # todo
+            path = path.replace("SemaClassifier/","") # todo
             self.log.info("Subpath: " + path)
             if not os.path.isdir(path) :
                 self.log.info("Dataset should be a folder containing malware classify by familly in subfolder")
                 exit(-1)
             else:
                 #filenames = glob.glob(path+'/SCDG_*') + glob.glob(path+'test/SCDG_*')
-                filenames = [os.path.join(path, f) for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
-                if len(filenames) > 1 and family not in self.fam_idx :
+                filenames_folder = [os.path.join(path, f) for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))]
+                if len(filenames_folder) > 1 and family not in self.fam_idx :
                     self.fam_idx.append(family)
-                for file in filenames:
-                    if file.endswith(".gs"):
-                        G = self.read_gs(file,self.mapping)
-                        if len(G.node_labels) > 1:
-                            self.dataset.append(G)
-                        if BINARY_CLASS and len(G.node_labels) > 1:
-                            if family == 'clean':
-                                self.label.append(family)
-                            else:
-                                self.label.append('malware')
-                        else:
+                for file_fol in filenames_folder:
+                    filenames = [os.path.join(file_fol, f) for f in os.listdir(file_fol) if os.path.isfile(os.path.join(file_fol, f))]
+                    for file in filenames:
+                        if file.endswith(".gs"):
+                            G = self.read_gs(file,self.mapping)
                             if len(G.node_labels) > 1:
-                                self.label.append(family)
+                                self.dataset.append(G)
+                            if BINARY_CLASS and len(G.node_labels) > 1:
+                                if family == 'clean':
+                                    self.label.append(family)
+                                else:
+                                    self.label.append('malware')
+                            else:
+                                if len(G.node_labels) > 1:
+                                    self.label.append(family)
         bar.finish()
     
     def split_dataset(self):
@@ -111,6 +113,12 @@ class SVMClassifier(Classifier):
         self.log.info("Recall %2.2f %%" %(recall_score(self.label, self.y_pred,average='weighted')*100))
         f_score = f1_score(self.label, self.y_pred,average='weighted')*100
         self.log.info("F1-score %2.2f %%" %(f_score))
+        
+        self.fscore = f_score
+        self.accuracy = accuracy_score(self.label, self.y_pred)*100
+        self.precision = precision_score(self.label, self.y_pred,average='weighted')*100
+        self.recall = recall_score(self.label, self.y_pred,average='weighted')*100
+
     
         if BINARY_CLASS:
             conf = confusion_matrix(self.label,self.y_pred,labels=['clean','malware'])

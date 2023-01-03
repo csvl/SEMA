@@ -8,7 +8,7 @@ class EvalStatSCDG:
     TODO
     """
 
-    def __init__(self, dir="../output/save-SCDG/"):
+    def __init__(self, dir="../output/runs/"):
         self.dir = dir
 
     def run():

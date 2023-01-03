@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 from ast import arg
+import datetime
 import os
 
 import json as json_dumper
@@ -47,6 +48,7 @@ except:
 
 import angr
 import claripy
+import pandas as pd
 
 MEMORY_PROFILING = False
 
@@ -114,16 +116,12 @@ class SemaSCDG:
 
         self.scdg = []
         self.scdg_fin = []
-        
-        logging.getLogger("angr").setLevel("WARNING")
-        logging.getLogger('claripy').setLevel('WARNING')
 
         # create console handler with a higher log level
         ch = logging.StreamHandler()
         ch.setLevel(logging.INFO)
         ch.setFormatter(CustomFormatter())
         self.log = logging.getLogger("SemaSCDG")
-        self.log.setLevel(logging.INFO)
         self.log.addHandler(ch)
         self.log.propagate = False
 
@@ -142,15 +140,41 @@ class SemaSCDG:
         
         self.nb_exps = 0
         self.current_exps = 0
+        self.current_exp_dir = 0
+        
+    def save_conf(self, args, path):
+        with open(os.path.join(path, "scdg_conf.json"), "w") as f:
+            json.dump(args, f, indent=4)
 
-    def build_scdg(self, args, is_fl=False):
+    def build_scdg(self, args, is_fl=False, csv_file=None):
         # Create directory to store SCDG if it doesn't exist
         self.scdg.clear()
         self.scdg_fin.clear()
         self.call_sim.syscall_found.clear()
         self.call_sim.system_call_table.clear()
-
+        
         self.log.info(args)
+        self.start_time = time.time()
+        if csv_file:
+            try:
+                df = pd.read_csv(csv_file,sep=";")
+                print(df)
+            except:
+                df = pd.DataFrame(
+                    columns=["familly",
+                             "filename", 
+                             "time",
+                             "date",
+                             "Syscall found", 
+                             "Address found", 
+                             "Libraries",
+                             "OS",
+                             "CPU architecture",
+                             "Entry point",
+                             "Min/Max addresses",
+                             "Stack executable",
+                             "Binary position-independent",
+                             ]) # TODO add frame type
         
         if not is_fl:
             exp_dir = args.exp_dir
@@ -180,9 +204,14 @@ class SemaSCDG:
             os.stat(exp_dir)
         except:
             os.makedirs(exp_dir)
+            
+        if verbose:
+            logging.getLogger("angr").setLevel("WARNING")
+            logging.getLogger('claripy').setLevel('WARNING')
+        self.log.setLevel(logging.INFO)
 
-        if exp_dir != "output/save-SCDG/"+self.familly+"/":
-            setup = open_file(exp_dir + "setup.txt", "w")
+        if exp_dir != "output/runs/"+ str(self.current_exp_dir) + "/":
+            setup = open_file("src/output/runs/"+ str(self.current_exp_dir) + "/" + "setup.txt", "w")
             setup.write(str(self.jump_it) + "\n")
             setup.write(str(self.loop_counter_concrete) + "\n")
             setup.write(str(self.max_simul_state) + "\n")
@@ -195,7 +224,20 @@ class SemaSCDG:
             nameFileShort = self.inputs.split("/")[-1]
         else:
             nameFileShort = self.inputs
+        try:
+            os.stat(exp_dir + "/" +  nameFileShort)
+        except:
+            os.makedirs(exp_dir + "/" +  nameFileShort)
+        
+        fileHandler = logging.FileHandler(exp_dir + "/" + nameFileShort + "/" + "scdg.log")
+        fileHandler.setFormatter(CustomFormatter())
+        logging.getLogger().addHandler(fileHandler)
 
+
+        exp_dir = exp_dir + "/" + nameFileShort + "/"
+        #dir = dir + "/" + nameFileShort + "/"
+        print(exp_dir,dir)
+        
         title = "--- Building SCDG of " + self.familly  +"/" + nameFileShort  + " ---"
         self.log.info("\n" + "-" * len(title) + "\n" + title + "\n" + "-" * len(title))
 
@@ -486,6 +528,24 @@ class SemaSCDG:
         )
         g.build_graph(self.scdg_fin, format_out_json=format_out_json)
 
+        if csv_file:
+            df = df.append({"familly":self.familly,
+                            "filename": nameFileShort, 
+                             "time": elapsed_time,
+                             "date":datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                             "Syscall found": json.dumps(self.call_sim.syscall_found), 
+                             "Number Address found": 0, 
+                             "Number Syscall found": len(self.call_sim.syscall_found), 
+                             "Libraries":str(proj.loader.requested_names),
+                             "OS": proj.loader.main_object.os,
+                             "CPU architecture": proj.loader.main_object.arch.name,
+                             "Entry point": proj.loader.main_object.entry,
+                             "Min/Max addresses": str(proj.loader.main_object.mapped_base) + "/" + str(proj.loader.main_object.max_addr),
+                             "Stack executable": proj.loader.main_object.execstack,
+                             "Binary position-independent:": proj.loader.main_object.pic,
+                            }, ignore_index=True)
+            print(csv_file)
+            df.to_csv(csv_file, index=False,sep=";")
     def build_scdg_fin(self, exp_dir, nameFileShort, main_obj, state, simgr, discard_SCDG):
         dump_file = {}
         dump_id = 0
@@ -561,7 +621,7 @@ class SemaSCDG:
         self.print_memory_info(main_obj, dump_file)
         if discard_SCDG:
             # self.log.info(dump_file)
-            ofilename = exp_dir + nameFileShort + "_SCDG.json"
+            ofilename = exp_dir  + "inter_SCDG.json"
             self.log.info(ofilename)
             save_SCDG = open_file(ofilename, "w")
             # self.log.info(dump_file)
@@ -583,7 +643,7 @@ class SemaSCDG:
             self.log.info(name)
             self.log.info(dump_file["sections"][name])
 
-    def start_scdg(self, args, is_fl=False):
+    def start_scdg(self, args, is_fl=False,csv_file=None):
         self.inputs = "".join(self.inputs.rstrip())
         self.nb_exps = 0
         self.current_exps = 0
@@ -592,7 +652,7 @@ class SemaSCDG:
             self.nb_exps = 1
             # TODO update familly
             self.log.info("You decide to analyse a single binary: "+ self.inputs)
-            self.build_scdg(args)
+            self.build_scdg(args,is_fl=is_fl,csv_file=csv_file)
             self.current_exps = 1
         else:
             import progressbar
@@ -603,6 +663,8 @@ class SemaSCDG:
                 for folder in subfolder:
                     files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and not f.endswith(".zip")]
                     self.nb_exps += len(files)
+                    
+                print(self.nb_exps)
                
                 bar_f = progressbar.ProgressBar(max_value=len(subfolder))
                 bar_f.start()
@@ -621,7 +683,7 @@ class SemaSCDG:
                     for file in files:
                         self.inputs = file
                         self.familly = current_family
-                        self.build_scdg(args, is_fl)
+                        self.build_scdg(args, is_fl, csv_file=csv_file)
                         fc+=1
                         self.current_exps += 1
                         bar.update(fc)

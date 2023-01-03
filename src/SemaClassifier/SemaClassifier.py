@@ -1,3 +1,5 @@
+import datetime
+import json
 import logging
 import os
 import time
@@ -10,14 +12,15 @@ try:
     from classifier.SVM.SVMWLClassifier import SVMWLClassifier
     from clogging.CustomFormatter import CustomFormatter
 except:
-    from .classifier.GM.GSpanClassifier import GSpanClassifier
-    from .helper.ArgumentParserClassifier import ArgumentParserClassifier
-    from .classifier.SVM.SVMInriaClassifier import SVMInriaClassifier
-    from .classifier.SVM.SVMWLClassifier import SVMWLClassifier
-    from .clogging.CustomFormatter import CustomFormatter
+    from src.SemaClassifier.classifier.GM.GSpanClassifier import GSpanClassifier
+    from src.SemaClassifier.helper.ArgumentParserClassifier import ArgumentParserClassifier
+    from src.SemaClassifier.classifier.SVM.SVMInriaClassifier import SVMInriaClassifier
+    from src.SemaClassifier.classifier.SVM.SVMWLClassifier import SVMWLClassifier
+    from src.SemaClassifier.clogging.CustomFormatter import CustomFormatter
 
+import pandas as pd
 
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__)) # os.getcwd() + "/src/SemaClassifier"
 
 
 # TODO make usage of method in main file
@@ -36,14 +39,21 @@ class SemaClassifier:
         self.log.addHandler(ch)
         self.log.propagate = False    
         self.args = None  
-        self.families = []      
-
+        self.families = []  
+        self.df = None   
+        self.csv_path = None
+        dill.settings['recurse'] = True
+        self.training_elapsed_time = 0
+        self.elapsed_time = 0
+        
     def save_model(self,object, path):
         with open(path, 'wb+') as output:
             dill.dump(object, output)
 
     def load_model(self,path):
         with open(path, 'rb') as inp:
+            print(path)
+            print(inp)
             return dill.load(inp)
 
     def init_classifer(self,args,
@@ -100,11 +110,18 @@ class SemaClassifier:
                 self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
                 exit(-1)   
             self.classifier.families = families
+        fileHandler = logging.FileHandler(args.binaries + "/classifier.log")
+        fileHandler.setFormatter(CustomFormatter())
+        self.log.addHandler(fileHandler)
 
-    def init(self,exp_dir=None, fromWeb=[]):
+    def save_conf(self, args, path):
+        with open(os.path.join(path, "class_conf.json"), "w") as f:
+            json.dump(args, f, indent=4)
+            
+    def init(self,exp_dir=None, fromWeb=[], csv_file=None):
         # TODO args.binaries vs binary
         if self.input_path is None and exp_dir is None:
-            self.input_path = ROOT_DIR.replace("ToolChainClassifier","output/save-SCDG") # todo add args
+            self.input_path = ROOT_DIR.replace("SemaClassifier","output/runs") # todo add args
         elif self.input_path is None:
             self.input_path = exp_dir
         self.input_path = self.input_path.replace("unknown/","") # todo
@@ -123,6 +140,31 @@ class SemaClassifier:
                     last_familiy = folder.split("/")[-1]
                     families.append(str(last_familiy))
             self.init_classifer(args=self.args,families=families,from_saved_model=(not self.args.train))
+        
+        if csv_file:
+            try:
+                self.csv_path = csv_file
+                self.df = pd.read_csv(csv_file,sep=";")
+                print(self.df)
+            except:
+                self.df = pd.DataFrame(
+                    columns=["path", 
+                             "time training"
+                             "time class/detect",
+                             "date",
+                             "Number of training samples", 
+                             "Number of test samples", 
+                             "Number of validation samples", 
+                             "fscore",
+                             "accuracy",
+                             "precision",
+                             "recall",
+                             "loss",
+                             "tpr",
+                             "balanced_accuracy"
+                             ]) # TODO add frame type
+        else:
+            self.df = None
     
     def train(self):
         if self.args.train: # TODO refactor
@@ -136,14 +178,35 @@ class SemaClassifier:
             self.classifier.train(**args_train)
             self.save_model(self.classifier,ROOT_DIR + "/classifier/saved_model/"+ self.classifier_name +"_model.pkl")
         
-            elapsed_time = time.time() - self.start_time
-            self.log.info("Total training time: " + str(elapsed_time))
+            self.training_elapsed_time = time.time() - self.start_time
+            self.log.info("Total training time: " + str(self.training_elapsed_time))
 
     def classify(self):
         self.classifier.classify(path=(None if self.args.train else self.input_path))
+        self.elapsed_time = time.time() - self.start_time
         #self.log.info(self.classifier.get_stat_classifier())
     def detect(self):
         self.classifier.detection(path=(None if self.args.train else self.input_path))
+        self.elapsed_time = time.time() - self.start_time
+        
+    def save_csv(self):
+        if self.csv_path:
+            self.df = self.df.append({"path":self.input_path, 
+                             "time training": self.training_elapsed_time,
+                             "time class/detect": self.elapsed_time,
+                             "date": datetime.datetime.now(),
+                             "Number of training samples": len(self.classifier.train_dataset),
+                             "Number of test samples": len(self.classifier.test_dataset),
+                             "Number of validation samples":len(self.classifier.val_dataset),
+                             "fscore":self.classifier.fscore,
+                             "accuracy":self.classifier.accuracy,
+                             "precision":self.classifier.precision,
+                             "recall":self.classifier.recall,
+                             "loss":self.classifier.loss,
+                             "tpr":self.classifier.tpr,
+                             "balanced_accuracy": self.classifier.balance_accuracy,
+                            }, ignore_index=True)
+        self.df.to_csv(self.csv_path, index=False,sep=";")
 
 def main():
     tc = SemaClassifier()
@@ -153,6 +216,7 @@ def main():
     tc.init()
     if tc.args.train:
         tc.train()
+        training_elapsed_time = time.time() - tc.start_time
     elif tc.mode == "classification":
         tc.classify()
         tc.classifier.get_stat_classifier()
@@ -160,6 +224,9 @@ def main():
         tc.detect()
     
     elapsed_time = time.time() - tc.start_time
+    
+    tc.save_csv()
+            
     tc.log.info("Total "+ tc.mode +" time: " + str(elapsed_time))
 
 

@@ -32,7 +32,7 @@ class PrintStat:
         )
 
         DIR = "../res/malware-inputs/time_eval_samples/"
-        PATH_RESULT = "../output/save-SCDG/"
+        PATH_RESULT = "../output/runs/"
         families = [
             "autoit",
             "bancteian",
@@ -123,7 +123,7 @@ class PrintStat:
                 # check if experiment results exist
                 """for t in ['']:
                     try :
-                        path = '../output/save-SCDG_CBFS/'+mal+'_SCDG'+str(t)+'.txt'
+                        path = '../output/runs_CBFS/'+mal+'_SCDG'+str(t)+'.txt'
                         os.stat(path)
                         
                         os.system('python3 eval_stat_SCDG.py --name '+path)
@@ -158,7 +158,7 @@ class PrintStat:
                 for t in ["600", "1800", "3600"]:
                     try:
                         path = (
-                            "../output/save-SCDG_z3/" + mal + "_SCDG_" + str(t) + ".txt"
+                            "../output/runs_z3/" + mal + "_SCDG_" + str(t) + ".txt"
                         )
                         os.stat(path)
                         os.system("python3 eval_stat_SCDG.py --name " + path)

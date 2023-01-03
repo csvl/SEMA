@@ -68,12 +68,12 @@ class ArgumentParserClassifier:
             default=1,
         )
 
-        self.group_global_expl = self.parser.add_mutually_exclusive_group(required=True)
+        self.group_global_expl = self.parser.add_mutually_exclusive_group() # required=True)
         self.group_global_expl.title = 'Operation mode'
         self.group_global_expl.add_argument(
             "--classification",
             help="By malware family",
-            action="store_false",
+            action="store_true",
             
         )
         self.group_global_expl.add_argument(
@@ -84,12 +84,12 @@ class ArgumentParserClassifier:
         )
         
         
-        self.group_cl = self.parser.add_mutually_exclusive_group(required=True)
+        self.group_cl = self.parser.add_mutually_exclusive_group() # required=True
         self.group_cl.title = 'Classifier used'
         self.group_cl.add_argument(
             "--wl",
             help="TODO",
-            action="store_false",
+            action="store_true",
             
         )
         self.group_cl.add_argument(
@@ -106,7 +106,7 @@ class ArgumentParserClassifier:
         )
         self.group_cl.add_argument(
             "--gspan",
-            help="TODOe",
+            help="TODO",
             action="store_true",
             
         )
@@ -198,8 +198,8 @@ class ArgumentParserClassifier:
         )
         
         self.group.add_argument("binaries", 
-                                default="output/save-SCDG/",
-                                help="Name of the folder containing binary'signatures to analyze (Default: output/save-SCDG/, only that for ToolChain)")
+                                default="output/runs/",
+                                help="Name of the folder containing binary'signatures to analyze (Default: output/runs/, only that for ToolChain)")
         self.tcw = tcw
 
     def update_tool(self, args):
@@ -208,20 +208,19 @@ class ArgumentParserClassifier:
         else:
             self.tcw.input_path = None
         sys.setrecursionlimit(2000)
-        if args.classifier:
-            class_method = args.classifier
-            if class_method.lower() not in ["gspan","inria","wl","dl"]:
-                self.tcw.classifier_name = "wl"
-            else:
-                self.tcw.classifier_name = class_method
-        else:
-            self.tcw.classifier_name = "wl"
+        # if args.classifier:
+        #     class_method = args.classifier
+        #     if class_method.lower() not in ["gspan","inria","wl","dl"]:
+        #         self.tcw.classifier_name = "wl"
+        #     else:
+        #         self.tcw.classifier_name = class_method
+        #else:
+        self.tcw.classifier_name = "wl" if args.wl else "inria" if args.inria else "dl" if args.dl else "gspan"
 
         if args.threshold:
             self.tcw.threshold = args.threshold
 
-        if args.mode:
-            self.tcw.mode = args.mode
+        self.tcw.mode = "classification"  if args.classification else "detection"
 
     def parse_arguments(self, allow_unk=False, args_list=None):
         args = None

@@ -131,3 +131,4 @@ RUN cd /app/src/submodules/volatility; pip install .;
 
 # Gspan
 RUN cd /app/src/submodules/SEMA-quickspan; mkdir build && cd build; cmake ..; make
+RUN ln -s /app/src/submodules/SEMA-quickspan/build/gspan /usr/local/bin/gspan

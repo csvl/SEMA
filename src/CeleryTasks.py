@@ -29,7 +29,7 @@ HOST = 'localhost'
 BROKER = f'amqp://{HOST}'
 BACKEND= f'rpc://{HOST}'
 
-app = celery.Celery('ToolChainFL', 
+app = celery.Celery('SemaClassifierFL', 
                     broker=BROKER, 
                     backend=BACKEND)
 
@@ -76,8 +76,8 @@ def start_scdg(** args):
     
     if demonstration:
         tool_scdg.inputs = tool_scdg.inputs + "_client"+str(client_id)
-        args_scdg["exp_dir"] = args_scdg["exp_dir"].replace("save-SCDG","save-SCDG"  + "_client"+str(client_id))
-        args_scdg["dir"] = args_scdg["dir"].replace("save-SCDG","save-SCDG"  + "_client"+str(client_id))
+        args_scdg["exp_dir"] = args_scdg["exp_dir"].replace("runs","runs"  + "_client"+str(client_id))
+        args_scdg["dir"] = args_scdg["dir"].replace("runs","runs"  + "_client"+str(client_id))
 
     tool_scdg.start_scdg(args_scdg,is_fl=True)
 
@@ -151,7 +151,7 @@ def train(** args):
     logc.info(args_class)
 
     if demonstration:
-        input_path = input_path.replace("save-SCDG","save-SCDG"  + "_client"+str(client_id))
+        input_path = input_path.replace("runs","runs"  + "_client"+str(client_id))
         
     if nround<1:
         toolcl = SemaClassifier(classifier_name=classifier, parse=False)
@@ -219,7 +219,7 @@ def best_signature_selection(**args):
             clear_sig += RSA.decrypt(sk,chunck) # use master key
         data_sig = json.loads(clear_sig)
         try:
-            os.mkdir(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"+  str(idx))
+            os.mkdir(ROOT_DIR+"/SemaClassifier/classifier/master_sig/"+  str(idx))
         except:
             print('error')
             pass
@@ -227,7 +227,7 @@ def best_signature_selection(**args):
         print(data_sig)
 
         for signature in data_sig:
-            f = open(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  str(idx) + "/" + signature, "w")
+            f = open(ROOT_DIR+"/SemaClassifier/classifier/master_sig/" +  str(idx) + "/" + signature, "w")
             jdx = 0
             for line in data_sig[signature]:
                 f.write(data_sig[signature][line])
@@ -238,7 +238,7 @@ def best_signature_selection(**args):
         nround = args["nround"]
         run_name  = args["run_name"]
         classifier = args["classifier"]
-        sigpath = ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/" +  str(idx) + "/" 
+        sigpath = ROOT_DIR+"/SemaClassifier/classifier/master_sig/" +  str(idx) + "/" 
         trainer = load_object(os.path.join(pwd,f"R{nround}_{run_name}_{classifier}_model.pkl"))
         trainer.classify(custom_sig_path=sigpath)
         fscore = trainer.get_stat_classifier()
@@ -247,13 +247,13 @@ def best_signature_selection(**args):
             best_para = idx
         idx+=1
     try:
-        os.rename(ROOT_DIR+"/ToolChainClassifier/classifier/master_sig/"+ str(best_para) + "/" ,
-            ROOT_DIR+"/ToolChainClassifier/classifier/best_sig/")
+        os.rename(ROOT_DIR+"/SemaClassifier/classifier/master_sig/"+ str(best_para) + "/" ,
+            ROOT_DIR+"/SemaClassifier/classifier/best_sig/")
     except:
         print('error')
         pass
 
-    best_sig_json = signature_to_json(ROOT_DIR+"/ToolChainClassifier/classifier/best_sig/")
+    best_sig_json = signature_to_json(ROOT_DIR+"/SemaClassifier/classifier/best_sig/")
     best_sig_string = json.dumps(best_sig_json)
     idx = 0
     enc_best_sig_string = list()
@@ -273,7 +273,7 @@ def save_sig(**args):
     data_sig = json.loads(clear_sig)
     for signature in data_sig:
         jdx = 0
-        f = open(ROOT_DIR+"/ToolChainClassifier/sig/"+signature, "w")
+        f = open(ROOT_DIR+"/SemaClassifier/sig/"+signature, "w")
         for line in data_sig[signature]:
             f.write(data_sig[signature][line])
             jdx += 1
@@ -290,9 +290,9 @@ def test(**args):
     if classifier == "dl":
         trainer.classify() # path=pwd +'output/test-set/'
         acc, loss = trainer.get_stat_classifier(f"{classifier}_{nround}")
-        save_object(trainer,ROOT_DIR + "/ToolChainClassifier/classifier/saved_model/"+ classifier +"_FLmodel.pkl")
-        """os.chdir('./ToolChainClassifier')
-        toolcl = ToolChainClassifier(classifier_name=classifier, parse=False)
+        save_object(trainer,ROOT_DIR + "/SemaClassifier/classifier/saved_model/"+ classifier +"_FLmodel.pkl")
+        """os.chdir('./SemaClassifier')
+        toolcl = SemaClassifier(classifier_name=classifier, parse=False)
         toolcl.classifier = trainer
         toolcl.save_model(toolcl.classifier,"classifier/saved_model/"+ classifier +"_FLmodel.pkl")"""
         return {"acc":acc, "loss":loss}

@@ -24,7 +24,14 @@ setup(name='sema-tc',
       author_email='nomail@uclouvain.com',
       license='MIT', 
       packages=find_packages(),
-      package_data={'src': ['SemaSCDG/procedures/calls/*.json']},
+      package_data={
+        'src': [
+          'SemaSCDG/procedures/calls/*.json',
+          'SemaClassifier/classifier/saved_model/*.pkl',
+          'SemaClassifier/classifier/SVM/dico/*.pkl',
+          "submodules/*"
+        ],
+      },
       setup_requires=['wheel'],
       install_requires=[
           'pymongo', # malwexp

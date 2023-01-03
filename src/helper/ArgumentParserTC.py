@@ -15,7 +15,8 @@ class ArgumentParserTC:
         self.tool_classifier = tcc
         self.args_parser_class = ArgumentParserClassifier(tcc)
         self.parser = argparse.ArgumentParser(conflict_handler='resolve',
-                                parents=[self.args_parser_scdg.parser,self.args_parser_class.parser]) #,self.args_parser_class.parser
+                                parents=[self.args_parser_scdg.parser,
+                                         self.args_parser_class.parser]) 
     
     # TODO conflict with --exp_dir and binaries arguments 
     def parse_arguments(self, allow_unk=False,args_list=None):

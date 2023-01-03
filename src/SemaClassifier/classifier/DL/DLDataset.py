@@ -41,7 +41,7 @@ class DLDataset(torch.utils.data.Dataset):
         self.model = self.api2vector(apipath,vector_size)
         self._apimap = self.read_map(mappath)
         classes = set()
-        for fname in glob.glob("{0}/*/*.gs".format(rootpath)):
+        for fname in glob.glob("{0}/*/*/*.gs".format(rootpath)):
             dirname,name = self.get_label(fname)
             self.data.append((fname,dirname))
             classes.add(dirname)

@@ -152,7 +152,12 @@
                            progress_bar.css('width', percent  + '%');
                            //setTimeout(worker, 1000)
                            nyanCat.setPercent(percent);
-                           if(percent == 100) {
+                           if(percent >= 100) {
+                              progress_class.css('display','none');
+                              $('#rainbowContainer').css('display','none');
+                              $('#rainbowContainer2').css('display','none');
+                              submitter.attr("disabled", false);
+                              nyanCat.setPercent(0);
                               return true;
                            } else {
                               return false;
@@ -196,10 +201,23 @@
                <div class="sb-sidenav-menu">
                   <div class="nav">
                      <div class="sb-sidenav-menu-heading">Core</div>
-                     <a class="nav-link" href="index.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts1">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                         SEMA tools
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                      </a>
+                     <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                SEMA toolchain
+                            </a>
+                            <a class="nav-link" href="downloader.html">
+                              <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                SEMA downloader
+                            </a>
+                        </nav>
+                    </div>
                      <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                         SEMA results
@@ -301,9 +319,9 @@
                                                 {% elif  args["type"] == "bool" %}
                                                    <div class="form-check">
                                                       {% if args["default"] %}
-                                                         <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="checkbox" name="{{ group }}" value={{ args["name"] }} id={{ args["name"] }} checked>
+                                                         <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="checkbox" name="{{ args["name"] }}" value={{ args["name"] }} id={{ args["name"] }} checked>
                                                       {% else %}
-                                                         <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="checkbox" name="{{ group }}" value={{ args["name"] }} id={{ args["name"] }}>
+                                                         <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="checkbox" name="{{ args["name"] }}" value={{ args["name"] }} id={{ args["name"] }}>
                                                       {% endif %}
                                                       <label class="form-check-label" for={{ args["name"] }}>
                                                       {{ args["name"] }}
@@ -406,9 +424,9 @@
                                                 {% elif  args["type"] == "bool" %}
                                                    <div class="form-check">
                                                       {% if args["default"] %}
-                                                         <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="checkbox" name="{{ group }}" value={{ args["name"] }} id={{ args["name"] }} checked>
+                                                         <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="checkbox" name="{{ args["name"] }}" value={{ args["name"] }} id={{ args["name"] }} checked>
                                                       {% else %}
-                                                         <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="checkbox" name="{{ group }}" value={{ args["name"] }} id={{ args["name"] }}>
+                                                         <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="checkbox" name="{{ args["name"] }}" value={{ args["name"] }} id={{ args["name"] }}>
                                                       {% endif %}
                                                       <label class="form-check-label" for={{ args["name"] }}>
                                                       {{ args["name"] }}
@@ -474,7 +492,7 @@
                          </div>
                         </div>
                      </div>
-                     <button class="btn btn-primary pull-right" style="position: relative;margin-top: 1%;">Start Experiments</button>
+                     <button class="btn btn-primary pull-right submitter" style="position: relative;margin-top: 1%;">Start Experiments</button>
                   </div>
                   
                </form>

@@ -33,8 +33,11 @@ class GSpanClassifier(Classifier):
         if '/' not in path:
             path = path +'/'
         self.path_sig = path+'/sig/'
-        self.path_test = path.replace("ToolChainClassifier","output/") +'/test-set/'
-        self.path_clean = path.replace("ToolChainClassifier","output/") +'/clean/'
+        self.path_sig = self.path_sig.replace("/usr/local/lib/python3.8/dist-packages/","/app/")
+        self.path_test = path.replace("SemaClassifier","output/") +'/test-set/'
+        self.path_test = self.path_test.replace("/usr/local/lib/python3.8/dist-packages/","/app/")
+        self.path_clean = path.replace("SemaClassifier","output/") +'/clean/'
+        self.path_clean = self.path_clean.replace("/usr/local/lib/python3.8/dist-packages/","/app/")
         self.families = []
         self.support = support
         self.biggest_subgraphs = biggest_subgraphs
@@ -48,14 +51,16 @@ class GSpanClassifier(Classifier):
         
         try: 
             os.mkdir(self.path_sig)
-            #os.mkdir(self.path_test)
         except:
             import shutil
             shutil.rmtree(self.path_sig)
-            #shutil.rmtree(self.path_test)
-            
             os.mkdir(self.path_sig)
-            #os.mkdir(self.path_test)
+        try: 
+            os.mkdir(self.path_test)
+        except:
+            import shutil
+            shutil.rmtree(self.path_test)            
+            os.mkdir(self.path_test)
         
         
     def add_clean(self,path):
@@ -68,17 +73,21 @@ class GSpanClassifier(Classifier):
         if path[-1] != "/":
             path += "/"
         families = glob.glob(path+"/*")
+        print(families)
         bar = progressbar.ProgressBar(max_value=len(families))
         bar.start()
         cnt = 0
         # Go through each directory
         for family_dir in families:
+            if not os.path.isdir(family_dir):
+                continue
             family_name = family_dir.split('/')[-1].split('_')[0] # TODO only consider folder
             self.log.info("Family = " + family_name)
             self.families.append(family_name)
             # todo handle exception
-            graph_test = random.sample(glob.glob(family_dir+"/*"), (len(glob.glob(family_dir+"/*"))//4)+1)
-            
+            print(glob.glob(family_dir+"/*/*.gs"))
+            graph_test = random.sample(glob.glob(family_dir+"/*/*.gs"), (len(glob.glob(family_dir+"/*/*.gs"))//4)+1)
+            print(graph_test)
             id_graph = 0
             merge_graph = self.path_sig+family_name+'_merge.gs'
             #self.log.info("Merge_graph = " + merge_graph)
@@ -89,7 +98,8 @@ class GSpanClassifier(Classifier):
                 os.mkdir(self.path_test+family_name)
             except:
                 pass
-            for malware_file in glob.glob(family_dir+"/*") :
+            #for malware_dir in glob.glob(family_dir+"/*") :
+            for malware_file in glob.glob(family_dir+"/*/*.gs") :
                 if malware_file.endswith(".gs"):
                     if malware_file in graph_test:
                         os.system("cp "+malware_file+" "+self.path_test+family_name)
@@ -105,7 +115,7 @@ class GSpanClassifier(Classifier):
                                 else :
                                     res.write(line)
                         f.close()
-            res.close()
+            res.close() # TODO in docker save that to share folder
 
             command = self.gspan_path + "gspan " + '--input_file '+self.path_sig+family_name+'_merge.gs --output_file '+out_name + \
                     ' --pattern --biggest_subgraphs ' + str(self.biggest_subgraphs) + \
@@ -382,6 +392,11 @@ class GSpanClassifier(Classifier):
         self.log.info("Precision obtained : "+str(precision))
         self.log.info("Recall obtained : "+str(recall))
         self.log.info("Fscore obtained : "+str(fscore))
+        
+        self.fscore = fscore
+        self.accuracy = None
+        self.precision =precision
+        self.recall = recall
         
         figsize = (10,7)
         fontsize=9

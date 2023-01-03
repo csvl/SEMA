@@ -15,7 +15,7 @@ class ArgumentParserSCDG:
         self.group_expl.add_argument(
             "--DFS",
             help="TODO",
-            action="store_false",
+            action="store_true",
             
         )
         self.group_expl.add_argument(
@@ -42,7 +42,7 @@ class ArgumentParserSCDG:
         self.group_output.add_argument(
             "--gs",
             help=".GS format",
-            action="store_false",
+            action="store_true",
             
         )
         self.group_output.add_argument(
@@ -57,7 +57,7 @@ class ArgumentParserSCDG:
         self.group_unpacked.add_argument(
             "--symbion",
             help="Concolic unpacking method (linux | windows [in progress])",
-            action="store_false",
+            action="store_true",
             
         )
         self.group_unpacked.add_argument(
@@ -160,8 +160,8 @@ class ArgumentParserSCDG:
         )
         self.group_scdg.add_argument(
             "--dir",
-            help=" Directory to save outputs graph for gspan  (default : output/)",
-            default="output/",
+            help=" Directory to save outputs graph for gspan  (default : output/runs/<exp_run>)",
+            default="output/runs/",
         )
         self.group_scdg.add_argument(
             "--discard_SCDG",
@@ -179,8 +179,8 @@ class ArgumentParserSCDG:
         self.group = self.parser.add_argument_group('Global parameter')
         self.group.add_argument(
             "--timeout",
-            help="Timeout in seconds before ending extraction (default : 600)",
-            default=600,
+            help="Timeout in seconds before ending extraction (default : 100)",
+            default=100,
             type=int,
         )     
         self.group.add_argument(
@@ -191,8 +191,8 @@ class ArgumentParserSCDG:
         )
         self.group.add_argument(
             "--exp_dir",
-            help=" Directory to save SCDG extracted (default : output/save-SCDG/)",
-            default="output/save-SCDG/",
+            help=" Directory to save SCDG extracted (default : output/runs/<exp_run>)",
+            default="output/runs/",
             
         )
         self.group.add_argument(

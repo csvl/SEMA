@@ -3,6 +3,7 @@ import time
 from re import sub
 import logging
 import progressbar
+import glob
 try:
     from SemaClassifier.SemaClassifier import SemaClassifier
     from SemaSCDG.SemaSCDG import SemaSCDG
@@ -41,7 +42,8 @@ class Sema:
         self.tool_classifier = SemaClassifier(parse=False)
         self.args_parser = ArgumentParserTC(self.tool_scdg, self.tool_classifier)        
         if is_from_web:
-            pass
+            self.current_exp_dir = 0
+            self.tool_scdg.current_exp_dir = 0
         else:
             self.args = self.args_parser.parse_arguments()
             self.tool_classifier.args = self.args
@@ -50,9 +52,18 @@ class Sema:
             self.families = []
             self.args.exp_dir = self.args.binaries
             self.args.dir = self.args.binaries
+            self.current_exp_dir = len(glob.glob(self.args.exp_dir + "/*")) + 1
+            self.tool_scdg.current_exp_dir = self.current_exp_dir
         
 def main():
     sema = Sema()
+    
+    if sema.args.exp_dir == "output/runs/":
+        sema.args.exp_dir =  "src/" +  sema.args.exp_dir + str(sema.current_exp_dir) + "/"
+        sema.args.binaries = sema.args.exp_dir
+    
+    sema.tool_scdg.save_conf(sema.args)
+    sema.tool_classifier.save_conf(sema.args)
     
     sema.tool_scdg.start_scdg(sema.args)
     
