@@ -1,0 +1,78 @@
+FROM sema-init:latest
+
+RUN add-apt-repository ppa:pypy/ppa; apt update
+RUN apt-get -y --fix-missing install \
+            libc6 \
+            # libffi6 \
+            # libgcc1 \
+            libatlas-base-dev \
+            g++ \
+            libjansson-dev \
+            # pypy3.8 \
+            # pypy3.8-dev \
+            gfortran \
+            libopenblas-dev \
+            liblapack-dev \
+            gcc  \
+            libffi-dev \
+            pkg-config \
+            zlib1g-dev \
+            libbz2-dev \
+            libsqlite3-dev \
+            libncurses5-dev \
+            libexpat1-dev \
+            libssl-dev \
+            libgdbm-dev \
+            tk-dev \
+            libgc-dev \
+            python-cffi \
+            liblzma-dev \
+            libncursesw5-dev \
+            tar
+
+RUN wget https://downloads.python.org/pypy/pypy3.7-v7.3.9-linux64.tar.bz2
+RUN tar -x -C /opt -f pypy3.7-v7.3.9-linux64.tar.bz2
+RUN mv /opt/pypy3.7-v7.3.9-linux64 /opt/pypy3
+RUN ln -s /opt/pypy3/bin/pypy3 /usr/local/bin/pypy3
+
+# RUN pypy3 -m ensurepip
+RUN wget https://bootstrap.pypa.io/get-pip.py 
+RUN pypy3 get-pip.py
+RUN pypy3 -m pip install --upgrade pip testresources setuptools wheel setuptools_rust 
+RUN pypy3 -m pip install cffi
+## https://github.com/scipy/scipy/issues/16737
+RUN pypy3 -m pip install \
+            numpy \
+            pandas \
+            pybind11 \
+            avatar2 \
+            # yara-python \
+            # scipy==1.3.3 \ 
+            scikit-learn \
+            matplotlib \
+            grakel \
+            seaborn
+
+ADD setup.pypy /app/setup.py
+RUN pypy3 -m pip install  . 
+    
+RUN pypy3 -m pip install \
+            unicorn \
+            grakel \
+            gensim
+#pypy3 -m pip install torch
+RUN pypy3 -m pip install \
+            --global-option="build" \ 
+            --global-option="--enable-cuckoo" \
+            --global-option="--enable-magic" \
+            yara-python
+#pypy3 -m pip install --global-option="build"  yara 
+
+# TODO
+# RUN cd /tmp/;pypy3 -m pip install yara-python==3.11.0 -t .; 
+# RUN mkdir /usr/lib/pypy3/lib/
+# RUN cp /usr/lib/pypy3/lib/libyara.so /usr/lib/pypy3/lib/libyara.so
+# RUN cp /usr/local/lib/python3.8/site-packages/angr/lib/angr_native.so /home/${USER}/.local/lib/pypy3.7/site-packages/angr/lib/angr_native.so 
+#/usr/lib/pypy3/lib/angr_native.so
+
+RUN cd /app/src/submodules/angr-targets/;pypy3 -m pip install nose;pypy3 -m pip install .

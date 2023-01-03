@@ -1,0 +1,610 @@
+{
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "CompareStringEx", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpLocaleName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCmpFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWCH", 
+        "name": "lpString1", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchCount1", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWCH", 
+        "name": "lpString2", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchCount2", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNLSVERSIONINFO", 
+        "name": "lpVersionInformation", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "CompareStringOrdinal", 
+    "arguments": [
+      {
+        "type": " LPCWCH", 
+        "name": "lpString1", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchCount1", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWCH", 
+        "name": "lpString2", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchCount2", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bIgnoreCase", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CompareStringW": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "CompareStringW", 
+    "arguments": [
+      {
+        "type": " LCID", 
+        "name": "Locale", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCmpFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " PCNZWCH", 
+        "name": "lpString1", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchCount1", 
+        "is_float": false
+      }, 
+      {
+        "type": " PCNZWCH", 
+        "name": "lpString2", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchCount2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "FoldStringW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwMapFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWCH", 
+        "name": "lpSrcStr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpDestStr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchDest", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetStringTypeExW", 
+    "arguments": [
+      {
+        "type": " LCID", 
+        "name": "Locale", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwInfoType", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWCH", 
+        "name": "lpSrcStr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWORD", 
+        "name": "lpCharType", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "6": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetStringTypeW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwInfoType", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWCH", 
+        "name": "lpSrcStr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWORD", 
+        "name": "lpCharType", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "7": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "MultiByteToWideChar", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "CodePage", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCCH", 
+        "name": "lpMultiByteStr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cbMultiByte", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpWideCharStr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchWideChar", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WideCharToMultiByte": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WideCharToMultiByte", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "CodePage", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWCH", 
+        "name": "lpWideCharStr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchWideChar", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpMultiByteStr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cbMultiByte", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCCH", 
+        "name": "lpDefaultChar", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPBOOL", 
+        "name": "lpUsedDefaultChar", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CompareStringEx": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "CompareStringEx", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpLocaleName", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCmpFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWCH", 
+        "name": "lpString1", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchCount1", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWCH", 
+        "name": "lpString2", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchCount2", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPNLSVERSIONINFO", 
+        "name": "lpVersionInformation", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpReserved", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetStringTypeExW": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetStringTypeExW", 
+    "arguments": [
+      {
+        "type": " LCID", 
+        "name": "Locale", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwInfoType", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWCH", 
+        "name": "lpSrcStr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWORD", 
+        "name": "lpCharType", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "8": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WideCharToMultiByte", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "CodePage", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWCH", 
+        "name": "lpWideCharStr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchWideChar", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpMultiByteStr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cbMultiByte", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCCH", 
+        "name": "lpDefaultChar", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPBOOL", 
+        "name": "lpUsedDefaultChar", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "CompareStringW", 
+    "arguments": [
+      {
+        "type": " LCID", 
+        "name": "Locale", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCmpFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " PCNZWCH", 
+        "name": "lpString1", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchCount1", 
+        "is_float": false
+      }, 
+      {
+        "type": " PCNZWCH", 
+        "name": "lpString2", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchCount2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "MultiByteToWideChar": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "MultiByteToWideChar", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "CodePage", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCCH", 
+        "name": "lpMultiByteStr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cbMultiByte", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpWideCharStr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchWideChar", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "FoldStringW": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "FoldStringW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwMapFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWCH", 
+        "name": "lpSrcStr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpDestStr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchDest", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CompareStringOrdinal": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "CompareStringOrdinal", 
+    "arguments": [
+      {
+        "type": " LPCWCH", 
+        "name": "lpString1", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchCount1", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWCH", 
+        "name": "lpString2", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchCount2", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bIgnoreCase", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetStringTypeW": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetStringTypeW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwInfoType", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWCH", 
+        "name": "lpSrcStr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "cchSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWORD", 
+        "name": "lpCharType", 
+        "is_float": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,906 @@
+{
+  "wglCopyContext": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglCopyContext", 
+    "arguments": [
+      {
+        "type": " HGLRC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLRC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wglCreateContext": {
+    "cc": "__cdecl", 
+    "returns": "HGLRC", 
+    "returns_float": false, 
+    "name": "wglCreateContext", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wglSwapMultipleBuffers": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "wglSwapMultipleBuffers", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": "const WGLSWAP*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wglGetCurrentDC": {
+    "cc": "__cdecl", 
+    "returns": "HDC", 
+    "returns_float": false, 
+    "name": "wglGetCurrentDC", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wglUseFontBitmapsW": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglUseFontBitmapsW", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wglUseFontOutlinesW": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglUseFontOutlinesW", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " FLOAT", 
+        "name": null, 
+        "is_float": true
+      }, 
+      {
+        "type": " FLOAT", 
+        "name": null, 
+        "is_float": true
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPGLYPHMETRICSFLOAT", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wglSwapLayerBuffers": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglSwapLayerBuffers", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wglUseFontOutlinesA": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglUseFontOutlinesA", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " FLOAT", 
+        "name": null, 
+        "is_float": true
+      }, 
+      {
+        "type": " FLOAT", 
+        "name": null, 
+        "is_float": true
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPGLYPHMETRICSFLOAT", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "351": {
+    "cc": "__cdecl", 
+    "returns": "HGLRC", 
+    "returns_float": false, 
+    "name": "wglGetCurrentContext", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wglUseFontBitmapsA": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglUseFontBitmapsA", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wglGetProcAddress": {
+    "cc": "__cdecl", 
+    "returns": "PROC", 
+    "returns_float": false, 
+    "name": "wglGetProcAddress", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wglCreateLayerContext": {
+    "cc": "__cdecl", 
+    "returns": "HGLRC", 
+    "returns_float": false, 
+    "name": "wglCreateLayerContext", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "352": {
+    "cc": "__cdecl", 
+    "returns": "HDC", 
+    "returns_float": false, 
+    "name": "wglGetCurrentDC", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wglMakeCurrent": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglMakeCurrent", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLRC", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wglSetLayerPaletteEntries": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "wglSetLayerPaletteEntries", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": "const COLORREF*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wglRealizeLayerPalette": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglRealizeLayerPalette", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wglGetCurrentContext": {
+    "cc": "__cdecl", 
+    "returns": "HGLRC", 
+    "returns_float": false, 
+    "name": "wglGetCurrentContext", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "345": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglCopyContext", 
+    "arguments": [
+      {
+        "type": " HGLRC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLRC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "346": {
+    "cc": "__cdecl", 
+    "returns": "HGLRC", 
+    "returns_float": false, 
+    "name": "wglCreateContext", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "347": {
+    "cc": "__cdecl", 
+    "returns": "HGLRC", 
+    "returns_float": false, 
+    "name": "wglCreateLayerContext", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "348": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglDeleteContext", 
+    "arguments": [
+      {
+        "type": " HGLRC", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "349": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglDescribeLayerPlane", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPLAYERPLANEDESCRIPTOR", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wglShareLists": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglShareLists", 
+    "arguments": [
+      {
+        "type": " HGLRC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLRC", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wglDeleteContext": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglDeleteContext", 
+    "arguments": [
+      {
+        "type": " HGLRC", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "354": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "wglGetLayerPaletteEntries", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " COLORREF*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wglDescribeLayerPlane": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglDescribeLayerPlane", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPLAYERPLANEDESCRIPTOR", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "356": {
+    "cc": "__cdecl", 
+    "returns": "PROC", 
+    "returns_float": false, 
+    "name": "wglGetProcAddress", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "357": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglMakeCurrent", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLRC", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "358": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglRealizeLayerPalette", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "359": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "wglSetLayerPaletteEntries", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": "const COLORREF*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "361": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglShareLists", 
+    "arguments": [
+      {
+        "type": " HGLRC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HGLRC", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "363": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglSwapLayerBuffers", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "364": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "wglSwapMultipleBuffers", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": "const WGLSWAP*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "365": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglUseFontBitmapsA", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "366": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglUseFontBitmapsW", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "367": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglUseFontOutlinesA", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " FLOAT", 
+        "name": null, 
+        "is_float": true
+      }, 
+      {
+        "type": " FLOAT", 
+        "name": null, 
+        "is_float": true
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPGLYPHMETRICSFLOAT", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "368": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "wglUseFontOutlinesW", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " FLOAT", 
+        "name": null, 
+        "is_float": true
+      }, 
+      {
+        "type": " FLOAT", 
+        "name": null, 
+        "is_float": true
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPGLYPHMETRICSFLOAT", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "wglGetLayerPaletteEntries": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "wglGetLayerPaletteEntries", 
+    "arguments": [
+      {
+        "type": " HDC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " COLORREF*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,232 @@
+{
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "CloseHandle", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hObject", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "CompareObjectHandles", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hFirstObjectHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hSecondObjectHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "DuplicateHandle", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hSourceProcessHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hSourceHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hTargetProcessHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPHANDLE", 
+        "name": "lpTargetHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwOptions", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetHandleInformation", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hObject", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetHandleInformation", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hObject", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMask", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CompareObjectHandles": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "CompareObjectHandles", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hFirstObjectHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hSecondObjectHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetHandleInformation": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetHandleInformation", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hObject", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DuplicateHandle": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "DuplicateHandle", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hSourceProcessHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hSourceHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hTargetProcessHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPHANDLE", 
+        "name": "lpTargetHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwDesiredAccess", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bInheritHandle", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwOptions", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetHandleInformation": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetHandleInformation", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hObject", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMask", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CloseHandle": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "CloseHandle", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hObject", 
+        "is_float": false
+      }
+    ]
+  }
+}

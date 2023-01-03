@@ -1,0 +1,2976 @@
+{
+  "ImmGetCandidateListCountW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetCandidateListCountW", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwListCount", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetCandidateListW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetCandidateListW", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "deIndex", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCANDIDATELIST", 
+        "name": "lpCandList", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "27": {
+    "cc": "__stdcall", 
+    "returns": "HIMC", 
+    "returns_float": false, 
+    "name": "ImmAssociateContext", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "28": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmAssociateContextEx", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetCandidateListA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetCandidateListA", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "deIndex", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCANDIDATELIST", 
+        "name": "lpCandList", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "30": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmConfigureIMEA", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "31": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmConfigureIMEW", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "32": {
+    "cc": "__stdcall", 
+    "returns": "HIMC", 
+    "returns_float": false, 
+    "name": "ImmCreateContext", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "35": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmDestroyContext", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "38": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmDisableIME", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "40": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmDisableLegacyIME", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "41": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmDisableTextFrameService", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "idThread", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "42": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmEnumInputContext", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "idThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " IMCENUMPROC", 
+        "name": "lpfn", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetCompositionStringA": {
+    "cc": "__stdcall", 
+    "returns": "LONG", 
+    "returns_float": false, 
+    "name": "ImmGetCompositionStringA", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuf", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "44": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "ImmEnumRegisterWordW", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " REGISTERWORDENUMPROCW", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpszReading", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpszRegister", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "45": {
+    "cc": "__stdcall", 
+    "returns": "LRESULT", 
+    "returns_float": false, 
+    "name": "ImmEscapeA", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "46": {
+    "cc": "__stdcall", 
+    "returns": "LRESULT", 
+    "returns_float": false, 
+    "name": "ImmEscapeW", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmDisableTextFrameService": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmDisableTextFrameService", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "idThread", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "51": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetCandidateListCountA", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwListCount", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "52": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetCandidateListCountW", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwListCount", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "53": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetCandidateListW", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "deIndex", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCANDIDATELIST", 
+        "name": "lpCandList", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "54": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmGetCandidateWindow", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCANDIDATEFORM", 
+        "name": "lpCandidate", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "55": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmGetCompositionFontA", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPLOGFONTA", 
+        "name": "lplf", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "56": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmGetCompositionFontW", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPLOGFONTW", 
+        "name": "lplf", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "57": {
+    "cc": "__stdcall", 
+    "returns": "LONG", 
+    "returns_float": false, 
+    "name": "ImmGetCompositionStringA", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuf", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "58": {
+    "cc": "__stdcall", 
+    "returns": "LONG", 
+    "returns_float": false, 
+    "name": "ImmGetCompositionStringW", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuf", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "59": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmGetCompositionWindow", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCOMPOSITIONFORM", 
+        "name": "lpCompForm", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "60": {
+    "cc": "__stdcall", 
+    "returns": "HIMC", 
+    "returns_float": false, 
+    "name": "ImmGetContext", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetCompositionStringW": {
+    "cc": "__stdcall", 
+    "returns": "LONG", 
+    "returns_float": false, 
+    "name": "ImmGetCompositionStringW", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpBuf", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "62": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetConversionListW", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCANDIDATELIST", 
+        "name": "lpDst", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwBufLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uFlag", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "63": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmGetConversionStatus", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpfdwConversion", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpfdwSentence", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "64": {
+    "cc": "__stdcall", 
+    "returns": "HWND", 
+    "returns_float": false, 
+    "name": "ImmGetDefaultIMEWnd", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "65": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "ImmGetDescriptionA", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpszDescription", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "66": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "ImmGetDescriptionW", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpszDescription", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "67": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetGuideLineA", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwIndex", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpBuf", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "68": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetGuideLineW", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwIndex", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpBuf", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "73": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "ImmGetIMEFileNameA", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpszFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "74": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "ImmGetIMEFileNameW", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpszFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "76": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetImeMenuItemsA", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPIMEMENUITEMINFOA", 
+        "name": "lpImeParentMenu", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPIMEMENUITEMINFOA", 
+        "name": "lpImeMenu", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "77": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetImeMenuItemsW", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPIMEMENUITEMINFOW", 
+        "name": "lpImeParentMenu", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPIMEMENUITEMINFOW", 
+        "name": "lpImeMenu", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "78": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmGetOpenStatus", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "79": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetProperty", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "80": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "ImmGetRegisterWordStyleA", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "nItem", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTYLEBUFA", 
+        "name": "lpStyleBuf", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "81": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "ImmGetRegisterWordStyleW", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "nItem", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTYLEBUFW", 
+        "name": "lpStyleBuf", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "82": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmGetStatusWindowPos", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPPOINT", 
+        "name": "lpptPos", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "83": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "ImmGetVirtualKey", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmUnregisterWordA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmUnregisterWordA", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpszReading", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpszUnregister", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "90": {
+    "cc": "__stdcall", 
+    "returns": "HKL", 
+    "returns_float": false, 
+    "name": "ImmInstallIMEA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpszIMEFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpszLayoutText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "91": {
+    "cc": "__stdcall", 
+    "returns": "HKL", 
+    "returns_float": false, 
+    "name": "ImmInstallIMEW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpszIMEFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpszLayoutText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "92": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmIsIME", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "93": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmIsUIMessageA", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " WPARAM", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "94": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmIsUIMessageW", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " WPARAM", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmEnumRegisterWordW": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "ImmEnumRegisterWordW", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " REGISTERWORDENUMPROCW", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpszReading", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpszRegister", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetConversionListA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetConversionListA", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCANDIDATELIST", 
+        "name": "lpDst", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwBufLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uFlag", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "101": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmNotifyIME", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwAction", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwIndex", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwValue", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "106": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmRegisterWordA", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpszReading", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpszRegister", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "107": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmRegisterWordW", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpszReading", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpszRegister", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "108": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmReleaseContext", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetCandidateWindow": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmGetCandidateWindow", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCANDIDATEFORM", 
+        "name": "lpCandidate", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "115": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSetCandidateWindow", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCANDIDATEFORM", 
+        "name": "lpCandidate", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetProperty": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetProperty", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetConversionListW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetConversionListW", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCANDIDATELIST", 
+        "name": "lpDst", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwBufLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uFlag", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "118": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSetCompositionStringA", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwIndex", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpComp", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCompLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpRead", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReadLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "119": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSetCompositionStringW", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwIndex", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpComp", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCompLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpRead", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReadLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "120": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSetCompositionWindow", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCOMPOSITIONFORM", 
+        "name": "lpCompForm", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "121": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSetConversionStatus", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "123": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSetOpenStatus", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "124": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSetStatusWindowPos", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPPOINT", 
+        "name": "lpptPos", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "126": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSimulateHotKey", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmAssociateContext": {
+    "cc": "__stdcall", 
+    "returns": "HIMC", 
+    "returns_float": false, 
+    "name": "ImmAssociateContext", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmSetCompositionStringW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSetCompositionStringW", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwIndex", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpComp", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCompLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpRead", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReadLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "133": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmUnregisterWordA", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpszReading", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpszUnregister", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "134": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmUnregisterWordW", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpszReading", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpszUnregister", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmNotifyIME": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmNotifyIME", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwAction", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwIndex", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwValue", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmSetCompositionStringA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSetCompositionStringA", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwIndex", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpComp", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwCompLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "lpRead", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReadLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetStatusWindowPos": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmGetStatusWindowPos", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPPOINT", 
+        "name": "lpptPos", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmIsIME": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmIsIME", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetDescriptionA": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "ImmGetDescriptionA", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpszDescription", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmEscapeW": {
+    "cc": "__stdcall", 
+    "returns": "LRESULT", 
+    "returns_float": false, 
+    "name": "ImmEscapeW", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmInstallIMEW": {
+    "cc": "__stdcall", 
+    "returns": "HKL", 
+    "returns_float": false, 
+    "name": "ImmInstallIMEW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpszIMEFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpszLayoutText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmInstallIMEA": {
+    "cc": "__stdcall", 
+    "returns": "HKL", 
+    "returns_float": false, 
+    "name": "ImmInstallIMEA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpszIMEFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpszLayoutText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmEscapeA": {
+    "cc": "__stdcall", 
+    "returns": "LRESULT", 
+    "returns_float": false, 
+    "name": "ImmEscapeA", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetDescriptionW": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "ImmGetDescriptionW", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpszDescription", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetOpenStatus": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmGetOpenStatus", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmEnumRegisterWordA": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "ImmEnumRegisterWordA", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " REGISTERWORDENUMPROCA", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpszReading", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpszRegister", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetCandidateListCountA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetCandidateListCountA", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwListCount", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "117": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSetCompositionFontW", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPLOGFONTW", 
+        "name": "lplf", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmDisableLegacyIME": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmDisableLegacyIME", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetRegisterWordStyleA": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "ImmGetRegisterWordStyleA", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "nItem", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTYLEBUFA", 
+        "name": "lpStyleBuf", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmSetStatusWindowPos": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSetStatusWindowPos", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPPOINT", 
+        "name": "lpptPos", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetVirtualKey": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "ImmGetVirtualKey", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetContext": {
+    "cc": "__stdcall", 
+    "returns": "HIMC", 
+    "returns_float": false, 
+    "name": "ImmGetContext", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetRegisterWordStyleW": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "ImmGetRegisterWordStyleW", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "nItem", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTYLEBUFW", 
+        "name": "lpStyleBuf", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmSetCandidateWindow": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSetCandidateWindow", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCANDIDATEFORM", 
+        "name": "lpCandidate", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmSetCompositionFontW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSetCompositionFontW", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPLOGFONTW", 
+        "name": "lplf", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmCreateContext": {
+    "cc": "__stdcall", 
+    "returns": "HIMC", 
+    "returns_float": false, 
+    "name": "ImmCreateContext", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmSetCompositionFontA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSetCompositionFontA", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPLOGFONTA", 
+        "name": "lplf", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmSetConversionStatus": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSetConversionStatus", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmSetOpenStatus": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSetOpenStatus", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "43": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "ImmEnumRegisterWordA", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " REGISTERWORDENUMPROCA", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpszReading", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpszRegister", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetImeMenuItemsW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetImeMenuItemsW", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPIMEMENUITEMINFOW", 
+        "name": "lpImeParentMenu", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPIMEMENUITEMINFOW", 
+        "name": "lpImeMenu", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetIMEFileNameA": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "ImmGetIMEFileNameA", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpszFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetImeMenuItemsA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetImeMenuItemsA", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPIMEMENUITEMINFOA", 
+        "name": "lpImeParentMenu", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPIMEMENUITEMINFOA", 
+        "name": "lpImeMenu", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmAssociateContextEx": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmAssociateContextEx", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetIMEFileNameW": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "ImmGetIMEFileNameW", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpszFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmSimulateHotKey": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSimulateHotKey", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmEnumInputContext": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmEnumInputContext", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "idThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " IMCENUMPROC", 
+        "name": "lpfn", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "50": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetCandidateListA", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "deIndex", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCANDIDATELIST", 
+        "name": "lpCandList", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetCompositionFontA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmGetCompositionFontA", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPLOGFONTA", 
+        "name": "lplf", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetCompositionWindow": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmGetCompositionWindow", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCOMPOSITIONFORM", 
+        "name": "lpCompForm", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetCompositionFontW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmGetCompositionFontW", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPLOGFONTW", 
+        "name": "lplf", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmIsUIMessageA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmIsUIMessageA", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " WPARAM", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmConfigureIMEA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmConfigureIMEA", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmDestroyContext": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmDestroyContext", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "61": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetConversionListA", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpSrc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCANDIDATELIST", 
+        "name": "lpDst", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwBufLen", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uFlag", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmIsUIMessageW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmIsUIMessageW", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " WPARAM", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmConfigureIMEW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmConfigureIMEW", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmReleaseContext": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmReleaseContext", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetConversionStatus": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmGetConversionStatus", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpfdwConversion", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpfdwSentence", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmUnregisterWordW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmUnregisterWordW", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpszReading", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpszUnregister", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "116": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSetCompositionFontA", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPLOGFONTA", 
+        "name": "lplf", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetDefaultIMEWnd": {
+    "cc": "__stdcall", 
+    "returns": "HWND", 
+    "returns_float": false, 
+    "name": "ImmGetDefaultIMEWnd", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmDisableIME": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmDisableIME", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetGuideLineA": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetGuideLineA", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwIndex", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpBuf", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmRegisterWordW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmRegisterWordW", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpszReading", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpszRegister", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmGetGuideLineW": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "ImmGetGuideLineW", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwIndex", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpBuf", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwBufLen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmRegisterWordA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmRegisterWordA", 
+    "arguments": [
+      {
+        "type": " HKL", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpszReading", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpszRegister", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ImmSetCompositionWindow": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ImmSetCompositionWindow", 
+    "arguments": [
+      {
+        "type": " HIMC", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCOMPOSITIONFORM", 
+        "name": "lpCompForm", 
+        "is_float": false
+      }
+    ]
+  }
+}

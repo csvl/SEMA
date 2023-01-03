@@ -1,0 +1,87 @@
+{
+  "62": {
+    "cc": "__stdcall", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllGetClassObject", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DllGetClassObject": {
+    "cc": "__stdcall", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllGetClassObject", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "61": {
+    "cc": "__stdcall", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllCanUnloadNow", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DllCanUnloadNow": {
+    "cc": "__stdcall", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllCanUnloadNow", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  },
+    "CorExitProcess": {
+    "cc": "__stdcall", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "CorExitProcess", 
+    "arguments": [
+      {
+        "type": "int", 
+        "name": "exitCode", 
+        "is_float": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,660 @@
+{
+  "PrintDlgExW": {
+    "cc": "__stdcall", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "PrintDlgExW", 
+    "arguments": [
+      {
+        "type": " LPPRINTDLGEXW", 
+        "name": "pPD", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetSaveFileNameW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetSaveFileNameW", 
+    "arguments": [
+      {
+        "type": " LPOPENFILENAMEW", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CommDlgExtendedError": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "CommDlgExtendedError", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "PrintDlgExA": {
+    "cc": "__stdcall", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "PrintDlgExA", 
+    "arguments": [
+      {
+        "type": " LPPRINTDLGEXA", 
+        "name": "pPD", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetSaveFileNameA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetSaveFileNameA", 
+    "arguments": [
+      {
+        "type": " LPOPENFILENAMEA", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "FindTextA": {
+    "cc": "__stdcall", 
+    "returns": "HWND", 
+    "returns_float": false, 
+    "name": "FindTextA", 
+    "arguments": [
+      {
+        "type": " LPFINDREPLACEA", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetOpenFileNameW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetOpenFileNameW", 
+    "arguments": [
+      {
+        "type": " LPOPENFILENAMEW", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ChooseColorW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ChooseColorW", 
+    "arguments": [
+      {
+        "type": " LPCHOOSECOLORW", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ChooseFontW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ChooseFontW", 
+    "arguments": [
+      {
+        "type": " LPCHOOSEFONTW", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "PageSetupDlgA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "PageSetupDlgA", 
+    "arguments": [
+      {
+        "type": " LPPAGESETUPDLGA", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetOpenFileNameA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetOpenFileNameA", 
+    "arguments": [
+      {
+        "type": " LPOPENFILENAMEA", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ChooseColorA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ChooseColorA", 
+    "arguments": [
+      {
+        "type": " LPCHOOSECOLORA", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "FindTextW": {
+    "cc": "__stdcall", 
+    "returns": "HWND", 
+    "returns_float": false, 
+    "name": "FindTextW", 
+    "arguments": [
+      {
+        "type": " LPFINDREPLACEW", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DllCanUnloadNow": {
+    "cc": "__stdcall", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllCanUnloadNow", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ReplaceTextW": {
+    "cc": "__stdcall", 
+    "returns": "HWND", 
+    "returns_float": false, 
+    "name": "ReplaceTextW", 
+    "arguments": [
+      {
+        "type": " LPFINDREPLACEW", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "PageSetupDlgW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "PageSetupDlgW", 
+    "arguments": [
+      {
+        "type": " LPPAGESETUPDLGW", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ChooseFontA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ChooseFontA", 
+    "arguments": [
+      {
+        "type": " LPCHOOSEFONTA", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "PrintDlgA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "PrintDlgA", 
+    "arguments": [
+      {
+        "type": " LPPRINTDLGA", 
+        "name": "pPD", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetFileTitleW": {
+    "cc": "__stdcall", 
+    "returns": "short", 
+    "returns_float": false, 
+    "name": "GetFileTitleW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "Buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " WORD", 
+        "name": "cchSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetFileTitleA": {
+    "cc": "__stdcall", 
+    "returns": "short", 
+    "returns_float": false, 
+    "name": "GetFileTitleA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "Buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " WORD", 
+        "name": "cchSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "PrintDlgW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "PrintDlgW", 
+    "arguments": [
+      {
+        "type": " LPPRINTDLGW", 
+        "name": "pPD", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ReplaceTextA": {
+    "cc": "__stdcall", 
+    "returns": "HWND", 
+    "returns_float": false, 
+    "name": "ReplaceTextA", 
+    "arguments": [
+      {
+        "type": " LPFINDREPLACEA", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DllGetClassObject": {
+    "cc": "__stdcall", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllGetClassObject", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "102": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ChooseColorA", 
+    "arguments": [
+      {
+        "type": " LPCHOOSECOLORA", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "103": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ChooseColorW", 
+    "arguments": [
+      {
+        "type": " LPCHOOSECOLORW", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "104": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ChooseFontA", 
+    "arguments": [
+      {
+        "type": " LPCHOOSEFONTA", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "105": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "ChooseFontW", 
+    "arguments": [
+      {
+        "type": " LPCHOOSEFONTW", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "106": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "CommDlgExtendedError", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "107": {
+    "cc": "__stdcall", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllCanUnloadNow", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "108": {
+    "cc": "__stdcall", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllGetClassObject", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "109": {
+    "cc": "__stdcall", 
+    "returns": "HWND", 
+    "returns_float": false, 
+    "name": "FindTextA", 
+    "arguments": [
+      {
+        "type": " LPFINDREPLACEA", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "110": {
+    "cc": "__stdcall", 
+    "returns": "HWND", 
+    "returns_float": false, 
+    "name": "FindTextW", 
+    "arguments": [
+      {
+        "type": " LPFINDREPLACEW", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "111": {
+    "cc": "__stdcall", 
+    "returns": "short", 
+    "returns_float": false, 
+    "name": "GetFileTitleA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "Buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " WORD", 
+        "name": "cchSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "112": {
+    "cc": "__stdcall", 
+    "returns": "short", 
+    "returns_float": false, 
+    "name": "GetFileTitleW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "Buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " WORD", 
+        "name": "cchSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "113": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetOpenFileNameA", 
+    "arguments": [
+      {
+        "type": " LPOPENFILENAMEA", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "114": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetOpenFileNameW", 
+    "arguments": [
+      {
+        "type": " LPOPENFILENAMEW", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "115": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetSaveFileNameA", 
+    "arguments": [
+      {
+        "type": " LPOPENFILENAMEA", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "116": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetSaveFileNameW", 
+    "arguments": [
+      {
+        "type": " LPOPENFILENAMEW", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "118": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "PageSetupDlgA", 
+    "arguments": [
+      {
+        "type": " LPPAGESETUPDLGA", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "119": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "PageSetupDlgW", 
+    "arguments": [
+      {
+        "type": " LPPAGESETUPDLGW", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "120": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "PrintDlgA", 
+    "arguments": [
+      {
+        "type": " LPPRINTDLGA", 
+        "name": "pPD", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "121": {
+    "cc": "__stdcall", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "PrintDlgExA", 
+    "arguments": [
+      {
+        "type": " LPPRINTDLGEXA", 
+        "name": "pPD", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "122": {
+    "cc": "__stdcall", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "PrintDlgExW", 
+    "arguments": [
+      {
+        "type": " LPPRINTDLGEXW", 
+        "name": "pPD", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "123": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "PrintDlgW", 
+    "arguments": [
+      {
+        "type": " LPPRINTDLGW", 
+        "name": "pPD", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "124": {
+    "cc": "__stdcall", 
+    "returns": "HWND", 
+    "returns_float": false, 
+    "name": "ReplaceTextA", 
+    "arguments": [
+      {
+        "type": " LPFINDREPLACEA", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "125": {
+    "cc": "__stdcall", 
+    "returns": "HWND", 
+    "returns_float": false, 
+    "name": "ReplaceTextW", 
+    "arguments": [
+      {
+        "type": " LPFINDREPLACEW", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }
+}

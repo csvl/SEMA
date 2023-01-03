@@ -1,0 +1,180 @@
+{
+  "32": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllGetClassObject", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DllGetClassObject": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "DllGetClassObject", 
+    "arguments": [
+      {
+        "type": "const IID*const", 
+        "name": "rclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID*", 
+        "name": "ppv", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "Create", 
+    "arguments": [
+      {
+        "type": " IPropertySetStorage*", 
+        "name": "This", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "rfmtid", 
+        "is_float": false
+      }, 
+      {
+        "type": "const CLSID*", 
+        "name": "pclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "grfFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "grfMode", 
+        "is_float": false
+      }, 
+      {
+        "type": " IPropertyStorage**", 
+        "name": "ppprstg", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "6": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CreateInstance", 
+    "arguments": [
+      {
+        "type": " ITypeInfo2*", 
+        "name": "This", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUnknown*", 
+        "name": "pUnkOuter", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID*", 
+        "name": "ppvObj", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "Create": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "Create", 
+    "arguments": [
+      {
+        "type": " IPropertySetStorage*", 
+        "name": "This", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "rfmtid", 
+        "is_float": false
+      }, 
+      {
+        "type": "const CLSID*", 
+        "name": "pclsid", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "grfFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "grfMode", 
+        "is_float": false
+      }, 
+      {
+        "type": " IPropertyStorage**", 
+        "name": "ppprstg", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CreateInstance": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "CreateInstance", 
+    "arguments": [
+      {
+        "type": " ITypeInfo2*", 
+        "name": "This", 
+        "is_float": false
+      }, 
+      {
+        "type": " IUnknown*", 
+        "name": "pUnkOuter", 
+        "is_float": false
+      }, 
+      {
+        "type": "const IID*const", 
+        "name": "riid", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID*", 
+        "name": "ppvObj", 
+        "is_float": false
+      }
+    ]
+  }
+}

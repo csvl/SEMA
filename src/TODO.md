@@ -46,6 +46,8 @@
     logging.basicConfig(level=logging.DEBUG, format="%(asctime)s  %(message)s", handlers=[queue_handler])
     ```
 
+* Add heuristic for proc simplification ie serena ie regopenA()
+
 #### Generate executable
 
 https://pyinstaller.readthedocs.io/en/stable/requirements.html
