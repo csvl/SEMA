@@ -216,7 +216,7 @@ class CustomSimProcedure:
         if self.is_from_web:
             pkg = "src.SemaSCDG.procedures.windows"
         for pkg_name, package in autoimport.auto_import_packages(
-            "procedures.windows", path, skip_dirs
+            pkg, path, skip_dirs
         ):
             for _, mod in autoimport.filter_module(package, type_req=type(os)):
                 for name, proc in autoimport.filter_module(
@@ -255,7 +255,7 @@ class CustomSimProcedure:
         if self.is_from_web:
             pkg = "src.SemaSCDG.procedures.linux"
         for pkg_name, package in autoimport.auto_import_packages(
-            "procedures.linux", path, skip_dirs
+            pkg, path, skip_dirs
         ):
             for _, mod in autoimport.filter_module(package, type_req=type(os)):
                 for name, proc in autoimport.filter_module(
@@ -340,7 +340,7 @@ class CustomSimProcedure:
     def loadlibs_proc(self, dlls_functions, project):
         symbols = project.loader.symbols
         dic_symbols = {symb.name: symb.rebased_addr for symb in symbols}
-        self.lm.info(dic_symbols)
+        self.log.info(dic_symbols)
 
         for dllname in project.loader.requested_names:
             libname = dllname
@@ -348,7 +348,7 @@ class CustomSimProcedure:
                 if len(dlls_functions[libname]) == 0 or libname.startswith("syscalls"):
                     continue
                 if libname in self.ANGR_LIBS:
-                    self.lm.info("Was in angr :" + str(libname))
+                    self.log.info("Was in angr :" + str(libname))
 
                     angrlib = SIM_LIBRARIES[self.ANGR_LIBS[libname]]
                     cc = list(dlls_functions[libname].values())[0]["cc"]
@@ -433,8 +433,8 @@ class CustomSimProcedure:
 
         for s in ok:
             del dic_symbols[s]
-        self.lm.info("No hooks for: %s", str(dic_symbols))
-        # self.lm.info(dic_symbols)
+        self.log.info("No hooks for: %s", str(dic_symbols))
+        # self.log.info(dic_symbols)
 
     def loadlibs(self, project):
         symbols = project.loader.symbols

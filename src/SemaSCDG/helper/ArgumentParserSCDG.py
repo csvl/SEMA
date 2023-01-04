@@ -101,21 +101,25 @@ class ArgumentParserSCDG:
         self.group_expl_param.add_argument(
             "--symb_loop",
             help="Number of iteration allowed for a symbolic loop (default : 3) ",
+            default=3,
             type=int,
         )
         self.group_expl_param.add_argument(
             "--limit_pause",
             help="Number of states allowed in pause stash (default : 200)",
+            default=200,
             type=int,
         )
         self.group_expl_param.add_argument(
             "--max_step",
             help="Maximum number of steps allowed for a state (default : 50 000)",
+            default=50000,
             type=int,
         )
         self.group_expl_param.add_argument(
             "--max_deadend",
             help="Number of deadended state required to stop (default : 600)",
+            default=600,
             type=int,
         )
         self.group_expl_param.add_argument(
@@ -137,6 +141,26 @@ class ArgumentParserSCDG:
             help="Number of symbolic arguments given to the binary (default : 1024)",
             default=1024,
             type=int,
+        )
+        
+        self.group_rats= self.parser.add_argument_group('RATs custom parameters')
+        self.group_rats.add_argument(
+            "--count_block",
+            help="Count block (default : False)",
+            action="store_true",
+            
+        )
+        self.group_rats.add_argument(
+            "--sim_file",
+            help="Create SimFile with binary  TODO (default : False)",
+            action="store_true",
+            
+        )
+        self.group_rats.add_argument(
+            "--track_command",
+            help="Track command loop of RATs  (default : False)",
+            action="store_true",
+            
         )
         
         self.group_scdg = self.parser.add_argument_group('SCDG creation parameter')
@@ -226,18 +250,6 @@ class ArgumentParserSCDG:
             
         )
         self.group.add_argument(
-            "--count_block",
-            help="Count block (default : False)",
-            action="store_true",
-            
-        )
-        self.group.add_argument(
-            "--sim_file",
-            help="Count block  TODO (default : False)",
-            action="store_true",
-            
-        )
-        self.group.add_argument(
             "--familly",
             help="Familly of the malware (default : unknown)",
             
@@ -254,7 +266,13 @@ class ArgumentParserSCDG:
         if not self.tool_scdg.print_on:
             self.tool_scdg.print_on = args.verbose
         self.tool_scdg.debug_error = args.debug_error
-        expl_method = "DFS" if args.DFS else ("BFS" if args.BFS else ("CDFS" if args.CDFS else "CBFS"))
+        expl_method = "DFS"   if args.DFS else \
+                     ("BFS"   if args.BFS \
+                else ("CDFS"  if args.CDFS \
+                else ("DBFS"  if args.DBFS \
+                else ("SDFS"  if args.SDFS \
+                else ("SCDFS" if args.SCDFS \
+                else  "CBFS")))))
 
         familly = "unknown"
         if args.familly:
@@ -262,23 +280,23 @@ class ArgumentParserSCDG:
         args.exp_dir = args.exp_dir + familly + "/"
 
         if args.timeout:
-            self.tcw.timeout = args.timeout
+            self.tool_scdg.timeout = args.timeout
         if args.symb_loop:
-            self.tcw.jump_it = args.symb_loop
+            self.tool_scdg.jump_it = args.symb_loop
         if args.conc_loop:
-            self.tcw.loop_counter_concrete = args.conc_loop
+            self.tool_scdg.loop_counter_concrete = args.conc_loop
         if args.eval_time:
-            self.tcw.eval_time = True
+            self.tool_scdg.eval_time = True
 
-        self.tcw.max_simul_state = args.simul_state
+        self.tool_scdg.max_simul_state = args.simul_state
 
-        self.tcw.string_resolv = not args.not_resolv_string
+        self.tool_scdg.string_resolv = not args.not_resolv_string
         if args.limit_pause:
-            self.tcw.max_in_pause_stach = args.limit_pause
+            self.tool_scdg.max_in_pause_stach = args.limit_pause
         if args.max_step:
-            self.tcw.max_step = args.max_step
+            self.tool_scdg.max_step = args.max_step
         if args.max_deadend:
-            self.tcw.max_end_state = args.max_deadend
+            self.tool_scdg.max_end_state = args.max_deadend
         
         self.tool_scdg.is_packed = args.packed
 

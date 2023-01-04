@@ -17,6 +17,7 @@ class GraphBuilder:
         comp_args=True,
         min_size=3,
         ignore_zero=True,
+        three_edges = False,
         odir=None,
         get_info=False,
         verbose=False,
@@ -52,19 +53,16 @@ class GraphBuilder:
         self.COMP_ARGS = comp_args
         self.MIN_SIZE = min_size
         self.IGNORE_ZERO = ignore_zero
+        self.three_edges = three_edges
         ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
         ROOT_DIR = ROOT_DIR.replace("/helper", "")
-        self.odir = ROOT_DIR + "/output"
-        self.lw.info("Output dir :" + self.odir)
 
         self.get_info = get_info
 
         self.verbose = verbose
 
-        if mapping:
-            self.create_mapping(mapping)
-        else:
-            self.mapping = {}
+        self.create_mapping(mapping)
+
         if not name:
             self.name = "test"
         else:
@@ -81,16 +79,19 @@ class GraphBuilder:
     # Create a mapping for the different syscall name and an unique identifier.
     # args : mapping = name of the file for the mapping to use (format : id syscallname\n)
     def create_mapping(self, mapping):
-        map_file = open(mapping, "r")
-        for line in map_file:
-            tab = line.split("\n")[0].split(" ")
-            self.mapping[tab[1]] = tab[0]
-            self.id_map = self.id_map + 1
+        try:
+            map_file = open(mapping, "r")
+            for line in map_file:
+                tab = line.split("\n")[0].split(" ")
+                self.mapping[tab[1]] = tab[0]
+                self.id_map = self.id_map + 1
+        except:
+            pass # todo
+        
 
     def build_links(self, trace, graph, dico={}):
         # self.lw.info("Building links between calls")
         # Dictionnary used to build link between args
-
         # Variable to check if this trace has added some content to the graph
         contribution = False
 
@@ -208,12 +209,12 @@ class GraphBuilder:
                             dico[ret].append((self.id, 0))
                         else:
                             dico[ret] = [(self.id, 0)]
-
-                addr = str(call["addr_func"])
-                if addr not in self.dico_addr:
-                    self.dico_addr[addr] = (str(self.id), 0)
-                if addr in dico:
-                    self.create_link((str(self.id), 0), dico[addr], graph, lab_type="2")
+                if self.three_edges:
+                    addr = str(call["addr_func"])
+                    if addr not in self.dico_addr:
+                        self.dico_addr[addr] = (str(self.id), 0)
+                    if addr in dico:
+                        self.create_link((str(self.id), 0), dico[addr], graph, lab_type="2")
 
                 self.id = self.id + 1
         if self.totTrace < 500:
@@ -285,7 +286,6 @@ class GraphBuilder:
                 self.current_trace_nodes.clear()
 
             # Save data parts
-
             for n in self.tabnode:
                 if format_out_json:
                     # json_content['nodes'].append(n)
@@ -318,31 +318,8 @@ class GraphBuilder:
             dot.save(self.odir + "/"+  self.name + "/" + self.name + ".gv")
             if format_out_json:
                 json.dump(json_content, self.graph_file)
-            """if self.get_info :
-                f = open(self.odir+'/'+self.name+'.info','a')
-                f.write('Number of nodes : '+str(len(self.tabnode)))
-                f.write('\n')
-                f.write('Number of edges : '+str(len(self.tablink)))
-                f.write('\n')
-                density = 2*(len(self.tabnode))/((len(self.tablink)-1)*len(self.tablink))
-                f.write('Density of the graph : '+str(density))
-                f.write('\n')    
-                result = subprocess.run(['sccmap','-dsv',self.odir+'/SCDG_'+self.name+'.dot'],stdout=subprocess.PIPE,stderr=subprocess.PIPE,encoding='utf-8').stderr
-                self.lw.info(result)
-                test = result.split(' ')
-                f.write('Number of connected components : '+str(test[2]))
-                f.write('\n')
-                f.write('Number of strongly connected components : '+str(test[3]))
-                f.write('\n')
-                f.write('Number of usefull traces : '+str(self.usefullTraces))
-                f.write('\n')
-                f.write('Number of useless traces : '+str(self.uselessTraces))
-                f.write('\n')              
-                f.close()"""
-
         else:
             dot = Digraph(comment="SCDG with disjoint union", format="dot")
-
             for i in range(len(SCDG)):
                 if len(SCDG[i]) >= self.MIN_SIZE:
                     json_content["graph_" + str(i)] = {}
@@ -406,11 +383,8 @@ class GraphBuilder:
     # If not COMP_ARGS : a call is considered present if it had same addr and name corresponding to a node already present
     # Add the call to existing_node if relevant and return Boolean
     def check_duplicate(self, call):
-
         name_node = str(call["addr"]) + "." + str(call["name"])
-
         if name_node in self.existing_nodes:
-
             if not self.COMP_ARGS:
                 # We just care about call name and address, since node already exists, we add it to current_traces_nodes (to authorize creation of new link)
                 # But we return True since node already exists
@@ -432,7 +406,6 @@ class GraphBuilder:
             else:
                 flag = True
                 for test_args in self.current_trace_nodes[name_node]["args"]:
-
                     # Check if a node exist with exactly the same args
                     if self.is_match(test_args, call["args"]):
                         flag = False
@@ -483,10 +456,6 @@ class GraphBuilder:
         ret = ""
         for a in args:
             test = str(a)
-            """if '//' in test:
-                test = test.replace('/','|')
-            else :
-                test = str(a)"""
             ret = ret + str(test)
             ret = ret + "\n"
         ret = ret[:-1]

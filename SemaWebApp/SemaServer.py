@@ -162,6 +162,9 @@ class SemaServer:
         # SemaServer.vizualiser_ip = vizualiser_ip
         
         SemaServer.exps = []
+        SemaServer.download_thread = None
+        SemaServer.malware_to_download = 0
+        SemaServer.malware_to_downloaded = 0
         SemaServer.sema_res_dir = "src/output/runs/" # TODO dynamic
         SemaServer.current_exp = 0
 
@@ -201,7 +204,11 @@ class SemaServer:
     
     @app.route('/progress-dl', methods = ['GET', 'POST'])
     def progress_dl():
-        return str(0) ## TODO
+        return str(SemaServer.malware_to_downloaded) ## TODO
+    
+    @app.route('/iteration-dl', methods = ['GET', 'POST'])
+    def iteration_dl():
+        return str(SemaServer.malware_to_download) ## TODO
 
     @app.route('/index.html', methods = ['GET', 'POST'])
     def serve_index():
@@ -333,7 +340,8 @@ class SemaServer:
                 args.binaries = args.exp_dir
             elif args.binaries == "output/runs/" and "class_enable" in request.form:
                 SemaServer.sema.current_exp_dir = len(glob.glob("src/" + args.exp_dir + "/*")) + 1
-                args.binaries = "src/" + args.exp_dir + str(SemaServer.sema.current_exp_dir) + "/"
+                exp_dir = "src/" + args.exp_dir + str(SemaServer.sema.current_exp_dir) + "/"
+                args.binaries = exp_dir
                     
             if "scdg_enable" in request.form:
                 SemaServer.sema.tool_classifier.args = args
@@ -429,20 +437,24 @@ class SemaServer:
     def send_key(implem):
         return send_from_directory(SemaServer.key_path, implem)
     
-    @app.route('/downloader.html', methods = ['GET', 'POST'])
-    def serve_download():
-        if request.method == 'POST':
-            tag = request.form['TAG']
-            db_path = "src/" + request.form['db'] + '/' + tag +  "/"
+    def download_malware(tags, limit, db):
+        SemaServer.malware_to_download = 0
+        for tag in tags:
+            res = requests.post("https://mb-api.abuse.ch/api/v1/", data = {'query': 'get_siginfo', 'signature': tag, 'limit': limit})
+            if "data" in res.json():
+                SemaServer.malware_to_download += len(res.json()['data'])
+        SemaServer.malware_to_downloaded = 0      
+        for tag in tags:
+            db_path = "src/" + db + '/' + tag +  "/"
             try:
                 os.mkdir(db_path)
             except:
                 pass
-            limit = request.form['max_sample']
             res = requests.post("https://mb-api.abuse.ch/api/v1/", data = {'query': 'get_siginfo', 'signature': tag, 'limit': limit})
             #print(res.json())
             try:
                 for i in res.json()['data']:
+                    SemaServer.malware_to_downloaded += 1
                     print(i)
                     print(i['sha256_hash'])
                     res_file = requests.post("https://mb-api.abuse.ch/api/v1/", data = {'query': 'get_file', 'sha256_hash': i['sha256_hash']})
@@ -472,6 +484,14 @@ class SemaServer:
                     shutil.rmtree(db_path + i['sha256_hash'] + "_dir")
             except Exception as e:
                 print(e) # TODO
+        SemaServer.malware_to_downloaded = 0 
+        SemaServer.malware_to_download = 0 
+        SemaServer.download_thread.join()
+        
+    @app.route('/downloader.html', methods = ['GET', 'POST'])
+    def serve_download():
+        if request.method == 'POST':
+            SemaServer.download_thread = threading.Thread(target=SemaServer.download_malware, args=([request.form['TAG'].split(' '), request.form['max_sample'], request.form['db']])).start()
         return render_template('downloader.html')
     
     @app.route('/results.html', methods = ['GET', 'POST'])
@@ -536,12 +556,15 @@ class SemaServer:
                 for malware in os.listdir(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir):
                     summary["sample_cnt"] += 1
                     if os.path.isdir(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware):
-                        scdgs[subdir][malware] = {}
+                        malware_id = malware.split(".")[0]
+                        scdgs[subdir][malware_id] = {}
                         for file in os.listdir(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware):
                             if file.endswith(".json"):
-                                scdgs[subdir][malware]["json"] = json.dumps(json.load(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir  + '/' + malware + '/' + file)), indent=2)
+                                scdgs[subdir][malware_id]["json"] = json.dumps(json.load(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir  + '/' + malware + '/' + file)), indent=2)
+                            elif file.endswith("command.log"):
+                                scdgs[subdir][malware_id]["command"] = open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware  + '/' + file,"r").read() #.close()
                             elif file.endswith(".log"):
-                                scdgs[subdir][malware]["log"] = open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware  + '/' + file,"r").read() #.close()
+                                scdgs[subdir][malware_id]["log"] = open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware  + '/' + file,"r").read() #.close()
         # scdg_logs = json.loads(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg_conf.json').read())
         # class_logs = json.loads(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.json').read())
         

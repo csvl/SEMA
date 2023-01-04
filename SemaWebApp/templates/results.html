@@ -195,9 +195,11 @@
                                                 <label class="form-check-label">
                                                     SCDG results
                                                 </label>
-                                                <table id="scdg_res">
+                                                <div class="table-responsive">
+                                                    <table id="dataTable" class="table table-bordered dataTable" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
 
-                                                </table>
+                                                    </table>
+                                                </div>
                                             </div>
                                             {% for familly in scdgs %}
                                             <div class="card-header" id="heading{{ familly }}">
@@ -216,7 +218,12 @@
                                                 </div>
                                                 <div id="collapse{{ samples }}2" class="collapse" aria-labelledby="heading{{ samples }}2" data-parent="#accordion">
                                                     <p class="text-break overflow-auto" style="white-space: pre-wrap; max-height: 400px">{{ scdgs[familly][samples]["log"] }}</p>
+                                                    <hr>
                                                     <p class="text-break overflow-auto" style="white-space: pre-wrap; max-height: 400px">{{ scdgs[familly][samples]["json"] }}</p>
+                                                    {% if "loops" in scdgs[familly][command] %}
+                                                    <hr>
+                                                    <p class="text-break overflow-auto" style="white-space: pre-wrap; max-height: 400px">{{ scdgs[familly][samples]["command"] }}</p>
+                                                    {% endif %}
                                                 </div>
                                                 {% endfor %}
                                             </div>
@@ -280,7 +287,6 @@
         <script src="static/assets/demo/chart-area-demo.js"></script>
         <script src="static/assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="static/js/datatables-simple-demo.js"></script>
         <script src="https://cdn.rawgit.com/okfn/csv.js/master/csv.min.js"></script>
         <script>
             $(document).ready(function() {
@@ -352,7 +358,7 @@
                     index++;
                 }
 
-                table = document.getElementById("scdg_res");
+                table = document.getElementById("dataTable");
                 index = 0;
                 body = null;
                 table.innerHTML = "";
@@ -425,5 +431,8 @@
                 }
             });
         </script>
+        <script defer src="static/js/jquery.dataTables.min.js"></script>
+        <script defer src="static/js/dataTables.bootstrap4.min.js"></script>
+        <script defer src="static/js/datatables-simple-demo.js"></script>
     </body>
 </html>

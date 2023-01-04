@@ -34,7 +34,7 @@ from explorer.ToolChainExplorerDFS import ToolChainExplorerDFS
 from explorer.ToolChainExplorerCDFS import ToolChainExplorerCDFS
 from explorer.ToolChainExplorerBFS import ToolChainExplorerBFS
 from explorer.ToolChainExplorerCBFS import ToolChainExplorerCBFS
-from explorer.ToolChainExplorerSDFS import SemaExplorerSDFS
+from src.SemaSCDG.explorer.SemaExplorerSDFS import SemaExplorerSDFS
 #from Trigger import *
 #from sandboxes.CuckooInterface import CuckooInterface
 

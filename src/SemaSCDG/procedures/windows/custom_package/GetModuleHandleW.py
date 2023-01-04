@@ -1,6 +1,5 @@
 import logging
 import angr
-from procedures.CustomSimProcedure import CustomSimProcedure
 lw = logging.getLogger("CustomSimProcedureWindows")
 
 
@@ -12,7 +11,13 @@ class GetModuleHandleW(angr.SimProcedure):
         return lib
 
     def run(self, lib_ptr):
-
+        try:
+            from procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
+            call_sim = CustomSimProcedure([], [],False)
+        except Exception as e:
+            from ....procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
+            call_sim = CustomSimProcedure([], [],True, True)
+            
         if lib_ptr.symbolic:
             return self.state.solver.BVS(
                 "retval_{}".format(self.display_name), self.arch.bits

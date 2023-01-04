@@ -197,6 +197,10 @@ class SemaSCDG:
                              "Min/Max addresses",
                              "Stack executable",
                              "Binary position-independent",
+                             "Total number of blocks",
+                             "Total number of instr",
+                             "Number of blocks visited",
+                             "Number of instr visited",
                              ]) # TODO add frame type
         
         if not is_fl:
@@ -287,18 +291,19 @@ class SemaSCDG:
         main_obj = proj.loader.main_object
         os_obj = main_obj.os
 
+        nbinstr = 0
+        nbblocks = 0
+        vaddr = 0
+        memsize = 0
         if args.count_block:
             # count total number of blocks and instructions
-            vaddr = 0
-            memsize = 0
             for sec in main_obj.sections:
                 name = sec.name.replace("\x00", "")
                 if name == ".text":
                     vaddr = sec.vaddr
                     memsize = sec.memsize
             i = vaddr
-            nbinstr = 0
-            nbblocks = 0
+            
             while i < vaddr + memsize:
                 block = proj.factory.block(i)
                 nbinstr += block.instructions
@@ -435,8 +440,9 @@ class SemaSCDG:
         else:
             self.call_sim.custom_hook_windows_symbols(proj)
 
-        self.hooks.initialization(cont)
-        self.hooks.hook(state,proj)
+        if args.sim_file:
+            self.hooks.initialization(cont)
+            self.hooks.hook(state,proj)
                 
         # Creation of simulation manager, primary interface in angr for performing execution
         simgr = proj.factory.simulation_manager(state)
@@ -463,18 +469,15 @@ class SemaSCDG:
                 
         # Improved "Break point"
         
-        state.inspect.b(
-            "simprocedure", when=angr.BP_AFTER, action=self.call_sim.add_call
-        )
-        state.inspect.b(
-            "simprocedure", when=angr.BP_BEFORE, action=self.call_sim.add_call_debug
-        )
+        state.inspect.b("simprocedure", when=angr.BP_AFTER, action=self.call_sim.add_call)
+        state.inspect.b("simprocedure", when=angr.BP_BEFORE, action=self.call_sim.add_call_debug)
         state.inspect.b("call", when=angr.BP_BEFORE, action=self.call_sim.add_addr_call)
         state.inspect.b("call", when=angr.BP_AFTER, action=self.call_sim.rm_addr_call)
         
-        state.inspect.b("instruction",when=angr.BP_BEFORE, action=nothing)
-        state.inspect.b("instruction",when=angr.BP_AFTER, action=count)
-        state.inspect.b("irsb",when=angr.BP_BEFORE, action=countblock)
+        if args.count_block:
+            state.inspect.b("instruction",when=angr.BP_BEFORE, action=nothing)
+            state.inspect.b("instruction",when=angr.BP_AFTER, action=count)
+            state.inspect.b("irsb",when=angr.BP_BEFORE, action=countblock)
 
         # TODO : make plugins out of these globals values
         # Globals is a simple dict already managed by Angr which is deeply copied from states to states
@@ -588,11 +591,11 @@ class SemaSCDG:
             + "\n------------------------------"
         )
         
-        print("total nb blocks: " + str(nbblocks))
-        print("total nb instr: " + str(nbinstr))
-        
-        print("nb blocks visited: " + str(len(block_dict)))
-        print("nb instr visited: " + str(len(instr_dict)))
+        if args.count_block:
+            self.log.info("Total number of blocks: " + str(nbblocks))
+            self.log.info("Total number of instr: " + str(nbinstr))
+            self.log.info("Number of blocks visited: " + str(len(block_dict)))
+            self.log.info("Number of instr visited: " + str(len(instr_dict)))
         
         self.log.info("Syscall Found:" + str(self.call_sim.syscall_found))
         
@@ -600,29 +603,28 @@ class SemaSCDG:
         self.log.info("Total execution time: " + str(elapsed_time))
         
         # Track the buffer containing commands
-        
-        brutto_result = ""
-        for state in simgr.deadended + simgr.active + simgr.stashes["pause"]:
-            buffers = []
-            calls = {}
-            for key, symbol in state.solver.get_variables("buffer"):
-                eve = state.solver.eval(symbol)
-                if eve != 0:
-                    buffers.append(hex(eve))
-            if len(buffers) != 0:
-                brutto_result += hex(state.addr) + " : "  + "\n"
-                for buf in buffers:
-                    brutto_result += "     - " + buf + "\n"
-                for dic in self.scdg[state.globals["id"]][state.globals["n_calls"]:]:
-                    if dic["name"]  not in calls:
-                        brutto_result += "         * " + dic["name"]  + "\n"
-                        calls[dic["name"] ] = 1
-            
-        with open_file("out.log", 'w') as f:
-            f.write(brutto_result + '\n')
-            
+        if args.track_command:
+            brutto_result = ""
+            for state in simgr.deadended + simgr.active + simgr.stashes["pause"]:
+                buffers = []
+                calls = {}
+                for key, symbol in state.solver.get_variables("buffer"):
+                    eve = state.solver.eval(symbol)
+                    if eve != 0:
+                        buffers.append(hex(eve))
+                if len(buffers) != 0:
+                    brutto_result += hex(state.addr) + " : "  + "\n"
+                    for buf in buffers:
+                        brutto_result += "     - " + buf + "\n"
+                    for dic in self.scdg[state.globals["id"]][state.globals["n_calls"]:]:
+                        if dic["name"]  not in calls:
+                            brutto_result += "         * " + dic["name"]  + "\n"
+                            calls[dic["name"] ] = 1
+                
+            with open_file(exp_dir + "commands.log", 'w') as f:
+                f.write(brutto_result + '\n')
+            #self.warzone(exp_dir,simgr,tracked)
         # Build SCDG
-        #self.warzone(nameFileShort,simgr,tracked)
         self.build_scdg_fin(exp_dir, nameFileShort, main_obj, state, simgr, discard_SCDG)
         
 
@@ -655,11 +657,16 @@ class SemaSCDG:
                              "Min/Max addresses": str(proj.loader.main_object.mapped_base) + "/" + str(proj.loader.main_object.max_addr),
                              "Stack executable": proj.loader.main_object.execstack,
                              "Binary position-independent:": proj.loader.main_object.pic,
+                             "Total number of blocks": nbblocks,
+                             "Total number of instr": nbinstr,
+                             "Number of blocks visited": len(block_dict),
+                             "Number of instr visited": len(instr_dict),
                             }, ignore_index=True)
             print(csv_file)
             df.to_csv(csv_file, index=False,sep=";")
+        logging.getLogger().removeHandler(fileHandler)
 
-    def warzone(self,nameFileShort,simgr,tracked):
+    def warzone(self,exp_dir,simgr,tracked):
         dump_file = {}
         dump_id = 0
         
@@ -685,7 +692,7 @@ class SemaSCDG:
             dump_id = dump_id + 1
                 
                 
-        ofilename = nameFileShort + "_warzone.json"
+        ofilename = exp_dir + "warzone.json"
         self.log.info(ofilename)
         save_SCDG = open_file(ofilename, "w")
         json_dumper.dump(dump_file, save_SCDG)
@@ -797,7 +804,10 @@ class SemaSCDG:
             # TODO update familly
             self.log.info("You decide to analyse a single binary: "+ self.inputs)
             # *|CURSOR_MARCADOR|*
-            self.build_scdg(args,is_fl=is_fl,csv_file=csv_file)
+            try:
+                self.build_scdg(args,is_fl=is_fl,csv_file=csv_file)
+            except:
+                self.log.info("Error: "+file+" is not a valid binary")
             self.current_exps = 1
         else:
             import progressbar
@@ -828,7 +838,10 @@ class SemaSCDG:
                     for file in files:
                         self.inputs = file
                         self.familly = current_family
-                        self.build_scdg(args, is_fl, csv_file=csv_file)
+                        try:
+                            self.build_scdg(args, is_fl, csv_file=csv_file)
+                        except:
+                            self.log.info("Error: "+file+" is not a valid binary")
                         fc+=1
                         self.current_exps += 1
                         bar.update(fc)

@@ -65,7 +65,7 @@ class SVMClassifier(Classifier):
         self.label = []
         for family in self.families:
             path = self.path + '/'  + self.original_path + family + '/'
-            path = path.replace("SemaClassifier/","") # todo
+            path = path.replace("SemaClassifier/","").replace("/src/src/","/src/") # todo
             self.log.info("Subpath: " + path)
             if not os.path.isdir(path) :
                 self.log.info("Dataset should be a folder containing malware classify by familly in subfolder")

@@ -82,12 +82,12 @@
 
             function check_progress() {
                function worker() {
-                  $.get('iteration-scdg', function(data) {
+                  $.get('iteration-dl', function(data) {
                      if (data != "None" && parseInt(data) > 0) {
                         iteration = parseInt(data);
                      }
                   })
-                  $.get('progress-scdg', function(data) {
+                  $.get('progress-dl', function(data) {
                         console.log(data)
                        if (data == "None") {
                            progress_class.css('display','none');
@@ -224,7 +224,7 @@
                              <a class="btn btn-link" data-bs-toggle="collapse" href="#collapse1" aria-expanded="trye" aria-controls="collapse1" role="button">
                                  <i class="fas fa-chart-bar me-1"></i>
                              </a>
-                              Malware downloader
+                              Malware downloader -  Malware Bazart
                            </div>
                            <div id="collapse1" class="collapse show" aria-labelledby="heading1" data-parent="#accordion">
                              <div class="card-body">
@@ -239,13 +239,13 @@
                                     <label for="TAG" class="form-label">TAG</label>
                                     <input class="form-control" aria-describedby="TAGHelp" name="TAG" value="" type="text" id="TAG" required>
                                     <div id="TAGHelp" class="form-text">
-                                       MalwareDB tag
+                                       MalwareDB tag - Separate multiple tags with a space " "
                                     </div>
                                  </div>
                                  <row>
                                     <label for="timeout" class="form-label">Maximum samples</label>
-                                    <input type="range" aria-describedby="max_sampleHelp" class="form-range" value="500" min="0" max="2000" name="max_sample" id="max_sample" oninput="this.nextElementSibling.value = this.value">
-                                    <output>500</output>
+                                    <input type="range" aria-describedby="max_sampleHelp" class="form-range" value="50" min="0" max="2000" name="max_sample" id="max_sample" oninput="this.nextElementSibling.value = this.value">
+                                    <output>50</output>
                                     <div id="max_sampleHelp" class="form-text">Maximum samples download</div>
                                  </row>
                              </div>
