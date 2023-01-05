@@ -561,7 +561,7 @@ class SemaServer:
                         for file in os.listdir(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware):
                             if file.endswith(".json"):
                                 scdgs[subdir][malware_id]["json"] = json.dumps(json.load(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir  + '/' + malware + '/' + file)), indent=2)
-                            elif file.endswith("command.log"):
+                            elif file.endswith("commands.log"):
                                 scdgs[subdir][malware_id]["command"] = open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware  + '/' + file,"r").read() #.close()
                             elif file.endswith(".log"):
                                 scdgs[subdir][malware_id]["log"] = open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware  + '/' + file,"r").read() #.close()

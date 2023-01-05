@@ -211,18 +211,18 @@
                                             <div id="collapse{{ familly }}" class="collapse" aria-labelledby="heading{{ familly }}" data-parent="#accordion">
                                                 {% for samples in scdgs[familly] %}
                                                 <div class="card-header" id="heading{{ samples }}2">
-                                                    <a class="btn btn-link collapsed" data-bs-toggle="collapse" href="#collapse{{ samples }}2" aria-expanded="false" aria-controls="collapse{{ samples }}2" role="button">
+                                                    <a style="padding-left: 2%;" class="btn btn-link collapsed" data-bs-toggle="collapse" href="#collapse{{ samples }}2" aria-expanded="false" aria-controls="collapse{{ samples }}2" role="button">
                                                         <i class="fas fa-chart-bar me-1"></i>
                                                     </a>
                                                     {{ samples }}
                                                 </div>
                                                 <div id="collapse{{ samples }}2" class="collapse" aria-labelledby="heading{{ samples }}2" data-parent="#accordion">
-                                                    <p class="text-break overflow-auto" style="white-space: pre-wrap; max-height: 400px">{{ scdgs[familly][samples]["log"] }}</p>
+                                                    <p class="text-break overflow-auto" style="white-space: pre-wrap; max-height: 400px; font-size: 80%;">{{ scdgs[familly][samples]["log"] }}</p>
                                                     <hr>
-                                                    <p class="text-break overflow-auto" style="white-space: pre-wrap; max-height: 400px">{{ scdgs[familly][samples]["json"] }}</p>
-                                                    {% if "loops" in scdgs[familly][command] %}
+                                                    <p class="text-break overflow-auto" style="white-space: pre-wrap; max-height: 400px; font-size: 80%;">{{ scdgs[familly][samples]["json"] }}</p>
+                                                    {% if "command" in scdgs[familly][samples] %}
                                                     <hr>
-                                                    <p class="text-break overflow-auto" style="white-space: pre-wrap; max-height: 400px">{{ scdgs[familly][samples]["command"] }}</p>
+                                                    <p class="text-break overflow-auto" style="white-space: pre-wrap; max-height: 400px; font-size: 80%;">{{ scdgs[familly][samples]["command"] }}</p>
                                                     {% endif %}
                                                 </div>
                                                 {% endfor %}

@@ -1,0 +1,344 @@
+[1;33;40mWARNING - 2023-01-04 16:53:09,554 - [34mangr.project[0m - [34mDisabling IRSB translation cache because support for self-modifying code is enabled.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:09,618 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:09] "[36mGET /static/js/nyan.js HTTP/1.1[0m" 304 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:09,622 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:09] "[36mGET /static/css/nyan.css HTTP/1.1[0m" 304 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:09,624 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:09] "[36mGET /static/css/styles.css HTTP/1.1[0m" 304 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:09,625 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:09] "GET /static/js/datatables-simple-demo.js HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:09,635 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:09] "[36mGET /static/assets/demo/chart-area-demo.js HTTP/1.1[0m" 304 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:09,636 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:09] "[36mGET /static/assets/demo/chart-bar-demo.js HTTP/1.1[0m" 304 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:09,637 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:09] "GET /static/js/scripts.js HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:09,793 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:09] "GET /static/css/images/nyanCat.png HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:09,794 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:09] "GET /static/css/images/rainbow.png HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:09,798 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:09] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:09,800 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:09] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:11,296 - [33mangr.engines.vex.lifter[0m - [33mSelf-modifying code is not always correctly optimized by PyVEX. To guarantee correctness, VEX optimizations have been disabled.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:13,874 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:13] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:13,906 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:13] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:13,912 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:13] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:13,918 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:13] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:14,513 - [36mCustomSimProcedure[0m - {"ordinal.823.b'mfc42.dll'": 5242880, "ordinal.825.b'mfc42.dll'": 5242884, '_controlfp': 5242888, '__set_app_type': 5242892, '__p__fmode': 5242896, '__p__commode': 5242900, '_adjust_fdiv': 5242904, '__setusermatherr': 5242908, '_initterm': 5242912, '__getmainargs': 5242916, '_acmdln': 5242920, 'exit': 5242924, '_XcptFilter': 5242928, '_exit': 5242932, 'strncmp': 5242936, '_except_handler3': 5242940, 'strstr': 5242944, 'strcspn': 5242948, 'strncpy': 5242952, 'atoi': 5242956, 'time': 5242960, 'srand': 5242964, 'rand': 5242968, 'realloc': 5242972, 'free': 5242976, 'malloc': 5242980, 'sprintf': 5242984, 'ExitProcess': 5242988, 'Sleep': 5242992, 'lstrcpyA': 5242996, 'CreateProcessA': 5243000, 'TerminateProcess': 5243004, 'ExitThread': 5243008, 'GetStartupInfoA': 5243012, 'GetModuleHandleA': 5243016, 'WaitForSingleObject': 5243020, 'CreateFileA': 5243024, 'SetFilePointer': 5243028, 'WriteFile': 5243032, 'lstrcpynA': 5243036, 'lstrlenA': 5243040, 'OpenMutexA': 5243044, 'ReleaseMutex': 5243048, 'GetComputerNameA': 5243052, 'GetCurrentProcess': 5243056, 'GetCurrentThread': 5243060, 'CloseHandle': 5243064, 'CreateThread': 5243068, 'LoadLibraryA': 5243072, 'GetProcAddress': 5243076, 'GetSystemDefaultUILanguage': 5243080, 'GetTickCount': 5243084, 'GetDesktopWindow': 5243088, 'wsprintfA': 5243092, 'SHChangeNotify': 5243096, 'ShellExecuteExA': 5243100, 'ShellExecuteA': 5243104, 'SHDeleteKeyA': 5243108, 'setsockopt': 5243112, 'recv': 5243116, '__WSAFDIsSet': 5243120, 'select': 5243124, 'WSAIoctl': 5243128, 'closesocket': 5243132, 'WSAStartup': 5243136, 'inet_ntoa': 5243140, 'htonl': 5243144, 'WSACleanup': 5243148, 'socket': 5243152, 'connect': 5243156, 'send': 5243160, 'inet_addr': 5243164, 'sendto': 5243168, 'htons': 5243172, 'GetIfTable': 5243176, 'GetAdaptersInfo': 5243180, 'KiUserExceptionDispatcher': 6295572, '_fmode': 6295576, '_commode': 6295580, '_wcmdln': 6295584}[0m
+[1;32;40mINFO - 2023-01-04 16:53:14,513 - [36mCustomSimProcedure[0m - [36mWas in angr :kernel32.dll[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,596 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000a8, <SimProcedure ReleaseMutex>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,597 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50008c, <SimProcedure WaitForSingleObject>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,598 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500080, <SimProcedure ExitThread>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,598 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500078, <SimProcedure CreateProcessA>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,598 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500094, <SimProcedure SetFilePointer>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,598 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000b4, <SimProcedure GetCurrentThread>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,598 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000b0, <SimProcedure GetCurrentProcess>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,599 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000a4, <SimProcedure OpenMutexA>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,599 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000c8, <SimProcedure GetSystemDefaultUILanguage>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,599 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000b8, <SimProcedure CloseHandle>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,599 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500084, <SimProcedure GetStartupInfoA>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,599 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500070, <SimProcedure Sleep>). Not re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:14,662 - [36mCustomSimProcedure[0m - [36mWas in angr :user32.dll[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,665 - [36mCustomSimProcedure[0m - [36mProcedure wsprintfA in DLL user32.dll has 3 arguments in json and 2 arguments in angr prototype. Taking number of arguments from json.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,665 - [36mCustomSimProcedure[0m - [36mProcedure wsprintfW in DLL user32.dll has 3 arguments in json and 2 arguments in angr prototype. Taking number of arguments from json.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,707 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000d0, <SimProcedure GetDesktopWindow>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,754 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500118, <SimProcedure send>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,754 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50011c, <SimProcedure inet_addr>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,754 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000f0, <SimProcedure __WSAFDIsSet>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,754 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000e8, <SimProcedure setsockopt>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,754 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500100, <SimProcedure WSAStartup>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,754 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000fc, <SimProcedure closesocket>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,754 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500108, <SimProcedure htonl>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,754 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500124, <SimProcedure htons>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,755 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50010c, <SimProcedure WSACleanup>). Not re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:14,758 - [36mCustomSimProcedure[0m - [36mWas in angr :msvcrt.dll[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,796 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500044, <SimProcedure strcspn>). Not re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:14,797 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:14] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,797 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500034, <SimProcedure _exit>). Not re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:14,798 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:14] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,845 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000e4, <SimProcedure SHDeleteKeyA>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,869 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000dc, <SimProcedure ShellExecuteExA>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,870 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000e0, <SimProcedure ShellExecuteA>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,870 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000d8, <SimProcedure SHChangeNotify>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,874 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500050, <SimProcedure time>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,874 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x601014, <SimProcedure KiUserExceptionDispatcher>). Not re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:14,874 - [36mCustomSimProcedure[0m - [36mNo hooks for: {"ordinal.823.b'mfc42.dll'": 5242880, "ordinal.825.b'mfc42.dll'": 5242884, '_controlfp': 5242888, '__set_app_type': 5242892, '_adjust_fdiv': 5242904, '__setusermatherr': 5242908, '_initterm': 5242912, '__getmainargs': 5242916, '_acmdln': 5242920, '_XcptFilter': 5242928, '_except_handler3': 5242940, 'WSAIoctl': 5243128, 'GetIfTable': 5243176, '_fmode': 6295576, '_commode': 6295580, '_wcmdln': 6295584}[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:14,874 - [36mCustomSimProcedure[0m - [36mcustom_hook_static[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:14,874 - [36mCustomSimProcedure[0m - [36mmfc42.dll[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:14,874 - [36mCustomSimProcedure[0m - [36m823[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:14,875 - [36mCustomSimProcedure[0m - [36mmfc42.dll[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:14,875 - [36mCustomSimProcedure[0m - [36m825[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,875 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure __p__commode>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,875 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure _initterm>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,875 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure __getmainargs>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,875 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure exit>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,875 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure strncmp>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,875 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure strstr>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,876 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure strncpy>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,876 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure atoi>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,876 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure time>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,876 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure srand>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,876 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure rand>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,876 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure realloc>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,876 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure free>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,876 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure malloc>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,876 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure sprintf>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,877 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure ExitProcess>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,877 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure WriteFile>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,877 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure GetTickCount>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,877 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure setsockopt>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,877 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure recv>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,877 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure select>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,877 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure inet_ntoa>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,877 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure htonl>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,877 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure socket>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,878 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure send>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,878 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure htons>). Not re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:14,878 - [36mCustomSimProcedure[0m - [36mmfc42.dll[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:14,878 - [36mCustomSimProcedure[0m - [36m823[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:14,878 - [36mCustomSimProcedure[0m - [36mmfc42.dll[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:14,878 - [36mCustomSimProcedure[0m - [36m825[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,878 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500010, <SimProcedure __p__fmode>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,878 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500014, <SimProcedure __p__commode>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,878 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500020, <SimProcedure _initterm>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,878 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500024, <SimProcedure __getmainargs>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,879 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50002c, <SimProcedure exit>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,879 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500038, <SimProcedure strncmp>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,879 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500040, <SimProcedure strstr>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,879 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500048, <SimProcedure strncpy>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,879 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50004c, <SimProcedure atoi>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,879 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500050, <SimProcedure time>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,879 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500054, <SimProcedure srand>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,879 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500058, <SimProcedure rand>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,880 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50005c, <SimProcedure realloc>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,880 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500060, <SimProcedure free>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,880 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500064, <SimProcedure malloc>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,880 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500068, <SimProcedure sprintf>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,880 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50006c, <SimProcedure ExitProcess>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,880 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500098, <SimProcedure WriteFile>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,880 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000cc, <SimProcedure GetTickCount>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,881 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000e8, <SimProcedure setsockopt>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,881 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000ec, <SimProcedure recv>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,881 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000f4, <SimProcedure select>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,881 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500104, <SimProcedure inet_ntoa>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,881 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500108, <SimProcedure htonl>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,881 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500110, <SimProcedure socket>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,881 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500118, <SimProcedure send>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,881 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500124, <SimProcedure htons>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:14,881 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x601014, <SimProcedure KiUserExceptionDispatcher>). Not re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:14,881 - [36mCustomSimProcedure[0m - [36mcustom_hook_windows_symbols[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:15,391 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000d0, <SimProcedure GetDesktopWindow>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:15,393 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000d0, <SimProcedure GetDesktopWindow>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:16,393 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000d0, <SimProcedure GetDesktopWindow>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:16,394 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000d0, <SimProcedure GetDesktopWindow>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:16,784 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000a8, <SimProcedure ReleaseMutex>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:16,785 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000a8, <SimProcedure ReleaseMutex>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:16,796 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50008c, <SimProcedure WaitForSingleObject>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:16,797 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50008c, <SimProcedure WaitForSingleObject>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:16,846 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000b8, <SimProcedure CloseHandle>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:16,847 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000b8, <SimProcedure CloseHandle>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:16,969 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500078, <SimProcedure CreateProcessA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:16,970 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500078, <SimProcedure CreateProcessA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:17,135 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500080, <SimProcedure ExitThread>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:17,136 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500080, <SimProcedure ExitThread>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:17,349 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000b4, <SimProcedure GetCurrentThread>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:17,350 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000b4, <SimProcedure GetCurrentThread>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:17,571 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500084, <SimProcedure GetStartupInfoA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:17,572 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500084, <SimProcedure GetStartupInfoA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:17,956 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000a4, <SimProcedure OpenMutexA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:17,957 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000a4, <SimProcedure OpenMutexA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:18,280 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500094, <SimProcedure SetFilePointer>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:18,282 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500094, <SimProcedure SetFilePointer>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:18,408 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500070, <SimProcedure Sleep>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:18,409 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500070, <SimProcedure Sleep>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:18,507 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50008c, <SimProcedure WaitForSingleObject>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:18,508 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50008c, <SimProcedure WaitForSingleObject>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:18,606 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000a0, <SimProcedure lstrlenA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:18,607 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000a0, <SimProcedure lstrlenA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:18,676 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500080, <SimProcedure ExitThread>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:18,678 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500080, <SimProcedure ExitThread>). Re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:18,870 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:18] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:18,882 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500078, <SimProcedure CreateProcessA>). Re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:18,884 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:18] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:18,885 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500078, <SimProcedure CreateProcessA>). Re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:18,892 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:18] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:18,914 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:18] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:19,024 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500094, <SimProcedure SetFilePointer>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:19,025 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500094, <SimProcedure SetFilePointer>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:19,069 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000b0, <SimProcedure GetCurrentProcess>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:19,070 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000b0, <SimProcedure GetCurrentProcess>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:19,340 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000c8, <SimProcedure GetSystemDefaultUILanguage>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:19,341 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000c8, <SimProcedure GetSystemDefaultUILanguage>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:19,390 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000b4, <SimProcedure GetCurrentThread>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:19,391 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000b4, <SimProcedure GetCurrentThread>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:19,417 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000b0, <SimProcedure GetCurrentProcess>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:19,418 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000b0, <SimProcedure GetCurrentProcess>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:19,519 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000a0, <SimProcedure lstrlenA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:19,520 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000a0, <SimProcedure lstrlenA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:19,675 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000a4, <SimProcedure OpenMutexA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:19,677 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000a4, <SimProcedure OpenMutexA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:19,743 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000c8, <SimProcedure GetSystemDefaultUILanguage>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:19,744 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000c8, <SimProcedure GetSystemDefaultUILanguage>). Re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:19,802 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:19] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:19,818 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:19] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:19,821 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000b8, <SimProcedure CloseHandle>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:19,822 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000b8, <SimProcedure CloseHandle>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:20,105 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000a8, <SimProcedure ReleaseMutex>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:20,106 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000a8, <SimProcedure ReleaseMutex>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:20,204 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500084, <SimProcedure GetStartupInfoA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:20,205 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500084, <SimProcedure GetStartupInfoA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:20,403 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500070, <SimProcedure Sleep>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:20,405 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500070, <SimProcedure Sleep>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:21,180 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500034, <SimProcedure _exit>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:21,181 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500034, <SimProcedure _exit>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:21,556 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500044, <SimProcedure strcspn>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:21,557 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500044, <SimProcedure strcspn>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:21,752 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500044, <SimProcedure strcspn>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:21,753 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500044, <SimProcedure strcspn>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:21,870 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500034, <SimProcedure _exit>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:21,870 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500034, <SimProcedure _exit>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:22,140 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000e4, <SimProcedure SHDeleteKeyA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:22,141 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000e4, <SimProcedure SHDeleteKeyA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:22,443 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000e4, <SimProcedure SHDeleteKeyA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:22,444 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000e4, <SimProcedure SHDeleteKeyA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:22,992 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000fc, <SimProcedure closesocket>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:22,993 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000fc, <SimProcedure closesocket>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:22,995 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500114, <SimProcedure connect>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:22,995 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500114, <SimProcedure connect>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,004 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50011c, <SimProcedure inet_addr>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,005 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50011c, <SimProcedure inet_addr>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,018 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500120, <SimProcedure sendto>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,019 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500120, <SimProcedure sendto>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,055 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500100, <SimProcedure WSAStartup>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,056 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500100, <SimProcedure WSAStartup>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,057 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50010c, <SimProcedure WSACleanup>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,057 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50010c, <SimProcedure WSACleanup>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,058 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500120, <SimProcedure sendto>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,060 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500120, <SimProcedure sendto>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,061 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500114, <SimProcedure connect>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,061 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500114, <SimProcedure connect>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,064 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000f0, <SimProcedure __WSAFDIsSet>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,065 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000f0, <SimProcedure __WSAFDIsSet>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,069 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50011c, <SimProcedure inet_addr>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,070 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50011c, <SimProcedure inet_addr>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,075 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000f0, <SimProcedure __WSAFDIsSet>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,076 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000f0, <SimProcedure __WSAFDIsSet>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,092 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500100, <SimProcedure WSAStartup>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,093 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500100, <SimProcedure WSAStartup>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,113 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000fc, <SimProcedure closesocket>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,114 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000fc, <SimProcedure closesocket>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,128 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50010c, <SimProcedure WSACleanup>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,129 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50010c, <SimProcedure WSACleanup>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,151 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000dc, <SimProcedure ShellExecuteExA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,152 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000dc, <SimProcedure ShellExecuteExA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,180 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000e0, <SimProcedure ShellExecuteA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,181 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000e0, <SimProcedure ShellExecuteA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,182 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000dc, <SimProcedure ShellExecuteExA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,183 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000dc, <SimProcedure ShellExecuteExA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,266 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000e0, <SimProcedure ShellExecuteA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,267 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000e0, <SimProcedure ShellExecuteA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,432 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000d8, <SimProcedure SHChangeNotify>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:23,433 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000d8, <SimProcedure SHChangeNotify>). Re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:23,481 - [36mCustomSimProcedure[0m - [36mSyscall found:  __p__fmode[][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:23,490 - [36mCustomSimProcedure[0m - [36mSyscall found:  __p__commode[][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:23,518 - [36mCustomSimProcedure[0m - [36mSyscall found:  _controlfp[][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:23,546 - [36mCustomSimProcedure[0m - [36mSyscall found:  __getmainargs[<BV32 0x7ffefe48>, <BV32 0x7ffefe38>, <BV32 0x7ffefe44>, <BV32 0x0>, <BV32 0x7ffefe3c>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:23,864 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:23] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:23,871 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:23] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:23,886 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:23] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:23,897 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:23] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,043 - [36mCustomSimProcedure[0m - [36mSyscall found:  GetStartupInfoA[<BV32 0x7ffefe4c>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,065 - [36mCustomSimProcedure[0m - [36mSyscall found:  GetModuleHandleA[<BV32 0x0>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,092 - [37mCustomSimProcedureWindows[0m - [37mLoadLibraryA: Symbol not found[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,116 - [36mCustomSimProcedure[0m - {"ordinal.823.b'mfc42.dll'": 5242880, "ordinal.825.b'mfc42.dll'": 5242884, '_controlfp': 5242888, '__set_app_type': 5242892, '__p__fmode': 5242896, '__p__commode': 5242900, '_adjust_fdiv': 5242904, '__setusermatherr': 5242908, '_initterm': 5242912, '__getmainargs': 5242916, '_acmdln': 5242920, 'exit': 5242924, '_XcptFilter': 5242928, '_exit': 5242932, 'strncmp': 5242936, '_except_handler3': 5242940, 'strstr': 5242944, 'strcspn': 5242948, 'strncpy': 5242952, 'atoi': 5242956, 'time': 5242960, 'srand': 5242964, 'rand': 5242968, 'realloc': 5242972, 'free': 5242976, 'malloc': 5242980, 'sprintf': 5242984, 'ExitProcess': 5242988, 'Sleep': 5242992, 'lstrcpyA': 5242996, 'CreateProcessA': 5243000, 'TerminateProcess': 5243004, 'ExitThread': 5243008, 'GetStartupInfoA': 5243012, 'GetModuleHandleA': 5243016, 'WaitForSingleObject': 5243020, 'CreateFileA': 5243024, 'SetFilePointer': 5243028, 'WriteFile': 5243032, 'lstrcpynA': 5243036, 'lstrlenA': 5243040, 'OpenMutexA': 5243044, 'ReleaseMutex': 5243048, 'GetComputerNameA': 5243052, 'GetCurrentProcess': 5243056, 'GetCurrentThread': 5243060, 'CloseHandle': 5243064, 'CreateThread': 5243068, 'LoadLibraryA': 5243072, 'GetProcAddress': 5243076, 'GetSystemDefaultUILanguage': 5243080, 'GetTickCount': 5243084, 'GetDesktopWindow': 5243088, 'wsprintfA': 5243092, 'SHChangeNotify': 5243096, 'ShellExecuteExA': 5243100, 'ShellExecuteA': 5243104, 'SHDeleteKeyA': 5243108, 'setsockopt': 5243112, 'recv': 5243116, '__WSAFDIsSet': 5243120, 'select': 5243124, 'WSAIoctl': 5243128, 'closesocket': 5243132, 'WSAStartup': 5243136, 'inet_ntoa': 5243140, 'htonl': 5243144, 'WSACleanup': 5243148, 'socket': 5243152, 'connect': 5243156, 'send': 5243160, 'inet_addr': 5243164, 'sendto': 5243168, 'htons': 5243172, 'GetIfTable': 5243176, 'GetAdaptersInfo': 5243180, 'KiUserExceptionDispatcher': 6295572, '_fmode': 6295576, '_commode': 6295580, '_wcmdln': 6295584, 'kernel32.dll': 6295588}[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,116 - [36mCustomSimProcedure[0m - [36mWas in angr :kernel32.dll[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,205 - [36mCustomSimProcedure[0m - [36mWas in angr :user32.dll[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:24,207 - [36mCustomSimProcedure[0m - [36mProcedure wsprintfA in DLL user32.dll has 3 arguments in json and 2 arguments in angr prototype. Taking number of arguments from json.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:24,208 - [36mCustomSimProcedure[0m - [36mProcedure wsprintfW in DLL user32.dll has 3 arguments in json and 2 arguments in angr prototype. Taking number of arguments from json.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:24,260 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500118, <SimProcedure send>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:24,261 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50011c, <SimProcedure inet_addr>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:24,261 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000f0, <SimProcedure __WSAFDIsSet>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:24,261 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000e8, <SimProcedure setsockopt>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:24,261 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500100, <SimProcedure WSAStartup>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:24,261 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000fc, <SimProcedure closesocket>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:24,261 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500108, <SimProcedure htonl>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:24,262 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500124, <SimProcedure htons>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:24,262 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50010c, <SimProcedure WSACleanup>). Not re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,265 - [36mCustomSimProcedure[0m - [36mWas in angr :msvcrt.dll[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:24,333 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000e4, <SimProcedure SHDeleteKeyA>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:24,360 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000dc, <SimProcedure ShellExecuteExA>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:24,360 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000e0, <SimProcedure ShellExecuteA>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:24,361 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000d8, <SimProcedure SHChangeNotify>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:24,365 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500050, <SimProcedure time>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:24,366 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x601014, <SimProcedure KiUserExceptionDispatcher>). Not re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,366 - [36mCustomSimProcedure[0m - [36mNo hooks for: {"ordinal.823.b'mfc42.dll'": 5242880, "ordinal.825.b'mfc42.dll'": 5242884, '_controlfp': 5242888, '__set_app_type': 5242892, '_adjust_fdiv': 5242904, '__setusermatherr': 5242908, '_initterm': 5242912, '__getmainargs': 5242916, '_acmdln': 5242920, '_XcptFilter': 5242928, '_except_handler3': 5242940, 'WSAIoctl': 5243128, 'GetIfTable': 5243176, '_fmode': 6295576, '_commode': 6295580, '_wcmdln': 6295584, 'kernel32.dll': 6295588}[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,368 - [36mCustomSimProcedure[0m - [36mSyscall found:  LoadLibraryA[<BV32 0x407144>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,389 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress: GetLastError[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,389 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress - Query to lib : kernel32.dll[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,389 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress: Symbol not found[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,390 - [36mCustomSimProcedure[0m - [36mSyscall found:  GetProcAddress[<BV32 0x601024>, <BV32 0x4072ac>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,411 - [36mCustomSimProcedure[0m - [36mSyscall found:  LoadLibraryA[<BV32 0x407144>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,430 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress: ExitProcess[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,430 - [36mCustomSimProcedure[0m - [36mSyscall found:  GetProcAddress[<BV32 0x601024>, <BV32 0x4072bc>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,452 - [36mCustomSimProcedure[0m - [36mSyscall found:  LoadLibraryA[<BV32 0x407144>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,476 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress: GetCurrentThreadId[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,476 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress - Query to lib : kernel32.dll[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,477 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress: Symbol not found[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,477 - [36mCustomSimProcedure[0m - [36mSyscall found:  GetProcAddress[<BV32 0x601024>, <BV32 0x4072c8>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,504 - [36mCustomSimProcedure[0m - [36mSyscall found:  LoadLibraryA[<BV32 0x407144>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,537 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress: CreateMutexA[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,537 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress - Query to lib : kernel32.dll[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,537 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress: Symbol not found[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,538 - [36mCustomSimProcedure[0m - [36mSyscall found:  GetProcAddress[<BV32 0x601024>, <BV32 0x4072dc>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,568 - [36mCustomSimProcedure[0m - [36mSyscall found:  LoadLibraryA[<BV32 0x407144>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,597 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress: GetModuleFileNameA[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,597 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress - Query to lib : kernel32.dll[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,597 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress: Symbol not found[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,598 - [36mCustomSimProcedure[0m - [36mSyscall found:  GetProcAddress[<BV32 0x601024>, <BV32 0x4073ac>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:24,628 - [37mCustomSimProcedureWindows[0m - [37mLoadLibraryA: Symbol not found[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,117 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:25] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,118 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 16:53:25] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,131 - [36mCustomSimProcedure[0m - {"ordinal.823.b'mfc42.dll'": 5242880, "ordinal.825.b'mfc42.dll'": 5242884, '_controlfp': 5242888, '__set_app_type': 5242892, '__p__fmode': 5242896, '__p__commode': 5242900, '_adjust_fdiv': 5242904, '__setusermatherr': 5242908, '_initterm': 5242912, '__getmainargs': 5242916, '_acmdln': 5242920, 'exit': 5242924, '_XcptFilter': 5242928, '_exit': 5242932, 'strncmp': 5242936, '_except_handler3': 5242940, 'strstr': 5242944, 'strcspn': 5242948, 'strncpy': 5242952, 'atoi': 5242956, 'time': 5242960, 'srand': 5242964, 'rand': 5242968, 'realloc': 5242972, 'free': 5242976, 'malloc': 5242980, 'sprintf': 5242984, 'ExitProcess': 5242988, 'Sleep': 5242992, 'lstrcpyA': 5242996, 'CreateProcessA': 5243000, 'TerminateProcess': 5243004, 'ExitThread': 5243008, 'GetStartupInfoA': 5243012, 'GetModuleHandleA': 5243016, 'WaitForSingleObject': 5243020, 'CreateFileA': 5243024, 'SetFilePointer': 5243028, 'WriteFile': 5243032, 'lstrcpynA': 5243036, 'lstrlenA': 5243040, 'OpenMutexA': 5243044, 'ReleaseMutex': 5243048, 'GetComputerNameA': 5243052, 'GetCurrentProcess': 5243056, 'GetCurrentThread': 5243060, 'CloseHandle': 5243064, 'CreateThread': 5243068, 'LoadLibraryA': 5243072, 'GetProcAddress': 5243076, 'GetSystemDefaultUILanguage': 5243080, 'GetTickCount': 5243084, 'GetDesktopWindow': 5243088, 'wsprintfA': 5243092, 'SHChangeNotify': 5243096, 'ShellExecuteExA': 5243100, 'ShellExecuteA': 5243104, 'SHDeleteKeyA': 5243108, 'setsockopt': 5243112, 'recv': 5243116, '__WSAFDIsSet': 5243120, 'select': 5243124, 'WSAIoctl': 5243128, 'closesocket': 5243132, 'WSAStartup': 5243136, 'inet_ntoa': 5243140, 'htonl': 5243144, 'WSACleanup': 5243148, 'socket': 5243152, 'connect': 5243156, 'send': 5243160, 'inet_addr': 5243164, 'sendto': 5243168, 'htons': 5243172, 'GetIfTable': 5243176, 'GetAdaptersInfo': 5243180, 'KiUserExceptionDispatcher': 6295572, '_fmode': 6295576, '_commode': 6295580, '_wcmdln': 6295584, 'kernel32.dll': 6295588, 'GetLastError': 6295592, 'GetCurrentThreadId': 6295596, 'CreateMutexA': 6295600, 'GetModuleFileNameA': 6295604, 'advapi32.dll': 6295608}[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,131 - [36mCustomSimProcedure[0m - [36mWas in angr :kernel32.dll[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,264 - [36mCustomSimProcedure[0m - [36mWas in angr :user32.dll[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:25,268 - [36mCustomSimProcedure[0m - [36mProcedure wsprintfA in DLL user32.dll has 3 arguments in json and 2 arguments in angr prototype. Taking number of arguments from json.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:25,268 - [36mCustomSimProcedure[0m - [36mProcedure wsprintfW in DLL user32.dll has 3 arguments in json and 2 arguments in angr prototype. Taking number of arguments from json.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,328 - [36mCustomSimProcedure[0m - [36mWas in angr :advapi32.dll[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:25,406 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500118, <SimProcedure send>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:25,406 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50011c, <SimProcedure inet_addr>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:25,406 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000f0, <SimProcedure __WSAFDIsSet>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:25,407 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000e8, <SimProcedure setsockopt>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:25,407 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500100, <SimProcedure WSAStartup>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:25,407 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000fc, <SimProcedure closesocket>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:25,407 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500108, <SimProcedure htonl>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:25,408 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500124, <SimProcedure htons>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:25,408 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x50010c, <SimProcedure WSACleanup>). Not re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,414 - [36mCustomSimProcedure[0m - [36mWas in angr :msvcrt.dll[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:25,514 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000e4, <SimProcedure SHDeleteKeyA>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:25,553 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000dc, <SimProcedure ShellExecuteExA>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:25,553 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000e0, <SimProcedure ShellExecuteA>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:25,553 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x5000d8, <SimProcedure SHChangeNotify>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:25,561 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x500050, <SimProcedure time>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 16:53:25,561 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x601014, <SimProcedure KiUserExceptionDispatcher>). Not re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,561 - [36mCustomSimProcedure[0m - [36mNo hooks for: {"ordinal.823.b'mfc42.dll'": 5242880, "ordinal.825.b'mfc42.dll'": 5242884, '_controlfp': 5242888, '__set_app_type': 5242892, '_adjust_fdiv': 5242904, '__setusermatherr': 5242908, '_initterm': 5242912, '__getmainargs': 5242916, '_acmdln': 5242920, '_XcptFilter': 5242928, '_except_handler3': 5242940, 'WSAIoctl': 5243128, 'GetIfTable': 5243176, '_fmode': 6295576, '_commode': 6295580, '_wcmdln': 6295584, 'kernel32.dll': 6295588, 'advapi32.dll': 6295608}[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,566 - [36mCustomSimProcedure[0m - [36mSyscall found:  LoadLibraryA[<BV32 0x407154>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,601 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress: StartServiceCtrlDispatcherA[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,602 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress - Query to lib : advapi32.dll[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,602 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress: Symbol not found[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,602 - [36mCustomSimProcedure[0m - [36mSyscall found:  GetProcAddress[<BV32 0x601038>, <BV32 0x4073d8>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,638 - [36mCustomSimProcedure[0m - [36mSyscall found:  LoadLibraryA[<BV32 0x407144>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,664 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress: Sleep[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,665 - [36mCustomSimProcedure[0m - [36mSyscall found:  GetProcAddress[<BV32 0x601024>, <BV32 0x4072ec>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,712 - [36mCustomSimProcedure[0m - [36mSyscall found:  GetModuleHandleA[<BV32 0x0>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,727 - [37mCustomSimProcedureWindows[0m - [37mGetModuleFileNameA: b'MZ\x90'[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,728 - [36mCustomSimProcedure[0m - [36mSyscall found:  GetModuleFileNameA[<BV32 0x400000>, <BV32 0x7ffefcf0>, <BV32 0x104>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,776 - [36mCustomSimProcedure[0m - [36mSyscall found:  LoadLibraryA[<BV32 0x407154>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,810 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress: RegCloseKey[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,810 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress - Query to lib : advapi32.dll[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,810 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress: Symbol not found[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,811 - [36mCustomSimProcedure[0m - [36mSyscall found:  GetProcAddress[<BV32 0x601038>, <BV32 0x4071a4>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,845 - [36mCustomSimProcedure[0m - [36mSyscall found:  LoadLibraryA[<BV32 0x407154>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,875 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress: RegOpenKeyExA[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,875 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress - Query to lib : advapi32.dll[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,875 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress: Symbol not found[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:25,876 - [36mCustomSimProcedure[0m - [36mSyscall found:  GetProcAddress[<BV32 0x601038>, <BV32 0x407374>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:26,817 - [36mCustomSimProcedure[0m - [36mSyscall found:  RegOpenKeyExA[<BV32 0x80000002>, <BV32 0x7ffefba8>, <BV32 0x0>, <BV32 0xf003f>, <BV32 0x7ffefcb0>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:26,865 - [36mCustomSimProcedure[0m - [36mSyscall found:  RegCloseKey[<BV32 key_handle_RegOpenKeyExA_32769_32[7:0] .. key_handle_RegOpenKeyExA_32769_32[15:8] .. key_handle_RegOpenKeyExA_32769_32[23:16] .. key_handle_RegOpenKeyExA_32769_32[31:24]>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:26,920 - [36mCustomSimProcedure[0m - [36mSyscall found:  StartServiceCtrlDispatcherA[<BV32 0x7ffefdf4>][0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:26,973 - [31mToolChainExplorerAnotherCDFS[0m - [31mA new block of execution have been executed with changes in sim_manager.[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:26,973 - [31mToolChainExplorerAnotherCDFS[0m - [31mCurrently, simulation manager is :[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:26,973 - [31mToolChainExplorerAnotherCDFS[0m - [31m<SimulationManager with 1 deadended>[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:26,973 - [31mToolChainExplorerAnotherCDFS[0m - [31mpause stash len :0[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:26,974 - [31mToolChainExplorerAnotherCDFS[0m - [31mlen(simgr.active) <= 0 or deadended >= self.max_end_state)[0m[0m
+[1;32;40mINFO - 2023-01-04 16:53:26,977 - [37mGraphBuilder[0m - [37mOutput dir :src/output/runs/71//nitol[0m[0m

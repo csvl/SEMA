@@ -1,0 +1,19 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4232746.main
+edbcd1c99f78422ca039abe2bcbf8f6e63d92d72e34d24f92142881d44de0996.exe"]
+	1 [label="4234227.IsProcessorFeaturePresent
+10"]
+	2 [label="4249414.LoadLibraryExW
+4367892
+0
+2048"]
+	3 [label="4249298.GetProcAddress
+6295592
+InitializeCriticalSectionEx"]
+	2 -> 3 [label="(0-->1)"]
+	4 [label="4249773.InitializeCriticalSectionEx
+4783980
+4000
+0"]
+}
