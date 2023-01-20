@@ -51,7 +51,8 @@ class SemaExplorerCBFS(SemaExplorer):
             exc_type, exc_obj, exc_tb = sys.exc_info()
             # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             self.log.warning(exc_type, exc_obj)
-            exit(-1)
+            #exit(-1)
+            raise Exception("ERROR IN STEP() - YOU ARE NOT SUPPOSED TO BE THERE !")
 
         super().build_snapshot(simgr)
 

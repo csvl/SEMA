@@ -19,13 +19,13 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 class Sema:
     def __init__(self, is_from_tc=True, is_from_web=False):
-        ch = logging.StreamHandler()
-        ch.setLevel(logging.INFO)
-        ch.setFormatter(CustomFormatter())
-        self.log = logging.getLogger("Sema")
-        self.log.setLevel(logging.INFO)
-        self.log.addHandler(ch)
-        self.log.propagate = False
+        # ch = logging.StreamHandler()
+        # ch.setLevel(logging.INFO)
+        # ch.setFormatter(CustomFormatter())
+        # self.log = logging.getLogger("Sema")
+        # self.log.setLevel(logging.INFO)
+        # self.log.addHandler(ch)
+        # self.log.propagate = False
 
         self.start_time = time.time()
 

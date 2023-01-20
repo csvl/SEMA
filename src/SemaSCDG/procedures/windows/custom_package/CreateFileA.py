@@ -1,7 +1,11 @@
 import logging
 import angr
 
+ 
+
 lw = logging.getLogger("CustomSimProcedureWindows")
+
+ 
 
 
 class CreateFileA(angr.SimProcedure):
@@ -15,6 +19,8 @@ class CreateFileA(angr.SimProcedure):
                 filename = filename.decode("utf-8", errors="ignore")
                 # filename = filename.decode("ascii")
         return filename
+
+ 
 
     def run(
         self,
@@ -31,7 +37,6 @@ class CreateFileA(angr.SimProcedure):
             return self.state.solver.BVS(
                 "retval_{}".format(self.display_name), self.arch.bits
             )
-        
         name = self.decodeString(lpFilename)
         lw.info(
             "CreateFileA: {}  asks to create file {}".format(self.display_name, name)

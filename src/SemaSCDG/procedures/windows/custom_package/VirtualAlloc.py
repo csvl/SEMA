@@ -49,6 +49,7 @@ class VirtualAlloc(angr.SimProcedure):
             l.warning('symbolic VirtualAlloc dwSize %s has maximum %#x, greater than state.libc.max_variable_size %#x',
                       dwSize, size, self.state.libc.max_variable_size)
             size = self.state.libc.max_variable_size
+            raise Exception("Symbolic VirtualAlloc dwSize is too big")
 
         flagss = self.state.solver.eval_upto(flAllocationType, 2)
         if len(flagss) != 1:

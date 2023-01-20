@@ -80,6 +80,8 @@ class GetProcAddress(angr.SimProcedure):
             extern = proj.loader.extern_object
             addr = extern.get_pseudo_addr(name)
             if name in call_sim.custom_simproc_windows["custom_package"]:
+                if "CreateThread" in str(name):
+                    call_sim.create_thread.append(addr)
                 proj.hook(
                     addr,
                     call_sim.custom_simproc_windows["custom_package"][name](

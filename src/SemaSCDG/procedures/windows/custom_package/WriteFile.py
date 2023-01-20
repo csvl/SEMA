@@ -1,6 +1,7 @@
 import logging
 import angr
 
+ 
 lw = logging.getLogger("CustomSimProcedureWindows")
 
 
@@ -13,7 +14,6 @@ class WriteFile(angr.SimProcedure):
         lpNumberOfBytesWritten,
         lpOverlapped,
     ):
-
         self.state.project
         simfd = self.state.posix.get_fd(hFile)
         if simfd is None:

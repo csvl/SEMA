@@ -6,7 +6,6 @@ import logging
 from collections import deque
 import angr
 import psutil
-
 # Personnal stuf
 
 
@@ -38,8 +37,8 @@ class SemaExplorer(ExplorationTechnique):
         max_end_state=600,
         max_step=100000000000000000000,
         timeout_tab=[1200, 2400, 3600],
-        jump_it=100000000000000000000000000,
-        loop_counter_concrete=10000000000000000,
+        jump_it=100,
+        loop_counter_concrete=100000000,
         jump_dict={},
         jump_concrete_dict={},
         max_simul_state=1,
@@ -48,6 +47,7 @@ class SemaExplorer(ExplorationTechnique):
         print_sm_step=False,
         print_syscall=False,
         debug_error=False,
+        memory_limit=True # TODO args
     ):
         #TODO refactor
         super(SemaExplorer, self).__init__()
@@ -99,6 +99,7 @@ class SemaExplorer(ExplorationTechnique):
         self.call_sim = call_sim
 
         self.expl_method = "DFS"
+        self.memory_limit = memory_limit
         
 
     def _filter(self, s):
@@ -566,7 +567,7 @@ class SemaExplorer(ExplorationTechnique):
                         self.log.warning(
                             "Something bad happend after update_id_stash, ids are messed up"
                         )
-                        sys.exit(0)
+                        #sys.exit(0)
 
                     self.scdg.append(self.scdg[prev_id].copy())
                     self.scdg[-1][0] = self.scdg[prev_id][0].copy()

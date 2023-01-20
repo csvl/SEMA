@@ -30,7 +30,8 @@ setup(name='sema-webapp',
           "flask_session",
           "django",
           "requests",
-          "Flask-Cors==3.0.10"
+          "Flask-Cors==3.0.10",
+          "yara-python"
           #"pytracemalloc==0.9.1"
           ],
       zip_safe=False)

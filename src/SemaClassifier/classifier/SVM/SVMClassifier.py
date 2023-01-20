@@ -39,8 +39,8 @@ class SVMClassifier(Classifier):
         f.close()
         self.path = path  
         self.path = self.path.replace("/usr/local/lib/python3.8/dist-packages/","/app/")
-        self.mapping = self.read_mapping('mapping.txt')
-        self.mapping_inv = self.read_mapping_inverse('mapping.txt')
+        self.mapping = self.read_mapping(self.path.replace("/SemaClassifier","/") + 'mapping.txt')
+        self.mapping_inv = self.read_mapping_inverse(self.path.replace("/SemaClassifier","/") + 'mapping.txt')
         self.dataset = []
         self.label = []
         self.fam_idx = []
@@ -64,8 +64,8 @@ class SVMClassifier(Classifier):
         self.dataset = []
         self.label = []
         for family in self.families:
-            path = self.path + '/'  + self.original_path + family + '/'
-            path = path.replace("SemaClassifier/","").replace("/src/src/","/src/") # todo
+            path = self.path.replace("/SemaClassifier","/") + '/'  + self.original_path + family + '/' if self.path.replace("/SemaClassifier","/") not in self.original_path else self.original_path + family + '/'
+            path = path.replace("SemaClassifier/","").replace("/src/src/","/src/") # TODO refactor
             self.log.info("Subpath: " + path)
             if not os.path.isdir(path) :
                 self.log.info("Dataset should be a folder containing malware classify by familly in subfolder")
