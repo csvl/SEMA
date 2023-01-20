@@ -48,7 +48,7 @@ except:
     from helper.GraphBuilder import *
     from procedures.CustomSimProcedure import *
     from plugin.PluginEnvVar import *
-    from src.SemaSCDG.plugin.PluginHooks import *
+    from plugin.PluginHooks import *
     from plugin.PluginEvasion import *
     from explorer.SemaExplorerDFS import SemaExplorerDFS
     from explorer.SemaExplorerCDFS import SemaExplorerCDFS
@@ -522,7 +522,7 @@ class SemaSCDG:
         # call rel32, the E8 rel32 direct near call encoding, where the rel32 field is target - end_of_call_insn
         #print(main_obj.imports)
         
-        if args.pre_run_thread or True:
+        if args.pre_run_thread and False:
             print(main_obj.imports["CreateThread"])
             print(0x400000 + main_obj.imports["CreateThread"].relative_addr)
             createThreadAddr = int.to_bytes(0x400000 + main_obj.imports["CreateThread"].relative_addr,length=4, byteorder='little', signed=True)
@@ -1215,7 +1215,6 @@ class SemaSCDG:
         self.current_exps = 0
         
         if args.verbose_scdg:
-            print("NICEUX")
             #logging.getLogger().handlers.clear()
             ch = logging.StreamHandler()
             ch.setLevel(logging.INFO)
@@ -1228,12 +1227,13 @@ class SemaSCDG:
             self.log.setLevel(logging.INFO)
         else:
             # logging.getLogger('claripy').disabled = True
-            self.log = logging.getLogger("SemaSCDG")
             ch = logging.StreamHandler()
+            ch.setLevel(logging.INFO)
+            ch.setFormatter(CustomFormatter())
+            self.log = logging.getLogger("SemaSCDG")
             self.log.addHandler(ch)
             self.log.propagate = False
-            self.log.setLevel(logging.WARNING)
-            logging.disable(level=logging.WARNING)
+            self.log.setLevel(logging.INFO)
         
         import resource
 
@@ -1313,7 +1313,7 @@ def main():
         debug_error=True,
         debug_string=True,
         print_on=True,
-        is_from_web=True
+        is_from_web=False
     )
     args_parser = ArgumentParserSCDG(toolc)
     args = args_parser.parse_arguments()

@@ -71,7 +71,6 @@ class PluginHooks: # TODO replace with classses
             for addr in self.hooks["std"]:
                 @proj.hook(addr, length=1)
                 def nothing(state):
-                    print("std")
                     state.globals["df"] = 1
                     return
                     
@@ -79,7 +78,6 @@ class PluginHooks: # TODO replace with classses
             for addr in self.hooks["cld"]:
                 @proj.hook(addr, length=1)
                 def nothing(state):
-                    print("cld")
                     state.globals["df"] = 0
                     return
            
@@ -87,7 +85,6 @@ class PluginHooks: # TODO replace with classses
             for addr in self.hooks["rep stosd"]:
                 @proj.hook(addr, length=2)
                 def nothing(state):
-                    print("rep stosd")
                     ecx = state.solver.eval(state.regs.ecx)
                     length = ecx*4
                     ptr = claripy.BVV(0x0,length*8)
@@ -100,12 +97,10 @@ class PluginHooks: # TODO replace with classses
             for addr in self.hooks["rep movsd"]:
                 @proj.hook(addr, length=2)
                 def nothing(state):
-                    print("rep movsd")
                     ecx = state.solver.eval(state.regs.ecx)
                     esi = state.solver.eval(state.regs.esi)
                     edi = state.solver.eval(state.regs.edi)
                     length = ecx*4
-                    print(ecx)
                     state.regs.ecx = 0
                     if state.globals["df"] == 0:
                         state.memory.store(edi, state.memory.load(esi,length))
@@ -121,7 +116,6 @@ class PluginHooks: # TODO replace with classses
             for addr in self.hooks["rep movsb"]:
                 @proj.hook(addr, length=2)
                 def nothing(state):
-                    print("rep movsb")
                     ecx = state.solver.eval(state.regs.ecx)
                     esi = state.solver.eval(state.regs.esi)
                     edi = state.solver.eval(state.regs.edi)
@@ -137,123 +131,7 @@ class PluginHooks: # TODO replace with classses
                         state.regs.esi = state.regs.esi - length
                     return
                     
-        if "another copy" in self.hooks:
-            @proj.hook(self.hooks["another copy"], length=32)
-            def nothing(state):
-                print("copy")
-                x = state.stack_pop()
-                y = state.stack_pop()
-                state.stack_push(y)
-                state.stack_push(x)
-                state.memory.store(state.regs.ecx, state.memory.load(state.regs.edx, y))
-                return
-                
-        if "and another one" in self.hooks:
-            @proj.hook(self.hooks["and another one"], length=37)
-            def nothing(state):
-                print("copy")
-                x = state.stack_pop()
-                y = state.stack_pop()
-                z = state.stack_pop()
-                w = state.stack_pop()  
-                state.stack_push(w)
-                state.stack_push(z)
-                state.stack_push(y)
-                state.stack_push(x)
-                state.memory.store(y, state.memory.load(z, w))
-                return
-                    
-        if "murmurhash" in self.hooks:
-            @proj.hook(self.hooks["murmurhash"], length=169)
-            def nothing(state):
-                print("murmur hash")
-                x = state.stack_pop()
-                y = state.stack_pop()
-                z = state.stack_pop()
-                state.stack_push(z)
-                state.stack_push(y)
-                state.stack_push(x)
-                bytestring = state.solver.eval(state.memory.load(state.regs.ecx,state.regs.edx),cast_to=bytes)
-                hashh = mmh3.hash(bytestring,state.solver.eval(y),False)
-                ptr = state.solver.BVV(hashh,32)
-                state.memory.store(z,ptr,endness=state.arch.memory_endness)
-                return
-                
-        if "murmurhash2" in self.hooks:
-            @proj.hook(self.hooks["murmurhash2"], length=352)
-            def nothing(state):
-                print("murmur hash")
-                x = state.stack_pop()
-                y = state.stack_pop()
-                z = state.stack_pop()
-                w = state.stack_pop()
-                v = state.stack_pop()
-                state.stack_push(v)
-                state.stack_push(w)
-                state.stack_push(z)
-                state.stack_push(y)
-                state.stack_push(x)
-                bytestring = state.solver.eval(state.memory.load(state.solver.eval(y),state.solver.eval(z)),cast_to=bytes)
-                hashh = mmh3.hash(bytestring,state.solver.eval(w),False)
-                ptr = state.solver.BVV(hashh,32)
-                state.memory.store(state.solver.eval(v),ptr,endness=state.arch.memory_endness)
-                return
-                
-        if "copy" in self.hooks:
-            @proj.hook(self.hooks["copy"], length=23)
-            def nothing(state):
-                print("copy")
-                x = state.stack_pop()
-                y = state.stack_pop()
-                state.stack_push(y)
-                state.stack_push(x)
-                state.memory.store(state.regs.ecx, state.memory.load(state.regs.edx, y))
-                return
-                
-        if "crc32" in self.hooks:
-            @proj.hook(self.hooks["crc32"], length=113)
-            def nothing(state):
-                print("crc32")
-                bytestring = state.solver.eval(state.memory.load(state.regs.ecx,state.regs.edx),cast_to=bytes)
-                crc = zlib.crc32(bytestring)
-                state.regs.eax = crc
-                return
-                
-        if "findstart" in self.hooks:
-            @proj.hook(self.hooks["findstart"], length=114)
-            def nothing(state):
-                print("find start")
-                state.regs.eax = 0x400000
-                return
-                
-        if "findstart2" in self.hooks:
-            @proj.hook(self.hooks["findstart2"], length=31)
-            def nothing(state):
-                print("find start")
-                state.regs.eax = 0x400000
-                return
-                
-        if "findstart3" in self.hooks:
-            @proj.hook(self.hooks["findstart3"], length=63)
-            def nothing(state):
-                print("find start")
-                state.regs.eax = 0x400000
-                return
-                
-        if "findstart4" in self.hooks:
-            @proj.hook(self.hooks["findstart4"], length=63)
-            def nothing(state):
-                print("find start")
-                state.regs.eax = 0x400000
-                return
-                
-        if "findstart5" in self.hooks:
-            @proj.hook(self.hooks["findstart5"], length=31)
-            def nothing(state):
-                print("find start")
-                state.regs.eax = 0x400000
-                return
-
+        
         for fun in self.hooks.keys():
             if fun == "copy":
                 @proj.hook(self.hooks[fun], length=len(self.internal_functions_hooks[fun]))
@@ -289,73 +167,6 @@ class PluginHooks: # TODO replace with classses
                     state.stack_push(x)
                     state.memory.store(y, state.memory.load(z, w))
                     return
-            elif fun == "rep stosd":
-                for addr in self.hooks["rep stosd"]:
-                    @proj.hook(addr, length=2)
-                    def nothing(state):
-                        print("rep stosd")
-                        ecx = state.solver.eval(state.regs.ecx)
-                        length = ecx*4
-                        ptr = claripy.BVV(0x0,length*8)
-                        state.memory.store(state.regs.edi, ptr)
-                        state.regs.ecx = 0
-                        state.regs.edi = state.regs.edi + length
-                        return            
-            elif fun == "std":
-                for addr in self.hooks["std"]:
-                    @proj.hook(addr, length=1)
-                    def nothing(state):
-                        print("std")
-                        state.globals["df"] = 1
-                        return
-
-            elif fun == "cld":
-                for addr in self.hooks["cld"]:
-                    @proj.hook(addr, length=1)
-                    def nothing(state):
-                        print("cld")
-                        state.globals["df"] = 0
-                        return
-
-            # elif fun == "rep movsd":
-            #     for addr in self.hooks["rep movsd"]:
-            #         @proj.hook(addr, length=2)
-            #         def nothing(state):
-            #             print("rep movsd")
-            #             ecx = state.solver.eval(state.regs.ecx)
-            #             esi = state.solver.eval(state.regs.esi)
-            #             edi = state.solver.eval(state.regs.edi)
-            #             length = ecx*4
-            #             state.regs.ecx = 0
-            #             if state.globals["df"] == 0:
-            #                 state.memory.store(edi, state.memory.load(esi,length))
-            #                 state.regs.edi = state.regs.edi + length
-            #                 state.regs.esi = state.regs.esi + length
-            #             if state.globals["df"] == 1:
-            #                 state.memory.store(edi+4-length, state.memory.load(esi+4-length,length))
-            #                 state.regs.edi = state.regs.edi - length
-            #                 state.regs.esi = state.regs.esi - length
-            #             return
-
-            # elif fun ==  "rep movsb":
-            #     for addr in self.hooks["rep movsb"]:
-            #         @proj.hook(addr, length=2)
-            #         def nothing(state):
-            #             print("rep movsb")
-            #             ecx = state.solver.eval(state.regs.ecx)
-            #             esi = state.solver.eval(state.regs.esi)
-            #             edi = state.solver.eval(state.regs.edi)
-            #             length = ecx
-            #             state.regs.ecx = 0
-            #             if state.globals["df"] == 0:
-            #                 state.memory.store(edi, state.memory.load(esi,length))
-            #                 state.regs.edi = state.regs.edi + length
-            #                 state.regs.esi = state.regs.esi + length
-            #             if state.globals["df"] == 1:
-            #                 state.memory.store(edi-length+1, state.memory.load(esi-length+1,length))
-            #                 state.regs.edi = state.regs.edi - length
-            #                 state.regs.esi = state.regs.esi - length
-            #             return
             elif fun == "murmurhash":
                 @proj.hook(self.hooks[fun], length=len(self.internal_functions_hooks[fun]))
                 def nothing(state):
