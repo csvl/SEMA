@@ -47,7 +47,7 @@ RUN apt-get --fix-missing -y install \
                 #libfreerdp-dev \ # Deprecated
                 freerdp2-dev \
                 libvirt-dev \
-                python3-wheel
+                python3-wheel 
 
 # FL
 RUN apt-get --fix-missing -y install \
@@ -132,3 +132,8 @@ RUN cd /app/src/submodules/volatility; pip install .;
 # Gspan
 RUN cd /app/src/submodules/SEMA-quickspan; mkdir build && cd build; cmake ..; make
 RUN ln -s /app/src/submodules/SEMA-quickspan/build/gspan /usr/local/bin/gspan
+
+RUN apt-get install -y \
+                yara
+
+ADD yara/ /app/yara/

@@ -30,6 +30,7 @@ import pandas as pd
 
 from src.Sema import *
 import threading
+import yara
 
 import dill
 import pyzipper
@@ -45,7 +46,17 @@ class SemaServer:
     app.config['APPLICATION_ROOT'] = ROOTPATH + '/SemaWebApp/templates/'
     app.debug = True
     app.jinja_env.filters['json'] = lambda v: Markup(json.dumps(v)) # not safe
-    
+    rules_pe_x86 = yara.compile(filepaths={
+        "compilers" : ROOTPATH+'/yara/pe/x86/compilers.yara',
+        "installers": ROOTPATH+'/yara/pe/x86/installers.yara'
+        # "packers"  : ROOTPATH+'/yara/pe/x86/packers.yara'
+    })
+    rules_pe_x64 = yara.compile(filepaths={
+        "compilers" : ROOTPATH+'/yara/pe/x64/compilers.yara',
+        "installers": ROOTPATH+'/yara/pe/x64/installers.yara'
+        # "packers"  : ROOTPATH+'/yara/pe/x64/packers.yara' #yara.SyntaxError: /app/yara/pe/x86/packers.yara(151): invalid field name "number_of_user_strings"
+    })
+    rules_serena = yara.compile(filepath=ROOTPATH+'/yara/pe/serena.yara')
     # enable CORS
     CORS(app, resources={r'/*': {'origins': '*'}})
     
@@ -342,6 +353,8 @@ class SemaServer:
                 SemaServer.sema.current_exp_dir = len(glob.glob("src/" + args.exp_dir + "/*")) + 1
                 exp_dir = "src/" + args.exp_dir + str(SemaServer.sema.current_exp_dir) + "/"
                 args.binaries = exp_dir
+            else:
+                SemaServer.sema.current_exp_dir = int(args.binaries.split("/")[-1]) # TODO
                     
             if "scdg_enable" in request.form:
                 SemaServer.sema.tool_classifier.args = args
@@ -368,7 +381,7 @@ class SemaServer:
                     
                 else:
                     SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.detect, args=()))
-                
+                                
                 SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.save_csv, args=()))
             
             if "fl_enable" in request.form:
@@ -441,8 +454,16 @@ class SemaServer:
         SemaServer.malware_to_download = 0
         for tag in tags:
             res = requests.post("https://mb-api.abuse.ch/api/v1/", data = {'query': 'get_siginfo', 'signature': tag, 'limit': limit})
-            if "data" in res.json():
-                SemaServer.malware_to_download += len(res.json()['data'])
+            #print(res.json())
+            if res and "data" in res.json():
+                #print(res.json()['data'])
+                for i in res.json()['data']:
+                    #print(i)
+                    try:
+                        if "exe" in i["tags"] or "elf" in i["tags"]:
+                            SemaServer.malware_to_download += 1
+                    except:
+                        pass
         SemaServer.malware_to_downloaded = 0      
         for tag in tags:
             db_path = "src/" + db + '/' + tag +  "/"
@@ -453,40 +474,89 @@ class SemaServer:
             res = requests.post("https://mb-api.abuse.ch/api/v1/", data = {'query': 'get_siginfo', 'signature': tag, 'limit': limit})
             #print(res.json())
             try:
-                for i in res.json()['data']:
-                    SemaServer.malware_to_downloaded += 1
-                    print(i)
-                    print(i['sha256_hash'])
-                    res_file = requests.post("https://mb-api.abuse.ch/api/v1/", data = {'query': 'get_file', 'sha256_hash': i['sha256_hash']})
-                    #print(res_file.json())
-                    #print(res_file.content)
-                    with open(db_path + i['sha256_hash'], 'wb') as s:
-                        s.write(res_file.content)
-                    with pyzipper.AESZipFile(db_path + i['sha256_hash'],"r", compression=pyzipper.ZIP_DEFLATED, encryption=pyzipper.WZ_AES) as zip_ref:
-                        zip_ref.extractall(db_path + i['sha256_hash'] + "_dir",pwd=bytes("infected", 'utf-8'))
-                    os.remove(db_path + i['sha256_hash'])
-                
-                    for file in glob.glob(db_path + i['sha256_hash'] + "_dir/*"):
-                        print(file)
-                        # out = os.popen('file ' + file + " | grep PE32").read()
-                        # print(out)
-                        out = os.popen('file ' + file + " | grep Nullsoft").read()
-                        print(out)
-                        if len(out) > 0:
-                            os.remove(file)
-                            continue
-                        out = os.popen('file ' + file + " | grep Mono/.Net").read()
-                        if len(out) > 0:
-                            os.remove(file)
-                            continue                        
-                        print(out)
-                        shutil.copyfile(file, db_path + file.split("/")[-1])
-                    shutil.rmtree(db_path + i['sha256_hash'] + "_dir")
+                for i in res.json()['data']: 
+                    try:
+                        if "exe" in i["tags"] or "elf" in i["tags"]:
+                            SemaServer.malware_to_downloaded += 1
+                            print(i)
+                            print(i['sha256_hash'])
+                            res_file = requests.post("https://mb-api.abuse.ch/api/v1/", data = {'query': 'get_file', 'sha256_hash': i['sha256_hash']})
+                            #print(res_file.json())
+                            #print(res_file.content)
+                            with open(db_path + i['sha256_hash'], 'wb') as s:
+                                s.write(res_file.content)
+                            try:
+                                with pyzipper.AESZipFile(db_path + i['sha256_hash'],"r", compression=pyzipper.ZIP_DEFLATED, encryption=pyzipper.WZ_AES) as zip_ref:
+                                    zip_ref.extractall(db_path + i['sha256_hash'] + "_dir",pwd=bytes("infected", 'utf-8'))
+                                os.remove(db_path + i['sha256_hash'])
+                                for file in glob.glob(db_path + i['sha256_hash'] + "_dir/*"):
+                                    print(file)
+                                    # out = os.popen('file ' + file + " | grep PE32").read()
+                                    # print(out)
+                                    out = os.popen('file ' + file + " | grep Nullsoft").read()
+                                    print(out)
+                                    if len(out) > 0:
+                                        print("Removed Nullsoft")
+                                        os.remove(file)
+                                        continue
+                                    out = os.popen('file ' + file + " | grep Mono/.Net").read()
+                                    if len(out) > 0:
+                                        print("Removed Mono/.Net")
+                                        os.remove(file)
+                                        continue                        
+                                    print(out)
+                                    out = os.popen('file ' + file + " | grep \"RAR self-extracting archive\"").read()
+                                    if len(out) > 0:
+                                        print("Removed RAR self-extracting archive")
+                                        os.remove(file)
+                                        continue                        
+                                    print(out)
+                                    out = os.popen('file ' + file + " | grep PE32+").read()
+                                    if len(out) > 0:
+                                        print("Removed PE32+") # TODO parameter
+                                        os.remove(file)
+                                        continue                        
+                                    print(out)
+                                    with open(file, 'rb') as f:
+                                        # matches = SemaServer.rules_pe_x86.match(data=f.read())
+                                        # print(matches)
+                                        # # for ii in len(matches):
+                                        # #     if "msvc" in matches[ii]:
+                                        # if "msvc" in str(matches) or "mingw" in str(matches):
+                                        #     os.remove(file)
+                                        #     print("Removed msvc")
+                                        #     continue
+                                        # matches = SemaServer.rules_pe_x64.match(data=f.read())
+                                        # print(matches)
+                                        # #for ii in len(matches):
+                                        # if "msvc" in str(matches) or "mingw" in str(matches):
+                                        #     #if "msvc" in matches[ii]:
+                                        #     os.remove(file)
+                                        #     print("Removed msvc")
+                                        #     continue
+                                        matches = SemaServer.rules_serena.match(data=f.read())
+                                        print(matches)
+                                        #for ii in len(matches):
+                                        if "FlsAlloc" in str(matches):
+                                            #if "msvc" in matches[ii]:
+                                            os.remove(file)
+                                            print("Removed msvc")
+                                            continue
+                                    shutil.copyfile(file, db_path + file.split("/")[-1])
+                                shutil.rmtree(db_path + i['sha256_hash'] + "_dir")
+                            except Exception as e:
+                                print(e)
+                            if os.path.exists(db_path + i['sha256_hash']+ "_dir"):
+                                shutil.rmtree(db_path + i['sha256_hash'] + "_dir")
+                                pass
+                    except Exception as e:
+                        print(e)
             except Exception as e:
                 print(e) # TODO
         SemaServer.malware_to_downloaded = 0 
         SemaServer.malware_to_download = 0 
-        SemaServer.download_thread.join()
+        if SemaServer.download_thread:
+            SemaServer.download_thread.join()
         
     @app.route('/downloader.html', methods = ['GET', 'POST'])
     def serve_download():

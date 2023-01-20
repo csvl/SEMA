@@ -5,7 +5,7 @@ import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from collections import deque
 import angr
-
+import psutil
 # Personnal stuf
 
 
@@ -38,7 +38,7 @@ class SemaExplorer(ExplorationTechnique):
         max_step=1000000,
         timeout_tab=[1200, 2400, 3600],
         jump_it=100,
-        loop_counter_concrete=1000000,
+        loop_counter_concrete=100000000,
         jump_dict={},
         jump_concrete_dict={},
         max_simul_state=1,
@@ -47,6 +47,7 @@ class SemaExplorer(ExplorationTechnique):
         print_sm_step=False,
         print_syscall=False,
         debug_error=False,
+        memory_limit=True # TODO args
     ):
         #TODO refactor
         super(SemaExplorer, self).__init__()
@@ -98,6 +99,7 @@ class SemaExplorer(ExplorationTechnique):
         self.call_sim = call_sim
 
         self.expl_method = "DFS"
+        self.memory_limit = memory_limit
         
 
     def _filter(self, s):
@@ -565,7 +567,7 @@ class SemaExplorer(ExplorationTechnique):
                         self.log.warning(
                             "Something bad happend after update_id_stash, ids are messed up"
                         )
-                        sys.exit(0)
+                        #sys.exit(0)
 
                     self.scdg.append(self.scdg[prev_id].copy())
                     self.scdg[-1][0] = self.scdg[prev_id][0].copy()
@@ -645,6 +647,12 @@ class SemaExplorer(ExplorationTechnique):
             self.log.info("Timeout expired for simulation !")
         if not (len(simgr.active) > 0 and self.deadended < self.max_end_state):
             self.log.info("len(simgr.active) <= 0 or deadended >= self.max_end_state)")
+        # if self.memory_limit:
+        #     vmem = psutil.virtual_memory()
+        #     if vmem.percent > 90:
+        #         # TODO return in logs file the malware hash
+        #         self.log.info("Memory limit reach")
+        #         return True
         return elapsed_time > self.timeout or (
             len(simgr.active) <= 0 or self.deadended >= self.max_end_state
         )

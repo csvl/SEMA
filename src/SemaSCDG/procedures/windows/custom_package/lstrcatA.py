@@ -11,8 +11,16 @@ class lstrcatA(angr.SimProcedure):
             return self.state.solver.BVS(
                 "retval_{}".format(self.display_name), self.arch.bits
             )
-        first_str = self.state.mem[string1].string.concrete
-        second_str = self.state.mem[string2].string.concrete
+        
+        print(self.state.mem[string1])
+        try:
+            first_str = self.state.mem[string1].string.concrete
+        except:
+            first_str = self.state.solver.eval(string1)
+        try:
+            second_str = self.state.mem[string2].string.concrete
+        except:
+            second_str = self.state.solver.eval(string2)
         if hasattr(first_str, "decode"):
             try:
                 first_str = first_str.decode("utf-8")

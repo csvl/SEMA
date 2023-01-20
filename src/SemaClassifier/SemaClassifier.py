@@ -112,6 +112,10 @@ class SemaClassifier:
             self.classifier.families = families
         fileHandler = logging.FileHandler(args.binaries + "/classifier.log")
         fileHandler.setFormatter(CustomFormatter())
+        try:
+            logging.getLogger().removeHandler(fileHandler)
+        except:
+            pass
         self.log.addHandler(fileHandler)
 
     def save_conf(self, args, path):
@@ -125,6 +129,8 @@ class SemaClassifier:
         elif self.input_path is None:
             self.input_path = exp_dir
         self.input_path = self.input_path.replace("unknown/","") # todo
+        
+        print(csv_file)
 
         if False : # TODO  or self.args.families -> new args
             self.init_classifer(args=self.args,families=self.args.families ,from_saved_model=(not self.args.train))
@@ -161,7 +167,7 @@ class SemaClassifier:
                              "recall",
                              "loss",
                              "tpr",
-                             "balanced_accuracy"
+                            #  "balanced_accuracy"
                              ]) # TODO add frame type
         else:
             self.df = None
@@ -184,7 +190,7 @@ class SemaClassifier:
     def classify(self):
         self.classifier.classify(path=(None if self.args.train else self.input_path))
         self.elapsed_time = time.time() - self.start_time
-        #self.log.info(self.classifier.get_stat_classifier())
+        self.log.info(self.classifier.get_stat_classifier())
     def detect(self):
         self.classifier.detection(path=(None if self.args.train else self.input_path))
         self.elapsed_time = time.time() - self.start_time
@@ -204,9 +210,9 @@ class SemaClassifier:
                              "recall":self.classifier.recall,
                              "loss":self.classifier.loss,
                              "tpr":self.classifier.tpr,
-                             "balanced_accuracy": self.classifier.balance_accuracy,
+                            #  "balanced_accuracy": self.classifier.balance_accuracy,
                             }, ignore_index=True)
-        self.df.to_csv(self.csv_path, index=False,sep=";")
+            self.df.to_csv(self.csv_path, index=False,sep=";")
 
 def main():
     tc = SemaClassifier()

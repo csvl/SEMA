@@ -14,8 +14,11 @@ class GetEnvironmentVariableA(angr.SimProcedure):
         if hasattr(name, "decode"):
             name = name.decode("utf-8")
         name = name.upper()
+        print(name)
         if name in self.state.plugin_env_var.env_var:
+            print("Swag")
             ret = self.state.plugin_env_var.env_var[name][:size]
+            print(ret)
             # lw.warning(name + " " + str(size) + " " + ret)
             try:  # TODO investigate why needed with explorer
                 if ret[-1] != "\0":
@@ -27,18 +30,25 @@ class GetEnvironmentVariableA(angr.SimProcedure):
                 ret = ret.encode("utf-8")
         else:
             ret = None
+        print(ret)
         return ret
 
     def run(self, lpName, lpBuffer, nSize):
-
         if lpName.symbolic or lpBuffer.symbolic or nSize.symbolic:
+            print("caca")
             return self.state.solver.BVS(
                 "retval_{}".format(self.display_name), self.arch.bits
             )
-
+        else:
+            print("niceux")
         #size = self.state.mem[nSize].int.concrete
         size = self.state.solver.eval(nSize)
         ret_len = size
+        
+        # var = self.get_str(lpName, size)
+        # new_str = self.state.solver.BVV(var)
+        # print(new_str)
+        # self.state.memory.store(lpBuffer, new_str)
 
         #var = self.get_str(lpName, size)
         # import pdb; pdb.set_trace()

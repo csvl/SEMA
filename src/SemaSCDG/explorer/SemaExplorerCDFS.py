@@ -51,8 +51,10 @@ class SemaExplorerCDFS(SemaExplorer):
             self.log.warning(inst)  # __str__ allows args to be printed directly,
             exc_type, exc_obj, exc_tb = sys.exc_info()
             # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            self.log.warning(exc_type, exc_obj)
-            exit(-1)
+            self.log.warning(exc_type)
+            self.log.warning(exc_tb)
+           # exit(-1)
+            #raise Exception("ERROR IN STEP() - YOU ARE NOT SUPPOSED TO BE THERE !")
 
         super().build_snapshot(simgr)
 

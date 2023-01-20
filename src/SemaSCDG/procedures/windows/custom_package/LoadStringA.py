@@ -13,7 +13,7 @@ class LoadStringA(angr.SimProcedure):
         while rsrctype != 0x6:
             offset += 8
             rsrctype =  self.state.solver.eval(self.state.memory.load(rsrc+offset,1))
-        offset = self.state.solver.eval(self.state.memory.load(0x48b000+offset+0x4,2,endness=archinfo.Endness.LE))
+        offset = self.state.solver.eval(self.state.memory.load(rsrc+offset+0x4,2,endness=archinfo.Endness.LE))
         table = self.state.solver.eval(uID)//0x10
         offset += 0x10
         tablefind = self.state.solver.eval(self.state.memory.load(rsrc+offset,2,endness=archinfo.Endness.LE))
@@ -29,7 +29,7 @@ class LoadStringA(angr.SimProcedure):
         y = x.to_bytes(2*stringsize, 'big')
         y += bytes([0])
         y += bytes([0])
-        string = y.decode('utf-16le')
+        string = y.decode('utf-16')
         ptr = self.state.solver.BVV(string)
         self.state.memory.store(lpBuffer,ptr)
         return stringsize

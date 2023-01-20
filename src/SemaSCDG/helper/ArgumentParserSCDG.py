@@ -214,9 +214,14 @@ class ArgumentParserSCDG:
         
         self.group = self.parser.add_argument_group('Global parameter')
         self.group.add_argument(
+            "--pre_run_thread",
+            help="TODO (default : False)",
+            action="store_false",
+        )   
+        self.group.add_argument(
             "--timeout",
-            help="Timeout in seconds before ending extraction (default : 100)",
-            default=100,
+            help="Timeout in seconds before ending extraction (default : 200)",
+            default=200,
             type=int,
         )     
         self.group.add_argument(

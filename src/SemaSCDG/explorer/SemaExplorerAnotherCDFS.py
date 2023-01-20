@@ -52,7 +52,8 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
             self.log.warning(inst)  # __str__ allows args to be printed directly,
             exc_type, exc_obj, exc_tb = sys.exc_info()
             # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            self.log.warning(exc_type, exc_obj)
+            self.log.warning(exc_type)
+            self.log.warning(exc_obj,exc_type)
             exit(-1)
 
         super().build_snapshot(simgr)
@@ -98,8 +99,10 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
             id_to_stash = []
             if vis_addr not in self.dict_addr_vis:
                 self.dict_addr_vis[vis_addr] = 1
-            if s.globals["n_calls"] < 0:
-                s.globals["n_calls"] = len(self.scdg[s.globals["id"]])-1
+            if s.globals["n_calls_recv"] < 0:
+                s.globals["n_calls_recv"] = len(self.scdg[s.globals["id"]])-1
+            if s.globals["n_calls_send"] < 0:
+                s.globals["n_calls_send"] = len(self.scdg[s.globals["id"]])-1
 
         super().mv_bad_active(simgr)
 
