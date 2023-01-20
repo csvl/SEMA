@@ -11,9 +11,10 @@ class GetModuleHandleW(angr.SimProcedure):
         return lib
 
     def run(self, lib_ptr):
+        call_sim = None
         try:
             from procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],False)
+            call_sim = CustomSimProcedure([], [],False,False)
         except Exception as e:
             from ....procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
             call_sim = CustomSimProcedure([], [],True, True)

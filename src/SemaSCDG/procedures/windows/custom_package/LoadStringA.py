@@ -13,7 +13,7 @@ class LoadStringA(angr.SimProcedure):
         while rsrctype != 0x6:
             offset += 8
             rsrctype =  self.state.solver.eval(self.state.memory.load(rsrc+offset,1))
-        offset = self.state.solver.eval(self.state.memory.load(0x48b000+offset+0x4,2,endness=archinfo.Endness.LE))
+        offset = self.state.solver.eval(self.state.memory.load(rsrc+offset+0x4,2,endness=archinfo.Endness.LE))
         table = self.state.solver.eval(uID)//0x10
         offset += 0x10
         tablefind = self.state.solver.eval(self.state.memory.load(rsrc+offset,2,endness=archinfo.Endness.LE))

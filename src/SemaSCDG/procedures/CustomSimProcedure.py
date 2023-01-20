@@ -34,6 +34,17 @@ class CustomSimProcedure:
         "ShellMessageBoxW",
         "wsprintfA",
         "sprintf",
+        "memcpy",
+        "_ismbblead",
+        "strlen",
+        "printf",
+        "rand",
+        "strcat",
+        "strcpy",
+        "strcmp",
+        "malloc",
+        "aloi",
+        "sprintf"
     ]
 
     ANGR_LIBS = {
@@ -235,8 +246,10 @@ class CustomSimProcedure:
                             self.custom_simproc_windows[pkg_name] = {}
                         self.custom_simproc_windows[pkg_name][name] = proc
                         if hasattr(proc, "ALT_NAMES") and proc.ALT_NAMES:
-                            for altname in proc.ALT_NAMES:
-                                self.custom_simproc_windows[pkg_name][altname] = proc
+                            new_proc = proc
+                            new_proc.__name__ = proc.ALT_NAMES
+                            new_proc.__qualname__ = proc.ALT_NAMES
+                            self.custom_simproc_windows[pkg_name][proc.ALT_NAMES] = new_proc
                         if name == "UnresolvableJumpTarget":
                             self.custom_simproc_windows[pkg_name][
                                 "UnresolvableTarget"
@@ -1156,7 +1169,7 @@ class CustomSimProcedure:
                                 proj.hook(
                                     symb.rebased_addr,
                                     self.custom_simproc_windows["custom_package"][
-                                        symb.name
+                                        real_name   #TODO: check symb.name
                                     ](cc=SimCCStdcall(proj.arch)),
                                 )
                             elif lib_part == lib:

@@ -83,10 +83,10 @@ class SemaSCDG:
         self,
         timeout=600,
         max_end_state=600,
-        max_step=1000000,
+        max_step=10000000000000,
         timeout_tab=[1200, 2400, 3600],
-        jump_it=100,
-        loop_counter_concrete=1000000,
+        jump_it=10000000000000,
+        loop_counter_concrete=1000000000000,
         jump_dict={},
         jump_concrete_dict={},
         max_simul_state=1,
@@ -284,7 +284,7 @@ class SemaSCDG:
                     "auto_load_libs": True
                 },  # ,load_options={"auto_load_libs":False}
                 support_selfmodifying_code=True,
-                # arch="",
+                #arch="",
             )
 
         # Getting from a binary file to its representation in a virtual address space
@@ -354,15 +354,16 @@ class SemaSCDG:
             addr = None
 
         # Create initial state of the binary
-        
-        options = {angr.options.SYMBOLIC_INITIAL_VALUES}
+
+        #options = {angr.options.SYMBOLIC_INITIAL_VALUES}
+        options = {angr.options.SYMBOLIC_WRITE_ADDRESSES}
         options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS)
         options.add(angr.options.ZERO_FILL_UNCONSTRAINED_MEMORY)
         options.add(angr.options.SIMPLIFY_MEMORY_READS)
         options.add(angr.options.SIMPLIFY_MEMORY_WRITES)
         options.add(angr.options.SIMPLIFY_CONSTRAINTS)
         options.add(angr.options.USE_SYSTEM_TIMES)
-        # options.add(angr.options.SYMBOLIC_WRITE_ADDRESSES)
+        #options.add(angr.options.SYMBOLIC_WRITE_ADDRESSES)
         # options.add(angr.options.TRACK_JMP_ACTIONS)
         # options.add(angr.options.TRACK_CONSTRAINT_ACTIONS)
         # options.add(angr.options.TRACK_JMP_ACTIONS)
@@ -384,7 +385,7 @@ class SemaSCDG:
         state.register_plugin(
             "heap", angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc(heap_size = 0x10000000)
         )
-        
+        #heap_size = 0x10000000
         state.register_plugin(
             "plugin_env_var", PluginEnvVar()
         )  # For environment variable mainly
@@ -455,7 +456,8 @@ class SemaSCDG:
         #####################################################
         
         def nothing(state):
-            pass
+            if False:
+                print(hex(state.addr))
                 
         instr_dict = {}
         def count(state):
@@ -496,6 +498,9 @@ class SemaSCDG:
         simgr.active[0].globals["n_buffer"] = 0
         simgr.active[0].globals["rsrc"] = 0
         simgr.active[0].globals["n_calls"] = 0
+        simgr.active[0].globals["resources"] = {}
+        simgr.active[0].globals["df"] = 0
+        simgr.active[0].globals["files"] = {}
 
         for sec in main_obj.sections:
             name = sec.name.replace("\x00", "")
@@ -863,10 +868,12 @@ def main():
         debug_error=True,
         debug_string=True,
         print_on=True,
+        is_from_web = False
     )
     args_parser = ArgumentParserSCDG(toolc)
-    args, nameFile, expl_method = args_parser.parse_arguments()
-    toolc.build_scdg(args, nameFile, expl_method)
+    args = args_parser.parse_arguments()
+    args_parser.update_tool(args)
+    toolc.start_scdg(args, is_fl=False,csv_file=None)
 
 
 if __name__ == "__main__":

@@ -5,6 +5,7 @@ import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from collections import deque
 import angr
+import psutil
 
 # Personnal stuf
 
@@ -35,10 +36,10 @@ class SemaExplorer(ExplorationTechnique):
         eval_time=False,
         timeout=600,
         max_end_state=600,
-        max_step=1000000,
+        max_step=100000000000000000000,
         timeout_tab=[1200, 2400, 3600],
-        jump_it=100,
-        loop_counter_concrete=1000000,
+        jump_it=100000000000000000000000000,
+        loop_counter_concrete=10000000000000000,
         jump_dict={},
         jump_concrete_dict={},
         max_simul_state=1,
@@ -645,6 +646,12 @@ class SemaExplorer(ExplorationTechnique):
             self.log.info("Timeout expired for simulation !")
         if not (len(simgr.active) > 0 and self.deadended < self.max_end_state):
             self.log.info("len(simgr.active) <= 0 or deadended >= self.max_end_state)")
+        if True:
+            vmem = psutil.virtual_memory()
+            if vmem.percent > 99:
+                # TODO return in logs file the malware hash
+                self.log.info("Memory limit reach")
+                return True
         return elapsed_time > self.timeout or (
             len(simgr.active) <= 0 or self.deadended >= self.max_end_state
         )

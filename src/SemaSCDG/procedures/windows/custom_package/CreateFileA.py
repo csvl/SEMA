@@ -26,15 +26,12 @@ class CreateFileA(angr.SimProcedure):
         dwFlagsAndAttributes,
         hTemplateFile,
     ):
-    
         last_byte = self.state.memory.load(lpFilename, size=1)
         if self.state.solver.symbolic(last_byte):
             return self.state.solver.BVS(
                 "retval_{}".format(self.display_name), self.arch.bits
             )
-            
-        self.state.project
-        # import pdb; pdb.set_trace()
+        
         name = self.decodeString(lpFilename)
         lw.info(
             "CreateFileA: {}  asks to create file {}".format(self.display_name, name)
@@ -45,16 +42,12 @@ class CreateFileA(angr.SimProcedure):
         access & (1 << 29)
         access & (1 << 28)
 
-        """if (read & write) or allPerm :
-            flag = 2
-        elif write :
-            flag = 1
-        elif write ="""
-
         fd = self.state.posix.open(name, self.state.solver.BVV(2, self.arch.bits))
         # import pdb; pdb.set_trace()
         if fd is None:
             return self.state.solver.BVS(
                 "retval_{}".format(self.display_name), self.arch.bits
             )
+        real_fd  = open(name, "wb")
+        self.state.globals["files"][fd] = real_fd
         return fd

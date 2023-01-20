@@ -35,6 +35,22 @@ class Hooks:
         if(len(addr_list) > 0):
             self.hooks["rep stosd"] = addr_list
             
+        addr_list1 = [m.start()+total for m in re.finditer(b'\xf3\xa5',cont)]
+        if(len(addr_list1) > 0):
+            self.hooks["rep movsd"] = addr_list1
+            
+        addr_list2 = [m.start()+total for m in re.finditer(b'\xf3\xa4',cont)]
+        if(len(addr_list2) > 0):
+            self.hooks["rep movsb"] = addr_list2
+            
+        addr_list3 = [m.start()+total for m in re.finditer(b'\xfd',cont)]
+        if(len(addr_list3) > 0):
+            self.hooks["std"] = addr_list3
+           
+        addr_list4 = [m.start()+total for m in re.finditer(b'\xfc',cont)]
+        if(len(addr_list4) > 0):
+            self.hooks["cld"] = addr_list4
+            
         offset = cont.find(b'\x56\x33\xf6\x39\x74\x24\x08\x76\x0d\x8a\x04\x16\x88\x04\x0e\x46\x3b\x74\x24\x08\x72\xf3\x5e')
         if(offset != -1):
             self.hooks["copy"] = offset+total
@@ -82,7 +98,77 @@ class Hooks:
             
             
     def hook(self,state,proj):
-                
+    
+        if "std" in self.hooks:
+            for addr in self.hooks["std"]:
+                @proj.hook(addr, length=1)
+                def nothing(state):
+                    print("std")
+                    state.globals["df"] = 1
+                    return
+                    
+        if "cld" in self.hooks:
+            for addr in self.hooks["cld"]:
+                @proj.hook(addr, length=1)
+                def nothing(state):
+                    print("cld")
+                    state.globals["df"] = 0
+                    return
+           
+        if "rep stosd" in self.hooks:
+            for addr in self.hooks["rep stosd"]:
+                @proj.hook(addr, length=2)
+                def nothing(state):
+                    print("rep stosd")
+                    ecx = state.solver.eval(state.regs.ecx)
+                    length = ecx*4
+                    ptr = claripy.BVV(0x0,length*8)
+                    state.memory.store(state.regs.edi, ptr)
+                    state.regs.ecx = 0
+                    state.regs.edi = state.regs.edi + length
+                    return
+                    
+        if "rep movsd" in self.hooks:
+            for addr in self.hooks["rep movsd"]:
+                @proj.hook(addr, length=2)
+                def nothing(state):
+                    print("rep movsd")
+                    ecx = state.solver.eval(state.regs.ecx)
+                    esi = state.solver.eval(state.regs.esi)
+                    edi = state.solver.eval(state.regs.edi)
+                    length = ecx*4
+                    print(ecx)
+                    state.regs.ecx = 0
+                    if state.globals["df"] == 0:
+                        state.memory.store(edi, state.memory.load(esi,length))
+                        state.regs.edi = state.regs.edi + length
+                        state.regs.esi = state.regs.esi + length
+                    if state.globals["df"] == 1:
+                        state.memory.store(edi+4-length, state.memory.load(esi+4-length,length))
+                        state.regs.edi = state.regs.edi - length
+                        state.regs.esi = state.regs.esi - length
+                    return
+                   
+        if "rep movsb" in self.hooks:
+            for addr in self.hooks["rep movsb"]:
+                @proj.hook(addr, length=2)
+                def nothing(state):
+                    print("rep movsb")
+                    ecx = state.solver.eval(state.regs.ecx)
+                    esi = state.solver.eval(state.regs.esi)
+                    edi = state.solver.eval(state.regs.edi)
+                    length = ecx
+                    state.regs.ecx = 0
+                    if state.globals["df"] == 0:
+                        state.memory.store(edi, state.memory.load(esi,length))
+                        state.regs.edi = state.regs.edi + length
+                        state.regs.esi = state.regs.esi + length
+                    if state.globals["df"] == 1:
+                        state.memory.store(edi-length+1, state.memory.load(esi-length+1,length))
+                        state.regs.edi = state.regs.edi - length
+                        state.regs.esi = state.regs.esi - length
+                    return
+                    
         if "another copy" in self.hooks:
             @proj.hook(self.hooks["another copy"], length=32)
             def nothing(state):
@@ -108,19 +194,6 @@ class Hooks:
                 state.stack_push(x)
                 state.memory.store(y, state.memory.load(z, w))
                 return
-                
-        if "rep stosd" in self.hooks:
-            for addr in self.hooks["rep stosd"]:
-                @proj.hook(addr, length=2)
-                def nothing(state):
-                    print("rep stosd")
-                    ecx = state.solver.eval(state.regs.ecx)
-                    length = ecx*4
-                    ptr = claripy.BVV(0x0,length*8)
-                    state.memory.store(state.regs.edi, ptr)
-                    state.regs.ecx = 0
-                    state.regs.edi = state.regs.edi + length
-                    return
                     
         if "murmurhash" in self.hooks:
             @proj.hook(self.hooks["murmurhash"], length=169)
