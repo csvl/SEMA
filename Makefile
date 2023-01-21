@@ -27,7 +27,8 @@ build-web-sema:
 	#docker build  --rm  -t sema-pypy -f Dockerfile.sema.pypy .
 	#docker build  --rm -t sema -f Dockerfile.sema.cuda --build-arg image=sema-pypy . # -pypy-cuda
 	docker build  --rm -t sema -f Dockerfile.sema.fl --build-arg image=sema-init .
-	docker build  --rm -t sema-web -f Dockerfile.sema.webapp --build-arg image=sema .
+	docker build  --rm -t sema-web-nf -f Dockerfile.sema.webapp --build-arg image=sema .
+	docker build  --rm -t sema-web -f Dockerfile.sema.fix --build-arg image=sema-web-nf .
 
 run-web:
 	#bash update_etc_hosts.sh
@@ -37,6 +38,7 @@ run-web:
 			   -v /app/src/submodules/ \
 			   -v $(PWD)/SemaWebApp/:/app/SemaWebApp/ \
 			   -v /tmp/.X11-unix:/tmp/.X11-unix \
+			   -v $(PWD)/penv-fix/:/penv-fix/ \
     		   -e DISPLAY=$(DISPLAY) \
 			   -p 8080:80 \
 			   --network="bridge" \

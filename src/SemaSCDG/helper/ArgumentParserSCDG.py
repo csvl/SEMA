@@ -216,7 +216,7 @@ class ArgumentParserSCDG:
         self.group.add_argument(
             "--pre_run_thread",
             help="TODO (default : False)",
-            action="store_false",
+            action="store_true",
         )   
         self.group.add_argument(
             "--timeout",

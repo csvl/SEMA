@@ -7,7 +7,7 @@ ENV SNAPCRAFT_SETUP_CORE=1
 # Toolchain
 
 RUN  apt-get update
-RUN  apt-get --fix-missing -y install \ 
+RUN  apt update; apt-get --fix-missing -y install \ 
                 python3.8 \
                 python3.8-dev \
                 python3.8-venv \
@@ -18,7 +18,7 @@ RUN  apt-get --fix-missing -y install \
                 curl
 
 # Cuckoo
-RUN apt-get --fix-missing -y install \
+RUN apt update; apt-get --fix-missing -y install \
                 # python \  # Deprecated
                 # python-pip \
                 # python-dev \
@@ -50,14 +50,14 @@ RUN apt-get --fix-missing -y install \
                 python3-wheel 
 
 # FL
-RUN apt-get --fix-missing -y install \
+RUN apt update; apt-get --fix-missing -y install \
                 rabbitmq-server \
                 zip
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh  -s -- -y
 
 RUN apt remove --purge cmake
-RUN apt-get install -y cmake
+RUN apt update; apt-get install --fix-missing -y  cmake
 # RUN apt install -y snapd
 # # RUN service snapd start 
 # RUN systemctl enable snapd
@@ -70,11 +70,11 @@ RUN apt-get -y install \
                 libpq-dev
 
 # For Symbion
-RUN apt-get install -y \
+RUN apt update; apt-get install --fix-missing -y  \
                 gdb-multiarch
 
 # For GSPan
-RUN apt-get install -y libgoogle-glog-* \
+RUN apt update; apt-get install --fix-missing -y  libgoogle-glog-* \
                     libgflags-* \
                     radare2 
 
@@ -95,7 +95,7 @@ RUN pip3 install .;
 RUN cd /app/src/submodules/angr-targets/; pip3 install nose; pip3 install .;
 
 # TCP dump for cuckoo
-RUN apt-get install -y \ 
+RUN apt update; apt-get install --fix-missing -y  \ 
                 tcpdump \
                 wget \
                 software-properties-common
@@ -110,7 +110,7 @@ RUN apt-get install -y \
 
 # guacd for cuckoo
 RUN mkdir /tmp/guac-build
-RUN apt-get install -y --fix-missing \ 
+RUN apt update; apt-get install --fix-missing -y  --fix-missing \ 
             libwebp-dev \
             libwebsockets-dev \
             libogg-dev \
@@ -133,7 +133,7 @@ RUN cd /app/src/submodules/volatility; pip install .;
 RUN cd /app/src/submodules/SEMA-quickspan; mkdir build && cd build; cmake ..; make
 RUN ln -s /app/src/submodules/SEMA-quickspan/build/gspan /usr/local/bin/gspan
 
-RUN apt-get install -y \
+RUN apt update; apt-get install --fix-missing -y  \
                 yara
 
 ADD yara/ /app/yara/

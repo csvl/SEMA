@@ -91,6 +91,11 @@ class SemaExplorerCBFS(SemaExplorer):
                 to_stash="new_addr",
                 filter_func=lambda s: s.globals["id"] in id_to_stash,
             )
+            # print(s.addr)
+            # print(s.project.loader.main_object.max_addr)
+            if s.addr < s.project.loader.main_object.min_addr: # s.addr > s.project.loader.main_object.max_addr or 
+                self.timeout = 0 # TODO
+                
 
         super().mv_bad_active(simgr)
         # import pdb; pdb.set_trace()
