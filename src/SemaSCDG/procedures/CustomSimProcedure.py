@@ -35,6 +35,17 @@ class CustomSimProcedure:
         "ShellMessageBoxW",
         "wsprintfA",
         "sprintf",
+        "memcpy",
+        "_ismbblead",
+        "strlen",
+        "printf",
+        "rand",
+        "strcat",
+        "strcpy",
+        "strcmp",
+        "malloc",
+        "aloi",
+        "sprintf"
         "??2@YAPAXI@Z", # new operator
         "memcpy",
         "memset",
@@ -268,21 +279,16 @@ class CustomSimProcedure:
                     else:
                         if pkg_name not in self.custom_simproc_windows:
                             self.custom_simproc_windows[pkg_name] = {}
-                        # print(pkg_name)
-                        # print(name)
                         self.custom_simproc_windows[pkg_name][name] = proc
                         if hasattr(proc, "ALT_NAMES") and proc.ALT_NAMES:
-                            #print("HAS HALT")
                             new_proc = proc # TODO clone
                             new_proc.__name__ = proc.ALT_NAMES
                             new_proc.__qualname__ = proc.ALT_NAMES
-                            #print(new_proc)           
                             self.custom_simproc_windows[pkg_name][proc.ALT_NAMES] = new_proc
                         if name == "UnresolvableJumpTarget":
                             self.custom_simproc_windows[pkg_name][
                                 "UnresolvableTarget"
                             ] = proc
-                        #print("swag\n")
 
         # self.log.info(self.custom_simproc_windows)
 
@@ -1209,8 +1215,7 @@ class CustomSimProcedure:
                                 proj.hook(
                                     symb.rebased_addr,
                                     self.custom_simproc_windows["custom_package"][
-                                        #symb.name # before
-                                        real_name
+                                        real_name   #TODO: check symb.name
                                     ](cc=SimCCStdcall(proj.arch)),
                                 )
                             elif lib_part == lib:

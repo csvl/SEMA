@@ -29,7 +29,8 @@ class LoadStringW(angr.SimProcedure):
         y = x.to_bytes(2*stringsize, 'big')
         y += bytes([0])
         y += bytes([0])
-        string = y.decode('utf-8')
+        string = y.decode('utf-16le')
+        print(string)
         ptr = self.state.solver.BVV(string)
         self.state.memory.store(lpBuffer,ptr)
         return stringsize

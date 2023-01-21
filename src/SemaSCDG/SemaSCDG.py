@@ -48,7 +48,7 @@ except:
     from helper.GraphBuilder import *
     from procedures.CustomSimProcedure import *
     from plugin.PluginEnvVar import *
-    from src.SemaSCDG.plugin.PluginHooks import *
+    from plugin.PluginHooks import *
     from plugin.PluginEvasion import *
     from explorer.SemaExplorerDFS import SemaExplorerDFS
     from explorer.SemaExplorerCDFS import SemaExplorerCDFS
@@ -85,10 +85,10 @@ class SemaSCDG:
         self,
         timeout=600,
         max_end_state=600,
-        max_step=1000000,
+        max_step=10000000000000,
         timeout_tab=[1200, 2400, 3600],
-        jump_it=100,
-        loop_counter_concrete=1000000,
+        jump_it=10000000000000,
+        loop_counter_concrete=1000000000000,
         jump_dict={},
         jump_concrete_dict={},
         max_simul_state=1,
@@ -378,7 +378,7 @@ class SemaSCDG:
         options.add(angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY)
          
         options.add(angr.options.USE_SYSTEM_TIMES)
-        # options.add(angr.options.SYMBOLIC_WRITE_ADDRESSES)
+        #options.add(angr.options.SYMBOLIC_WRITE_ADDRESSES)
         # options.add(angr.options.TRACK_JMP_ACTIONS)
         # options.add(angr.options.TRACK_CONSTRAINT_ACTIONS)
         # options.add(angr.options.TRACK_JMP_ACTIONS)
@@ -400,7 +400,7 @@ class SemaSCDG:
         state.register_plugin(
             "heap", angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc(heap_size = 0x10000000) # heap_size = 0x10000000
         )
-        
+        #heap_size = 0x10000000
         state.register_plugin(
             "plugin_env_var", PluginEnvVar()
         )  # For environment variable mainly
@@ -493,18 +493,297 @@ class SemaSCDG:
         
         dump_file = {}
         self.print_memory_info(main_obj, dump_file)
-  
-             
+        print(self.call_sim.create_thread)
+        
+        # getModuleHandle
+        lib = "kernel32.dll"
+        symb = proj.loader.find_symbol(lib)
+        if symb:
+            print(symb.rebased_addr)
+            lib_addr = symb.rebased_addr
+        else:
+            extern = proj.loader.extern_object
+            addr = extern.get_pseudo_addr(lib)
+            print(addr)
+            lib_addr = addr
+            
+        # run(self, lib_handle, name_addr):
+        # getProcAddress =self.call_sim.custom_simproc_windows["custom_package"]["GetProcAddress"]
+        # print(getProcAddress)
+        # print(state.solver.eval(ret_expr))
+        # arguments = [state.solver.eval(ret_expr),claripy.StringS("CreateThread",size=len("CreateThread"))]
+        # e_args = [ state.solver.BVV(a,state.arch.bits) if isinstance(a, int) else a for a in arguments ]
+        # p = getProcAddress(project=proj,cc=SimCCStdcall(proj.arch))
+        # ret_expr =  p.execute(state, None, arguments=e_args).ret_expr
+        # print(ret_expr)
+        
+        # call rel32, the E8 rel32 direct near call encoding, where the rel32 field is target - end_of_call_insn
+        #print(main_obj.imports)
+        
+        if args.pre_run_thread and False:
+            print(main_obj.imports["CreateThread"])
+            print(0x400000 + main_obj.imports["CreateThread"].relative_addr)
+            createThreadAddr = int.to_bytes(0x400000 + main_obj.imports["CreateThread"].relative_addr,length=4, byteorder='little', signed=True)
+            print(createThreadAddr)
+            print(len(createThreadAddr))
+            print(type(createThreadAddr))
+            
+            name = "CreateThread"
+            self.log.info("GetProcAddress: " + str(name))
+            # import pdb; pdb.set_trace()
+            symb = proj.loader.find_symbol(name)
+            if symb:
+                # Yeah ! Symbols exist and it is already hooked (normaly)
+                print(symb.rebased_addr) # cross_references=True,
+            cfg =  proj.analyses.CFG(show_progressbar=True,
+                                    detect_tail_calls=True,
+                                    force_complete_scan=False,
+                                    force_smart_scan=True,
+                                    force_segment=False,
+                                    use_patches=True,
+                                    data_references=True,
+                                    normalize=True,
+                                    #context_sensitivity_level=2, # base 0
+                                    #cross_references=True,
+                                    skip_unmapped_addrs=False,
+                                    nodecode_window_size=512*2,
+                                    indirect_jump_target_limit=100000*10,
+                                    nodecode_threshold=0.3*2,
+                                    nodecode_step=16483*2)
+
+            #proj.analyses.CompleteCallingConventions(recover_variables=True)
+            
+            #cfg =  proj.analyses.CFGEmulated(keep_state=True)
+            
+            #cfg.do_full_xrefs(state)
+                    
+            #print(main_obj.imports["CreateThread"].rebased_addr)
+            print(int.from_bytes(createThreadAddr,"little"))
+            pe_header = int.from_bytes(cont[0x3c:0x40],"little")
+            size_of_headers = int.from_bytes(cont[pe_header+0x54:pe_header+0x54+4],"little")
+            base_of_code = int.from_bytes(cont[pe_header+0x2c:pe_header+0x2c+4],"little")
+            image_base = int.from_bytes(cont[pe_header+0x34:pe_header+0x34+4],"little")
+            total = base_of_code+image_base-size_of_headers
+            jmp_create_thred = [m.start()+total for m in re.finditer(b"\xff\x25"+createThreadAddr,cont)]
+            print(jmp_create_thred)
+            create_thread_ref = []
+            for jmp in jmp_create_thred:
+                f = cfg.functions[jmp]
+                f.calling_convention = SimCCStdcall(proj.arch)
+                print(f.name)
+                blank_state = proj.factory.blank_state()
+                
+                
+                prop = proj.analyses.Propagator(func=f, base_state=state)
+                # Collect all the refs
+                proj.analyses.XRefs(func=f, replacements=prop.replacements)
+                thread_func = cfg.kb.functions[jmp]
+                print(thread_func)
+                print(thread_func.get_call_sites())
+                print(thread_func.functions_called())
+                print(thread_func.string_references())
+                print(thread_func.get_call_target(jmp))
+                print(thread_func.get_call_return(jmp))
+                
+                timenow_cp_xrefs = proj.kb.xrefs.get_xrefs_by_dst(jmp)  # the constant in the constant pool
+                timenow_xrefs = proj.kb.xrefs.get_xrefs_by_ins_addr(jmp)  # the value in .bss
+                print(timenow_cp_xrefs)
+                print(timenow_xrefs)
+                
+                for xref in timenow_cp_xrefs:
+                    print(xref)
+                    print(xref.ins_addr)
+                    thread_state = proj.factory.call_state(
+                        addr=xref.ins_addr, add_options=options
+                    )
+                    print(thread_state)
+                
+                    # thread_func = cfg.kb.functions[xref.ins_addr]
+                    # print(thread_func)
+                    
+                    
+                    block = proj.factory.block(xref.ins_addr)
+                    print(block)
+                
+                    
+                    var_rec = proj.analyses.VariableRecoveryFast(thread_func)
+                    
+                    print(var_rec)
+                    
+                    cc_analysis = proj.analyses.CallingConvention(thread_func, cfg=cfg, analyze_callsites=True)
+                    print(cc_analysis.prototype.args)
+                    
+                    for c in cc_analysis._analyze_callsites():
+                        print(c.args)
+                        print(c.return_value_used)
+                        
+                    node = cc_analysis._cfg.get_any_node(cc_analysis._function.addr)
+                    if node is None:
+                        l.warning("%r is not in the CFG. Skip calling convention analysis at call sites.", self._function)
+
+                    facts = [ ]
+                    in_edges = cc_analysis._cfg.graph.in_edges(node, data=True)
+
+                    call_sites_by_function: Dict['Function',List[Tuple[int,int]]] = defaultdict(list)
+                    for src, _, data in in_edges:
+                        edge_type = data.get('jumpkind', 'Ijk_Call')
+                        if edge_type != 'Ijk_Call':
+                            continue
+                        if not cc_analysis.kb.functions.contains_addr(src.function_address):
+                            continue
+                        caller = cc_analysis.kb.functions[src.function_address]
+                        if caller.is_simprocedure:
+                            # do not analyze SimProcedures
+                            continue
+                        call_sites_by_function[caller].append((src.addr, src.instruction_addrs[-1]))
+
+                    call_sites_by_function_list = list(call_sites_by_function.items())[:3]
+                    for caller, call_sites in call_sites_by_function_list:
+                        print(call_sites)
+                        for site in call_sites:
+                            #if 
+                            pass
+                    
+                    print(cc_analysis.cc.int_args)
+                    for a in cc_analysis.cc.int_args:
+                        print(a)
+                    for arg in cc_analysis.prototype.args:
+                        print(arg)
+                        print(type(arg))
+                    
+                    arg_locs = cc_analysis.cc.arg_locs(cc_analysis.prototype)
+                    get_args = cc_analysis.cc.get_args(thread_state, cc_analysis.prototype,stack_base=xref.ins_addr-0x18)
+                    print(arg_locs)
+                    print(get_args)
+                
+                    lpThreadAttributes = get_args[0]
+                    dwStackSize = get_args[1]
+                    lpStartAddress = get_args[2]
+                    lpParameter = get_args[3]
+                    dwCreationFlags = get_args[4]
+                    lpThreadId = get_args[5]
+                        
+                    print(cc_analysis.cc.get_arg_info(state, cc_analysis.prototype))
+                    for arg in arg_locs:
+                        print(arg)
+                        print(thread_state.regs.sp)
+                        print(arg.get_value(thread_state,base_of_code))
+                        
+                    vm = cc_analysis.kb.variables[jmp]
+                    print(vm)
+                    input_variables = vm.input_variables()
+                    print(input_variables)
+                    input_args = cc_analysis._args_from_vars(input_variables, vm)
+                    print(input_args)
+                    
+                    # cc_maker = proj.analyses.decompiler.CallSiteMaker(thread_func)   
+                    # print(cc_maker.result_block)
+                
+                    check_func = proj.factory.callable(xref.ins_addr, concrete_only=False, cc=SimCCStdcall(proj.arch))
+                    exit()
+                    print("[+] Running angr callable with concrete arguments")
+                    ret_val = check_func(lpThreadAttributes,dwStackSize,lpStartAddress,lpParameter,dwCreationFlags,lpThreadId)
+                    stdout = check_func.result_state.posix.dumps(1) 
+                    print("ret_val: %s" % ret_val)
+                    print("stdout: %s" % stdout)
+        
+                print(f)
+                print(f.get_call_sites())
+                print(f.string_references())
+                print(f.functions_called())
+                print(f.get_call_target(jmp))
+                print(f.get_call_return(jmp))
+                
+                # thread_func = cfg.kb.functions[0x4111d0]
+                # print(thread_func)
+                # print(thread_func.get_call_sites())
+                # print(thread_func.string_references())
+                
+                thread_func = cfg.kb.functions[0x4010d0]
+                print(thread_func)
+                print(thread_func.get_call_sites())
+                print(thread_func.functions_called())
+                print(thread_func.string_references())
+                print(thread_func.get_call_target(0x4010d0))
+                print(thread_func.get_call_return(0x4010d0))
+                
+                timenow_cp_xrefs = proj.kb.xrefs.get_xrefs_by_dst(0x4010d0)  # the constant in the constant pool
+                timenow_xrefs = proj.kb.xrefs.get_xrefs_by_ins_addr(0x4010d0)  # the value in .bss
+                print(timenow_cp_xrefs)
+                print(timenow_xrefs)
+            
+            # for addr in cfg.kb.functions:
+            #     print(hex(addr))
+            #     print(cfg.kb.functions[addr])
+            # print("This is the graph:", cfg.graph)
+            # print("It has %d nodes and %d edges" % (len(cfg.graph.nodes()), len(cfg.graph.edges())))
+            # print(cfg.kb.functions)
+            
+            # thread_func = cfg.kb.functions[symb.rebased_addr]
+            # print(thread_func)
+            # print(thread_func.get_call_sites())
+            # thread_func = cfg.kb.functions[main_obj.imports["CreateThread"].relative_addr]
+            # print(thread_func)
+            # thread_func = cfg.kb.functions[0x400000 + main_obj.imports["CreateThread"].relative_addr]
+            # print(thread_func)
+        
+        
+            
+        
+                
+            
+            # name = "CreateThread"
+            # self.log.info("GetProcAddress: " + str(name))
+            # # import pdb; pdb.set_trace()
+            # symb = proj.loader.find_symbol(name)
+            # if symb:
+            #     # Yeah ! Symbols exist and it is already hooked (normaly)
+            #     print(symb.rebased_addr)
+
+            # # import pdb; pdb.set_trace()
+            # if lib not in SIM_LIBRARIES:
+            #     try:
+            #         # import pdb; pdb.set_trace()
+            #         str_lib = str(lib)
+            #         if ".dll" not in lib:
+            #             lib = str_lib + ".dll"
+            #         proj.loader.requested_names.add(lib)
+            #         self.call_sim.loadlibs_proc(
+            #             self.call_sim.ddl_loader.load(proj), proj
+            #         )
+            #     except Exception as inst:
+            #         # self.log.warning(type(inst))    # the exception instance
+            #         self.log.warning(inst)  # __str__ allows args to be printed directly,
+            #         exc_type, exc_obj, exc_tb = sys.exc_info()
+            #         # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+            #         self.log.warning(exc_type, exc_obj)
+            #         self.log.info("GetProcAddress: Fail to load dynamically lib " + str(lib))
+            #         exit(-1)
+
+            # self.log.info("GetProcAddress - Query to lib : " + str(lib))
+
+            # if symb:
+            #     # Yeah ! Symbols exist and it is already hooked (normally)
+            #     print(symb.rebased_addr)
+            # #else:
+            # self.log.info("GetProcAddress: Symbol not found")
+            # extern = proj.loader.extern_object
+            # addr = extern.get_pseudo_addr(name)
+            # print(addr)
+            
+            exit()
         #####################################################
         ##########         Exploration           ############
         #####################################################
         
         def nothing(state):
-            pass
+            if False:
+                print(hex(state.addr))
         
         def weed_sig_pass(state):
             if state.addr == 0x401000:
-                state.regs.eax = 0x1           
+                state.regs.eax = 0x1       
+                    
         instr_dict = {}
         def count(state):
             if state.addr not in instr_dict:
@@ -629,8 +908,11 @@ class SemaSCDG:
         
         simgr.active[0].globals["n_buffer"] = 0
         simgr.active[0].globals["rsrc"] = 0
+        simgr.active[0].globals["n_calls"] = 0
+        simgr.active[0].globals["resources"] = {}
+        simgr.active[0].globals["df"] = 0
+        simgr.active[0].globals["files"] = {}
         simgr.active[0].globals["n_calls_recv"] = 0
-        
         simgr.active[0].globals["n_calls_send"] = 0
         simgr.active[0].globals["n_buffer_send"] = 0
         simgr.active[0].globals["buffer_send"] = []
@@ -1161,7 +1443,6 @@ class SemaSCDG:
         self.current_exps = 0
         
         if args.verbose_scdg:
-            print("NICEUX")
             #logging.getLogger().handlers.clear()
             ch = logging.StreamHandler()
             ch.setLevel(logging.INFO)
@@ -1174,12 +1455,13 @@ class SemaSCDG:
             self.log.setLevel(logging.INFO)
         else:
             # logging.getLogger('claripy').disabled = True
-            self.log = logging.getLogger("SemaSCDG")
             ch = logging.StreamHandler()
+            ch.setLevel(logging.INFO)
+            ch.setFormatter(CustomFormatter())
+            self.log = logging.getLogger("SemaSCDG")
             self.log.addHandler(ch)
             self.log.propagate = False
-            self.log.setLevel(logging.WARNING)
-            logging.disable(level=logging.WARNING)
+            self.log.setLevel(logging.INFO)
         
         import resource
 
@@ -1259,7 +1541,7 @@ def main():
         debug_error=True,
         debug_string=True,
         print_on=True,
-        is_from_web=True
+        is_from_web=False
     )
     args_parser = ArgumentParserSCDG(toolc)
     args = args_parser.parse_arguments()

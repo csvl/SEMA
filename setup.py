@@ -62,6 +62,6 @@ setup(name='sema-tc',
           'cryptography',
           'logbook',
           'mmh3',
-          "psutil"
+          'psutil'
         ],
       zip_safe=False)

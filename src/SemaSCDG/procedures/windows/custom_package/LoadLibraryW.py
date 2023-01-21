@@ -11,13 +11,12 @@ class LoadLibraryW(angr.SimProcedure):
         call_sim = None
         try:
             from procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],False)
+            call_sim = CustomSimProcedure([], [],False,False)
         except Exception as e:
             from ....procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
             call_sim = CustomSimProcedure([], [],True, True)
         proj = self.state.project
         lib = self.state.mem[lib_ptr].wstring.concrete
-
         lib = str(lib).lower()
         # We will create a fake symbol to represent the handle to the library
         # Check first if we already did that before

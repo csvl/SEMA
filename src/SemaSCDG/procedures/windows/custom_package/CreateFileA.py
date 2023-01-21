@@ -37,7 +37,6 @@ class CreateFileA(angr.SimProcedure):
             return self.state.solver.BVS(
                 "retval_{}".format(self.display_name), self.arch.bits
             )
-
         name = self.decodeString(lpFilename)
         lw.info(
             "CreateFileA: {}  asks to create file {}".format(self.display_name, name)
@@ -47,8 +46,6 @@ class CreateFileA(angr.SimProcedure):
         access & (1 << 30)
         access & (1 << 29)
         access & (1 << 28)
-
- 
 
         fd = self.state.posix.open(name, self.state.solver.BVV(2, self.arch.bits))
         # import pdb; pdb.set_trace()

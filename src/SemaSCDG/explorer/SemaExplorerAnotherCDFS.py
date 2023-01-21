@@ -42,6 +42,7 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
         self.log = logging.getLogger("ToolChainExplorerAnotherCDFS")
         self.log.setLevel("INFO")
         self.flag = False
+        self.nberror = 0
         
     def step(self, simgr, stash="active", **kwargs):
         try:
@@ -71,6 +72,10 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
             
         if self.print_sm_step and len(self.fork_stack) > 0:
             self.log.info("fork_stack : " + str(len(self.fork_stack)))
+            
+        if len(simgr.errored) > self.nberror:
+            self.nberror = len(simgr.errored)
+            self.flag = True
 
         # We detect fork for a state
         super().manage_fork(simgr)
