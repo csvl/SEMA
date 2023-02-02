@@ -35,12 +35,17 @@ class GetEnvironmentVariableA(angr.SimProcedure):
 
     def run(self, lpName, lpBuffer, nSize):
         if lpName.symbolic or lpBuffer.symbolic or nSize.symbolic:
-            print("caca")
             return self.state.solver.BVS(
                 "retval_{}".format(self.display_name), self.arch.bits
             )
-        else:
-            print("niceux")
+        try:
+            name = self.state.mem[lpName].string.concrete
+            print(name)
+            if name == b'COMSPEC':
+                self.state.memory.store(lpBuffer, self.state.solver.BVV("C:\Windows\system32\cmd.exe"))
+                return 27
+        except:
+            print(self.state.memory.load(lpName,0x20))
         #size = self.state.mem[nSize].int.concrete
         size = self.state.solver.eval(nSize)
         ret_len = size

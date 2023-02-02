@@ -7,7 +7,9 @@ lw = logging.getLogger("CustomSimProcedureWindows")
 class GetFileSize(angr.SimProcedure):
     def run(self, hFile, lpFileSizeHigh):
         if hFile.symbolic:
-            return self.state.solver.BVS("retval_{}".format(self.display_name), 32)
+            ret_val = self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)
+            self.state.solver.add(ret_val != 0xFFFFFFFF)
+            return ret_val
         simfd = self.state.posix.get_fd(hFile)
         # import pdb; pdb.set_trace()
         if simfd is None:
@@ -20,5 +22,7 @@ class GetFileSize(angr.SimProcedure):
         if not size.symbolic and self.state.solver.eval(size) != 0:
             return size
         else:
-            return self.state.solver.BVS("retval_{}".format(self.display_name), 32)
+            ret_val = self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)
+            self.state.solver.add(ret_val != 0xFFFFFFFF)
+            return ret_val
 

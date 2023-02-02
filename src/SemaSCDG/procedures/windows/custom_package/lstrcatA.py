@@ -11,8 +11,6 @@ class lstrcatA(angr.SimProcedure):
             return self.state.solver.BVS(
                 "retval_{}".format(self.display_name), self.arch.bits
             )
-        
-        print(self.state.mem[string1])
         try:
             first_str = self.state.mem[string1].string.concrete
         except:
