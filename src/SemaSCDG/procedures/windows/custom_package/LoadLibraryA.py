@@ -25,6 +25,7 @@ class LoadLibraryA(angr.SimProcedure):
             # import pdb; pdb.set_trace()
             pass
         lib = str(lib).lower()
+        lw.info("LoadLibraryA: " + str(lib))
         # We will create a fake symbol to represent the handle to the library
         # Check first if we already did that before
         symb = proj.loader.find_symbol(lib)

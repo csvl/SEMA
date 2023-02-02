@@ -13,9 +13,7 @@ class ReadFile(angr.SimProcedure):
         simfd = self.state.posix.get_fd(hFile)
         if simfd is None:
             lw.info("ReadFile: could not find fd")
-            return self.state.solver.BVS(
-                "retval_{}".format(self.display_name), self.arch.bits
-            )
+            return 1
         bytes_read = simfd.read(
             lpBuffer, nNumberOfBytesToRead, endness=self.arch.memory_endness
         )

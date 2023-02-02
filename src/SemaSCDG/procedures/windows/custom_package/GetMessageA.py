@@ -13,4 +13,8 @@ class GetMessageA(angr.SimProcedure):
         wMsgFilterMin,
         wMsgFilterMax
     ):
-        return 1
+        if self.state.globals["GetMessageA"] == 0:
+            self.state.globals["GetMessageA"] = 1
+            return 1
+        else:
+            return 0

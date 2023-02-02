@@ -23,11 +23,12 @@ class WriteFile(angr.SimProcedure):
                 "retval_{}".format(self.display_name), self.arch.bits
             )
         bytes_written = simfd.write(lpBuffer, nNumberOfBytesToWrite)
-        print(self.state.memory.load(lpBuffer,nNumberOfBytesToWrite))
         self.state.memory.store(
             lpNumberOfBytesWritten, bytes_written, endness=self.arch.memory_endness
         )
-        name = self.state.globals["files"][self.state.solver.eval(hFile)]
-        with open(name, "wb") as realfd:# TODO fix
-            realfd.write(self.state.solver.eval(self.state.memory.load(lpBuffer,nNumberOfBytesToWrite),cast_to=bytes))
+        if self.state.solver.eval(hFile) in self.state.globals["files"]:
+            realfd = self.state.globals["files"][self.state.solver.eval(hFile)]
+            if realfd is not None:
+                with open(realfd, "wb") as fd:# TODO fix
+                    fd.write(self.state.solver.eval(self.state.memory.load(lpBuffer,nNumberOfBytesToWrite),cast_to=bytes))
         return 1
