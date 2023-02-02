@@ -20,8 +20,6 @@ class CreateFileA(angr.SimProcedure):
                 # filename = filename.decode("ascii")
         return filename
 
- 
-
     def run(
         self,
         lpFilename,
@@ -53,6 +51,6 @@ class CreateFileA(angr.SimProcedure):
             return self.state.solver.BVS(
                 "retval_{}".format(self.display_name), self.arch.bits
             )
-        real_fd  = open(name, "wb")
-        self.state.globals["files"][fd] = real_fd
+        #real_fd  = open(name, "wb") # TODO fix
+        self.state.globals["files"][fd] = name #real_fd
         return fd

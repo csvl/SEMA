@@ -44,6 +44,97 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
         self.flag = False
         self.nberror = 0
         
+    # def step_state(self, simgr, state, **kwargs):
+    #     # print(state)
+    #     # print(simgr)
+        
+    #     super().build_snapshot(simgr)
+
+    #     if self.print_sm_step and (
+    #         len(self.fork_stack) > 0 or len(simgr.deadended) > self.deadended
+    #     ):
+    #         self.log.info(
+    #             "A new block of execution have been executed with changes in sim_manager."
+    #         )
+    #         self.log.info("Currently, simulation manager is :")
+    #         self.log.info(str(simgr))
+    #         self.log.info("pause stash len :" + str(len(self.pause_stash)))
+    #         self.flag = True
+            
+    #     if self.print_sm_step and len(self.fork_stack) > 0:
+    #         self.log.info("fork_stack : " + str(len(self.fork_stack)))
+            
+    #     if len(simgr.errored) > self.nberror:
+    #         self.nberror = len(simgr.errored)
+    #         self.flag = True
+
+    #     # We detect fork for a state
+    #     super().manage_fork(simgr)
+
+    #     # Remove state which performed more jump than the limit allowed
+    #     super().remove_exceeded_jump(simgr)
+
+    #     # Manage ended state
+    #     super().manage_deadended(simgr)
+
+    #     if self.flag:
+    #         id_to_stash = []
+    #         for s in simgr.active:
+    #             vis_addr = s.addr
+    #             if vis_addr not in self.dict_addr_vis:
+    #                 self.dict_addr_vis[vis_addr] = 1
+    #                 id_to_stash.append(s.globals["id"])
+    #         simgr.move(
+    #             from_stash="active",
+    #             to_stash="new_addr",
+    #             filter_func=lambda s: s.globals["id"] in id_to_stash,
+    #         )
+                
+    #     for s in simgr.active:
+    #         vis_addr = s.addr
+    #         id_to_stash = []
+    #         if vis_addr not in self.dict_addr_vis:
+    #             self.dict_addr_vis[vis_addr] = 1
+    #         if s.globals["n_calls_recv"] < 0:
+    #             s.globals["n_calls_recv"] = len(self.scdg[s.globals["id"]])-1
+    #         if s.globals["n_calls_send"] < 0:
+    #             s.globals["n_calls_send"] = len(self.scdg[s.globals["id"]])-1
+
+    #     super().mv_bad_active(simgr)
+
+    #     super().manage_pause(simgr)
+
+    #     super().drop_excessed_loop(simgr)
+
+    #     super().manage_error(simgr)
+
+    #     super().manage_unconstrained(simgr)
+
+    #     if self.flag:
+    #         while simgr.active:
+    #             simgr.stashes["pause"].append(simgr.active.pop())
+    #         while len(simgr.stashes["new_addr"]) > 0 and len(simgr.active) < self.max_simul_state:
+    #             s = simgr.stashes["new_addr"].pop()
+    #             print("this is new   " + hex(s.addr))
+    #             simgr.active.append(s)
+    #         while len(simgr.stashes["pause"]) > 0 and len(simgr.active) < self.max_simul_state:
+    #             super().take_longuest(simgr, "pause")
+    #         self.flag = False
+
+    #     super().excessed_step_to_active(simgr)
+
+    #     super().excessed_loop_to_active(simgr)
+
+    #     super().time_evaluation(simgr)
+        
+    #     # print(simgr.stash)
+    #     # print(simgr.active)
+    #     #print(simgr.step_state(state, **kwargs))
+        
+    #     return simgr.step_state(state, **kwargs)
+    #     #return simgr.stashes
+
+        
     def step(self, simgr, stash="active", **kwargs):
         try:
             simgr = simgr.step(stash=stash, **kwargs)
@@ -56,7 +147,7 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
             self.log.warning(exc_type)
             self.log.warning(exc_obj,exc_type)
             exit(-1)
-
+            
         super().build_snapshot(simgr)
 
         if self.print_sm_step and (
@@ -79,6 +170,18 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
 
         # We detect fork for a state
         super().manage_fork(simgr)
+        
+        simgr.move(
+            from_stash="active",
+            to_stash="deadbeef",
+            filter_func=lambda s: s.addr == 0xdeadbeef,
+        )
+        
+        simgr.move(
+            from_stash="active",
+            to_stash="lost",
+            filter_func=lambda s: s.addr < simgr._project.loader.main_object.mapped_base,
+        )
 
         # Remove state which performed more jump than the limit allowed
         super().remove_exceeded_jump(simgr)

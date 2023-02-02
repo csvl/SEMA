@@ -14,6 +14,7 @@ class WriteFile(angr.SimProcedure):
         lpNumberOfBytesWritten,
         lpOverlapped,
     ):
+        print("swat")
         self.state.project
         simfd = self.state.posix.get_fd(hFile)
         if simfd is None:
@@ -26,6 +27,7 @@ class WriteFile(angr.SimProcedure):
         self.state.memory.store(
             lpNumberOfBytesWritten, bytes_written, endness=self.arch.memory_endness
         )
-        realfd = self.state.globals["files"][self.state.solver.eval(hFile)]
-        realfd.write(self.state.solver.eval(self.state.memory.load(lpBuffer,nNumberOfBytesToWrite),cast_to=bytes))
+        name = self.state.globals["files"][self.state.solver.eval(hFile)]
+        with open(name, "wb") as realfd:# TODO fix
+            realfd.write(self.state.solver.eval(self.state.memory.load(lpBuffer,nNumberOfBytesToWrite),cast_to=bytes))
         return 1

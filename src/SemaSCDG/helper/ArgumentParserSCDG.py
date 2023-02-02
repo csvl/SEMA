@@ -29,6 +29,12 @@ class ArgumentParserSCDG:
             
         )
         self.group_expl.add_argument(
+            "--ThreadCDFS",
+            help="TODO",
+            action="store_true",
+            
+        )
+        self.group_expl.add_argument(
             "--CBFS",
             help="TODO",
             action="store_true",
@@ -212,12 +218,29 @@ class ArgumentParserSCDG:
             
         )
         
-        self.group = self.parser.add_argument_group('Global parameter')
-        self.group.add_argument(
+        self.groupt = self.parser.add_argument_group('Thread parameter')
+        self.groupt.add_argument(
             "--pre_run_thread",
             help="TODO (default : False)",
             action="store_true",
         )   
+        self.groupt.add_argument(
+            "--runtime_run_thread",
+            help="TODO (default : False)",
+            action="store_true",
+        )   
+        self.groupt.add_argument(
+            "--post_run_thread",
+            help="TODO (default : False)",
+            action="store_true",
+        )   
+        
+        self.group = self.parser.add_argument_group('Global parameter')
+        self.group.add_argument(
+            "--approximate",
+            help="Symbolic approximation (default : False)",
+            action="store_true",
+        )     
         self.group.add_argument(
             "--timeout",
             help="Timeout in seconds before ending extraction (default : 200)",
@@ -262,7 +285,12 @@ class ArgumentParserSCDG:
         self.group.add_argument("binary", 
                 help="Name of the binary to analyze",
                 )
-
+        self.group.add_argument(
+            "--sthread",
+            help="Number of thread used (default: 1)",
+            type=int,
+            default=1,
+        )
     
         self.tool_scdg = tool_scdg
 
@@ -277,7 +305,8 @@ class ArgumentParserSCDG:
                 else ("DBFS"  if args.DBFS \
                 else ("SDFS"  if args.SDFS \
                 else ("SCDFS" if args.SCDFS \
-                else  "CBFS")))))
+                else ("ThreadCDFS" if args.ThreadCDFS \
+                else  "CBFS"))))))
 
         familly = "unknown"
         if args.familly:

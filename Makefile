@@ -35,6 +35,8 @@ run-web:
 	docker run  \
 			   --rm \
 			   -v $(PWD)/src/:/app/src/ \
+			   -v $(PWD)/setup.py:/app/setup.py \
+			   -v $(PWD)/run_server.sh:/app/run_server.sh \
 			   -v /app/src/submodules/ \
 			   -v $(PWD)/SemaWebApp/:/app/SemaWebApp/ \
 			   -v /tmp/.X11-unix:/tmp/.X11-unix \

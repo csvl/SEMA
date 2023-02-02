@@ -529,7 +529,7 @@ class StackPointerTracker(Analysis, ForwardAnalysis):
                                 incremented = BOTTOM
                             elif callee_cleanups[0].prototype is not None:
                                 print("swag")
-                                num_args = len(callee_cleanups[0].prototype.args) if hasattr(callee_cleanups[0].prototype,"args") else 0 # Chris 1 ?
+                                num_args = len(callee_cleanups[0].prototype.args) #if hasattr(callee_cleanups[0].prototype,"args") else 0 # Chris 1 ?
                                 incremented = v + Constant(self.project.arch.bytes * num_args)
                             state.put(self.project.arch.sp_offset, incremented)
                         except CouldNotResolveException:

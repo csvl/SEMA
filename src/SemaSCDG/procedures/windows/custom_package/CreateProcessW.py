@@ -20,5 +20,7 @@ class CreateProcessW(angr.SimProcedure):
         lpProcessInformation
     ):
         processinfo = self.state.solver.BVS("Process_Information{}".format(self.display_name), 32*4)
+        lw.info(lpCommandLine)
+        lw.info(lpApplicationName)
         self.state.memory.store(lpProcessInformation, processinfo)
         return 0x1

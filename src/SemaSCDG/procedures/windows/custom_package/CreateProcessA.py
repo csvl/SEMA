@@ -20,6 +20,8 @@ class CreateProcessA(angr.SimProcedure):
         lpProcessInformation
     ):
         print("prout 0")
+        lw.info(lpCommandLine)
+        lw.info(lpApplicationName)
         # processinfo = self.state.solver.BVS("Process_Information{}".format(self.display_name), 32*4)
         # self.state.memory.store(lpProcessInformation, processinfo)
         print("prout")

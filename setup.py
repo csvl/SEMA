@@ -42,7 +42,7 @@ setup(name='sema-tc',
           'graphviz',
           'monkeyhex',
           "protobuf==3.20.*",
-          'angr==9.2.6', # 8.20.7.27 for symbion (not working after) 9.2.21 -> no present in pypy
+          'angr==9.2.21', # 8.20.7.27 for symbion (not working after) 9.2.21 -> no present in pypy
           'researchpy',
           'hypothesis',
           'seaborn',
