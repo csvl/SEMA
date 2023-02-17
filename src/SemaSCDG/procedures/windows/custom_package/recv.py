@@ -16,10 +16,11 @@ class recv(angr.SimProcedure):
             self.state.solver.add(ret_val != -1)
             self.state.solver.add(ret_val < 0x20)
             return ret_val
-        elif self.state.solver.eval(length) > 0x20:
-            ptr=self.state.solver.BVS("buf",8*0x20,key=("buffer", hex(self.state.globals["n_buffer"])),eternal=True)
-            self.state.memory.store(buf,ptr,endness=archinfo.Endness.LE)
-            return 0x20
+        # elif self.state.solver.eval(length) > 0x20:
+        #     ptr=self.state.solver.BVS("buf",8*0x20,key=("buffer", hex(self.state.globals["n_buffer"])),eternal=True)
+        #     self.state.memory.store(buf,ptr,endness=archinfo.Endness.LE)
+        #     self.state.globals["n_buffer"] = self.state.globals["n_buffer"] + 1
+        #     return 0x20
         else:
             ptr=self.state.solver.BVS("buf",8*self.state.solver.eval(length),key=("buffer", hex(self.state.globals["n_buffer"])),eternal=True)
             self.state.memory.store(buf,ptr)

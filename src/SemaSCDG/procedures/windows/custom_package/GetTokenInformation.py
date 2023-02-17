@@ -14,6 +14,6 @@ class GetTokenInformation(angr.SimProcedure):
         TokenInformationLength,
         ReturnLength
     ):
-        ptr = self.state.solver.BVV(0x1,32)
+        ptr = self.state.solver.BVV(0x1, self.arch.bits)
         self.state.memory.store(TokenInformation,ptr)
         return 0x1

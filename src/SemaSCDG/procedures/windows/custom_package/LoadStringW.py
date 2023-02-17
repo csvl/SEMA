@@ -30,7 +30,7 @@ class LoadStringW(angr.SimProcedure):
         y += bytes([0])
         y += bytes([0])
         string = y.decode('utf-16le')
-        print(string)
+        lw.info(string)
         ptr = self.state.solver.BVV(string)
         self.state.memory.store(lpBuffer,ptr)
         return stringsize

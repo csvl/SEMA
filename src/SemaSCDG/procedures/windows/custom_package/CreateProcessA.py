@@ -22,7 +22,7 @@ class CreateProcessA(angr.SimProcedure):
         print("prout 0")
         lw.info(lpCommandLine)
         lw.info(lpApplicationName)
-        # processinfo = self.state.solver.BVS("Process_Information{}".format(self.display_name), 32*4)
+        # processinfo = self.state.solver.BVS("Process_Information{}".format(self.display_name),  self.arch.bits*4)
         # self.state.memory.store(lpProcessInformation, processinfo)
         print("prout")
         # print(self.state.regs)
@@ -107,6 +107,8 @@ class CreateProcessA(angr.SimProcedure):
         
         # self.state.regs.esp += 4 * 6
         print(self.state.arch.bits)
+        retcode = self.state.solver.Unconstrained("system_returncode", 8, key=("api", "system"))
+        return retcode.zero_extend(self.arch.sizeof["int"] - 8)
         return 0x1 # always succeed
         # return self.state.solver.BVV(self.state.regs.esp, self.state.arch.bits)
 

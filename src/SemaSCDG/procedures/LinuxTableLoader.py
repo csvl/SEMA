@@ -7,8 +7,8 @@ class LinuxTableLoader:
         self.syscall_libraries = {
             "windows": {"AMD64": "", "X86": ""},
             "linux": {
-                "AMD64": "syscalls_linux_64.json",
-                "X86": "syscalls_linux_32.json",
+                "AMD64": "/syscalls_linux_64.json",
+                "X86": "/syscalls_linux_32.json",
             },
         }
         self.filename = filename

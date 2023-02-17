@@ -48,6 +48,7 @@ class SemaExplorerCBFS(SemaExplorer):
             self.log.warning("ERROR IN STEP() - YOU ARE NOT SUPPOSED TO BE THERE !")
             # self.log.warning(type(inst))    # the exception instance
             self.log.warning(inst)  # __str__ allows args to be printed directly,
+            import sys
             exc_type, exc_obj, exc_tb = sys.exc_info()
             # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             self.log.warning(exc_type, exc_obj)
@@ -74,6 +75,18 @@ class SemaExplorerCBFS(SemaExplorer):
 
         # We detect fork for a state
         super().manage_fork(simgr)
+        
+        simgr.move(
+            from_stash="active",
+            to_stash="deadbeef",
+            filter_func=lambda s: s.addr == 0xdeadbeef,
+        )
+        
+        simgr.move(
+            from_stash="active",
+            to_stash="lost",
+            filter_func=lambda s: s.addr < simgr._project.loader.main_object.mapped_base,
+        )
 
         # Remove state which performed more jump than the limit allowed
         super().remove_exceeded_jump(simgr)

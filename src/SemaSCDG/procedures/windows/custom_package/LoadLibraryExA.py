@@ -6,9 +6,7 @@ lw = logging.getLogger("CustomSimProcedureWindows")
 
 
 class LoadLibraryExA(angr.SimProcedure):
-    def run(self, lib_ptr, flag1, flag2):
-        global system_call_table
-        
+    def run(self, lib_ptr, flag1, flag2):        
         call_sim = None
         try:
             from procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix

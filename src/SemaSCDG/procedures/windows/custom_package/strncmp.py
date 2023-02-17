@@ -3,8 +3,9 @@ import angr
 import logging
 from angr.sim_options import MEMORY_CHUNK_INDIVIDUAL_READS
 from angr.storage.memory_mixins.regioned_memory.abstract_address_descriptor import AbstractAddressDescriptor
-l = logging.getLogger(name=__name__)
 
+
+l = logging.getLogger("CustomSimProcedureWindows")
 
 class strncmp(angr.SimProcedure):
     # pylint:disable=arguments-differ
@@ -104,13 +105,13 @@ class strncmp(angr.SimProcedure):
         print("ccoucou")
         a_strlen_ret_expr, a_strlen_max_null_index = self.strlen(a_addr,wchar=wchar)
         b_strlen_ret_expr, b_strlen_max_null_index = self.strlen(b_addr,wchar=wchar)
-        
+        print("swag")
         a_len = a_strlen_ret_expr
         b_len = b_strlen_ret_expr
 
         match_constraints = []
         variables = a_len.variables | b_len.variables | limit.variables
-        ret_expr = self.state.solver.Unconstrained("strncmp_ret", 32, key=("api", "strncmp"))
+        ret_expr = self.state.solver.Unconstrained("strncmp_ret",  self.arch.bits, key=("api", "strncmp"))
 
         # determine the maximum number of bytes to compare
         concrete_run = False
@@ -124,10 +125,10 @@ class strncmp(angr.SimProcedure):
             c_b_len = self.state.solver.eval(b_len)
             c_limit = self.state.solver.eval(limit)
 
-            l.debug("everything is concrete: a_len %d, b_len %d, limit %d", c_a_len, c_b_len, c_limit)
+            l.info("everything is concrete: a_len %d, b_len %d, limit %d", c_a_len, c_b_len, c_limit)
 
             if (c_a_len < c_limit or c_b_len < c_limit) and c_a_len != c_b_len:
-                l.debug("lengths < limit and unmatched")
+                l.info("lengths < limit and unmatched")
 
             concrete_run = True
             maxlen = min(c_a_len, c_b_len, c_limit)
@@ -150,23 +151,23 @@ class strncmp(angr.SimProcedure):
             # non-equal. Basically we only return equal when limit is 0, or a_len == b_len == 0
             if self.state.solver.single_valued(limit) and self.state.solver.eval(limit) == 0:
                 # limit is 0
-                l.debug("returning equal for 0-limit")
-                return self.state.solver.BVV(0, 32)
+                l.info("returning equal for 0-limit")
+                return self.state.solver.BVV(0,  self.arch.bits)
             elif (
                 self.state.solver.single_valued(a_len)
                 and self.state.solver.single_valued(b_len)
                 and self.state.solver.eval(a_len) == self.state.solver.eval(b_len) == 0
             ):
                 # two empty strings
-                l.debug("returning equal for two empty strings")
-                return self.state.solver.BVV(0, 32)
+                l.info("returning equal for two empty strings")
+                return self.state.solver.BVV(0,  self.arch.bits)
             else:
                 # all other cases fall into this branch
-                l.debug("returning non-equal for comparison of an empty string and a non-empty string")
+                l.info("returning non-equal for comparison of an empty string and a non-empty string")
                 if a_strlen_max_null_index == 0:
-                    return self.state.solver.BVV(-1, 32)
+                    return self.state.solver.BVV(-1,  self.arch.bits)
                 else:
-                    return self.state.solver.BVV(1, 32)
+                    return self.state.solver.BVV(1,  self.arch.bits)
 
         # the bytes
         max_byte_len = maxlen * char_size
@@ -177,9 +178,11 @@ class strncmp(angr.SimProcedure):
 
         # all possible return values in static mode
         return_values = []
-
+        print("swag")
+        print(max_byte_len)
+        print(concrete_run)
         for i in range(max_byte_len):
-            l.debug("Processing byte %d", i)
+            l.info("Processing byte %d", i)
             maxbit = (max_byte_len - i) * 8
             a_byte = a_bytes[maxbit - 1 : maxbit - 8]
             b_byte = b_bytes[maxbit - 1 : maxbit - 8]
@@ -198,11 +201,11 @@ class strncmp(angr.SimProcedure):
                         b_conc -= ord(" ")
 
                 if a_conc != b_conc:
-                    l.debug("... found mis-matching concrete bytes 0x%x and 0x%x", a_conc, b_conc)
+                    l.info("... found mis-matching concrete bytes 0x%x and 0x%x", a_conc, b_conc)
                     if a_conc < b_conc:
-                        return self.state.solver.BVV(-1, 32)
-                    else:
-                        return self.state.solver.BVV(1, 32)
+                        return self.state.solver.BVV(-1,self.arch.bits)
+                    else: # Not enough data for store
+                        return self.state.solver.BVV(1, self.arch.bits)
             else:
 
                 if self.state.mode == "static":
@@ -240,8 +243,8 @@ class strncmp(angr.SimProcedure):
                 match_constraints.append(byte_constraint)
 
         if concrete_run:
-            l.debug("concrete run made it to the end!")
-            return self.state.solver.BVV(0, 32)
+            l.info("concrete run made it to the end!")
+            return self.state.solver.BVV(0,  self.arch.bits)
 
         if self.state.mode == "static":
             ret_expr = self.state.solver.ESI(8)
@@ -253,12 +256,12 @@ class strncmp(angr.SimProcedure):
         else:
             # make the constraints
 
-            l.debug("returning symbolic")
+            l.info("returning symbolic")
             match_constraint = self.state.solver.And(*match_constraints)
             nomatch_constraint = self.state.solver.Not(match_constraint)
 
-            # l.debug("match constraints: %s", match_constraint)
-            # l.debug("nomatch constraints: %s", nomatch_constraint)
+            # l.info("match constraints: %s", match_constraint)
+            # l.info("nomatch constraints: %s", nomatch_constraint)
 
             match_case = self.state.solver.And(limit != 0, match_constraint, ret_expr == 0)
             nomatch_case = self.state.solver.And(limit != 0, nomatch_constraint, ret_expr == 1)

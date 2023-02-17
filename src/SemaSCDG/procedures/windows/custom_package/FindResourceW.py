@@ -3,11 +3,13 @@ import sys
 import angr
 import archinfo
 
+lw = logging.getLogger("CustomSimProcedureWindows")
+
 class FindResourceW(angr.SimProcedure):
     def run(self, hModule, lpName, lpType):
         minaddr = self.state.project.loader.min_addr
         name = self.state.mem[lpName].wstring.concrete
-        print(name)
+        lw.info(name)
         rsrc = self.state.globals["rsrc"]
         offset = 0x10
         rsrctype =  self.state.solver.eval(self.state.memory.load(rsrc+offset,1))
@@ -22,7 +24,7 @@ class FindResourceW(angr.SimProcedure):
         rsrcname = rsrcname.to_bytes(2*size, 'big')
         rsrcname = rsrcname.decode('utf-16le')
         while name != rsrcname:
-            print(rsrcname)
+            lw.info(rsrcname)
             offset += 8
             tablefind = self.state.solver.eval(self.state.memory.load(rsrc+offset,2,endness=archinfo.Endness.LE))
             size = self.state.solver.eval(self.state.memory.load(rsrc+tablefind,2,endness=archinfo.Endness.LE))
@@ -35,8 +37,8 @@ class FindResourceW(angr.SimProcedure):
         finaloffset = self.state.solver.eval(self.state.memory.load(rsrc+offset,4,endness=archinfo.Endness.LE))
         size = self.state.solver.eval(self.state.memory.load(rsrc+offset+0x4,4,endness=archinfo.Endness.LE))
         resource = self.state.solver.eval(self.state.memory.load(minaddr+finaloffset,size,endness=archinfo.Endness.LE))
-        self.state.globals["resources"][finaloffset+minaddr] = size
+        self.state.plugin_resources.resources[finaloffset+minaddr] = {"size": size, "name": name, "data": resource, "rsrcname": rsrcname}
         x = finaloffset+minaddr
-        print(hex(x))
+        lw.info(hex(x))
         return finaloffset+minaddr
         

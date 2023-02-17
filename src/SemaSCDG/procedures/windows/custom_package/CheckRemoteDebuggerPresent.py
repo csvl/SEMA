@@ -9,6 +9,6 @@ class CheckRemoteDebuggerPresent(angr.SimProcedure):
         hProcess,
         pbDebuggerPresent
     ):
-        dbg = self.state.solver.BVV(0,32)
+        dbg = self.state.solver.BVV(0, self.arch.bits)
         self.state.memory.store(pbDebuggerPresent, dbg)
         return 0x1

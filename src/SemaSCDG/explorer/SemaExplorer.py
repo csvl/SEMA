@@ -648,12 +648,12 @@ class SemaExplorer(ExplorationTechnique):
             self.log.info("Timeout expired for simulation !")
         if not (len(simgr.active) > 0 and self.deadended < self.max_end_state):
             self.log.info("len(simgr.active) <= 0 or deadended >= self.max_end_state)")
-        # if True:
-        #     vmem = psutil.virtual_memory()
-        #     if vmem.percent > 95:
-        #         # TODO return in logs file the malware hash
-        #         self.log.info("Memory limit reach")
-        #         return True
+        if True:
+            vmem = psutil.virtual_memory()
+            if vmem.percent > 97:
+                # TODO return in logs file the malware hash
+                self.log.info("Memory limit reach")
+                return True
         return elapsed_time > self.timeout or (
             len(simgr.active) <= 0 or self.deadended >= self.max_end_state
         )

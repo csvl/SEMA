@@ -51,15 +51,26 @@ class PluginHooks: # TODO replace with classses
                 "rewriting": b'\x8b\x45\xf8\x8b\x5d\xf0\x39\xd8\x74\x97',
                 # AsyncRat
                 #"returns": b'\x83\xc4\x34\x5b\x5e\xc3'
-                #"TODO": b'\x55\x8b\xec\x83\xc4\xf0\xb8\xf0\x76\x48\x00\xe8\x80\xec\xf7\xff\xa1\x0c\x1e\x49\x00\x8b\x00\xe8\x9c\x66\xfd\xff\x8b\x0d\xa8\x1f\x49\x00\xa1\x0c\x1e\x49\x00\x8b\x00\x8b\x15\x48\x74\x48\x00\xe8\x9c\x66\xfd\xff'#b'\x55\x8b\xec\x83\xc4\xf0\xb8\xf0\x76\x48\x00\xe8\x80\xec\xf7\xff\xa1\x0c\x1e\x49\x00\x8b\x00\xe8\x9c\x66\xfd\xff'   
+                #"TODO": b'\x55\x8b\xec\x83\xc4\xf0\xb8\xf0\x76\x48\x00\xe8\x80\xec\xf7\xff\xa1\x0c\x1e\x49\x00\x8b\x00\xe8\x9c\x66\xfd\xff\x8b\x0d\xa8\x1f\x49\x00\xa1\x0c\x1e\x49\x00\x8b\x00\x8b\x15\x48\x74\x48\x00\xe8\x9c\x66\xfd\xff'#b'\x55\x8b\xec\x83\xc4\xf0\xb8\xf0\x76\x48\x00\xe8\x80\xec\xf7\xff\xa1\x0c\x1e\x49\x00\x8b\x00\xe8\x9c\x66\xfd\xff' 
+                
+                # MagicRat       b'\x31\xd2\x48\x89\xd0\x48\x87\x01\x48\x85\xc0\x74\x03\x31\xc0\xc3\xf3\x90\x48\x8b\x01\x48\x85\xc0\x74\xf6\xeb\xe6'
+                "magicRAT_trap": b'\x31\xd2\x48\x89\xd0\x48\x87\x01\x48\x85\xc0\x74\x03\x31\xc0\xc3\xf3\x90\x48\x8b\x01\x48\x85\xc0\x74\xf6\xeb\xe6',
+                "trap":b'\x0f\x29\x02', 
+                "force_test":b'\x85\xdb'
             }
     
-    def initialization(self, cont):
+    def initialization(self, cont, is_64bits=False):
         pe_header = int.from_bytes(cont[0x3c:0x40],"little")
-        size_of_headers = int.from_bytes(cont[pe_header+0x54:pe_header+0x54+4],"little")
-        base_of_code = int.from_bytes(cont[pe_header+0x2c:pe_header+0x2c+4],"little")
-        image_base = int.from_bytes(cont[pe_header+0x34:pe_header+0x34+4],"little")
-        total = base_of_code+image_base-size_of_headers
+        if not is_64bits:
+            size_of_headers = int.from_bytes(cont[pe_header+0x54:pe_header+0x54+4],"little")
+            base_of_code = int.from_bytes(cont[pe_header+0x2c:pe_header+0x2c+4],"little")
+            image_base = int.from_bytes(cont[pe_header+0x34:pe_header+0x34+4],"little")
+        else:
+            print("64bits") # TODO FIXXXX
+            size_of_headers = int.from_bytes(cont[pe_header+0x70:pe_header+0x70+4], "little")
+            base_of_code = int.from_bytes(cont[pe_header+0x48:pe_header+0x48+4], "little")
+            image_base = int.from_bytes(cont[pe_header+0x38:pe_header+0x38+8], "little")
+        total = base_of_code + image_base - size_of_headers
         
         addr_list = [m.start()+total for m in re.finditer(b'\xf3\xab',cont)]
         if(len(addr_list) > 0):
@@ -90,6 +101,21 @@ class PluginHooks: # TODO replace with classses
             offset = cont.find(self.internal_functions_hooks[fun])
             if offset != -1:
                 self.hooks[fun] = offset+total
+              
+        print(self.hooks.keys())  
+        print(self.hooks["magicRAT_trap"])
+        print(self.hooks["trap"])
+        print(self.hooks["force_test"])
+        
+        
+        self.hooks["magicRAT_trap"] = 0x4870c0
+        self.hooks["trap"] = 0xd80ba7
+        #self.hooks["force_test"] = 0x0040132e
+        
+        # 85 db <-> 0x0040132e
+
+        
+        #exit()
                 
     def hook(self,state,proj,call_sim):
         if False: # TODO 
@@ -196,6 +222,24 @@ class PluginHooks: # TODO replace with classses
                 proj.hook(
                         self.hooks[fun],
                         call_sim.custom_simproc_windows["custom_hook"]["ClearStackHook"](plength=len(self.internal_functions_hooks[fun])),
+                        length=len(self.internal_functions_hooks[fun])
+                ) 
+            elif fun == "magicRAT_trap":
+                proj.hook(
+                        self.hooks[fun],
+                        call_sim.custom_simproc_windows["custom_hook"]["MagicRATTrapHook"](plength=len(self.internal_functions_hooks[fun])),
+                        length=len(self.internal_functions_hooks[fun])
+                ) 
+            elif fun == "trap":
+                proj.hook(
+                        self.hooks[fun],
+                        call_sim.custom_simproc_windows["custom_hook"]["MagicRATTrapHook2"](plength=len(self.internal_functions_hooks[fun])),
+                        length=len(self.internal_functions_hooks[fun])
+                )   
+            elif fun == "force_test":
+                proj.hook(
+                        self.hooks[fun],
+                        call_sim.custom_simproc_windows["custom_hook"]["MagicRATForceHook"](plength=len(self.internal_functions_hooks[fun])),
                         length=len(self.internal_functions_hooks[fun])
                 ) 
             elif fun == "TODO":

@@ -72,8 +72,8 @@ class VirtualAlloc(angr.SimProcedure):
         ft = True if flags & 0x00100000 else False
         l.info("VirtualAlloc FromTop %s", ft)
         
-        if size == 0x7fff0000:
-            return 0
+        # if size == 0x7fff0000:
+        #    return 0
 
         if flags & 0x00002000 or addr == 0: # MEM_RESERVE
             if addr == 0:

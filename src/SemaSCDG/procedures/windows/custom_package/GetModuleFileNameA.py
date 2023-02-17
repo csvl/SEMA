@@ -15,6 +15,8 @@ class GetModuleFileNameA(angr.SimProcedure):
 
     def decodeString(self, ptr):
         lib = self.state.mem[ptr].string.concrete
+        if not isinstance(lib, str):
+            lib = lib.decode("utf-8") # TODO 
         return lib
 
     def run(self, module, buf_filename, size_buf):
@@ -25,11 +27,12 @@ class GetModuleFileNameA(angr.SimProcedure):
         # We create a fake one
         if self.state.solver.is_true(module == 0):
             path_rough = self.getFakeName(size)
+            lw.info("GetModuleFileNameA: " + str(path_rough))
             path = self.state.solver.BVV(path_rough)
             self.state.memory.store(
                 buf_filename, path
             )  # ,endness=self.arch.memory_endness)
-            # self.state.memory.store(size_buf,self.state.solver.BVV(len(path),32),endness= self.arch.memory_endness)
+            # self.state.memory.store(size_buf,self.state.solver.BVV(len(path), self.arch.bits),endness= self.arch.memory_endness)
             return len(path_rough) - 1
         else:
             module_name = self.decodeString(module)

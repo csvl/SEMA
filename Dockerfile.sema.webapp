@@ -6,3 +6,5 @@ ADD SemaWebApp/ /app/SemaWebApp/
 RUN cd /app/SemaWebApp/; pip3 install .;
 ADD run_server.sh /app/run_server.sh
 ADD .dockerignore /app/.dockerignore
+
+RUN apt-get install graphviz -y

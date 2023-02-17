@@ -6,8 +6,8 @@ lw = logging.getLogger("CustomSimProcedureWindows")
 class GetModuleHandleW(angr.SimProcedure):
     def decodeString(self, ptr):
         lib = self.state.mem[ptr].wstring.concrete
-        if hasattr(lib, "decode"):
-            lib = lib.decode("utf-16-le")
+        # if hasattr(lib, "decode"):
+        #     lib = lib.decode("utf-16-le")
         return lib
 
     def run(self, lib_ptr):
@@ -20,20 +20,23 @@ class GetModuleHandleW(angr.SimProcedure):
             call_sim = CustomSimProcedure([], [],True, True)
             
         if lib_ptr.symbolic:
+            lw.info("Symbolic lib")
             return self.state.solver.BVS(
                 "retval_{}".format(self.display_name), self.arch.bits
             )
 
         if self.state.solver.is_true(lib_ptr == 0):
+            lw.info("GetModuleHandleW: NULL")
             return self.project.loader.main_object.mapped_base
 
         proj = self.state.project
-        lib = self.decodeString(lib_ptr)
-        lib = str(lib).lower()
+        lib = self.decodeString(lib_ptr).lower()
+        #lib = str(lib).lower()
         lw.info(
             "GetModuleHandleW: {}  asks for handle to {}".format(self.display_name, lib)
         )
         if(lib in CustomSimProcedure.EVASION_LIBS):
+            lw.info("Evasion library detected: {}".format(lib))
             #self.state.plugin_evasion.libraries.append(lib)
             return 0
         # We will create a fake symbol to represent the handle to the library
