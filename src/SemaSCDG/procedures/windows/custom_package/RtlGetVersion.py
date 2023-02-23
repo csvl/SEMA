@@ -39,11 +39,12 @@ class RtlGetVersion(angr.SimProcedure):
         csd_version_ptr = lpVersionInformation + (5*ulong)
 
         # Write the values of the structure fields to memory
-        mem.store(major_version_ptr, 10)
-        mem.store(minor_version_ptr, 0)
-        mem.store(build_number_ptr, 19041)
-        mem.store(platform_id_ptr,  2)
-        mem.store(csd_version_ptr, b"Windows 10\0")
+        mem.store(size_ptr, 5*ulong + len(b"Service Pack 3\0"), size=ulong)
+        mem.store(major_version_ptr, 7, size=ulong)
+        mem.store(minor_version_ptr, 0, size=ulong)
+        mem.store(build_number_ptr, 19041, size=ulong)
+        mem.store(platform_id_ptr,  2, size=ulong) # VER_PLATFORM_WIN32_NT
+        mem.store(csd_version_ptr, b"Service Pack 3\0")
         return 0x0
 
     

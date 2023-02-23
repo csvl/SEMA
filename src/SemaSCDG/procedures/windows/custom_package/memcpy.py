@@ -33,10 +33,10 @@ class memcpy(angr.SimProcedure):
             min_limit = self.state.solver.min_int(limit)
             conditional_size = min(max_memcpy_size, max(min_limit, max_limit))
             if max_limit > max_memcpy_size and conditional_size < max_limit:
-                l.warning("memcpy upper bound of %#x outside limit, limiting to %#x instead",
+                l.info("memcpy upper bound of %#x outside limit, limiting to %#x instead",
                           max_limit, conditional_size)
 
-        l.debug("Memcpy running with conditional_size %#x", conditional_size)
+        l.info("Memcpy running with conditional_size %#x", conditional_size)
 
         if conditional_size > 0:
             src_mem = self.state.memory.load(src_addr, conditional_size, endness='Iend_BE')

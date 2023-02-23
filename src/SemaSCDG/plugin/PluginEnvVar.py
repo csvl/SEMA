@@ -7,7 +7,9 @@ class PluginEnvVar(angr.SimStatePlugin):
         self.last_error = 0
         self.env_block = 0
         self.env_var = {}
+        self.wenv_var = {}
         self.env_var_requested = {}
+        self.wenv_var_requested = {}
         self.stop_flag = False
         self.dict_calls = {}
         self.expl_method = "BFS"
@@ -28,6 +30,9 @@ class PluginEnvVar(angr.SimStatePlugin):
         p.last_error = self.last_error
         p.env_block = self.env_block
         p.env_var = self.env_var.copy()
+        self.wenv_var = self.wenv_var.copy()
         p.stop_flag = self.stop_flag
         p.dict_calls = self.dict_calls.copy()
+        self.env_var_requested = self.env_var_requested.copy()
+        self.wenv_var_requested = self.wenv_var_requested.copy()
         return p

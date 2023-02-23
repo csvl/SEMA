@@ -14,7 +14,7 @@ class getenv(angr.SimProcedure):
             name = name.decode("utf-8")
         name = name.upper()
         lw.info(name)
-        if name in self.state.plugin_env_var.env_var.keys():
+        if name in self.state.plugin_env_var.env_var.keys() and self.state.plugin_env_var.env_var[name] != None:
             lw.info("Swag")
             ret = self.state.plugin_env_var.env_var[name]
             lw.info(ret)
@@ -28,7 +28,7 @@ class getenv(angr.SimProcedure):
             if hasattr(ret, "encode"):
                 ret = ret.encode("utf-8")
         else:
-            ret = "None"
+            ret =  None #"None"
             self.state.plugin_env_var.env_var[name] = None
         lw.info(ret)
         self.state.plugin_env_var.env_var_requested[name] = ret

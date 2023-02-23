@@ -275,6 +275,7 @@ class SemaSCDG:
         except:
             self.log.info("Exeption remove filehandle")
             pass
+        
         logging.getLogger().addHandler(fileHandler)
         self.log.info(csv_file)
 
@@ -351,7 +352,7 @@ class SemaSCDG:
             self.log.info("Exploration method:  " + str(self.expl_method))
 
         # Defining arguments given to the program (minimum is filename)
-        args_binary = [nameFileShort]
+        args_binary = [nameFileShort] #, ,"-developer-build", "-opensource", "-nomake examples", "-nomake tests",'CFLAGS=-mno-aes',"-mno-aes" 'LDFLAGS="-L/usr/local/lib"'] ,"-msse3"
         if args.n_args:
             for i in range(args.n_args):
                 args_binary.append(claripy.BVS("arg" + str(i), 8 * 16))
@@ -374,27 +375,34 @@ class SemaSCDG:
         # addr = 0x004081fc
         # addr = 0x00401500
         # addr = 0x00406fac
-        # Create initial state of the binary
         
+        # MagicRAT
+        # addr = 0x40139a # 
+        # addr = 0x6f7100 # 0x5f4f10 0x01187c00 0x40139a
+        
+        # Create initial state of the binary
         options =  {angr.options.USE_SYSTEM_TIMES} # angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS {angr.options.SYMBOLIC_INITIAL_VALUES
-        options.add(angr.options.EFFICIENT_STATE_MERGING)
-        options.add(angr.options.DOWNSIZE_Z3)
+        # options.add(angr.options.EFFICIENT_STATE_MERGING)
+        # options.add(angr.options.DOWNSIZE_Z3)
         
         # Already present in "symbolic mode"
         # options.add(angr.options.OPTIMIZE_IR)
         # options.add(angr.options.FAST_MEMORY)
+        
         # options.add(angr.options.SIMPLIFY_MEMORY_READS)
         # options.add(angr.options.SIMPLIFY_MEMORY_WRITES)
         # options.add(angr.options.SIMPLIFY_CONSTRAINTS)
         # options.add(angr.options.SYMBOLIC_INITIAL_VALUES)
         
-        # options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS) # remove for magicRAT
-        # options.add(angr.options.ZERO_FILL_UNCONSTRAINED_MEMORY)
-        # options.add(angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS)
-        # options.add(angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY)
+        # options.add(angr.options.CPUID_SYMBOLIC) # for sse3 support
+        
+        options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS) # remove for magicRAT
+        options.add(angr.options.ZERO_FILL_UNCONSTRAINED_MEMORY)
+        options.add(angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS)
+        options.add(angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY)
          
         options.add(angr.options.MEMORY_CHUNK_INDIVIDUAL_READS)
-        #options.add(angr.options.SYMBOLIC_WRITE_ADDRESSES)
+        # options.add(angr.options.SYMBOLIC_WRITE_ADDRESSES)
         # options.add(angr.options.TRACK_JMP_ACTIONS)
         # options.add(angr.options.TRACK_CONSTRAINT_ACTIONS)
         # options.add(angr.options.TRACK_JMP_ACTIONS)
@@ -413,9 +421,10 @@ class SemaSCDG:
         
         state.options.discard("LAZY_SOLVES") 
         state.register_plugin(
-            "heap", angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc(heap_size=int(64*4096*10*10*10*4*2*2*2*2)) # heap_size = 0x10000000
+            "heap", angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc(heap_size=int(64*4096*10*10*10*4*2*2*2*2*2*2)) # heap_size = 0x10000000
         ) #heap_size = 0x10000000
         
+        state.libc.max_variable_size = 0x20000000*2 + 0x18000000#128 * 3
         # # Allocate memory for the OSVERSIONINFOW structure and initialize its size field
         # os_version_info_size = 24 + 128 * state.arch.bytes
         # os_version_info_ptr = state.heap._malloc(os_version_info_size)
@@ -496,8 +505,8 @@ class SemaSCDG:
         #####################################################
         
         def nothing(state):
-            if False:
-                print(hex(state.addr))
+            if True:
+                self.log.info(hex(state.addr))
         
         def weed_sig_pass(state):
             if state.addr == 0x401000:
@@ -1112,7 +1121,7 @@ class SemaSCDG:
             "ALLUSERSPROFILE": "C:\\ProgramData",
             "APPDATA": "C:\\Users\\ElNiak\\AppData\\Roaming",
             "CommonProgramFiles": "C:\\Program Files\\Common Files",
-            "COMPUTERNAME": "ElNiakComputer",
+            "COMPUTERNAME": "ElNiak",
             "COMSPEC": "C:\\Windows\\system32\\cmd.exe",
             "DRIVERDATA": "C:\\Windows\\System32\\Drivers\\DriverData",
             "HOMEDRIVE": "C:",
@@ -1139,13 +1148,15 @@ class SemaSCDG:
             "TMP": "C:\\Users\\ElNiak\\AppData\\Local\\Temp",
             "USERPROFILE": "C:\\Users\\ElNiak",
             "windir": "C:\\Windows",
-            "QT_NO_CPU_FEATURE":"rdrand",
+            
+            "QT_NO_CPU_FEATURE":"", # rdrand
             "UNICODEMAP_JP":"unicode-ascii",
             "QT_LOGGING_TO_CONSOLE":"0",
             "QT_ASSUME_STDERR_HAS_CONSOLE":"0",
             "QT_HASH_SEED":"0",
             "QT_FORCE_STDERR_LOGGING":"0",
-            "QT_MESSAGE_PATTERN":"[%{time yyyyMMdd h:mm:ss.zzz t} %{if-debug}D%{endif}%{if-info}I%{endif}%{if-warning}W%{endif}%{if-critical}C%{endif}%{if-fatal}F%{endif}] %{file}:%{line} - %{message}\0\0"
+            "QT_USE_NATIVE_WINDOWS":"1",
+            "QT_MESSAGE_PATTERN": "", #"[%{time yyyyMMdd h:mm:ss.zzz t} %{if-debug}D%{endif}%{if-info}I%{endif}%{if-warning}W%{endif}%{if-critical}C%{endif}%{if-fatal}F%{endif}] %{file}:%{line} - %{message}\0\0"
         }
         env_var_str = b""
         for env_var in windows_env_vars.keys():
@@ -1153,6 +1164,10 @@ class SemaSCDG:
             env_var_val += (windows_env_vars[env_var] + "\x00\x00")
             env_var_str += env_var_val.encode("utf-8")
             tstate.plugin_env_var.env_var[env_var.upper()] = windows_env_vars[env_var]
+            # wenv_var_val = (env_var + "=")
+            # wenv_var_val += (windows_env_vars[env_var] + "\x00\x00")
+            #wenv_var_str += wenv_var_val.encode("utf-8")
+            tstate.plugin_env_var.wenv_var[env_var.upper().encode("utf-16-le")] = windows_env_vars[env_var].encode("utf-16-le")
         
         env_var_bv = tstate.solver.BVV(env_var_str)
         tstate.memory.store(tstate.plugin_env_var.env_block, env_var_bv)
@@ -1424,8 +1439,8 @@ class SemaSCDG:
             self.log = logging.getLogger("SemaSCDG")
             self.log.addHandler(ch)
             self.log.propagate = False
-            logging.getLogger("angr").setLevel("INFO")
-            logging.getLogger('claripy').setLevel('INFO')
+            logging.getLogger("angr").setLevel("WARNING")
+            logging.getLogger('claripy').setLevel('WARNING')
             self.log.setLevel(logging.INFO)
         else:
             # logging.getLogger('claripy').disabled = True

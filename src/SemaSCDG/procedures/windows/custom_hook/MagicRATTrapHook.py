@@ -7,7 +7,7 @@ class MagicRATTrapHook(angr.SimProcedure):
         self.plength=plength
         
     def run(self):
-        self.state.inspect.skip_jump = True
+        #self.state.inspect.skip_jump = True
         jumpkind = 'Ijk_NoHook' if self.plength == 0 else 'Ijk_Boring'
         print(self.plength)
         self.successors.add_successor(self.state, self.state.addr+self.plength, self.state.solver.true, jumpkind)

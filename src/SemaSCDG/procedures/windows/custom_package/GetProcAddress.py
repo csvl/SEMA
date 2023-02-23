@@ -122,6 +122,7 @@ class GetProcAddress(angr.SimProcedure):
                 # import pdb; pdb.set_trace()
                 proj.hook_symbol(name, SIM_LIBRARIES[lib].get(name, self.state.arch))
             else:
+                # return 0x0
                 return self.state.solver.BVS(
                     "retval_{}".format(self.display_name), self.arch.bits
                 )

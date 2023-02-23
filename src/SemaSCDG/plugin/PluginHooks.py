@@ -56,7 +56,12 @@ class PluginHooks: # TODO replace with classses
                 # MagicRat       b'\x31\xd2\x48\x89\xd0\x48\x87\x01\x48\x85\xc0\x74\x03\x31\xc0\xc3\xf3\x90\x48\x8b\x01\x48\x85\xc0\x74\xf6\xeb\xe6'
                 "magicRAT_trap": b'\x31\xd2\x48\x89\xd0\x48\x87\x01\x48\x85\xc0\x74\x03\x31\xc0\xc3\xf3\x90\x48\x8b\x01\x48\x85\xc0\x74\xf6\xeb\xe6',
                 "trap":b'\x0f\x29\x02', 
-                "force_test":b'\x85\xdb'
+                "trap_2": b'\x0f\x29\x74\x24\x20',
+                "trap_3": b'\x0f\x28\x74\x24\x20',
+                "force_test":b'\x85\xdb',
+                #"sse3_mrat": b'\x45\x85\xc9', 
+                "sse3_mrat": b'\x45\x85\xc9\x0f\x84\xf5\x00\x00\x00',
+                "cpuid":b'\x0f\xa2',
             }
     
     def initialization(self, cont, is_64bits=False):
@@ -71,6 +76,7 @@ class PluginHooks: # TODO replace with classses
             base_of_code = int.from_bytes(cont[pe_header+0x48:pe_header+0x48+4], "little")
             image_base = int.from_bytes(cont[pe_header+0x38:pe_header+0x38+8], "little")
         total = base_of_code + image_base - size_of_headers
+        print(hex(total))
         
         addr_list = [m.start()+total for m in re.finditer(b'\xf3\xab',cont)]
         if(len(addr_list) > 0):
@@ -109,8 +115,14 @@ class PluginHooks: # TODO replace with classses
         
         
         self.hooks["magicRAT_trap"] = 0x4870c0
-        self.hooks["trap"] = 0xd80ba7
-        #self.hooks["force_test"] = 0x0040132e
+        
+        self.hooks["cpuid"] = [0x559e37,0x559e27,0x559e68]
+        
+        # self.hooks["sse3_mrat"] = 0xf23172
+        # self.hooks["trap_2"] = 0x01185c25
+        # self.hooks["trap_3"] = 0x01185ceb
+        # self.hooks["trap"] = 0xd80ba7
+        # self.hooks["force_test"] = 0x0040132e
         
         # 85 db <-> 0x0040132e
 
@@ -156,6 +168,12 @@ class PluginHooks: # TODO replace with classses
                     length=2
                 )
         
+        for addr in self.hooks["cpuid"]:
+            proj.hook(
+                addr,
+                call_sim.custom_simproc_windows["custom_hook"]["CPUIDHook"](plength=2),
+                length=2
+            ) 
         # TODO change key per class name and add list for multiple hooks                 
         for fun in self.hooks.keys():
             if fun == "copy" or fun == "copy_2":
@@ -236,6 +254,24 @@ class PluginHooks: # TODO replace with classses
                         call_sim.custom_simproc_windows["custom_hook"]["MagicRATTrapHook2"](plength=len(self.internal_functions_hooks[fun])),
                         length=len(self.internal_functions_hooks[fun])
                 )   
+            elif fun == "trap_2":
+                proj.hook(
+                        self.hooks[fun],
+                        call_sim.custom_simproc_windows["custom_hook"]["MagicRATTrapHook3"](plength=len(self.internal_functions_hooks[fun])),
+                        length=len(self.internal_functions_hooks[fun])
+                )   
+            elif fun == "trap_3":
+                proj.hook(
+                        self.hooks[fun],
+                        call_sim.custom_simproc_windows["custom_hook"]["MagicRATTrapHook4"](plength=len(self.internal_functions_hooks[fun])),
+                        length=len(self.internal_functions_hooks[fun])
+                )   
+            elif fun == "sse3_mrat":
+                proj.hook(
+                        self.hooks[fun],
+                        call_sim.custom_simproc_windows["custom_hook"]["MagicRATSSE3Hook"](plength=len(self.internal_functions_hooks[fun])),
+                        length=len(self.internal_functions_hooks[fun])
+                ) 
             elif fun == "force_test":
                 proj.hook(
                         self.hooks[fun],

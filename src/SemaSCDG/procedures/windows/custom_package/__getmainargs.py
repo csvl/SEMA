@@ -50,12 +50,21 @@ class __getmainargs(angr.SimProcedure):
     def run(self, argc_p, argv_ppp, env_ppp, dowildcard, startupinfo_p):
         if any(map(self.state.solver.symbolic, [argc_p, argv_ppp, env_ppp])):
             raise angr.errors.SimProcedureError("__getmainargs cannot handle symbolic pointers")
+        
+        lw.info("argc_p: " + str(argc_p))
+        lw.info("argv_ppp: " + str(argv_ppp))
+        lw.info("env_ppp: " + str(env_ppp))
+        lw.info("self.state.posix.argc: " + str(self.state.posix.argc))
+        lw.info("self.state.posix.argv: " + str(self.state.posix.argv))
+        lw.info("self.state.posix.environ: " + str(self.state.posix.environ))
 
         self.state.memory.store(argc_p, self.state.posix.argc, endness=self.state.arch.memory_endness)
         self.state.memory.store(argv_ppp, self.state.posix.argv, endness=self.state.arch.memory_endness)
         self.state.memory.store(env_ppp, self.state.posix.environ, endness=self.state.arch.memory_endness)
 
-        return 0
+        #return 0
+        #self.state.regs.al = 0
+        return self.state.solver.BVV(0,self.state.arch.bits) # self.state.regs.al # self.state.solver.BVV(0,8) # AL:1 bytes
 
 # class __getmainargs(angr.SIM_PROCEDURES['win32']['__getmainargs']):
 #     # Override the run method to create a custom sim procedure
