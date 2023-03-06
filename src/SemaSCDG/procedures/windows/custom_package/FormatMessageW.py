@@ -16,4 +16,46 @@ class FormatMessageW(angr.SimProcedure):
         """
         ptr=self.state.solver.BVS("lpBuffer",8*self.state.solver.eval(nSize))
         self.state.memory.store(lpBuffer,ptr)
+        
+        addr = self.state.solver.eval(lpSource)
+        buf = self.state.solver.eval(lpBuffer)
+        byte = self.state.solver.eval(self.state.memory.load(addr,1))
+        flag = 0
+        sup_args = []
+        formatcount = 0
+        while(byte != 0x0):
+            if flag == 1:
+                formatcount += 1
+                flag = 0
+                if byte == 0x64 or byte == 0x69: #%d %i
+                    arg = str(self.state.mem[self.state.regs.esp + 8 + 4 * formatcount].int.concrete)
+                    sup_args.append(arg)
+                    self.state.memory.store(buf,self.state.solver.BVV(arg))
+                    buf += len(arg)
+                elif byte == 0x73: #s
+                    argaddr = self.state.mem[self.state.regs.esp + 8 + 4 * formatcount].int.concrete
+                    try:
+                        arg = self.state.mem[argaddr].string.concrete
+                        if hasattr(arg, "decode"):
+                            arg = arg.decode("utf-8")
+                    except:
+                        arg = self.state.solver.eval(argaddr)
+                        arg = hex(arg) # TODO 
+                    sup_args.append(arg)
+                    self.state.memory.store(buf,self.state.solver.BVV(arg))
+                    buf += len(arg)
+                else:
+                    self.state.memory.store(buf,self.state.solver.BVV(0x25,8))
+                    buf += 1
+                    self.state.memory.store(buf,self.state.solver.BVV(byte,8))
+                    buf += 1
+            elif byte == 0x25: # %
+                flag = 1
+            else:
+                self.state.memory.store(buf,self.state.solver.BVV(byte,8))
+                buf += 1
+            addr += 1
+            byte = self.state.solver.eval(self.state.memory.load(addr,1))
+        #self.arguments = self.arguments + sup_args
+        
         return self.state.solver.eval(nSize) - 1

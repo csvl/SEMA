@@ -38,7 +38,7 @@ class SemaExplorer(ExplorationTechnique):
         max_step=100000000000000000000,
         timeout_tab=[1200, 2400, 3600],
         jump_it=100,
-        loop_counter_concrete=100000000,
+        loop_counter_concrete=10000000000,
         jump_dict={},
         jump_concrete_dict={},
         max_simul_state=1,
@@ -397,7 +397,21 @@ class SemaExplorer(ExplorationTechnique):
                     "End of the trace number " + str(id_cur) + " unconstrained"
                 )
             self.unconstrained = len(simgr.unconstrained)
-
+            
+    def manage_lost(self, simgr):
+        simgr.move(
+            from_stash="active",
+            to_stash="lost" ,#"lost", deadended
+            filter_func=lambda s: s.addr < simgr._project.loader.main_object.mapped_base,
+        )
+        
+    def manage_end_thread(self, simgr):
+        simgr.move(
+            from_stash="active",
+            to_stash="deadbeef",
+            filter_func=lambda s: s.addr == 0xdeadbeef,
+        )
+        
     def manage_error(self, simgr):
         if len(simgr.errored) > self.errored:
             new_errors = len(simgr.errored) - self.errored

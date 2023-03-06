@@ -1256,6 +1256,8 @@ class CustomSimProcedure:
             "GetModuleHandleA": custom_pack["GetModuleHandleA"],
             "GetModuleFileNameA": custom_pack["GetModuleFileNameA"],
             "GetModuleFileNameW": custom_pack["GetModuleFileNameW"],
+            # "GetModuleFileNameExA": custom_pack["GetModuleFileNameExA"],
+            # "GetModuleFileNameExW": custom_pack["GetModuleFileNameExW"],
         }
 
         ignore_simproc = {"LoadLibraryA", "LoadLibraryW"}

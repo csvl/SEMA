@@ -17,7 +17,9 @@ class GetFileAttributesExW(angr.SimProcedure):
             file_attributes = 0
 
             #if os.path.isfile(path):
-            file_attributes |= 0x00000020  # FILE_ATTRIBUTE_ARCHIVE
+            # file_attributes |= 0x00000020  # FILE_ATTRIBUTE_ARCHIVE
+            
+            file_attributes |= 0x00000080  # FILE_ATTRIBUTE_NORMAL 
 
             # if os.path.isdir(path):
             #     file_attributes |= 0x00000010  # FILE_ATTRIBUTE_DIRECTORY

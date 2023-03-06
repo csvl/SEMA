@@ -42,7 +42,7 @@ run-web:
 			   -v /tmp/.X11-unix:/tmp/.X11-unix \
 			   -v $(PWD)/penv-fix/:/penv-fix/ \
     		   -e DISPLAY=$(DISPLAY) \
-			   -p 8080:80 \
+			   -p 80:80 \
 			   --network="bridge" \
 			   -it sema-web bash run_server.sh
 
@@ -54,6 +54,6 @@ run-sh:
 			   -v $(PWD)/SemaWebApp/:/app/SemaWebApp/ \
 			   -v /tmp/.X11-unix:/tmp/.X11-unix \
     		   -e DISPLAY=$(DISPLAY) \
-			   -p 8080:80 \
+			   -p 80:80 \
 			   --network="bridge" \
 			   -it sema-web bash

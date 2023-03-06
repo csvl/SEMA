@@ -171,17 +171,6 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
         # We detect fork for a state
         super().manage_fork(simgr)
         
-        simgr.move(
-            from_stash="active",
-            to_stash="deadbeef",
-            filter_func=lambda s: s.addr == 0xdeadbeef,
-        )
-        
-        simgr.move(
-            from_stash="active",
-            to_stash="lost",
-            filter_func=lambda s: s.addr < simgr._project.loader.main_object.mapped_base,
-        )
 
         # Remove state which performed more jump than the limit allowed
         super().remove_exceeded_jump(simgr)
@@ -221,6 +210,10 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
         super().manage_error(simgr)
 
         super().manage_unconstrained(simgr)
+        
+        super().manage_end_thread(simgr)
+        
+        super().manage_lost(simgr)
 
         if self.flag:
             while simgr.active:

@@ -46,14 +46,12 @@ class SemaExplorerCDFS(SemaExplorer):
         try:
             simgr = simgr.step(stash=stash, **kwargs)
         except Exception as inst:
-            self.log.warning("ERROR IN STEP() - YOU ARE NOT SUPPOSED TO BE THERE !")
-            # self.log.warning(type(inst))    # the exception instance
             self.log.warning(inst)  # __str__ allows args to be printed directly,
             exc_type, exc_obj, exc_tb = sys.exc_info()
             # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             self.log.warning(exc_type)
-            self.log.warning(exc_tb)
-           # exit(-1)
+            self.log.warning(exc_obj,exc_type)
+            exit(-1)
             #raise Exception("ERROR IN STEP() - YOU ARE NOT SUPPOSED TO BE THERE !")
 
         super().build_snapshot(simgr)
@@ -79,6 +77,10 @@ class SemaExplorerCDFS(SemaExplorer):
 
         # Remove state which performed more jump than the limit allowed
         super().remove_exceeded_jump(simgr)
+        
+        super().manage_end_thread(simgr)
+        
+        super().manage_lost(simgr)
 
         # Manage ended state
         super().manage_deadended(simgr)

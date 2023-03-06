@@ -8,14 +8,24 @@ class GetFullPathNameW(angr.SimProcedure):
         try:
             f = self.state.mem[lpFileName].wstring.concrete
             lw.info(f)
-            f_bytes = f.encode("utf-16-le")
-            lenfile = len(f_bytes) 
+            filepart = f.split("\\")[-1]
+            pathpath = f.replace(filepart,"")
+            lw.info(filepart)
+            lw.info(pathpath)
+            
+            filepart_bytes = filepart.encode("utf-16-le") + b"\0\0"
+            lenfile = len(filepart_bytes) 
             lw.info(lenfile)
-            # "C:\Windows\System32\\".encode("utf-16-le") +
-            longname =  f_bytes #self.state.memory.load(lpFileName, lenfile)
-            lw.info(longname)
-            self.state.memory.store(lpBuffer, longname) # , size=len(longname)
-            return len(longname.decode("utf-16-le"))
+            lw.info(filepart_bytes.decode("utf-16-le"))
+            self.state.memory.store(lpFilePart, filepart) # , size=len(longname)
+            
+            pathpath_bytes = pathpath.encode("utf-16-le") + b"\0\0"
+            lenpath = len(pathpath_bytes) 
+            lw.info(lenpath)
+            lw.info(pathpath_bytes.decode("utf-16-le"))
+            self.state.memory.store(lpBuffer, pathpath)   # , size=len(longname)
+            
+            return len(pathpath_bytes.decode("utf-16-le"))
         except Exception as e:
             lw.info(e)
             longname = "C:\Windows\System32\\".encode("utf-16-le")

@@ -66,14 +66,14 @@ class SimHeapBase(SimStatePlugin):
             size = self.state.solver.max_int(sim_size)
             print(size)
             if size > self.state.libc.max_variable_size:
-                l.warning("Allocation request of %d bytes exceeded maximum of %d bytes; allocating %d bytes",
+                l.info("Allocation request of %d bytes exceeded maximum of %d bytes; allocating %d bytes",
                           size, self.state.libc.max_variable_size, self.state.libc.max_variable_size)
-                size = self.state.libc.max_variable_size
-            if size == 0: # TODO serena
-                l.warning("Allocation request of 0 bytes")
                 size = self.state.libc.max_variable_size
         else:
             size = self.state.solver.eval(sim_size)
+            if size == 0: # TODO serena
+                l.info("Allocation request of 0 bytes")
+                size = self.state.libc.max_variable_size 
         return size
 
     def _malloc(self, sim_size):

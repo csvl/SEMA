@@ -40,38 +40,69 @@ class VerQueryValueW(angr.SimProcedure):
             # self.state.memory.store(lplpBuffer_addr, fixed_file_info_struct)
             # self.state.memory.store(puLen_addr, claripy.BVV(52, 32))
             structure = {
-                'dwSignature': 0xFEEF04BD,
-                'dwStrucVersion': 0x00010000,
-                'dwFileVersionMS': 0x00030001,
-                'dwFileVersionLS': 0x00040001,
-                'dwProductVersionMS': 0x00030002,
-                'dwProductVersionLS': 0x00040002,
-                'dwFileFlagsMask': 0x0000003F,
-                'dwFileFlags': 0x00000001,
-                'dwFileOS': 0x00000004,
-                'dwFileType': 0x00000001,
-                'dwFileSubtype': 0x00000000,
-                'dwFileDateMS': 0x00000000,
-                'dwFileDateLS': 0x00000000
+                'dwSignature': self.state.solver.BVS("dwSignature{}".format(self.display_name),32), # 0xFEEF04BD,
+                'dwStrucVersion': self.state.solver.BVS("dwStrucVersion{}".format(self.display_name),32), # 0x00010000,
+                'dwFileVersionMS': self.state.solver.BVS("dwFileVersionMS{}".format(self.display_name),32), # 0x00030001,
+                'dwFileVersionLS': self.state.solver.BVS("dwFileVersionLS{}".format(self.display_name),32), #  0x00040001,
+                'dwProductVersionMS': self.state.solver.BVS("dwProductVersionMS{}".format(self.display_name),32), # 0x00030002,
+                'dwProductVersionLS': self.state.solver.BVS("dwProductVersionLS{}".format(self.display_name),32), # 0x00040002,
+                'dwFileFlagsMask': self.state.solver.BVS("dwFileFlagsMask{}".format(self.display_name),32), # 0x0000003F,
+                'dwFileFlags': self.state.solver.BVS("dwFileFlags{}".format(self.display_name),32), # 0x00000001,
+                'dwFileOS': self.state.solver.BVS("dwFileOS{}".format(self.display_name),32), # 0x00000004,
+                'dwFileType': self.state.solver.BVS("dwFileType{}".format(self.display_name),32), # 0x00000001,
+                'dwFileSubtype': self.state.solver.BVS("dwFileSubtype{}".format(self.display_name),32), # 0x00000000,
+                'dwFileDateMS':self.state.solver.BVS("dwFileDateMS{}".format(self.display_name),32), #  0x00000000,
+                'dwFileDateLS': self.state.solver.BVS("dwFileDateLS{}".format(self.display_name),32), #  0x00000000
             }
             
-            dword_size = 4 if self.state.arch.bits == 32 else 8 # bytes
+            dword_size = 4 # if self.state.arch.bits == 32 else 8 # bytes
 
             # Write the structure to memory
-            self.state.memory.store(lplpBuffer_addr, self.state.solver.BVV(structure['dwSignature'], self.state.arch.bits))
-            self.state.memory.store(lplpBuffer_addr + dword_size, self.state.solver.BVV(structure['dwStrucVersion'], self.state.arch.bits))
-            self.state.memory.store(lplpBuffer_addr + dword_size*2, self.state.solver.BVV(structure['dwFileVersionMS'], self.state.arch.bits))
-            self.state.memory.store(lplpBuffer_addr + dword_size*3, self.state.solver.BVV(structure['dwFileVersionLS'], self.state.arch.bits))
-            self.state.memory.store(lplpBuffer_addr + dword_size*4, self.state.solver.BVV(structure['dwProductVersionMS'], self.state.arch.bits))
-            self.state.memory.store(lplpBuffer_addr + dword_size*5, self.state.solver.BVV(structure['dwProductVersionLS'], self.state.arch.bits))
-            self.state.memory.store(lplpBuffer_addr + dword_size*6, self.state.solver.BVV(structure['dwFileFlagsMask'], self.state.arch.bits))
-            self.state.memory.store(lplpBuffer_addr + dword_size*7, self.state.solver.BVV(structure['dwFileFlags'], self.state.arch.bits))
-            self.state.memory.store(lplpBuffer_addr + dword_size*8, self.state.solver.BVV(structure['dwFileOS'], self.state.arch.bits))
-            self.state.memory.store(lplpBuffer_addr + dword_size*9, self.state.solver.BVV(structure['dwFileType'], self.state.arch.bits))
-            self.state.memory.store(lplpBuffer_addr + dword_size*10, self.state.solver.BVV(structure['dwFileSubtype'], self.state.arch.bits))
-            self.state.memory.store(lplpBuffer_addr + dword_size*11, self.state.solver.BVV(structure['dwFileDateMS'], self.state.arch.bits))
-            self.state.memory.store(lplpBuffer_addr + dword_size*12, self.state.solver.BVV(structure['dwFileDateLS'], self.state.arch.bits))
-            self.state.memory.store(puLen_addr, dword_size*13)
+            # self.state.memory.store(lplpBuffer_addr, self.state.solver.BVV(structure['dwSignature'], self.state.arch.bits))
+            # self.state.memory.store(lplpBuffer_addr + dword_size, self.state.solver.BVV(structure['dwStrucVersion'], self.state.arch.bits))
+            # self.state.memory.store(lplpBuffer_addr + dword_size*2, self.state.solver.BVV(structure['dwFileVersionMS'], self.state.arch.bits))
+            # self.state.memory.store(lplpBuffer_addr + dword_size*3, self.state.solver.BVV(structure['dwFileVersionLS'], self.state.arch.bits))
+            # self.state.memory.store(lplpBuffer_addr + dword_size*4, self.state.solver.BVV(structure['dwProductVersionMS'], self.state.arch.bits))
+            # self.state.memory.store(lplpBuffer_addr + dword_size*5, self.state.solver.BVV(structure['dwProductVersionLS'], self.state.arch.bits))
+            # self.state.memory.store(lplpBuffer_addr + dword_size*6, self.state.solver.BVV(structure['dwFileFlagsMask'], self.state.arch.bits))
+            # self.state.memory.store(lplpBuffer_addr + dword_size*7, self.state.solver.BVV(structure['dwFileFlags'], self.state.arch.bits))
+            # self.state.memory.store(lplpBuffer_addr + dword_size*8, self.state.solver.BVV(structure['dwFileOS'], self.state.arch.bits))
+            # self.state.memory.store(lplpBuffer_addr + dword_size*9, self.state.solver.BVV(structure['dwFileType'], self.state.arch.bits))
+            # self.state.memory.store(lplpBuffer_addr + dword_size*10, self.state.solver.BVV(structure['dwFileSubtype'], self.state.arch.bits))
+            # self.state.memory.store(lplpBuffer_addr + dword_size*11, self.state.solver.BVV(structure['dwFileDateMS'], self.state.arch.bits))
+            # self.state.memory.store(lplpBuffer_addr + dword_size*12, self.state.solver.BVV(structure['dwFileDateLS'], self.state.arch.bits))
+           
+            # self.state.memory.store(lplpBuffer_addr, structure['dwSignature'])
+            # self.state.memory.store(lplpBuffer_addr + dword_size, structure['dwStrucVersion'])
+            # self.state.memory.store(lplpBuffer_addr + dword_size*2, structure['dwFileVersionMS'])
+            # self.state.memory.store(lplpBuffer_addr + dword_size*3, structure['dwFileVersionLS'])
+            # self.state.memory.store(lplpBuffer_addr + dword_size*4, structure['dwProductVersionMS'])
+            # self.state.memory.store(lplpBuffer_addr + dword_size*5, structure['dwProductVersionLS'])
+            # self.state.memory.store(lplpBuffer_addr + dword_size*6, structure['dwFileFlagsMask'])
+            # self.state.memory.store(lplpBuffer_addr + dword_size*7, structure['dwFileFlags'])
+            # self.state.memory.store(lplpBuffer_addr + dword_size*8, structure['dwFileOS'])
+            # self.state.memory.store(lplpBuffer_addr + dword_size*9, structure['dwFileType'])
+            # self.state.memory.store(lplpBuffer_addr + dword_size*10, structure['dwFileSubtype'])
+            # self.state.memory.store(lplpBuffer_addr + dword_size*11, structure['dwFileDateMS'])
+            # self.state.memory.store(lplpBuffer_addr + dword_size*12, structure['dwFileDateLS'])
+            # self.state.memory.store(puLen_addr, dword_size*12)
+            
+            self.state.mem[lplpBuffer_addr].dword = structure['dwSignature']
+            self.state.mem[lplpBuffer_addr + dword_size].dword = structure['dwStrucVersion']
+            self.state.mem[lplpBuffer_addr + dword_size*2].dword = structure['dwFileVersionMS']
+            self.state.mem[lplpBuffer_addr + dword_size*3].dword = structure['dwFileVersionLS']
+            self.state.mem[lplpBuffer_addr + dword_size*4].dword = structure['dwProductVersionMS']
+            self.state.mem[lplpBuffer_addr + dword_size*5].dword = structure['dwProductVersionLS']
+            self.state.mem[lplpBuffer_addr + dword_size*6].dword = structure['dwFileFlagsMask']
+            self.state.mem[lplpBuffer_addr + dword_size*7].dword = structure['dwFileFlags']
+            self.state.mem[lplpBuffer_addr + dword_size*8].dword = structure['dwFileOS']
+            self.state.mem[lplpBuffer_addr + dword_size*9].dword = structure['dwFileType']
+            self.state.mem[lplpBuffer_addr + dword_size*10].dword = structure['dwFileSubtype']
+            self.state.mem[lplpBuffer_addr + dword_size*11].dword = structure['dwFileDateMS']
+            self.state.mem[lplpBuffer_addr + dword_size*12].dword = structure['dwFileDateLS']
+            
+            self.state.mem[puLen_addr].dword = dword_size*13
+            
             return 0x1
 
         # check if we're retrieving the translation array

@@ -62,6 +62,8 @@ class PluginHooks: # TODO replace with classses
                 #"sse3_mrat": b'\x45\x85\xc9', 
                 "sse3_mrat": b'\x45\x85\xc9\x0f\x84\xf5\x00\x00\x00',
                 "cpuid":b'\x0f\xa2',
+                "LAB_00cafb11":b'\x48\x8b\x84\x24\xd0\x00\x00\x00\x48\x8b\x48\x08\x48\x85\xc9\x74\x07\x48\x8b\x01\xff\x50\x08\x90',
+                "0x701140":b'',
             }
     
     def initialization(self, cont, is_64bits=False):
@@ -114,10 +116,14 @@ class PluginHooks: # TODO replace with classses
         print(self.hooks["force_test"])
         
         
-        self.hooks["magicRAT_trap"] = 0x4870c0
+        # self.hooks["magicRAT_trap"] = 0x4870c0
         
         self.hooks["cpuid"] = [0x559e37,0x559e27,0x559e68]
         
+        self.hooks["LAB_00cafb11"] = 0x00cafb11
+        
+        #self.hookd["0x701140"] = 0x701140
+         
         # self.hooks["sse3_mrat"] = 0xf23172
         # self.hooks["trap_2"] = 0x01185c25
         # self.hooks["trap_3"] = 0x01185ceb
@@ -278,6 +284,13 @@ class PluginHooks: # TODO replace with classses
                         call_sim.custom_simproc_windows["custom_hook"]["MagicRATForceHook"](plength=len(self.internal_functions_hooks[fun])),
                         length=len(self.internal_functions_hooks[fun])
                 ) 
+            elif fun == "LAB_00cafb11":
+                proj.hook(
+                        self.hooks[fun],
+                        call_sim.custom_simproc_windows["custom_hook"]["LAB_00cafb11"](plength=len(self.internal_functions_hooks[fun])),
+                        length=len(self.internal_functions_hooks[fun])
+                ) 
+            
             elif fun == "TODO":
                 @proj.hook(self.hooks[fun], length=len(self.internal_functions_hooks[fun]))
                 def nothing(state):

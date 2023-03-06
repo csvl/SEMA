@@ -145,7 +145,7 @@ class ArgumentParserSCDG:
         self.group_bin.add_argument(
             "--conc_loop",
             help="Number of symbolic arguments given to the binary (default : 1024)",
-            default=1024,
+            default=10240,
             type=int,
         )
         
@@ -244,7 +244,7 @@ class ArgumentParserSCDG:
         self.group.add_argument(
             "--timeout",
             help="Timeout in seconds before ending extraction (default : 200)",
-            default=200,
+            default=1000,
             type=int,
         )     
         self.group.add_argument(

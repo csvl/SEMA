@@ -340,7 +340,7 @@ class SemaSCDG:
             self.log.info("OS recognized as : " + str(os_obj))
             self.log.info("CPU architecture recognized as : " + str(proj.arch))
             self.log.info(
-                "Entry point of the binary recognized as : " + str(proj.entry)
+                "Entry point of the binary recognized as : " + hex(proj.entry)
             )
             self.log.info(
                 "Min/Max addresses of the binary recognized as : " + str(proj.loader)
@@ -378,13 +378,14 @@ class SemaSCDG:
         
         # MagicRAT
         # addr = 0x40139a # 
-        # addr = 0x6f7100 # 0x5f4f10 0x01187c00 0x40139a
+   #     addr = 0x6f7100 # 0x5f4f10 0x01187c00 0x40139a
+       # addr = 0x06fda90
         
         # Create initial state of the binary
-        options =  {angr.options.USE_SYSTEM_TIMES} # angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS {angr.options.SYMBOLIC_INITIAL_VALUES
+        options =  {angr.options.SIMPLIFY_MEMORY_READS} # angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS {angr.options.SYMBOLIC_INITIAL_VALUES
         # options.add(angr.options.EFFICIENT_STATE_MERGING)
         # options.add(angr.options.DOWNSIZE_Z3)
-        
+        options.add(angr.options.USE_SYSTEM_TIMES)
         # Already present in "symbolic mode"
         # options.add(angr.options.OPTIMIZE_IR)
         # options.add(angr.options.FAST_MEMORY)
@@ -394,14 +395,14 @@ class SemaSCDG:
         # options.add(angr.options.SIMPLIFY_CONSTRAINTS)
         # options.add(angr.options.SYMBOLIC_INITIAL_VALUES)
         
-        # options.add(angr.options.CPUID_SYMBOLIC) # for sse3 support
+        # options.add(angr.options.CPUID_SYMBOLIC) # for sse3 support ?
         
-        options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS) # remove for magicRAT
+        options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS) # remove for magic RAT
         options.add(angr.options.ZERO_FILL_UNCONSTRAINED_MEMORY)
         options.add(angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS)
         options.add(angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY)
          
-        options.add(angr.options.MEMORY_CHUNK_INDIVIDUAL_READS)
+        # options.add(angr.options.MEMORY_CHUNK_INDIVIDUAL_READS)
         # options.add(angr.options.SYMBOLIC_WRITE_ADDRESSES)
         # options.add(angr.options.TRACK_JMP_ACTIONS)
         # options.add(angr.options.TRACK_CONSTRAINT_ACTIONS)
@@ -421,15 +422,21 @@ class SemaSCDG:
         
         state.options.discard("LAZY_SOLVES") 
         state.register_plugin(
-            "heap", angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc(heap_size=int(64*4096*10*10*10*4*2*2*2*2*2*2)) # heap_size = 0x10000000
+            "heap", angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc(heap_size=int(64*4096*10*10*10*1000*100*100)) # heap_size = 0x10000000 4*2*2*2*2*2*2*2*2*10
         ) #heap_size = 0x10000000
         
         state.libc.max_variable_size = 0x20000000*2 + 0x18000000#128 * 3
+        state.libc.max_memcpy_size   = 0x20000000*2
+        #state.solver._solver.timeout=30000000*2
+        #state.libc.max_memcpy_size = 
+        
         # # Allocate memory for the OSVERSIONINFOW structure and initialize its size field
         # os_version_info_size = 24 + 128 * state.arch.bytes
         # os_version_info_ptr = state.heap._malloc(os_version_info_size)
         # state.memory.store(os_version_info_ptr, SimTypeInt().with_arch(state.arch), size=os_version_info_size)
 
+        pagefile = angr.SimFile("pagefile.sys", content=cont)
+        state.fs.insert("pagefile.sys", pagefile)
         
         self.setup_env_var_plugin(state)
         self.setup_locale_info_plugin(state)
@@ -505,7 +512,7 @@ class SemaSCDG:
         #####################################################
         
         def nothing(state):
-            if True:
+            if False:
                 self.log.info(hex(state.addr))
         
         def weed_sig_pass(state):
@@ -1118,15 +1125,15 @@ class SemaSCDG:
             tstate.memory.store(tstate.plugin_env_var.env_block + i, c)
         
         windows_env_vars = {
-            "ALLUSERSPROFILE": "C:\\ProgramData",
-            "APPDATA": "C:\\Users\\ElNiak\\AppData\\Roaming",
-            "CommonProgramFiles": "C:\\Program Files\\Common Files",
+            "ALLUSERSPROFILE": "C:\\ProgramData\\",
+            "APPDATA": "C:\\Users\\ElNiak\\AppData\\Roaming\\",
+            "CommonProgramFiles": "C:\\Program Files\\Common Files\\",
             "COMPUTERNAME": "ElNiak",
             "COMSPEC": "C:\\Windows\\system32\\cmd.exe",
-            "DRIVERDATA": "C:\\Windows\\System32\\Drivers\\DriverData",
+            "DRIVERDATA": "C:\\Windows\\System32\\Drivers\\DriverData\\",
             "HOMEDRIVE": "C:",
-            "HOMEPATH": "\\Users\\ElNiak",
-            "LOCALAPPDATA": "C:\\Users\\ElNiak\\AppData\\Local",
+            "HOMEPATH": "C:\\Users\\ElNiak",
+            "LOCALAPPDATA": "C:\\Users\\ElNiak\\AppData\\Local\\",
             "LOGONSERVER": "\\\\[DomainControllerName]",
             "NUMBER_OF_PROCESSORS": "8",
             "OS": "Windows_NT",
@@ -1136,41 +1143,53 @@ class SemaSCDG:
             "PROCESSOR_IDENTIFIER": "Intel64 Family 6 Model 58 Stepping 9, GenuineIntel",
             "PROCESSOR_LEVEL": "6",
             "PROCESSOR_REVISION": "3a09",
-            "ProgramData": "C:\\ProgramData",
-            "ProgramFiles": "C:\\Program Files",
+            "ProgramData": "C:\\ProgramData\\",
+            "ProgramFiles": "C:\\Program Files\\",
             "ProgramFiles(x86)": "C:\\Program Files (x86)",
             "ProgramW6432": "C:\\Program Files",
             "PSModulePath": "C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules\\",
-            "PUBLIC": "C:\\Users\\Public",
-            "SystemDrive": "C:",
-            "SystemRoot": "C:\\Windows",
-            "TEMP": "C:\\Users\\ElNiak\\AppData\\Local\\Temp",
-            "TMP": "C:\\Users\\ElNiak\\AppData\\Local\\Temp",
-            "USERPROFILE": "C:\\Users\\ElNiak",
+            "PUBLIC": "C:\\Users\\Public\\",
+            "SystemDrive": "C:\\",
+            "SystemRoot": "C:\\Windows\\",
+            "TEMP": "C:\\Users\\ElNiak\\AppData\\Local\\Temp\\",
+            "TMP": "C:\\Users\\ElNiak\\AppData\\Local\\Temp\\",
+            "USERPROFILE": "C:\\Users\\ElNiak\\",
             "windir": "C:\\Windows",
             
             "QT_NO_CPU_FEATURE":"", # rdrand
             "UNICODEMAP_JP":"unicode-ascii",
             "QT_LOGGING_TO_CONSOLE":"0",
+            "QT_LOGGING_RULES": "", #"*.debug=false;", qml=false
+            "QT_LOGGING_CONF":"", # qt-log.conf
+            "LANG":"en_GB.UTF-8",
+            "QT_NO_DEBUG_OUTPUT":"1",
             "QT_ASSUME_STDERR_HAS_CONSOLE":"0",
             "QT_HASH_SEED":"0",
             "QT_FORCE_STDERR_LOGGING":"0",
             "QT_USE_NATIVE_WINDOWS":"1",
+            "QT_LOGGING_DEBUG":"0",
+            "QT_DEBUG_PLUGINS":"0",
+            "QT_STYLE_OVERRIDE":"0",
+            "QT_PLUGIN_PATH":"C:\\Users\\ElNiak\\QTPlugin\\",
             "QT_MESSAGE_PATTERN": "", #"[%{time yyyyMMdd h:mm:ss.zzz t} %{if-debug}D%{endif}%{if-info}I%{endif}%{if-warning}W%{endif}%{if-critical}C%{endif}%{if-fatal}F%{endif}] %{file}:%{line} - %{message}\0\0"
         }
         env_var_str = b""
+        env_var_wstr = b""
         for env_var in windows_env_vars.keys():
             env_var_val = (env_var + "=")
             env_var_val += (windows_env_vars[env_var] + "\x00\x00")
             env_var_str += env_var_val.encode("utf-8")
+            env_var_wstr += env_var_val.encode("utf-16-le")
             tstate.plugin_env_var.env_var[env_var.upper()] = windows_env_vars[env_var]
             # wenv_var_val = (env_var + "=")
             # wenv_var_val += (windows_env_vars[env_var] + "\x00\x00")
-            #wenv_var_str += wenv_var_val.encode("utf-8")
+            #wenv_var_str += wenv_var_val.encode("utf-16-le")
             tstate.plugin_env_var.wenv_var[env_var.upper().encode("utf-16-le")] = windows_env_vars[env_var].encode("utf-16-le")
         
         env_var_bv = tstate.solver.BVV(env_var_str)
         tstate.memory.store(tstate.plugin_env_var.env_block, env_var_bv)
+        env_var_wbv = tstate.solver.BVV(env_var_wstr)
+        tstate.memory.store(tstate.plugin_env_var.env_block, env_var_wbv)
         tstate.plugin_env_var.expl_method = self.expl_method
         
     def setup_locale_info_plugin(self, tstate):
@@ -1439,8 +1458,8 @@ class SemaSCDG:
             self.log = logging.getLogger("SemaSCDG")
             self.log.addHandler(ch)
             self.log.propagate = False
-            logging.getLogger("angr").setLevel("WARNING")
-            logging.getLogger('claripy').setLevel('WARNING')
+            logging.getLogger("angr").setLevel("INFO")
+            logging.getLogger('claripy').setLevel('INFO')
             self.log.setLevel(logging.INFO)
         else:
             # logging.getLogger('claripy').disabled = True
