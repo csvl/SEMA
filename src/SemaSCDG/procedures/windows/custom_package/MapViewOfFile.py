@@ -9,9 +9,9 @@ l = logging.getLogger("CustomSimProcedureWindows")
 class MapViewOfFile(angr.SimProcedure):
     def run(self, hFileMappingObject, dwDesiredAccess, dwFileOffsetHigh, dwFileOffsetLow, dwNumberOfBytesToMap):
         # Get the handle to the file mapping object
-        l.info(self.state.globals["files"])
-        if hFileMappingObject in  self.state.globals["files"]:
-            simfd =  self.state.posix.get_fd(self.state.globals["files"][hFileMappingObject]) #self.state.posix.get_fd(hFile)
+        l.info(self.state.globals["files_fd"])
+        if hFileMappingObject in  self.state.globals["files_fd"]:
+            simfd =  self.state.posix.get_fd(self.state.globals["files_fd"][hFileMappingObject]) #self.state.posix.get_fd(hFile)
         else:
             simfd = None
         

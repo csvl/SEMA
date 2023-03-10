@@ -37,7 +37,7 @@ class SemaExplorer(ExplorationTechnique):
         max_end_state=600,
         max_step=100000000000000000000,
         timeout_tab=[1200, 2400, 3600],
-        jump_it=100,
+        jump_it=100000000000,
         loop_counter_concrete=10000000000,
         jump_dict={},
         jump_concrete_dict={},

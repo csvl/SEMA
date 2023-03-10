@@ -120,9 +120,9 @@ class PluginHooks: # TODO replace with classses
         
         self.hooks["cpuid"] = [0x559e37,0x559e27,0x559e68]
         
-        self.hooks["LAB_00cafb11"] = 0x00cafb11
+        # self.hooks["LAB_00cafb11"] = 0x00cafb11
         
-        #self.hookd["0x701140"] = 0x701140
+        # self.hooks["0x701140"] = 0x701140
          
         # self.hooks["sse3_mrat"] = 0xf23172
         # self.hooks["trap_2"] = 0x01185c25

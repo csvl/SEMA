@@ -85,7 +85,7 @@ class FileTimeToSystemTime(angr.SimProcedure):
         else:
             self.fill_symbolic()
 
-    def fill_from_systemtime(self, ts):
+    def fill_symbolic(self):
         # self.systemtime = # int(ts * 1000 * 1000 / 100)
                     # convert to microseconds, convert to nanoseconds, convert to 100ns intervals
         dyear = self.state.solver.BVS("wYear{}".format(self.display_name),16)
@@ -129,5 +129,5 @@ class FileTimeToSystemTime(angr.SimProcedure):
         self.state.mem[self.systemtime_ptr+12].word = wMilliseconds
         # self.state.memory.store(lpSystemTime+14, wMilliseconds, endness=self.state.arch.memory_endness)
 
-    def fill_symbolic(self):
+    def fill_from_systemtime(self, ts):
         self.systemtime = self.state.solver.BVS('FileTimeToSystemTime', 64, key=('api', 'FileTimeToSystemTime'))

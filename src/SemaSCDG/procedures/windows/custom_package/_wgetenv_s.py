@@ -10,9 +10,12 @@ class _wgetenv_s(angr.SimProcedure):
         #     name = name.decode("utf-16-le")
         name = name.upper()
         lw.info(name)
+        name = str(name.encode("utf-8")).replace("b'","").replace("'","")
+        lw.info(name)
+        lw.info(self.state.plugin_env_var.wenv_var.keys())
         if name in self.state.plugin_env_var.wenv_var.keys() and self.state.plugin_env_var.wenv_var[name] != None:
             lw.info("Swag")
-            ret = self.state.plugin_env_var.wenv_var[name]
+            ret = self.state.plugin_env_var.wenv_var[name].decode("utf-16-le")
             lw.info(ret)
             # lw.warning(name + " " + str(size) + " " + ret)
             try:  # TODO investigate why needed with explorer

@@ -27,8 +27,10 @@ class WriteFile(angr.SimProcedure):
         )
         lw.info(self.state.globals["files"])
         lw.info(simfd)
-        if simfd in self.state.globals["files"]:
-            realfd = self.state.globals["files"][simfd]
+        lw.info(self.state.solver.eval(hFile))
+        if self.state.solver.eval(hFile) in self.state.globals["files"]:
+            realfd = self.state.globals["files"][self.state.solver.eval(hFile)]
+            lw.info(realfd)
             if realfd is not None:
                 with open(realfd, "ab") as fd:# TODO fix
                     content = self.state.solver.eval(self.state.memory.load(lpBuffer,nNumberOfBytesToWrite),cast_to=bytes)

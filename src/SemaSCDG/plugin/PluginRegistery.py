@@ -8,19 +8,28 @@ class PluginRegistery(angr.SimStatePlugin):
         self.registery_block = 0
         self.registery = {}
         self.stop_flag = False
-        self.dict_calls = {}
-        self.expl_method = "BFS"
 
-    def update_dic(self, call_name):
-        if call_name in self.dict_call:
-            if self.dict_call[call_name] > 5:
-                self.stop_flag = True
-                self.dict_call[call_name] = 0
-            else:
-                self.dict_call[call_name] = self.dict_call[call_name] + 1
-        else:
-            self.dict_call[call_name] = 1
+    def setup_plugin(self):
+        # For locale info mainly
+        self.registery_block = self.state.heap.malloc(32767) 
+        for i in range(32767):
+            c = self.state.solver.BVS("c_registery_block{}".format(i), 8)
+            self.state.memory.store(self.registery_block + i, c)
 
+    # TODO improve
+    def ending_state(self, simgr):
+        total_registery = {}
+        for sstate in simgr.deadended + simgr.active + simgr.stashes["pause"]:
+            for key in sstate.plugin_registery.registery.keys():
+                if key not in total_registery:
+                    total_registery[key] = []
+                    if sstate.plugin_registery.registery[key] not in total_registery[key]:
+                        total_registery[key].append(sstate.plugin_registery.registery[key])
+                else:
+                    if sstate.plugin_registery.registery[key] not in total_registery[key]:
+                        total_registery[key].append(sstate.plugin_registery.registery[key])
+        return total_registery
+    
     @angr.SimStatePlugin.memo
     def copy(self, memo):
         p = PluginRegistery()
@@ -28,5 +37,4 @@ class PluginRegistery(angr.SimStatePlugin):
         p.registery_block = self.registery_block
         p.registery = self.registery.copy()
         p.stop_flag = self.stop_flag
-        p.dict_calls = self.dict_calls.copy()
         return p

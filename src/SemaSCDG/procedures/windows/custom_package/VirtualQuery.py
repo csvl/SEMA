@@ -6,9 +6,9 @@ lw = logging.getLogger("CustomSimProcedureWindows")
 
 class VirtualQuery(angr.SimProcedure):
     def run(self, lpAddress, lpBuffer, dwLength):
-        ret_val = self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)
-        self.state.solver.add(ret_val != 0)
-        return ret_val
+        # ret_val = self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)
+        # self.state.solver.add(ret_val != 0)
+        # return ret_val
         # state = self.state
         # mem = state.memory
 
@@ -25,19 +25,28 @@ class VirtualQuery(angr.SimProcedure):
                 
         # Read the size of the structure from memory
         #size = mem.load(SimTypeInt().with_arch(state.arch), size_ptr)[0] # not used since we know the size of the structure
-        # pvoid = 4 if self.state.arch.bits == 32 else 8
+        pvoid = 4 if self.state.arch.bits == 32 else 8
                 
-        # # Get the addresses of the structure fields
-        # BaseAddress_ptr = lpBuffer + pvoid # TODO use ulong
-        # AllocationBase_ptr = BaseAddress_ptr + pvoid
-        # AllocationProtect = AllocationBase_ptr + 4
-        # PartitionId = AllocationProtect + 2
-        # RegionSize = PartitionId + pvoid
-        # State = RegionSize + 4
-        # Protect = State + 4
-        # Type = Protect + 4
+        # Get the addresses of the structure fields
+        BaseAddress_ptr = lpBuffer + pvoid # TODO use ulong
+        AllocationBase_ptr = BaseAddress_ptr + pvoid
+        AllocationProtect = AllocationBase_ptr + 4
+        PartitionId = AllocationProtect + 2
+        RegionSize = PartitionId + pvoid
+        State = RegionSize + 4
+        Protect = State + 4
+        Type = Protect + 4
+        
+        self.state.mem[BaseAddress_ptr].size_t = self.state.solver.BVS("BaseAddress_ptr{}".format(self.display_name),64)
+        self.state.mem[AllocationBase_ptr].size_t = self.state.solver.BVS("AllocationBase_ptr{}".format(self.display_name),64)
+        self.state.mem[AllocationProtect].dword = self.state.solver.BVS("AllocationProtect{}".format(self.display_name),32)
+        self.state.mem[PartitionId].word = self.state.solver.BVS("PartitionId{}".format(self.display_name),16)
+        self.state.mem[RegionSize].size_t = self.state.solver.BVS("RegionSize{}".format(self.display_name),64)
+        self.state.mem[State].dword = self.state.solver.BVS("State{}".format(self.display_name),32)
+        self.state.mem[Protect].dword = self.state.solver.BVS("Protect{}".format(self.display_name),32)
+        self.state.mem[Type].dword = self.state.solver.BVS("Type{}".format(self.display_name),32)
 
-        # # Write the values of the structure fields to memory
+        # Write the values of the structure fields to memory
         # mem.store(dwLength, 3*pvoid + 4*4 + 2*2, size=pvoid)
         # mem.store(AllocationBase_ptr, 7, size=pvoid)
         # mem.store(AllocationProtect, 0, size=4)
@@ -49,4 +58,4 @@ class VirtualQuery(angr.SimProcedure):
         
         # ret_val = self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)
         # self.state.solver.add(ret_val != 0)
-        # return ret_val
+        return dwLength

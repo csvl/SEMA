@@ -41,7 +41,7 @@ class GetProcAddress(angr.SimProcedure):
         #     return 0x30000000
         # import pdb; pdb.set_trace()
         proj = self.project
-        symb = proj.loader.find_symbol(name)
+        symb = proj.loader.find_symbol(str(name))
         if symb:
             # Yeah ! Symbols exist and it is already hooked (normaly)
             return symb.rebased_addr

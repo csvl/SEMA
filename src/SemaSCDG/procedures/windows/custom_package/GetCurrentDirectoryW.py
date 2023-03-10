@@ -6,7 +6,7 @@ lw = logging.getLogger("GetCurrentDirectoryW")
 
 class GetCurrentDirectoryW(angr.SimProcedure):
     def getSystemName(self, size):
-        path = ("C:\\Users\\ElNiak"[: size - 1] + "\0").encode(
+        path = ("C:\\Users\\ElNiak\\"[: size - 1] + "\0").encode(
             "utf-16-le"
         )  # truncate if too long
         return path

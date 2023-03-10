@@ -5,7 +5,7 @@ class WaitForSingleObject(angr.SimProcedure):
     def run(self, hHandle, dwMilliseconds):
 
         # Treat hHandle as an unconstrained symbolic variable of type HANDLE
-        #hHandle = self.state.solver.Unconstrained("hHandle", self.state.arch.bits)
+        # hHandle = self.state.solver.Unconstrained("hHandle", self.state.arch.bits)
 
         # Constrain dwMilliseconds to be non-negative
         self.state.add_constraints(dwMilliseconds >= 0)

@@ -14,4 +14,6 @@ class WaitForSingleObjectEx(angr.SimProcedure):
         bAlertable = bool(self.state.solver.eval(bAlertable))
 
         # Return WAIT_OBJECT_0 to indicate that the object is signaled
-        return 0x00000000 #self.state.solver.BVV(angr.sim_type.SimTypeLength.from_arch(self.state.arch).size, 0)
+        return self.state.solver.BVS(
+                "retval_{}".format(self.display_name), self.arch.bits
+            ) #0x00000000 #self.state.solver.BVV(angr.sim_type.SimTypeLength.from_arch(self.state.arch).size, 0)

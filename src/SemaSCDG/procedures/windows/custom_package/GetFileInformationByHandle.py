@@ -32,10 +32,10 @@ class GetFileInformationByHandle(angr.SimProcedure):
         #if os.path.isfile(path):
         #file_attributes |= 0x00000020  # FILE_ATTRIBUTE_ARCHIVE
         
-        file_attributes |= 0x00000080  # FILE_ATTRIBUTE_NORMAL 
+        file_attributes = 0x00000080  # FILE_ATTRIBUTE_NORMAL 
 
         # if os.path.isdir(path):
-        file_attributes |= 0x00000010  # FILE_ATTRIBUTE_DIRECTORY
+        # file_attributes |= 0x00000010  # FILE_ATTRIBUTE_DIRECTORY
 
             # if os.access(path, os.R_OK):
             #     file_attributes |= 0x00000001  # FILE_ATTRIBUTE_READONLY
@@ -43,24 +43,26 @@ class GetFileInformationByHandle(angr.SimProcedure):
             # Write the file attributes to the output buffer
         self.fileinfo_ptr =  self.state.mem[lpFileInformation].int.resolved #lpSystemTime
             
-        
-     
-        self.state.mem[self.fileinfo_ptr].dword = file_attributes.to_bytes(int(self.arch.bits/8), byteorder='little')
+        self.state.mem[self.fileinfo_ptr].dword = self.state.solver.BVS("dwFileAttributes{}".format(self.display_name),32) # file_attributes #.to_bytes(int(self.arch.bits/8), byteorder='little')
         
         ftCreationTime = self.state.solver.BVS("ftCreationTime{}".format(self.display_name),32*2)
-        # self.state.solver.add(ftCreationTime >= 1601)
-        # self.state.solver.add(ftCreationTime < 30827)
-        self.state.mem[self.fileinfo_ptr+4].qword = ftCreationTime
+        self.state.solver.add(ftCreationTime >= 1601)
+        self.state.solver.add(ftCreationTime < 30827)
         
         ftLastAccessTime = self.state.solver.BVS("ftLastAccessTime{}".format(self.display_name),32*2)
-        # self.state.solver.add(ftLastAccessTime >= 1601)
-        # self.state.solver.add(ftLastAccessTime < 30827)
-        self.state.mem[self.fileinfo_ptr+12].qword = int(time.time() * 1000 * 1000 / 100) #ftLastAccessTime
+        self.state.solver.add(ftLastAccessTime >= 1601)
+        self.state.solver.add(ftLastAccessTime < 30827)
         
         ftLastWriteTime = self.state.solver.BVS("ftLastWriteTime{}".format(self.display_name),32*2)
-        # self.state.solver.add(ftLastWriteTime >= 1601)
-        # self.state.solver.add(ftLastWriteTime < 30827)
-        self.state.mem[self.fileinfo_ptr+20].qword = int(time.time() * 1000 * 1000 / 100) #ftLastWriteTime
+        self.state.solver.add(ftLastWriteTime >= 1601)
+        self.state.solver.add(ftLastWriteTime < 30827)
+        
+        self.state.solver.add(ftCreationTime <= ftLastAccessTime)
+        self.state.solver.add(ftLastWriteTime <= ftLastAccessTime)
+        
+        self.state.mem[self.fileinfo_ptr+4].qword  = ftCreationTime # int(time.time() * 1000 * 1000 / 100) # 
+        self.state.mem[self.fileinfo_ptr+12].qword = ftLastAccessTime # int(time.time() * 1000 * 1000 / 100) #
+        self.state.mem[self.fileinfo_ptr+20].qword = ftLastWriteTime # = int(time.time() * 1000 * 1000 / 100) #
         
         
         dwVolumeSerialNumber = self.state.solver.BVS("dwVolumeSerialNumber{}".format(self.display_name),32)
