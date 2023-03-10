@@ -37,8 +37,8 @@ class SemaExplorer(ExplorationTechnique):
         max_end_state=600,
         max_step=100000000000000000000,
         timeout_tab=[1200, 2400, 3600],
-        jump_it=100,
-        loop_counter_concrete=100000000,
+        jump_it=100000000000,
+        loop_counter_concrete=10000000000,
         jump_dict={},
         jump_concrete_dict={},
         max_simul_state=1,
@@ -112,9 +112,10 @@ class SemaExplorer(ExplorationTechnique):
             if is_sao:
                 val = val.to_claripy()
 
-        except Exception:
+        except Exception as e:
             if self.print_on:
                 self.log.info("Symbolic value encountered !")
+                print(e)
             return value
         return val
 
@@ -396,7 +397,21 @@ class SemaExplorer(ExplorationTechnique):
                     "End of the trace number " + str(id_cur) + " unconstrained"
                 )
             self.unconstrained = len(simgr.unconstrained)
-
+            
+    def manage_lost(self, simgr):
+        simgr.move(
+            from_stash="active",
+            to_stash="lost" ,#"lost", deadended
+            filter_func=lambda s: s.addr < simgr._project.loader.main_object.mapped_base,
+        )
+        
+    def manage_end_thread(self, simgr):
+        simgr.move(
+            from_stash="active",
+            to_stash="deadbeef",
+            filter_func=lambda s: s.addr == 0xdeadbeef,
+        )
+        
     def manage_error(self, simgr):
         if len(simgr.errored) > self.errored:
             new_errors = len(simgr.errored) - self.errored
@@ -650,7 +665,7 @@ class SemaExplorer(ExplorationTechnique):
             self.log.info("len(simgr.active) <= 0 or deadended >= self.max_end_state)")
         if True:
             vmem = psutil.virtual_memory()
-            if vmem.percent > 99:
+            if vmem.percent > 97:
                 # TODO return in logs file the malware hash
                 self.log.info("Memory limit reach")
                 return True

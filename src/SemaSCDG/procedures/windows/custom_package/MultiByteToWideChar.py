@@ -3,7 +3,6 @@ import angr
 
 lw = logging.getLogger("CustomSimProcedureWindows")
 
-
 class MultiByteToWideChar(angr.SimProcedure):
 
     def run(

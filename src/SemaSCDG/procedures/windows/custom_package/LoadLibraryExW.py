@@ -7,7 +7,6 @@ from .LoadLibraryA import LoadLibraryA
 
 class LoadLibraryExW(LoadLibraryA):
     def run(self, lib_ptr, flag1, flag2):
-        global system_call_table
         call_sim = None
         try:
             from procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix

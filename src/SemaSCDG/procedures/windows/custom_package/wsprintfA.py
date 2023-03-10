@@ -19,7 +19,7 @@ class wsprintfA(angr.SimProcedure):
             return self.state.solver.BVS(
                 "retval_{}".format(self.display_name), self.arch.bits
             )
-            
+        
         addr = self.state.solver.eval(arg2)
         buf = self.state.solver.eval(arg1)
         byte = self.state.solver.eval(self.state.memory.load(addr,1))
@@ -30,7 +30,7 @@ class wsprintfA(angr.SimProcedure):
             if flag == 1:
                 formatcount += 1
                 flag = 0
-                if byte == 0x64 or byte == 0x69: #d or i
+                if byte == 0x64 or byte == 0x69: #%d %i
                     arg = str(self.state.mem[self.state.regs.esp + 8 + 4 * formatcount].int.concrete)
                     sup_args.append(arg)
                     self.state.memory.store(buf,self.state.solver.BVV(arg))
@@ -55,23 +55,18 @@ class wsprintfA(angr.SimProcedure):
             byte = self.state.solver.eval(self.state.memory.load(addr,1))
         self.arguments = self.arguments + sup_args
         return buf - self.state.solver.eval(arg1)
-            
-            
-            
-        #var_string = self.getVarString(arg2)
-        #n_arg = var_string.count("%")
-        #formats = var_string
-        #sup_args = []
-        #import pdb; pdb.set_trace()
-        #for i in range(1, n_arg + 1):
-        #    sup_args.append(
-        #        self.state.mem[self.state.regs.esp + 8 + 4 * i].int.resolved
-        #    )
         
-        # import pdb; pdb.set_trace()
-        #self.arguments = self.arguments + sup_args
-        #new_str = self.state.solver.BVV(var_string)
-        #self.state.memory.store(arg1, new_str)
-        # import pdb; pdb.set_trace()
+        # var_string = self.getVarString(arg2)
+        # n_arg = var_string.count("%")
+        # sup_args = []
+        # for i in range(1, n_arg + 1):
+        #     sup_args.append(
+        #         self.state.mem[self.state.regs.esp + 8 + 4 * i].int.resolved
+        #     )
+        #     # import pdb; pdb.set_trace()
+        # self.arguments = self.arguments + sup_args
+        # new_str = self.state.solver.BVV(var_string)
+        # self.state.memory.store(arg1, new_str)
+        # # import pdb; pdb.set_trace()
 
-        #return len(var_string)
+        # return len(var_string)

@@ -3,6 +3,8 @@ import sys
 import angr
 import archinfo
 
+lw = logging.getLogger("CustomSimProcedureWindows")
+
 class FindResourceW(angr.SimProcedure):
             
     def run(self, hModule, lpName, lpType):

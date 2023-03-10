@@ -35,12 +35,14 @@ run-web:
 	docker run  \
 			   --rm \
 			   -v $(PWD)/src/:/app/src/ \
+			   -v $(PWD)/setup.py:/app/setup.py \
+			   -v $(PWD)/run_server.sh:/app/run_server.sh \
 			   -v /app/src/submodules/ \
 			   -v $(PWD)/SemaWebApp/:/app/SemaWebApp/ \
 			   -v /tmp/.X11-unix:/tmp/.X11-unix \
 			   -v $(PWD)/penv-fix/:/penv-fix/ \
     		   -e DISPLAY=$(DISPLAY) \
-			   -p 8080:80 \
+			   -p 80:80 \
 			   --network="bridge" \
 			   -it sema-web bash run_server.sh
 
@@ -52,6 +54,6 @@ run-sh:
 			   -v $(PWD)/SemaWebApp/:/app/SemaWebApp/ \
 			   -v /tmp/.X11-unix:/tmp/.X11-unix \
     		   -e DISPLAY=$(DISPLAY) \
-			   -p 8080:80 \
+			   -p 80:80 \
 			   --network="bridge" \
 			   -it sema-web bash

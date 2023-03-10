@@ -7,7 +7,6 @@ lw = logging.getLogger("CustomSimProcedureWindows")
 
 class LoadLibraryW(angr.SimProcedure):
     def run(self, lib_ptr):
-        global system_call_table
         call_sim = None
         try:
             from procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
@@ -17,7 +16,10 @@ class LoadLibraryW(angr.SimProcedure):
             call_sim = CustomSimProcedure([], [],True, True)
         proj = self.state.project
         lib = self.state.mem[lib_ptr].wstring.concrete
-        lib = str(lib).lower()
+        if hasattr(lib, "decode"):
+            lib = lib.decode("utf-16-le").lower()
+        else:
+            lib = str(lib).lower()
         # We will create a fake symbol to represent the handle to the library
         # Check first if we already did that before
         symb = proj.loader.find_symbol(lib)

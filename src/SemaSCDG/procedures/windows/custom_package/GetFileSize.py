@@ -14,7 +14,7 @@ class GetFileSize(angr.SimProcedure):
         # import pdb; pdb.set_trace()
         if simfd is None:
             lw.info("GetFileSize: could not find fd")
-            return self.state.solver.BVS("retval_{}".format(self.display_name), 32)
+            return self.state.solver.BVS("retval_{}".format(self.display_name),  self.arch.bits)
         lw.info(
             "GetFileSize: {}  asks file size of {}".format(self.display_name, hFile)
         )

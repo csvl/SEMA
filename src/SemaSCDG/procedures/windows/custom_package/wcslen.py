@@ -6,7 +6,7 @@ class wcslen(angr.SimProcedure):
         # Ensure that string is a wide-character string
         self.argument_types = {0: self.ty_ptr(SimTypeString())}
         self.return_type = SimTypeLength(self.state.arch)
-        print("cacacacacac")
+        # print("cacacacacac")
         # Use angr's memory access functions to determine the length of the string
         length = self.state.memory.load(string, 4, endness='Iend_LE')
         return length

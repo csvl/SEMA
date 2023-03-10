@@ -3,6 +3,8 @@ import sys
 import angr
 import archinfo
 
+lw = logging.getLogger("CustomSimProcedureWindows")
+
 class FindResourceA(angr.SimProcedure):
     def run(self, hModule, lpName, lpType):
         minaddr = self.state.project.loader.min_addr
@@ -39,7 +41,7 @@ class FindResourceA(angr.SimProcedure):
         finaloffset = self.state.solver.eval(self.state.memory.load(rsrc+offset,4,endness=archinfo.Endness.LE))
         size = self.state.solver.eval(self.state.memory.load(rsrc+offset+0x4,4,endness=archinfo.Endness.LE))
         resource = self.state.solver.eval(self.state.memory.load(minaddr+finaloffset,size,endness=archinfo.Endness.LE))
-        self.state.globals["resources"][finaloffset+minaddr] = size
+        self.state.plugin_resources.resources[finaloffset+minaddr] = {"size": size, "name": name, "data": resource, "rsrcname": rsrcname}
         x = finaloffset+minaddr
         return finaloffset+minaddr
         

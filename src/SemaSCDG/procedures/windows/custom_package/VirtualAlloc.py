@@ -1,7 +1,7 @@
 import angr
 import logging
 
-l = logging.getLogger(name=__name__)
+l = logging.getLogger("CustomSimProcedureWindows")
 
 def convert_prot(prot):
     """
@@ -37,14 +37,17 @@ def deconvert_prot(prot):
 # https://msdn.microsoft.com/en-us/library/windows/desktop/aa366890(v=vs.85).aspx
 class VirtualAlloc(angr.SimProcedure):
     def run(self, lpAddress, dwSize, flAllocationType, flProtect):
-        l.debug("VirtualAlloc(%s, %s, %s, %s)", lpAddress, dwSize, flAllocationType, flProtect)
+        l.info("VirtualAlloc(%s, %s, %s, %s)", lpAddress, dwSize, flAllocationType, flProtect)
         addrs = self.state.solver.eval_upto(lpAddress, 2)
         if len(addrs) != 1:
             raise angr.errors.SimValueError("VirtualAlloc can't handle symbolic lpAddress")
         addr = addrs[0]
         addr &= ~0xfff
+        
+        l.info("VirtualAlloc addr %#x", addr)
 
         size = self.state.solver.max_int(dwSize)
+        l.info("VirtualAlloc size %#x", size)
         if dwSize.symbolic and size > self.state.libc.max_variable_size:
             l.warning('symbolic VirtualAlloc dwSize %s has maximum %#x, greater than state.libc.max_variable_size %#x',
                       dwSize, size, self.state.libc.max_variable_size)
@@ -65,24 +68,30 @@ class VirtualAlloc(angr.SimProcedure):
         if flags & 0x00080000 or flags & 0x1000000:
             l.warning("VirtualAlloc with MEM_RESET and MEM_RESET_UNDO are not supported")
             return addr
+        
+        ft = True if flags & 0x00100000 else False
+        l.info("VirtualAlloc FromTop %s", ft)
+        
+        # if size == 0x7fff0000:
+        #    return 0
 
         if flags & 0x00002000 or addr == 0: # MEM_RESERVE
             if addr == 0:
-                l.debug("...searching for address")
+                l.info("...searching for address")
                 while True:
-                    addr = self.allocate_memory(size)
+                    addr = self.allocate_memory(size,from_top=ft)
                     try:
                         self.state.memory.map_region(addr, size, angr_prot, init_zero=True)
                     except angr.errors.SimMemoryError:
                         continue
                     else:
-                        l.debug("...found %#x", addr)
+                        l.info("...found %#x", addr)
                         break
             else:
                 try:
                     self.state.memory.map_region(addr, size, angr_prot, init_zero=True)
                 except angr.errors.SimMemoryError:
-                    l.debug("...failed, bad address")
+                    l.info("...failed, bad address")
                     return 0
 
         if flags & 0x00001000: # MEM_COMMIT
@@ -90,19 +99,26 @@ class VirtualAlloc(angr.SimProcedure):
             try:
                 self.state.memory.permissions(addr)
             except angr.errors.SimMemoryError:
-                l.debug("...not reserved")
+                l.info("...not reserved")
                 return 0
 
         # if we got all the way to the end, nothing failed! success!
         return addr
 
-    def allocate_memory(self,size):
+    def allocate_memory(self,size,from_top=False):
+        #if not from_top:
         addr = self.state.heap.mmap_base
         new_base = addr + size
+        # else:
+        #     addr = self.state.heap.max_addr
+        #     new_base = addr - size
 
         if new_base & 0xfff:
             new_base = (new_base & ~0xfff) + 0x1000
 
+        #if not from_top:
         self.state.heap.mmap_base = new_base
+        # else:
+        #     self.state.heap.max_addr = new_base
         return addr
 

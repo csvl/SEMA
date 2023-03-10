@@ -1,13 +1,18 @@
 import angr
 import claripy
+import logging
 
+lw = logging.getLogger("CustomSimProcedureWindows")
 
 class FindFirstFileA(angr.SimProcedure):
     def run(self, lpFileName, lpFindFileData):
         try:
-            print(self.state.mem[lpFileName].string.concrete)
+            name = self.state.mem[lpFileName].string.concrete
+            if hasattr(name, "decode"):
+                name = name.decode("utf-8")
+                lw.info(name)
         except:
-            print(self.state.memory.load(lpFileName,0x20))
+            lw.info(self.state.memory.load(lpFileName,0x20))
         if self.state.globals["FindFirstFile"] == 0:
             self.state.globals["FindFirstFile"] == 1
             self.state.memory.store(lpFindFileData, claripy.BVS("dwFileAttributes", 8 * 4))

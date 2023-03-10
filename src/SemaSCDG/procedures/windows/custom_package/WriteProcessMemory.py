@@ -15,5 +15,5 @@ class WriteProcessMemory(angr.SimProcedure):
         lpNumberOfBytesWritten
     ):
         x = self.state.solver.eval(nSize)
-        self.state.memory.store(lpBaseAddress, self.state.memory.load(lpBuffer,x))
+        self.state.memory.store(lpBaseAddress, self.state.memory.load(lpBuffer,x),size=x)
         return 0x1

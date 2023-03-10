@@ -26,15 +26,15 @@ class NtQueryInformationProcess(angr.SimProcedure):
             self.state.memory.store(ProcessInformation + 4, self.state.memory.load(teb_addr + 0x30,4))
             
         if class_type == 7: #ProcessDebugPort
-            procinfo = self.state.solver.BVV(0x0,32)
+            procinfo = self.state.solver.BVV(0x0, self.arch.bits)
             self.state.memory.store(ProcessInformation, procinfo)
         
         if class_type == 0x1E: #ProcessDebugObjectHandle
-            procinfo = self.state.solver.BVV(0x0,32)
+            procinfo = self.state.solver.BVV(0x0, self.arch.bits)
             self.state.memory.store(ProcessInformation, procinfo)
             
         if class_type == 0x1F: #ProcessDebugFlags
-            procinfo = self.state.solver.BVV(0x1,32)
+            procinfo = self.state.solver.BVV(0x1, self.arch.bits)
             self.state.memory.store(ProcessInformation, procinfo)
         
         return 0x0

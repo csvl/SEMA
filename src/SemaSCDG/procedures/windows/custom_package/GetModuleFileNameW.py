@@ -9,4 +9,7 @@ class GetModuleFileNameW(GetModuleFileNameA):
 
     def decodeString(self, ptr):
         lib = self.state.mem[ptr].wstring.concrete
+        # lib = self.state.mem[ptr].string.concrete
+        # if not isinstance(lib, str):
+        #     lib = lib.decode("utf-8") # TODO 
         return lib

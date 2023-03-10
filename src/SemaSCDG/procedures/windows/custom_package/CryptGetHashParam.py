@@ -13,7 +13,7 @@ class CryptGetHashParam(angr.SimProcedure):
         pdwDataLen,
         dwFlags
     ):
-        ptr1 = claripy.BVV(0x10,32)
+        ptr1 = claripy.BVV(0x10, self.arch.bits)
         self.state.memory.store(pdwDataLen,ptr1)
         ptr = claripy.BVV(self.state.globals["crypt_result"])
         self.state.memory.store(pbData,ptr)

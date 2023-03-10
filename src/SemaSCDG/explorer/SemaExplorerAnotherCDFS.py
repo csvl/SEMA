@@ -75,7 +75,7 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
             # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             self.log.warning(exc_type, exc_obj)
             exit(-1)
-
+            
         super().build_snapshot(simgr)
 
         if self.print_sm_step and (
@@ -86,6 +86,7 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
 
         # We detect fork for a state
         super().manage_fork(simgr)
+        
 
         # Remove state which performed more jump than the limit allowed
         super().remove_exceeded_jump(simgr)
@@ -138,6 +139,10 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
         super().manage_error(simgr)
 
         super().manage_unconstrained(simgr)
+        
+        super().manage_end_thread(simgr)
+        
+        super().manage_lost(simgr)
 
         if self.flag:
             while simgr.active:

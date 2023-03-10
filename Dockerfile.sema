@@ -83,6 +83,7 @@ WORKDIR /app/
 ADD src /app/src
 ADD setup.py /app/
 ADD .git/ /app/.git/
+ADD .gitmodules /app/.gitmodules
 RUN git submodule update --init --recursive
 RUN git submodule update --recursive
 
@@ -137,3 +138,7 @@ RUN apt update; apt-get install --fix-missing -y  \
                 yara
 
 ADD yara/ /app/yara/
+
+# Angr-utils for cfg
+RUN cd /app/src/submodules/bingraphvis; pip install .
+RUN cd /app/src/submodules/angr-utils;  pip install .

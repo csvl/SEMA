@@ -19,7 +19,12 @@ class TlsSetValue(angr.SimProcedure):
 
     def run(self, index, value):
         conc_indexs = self.state.solver.eval_upto(index, 2)
+        lw.info("TlsSetValue - Index : " + str(conc_indexs))
+        lw.info("TlsSetValue - Value : " + str(value))
+        lw.info("TlsSetValue - Value eval : " + str(self.state.solver.eval(value)))
+        lw.info("TlsSetValue - index eval : " + str(self.state.solver.eval(index)))
         if len(conc_indexs) != 1:
+            lw.info(conc_indexs)
             raise angr.errors.SimValueError(
                 "Can't handle symbolic index in TlsSetValue/FlsSetValue"
             )

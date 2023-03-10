@@ -1,12 +1,7 @@
 import logging
 import angr
 
- 
-
 lw = logging.getLogger("CustomSimProcedureWindows")
-
- 
-
 
 class CreateFileA(angr.SimProcedure):
     def decodeString(self, ptr):
@@ -19,8 +14,6 @@ class CreateFileA(angr.SimProcedure):
                 filename = filename.decode("utf-8", errors="ignore")
                 # filename = filename.decode("ascii")
         return filename
-
- 
 
     def run(
         self,
@@ -50,9 +43,10 @@ class CreateFileA(angr.SimProcedure):
         fd = self.state.posix.open(name, self.state.solver.BVV(2, self.arch.bits))
         # import pdb; pdb.set_trace()
         if fd is None:
+            lw.info("fd is none")
             return self.state.solver.BVS(
                 "retval_{}".format(self.display_name), self.arch.bits
             )
-        real_fd  = open(name, "wb")
-        self.state.globals["files"][fd] = real_fd
+        #real_fd  = open(name, "wb") # TODO fix
+        self.state.globals["files"][fd] = name #name #real_fd
         return fd

@@ -1,5 +1,6 @@
 import logging
 import angr
+import struct
 
 lw = logging.getLogger("CustomSimProcedureWindows")
 

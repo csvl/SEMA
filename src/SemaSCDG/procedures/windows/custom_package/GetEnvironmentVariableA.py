@@ -8,21 +8,20 @@ class GetEnvironmentVariableA(angr.SimProcedure):
     """
     https://docs.microsoft.com/en-us/windows/win32/api/processenv/nf-processenv-getenvironmentvariablea
     """
-
     def get_str(self, lpName, size):
         name = self.state.mem[lpName].string.concrete
         if hasattr(name, "decode"):
             name = name.decode("utf-8")
         name = name.upper()
-        print(name)
+        lw.info(name)
         if name in self.state.plugin_env_var.env_var:
-            print("Swag")
+            lw.info("Swag")
             ret = self.state.plugin_env_var.env_var[name][:size]
-            print(ret)
+            lw.info(ret)
             # lw.warning(name + " " + str(size) + " " + ret)
             try:  # TODO investigate why needed with explorer
                 if ret[-1] != "\0":
-                    ret[-1] = "\0"
+                    ret += "\0"
             except IndexError:
                 lw.warning("IndexError - GetEnvironmentVariableA")
                 ret = "\0"
@@ -30,7 +29,9 @@ class GetEnvironmentVariableA(angr.SimProcedure):
                 ret = ret.encode("utf-8")
         else:
             ret = None
-        print(ret)
+            self.state.plugin_env_var.env_var[name] = None
+        lw.info(ret)
+        self.state.plugin_env_var.env_var_requested[name] = ret
         return ret
 
     def run(self, lpName, lpBuffer, nSize):
@@ -50,14 +51,9 @@ class GetEnvironmentVariableA(angr.SimProcedure):
         size = self.state.solver.eval(nSize)
         ret_len = size
         
-        # var = self.get_str(lpName, size)
-        # new_str = self.state.solver.BVV(var)
-        # print(new_str)
-        # self.state.memory.store(lpBuffer, new_str)
-
-        #var = self.get_str(lpName, size)
+        var = self.get_str(lpName, size)
         # import pdb; pdb.set_trace()
-        if False:
+        if var:
             new_str = self.state.solver.BVV(var)
             ret_len = len(var)
 
@@ -73,4 +69,3 @@ class GetEnvironmentVariableA(angr.SimProcedure):
                 return self.state.solver.BVS(
                     "retval_{}".format(self.display_name), self.arch.bits
                 )
-        return ret_len

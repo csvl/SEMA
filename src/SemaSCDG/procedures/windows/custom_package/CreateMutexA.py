@@ -5,7 +5,7 @@ lw = logging.getLogger("CustomSimProcedureWindows")
 
 class CreateMutexA(angr.SimProcedure):
     def run(self, lpMutexAttributes, bInitialOwner, lpName):
-        error = self.state.solver.BVS("error",32)
+        error = self.state.solver.BVS("error", self.arch.bits)
         self.state.solver.add(error != 0xb7)
         self.state.globals["GetLastError"] = error
         retval = self.state.solver.BVS(
