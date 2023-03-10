@@ -73,13 +73,11 @@ class PluginHooks: # TODO replace with classses
             size_of_headers = int.from_bytes(cont[pe_header+0x54:pe_header+0x54+4],"little")
             base_of_code = int.from_bytes(cont[pe_header+0x2c:pe_header+0x2c+4],"little")
             image_base = int.from_bytes(cont[pe_header+0x34:pe_header+0x34+4],"little")
-        else:
-            print("64bits") # TODO FIXXXX
+        else: # TODO FIX
             size_of_headers = int.from_bytes(cont[pe_header+0x70:pe_header+0x70+4], "little")
             base_of_code = int.from_bytes(cont[pe_header+0x48:pe_header+0x48+4], "little")
             image_base = int.from_bytes(cont[pe_header+0x38:pe_header+0x38+8], "little")
         total = base_of_code + image_base - size_of_headers
-        print(hex(total))
         
         addr_list = [m.start()+total for m in re.finditer(b'\xf3\xab',cont)]
         if(len(addr_list) > 0):
@@ -110,32 +108,9 @@ class PluginHooks: # TODO replace with classses
             offset = cont.find(self.internal_functions_hooks[fun])
             if offset != -1:
                 self.hooks[fun] = offset+total
-              
-        print(self.hooks.keys())  
-        print(self.hooks["magicRAT_trap"])
-        print(self.hooks["trap"])
-        print(self.hooks["force_test"])
         
+        #self.hooks["cpuid"] = [0x559e37,0x559e27,0x559e68]
         
-        # self.hooks["magicRAT_trap"] = 0x4870c0
-        
-        self.hooks["cpuid"] = [0x559e37,0x559e27,0x559e68]
-        
-        # self.hooks["LAB_00cafb11"] = 0x00cafb11
-        
-        # self.hooks["0x701140"] = 0x701140
-         
-        # self.hooks["sse3_mrat"] = 0xf23172
-        # self.hooks["trap_2"] = 0x01185c25
-        # self.hooks["trap_3"] = 0x01185ceb
-        # self.hooks["trap"] = 0xd80ba7
-        # self.hooks["force_test"] = 0x0040132e
-        
-        # 85 db <-> 0x0040132e
-
-        
-        #exit()
-                
     def hook(self,state,proj,call_sim):
         if False: # TODO 
             if "std" in self.hooks:
@@ -156,7 +131,7 @@ class PluginHooks: # TODO replace with classses
                 for addr in self.hooks["rep movsd"]:
                     proj.hook(
                         addr,
-                        call_sim.custom_simproc_windows["custom_hook"]["RepMovsdHook"](plength=2), # TODO remove from SCDG
+                        call_sim.custom_simproc_windows["custom_hook"]["RepMovsdHook"](plength=2),
                         length=2
                     )    
             if "rep movsb" in self.hooks:
@@ -167,20 +142,20 @@ class PluginHooks: # TODO replace with classses
                         length=2
                     )   
            
-        if "rep stosd" in self.hooks:
-            for addr in self.hooks["rep stosd"]:
+            if "rep stosd" in self.hooks:
+                for addr in self.hooks["rep stosd"]:
+                    proj.hook(
+                        addr,
+                        call_sim.custom_simproc_windows["custom_hook"]["RepStosdHook"](plength=2),
+                        length=2
+                    )
+        
+            for addr in self.hooks["cpuid"]:
                 proj.hook(
                     addr,
-                    call_sim.custom_simproc_windows["custom_hook"]["RepStosdHook"](plength=2),
+                    call_sim.custom_simproc_windows["custom_hook"]["CPUIDHook"](plength=2),
                     length=2
-                )
-        
-        for addr in self.hooks["cpuid"]:
-            proj.hook(
-                addr,
-                call_sim.custom_simproc_windows["custom_hook"]["CPUIDHook"](plength=2),
-                length=2
-            ) 
+                ) 
         # TODO change key per class name and add list for multiple hooks                 
         for fun in self.hooks.keys():
             if fun == "copy" or fun == "copy_2":

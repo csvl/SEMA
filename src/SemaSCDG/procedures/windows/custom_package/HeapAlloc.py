@@ -5,7 +5,6 @@ lw = logging.getLogger("CustomSimProcedureWindows")
 
 class HeapAlloc(angr.SimProcedure):
     def run(self, HeapHandle, Flags, Size): #pylint:disable=arguments-differ, unused-argument
-        print(Size)
         addr = self.state.heap._malloc(Size)
 
         # conditionally zero the allocated memory

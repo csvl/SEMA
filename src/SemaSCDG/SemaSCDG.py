@@ -23,7 +23,7 @@ import claripy
 import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from capstone import *
-from angrutils import * 
+# from angrutils import * 
 # Syscall table stuff
 import angr
 from angr.sim_type import SimTypeInt, SimTypePointer, SimTypeArray, SimTypeChar
@@ -43,6 +43,7 @@ try:
     from .plugin.PluginEvasion import *
     from .plugin.PluginCommands import *
     from .plugin.PluginThread import *
+    from .plugin.PluginIoC import *
     from .explorer.SemaExplorerDFS import SemaExplorerDFS
     from .explorer.SemaExplorerChooseDFS import SemaExplorerChooseDFS
     from .explorer.SemaExplorerCDFS import SemaExplorerCDFS
@@ -67,6 +68,7 @@ except:
     from plugin.PluginResources import *
     from plugin.PluginEvasion import *
     from plugin.PluginCommands import *
+    from plugin.PluginIoC import *
     from explorer.SemaExplorerDFS import SemaExplorerDFS
     from explorer.SemaExplorerChooseDFS import SemaExplorerChooseDFS
     from explorer.SemaExplorerCDFS import SemaExplorerCDFS
@@ -170,6 +172,7 @@ class SemaSCDG:
         
         self.hooks = PluginHooks()
         self.commands = PluginCommands()
+        self.ioc = PluginIoC()
         self.eval_time = False
         
         self.families = []
@@ -379,16 +382,6 @@ class SemaSCDG:
             addr = addr_main.rebased_addr
         else:
             addr = None
-
-        # Wabot
-        # addr = 0x004081fc
-        # addr = 0x00401500
-        # addr = 0x00406fac
-        
-        # MagicRAT
-        # addr = 0x40139a
-        # addr = 0x06fda90
-        # addr = 0x06f7e90
         
         # Create initial state of the binary
         options = {angr.options.SIMPLIFY_MEMORY_READS} 
@@ -438,8 +431,8 @@ class SemaSCDG:
             "heap", angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc(heap_size = 0x10000000)
         )
         
-        state.libc.max_variable_size = 0x20000000*2 + 0x18000000
-        state.libc.max_memcpy_size   = 0x20000000*2
+        #state.libc.max_variable_size = 0x20000000*2 + 0x18000000
+        #state.libc.max_memcpy_size   = 0x20000000*2
 
         pagefile = angr.SimFile("pagefile.sys", content=cont)
         state.fs.insert("pagefile.sys", pagefile)
@@ -510,7 +503,7 @@ class SemaSCDG:
         else:
             self.call_sim.custom_hook_windows_symbols(proj)
 
-        if args.sim_file:
+        if True:
             self.hooks.initialization(cont, is_64bits=True if proj.arch.name == "AMD64" else False)
             self.hooks.hook(state,proj,self.call_sim)
                 
@@ -697,14 +690,13 @@ class SemaSCDG:
         elapsed_time = time.time() - self.start_time
         self.log.info("Total execution time: " + str(elapsed_time))
         
-        # Track the buffer containing commands
-        
         if args.track_command:
-            self.commands.track(simgr,self.scdg)
-        
+            self.commands.track(simgr, self.scdg)
+        if False:
+            self.ioc.build_ioc(self.scdg)
         # Build SCDG
         self.build_scdg_fin(exp_dir, nameFileShort, main_obj, state, simgr)
-        self.build_ioc(exp_dir, nameFileShort, main_obj, state, simgr)
+        
         g = GraphBuilder(
             name=nameFileShort,
             mapping="mapping.txt",
@@ -791,6 +783,7 @@ class SemaSCDG:
         tsimgr.active[0].globals["JumpExcedeed"] = False
         tsimgr.active[0].globals["JumpTable"] = {}
         tsimgr.active[0].globals["n_steps"] = 0
+        tsimgr.active[0].globals["n_forks"] = 0
         tsimgr.active[0].globals["last_instr"] = 0
         tsimgr.active[0].globals["counter_instr"] = 0
         tsimgr.active[0].globals["loaded_libs"] = {}
@@ -798,26 +791,26 @@ class SemaSCDG:
         tsimgr.active[0].globals["loop"] = 0
         tsimgr.active[0].globals["crypt_algo"] = 0
         tsimgr.active[0].globals["crypt_result"] = 0
-        simgr.active[0].globals["n_buffer"] = 0
-        simgr.active[0].globals["n_calls"] = 0
-        simgr.active[0].globals["recv"] = 0
-        simgr.active[0].globals["rsrc"] = 0
-        simgr.active[0].globals["resources"] = {}
-        simgr.active[0].globals["df"] = 0
-        simgr.active[0].globals["files"] = {}
-        simgr.active[0].globals["n_calls_recv"] = 0
-        simgr.active[0].globals["n_calls_send"] = 0
-        simgr.active[0].globals["n_buffer_send"] = 0
-        simgr.active[0].globals["buffer_send"] = []
-        simgr.active[0].globals["files"] = {}
-        simgr.active[0].globals["FindFirstFile"] = 0
-        simgr.active[0].globals["FindNextFile"] = 0
-        simgr.active[0].globals["GetMessageA"] = 0
-        simgr.active[0].globals["GetLastError"] = claripy.BVS("last_error", 32)
-        simgr.active[0].globals["HeapSize"] = {}
-        simgr.active[0].globals["CreateThread"] = 0
-        simgr.active[0].globals["CreateRemoteThread"] = 0
-        simgr.active[0].globals["condition"] = ""
+        tsimgr.active[0].globals["n_buffer"] = 0
+        tsimgr.active[0].globals["n_calls"] = 0
+        tsimgr.active[0].globals["recv"] = 0
+        tsimgr.active[0].globals["rsrc"] = 0
+        tsimgr.active[0].globals["resources"] = {}
+        tsimgr.active[0].globals["df"] = 0
+        tsimgr.active[0].globals["files"] = {}
+        tsimgr.active[0].globals["n_calls_recv"] = 0
+        tsimgr.active[0].globals["n_calls_send"] = 0
+        tsimgr.active[0].globals["n_buffer_send"] = 0
+        tsimgr.active[0].globals["buffer_send"] = []
+        tsimgr.active[0].globals["files"] = {}
+        tsimgr.active[0].globals["FindFirstFile"] = 0
+        tsimgr.active[0].globals["FindNextFile"] = 0
+        tsimgr.active[0].globals["GetMessageA"] = 0
+        tsimgr.active[0].globals["GetLastError"] = claripy.BVS("last_error", 32)
+        tsimgr.active[0].globals["HeapSize"] = {}
+        tsimgr.active[0].globals["CreateThread"] = 0
+        tsimgr.active[0].globals["CreateRemoteThread"] = 0
+        tsimgr.active[0].globals["condition"] = ""
         tsimgr.active[0].globals["files_fd"] = {}
         tsimgr.active[0].globals["create_thread_address"] = []
         tsimgr.active[0].globals["is_thread"] = False

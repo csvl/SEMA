@@ -44,26 +44,6 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
         self.flag = False
         self.nberror = 0
         
-    def take_longuest(self, simgr, source_stash):
-        """
-        Take a state of source_stash with longuest amount of steps and append it to active stash
-        @pre : source_stash exists
-        """
-        id_to_move = 0
-        max_step = 0
-        if len(simgr.stashes[source_stash]) > 0:
-            id_to_move = simgr.stashes[source_stash][0].globals["id"]
-            max_step = simgr.stashes[source_stash][0].globals["n_forks"]
-        else:
-            return
-
-        for s in simgr.stashes[source_stash]:
-            if s.globals["n_forks"] > max_step:
-                id_to_move = s.globals["id"]
-                max_step = s.globals["n_forks"]
-
-        simgr.move(source_stash, "active", lambda s: s.globals["id"] == id_to_move)
-        
     def step(self, simgr, stash="active", **kwargs):
         try:
             simgr = simgr.step(stash=stash, **kwargs)
@@ -87,7 +67,6 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
         # We detect fork for a state
         super().manage_fork(simgr)
         
-
         # Remove state which performed more jump than the limit allowed
         super().remove_exceeded_jump(simgr)
 
@@ -128,8 +107,6 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
             )
                 
             
-
-        
         super().mv_bad_active(simgr)
 
         super().manage_pause(simgr)
@@ -148,19 +125,11 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
             while simgr.active:
                 simgr.stashes["pause"].append(simgr.active.pop(0))
             while len(simgr.stashes["new_addr"]) > 0 and len(simgr.active) < self.max_simul_state:
-                s = simgr.stashes["new_addr"].pop(0)
+                s = simgr.stashes["new_addr"].pop()
                 print("this is new   " + hex(s.addr))
                 simgr.active.append(s)
             while len(simgr.stashes["pause"]) > 0 and len(simgr.active) < self.max_simul_state:
-                self.take_longuest(simgr, "pause")
-            print("\n\npause stash")
-            for p in simgr.stashes["pause"]:
-                print(p.globals["condition"])
-            print("\n\nnew addr stash")
-            for p in simgr.stashes["new_addr"]:
-                print(p.globals["condition"])
-            print("\n\ncurrent active")
-            print(simgr.active[0].globals["condition"])
+                super().take_longuest(simgr, "pause")
             self.log.info("Currently, simulation manager is :")
             self.log.info(str(simgr))
             self.flag = False

@@ -34,11 +34,11 @@ class PluginCommands:
         for state in simgr.deadended + simgr.stashes["pause"]:
             for key, symbol in state.solver.get_variables("buffer"):
                 buf = hex(state.solver.eval(symbol))
-                if buf != "0x0": #and len(buf) == 25:
+                if buf != "0x0":
                     calls = []
                     flag = False
                     for dic in scdg[state.globals["id"]]:
-                        if dic["name"] == "InternetReadFile":
+                        if dic["name"] == "recv":
                             flag = True
                         if flag and dic["name"] not in not_interesting:
                             calls.append(dic["name"])

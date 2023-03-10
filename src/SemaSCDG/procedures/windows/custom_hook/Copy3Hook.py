@@ -7,7 +7,6 @@ class Copy3Hook(angr.SimProcedure):
         self.plength=plength
         
     def run(self):
-        print("copy 3")
         x = self.state.stack_pop()
         y = self.state.stack_pop()
         z = self.state.stack_pop()
@@ -18,6 +17,5 @@ class Copy3Hook(angr.SimProcedure):
         self.state.stack_push(x)
         self.state.memory.store(y, self.state.memory.load(z, w))
         jumpkind = 'Ijk_NoHook' if self.plength == 0 else 'Ijk_Boring'
-        print(self.plength)
         self.successors.add_successor(self.state, self.state.addr+self.plength, self.state.solver.true, jumpkind)
         #return
