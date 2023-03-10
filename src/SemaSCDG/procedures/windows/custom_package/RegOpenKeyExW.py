@@ -14,4 +14,8 @@ class RegOpenKeyExW(angr.SimProcedure):
         samDesired,
         phkResult
     ):
+        ptr = self.state.solver.BVS(
+            "key_handle_{}".format(self.display_name), self.arch.bits
+        )
+        self.state.memory.store(phkResult,ptr)
         return 0x0

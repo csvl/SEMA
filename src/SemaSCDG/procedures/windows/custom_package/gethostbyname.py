@@ -10,6 +10,6 @@ class gethostbyname(angr.SimProcedure):
             print(self.state.mem[hostname].string.concrete)
         except:
             print(self.state.memory.load(hostname,0x20))
-        addr = self.state.heap._malloc(10)
-        self.state.memory.store(addr, self.state.solver.BVV("127.0.0.1"))
+        addr = self.state.heap._malloc(8)
+        self.state.memory.store(addr, self.state.solver.BVV("1.2.3.4"))
         return addr

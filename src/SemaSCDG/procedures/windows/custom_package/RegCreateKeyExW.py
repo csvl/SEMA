@@ -4,7 +4,7 @@ import angr
 lw = logging.getLogger("CustomSimProcedureWindows")
 
 
-class RegCreateKeyExA(angr.SimProcedure):
+class RegCreateKeyExW(angr.SimProcedure):
 
     def run(
         self,

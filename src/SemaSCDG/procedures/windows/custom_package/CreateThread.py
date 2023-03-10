@@ -15,7 +15,9 @@ class CreateThread(angr.SimProcedure):
         dwCreationFlags,
         lpThreadId
     ):
-        #return self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)
+
+        return self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)
+        
         code_addr = self.state.solver.eval(lpStartAddress)
         ret_addr = self.state.stack_pop()
         self.state.regs.esp += 4 * 6

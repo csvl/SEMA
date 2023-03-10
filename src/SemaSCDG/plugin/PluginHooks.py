@@ -17,6 +17,7 @@ import zlib
 import binascii
 import mmh3
 import re
+import time
 
 class CopyUser(angr.SimProcedure):
     def run(self):
@@ -146,16 +147,22 @@ class PluginHooks: # TODO replace with classses
             elif fun == "copy_2":
                 @proj.hook(self.hooks[fun], length=len(self.internal_functions_hooks[fun]))
                 def nothing(state):
+                    file = open('timeinhook.txt', 'a')
+                    t1 = time.time()
                     print("copy")
                     x = state.stack_pop()
                     y = state.stack_pop()
                     state.stack_push(y)
                     state.stack_push(x)
                     state.memory.store(state.regs.ecx, state.memory.load(state.regs.edx, y))
+                    t2 = time.time()
+                    file.write("copy2 " + str(t2-t1)+"\n")
                     return           
             elif fun == "copy_3":
                 @proj.hook(self.hooks[fun], length=len(self.internal_functions_hooks[fun]))
                 def nothing(state):
+                    file = open('timeinhook.txt', 'a')
+                    t1 = time.time()
                     print("copy")
                     x = state.stack_pop()
                     y = state.stack_pop()
@@ -166,11 +173,15 @@ class PluginHooks: # TODO replace with classses
                     state.stack_push(y)
                     state.stack_push(x)
                     state.memory.store(y, state.memory.load(z, w))
+                    t2 = time.time()
+                    file.write("copy3 " + str(t2-t1)+"\n")
                     return
             elif fun == "murmurhash":
                 @proj.hook(self.hooks[fun], length=len(self.internal_functions_hooks[fun]))
                 def nothing(state):
                     print("murmur hash")
+                    file = open('timeinhook.txt', 'a')
+                    t1 = time.time()
                     x = state.stack_pop()
                     y = state.stack_pop()
                     z = state.stack_pop()
@@ -181,6 +192,8 @@ class PluginHooks: # TODO replace with classses
                     hashh = mmh3.hash(bytestring,state.solver.eval(y),False)
                     ptr = state.solver.BVV(hashh,32)
                     state.memory.store(z,ptr,endness=state.arch.memory_endness)
+                    t2 = time.time()
+                    file.write("murmurhash " + str(t2-t1)+"\n")
                     return             
             elif fun == "murmurhash2":
                 @proj.hook(self.hooks[fun], length=len(self.internal_functions_hooks[fun]))
@@ -230,14 +243,19 @@ class PluginHooks: # TODO replace with classses
             elif fun == "findstart4":
                 @proj.hook(self.hooks[fun], length=len(self.internal_functions_hooks[fun]))
                 def nothing(state):
+                    file = open('timeinhook.txt', 'a')
+                    t1 = time.time()
                     print("find start")
                     state.regs.eax = 0x400000
+                    t2 = time.time()
+                    file.write("findstart " + str(t2-t1) +"\n")
                     return             
             elif fun == "findstart5":
                 @proj.hook(self.hooks[fun], length=len(self.internal_functions_hooks[fun]))
                 def nothing(state):
                     print("find start")
                     state.regs.eax = 0x400000
+                    print(state.addr)
                     return
             elif fun == "weed":
                 @proj.hook(self.hooks[fun], length=len(self.internal_functions_hooks[fun]))

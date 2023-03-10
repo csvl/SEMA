@@ -26,6 +26,8 @@ from capstone import *
 
 # Syscall table stuff
 import angr
+import dill as pickle
+
 
 # Personnal stuf
 try:
@@ -34,7 +36,9 @@ try:
     from .plugin.PluginEnvVar import *
     from .plugin.PluginHooks import *
     from .plugin.PluginEvasion import *
+    from .plugin.PluginCommands import *
     from .explorer.SemaExplorerDFS import SemaExplorerDFS
+    from .explorer.SemaExplorerChooseDFS import SemaExplorerChooseDFS
     from .explorer.SemaExplorerCDFS import SemaExplorerCDFS
     from .explorer.SemaExplorerBFS import SemaExplorerBFS
     from .explorer.SemaExplorerCBFS import SemaExplorerCBFS
@@ -50,7 +54,9 @@ except:
     from plugin.PluginEnvVar import *
     from plugin.PluginHooks import *
     from plugin.PluginEvasion import *
+    from plugin.PluginCommands import *
     from explorer.SemaExplorerDFS import SemaExplorerDFS
+    from explorer.SemaExplorerChooseDFS import SemaExplorerChooseDFS
     from explorer.SemaExplorerCDFS import SemaExplorerCDFS
     from explorer.SemaExplorerBFS import SemaExplorerBFS
     from explorer.SemaExplorerCBFS import SemaExplorerCBFS
@@ -148,6 +154,7 @@ class SemaSCDG:
         )
         
         self.hooks = PluginHooks()
+        self.commands = PluginCommands()
         self.eval_time = False
         
         self.families = []
@@ -334,6 +341,7 @@ class SemaSCDG:
 
         # Defining arguments given to the program (minimum is filename)
         args_binary = [nameFileShort]
+        args.n_args = 0
         if args.n_args:
             for i in range(args.n_args):
                 args_binary.append(claripy.BVS("arg" + str(i), 8 * 16))
@@ -342,9 +350,7 @@ class SemaSCDG:
         if os_obj == "windows":
             self.call_sim.system_call_table = self.call_sim.ddl_loader.load(proj)
         else:
-           self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(
-                proj
-            )
+           self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(proj)
         
 
         # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows)
@@ -353,13 +359,6 @@ class SemaSCDG:
             addr = addr_main.rebased_addr
         else:
             addr = None
-
-        # Wabot
-        # addr = 0x004081fc
-        # addr = 0x00401500
-        # addr = 0x00406fac
-        # Create initial state of the binary
-        
         options =  {angr.options.MEMORY_CHUNK_INDIVIDUAL_READS} # angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS {angr.options.SYMBOLIC_INITIAL_VALUES
         options.add(angr.options.EFFICIENT_STATE_MERGING)
         options.add(angr.options.DOWNSIZE_Z3)
@@ -386,7 +385,7 @@ class SemaSCDG:
         self.log.info("Entry_state address = " + str(addr))
         # Contains a program's memory, registers, filesystem data... any "live data" that can be changed by execution has a home in the state
         state = proj.factory.entry_state(
-            addr=addr, args=args_binary, add_options=options
+            addr=addr, add_options=options
         )
         
         if args.sim_file:
@@ -398,20 +397,24 @@ class SemaSCDG:
         
         state.options.discard("LAZY_SOLVES")
         state.register_plugin(
-            "heap", angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc(heap_size = 0x10000000) # heap_size = 0x10000000
+            "heap", angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc(heap_size = 0x10000000)
         )
         #heap_size = 0x10000000
         state.register_plugin(
             "plugin_env_var", PluginEnvVar()
         )  # For environment variable mainly
         state.plugin_env_var.env_block = state.heap.malloc(32767) 
+        state.plugin_env_var.env_blockw = state.heap.malloc(4096) 
         for i in range(32767):
             c = state.solver.BVS("c_env_block{}".format(i), 8)
             state.memory.store(state.plugin_env_var.env_block + i, c)
-        ComSpec = "ComSpec=C:\Windows\system32\cmd.exe\0".encode("utf-8")
+        ComSpec = "ComSpec=C:\Windows\system32\cmd.exe\0\0".encode("utf-8")
         ComSpec_bv = state.solver.BVV(ComSpec)
         state.memory.store(state.plugin_env_var.env_block, ComSpec_bv)
-        state.plugin_env_var.env_var["COMSPEC"] = "C:\Windows\system32\cmd.exe\0"
+        ComSpec = "ComSpec=C:\Windows\system32\cmd.exe\0\0".encode("utf-16le")
+        ComSpec_bv = state.solver.BVV(ComSpec)
+        state.memory.store(state.plugin_env_var.env_blockw, ComSpec_bv)
+        state.plugin_env_var.env_var["COMSPEC"] = "C:\Windows\system32\cmd.exe\0\0"
         state.plugin_env_var.expl_method = self.expl_method
         
         # Create ProcessHeap struct and set heapflages to 0
@@ -421,7 +424,6 @@ class SemaSCDG:
         state.mem[peb_addr + 0x18].dword = ProcessHeap
         state.mem[ProcessHeap+0xc].dword = 0x0 #heapflags windowsvistaorgreater
         state.mem[ProcessHeap+0x40].dword = 0x0 #heapflags else
-        
         
         # Constraint arguments to ASCII
         #for i in range(1, len(args_binary)):
@@ -476,10 +478,10 @@ class SemaSCDG:
                 # "weed2": b'\x66\x81\x7e\x04\xb3\xd7',
                 # "weed3":b'\xe8\x91\xff\xff\xff',
                 # "weed4":b'\xe8\x13\x52\xff\xff\xb8\x44\xff\x40\x00\xe8\x99\x4f\xff\xff\xe8\x2c\x4d\xff\xff\x8b\x15\xf0\xe9\x40\x00\xb8\x44\xff\x40\x00\xe8\x38\x6a\xff\xff\xe8\x9f\x52\xff\xff\xe8\x12\x4d\xff\xff\xb8\x44\xff\x40\x00\xe8\x50\x53\xff\xff\xe8\x03\x4d\xff\xff',
-                "weed5":b'\x55\x8b\xec\x83\xc4\xf0\xb8\x0c\xd8\x40\x00\xe8\xcc\x6f\xff\xff\xb8\x20\xd9\x40\x00\xe8\x96\x75\xff\xff\xba\x34\xd9\x40\x00\xb8\x44\xff\x40\x00\xe8\x13\x52\xff\xff\xb8\x44\xff\x40\x00\xe8\x99\x4f\xff\xff\xe8\x2c\x4d\xff\xff\x8b\x15\xf0\xe9\x40\x00\xb8\x44\xff\x40\x00\xe8\x38\x6a\xff\xff\xe8\x9f\x52\xff\xff\xe8\x12\x4d\xff\xff\xb8\x44\xff\x40\x00\xe8\x50\x53\xff\xff\xe8\x03\x4d\xff\xff\xa1\x08\xea\x40\x00\xc7\x00\x01\x00\x00\x00\xa1\x18\xea\x40\x00\xba\x50\xd9\x40\x00\xe8\xed\x64\xff\xff\xa1\x14\xea\x40\x00\x33\xd2\x89\x10\xb9\x68\xd9\x40\x00\xba\x74\xd9\x40\x00\xb8\x80\xd9\x40\x00\xe8\xd8\x83\xff\xff\xa1\x08\xea\x40\x00\x66\x8b\x00',
+                #"weed5":b'\x55\x8b\xec\x83\xc4\xf0\xb8\x0c\xd8\x40\x00\xe8\xcc\x6f\xff\xff\xb8\x20\xd9\x40\x00\xe8\x96\x75\xff\xff\xba\x34\xd9\x40\x00\xb8\x44\xff\x40\x00\xe8\x13\x52\xff\xff\xb8\x44\xff\x40\x00\xe8\x99\x4f\xff\xff\xe8\x2c\x4d\xff\xff\x8b\x15\xf0\xe9\x40\x00\xb8\x44\xff\x40\x00\xe8\x38\x6a\xff\xff\xe8\x9f\x52\xff\xff\xe8\x12\x4d\xff\xff\xb8\x44\xff\x40\x00\xe8\x50\x53\xff\xff\xe8\x03\x4d\xff\xff\xa1\x08\xea\x40\x00\xc7\x00\x01\x00\x00\x00\xa1\x18\xea\x40\x00\xba\x50\xd9\x40\x00\xe8\xed\x64\xff\xff\xa1\x14\xea\x40\x00\x33\xd2\x89\x10\xb9\x68\xd9\x40\x00\xba\x74\xd9\x40\x00\xb8\x80\xd9\x40\x00\xe8\xd8\x83\xff\xff\xa1\x08\xea\x40\x00\x66\x8b\x00',
                 # "clear_stack": b'\x68\x57\x6b\x40\x00',
                 # SakulaRAT
-                "rewriting": b'\x8b\x45\xf8\x8b\x5d\xf0\x39\xd8\x74\x97',
+                #"rewriting": b'\x8b\x45\xf8\x8b\x5d\xf0\x39\xd8\x74\x97',
                 # AsyncRat
                 #"returns": b'\x83\xc4\x34\x5b\x5e\xc3'
                 #"TODO": b'\x55\x8b\xec\x83\xc4\xf0\xb8\xf0\x76\x48\x00\xe8\x80\xec\xf7\xff\xa1\x0c\x1e\x49\x00\x8b\x00\xe8\x9c\x66\xfd\xff\x8b\x0d\xa8\x1f\x49\x00\xa1\x0c\x1e\x49\x00\x8b\x00\x8b\x15\x48\x74\x48\x00\xe8\x9c\x66\xfd\xff'#b'\x55\x8b\xec\x83\xc4\xf0\xb8\xf0\x76\x48\x00\xe8\x80\xec\xf7\xff\xa1\x0c\x1e\x49\x00\x8b\x00\xe8\x9c\x66\xfd\xff'
@@ -775,11 +777,119 @@ class SemaSCDG:
         #####################################################
         ##########         Exploration           ############
         #####################################################
+        #@proj.hook(0X404240, length=0X44)
+        #def BEH(state):
+        #    state.regs.eax = state.solver.BVS("eeeeeeeeeeeee",32)
+              
+        #@proj.hook(0X45b8cf, length=0x42)
+        def BEH(state):
+              iVar2 = 0
+              iVar1 = 0
+              addr = state.solver.eval(state.stack_pop())
+              param_1 = state.solver.eval(state.stack_pop())
+              param_2 = state.solver.eval(state.stack_pop())
+              param_3 = state.solver.eval(state.stack_pop())
+              state.stack_push(param_3)
+              state.stack_push(param_2)
+              state.stack_push(param_1)
+              state.stack_push(addr)
+              if (0 < param_2):
+                  while (iVar1 < param_2):
+                      x = state.solver.BVV(state.solver.eval(state.memory.load(iVar1 + param_1,1)) ^ state.solver.eval((state.memory.load(iVar2 + param_3,1)) % 0x6d9) + 0x4f,8)
+                      state.memory.store(iVar1 + param_1,x)
+                      iVar2 = iVar2 + 1
+                      if (iVar1 % 5 == 0):
+                          iVar2 = 0
+                      iVar1 = iVar1 + 1
+              print(state.solver.eval(state.memory.load(param_1,param_2),cast_to=bytes))
         
+        @proj.hook(0x30000000, length=0x1)
+        def LOADER(state):
+            state.regs.eax = state.solver.BVV(0x457510,32)
+            #endness=archinfo.Endness.LE
+            
+        #custom getprocaddress de warzone
+        @proj.hook(0xC047A4B2,length = 0xb6)
+        def nothinghere(state):
+            import csv
+            retaddr = state.stack_pop()
+            find = state.solver.eval(state.stack_pop())
+            state.stack_push(find)
+            state.stack_push(retaddr)
+            with open('rainbow.csv', newline='') as f:
+                reader = csv.reader(f)
+                for row in reader:
+                    if find == int(row[2].rstrip("h"),16):
+                        dll = row[0]
+                        lib = dll.split("\\")[-1]
+                        name = row[1]
+                        print("CustomGetProcAddress(" + lib + ", " + name + ")")
+                        symb = state.project.loader.find_symbol(name)
+                        if symb:
+                            state.regs.eax = symb.rebased_addr
+                        else:
+                            from procedures.CustomSimProcedure import CustomSimProcedure
+                            call_sim = CustomSimProcedure([], [],False,False)
+                            extern = state.project.loader.extern_object
+                            addr = extern.get_pseudo_addr(name)
+                            if name in call_sim.custom_simproc_windows["custom_package"]:
+                                proj.hook_symbol(name,call_sim.custom_simproc_windows["custom_package"][name](cc=SimCCStdcall(proj.arch)),)
+                            elif name in call_sim.custom_simproc_windows:
+                                proj.hook_symbol(name,call_sim.custom_simproc_windows[name](cc=SimCCStdcall(proj.arch)),)
+                            elif lib in SIM_LIBRARIES:
+                                proj.hook_symbol(name, SIM_LIBRARIES[lib].get(name, state.arch))
+                            else:
+                                print("ERROR IN CUSTOMGETPROCADDRESS")
+                            state.regs.eax = addr
+                        return
+            
+            
         def nothing(state):
-            if False:
+            if True:
                 print(hex(state.addr))
-        
+            if False:
+                inst = state.solver.eval(state.memory.load(state.addr,2))
+                if inst == 62379:
+                    ecx = state.solver.eval(state.regs.ecx)
+                    length = ecx*4
+                    ptr = claripy.BVV(0x0,length*8)
+                    state.memory.store(state.regs.edi, ptr)
+                    state.regs.ecx = 0
+                    state.regs.edi = state.regs.edi + length
+            
+            if state.addr == 0x405f10:
+                file = open('timeinnothook.txt', 'a')
+                t = time.time()
+                file.write("copy2 " + str(t)+"\n")
+            if state.addr == 0x405f30:
+                file = open('timeinnothook.txt', 'a')
+                t = time.time()
+                file.write("copy2 " + str(t)+"\n")
+            if state.addr == 0x40102c:
+                file = open('timeinnothook.txt', 'a')
+                t = time.time()
+                file.write("copy3 " + str(t)+"\n")
+            if state.addr == 0x401051:
+                file = open('timeinnothook.txt', 'a')
+                t = time.time()
+                file.write("copy3 " + str(t)+"\n")
+            if state.addr == 0x411bf8:
+                file = open('timeinnothook.txt', 'a')
+                t = time.time()
+                file.write("murmurhash " + str(t)+"\n")
+            if state.addr == 0x411ca1:
+                file = open('timeinnothook.txt', 'a')
+                t = time.time()
+                file.write("murmurhash " + str(t)+"\n")
+            if state.addr == 0x411ca2:
+                file = open('timeinnothook.txt', 'a')
+                t = time.time()
+                file.write("findstart " + str(t)+"\n")
+            if state.addr == 0x411ce1:
+                file = open('timeinnothook.txt', 'a')
+                t = time.time()
+                file.write("findstart " + str(t)+"\n")
+                
         def weed_sig_pass(state):
             if state.addr == 0x401000:
                 state.regs.eax = 0x1       
@@ -898,6 +1008,7 @@ class SemaSCDG:
         simgr.active[0].globals["JumpExcedeed"] = False
         simgr.active[0].globals["JumpTable"] = {}
         simgr.active[0].globals["n_steps"] = 0
+        simgr.active[0].globals["n_forks"] = 0
         simgr.active[0].globals["last_instr"] = 0
         simgr.active[0].globals["counter_instr"] = 0
         simgr.active[0].globals["loaded_libs"] = {}
@@ -905,10 +1016,10 @@ class SemaSCDG:
         simgr.active[0].globals["loop"] = 0
         simgr.active[0].globals["crypt_algo"] = 0
         simgr.active[0].globals["crypt_result"] = 0
-        
         simgr.active[0].globals["n_buffer"] = 0
-        simgr.active[0].globals["rsrc"] = 0
         simgr.active[0].globals["n_calls"] = 0
+        simgr.active[0].globals["recv"] = 0
+        simgr.active[0].globals["rsrc"] = 0
         simgr.active[0].globals["resources"] = {}
         simgr.active[0].globals["df"] = 0
         simgr.active[0].globals["files"] = {}
@@ -916,8 +1027,15 @@ class SemaSCDG:
         simgr.active[0].globals["n_calls_send"] = 0
         simgr.active[0].globals["n_buffer_send"] = 0
         simgr.active[0].globals["buffer_send"] = []
-        
         simgr.active[0].globals["files"] = {}
+        simgr.active[0].globals["FindFirstFile"] = 0
+        simgr.active[0].globals["FindNextFile"] = 0
+        simgr.active[0].globals["GetMessageA"] = 0
+        simgr.active[0].globals["GetLastError"] = claripy.BVS("last_error", 32)
+        simgr.active[0].globals["HeapSize"] = {}
+        simgr.active[0].globals["CreateThread"] = 0
+        simgr.active[0].globals["CreateRemoteThread"] = 0
+        simgr.active[0].globals["condition"] = ""
         
         for sec in main_obj.sections:
             name = sec.name.replace("\x00", "")
@@ -968,10 +1086,13 @@ class SemaSCDG:
         # to zero).
         simgr.stashes["ExcessStep"] = []
         
-
         exploration_tech = SemaExplorerDFS(
-            simgr, 0, exp_dir, nameFileShort, self
-        )
+                simgr, 0, exp_dir, nameFileShort, self
+            )
+        if self.expl_method == "ChDFS":
+            exploration_tech = SemaExplorerChooseDFS(
+                simgr, 0, exp_dir, nameFileShort, self
+            )
         if self.expl_method == "CDFS":
             exploration_tech = SemaExplorerCDFS(
                 simgr, 0, exp_dir, nameFileShort, self
@@ -998,7 +1119,11 @@ class SemaSCDG:
             )
             
         simgr.use_technique(exploration_tech)
-
+        
+        file = open('timeinnothook.txt', 'a')
+        t = time.time()
+        file.write("start " + str(t)+"\n")
+        file.close()
         self.log.info(
             "\n------------------------------\nStart -State of simulation manager :\n "
             + str(simgr)
@@ -1013,94 +1138,25 @@ class SemaSCDG:
             + "\n------------------------------"
         )
         
+        file = open('timeinnothook.txt', 'a')
+        t = time.time()
+        file.write("end " + str(t)+"\n")
+        file.close()
         if args.count_block:
             self.log.info("Total number of blocks: " + str(nbblocks))
             self.log.info("Total number of instr: " + str(nbinstr))
             self.log.info("Number of blocks visited: " + str(len(block_dict)))
             self.log.info("Number of instr visited: " + str(len(instr_dict)))
         
-        self.log.info("Syscalls Found:" + str(self.call_sim.syscall_found))
+        self.log.info("Syscalls Found: " + str(len(self.call_sim.syscall_found)) + "\n" + str(self.call_sim.syscall_found))
         
         elapsed_time = time.time() - self.start_time
         self.log.info("Total execution time: " + str(elapsed_time))
         
         # Track the buffer containing commands
+        
         if args.track_command:
-            for state in simgr.deadended + simgr.active + simgr.stashes["pause"]:
-                buffers_recv = []
-                calls_recv = {}
-                calls_send = {}
-                brutto_result = ""
-                for key, symbol in state.solver.get_variables("buffer"):
-                    eve = state.solver.eval(symbol)
-                    if eve != 0:
-                        try:
-                            command = state.mem[eve].string.concrete
-                            if len(command) > 0:
-                                if hasattr(command,'decode'):
-                                    command= command.decode('utf-8')
-                                buffers_recv.append(command)
-                            else:
-                                buffers_recv.append(hex(eve))
-                        except:
-                            buffers_recv.append(hex(eve))
-                print(buffers_recv)
-                buffers_send = []
-                #for symbol in state.globals["buffer_send"]:
-                for buf,l in state.globals["buffer_send"]:
-                    eve = state.solver.eval(state.memory.load(buf,l))
-                    if eve != 0:
-                        try:
-                            command = state.mem[eve].string.concrete
-                            if len(command) > 0:
-                                if hasattr(command,'decode'):
-                                    command= command.decode('utf-8')
-                                buffers_send.append(command)
-                            else:
-                                buffers_send.append(hex(eve))
-                        except:
-                            buffers_send.append(hex(eve))           
-                        # if hasattr(command,'decode'):
-                        #     command= command.decode('utf-8')
-                        # buffers_send.append(command)
-                print(buffers_send)
-                recv_cnt = 0
-                send_cnt = 0
-                if len(buffers_recv) > 0:
-                    brutto_result += hex(state.addr) + " : "  + "\n"
-                    # for buf in buffers_recv:
-                    #     brutto_result += "     - " + buf + "\n"
-                    for dic in self.scdg[state.globals["id"]][state.globals["n_calls_recv"]:]:
-                        if dic["name"]  not in calls_recv:
-                            brutto_result += "         * " + dic["name"] 
-                            if "recv" in dic["name"]:
-                                brutto_result += "(" + str(buffers_recv[recv_cnt]) + ")"
-                                recv_cnt += 1
-                            brutto_result += "\n"
-                            calls_recv[dic["name"] ] = 1
-                if len(buffers_send) > 0:
-                    brutto_result += hex(state.addr) + " : "  + "\n"
-                    # for buf in buffers_recv:
-                    #     brutto_result += "     - " + buf + "\n"
-                    for dic in self.scdg[state.globals["id"]][state.globals["n_calls_send"]:]:
-                        if dic["name"]  not in calls_send:
-                            brutto_result += "         * " + dic["name"] 
-                            if "send" in dic["name"]:
-                                brutto_result += "(" + str(buffers_send[send_cnt]) + ")"
-                                send_cnt += 1
-                            brutto_result += "\n"
-                            calls_send[dic["name"] ] = 1
-                
-                
-                try:
-                    with open_file(exp_dir + "commands.log", 'r') as f:
-                        content = f.read()
-                        with open_file(exp_dir + "commands.log", 'w') as f:
-                            f.write(content + brutto_result + '\n')
-                except:
-                    with open_file(exp_dir + "commands.log", 'w') as f:
-                        f.write(brutto_result + '\n')
-            #self.warzone(exp_dir,simgr,tracked)
+            self.commands.track(simgr,self.scdg)
         # Build SCDG
         self.build_scdg_fin(exp_dir, nameFileShort, main_obj, state, simgr, discard_SCDG)
         
@@ -1144,7 +1200,7 @@ class SemaSCDG:
         logging.getLogger().removeHandler(fileHandler)
 
     def manage_thread(self, exp_dir, nameFileShort, proj, options, state, cfg, jmp):
-        print(jmp)
+        print(hex(jmp))
         if jmp not in cfg.kb.functions:
             node = cfg.get_any_node(jmp)
             if node is None:
@@ -1167,12 +1223,12 @@ class SemaSCDG:
                 call_sites_by_function[caller].append((src.addr, src.instruction_addrs[-1]))
             call_sites_by_function_list = list(call_sites_by_function.items())[:3]
             for caller, call_sites in call_sites_by_function_list:
-                print(call_sites)
+                print(hex(call_sites))
                 for site in call_sites:
                     self.run_thread(exp_dir, nameFileShort, proj, options, site)
                     
                 for b in caller.block_addrs:
-                    print(b)
+                    print(hex(b))
                     self.run_thread(exp_dir, nameFileShort, proj, options, [b])
             self.run_thread(exp_dir, nameFileShort, proj, options, [jmp])
             return
@@ -1208,11 +1264,11 @@ class SemaSCDG:
             call_sites_by_function[caller].append((src.addr, src.instruction_addrs[-1]))
         call_sites_by_function_list = list(call_sites_by_function.items())[:3]
         for caller, call_sites in call_sites_by_function_list:
-            print(call_sites)
+            print(hex(call_sites))
             for site in call_sites:
                 self.run_thread(exp_dir, nameFileShort, proj, options, site)
         for b in thread_func.block_addrs:
-            print(b)
+            print(hex(b))
             self.run_thread(exp_dir, nameFileShort, proj, options,[b])
 
     def run_thread(self, exp_dir, nameFileShort, proj, options, site):
@@ -1287,38 +1343,6 @@ class SemaSCDG:
                                 
         tsimgr.run()
 
-    def warzone(self,exp_dir,simgr,tracked):
-        dump_file = {}
-        dump_id = 0
-        
-        for state in simgr.deadended:
-            dump_file[dump_id] = {"status" : "dead",
-                                  "buffers" : tracked[state.globals["id"]],
-                                  "trace" : self.scdg[state.globals["id"]][state.globals["n_calls_recv"]:]
-                                  }
-            dump_id = dump_id + 1
-            
-        for state in simgr.active:
-            dump_file[dump_id] = {"status" : "active",
-                                  "buffers" : tracked[state.globals["id"]],
-                                  "trace" : self.scdg[state.globals["id"]][state.globals["n_calls_recv"]:]
-                                  }
-            dump_id = dump_id + 1
-            
-        for state in simgr.stashes["pause"]:
-            dump_file[dump_id] = {"status" : "pause",
-                                  "buffers" : tracked[state.globals["id"]],
-                                  "trace" : list(set(dic["name"] for dic in self.scdg[state.globals["id"]][state.globals["n_calls_recv"]:]))
-                                  }
-            dump_id = dump_id + 1
-                
-                
-        ofilename = exp_dir + "warzone.json"
-        self.log.info(ofilename)
-        save_SCDG = open_file(ofilename, "w")
-        json_dumper.dump(dump_file, save_SCDG)
-        save_SCDG.close()
-
     def build_scdg_fin(self, exp_dir, nameFileShort, main_obj, state, simgr, discard_SCDG):
         dump_file = {}
         dump_id = 0
@@ -1347,7 +1371,7 @@ class SemaSCDG:
                 self.scdg_fin.append(self.scdg[state.globals["id"]])
 
         for error in simgr.errored:
-            hashVal = hash(str(self.scdg[state.globals["id"]]))
+            hashVal = hash(str(self.scdg[error.globals["id"]]))
             if hashVal not in dic_hash_SCDG:
                 dic_hash_SCDG[hashVal] = 1
                 dump_file[dump_id] = {
@@ -1355,15 +1379,15 @@ class SemaSCDG:
                     "trace": self.scdg[error.state.globals["id"]],
                 }
                 dump_id = dump_id + 1
-                self.scdg_fin.append(self.scdg[state.globals["id"]])
-                
-        for error in simgr.pause:
+                self.scdg_fin.append(self.scdg[error.globals["id"]])
+
+        for state in simgr.pause:
             hashVal = hash(str(self.scdg[state.globals["id"]]))
             if hashVal not in dic_hash_SCDG:
                 dic_hash_SCDG[hashVal] = 1
                 dump_file[dump_id] = {
                     "status": "pause",
-                    "trace": self.scdg[error.state.globals["id"]],
+                    "trace": self.scdg[state.globals["id"]],
                 }
                 dump_id = dump_id + 1
                 self.scdg_fin.append(self.scdg[state.globals["id"]])
@@ -1455,6 +1479,7 @@ class SemaSCDG:
             self.log.setLevel(logging.INFO)
         else:
             # logging.getLogger('claripy').disabled = True
+            pass
             ch = logging.StreamHandler()
             ch.setLevel(logging.INFO)
             ch.setFormatter(CustomFormatter())

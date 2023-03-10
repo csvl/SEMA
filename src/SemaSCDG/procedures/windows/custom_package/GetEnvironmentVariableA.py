@@ -42,7 +42,7 @@ class GetEnvironmentVariableA(angr.SimProcedure):
             name = self.state.mem[lpName].string.concrete
             print(name)
             if name == b'COMSPEC':
-                self.state.memory.store(lpBuffer, self.state.solver.BVV("C:\Windows\system32\cmd.exe"))
+                self.state.memory.store(lpBuffer, self.state.solver.BVV(b'C:\Windows\system32\cmd.exe'))
                 return 27
         except:
             print(self.state.memory.load(lpName,0x20))

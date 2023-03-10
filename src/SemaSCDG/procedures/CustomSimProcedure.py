@@ -826,22 +826,17 @@ class CustomSimProcedure:
                             or "LPWSTR" in callee_arg[i]["type"]
                             or "wchar_t*const" in callee_arg[i]["type"]
                             or "OLECHAR" in callee_arg[i]["type"]
+                            or "PWSTR" in callee_arg[i]["type"]
+                            or "PCWSTR" in callee_arg[i]["type"]
+                            or "LPCWCH" in callee_arg[i]["type"]
                         )
                     ):
-
-                        temp = args[i]
                         string = state.mem[args[i]].wstring.concrete
 
                         if hasattr(string, "decode"):
                             args[i] = string.decode("utf-8")
                         else:
                             args[i] = string
-
-                        if self.debug_string:
-                            # import pdb
-
-                            # pdb.set_trace()
-                            self.log.info("Args string Resolved : " + str(string))
                 except:
                     args[i] = temp
                 try:
@@ -853,17 +848,59 @@ class CustomSimProcedure:
                             "LPCSTR" in callee_arg[i]["type"]
                             or "LPSTR" in callee_arg[i]["type"]
                             or "const char*" in callee_arg[i]["type"]
-                            or "LPCVOID" in callee_arg[i]["type"]
+                            #or "LPCVOID" in callee_arg[i]["type"]
+                            or "PSTR" in callee_arg[i]["type"]
+                            or "PCSTR" in callee_arg[i]["type"]
+                            or "LPCH" in callee_arg[i]["type"]
                         )
                     ):
                         string = state.mem[args[i]].string.concrete
+                        
                         if hasattr(string, "decode"):
                             args[i] = string.decode("utf-8")
                         else:
                             args[i] = string
                 except:
                     args[i] = temp
-
+                try:
+                    if (
+                        self.string_resolv
+                        and callee_arg
+                        and args[i] != 0
+                        and (
+                            "LPCTSTR" in callee_arg[i]["type"]
+                            or "LPTSTR" in callee_arg[i]["type"]
+                            or "PTSTR" in callee_arg[i]["type"]
+                            or "PCTSTR" in callee_arg[i]["type"]
+                            or "LPCCH" in callee_arg[i]["type"]
+                        )
+                    ):
+                        string = ''
+                        if state.solver.eval(state.memory.load(args[i]+1,1)) == 0x0:
+                            string = state.mem[args[i]].wstring.concrete
+                        else:
+                            string = state.mem[args[i]].string.concrete
+                            
+                        if hasattr(string, "decode"):
+                            args[i] = string.decode("utf-8")
+                        else:
+                            args[i] = string
+                except:
+                    args[i] = temp
+                try:
+                    if (
+                        self.string_resolv
+                        and callee_arg
+                        and args[i] != 0
+                        and (
+                            "PCUNICODESTRING" in callee_arg[i]["type"]
+                        )
+                    ):
+                        addr = self.state.memory.load(args[i]+4,4,endness=archinfo.Endness.LE)
+                        args[i] = self.state.mem[addr].wstring.concrete
+                except:
+                    args[i] = temp
+             
             if self.string_resolv and name in self.FUNCTION_STRING and args:
                 index_str = self.FUNCTION_STRING[name]
                 try:

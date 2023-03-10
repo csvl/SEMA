@@ -68,8 +68,8 @@ class SemaExplorerCDFS(SemaExplorer):
             self.log.info("pause stash len :" + str(len(self.pause_stash)))
 
         if self.print_sm_step and len(self.fork_stack) > 0:
-            self.log.info("fork_stack : " + str(len(self.fork_stack)))
-
+            self.log.info("fork_stack : " + str(len(self.fork_stack)) + " " + hex(simgr.active[0].addr) + " || " + hex(simgr.active[1].addr))
+            
         # if self.print_sm_step:
         #    self.log.info("len(self.loopBreak_stack) : " + str(len(self.loopBreak_stack)))
         #    self.log.info("state.globals['n_steps'] : " + str(state.globals['n_steps']))
@@ -77,11 +77,18 @@ class SemaExplorerCDFS(SemaExplorer):
         # We detect fork for a state
         super().manage_fork(simgr)
 
+        simgr.move(
+            from_stash="active",
+            to_stash="deadend",
+            filter_func=lambda s: s.addr == 0xdeadbeef,
+        )
+        
         # Remove state which performed more jump than the limit allowed
         super().remove_exceeded_jump(simgr)
 
         # Manage ended state
         super().manage_deadended(simgr)
+        
 
         for s in simgr.active:
             vis_addr = str(self.check_constraint(s, s.history.jump_target))

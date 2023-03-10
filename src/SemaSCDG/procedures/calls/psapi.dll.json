@@ -1,0 +1,25 @@
+{
+  "GetProcessMemoryInfo": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetProcessMemoryInfo", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "Process", 
+        "is_float": false
+      },
+      {
+        "type": " PPROCESS_MEMORY_COUNTERS", 
+        "name": "ppsmemCounters", 
+        "is_float": false
+      },
+      {
+        "type": " DWORD", 
+        "name": "cb", 
+        "is_float": false
+      }
+    ]
+  }
+}

@@ -9512,5 +9512,51 @@
         "is_float": false
       }
     ]
+  },
+  "RtlGetNtVersionNumbers": {
+    "cc": "__stdcall", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "RtlGetNtVersionNumbers", 
+    "arguments": [
+      {
+        "type": "DWORD", 
+        "name": "MajorVersion", 
+        "is_float": false
+      }, 
+      {
+        "type": "DWORD", 
+        "name": "MinorVersion", 
+        "is_float": false
+      }, 
+      {
+        "type": "DWORD", 
+        "name": "BuildNumber", 
+        "is_float": false
+      }
+    ]
+  },
+  "RtlCompareUnicodeString": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "RtlCompareUnicodeString", 
+    "arguments": [
+      {
+        "type": "PCUNICODE_STRING", 
+        "name": "String1", 
+        "is_float": false
+      }, 
+      {
+        "type": "PCUNICODE_STRING", 
+        "name": "String2", 
+        "is_float": false
+      }, 
+      {
+        "type": "BOOLEAN", 
+        "name": "CaseInSensitive", 
+        "is_float": false
+      }
+    ]
   }
 }

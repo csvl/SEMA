@@ -188,7 +188,7 @@ class SemaExplorer(ExplorationTechnique):
             return
 
         for s in simgr.stashes[source_stash]:
-            if s.globals["n_steps"] >= max_step:
+            if s.globals["n_steps"] > max_step:
                 id_to_move = s.globals["id"]
                 max_step = s.globals["n_steps"]
 
@@ -484,6 +484,7 @@ class SemaExplorer(ExplorationTechnique):
             for i in range(len(self.loopBreak_stack)):
                 self.log.info("A state has been discarded because of jump")
                 guilty_state_id, addr = self.loopBreak_stack.pop()
+                self.log.info(hex(addr))
                 simgr.move(
                     "active", "ExcessLoop", lambda s: s.globals["id"] == guilty_state_id
                 )

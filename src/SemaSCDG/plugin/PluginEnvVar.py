@@ -6,6 +6,7 @@ class PluginEnvVar(angr.SimStatePlugin):
         super(PluginEnvVar, self).__init__()
         self.last_error = 0
         self.env_block = 0
+        self.env_blockw = 0
         self.env_var = {}
         self.stop_flag = False
         self.dict_calls = {}
@@ -26,6 +27,7 @@ class PluginEnvVar(angr.SimStatePlugin):
         p = PluginEnvVar()
         p.last_error = self.last_error
         p.env_block = self.env_block
+        p.env_blockw = self.env_blockw
         p.env_var = self.env_var.copy()
         p.stop_flag = self.stop_flag
         p.dict_calls = self.dict_calls.copy()
