@@ -1,30 +1,4 @@
 {
-<<<<<<< HEAD
-  "GetProcessMemoryInfo": {
-    "cc": "__stdcall", 
-    "returns": "BOOL", 
-    "returns_float": false, 
-    "name": "GetProcessMemoryInfo", 
-    "arguments": [
-      {
-        "type": " HANDLE", 
-        "name": "Process", 
-        "is_float": false
-      },
-      {
-        "type": " PPROCESS_MEMORY_COUNTERS", 
-        "name": "ppsmemCounters", 
-        "is_float": false
-      },
-      {
-        "type": " DWORD", 
-        "name": "cb", 
-        "is_float": false
-      }
-    ]
-  }
-}
-=======
     "EmptyWorkingSet": {
         "cc": "__stdcall",
         "returns": "BOOL",
@@ -491,4 +465,3 @@
         ]
     }
 }
->>>>>>> 84d3bea815d9b18732923ba75218a47705dab14b

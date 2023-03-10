@@ -51,8 +51,4 @@ class PluginCommands:
         for i in buffers:
             f.write("* " + i + '\n')
             for j in buffers[i]:
-<<<<<<< HEAD
                 f.write('        - ' + j + '\n')
-=======
-                f.write('        - ' + j + '\n')
->>>>>>> 84d3bea815d9b18732923ba75218a47705dab14b
