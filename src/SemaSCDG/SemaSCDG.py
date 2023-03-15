@@ -286,7 +286,8 @@ class SemaSCDG:
 
         exp_dir = exp_dir + "/" + nameFileShort + "/"
         #dir = dir + "/" + nameFileShort + "/"
-        self.log.info(exp_dir,dir)
+        self.log.info(exp_dir)
+        self.log.info(dir)
         
         title = "--- Building SCDG of " + self.familly  +"/" + nameFileShort  + " ---"
         self.log.info("\n" + "-" * len(title) + "\n" + title + "\n" + "-" * len(title))
@@ -382,12 +383,12 @@ class SemaSCDG:
         
         # MagicRAT
         # addr = 0x40139a # 
-   #     addr = 0x6f7100 # 0x5f4f10 0x01187c00 0x40139a
-       # addr = 0x06fda90
+        # addr = 0x6f7100 # 0x5f4f10 0x01187c00 0x40139a
+        # addr = 0x06fda90
         # addr = 0x06f7e90
         
         # Create initial state of the binary
-        options = {angr.options.SIMPLIFY_MEMORY_READS} #{angr.options.USE_SYSTEM_TIMES} # {angr.options.SIMPLIFY_MEMORY_READS} # angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS {angr.options.SYMBOLIC_INITIAL_VALUES
+        options = {angr.options.MEMORY_CHUNK_INDIVIDUAL_READS} #{angr.options.USE_SYSTEM_TIMES} # {angr.options.SIMPLIFY_MEMORY_READS} # angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS {angr.options.SYMBOLIC_INITIAL_VALUES
         # options.add(angr.options.EFFICIENT_STATE_MERGING)
         # options.add(angr.options.DOWNSIZE_Z3)
         options.add(angr.options.USE_SYSTEM_TIMES)
@@ -926,7 +927,8 @@ class SemaSCDG:
                     ["ResumeThread","NtResumeThread","CreateThread","GetThreadContext","SetThreadContext"],
                 "process" : 
                     ["CreateProcessA","CreateProcessW","ReadProcessMemory","NtWriteVirtualMemory","CreateRemoteThread","NtUnmapViewOfSection","WriteProcessMemory","VirtualAllocEx","ZwUnmapViewOfSection"],
-                "other" : ["CreateEventA","CreateEventW","FindResourceW","FindResourceA","LookupAccountSidW","LookupAccountSidA","ExpandEnvironmentStringsW","GetDriveTypeW","GetDriveTypeA","URLDownloadToFileW","URLDownloadToFileA","GetLogicalDriveStringsW","GetLogicalDriveStringsA"],
+                "other" : 
+                    ["CreateEventA","CreateEventW","FindResourceW","FindResourceA","LookupAccountSidW","LookupAccountSidA","ExpandEnvironmentStringsW","GetDriveTypeW","GetDriveTypeA","URLDownloadToFileW","URLDownloadToFileA","GetLogicalDriveStringsW","GetLogicalDriveStringsA"],
                 "lib" : 
                     ["LoadLibraryA","LoadLibraryW","GetModuleHandleA","GetModuleHandleW"],
                 "proc" : 
@@ -938,10 +940,10 @@ class SemaSCDG:
                 "anti" :
                     ["IsDebuggerPresent","GetSystemInfo","GlobalMemoryStatusEx","GetVersion","CreateToolhelp32Snapshot"]
         }
-        ofilename = exp_dir  + "inter_SCDG.json"
+        ofilename = exp_dir + "inter_SCDG.json"
         f = open(ofilename)
         data = json.load(f)
-        data.popitem()
+       # data.popitem()
         for func in funcs:
             strings = {""}
             self.log.info("\n #################################################################################### \n")
