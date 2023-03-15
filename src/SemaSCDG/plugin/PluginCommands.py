@@ -28,8 +28,8 @@ class PluginCommands:
                 calls.append(call)
         return calls
                             
-    def track(self, simgr,scdg):
-        not_interesting = ["HeapAlloc","HeapFree","GetProcessHeap","UserHook","VirtualFree","HeapReAlloc","VirtualAlloc","lstrlenA","lstrlenW","strlen","lstrcpyA","lstrcpyW","strncpy","lstrcatA","lstrcatW","lstrcmpA","lstrcmpW","strcmp","strncmp","wsprintfA","wsprintfW"]
+    def track(self, simgr,scdg,exp_dir):
+        not_interesting = ["CopyHook","HeapAlloc","HeapFree","GetProcessHeap","UserHook","VirtualFree","HeapReAlloc","VirtualAlloc","lstrlenA","lstrlenW","strlen","lstrcpyA","lstrcpyW","strncpy","lstrcatA","lstrcatW","lstrcmpA","lstrcmpW","strcmp","strncmp","wsprintfA","wsprintfW"]
         buffers = {}
         for state in simgr.deadended + simgr.stashes["pause"]:
             for key, symbol in state.solver.get_variables("buffer"):
@@ -46,8 +46,8 @@ class PluginCommands:
                         buffers[buf] = calls
                     else:
                         buffers[buf] = self.merge(buffers[buf],calls)
-                
-        f = open("commands.log", 'w')
+
+        f = open(exp_dir + "commands.log", 'w')
         for i in buffers:
             f.write("* " + i + '\n')
             for j in buffers[i]:

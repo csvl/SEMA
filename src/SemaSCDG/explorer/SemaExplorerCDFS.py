@@ -164,6 +164,7 @@ class SemaExplorerCDFS(SemaExplorer):
             for i in range(moves):
                 self.pause_stash.append(simgr.stashes["temp"].pop())
 
+            
         super().excessed_step_to_active(simgr)
 
         super().excessed_loop_to_active(simgr)

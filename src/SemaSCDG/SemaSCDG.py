@@ -294,7 +294,7 @@ class SemaSCDG:
 
         exp_dir = exp_dir + "/" + nameFileShort + "/"
         #dir = dir + "/" + nameFileShort + "/"
-        self.log.info(exp_dir,dir)
+        self.log.info(exp_dir)
         
         title = "--- Building SCDG of " + self.familly  +"/" + nameFileShort  + " ---"
         self.log.info("\n" + "-" * len(title) + "\n" + title + "\n" + "-" * len(title))
@@ -385,29 +385,23 @@ class SemaSCDG:
         
         # Create initial state of the binary
         options = {angr.options.SIMPLIFY_MEMORY_READS} 
-        #{angr.options.USE_SYSTEM_TIMES} 
-        # {angr.options.SIMPLIFY_MEMORY_READS} 
-        # angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS 
-        #{angr.options.SYMBOLIC_INITIAL_VALUES}
+        # options.add(angr.options.USE_SYSTEM_TIMES)
+        # options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS) 
+        # options.add(angr.options.SYMBOLIC_INITIAL_VALUES)
         # options.add(angr.options.EFFICIENT_STATE_MERGING)
         # options.add(angr.options.DOWNSIZE_Z3)
         options.add(angr.options.USE_SYSTEM_TIMES)
-        # Already present in "symbolic mode"
         # options.add(angr.options.OPTIMIZE_IR)
         # options.add(angr.options.FAST_MEMORY)
-        
         # options.add(angr.options.SIMPLIFY_MEMORY_READS)
         # options.add(angr.options.SIMPLIFY_MEMORY_WRITES)
         # options.add(angr.options.SIMPLIFY_CONSTRAINTS)
         # options.add(angr.options.SYMBOLIC_INITIAL_VALUES)
-        
-        # options.add(angr.options.CPUID_SYMBOLIC) # for sse3 support ?
-        
-        options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS) # remove for magic RAT
+        # options.add(angr.options.CPUID_SYMBOLIC)
+        options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS)
         options.add(angr.options.ZERO_FILL_UNCONSTRAINED_MEMORY)
         # options.add(angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS)
         # options.add(angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY)
-         
         # options.add(angr.options.MEMORY_CHUNK_INDIVIDUAL_READS)
         # options.add(angr.options.SYMBOLIC_WRITE_ADDRESSES)
         # options.add(angr.options.TRACK_JMP_ACTIONS)
@@ -419,7 +413,8 @@ class SemaSCDG:
         state = proj.factory.entry_state(
             addr=addr, add_options=options
         )
-        
+        import pdb
+        pdb.set_trace()
         if args.sim_file:
             with open_file(self.inputs, "rb") as f:
                 cont = f.read()
@@ -503,7 +498,7 @@ class SemaSCDG:
         else:
             self.call_sim.custom_hook_windows_symbols(proj)
 
-        if True:
+        if args.hooks:
             self.hooks.initialization(cont, is_64bits=True if proj.arch.name == "AMD64" else False)
             self.hooks.hook(state,proj,self.call_sim)
                 
@@ -691,9 +686,9 @@ class SemaSCDG:
         self.log.info("Total execution time: " + str(elapsed_time))
         
         if args.track_command:
-            self.commands.track(simgr, self.scdg)
-        if False:
-            self.ioc.build_ioc(self.scdg)
+            self.commands.track(simgr, self.scdg,exp_dir)
+        if args.ioc_report:
+            self.ioc.build_ioc(self.scdg,exp_dir)
         # Build SCDG
         self.build_scdg_fin(exp_dir, nameFileShort, main_obj, state, simgr)
         
@@ -818,7 +813,7 @@ class SemaSCDG:
         tsimgr.active[0].globals["allow_web_interaction"] = False
         
 
-    def build_scdg_fin(self, exp_dir, nameFileShort, main_obj, state, simgr, discard_SCDG):
+    def build_scdg_fin(self, exp_dir, nameFileShort, main_obj, state, simgr):
         dump_file = {}
         dump_id = 0
         dic_hash_SCDG = {}

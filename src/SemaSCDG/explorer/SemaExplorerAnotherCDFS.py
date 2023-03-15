@@ -86,12 +86,8 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
                 ll2.append(repr(i))
             l3 = [value for value in ll1 if value not in ll2]
             simgr.active[0].globals["condition"] = l3
-            print("\nactive1")
-            print(l3)
             l4 = [value for value in ll2 if value not in ll1]
             simgr.active[1].globals["condition"] = l4
-            print("\nactive2")
-            print(l4)
             
         if self.flag:
             id_to_stash = []
@@ -120,8 +116,8 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
         super().manage_end_thread(simgr)
         
         super().manage_lost(simgr)
-
-        if self.flag:
+            
+        if self.flag or len(simgr.active) == 0:
             while simgr.active:
                 simgr.stashes["pause"].append(simgr.active.pop(0))
             while len(simgr.stashes["new_addr"]) > 0 and len(simgr.active) < self.max_simul_state:
@@ -133,11 +129,6 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
             self.log.info("Currently, simulation manager is :")
             self.log.info(str(simgr))
             self.flag = False
-        
-        if simgr.active[0].globals["CreateRemoteThread"] == 1:
-            simgr.active[0].globals["CreateRemoteThread"] = 0
-            simgr.stashes["pause"] = []
-            simgr.stashes["new_addr"] = []
             
         super().excessed_step_to_active(simgr)
 

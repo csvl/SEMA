@@ -8,7 +8,7 @@ class recv(angr.SimProcedure):
         if self.state.globals["recv"] > 2:
             return -1
         self.state.globals["recv"] += 1
-        if length.symbolic or self.state.solver.eval(length) > 0x10:
+        if length.symbolic:
             ptr=self.state.solver.BVS("buf",8*0x10)
             self.state.memory.store(buf,ptr)
             retval = self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)
