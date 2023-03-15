@@ -1,5 +1,7 @@
 import logging
 import angr
+import archinfo
+
 lw = logging.getLogger("CustomSimProcedureWindows")
 
 
@@ -20,18 +22,14 @@ class NtQuerySystemInformation(angr.SimProcedure):
 
         if class_type == 5: #SystemProcessInformation
             sysinfo = self.state.solver.BVS(
-                "System_basic_info_{}".format(self.display_name), 2000
+                "System_process_info_{}".format(self.display_name), 184 * 8
             )
-            self.state.memory.store(system_information, sysinfo)
+            self.state.memory.store(system_information, sysinfo, endness=archinfo.Endness.LE)
             
-        if class_type == 1: #SystemProcessorInformation
+        if class_type == 0: #SystemProcessorInformation
             sysinfo = self.state.solver.BVS(
-                "System_basic_info_{}".format(self.display_name), 41 * 8
+                "System_basic_info_{}".format(self.display_name), 44 * 8
             )
-            self.state.memory.store(system_information, sysinfo)
-            dwNumberOfProcessors = self.state.solver.BVS(
-                "Number_of_processors_{}".format(self.display_name), 8
-            )
-            self.state.memory.store(system_information + 40, dwNumberOfProcessors)
+            self.state.memory.store(system_information, sysinfo, endness=archinfo.Endness.LE)
 
         return 0x0

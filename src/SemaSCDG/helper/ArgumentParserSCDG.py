@@ -166,7 +166,19 @@ class ArgumentParserSCDG:
             "--track_command",
             help="Track command loop of RATs  (default : False)",
             action="store_true",
-            
+   
+        )
+        self.group_rats.add_argument(
+            "--ioc_report",
+            help="produces and IoC report  (default : False)",
+            action="store_true",
+   
+        )
+        self.group_rats.add_argument(
+            "--hooks",
+            help="activates the hooks for time-consuming functions  (default : False)",
+            action="store_true",
+   
         )
         
         self.group_scdg = self.parser.add_argument_group('SCDG creation parameter')

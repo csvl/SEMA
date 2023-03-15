@@ -23,7 +23,7 @@ import claripy
 import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from capstone import *
-from angrutils import * 
+# from angrutils import * 
 # Syscall table stuff
 import angr
 from angr.sim_type import SimTypeInt, SimTypePointer, SimTypeArray, SimTypeChar
@@ -41,8 +41,11 @@ try:
     from .plugin.PluginWideChar import *
     from .plugin.PluginResources import *
     from .plugin.PluginEvasion import *
+    from .plugin.PluginCommands import *
     from .plugin.PluginThread import *
+    from .plugin.PluginIoC import *
     from .explorer.SemaExplorerDFS import SemaExplorerDFS
+    from .explorer.SemaExplorerChooseDFS import SemaExplorerChooseDFS
     from .explorer.SemaExplorerCDFS import SemaExplorerCDFS
     from .explorer.SemaExplorerBFS import SemaExplorerBFS
     from .explorer.SemaExplorerCBFS import SemaExplorerCBFS
@@ -64,7 +67,10 @@ except:
     from plugin.PluginWideChar import *
     from plugin.PluginResources import *
     from plugin.PluginEvasion import *
+    from plugin.PluginCommands import *
+    from plugin.PluginIoC import *
     from explorer.SemaExplorerDFS import SemaExplorerDFS
+    from explorer.SemaExplorerChooseDFS import SemaExplorerChooseDFS
     from explorer.SemaExplorerCDFS import SemaExplorerCDFS
     from explorer.SemaExplorerBFS import SemaExplorerBFS
     from explorer.SemaExplorerCBFS import SemaExplorerCBFS
@@ -165,6 +171,8 @@ class SemaSCDG:
         )
         
         self.hooks = PluginHooks()
+        self.commands = PluginCommands()
+        self.ioc = PluginIoC()
         self.eval_time = False
         
         self.families = []
@@ -287,7 +295,6 @@ class SemaSCDG:
         exp_dir = exp_dir + "/" + nameFileShort + "/"
         #dir = dir + "/" + nameFileShort + "/"
         self.log.info(exp_dir)
-        self.log.info(dir)
         
         title = "--- Building SCDG of " + self.familly  +"/" + nameFileShort  + " ---"
         self.log.info("\n" + "-" * len(title) + "\n" + title + "\n" + "-" * len(title))
@@ -357,7 +364,7 @@ class SemaSCDG:
             self.log.info("Exploration method:  " + str(self.expl_method))
 
         # Defining arguments given to the program (minimum is filename)
-        args_binary = [nameFileShort] #, ,"-developer-build", "-opensource", "-nomake examples", "-nomake tests",'CFLAGS=-mno-aes',"-mno-aes" 'LDFLAGS="-L/usr/local/lib"'] ,"-msse3"
+        args_binary = [nameFileShort] 
         if args.n_args:
             for i in range(args.n_args):
                 args_binary.append(claripy.BVS("arg" + str(i), 8 * 16))
@@ -392,22 +399,17 @@ class SemaSCDG:
         # options.add(angr.options.EFFICIENT_STATE_MERGING)
         # options.add(angr.options.DOWNSIZE_Z3)
         options.add(angr.options.USE_SYSTEM_TIMES)
-        # Already present in "symbolic mode"
         # options.add(angr.options.OPTIMIZE_IR)
         # options.add(angr.options.FAST_MEMORY)
-        
         # options.add(angr.options.SIMPLIFY_MEMORY_READS)
         # options.add(angr.options.SIMPLIFY_MEMORY_WRITES)
         # options.add(angr.options.SIMPLIFY_CONSTRAINTS)
         # options.add(angr.options.SYMBOLIC_INITIAL_VALUES)
-        
-        # options.add(angr.options.CPUID_SYMBOLIC) # for sse3 support ?
-        
-        options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS) # remove for magic RAT
+        # options.add(angr.options.CPUID_SYMBOLIC)
+        options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS)
         options.add(angr.options.ZERO_FILL_UNCONSTRAINED_MEMORY)
         # options.add(angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS)
         # options.add(angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY)
-         
         # options.add(angr.options.MEMORY_CHUNK_INDIVIDUAL_READS)
         # options.add(angr.options.SYMBOLIC_WRITE_ADDRESSES)
         # options.add(angr.options.TRACK_JMP_ACTIONS)
@@ -417,9 +419,10 @@ class SemaSCDG:
         self.log.info("Entry_state address = " + str(addr))
         # Contains a program's memory, registers, filesystem data... any "live data" that can be changed by execution has a home in the state
         state = proj.factory.entry_state(
-            addr=addr, args=args_binary, add_options=options
+            addr=addr, add_options=options
         )
-        
+        import pdb
+        pdb.set_trace()
         if args.sim_file:
             with open_file(self.inputs, "rb") as f:
                 cont = f.read()
@@ -428,18 +431,11 @@ class SemaSCDG:
         
         state.options.discard("LAZY_SOLVES") 
         state.register_plugin(
-            "heap", angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc(heap_size=int(64*4096*10*10*10*1000*100*100)) # heap_size = 0x10000000 4*2*2*2*2*2*2*2*2*10
-        ) #heap_size = 0x10000000
+            "heap", angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc(heap_size = 0x10000000)
+        )
         
-        state.libc.max_variable_size = 0x20000000*2 + 0x18000000#128 * 3
-        state.libc.max_memcpy_size   = 0x20000000*2
-        #state.solver._solver.timeout=30000000*2
-        #state.libc.max_memcpy_size = 
-        
-        # # Allocate memory for the OSVERSIONINFOW structure and initialize its size field
-        # os_version_info_size = 24 + 128 * state.arch.bytes
-        # os_version_info_ptr = state.heap._malloc(os_version_info_size)
-        # state.memory.store(os_version_info_ptr, SimTypeInt().with_arch(state.arch), size=os_version_info_size)
+        #state.libc.max_variable_size = 0x20000000*2 + 0x18000000
+        #state.libc.max_memcpy_size   = 0x20000000*2
 
         pagefile = angr.SimFile("pagefile.sys", content=cont)
         state.fs.insert("pagefile.sys", pagefile)
@@ -510,7 +506,7 @@ class SemaSCDG:
         else:
             self.call_sim.custom_hook_windows_symbols(proj)
 
-        if args.sim_file:
+        if args.hooks:
             self.hooks.initialization(cont, is_64bits=True if proj.arch.name == "AMD64" else False)
             self.hooks.hook(state,proj,self.call_sim)
                 
@@ -525,14 +521,46 @@ class SemaSCDG:
         #####################################################
         ##########         Exploration           ############
         #####################################################
-        
+
+        #custom getprocaddress de warzone
+        @proj.hook(0xC047A4B2,length = 0xb6)
+        def nothinghere(state):
+            import csv
+            retaddr = state.stack_pop()
+            find = state.solver.eval(state.stack_pop())
+            state.stack_push(find)
+            state.stack_push(retaddr)
+            with open('rainbow.csv', newline='') as f:
+                reader = csv.reader(f)
+                for row in reader:
+                    if find == int(row[2].rstrip("h"),16):
+                        dll = row[0]
+                        lib = dll.split("\\")[-1]
+                        name = row[1]
+                        print("CustomGetProcAddress(" + lib + ", " + name + ")")
+                        symb = state.project.loader.find_symbol(name)
+                        if symb:
+                            state.regs.eax = symb.rebased_addr
+                        else:
+                            from procedures.CustomSimProcedure import CustomSimProcedure
+                            call_sim = CustomSimProcedure([], [],False,False)
+                            extern = state.project.loader.extern_object
+                            addr = extern.get_pseudo_addr(name)
+                            if name in call_sim.custom_simproc_windows["custom_package"]:
+                                proj.hook_symbol(name,call_sim.custom_simproc_windows["custom_package"][name](cc=SimCCStdcall(proj.arch)),)
+                            elif name in call_sim.custom_simproc_windows:
+                                proj.hook_symbol(name,call_sim.custom_simproc_windows[name](cc=SimCCStdcall(proj.arch)),)
+                            elif lib in SIM_LIBRARIES:
+                                proj.hook_symbol(name, SIM_LIBRARIES[lib].get(name, state.arch))
+                            else:
+                                print("ERROR IN CUSTOMGETPROCADDRESS")
+                            state.regs.eax = addr
+                        return
+            
+            
         def nothing(state):
             if False:
-                self.log.info(hex(state.addr))
-        
-        def weed_sig_pass(state):
-            if state.addr == 0x401000:
-                state.regs.eax = 0x1       
+                print(hex(state.addr))
                     
         instr_dict = {}
         def count(state):
@@ -555,7 +583,6 @@ class SemaSCDG:
         state.inspect.b("call", when=angr.BP_AFTER, action=self.call_sim.rm_addr_call)
         
         if args.count_block:
-            # state.inspect.b("instruction",when=angr.BP_BEFORE, action=weed_sig_pass)
             state.inspect.b("instruction",when=angr.BP_BEFORE, action=nothing)
             state.inspect.b("instruction",when=angr.BP_AFTER, action=count)
             state.inspect.b("irsb",when=angr.BP_BEFORE, action=countblock)
@@ -623,7 +650,7 @@ class SemaSCDG:
         exploration_tech = self.get_exploration_tech(args, exp_dir, nameFileShort, simgr)
             
         simgr.use_technique(exploration_tech)
-
+        
         self.log.info(
             "\n------------------------------\nStart -State of simulation manager :\n "
             + str(simgr)
@@ -666,90 +693,13 @@ class SemaSCDG:
         elapsed_time = time.time() - self.start_time
         self.log.info("Total execution time: " + str(elapsed_time))
         
-        # Track the buffer containing commands
-        # TODO serena refactor
         if args.track_command:
-            for state in simgr.deadended + simgr.active + simgr.stashes["pause"]:
-                buffers_recv = []
-                calls_recv = {}
-                calls_send = {}
-                brutto_result = ""
-                for key, symbol in state.solver.get_variables("buffer"):
-                    eve = state.solver.eval(symbol)
-                    if eve != 0:
-                        try:
-                            command = state.mem[eve].string.concrete
-                            if len(command) > 0:
-                                if hasattr(command,'decode'):
-                                    command= command.decode('utf-8')
-                                buffers_recv.append(command)
-                            else:
-                                buffers_recv.append(hex(eve))
-                        except:
-                            buffers_recv.append(hex(eve))
-                if len(buffers_recv) > 0:
-                    self.log.info(buffers_recv)
-                buffers_send = []
-                #for symbol in state.globals["buffer_send"]:
-                for buf,l in state.globals["buffer_send"]:
-                    eve = state.solver.eval(state.memory.load(buf,l))
-                    if eve != 0:
-                        try:
-                            command = state.mem[eve].string.concrete
-                            if len(command) > 0:
-                                if hasattr(command,'decode'):
-                                    command= command.decode('utf-8')
-                                buffers_send.append(command)
-                            else:
-                                buffers_send.append(hex(eve))
-                        except:
-                            buffers_send.append(hex(eve))           
-                        # if hasattr(command,'decode'):
-                        #     command= command.decode('utf-8')
-                        # buffers_send.append(command)
-                if len(buffers_send) > 0:
-                    self.log.info(buffers_send)
-                recv_cnt = 0
-                send_cnt = 0
-                if len(buffers_recv) > 0:
-                    brutto_result += hex(state.addr) + " : "  + "\n"
-                    # for buf in buffers_recv:
-                    #     brutto_result += "     - " + buf + "\n"
-                    for dic in self.scdg[state.globals["id"]][state.globals["n_calls_recv"]:]:
-                        if dic["name"]  not in calls_recv:
-                            brutto_result += "         * " + dic["name"] 
-                            if "recv" in dic["name"]:
-                                brutto_result += "(" + str(buffers_recv[recv_cnt]) + ")"
-                                recv_cnt += 1
-                            brutto_result += "\n"
-                            calls_recv[dic["name"] ] = 1
-                if len(buffers_send) > 0:
-                    brutto_result += hex(state.addr) + " : "  + "\n"
-                    # for buf in buffers_recv:
-                    #     brutto_result += "     - " + buf + "\n"
-                    for dic in self.scdg[state.globals["id"]][state.globals["n_calls_send"]:]:
-                        if dic["name"]  not in calls_send:
-                            brutto_result += "         * " + dic["name"] 
-                            if "send" in dic["name"]:
-                                brutto_result += "(" + str(buffers_send[send_cnt]) + ")"
-                                send_cnt += 1
-                            brutto_result += "\n"
-                            calls_send[dic["name"] ] = 1
-                
-                
-                try:
-                    with open_file(exp_dir + "commands.log", 'r') as f:
-                        content = f.read()
-                        with open_file(exp_dir + "commands.log", 'w') as f:
-                            f.write(content + brutto_result + '\n')
-                except:
-                    with open_file(exp_dir + "commands.log", 'w') as f:
-                        f.write(brutto_result + '\n')
-            #self.warzone(exp_dir,simgr,tracked)
-        
+            self.commands.track(simgr, self.scdg,exp_dir)
+        if args.ioc_report:
+            self.ioc.build_ioc(self.scdg,exp_dir)
         # Build SCDG
         self.build_scdg_fin(exp_dir, nameFileShort, main_obj, state, simgr)
-        self.build_ioc(exp_dir, nameFileShort, main_obj, state, simgr)
+        
         g = GraphBuilder(
             name=nameFileShort,
             mapping="mapping.txt",
@@ -836,153 +786,40 @@ class SemaSCDG:
         tsimgr.active[0].globals["JumpExcedeed"] = False
         tsimgr.active[0].globals["JumpTable"] = {}
         tsimgr.active[0].globals["n_steps"] = 0
+        tsimgr.active[0].globals["n_forks"] = 0
         tsimgr.active[0].globals["last_instr"] = 0
         tsimgr.active[0].globals["counter_instr"] = 0
         tsimgr.active[0].globals["loaded_libs"] = {}
         tsimgr.active[0].globals["addr_call"] = []
         tsimgr.active[0].globals["loop"] = 0
-        
         tsimgr.active[0].globals["crypt_algo"] = 0
         tsimgr.active[0].globals["crypt_result"] = 0
-                                
         tsimgr.active[0].globals["n_buffer"] = 0
+        tsimgr.active[0].globals["n_calls"] = 0
+        tsimgr.active[0].globals["recv"] = 0
         tsimgr.active[0].globals["rsrc"] = 0
+        tsimgr.active[0].globals["resources"] = {}
+        tsimgr.active[0].globals["df"] = 0
+        tsimgr.active[0].globals["files"] = {}
         tsimgr.active[0].globals["n_calls_recv"] = 0
-                            
         tsimgr.active[0].globals["n_calls_send"] = 0
         tsimgr.active[0].globals["n_buffer_send"] = 0
         tsimgr.active[0].globals["buffer_send"] = []
-                            
         tsimgr.active[0].globals["files"] = {}
-        tsimgr.active[0].globals["files_fd"] = {}
-        
-        tsimgr.active[0].globals["df"]  = 0
-                
-        tsimgr.active[0].globals["create_thread_address"] = []
-        tsimgr.active[0].globals["is_thread"] = False
-        
         tsimgr.active[0].globals["FindFirstFile"] = 0
         tsimgr.active[0].globals["FindNextFile"] = 0
         tsimgr.active[0].globals["GetMessageA"] = 0
         tsimgr.active[0].globals["GetLastError"] = claripy.BVS("last_error", 32)
-        tsimgr.active[0].globals["recv"] = 0
         tsimgr.active[0].globals["HeapSize"] = {}
-        
+        tsimgr.active[0].globals["CreateThread"] = 0
+        tsimgr.active[0].globals["CreateRemoteThread"] = 0
+        tsimgr.active[0].globals["condition"] = ""
+        tsimgr.active[0].globals["files_fd"] = {}
+        tsimgr.active[0].globals["create_thread_address"] = []
+        tsimgr.active[0].globals["is_thread"] = False
+        tsimgr.active[0].globals["recv"] = 0
         tsimgr.active[0].globals["allow_web_interaction"] = False
         
-        #exit()
-
-    # TODO refactor
-    def warzone(self,exp_dir,simgr,tracked):
-        dump_file = {}
-        dump_id = 0
-        
-        for state in simgr.deadended:
-            dump_file[dump_id] = {"status" : "dead",
-                                  "buffers" : tracked[state.globals["id"]],
-                                  "trace" : self.scdg[state.globals["id"]][state.globals["n_calls_recv"]:]
-                                  }
-            dump_id = dump_id + 1
-            
-        for state in simgr.active:
-            dump_file[dump_id] = {"status" : "active",
-                                  "buffers" : tracked[state.globals["id"]],
-                                  "trace" : self.scdg[state.globals["id"]][state.globals["n_calls_recv"]:]
-                                  }
-            dump_id = dump_id + 1
-            
-        for state in simgr.stashes["pause"]:
-            dump_file[dump_id] = {"status" : "pause",
-                                  "buffers" : tracked[state.globals["id"]],
-                                  "trace" : list(set(dic["name"] for dic in self.scdg[state.globals["id"]][state.globals["n_calls_recv"]:]))
-                                  }
-            dump_id = dump_id + 1
-                
-                
-        ofilename = exp_dir + "warzone.json"
-        self.log.info(ofilename)
-        save_SCDG = open_file(ofilename, "w")
-        json_dumper.dump(dump_file, save_SCDG)
-        save_SCDG.close()
-        
-        
-    def build_ioc(self, exp_dir, nameFileShort, main_obj, state, simgr):
-        # import pdb
-        # import json 
-     
-        funcs = {
-                "strings":
-                    ["lstrlenA","lstrlenW","strlen","lstrcpyA","lstrcpyW","strncpy","lstrcatA","lstrcatW","lstrcmpA","lstrcmpW","strcmp","strncmp","wsprintfA","wsprintfW","MultiByteToWideChar","WideCharToMultiByte"],
-                "regs" :  
-                    ["RegCreateKeyExA","RegCreateKeyExW","RegCreateKeyA","RegCreateKeyW","RegSetValueExA","RegSetValueExW","RegSetValueA","RegSetValueW","RegQueryValueExW","RegQueryValueExA","RegQueryValueA","RegQueryValueW","RegOpenKeyA","RegOpenKeyW","RegOpenKeyExA","RegOpenKeyExW","RegDeleteKeyW","RegDeleteKeyA","RegGetValueA","RegGetValueW",],
-                "files" : 
-                    ["CreateFileA","CreateFileW","GetModuleFileNameA","GetModuleFileNameW","GetTempPathA","GetTempPathW","FindFirstFileW","FindFirstFileA","WriteFile","ReadFile","CopyFile"],
-                "dir" :
-                    ["CreateDirectoryA","CreateDirectoryW","SHGetFolderPathW","SHGetFolderPathA","GetWindowsDirectoryW","GetWindowsDirectoryA","SHGetSpecialFolderPathW","SHGetSpecialFolderPathA"],
-                "network" : 
-                    ["getaddrinfo","gethostbyname","inet_addr","NetLocalGroupAddMembers","socket","bind","listen","accept","connect","recv","shutdown","WSAStratup","WSACleanup","send"],
-                "cmd" : 
-                    ["ShellExecuteW","ShellExecuteA","ShellExecuteExW","ShellExecuteExA","WinExec"],
-                "thread" : 
-                    ["ResumeThread","NtResumeThread","CreateThread","GetThreadContext","SetThreadContext"],
-                "process" : 
-                    ["CreateProcessA","CreateProcessW","ReadProcessMemory","NtWriteVirtualMemory","CreateRemoteThread","NtUnmapViewOfSection","WriteProcessMemory","VirtualAllocEx","ZwUnmapViewOfSection"],
-                "other" : 
-                    ["CreateEventA","CreateEventW","FindResourceW","FindResourceA","LookupAccountSidW","LookupAccountSidA","ExpandEnvironmentStringsW","GetDriveTypeW","GetDriveTypeA","URLDownloadToFileW","URLDownloadToFileA","GetLogicalDriveStringsW","GetLogicalDriveStringsA"],
-                "lib" : 
-                    ["LoadLibraryA","LoadLibraryW","GetModuleHandleA","GetModuleHandleW"],
-                "proc" : 
-                    ["GetProcAddress"],
-                "services" :
-                    ["OpenSCManager","CreateService","StartServiceCtrlDispatcher"],
-                "crypt" :
-                    ["CryptAcquireContext","CryptGenKey","CryptDeriveKey","CryptDecrypt","CryptReleaseContext"],
-                "anti" :
-                    ["IsDebuggerPresent","GetSystemInfo","GlobalMemoryStatusEx","GetVersion","CreateToolhelp32Snapshot"]
-        }
-        ofilename = exp_dir + "inter_SCDG.json"
-        f = open(ofilename)
-        data = json.load(f)
-       # data.popitem()
-        for func in funcs:
-            strings = {""}
-            self.log.info("\n #################################################################################### \n")
-            self.log.info(func + "\n")
-            for i in data:
-                for call in data[i]["trace"]:
-                    if call["name"] in funcs[func]:
-                        if False and func == "strings":
-                            for arg in call["args"]:
-                                if isinstance(arg,str) and arg not in strings:
-                                    strings.add(arg)
-                                    self.log.info(arg)
-                        else:
-                            string = call["name"] + " ( "
-                            for arg in call["args"]:
-                                if isinstance(arg,str): #and arg[-2:] != "32" and "_" not in arg and arg != "":
-                                    string = string + " " + arg + ","
-                            string = string + "\x08" + " )"
-                            if string not in strings:
-                                self.log.info(string)
-                                strings.add(string)
-                                     
-        self.log.info("\n\n\n")     
-        allfuncs = []        
-        for j in data:
-            for call in data[j]["trace"]:
-                for arg in call["args"]:
-                    if isinstance(arg,str) and arg[-2:] != "32" and "_" not in arg and arg != "" and call["name"] not in allfuncs:
-                        allfuncs.append(call["name"])
-                    
-        for a in allfuncs:
-            flag = 0
-            for fun in funcs:
-                if a in funcs[fun]:
-                    flag = 1
-            if not flag:
-                self.log.info(a)
-            
-        f.close()
 
     def build_scdg_fin(self, exp_dir, nameFileShort, main_obj, state, simgr):
         dump_file = {}
@@ -1012,7 +849,7 @@ class SemaSCDG:
                 self.scdg_fin.append(self.scdg[state.globals["id"]])
 
         for error in simgr.errored:
-            hashVal = hash(str(self.scdg[state.globals["id"]]))
+            hashVal = hash(str(self.scdg[error.globals["id"]]))
             if hashVal not in dic_hash_SCDG:
                 dic_hash_SCDG[hashVal] = 1
                 dump_file[dump_id] = {
@@ -1020,15 +857,15 @@ class SemaSCDG:
                     "trace": self.scdg[error.state.globals["id"]],
                 }
                 dump_id = dump_id + 1
-                self.scdg_fin.append(self.scdg[state.globals["id"]])
-                
-        for error in simgr.pause:
+                self.scdg_fin.append(self.scdg[error.globals["id"]])
+
+        for state in simgr.pause:
             hashVal = hash(str(self.scdg[state.globals["id"]]))
             if hashVal not in dic_hash_SCDG:
                 dic_hash_SCDG[hashVal] = 1
                 dump_file[dump_id] = {
                     "status": "pause",
-                    "trace": self.scdg[error.state.globals["id"]],
+                    "trace": self.scdg[state.globals["id"]],
                 }
                 dump_id = dump_id + 1
                 self.scdg_fin.append(self.scdg[state.globals["id"]])
@@ -1153,6 +990,7 @@ class SemaSCDG:
             self.log.setLevel(logging.INFO)
         else:
             # logging.getLogger('claripy').disabled = True
+            pass
             ch = logging.StreamHandler()
             ch.setLevel(logging.INFO)
             ch.setFormatter(CustomFormatter())

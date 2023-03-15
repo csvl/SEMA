@@ -1114,6 +1114,20 @@ class CustomSimProcedure:
                             args[i] = string
                 except:
                     args[i] = temp
+                try:
+                    if (
+                        self.string_resolv
+                        and callee_arg
+                        and args[i] != 0
+                        and (
+                            "PCUNICODESTRING" in callee_arg[i]["type"]
+                        )
+                    ):
+                        addr = self.state.memory.load(args[i]+4,4,endness=archinfo.Endness.LE)
+                        args[i] = self.state.mem[addr].wstring.concrete
+                except:
+                    args[i] = temp
+             
             if self.string_resolv and name in self.FUNCTION_STRING and args:
                 index_str = self.FUNCTION_STRING[name]
                 try:

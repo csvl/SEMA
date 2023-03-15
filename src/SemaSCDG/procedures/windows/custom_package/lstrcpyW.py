@@ -5,10 +5,17 @@ lw = logging.getLogger("CustomSimProcedureWindows")
 
 
 class lstrcpyW(angr.SimProcedure):
-    def run(self, dst, src):
-        strlen = angr.SIM_PROCEDURES['libc']['strlen']
-        strncpy = angr.SIM_PROCEDURES['libc']['strncpy']
-        src_len = self.inline_call(strlen, src)
-
-        ret_expr = self.inline_call(strncpy, dst, src, src_len.ret_expr+1, src_len=src_len.ret_expr).ret_expr
-        return ret_expr
+    def run(self, lpstring1, lpstring2):
+        if lpstring1.symbolic or lpstring2.symbolic:
+            return lpstring1
+            
+        try:
+            second_str = self.state.mem[lpstring2].wstring.concrete
+        except:
+            lw.info("lpstring2 not resolvable")
+            second_str = ""
+            
+        new_str = second_str + "\0"
+        new_str = self.state.solver.BVV(new_str.encode("utf-16le"))
+        self.state.memory.store(lpstring1, new_str)
+        return lpstring1

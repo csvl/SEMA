@@ -13,7 +13,6 @@ class wsprintfA(angr.SimProcedure):
 
     def run(self, arg1, arg2):
 
-        # import pdb; pdb.set_trace()
         lw.info("wsprintfA: " + str(self.arguments))
 
         if arg1.symbolic or arg2.symbolic:

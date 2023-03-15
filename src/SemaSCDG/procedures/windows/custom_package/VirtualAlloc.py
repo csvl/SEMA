@@ -37,22 +37,19 @@ def deconvert_prot(prot):
 # https://msdn.microsoft.com/en-us/library/windows/desktop/aa366890(v=vs.85).aspx
 class VirtualAlloc(angr.SimProcedure):
     def run(self, lpAddress, dwSize, flAllocationType, flProtect):
-        l.info("VirtualAlloc(%s, %s, %s, %s)", lpAddress, dwSize, flAllocationType, flProtect)
         addrs = self.state.solver.eval_upto(lpAddress, 2)
         if len(addrs) != 1:
             raise angr.errors.SimValueError("VirtualAlloc can't handle symbolic lpAddress")
         addr = addrs[0]
         addr &= ~0xfff
         
-        l.info("VirtualAlloc addr %#x", addr)
 
         size = self.state.solver.max_int(dwSize)
-        l.info("VirtualAlloc size %#x", size)
         if dwSize.symbolic and size > self.state.libc.max_variable_size:
             l.warning('symbolic VirtualAlloc dwSize %s has maximum %#x, greater than state.libc.max_variable_size %#x',
                       dwSize, size, self.state.libc.max_variable_size)
             size = self.state.libc.max_variable_size
-            raise Exception("Symbolic VirtualAlloc dwSize is too big")
+            #raise Exception("Symbolic VirtualAlloc dwSize is too big")
 
         flagss = self.state.solver.eval_upto(flAllocationType, 2)
         if len(flagss) != 1:
@@ -70,14 +67,12 @@ class VirtualAlloc(angr.SimProcedure):
             return addr
         
         ft = True if flags & 0x00100000 else False
-        l.info("VirtualAlloc FromTop %s", ft)
         
         # if size == 0x7fff0000:
         #    return 0
 
         if flags & 0x00002000 or addr == 0: # MEM_RESERVE
             if addr == 0:
-                l.info("...searching for address")
                 while True:
                     addr = self.allocate_memory(size,from_top=ft)
                     try:
@@ -85,7 +80,6 @@ class VirtualAlloc(angr.SimProcedure):
                     except angr.errors.SimMemoryError:
                         continue
                     else:
-                        l.info("...found %#x", addr)
                         break
             else:
                 try:
