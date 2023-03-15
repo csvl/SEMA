@@ -421,8 +421,8 @@ class SemaSCDG:
         state = proj.factory.entry_state(
             addr=addr, add_options=options
         )
-        import pdb
-        pdb.set_trace()
+        # import pdb
+        # pdb.set_trace()
         if args.sim_file:
             with open_file(self.inputs, "rb") as f:
                 cont = f.read()
