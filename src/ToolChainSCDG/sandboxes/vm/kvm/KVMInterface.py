@@ -18,7 +18,6 @@ from VMInterface import VMInterface
 """
 TODO volume should be deleted by hand for now
 """
-
 class KVMInterface(VMInterface):
     def __init__(self, name: str, filename:str, config:str, config_vol:str, config_pool:str, image:str, 
                  mem_mb=4194304, vcpu=2, capacity = 45, create_vm=False, user="user",password="user",guestos="linux"):

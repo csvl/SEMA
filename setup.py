@@ -32,7 +32,7 @@ setup(name='ucl_tc_malware_analysis',
           'requests',
           'graphviz',
           'monkeyhex',
-          'angr==8.20.7.27', # 8.20.7.27 for symbion (not working after)
+          'angr==9.2.21', # 8.20.7.27 for symbion (not working after)
           'researchpy',
           'hypothesis',
           'seaborn',

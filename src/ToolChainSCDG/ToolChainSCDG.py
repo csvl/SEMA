@@ -433,7 +433,7 @@ class ToolChainSCDG:
                     #"preload_libs": libs,
                 },  # ,load_options={"auto_load_libs":False}
                 support_selfmodifying_code=True, # if not nameFile.endswith(".dmp") else False,
-                main_opts=main_opt,
+                #main_opts=main_opt,
                 #simos = "windows"if nameFile.endswith(".bin") or nameFile.endswith(".dmp") else None
                 # arch="",
             )
@@ -544,7 +544,7 @@ class ToolChainSCDG:
         state.register_plugin( 
             "plugin_atom", PluginAtom()
         )  
-        if not (self.is_packed and self.unpack_mode == "symbion") : # and False
+        if not (self.is_packed and self.unpack_mode == "symbion") or True: # and False
             # TODO jn
             #heap_address = proj.concrete_target.get_heap_address()
             #heap_address_content = proj.concrete_target.read_address(heap_address)
