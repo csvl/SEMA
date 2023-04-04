@@ -1,0 +1,386 @@
+{
+  "QueryProtectedPolicy": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "QueryProtectedPolicy", 
+    "arguments": [
+      {
+        "type": " LPCGUID", 
+        "name": "PolicyGuid", 
+        "is_float": false
+      }, 
+      {
+        "type": " PULONG_PTR", 
+        "name": "PolicyValue", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetProcessPriorityBoost", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " PBOOL", 
+        "name": "pDisablePriorityBoost", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetThreadInformation": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetThreadInformation", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " THREAD_INFORMATION_CLASS", 
+        "name": "ThreadInformationClass", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "ThreadInformation", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "ThreadInformationSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetThreadIOPendingFlag", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " PBOOL", 
+        "name": "lpIOIsPending", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetThreadInformation", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " THREAD_INFORMATION_CLASS", 
+        "name": "ThreadInformationClass", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "ThreadInformation", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "ThreadInformationSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "IsProcessCritical", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " PBOOL", 
+        "name": "Critical", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "6": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "QueryProtectedPolicy", 
+    "arguments": [
+      {
+        "type": " LPCGUID", 
+        "name": "PolicyGuid", 
+        "is_float": false
+      }, 
+      {
+        "type": " PULONG_PTR", 
+        "name": "PolicyValue", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "7": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetProcessPriorityBoost", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bDisablePriorityBoost", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "8": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetProtectedPolicy", 
+    "arguments": [
+      {
+        "type": " LPCGUID", 
+        "name": "PolicyGuid", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG_PTR", 
+        "name": "PolicyValue", 
+        "is_float": false
+      }, 
+      {
+        "type": " PULONG_PTR", 
+        "name": "OldPolicyValue", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetThreadIOPendingFlag": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetThreadIOPendingFlag", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " PBOOL", 
+        "name": "lpIOIsPending", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetSystemTimes", 
+    "arguments": [
+      {
+        "type": " PFILETIME", 
+        "name": "lpIdleTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " PFILETIME", 
+        "name": "lpKernelTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " PFILETIME", 
+        "name": "lpUserTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetProcessPriorityBoost": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetProcessPriorityBoost", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "bDisablePriorityBoost", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetProtectedPolicy": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetProtectedPolicy", 
+    "arguments": [
+      {
+        "type": " LPCGUID", 
+        "name": "PolicyGuid", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG_PTR", 
+        "name": "PolicyValue", 
+        "is_float": false
+      }, 
+      {
+        "type": " PULONG_PTR", 
+        "name": "OldPolicyValue", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetProcessPriorityBoost": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetProcessPriorityBoost", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " PBOOL", 
+        "name": "pDisablePriorityBoost", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "9": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetThreadInformation", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " THREAD_INFORMATION_CLASS", 
+        "name": "ThreadInformationClass", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "ThreadInformation", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "ThreadInformationSize", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "IsProcessCritical": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "IsProcessCritical", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hProcess", 
+        "is_float": false
+      }, 
+      {
+        "type": " PBOOL", 
+        "name": "Critical", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetSystemTimes": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetSystemTimes", 
+    "arguments": [
+      {
+        "type": " PFILETIME", 
+        "name": "lpIdleTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " PFILETIME", 
+        "name": "lpKernelTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " PFILETIME", 
+        "name": "lpUserTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetThreadInformation": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetThreadInformation", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hThread", 
+        "is_float": false
+      }, 
+      {
+        "type": " THREAD_INFORMATION_CLASS", 
+        "name": "ThreadInformationClass", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "ThreadInformation", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "ThreadInformationSize", 
+        "is_float": false
+      }
+    ]
+  }
+}

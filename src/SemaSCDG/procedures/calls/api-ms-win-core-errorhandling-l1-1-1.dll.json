@@ -1,0 +1,126 @@
+{
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "PVOID", 
+    "returns_float": false, 
+    "name": "AddVectoredContinueHandler", 
+    "arguments": [
+      {
+        "type": " ULONG", 
+        "name": "First", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVECTORED_EXCEPTION_HANDLER", 
+        "name": "Handler", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__cdecl", 
+    "returns": "PVOID", 
+    "returns_float": false, 
+    "name": "AddVectoredExceptionHandler", 
+    "arguments": [
+      {
+        "type": " ULONG", 
+        "name": "First", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVECTORED_EXCEPTION_HANDLER", 
+        "name": "Handler", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__cdecl", 
+    "returns": "ULONG", 
+    "returns_float": false, 
+    "name": "RemoveVectoredContinueHandler", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "Handle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__cdecl", 
+    "returns": "ULONG", 
+    "returns_float": false, 
+    "name": "RemoveVectoredExceptionHandler", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "Handle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "AddVectoredExceptionHandler": {
+    "cc": "__cdecl", 
+    "returns": "PVOID", 
+    "returns_float": false, 
+    "name": "AddVectoredExceptionHandler", 
+    "arguments": [
+      {
+        "type": " ULONG", 
+        "name": "First", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVECTORED_EXCEPTION_HANDLER", 
+        "name": "Handler", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "AddVectoredContinueHandler": {
+    "cc": "__cdecl", 
+    "returns": "PVOID", 
+    "returns_float": false, 
+    "name": "AddVectoredContinueHandler", 
+    "arguments": [
+      {
+        "type": " ULONG", 
+        "name": "First", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVECTORED_EXCEPTION_HANDLER", 
+        "name": "Handler", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "RemoveVectoredExceptionHandler": {
+    "cc": "__cdecl", 
+    "returns": "ULONG", 
+    "returns_float": false, 
+    "name": "RemoveVectoredExceptionHandler", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "Handle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "RemoveVectoredContinueHandler": {
+    "cc": "__cdecl", 
+    "returns": "ULONG", 
+    "returns_float": false, 
+    "name": "RemoveVectoredContinueHandler", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "Handle", 
+        "is_float": false
+      }
+    ]
+  }
+}

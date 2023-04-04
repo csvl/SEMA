@@ -1,0 +1,30 @@
+2021-12-02 17:41:15,481 [cuckoo.core.scheduler] INFO: Task #2: acquired machine cuckoo1 (label=cuckoo1)
+2021-12-02 17:41:15,482 [cuckoo.core.resultserver] DEBUG: Now tracking machine 192.168.122.32 for task #2
+2021-12-02 17:41:15,482 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Replay
+2021-12-02 17:41:15,488 [cuckoo.auxiliary.sniffer] INFO: Started sniffer with PID 312261 (interface=qemubr, host=192.168.122.32)
+2021-12-02 17:41:15,488 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Sniffer
+2021-12-02 17:41:15,509 [cuckoo.machinery.qemu] DEBUG: Starting vm cuckoo1
+2021-12-02 17:41:15,531 [cuckoo.machinery.qemu] DEBUG: Executing QEMU ['qemu-system-x86_64', '-display', 'none', '-m', '1024M', '-hda', '/home/crochetch/Documents/PhD/VMImages/images/snapshot_cuckoo1.qcow2', '-net', 'tap,ifname=tap_cuckoo1,script=no,downscript=no', '-net', 'nic,macaddr=52:54:00:12:34:56', '-enable-kvm']
+2021-12-02 17:41:15,553 [cuckoo.core.guest] INFO: Starting analysis #2 on guest (id=cuckoo1, ip=192.168.122.32)
+2021-12-02 17:41:16,556 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:17,560 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:18,564 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:18,632 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:20,637 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:21,642 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:22,647 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:22,696 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:24,702 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:25,705 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:26,710 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:26,756 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:28,762 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:29,767 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:30,772 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:30,820 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:32,826 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:33,832 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:34,837 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:34,884 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:36,888 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 17:41:37,891 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet

@@ -1,0 +1,144 @@
+FROM ubuntu:20.04
+
+ARG image
+ENV DEBIAN_FRONTEND="noninteractive"
+ENV SNAPCRAFT_SETUP_CORE=1
+
+# Toolchain
+
+RUN  apt-get update
+RUN  apt update; apt-get --fix-missing -y install \ 
+                python3.8 \
+                python3.8-dev \
+                python3.8-venv \
+                python3-pip \
+                xterm \
+                virt-manager \
+                git \
+                curl
+
+# Cuckoo
+RUN apt update; apt-get --fix-missing -y install \
+                # python \  # Deprecated
+                # python-pip \
+                # python-dev \
+                # python-virtualenv \
+                # python-setuptools \
+                libffi-dev \
+                libssl-dev \
+                libjpeg-dev \
+                zlib1g-dev \
+                swig \
+                qemu-kvm \
+                #libvirt-bin \ # Deprecated
+                libvirt-daemon-system \
+                libvirt-clients \
+                #ubuntu-vm-builder \  # Deprecated
+                bridge-utils \
+                #python-libvirt \ # Deprecated
+                python3-libvirt \
+                tcpdump \
+                apparmor-utils \
+                libcap2-bin \
+                libcairo2-dev \
+                libjpeg-turbo8-dev \
+                libpng-dev \
+                libossp-uuid-dev \
+                #libfreerdp-dev \ # Deprecated
+                freerdp2-dev \
+                libvirt-dev \
+                python3-wheel 
+
+# FL
+RUN apt update; apt-get --fix-missing -y install \
+                rabbitmq-server \
+                zip
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh  -s -- -y
+
+RUN apt remove --purge cmake
+RUN apt update; apt-get install --fix-missing -y  cmake
+# RUN apt install -y snapd
+# # RUN service snapd start 
+# RUN systemctl enable snapd
+# RUN snap install cmake --classic
+
+## Install mongodb & PostgreSQL
+RUN apt-get -y install \
+                mongodb \
+                postgresql \
+                libpq-dev
+
+# For Symbion
+RUN apt update; apt-get install --fix-missing -y  \
+                gdb-multiarch
+
+# For GSPan
+RUN apt update; apt-get install --fix-missing -y  libgoogle-glog-* \
+                    libgflags-* \
+                    radare2 
+
+WORKDIR /app/
+
+ADD src /app/src
+ADD setup.py /app/
+ADD .git/ /app/.git/
+ADD .gitmodules /app/.gitmodules
+RUN git submodule update --init --recursive
+RUN git submodule update --recursive
+
+RUN pip install --upgrade pip
+
+RUN pip3 install wheel; pip3 install setuptools_rust;
+RUN pip3 install .;
+
+# Angr-target
+RUN cd /app/src/submodules/angr-targets/; pip3 install nose; pip3 install .;
+
+# TCP dump for cuckoo
+RUN apt update; apt-get install --fix-missing -y  \ 
+                tcpdump \
+                wget \
+                software-properties-common
+# ERROR: Cache read/write disabled: interface file missing. (Kernel needs AppArmor 2.4 compatibility patch.)
+# Warning: unable to find a suitable fs in /proc/mounts, is it mounted?
+# RUN aa-disable /usr/sbin/tcpdump
+# RUN groupadd pcap
+# RUN usermod -a -G pcap $USER
+# RUN chgrp pcap /usr/sbin/tcpdump
+# RUN setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump
+# RUN /usr/sbin/tcpdump
+
+# guacd for cuckoo
+RUN mkdir /tmp/guac-build
+RUN apt update; apt-get install --fix-missing -y  --fix-missing \ 
+            libwebp-dev \
+            libwebsockets-dev \
+            libogg-dev \
+            libvorbis-dev \
+        #     libvorbisenc-dev \
+            libpulse-dev
+
+RUN cd /tmp/guac-build; \
+        wget https://www.apache.org/dist/guacamole/1.3.0/source/guacamole-server-1.3.0.tar.gz; \
+        tar xvf guacamole-server-1.3.0.tar.gz && cd guacamole-server-1.3.0; \
+        ./configure --with-init-dir=/etc/init.d; \
+        make && make install 
+RUN ldconfig
+RUN /etc/init.d/guacd start
+
+# Volatility
+RUN cd /app/src/submodules/volatility; pip install .;
+
+# Gspan
+RUN cd /app/src/submodules/SEMA-quickspan; mkdir build && cd build; cmake ..; make
+RUN ln -s /app/src/submodules/SEMA-quickspan/build/gspan /usr/local/bin/gspan
+
+RUN apt update; apt-get install --fix-missing -y  \
+                yara
+
+ADD yara/ /app/yara/
+
+# Angr-utils for cfg
+RUN cd /app/src/submodules/bingraphvis; pip install .
+RUN cd /app/src/submodules/angr-utils;  pip install .

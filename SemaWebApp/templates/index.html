@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <meta name="description" content="" />
+      <meta name="author" content="" />
+      <title>Dashboard</title>
+      <link rel="stylesheet" type="text/css" href="static/css/nyan.css">
+	   <script src="static/js/nyan.js" type="text/javascript"></script>
+      <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+      <link href="static/css/styles.css" rel="stylesheet" />
+      <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.6.2.min.js" integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+   </head>
+   <body class="sb-nav-fixed">
+      <script>
+         var nyanCat;
+         var alreadyrunflag=0 //flag to indicate whether target function has already been run
+
+         if (document.addEventListener)
+            document.addEventListener("DOMContentLoaded", function(){
+               alreadyrunflag=1; ready(); 
+            }, false)
+         else if (document.all && !window.opera){
+            document.write('<script type="text/javascript" id="contentloadtag" defer="defer" src="javascript:void(0)"><\/script>')
+            var contentloadtag=document.getElementById("contentloadtag")
+            contentloadtag.onreadystatechange=function(){
+               if (this.readyState=="complete"){
+                  alreadyrunflag=1
+                  ready();
+               }
+            }
+         }
+
+         window.onload=function(){
+            ready();
+         }
+
+         function ready() {
+            
+            //timedCount();
+         }
+
+         function timedCount() {
+            percent = document.getElementById("rainbow").style.width;
+            percent = percent.replace("px","");
+            newPercent = parseInt(percent) + 1;
+
+            nyanCat.setPercent(newPercent);
+
+            if(newPercent +15 < nyanCat.width) {
+               timer = setTimeout("timedCount()", 100);
+            }
+         }
+
+
+         $(function(){
+            nyanCat = new nyanCat(100);
+            var requiredCheckboxes = $('.implem :checkbox[required]');
+            requiredCheckboxes.change(function(){
+               if(requiredCheckboxes.is(':checked')) {
+                  requiredCheckboxes.removeAttr('required');
+               } else {
+                  requiredCheckboxes.attr('required', 'required');
+               }
+            });
+            var requiredCheckboxes_test = $('.test :checkbox[required]');
+            requiredCheckboxes_test.change(function(){
+               if(requiredCheckboxes_test.is(':checked')) {
+                  requiredCheckboxes_test.removeAttr('required');
+               } else {
+                  requiredCheckboxes_test.attr('required', 'required');
+               }
+            });
+
+            if($('#scdg_enable').is(":checked")) {
+               $('#collapse1 :input').removeAttr('style');
+            } else {
+               $('#collapse1 :input').css('pointer-events','none');
+               $('#collapse1 :input').css('background-color','grey');
+            }
+            $('#scdg_enable').change(function(){
+               if($(this).is(":checked")) {
+                  $('#collapse1 :input').removeAttr('style');
+               } else {
+                  $('#collapse1 :input').css('pointer-events','none');
+                  $('#collapse1 :input').css('background-color','grey');
+               }
+            });
+            if($('#class_enable').is(":checked")) {
+               $('#collapse2 :input').removeAttr('style');
+            } else {
+               $('#collapse2 :input').css('pointer-events','none')
+               $('#collapse2 :input').css('background-color','grey');
+            }
+            $('#class_enable').change(function(){
+               if($(this).is(":checked")) {
+                  $('#collapse2 :input').removeAttr('style');
+               } else {
+                  $('#collapse2 :input').css('pointer-events','none');
+                  $('#collapse2 :input').css('background-color','grey');
+               }
+            });
+            if($('#fl_enable').is(":checked")) {
+               $('#collapse3 :input').removeAttr('style');
+            } else {
+               $('#collapse3 :input').css('pointer-events','none');
+               $('#collapse3 :input').css('background-color','grey');
+            }
+            $('#fl_enable').change(function(){
+               if($(this).is(":checked")) {
+                  $('#collapse3 :input').removeAttr('style');
+               } else {
+                  $('#collapse3 :input').css('pointer-events','none');
+                  $('#collapse3 :input').css('background-color','grey');
+               }
+            });
+            
+            var progress_class = $('.progress');
+            var progress_bar = $('.progress-bar');
+            var submitter = $('.submitter');
+            let ireration = 0;
+
+            function check_progress() {
+               function worker() {
+                  $.get('iteration-scdg', function(data) {
+                     if (data != "None" && parseInt(data) > 0) {
+                        iteration = parseInt(data);
+                     }
+                  })
+                  $.get('progress-scdg', function(data) {
+                        console.log(data)
+                       if (data == "None") {
+                           progress_class.css('display','none');
+                           $('#rainbowContainer').css('display','none');
+                           $('#rainbowContainer2').css('display','none');
+                           
+                           submitter.attr("disabled", false);
+                           nyanCat.setPercent(0);
+                           return false;
+                       }
+                       else if (parseInt(data)) {
+                           progress_class.css('display','inherit');
+                           $('#rainbowContainer').css('display','inherit');
+                           $('#rainbowContainer2').css('display','inherit');
+
+                           submitter.attr("disabled", true);
+                           progress_bar.attr("aria-valuenow", data);
+                           var percent = parseInt(data)/iteration * 100;
+                           progress_bar.css('width', percent  + '%');
+                           //setTimeout(worker, 1000)
+                           nyanCat.setPercent(percent);
+                           if(percent >= 100) {
+                              progress_class.css('display','none');
+                              $('#rainbowContainer').css('display','none');
+                              $('#rainbowContainer2').css('display','none');
+                              submitter.attr("disabled", false);
+                              nyanCat.setPercent(0);
+                              return true;
+                           } else {
+                              return false;
+                           }
+                       } else {
+                           return false;
+                       }
+                   })
+               }
+               worker()
+               var intervalId = window.setInterval(function(){
+                  var cond =  worker()
+                  if(cond) {
+                     window.clearInterval(intervalId);
+                  }
+                }, 30000); //TODO stop
+               
+           }
+           check_progress()
+         });
+      </script>
+      <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+         <!-- Navbar Brand-->
+         <a class="navbar-brand ps-3" href="index.html">SEMA</a>
+         <!-- Sidebar Toggle-->
+         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+         <!-- Navbar-->
+         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+               <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#!">Settings</a></li>
+                  <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+               </ul>
+            </li>
+         </ul>
+      </nav>
+      <div id="layoutSidenav">
+         <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+               <div class="sb-sidenav-menu">
+                  <div class="nav">
+                     <div class="sb-sidenav-menu-heading">Core</div>
+                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts1">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        SEMA tools
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                     </a>
+                     <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                SEMA toolchain
+                            </a>
+                            <a class="nav-link" href="downloader.html">
+                              <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                SEMA downloader
+                            </a>
+                        </nav>
+                    </div>
+                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        SEMA results
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                     </a>
+                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="results.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                SEMA results viewer
+                            </a>
+                            <a class="nav-link" href="results-global.html">
+                              <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                SEMA results global
+                            </a>
+                        </nav>
+                    </div>
+                  </div>
+               </div>
+               <div class="sb-sidenav-footer">
+                  version 0.1
+               </div>
+            </nav>
+         </div>
+         <div id="layoutSidenav_content">
+            <main>
+               <form method=post enctype=multipart/form-data>
+                  <div class="container-fluid px-4">
+                     <h1 class="mt-4">SEMA experiments toolbox</h1>
+                     <div class="col-xl-12 rainbowContainer2">
+                        <h3 id="rainbowContainer2">Current experiments states</h3>
+                        <!-- <div class="progress" style="width: 75%; margin: auto; margin-top: 5px;margin-bottom: 5px;">
+                              <div class="progress-bar progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        -->
+                        <div>
+                           <div id="rainbowContainer" style="margin: auto; margin-top: 5px;margin-bottom: 5px;">
+                              <div id="rainbow" style="width: 1px;"></div>
+                              <div id="nyanCat"></div>
+                              <div class="clearDiv"></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xl-12">
+                        <div class="card">
+                           <div class="card-header" id="heading1">
+                             <a class="btn btn-link" data-bs-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapse1" role="button">
+                                 <i class="fas fa-chart-bar me-1"></i>
+                             </a>
+                              SEMA SCDG
+                              <div class="col-xl-6">
+                                 <div class="form-check form-switch" style="right: 5%;position: absolute;top: 30%;">
+                                     <input class="form-check-input" type="checkbox" name="scdg_enable" value="scdg_enable" id="scdg_enable" checked>
+                                     <label class="form-check-label" for="scdg_enable">Enable</label>
+                                 </div>
+                             </div>
+                           </div>
+                           <div id="collapse1" class="collapse" aria-labelledby="heading1" data-parent="#accordion">
+                             <div class="card-body">
+                              {% for action_scdg in actions_scdg %}
+                              <div class="card-group">
+                                 {% for group in action_scdg %}
+                                 <div class="card">
+                                    <div class="card-body">
+                                       <p class="card-text">
+                                           <div class="col-auto">
+                                               <label for="exec_mode" class="col-form-label"><b>{{ group }}</b></label>
+                                           </div>
+                                           {% if action_scdg[group][-1]["is_mutually_exclusive"] %}
+                                             {% for args in action_scdg[group] %}
+                                             <div class="form-check">
+                                                {% if args["default"] %}
+                                                      <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="radio" name="{{ group }}" value={{ args["name"] }} id={{ args["name"] }} checked>
+                                                {% else %}
+                                                      <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="radio" name="{{ group }}" value={{ args["name"] }} id={{ args["name"] }}>
+                                                {% endif %}
+                                                <label class="form-check-label" for={{ args["name"] }}>
+                                                {{ args["name"] }}
+                                                </label>
+                                                <div id="{{ args["name"] }}Help" class="form-text">{{ args["help"] }}</div>
+                                             </div>
+                                             {% endfor %}
+                                           {% else %}
+                                             {% for args in action_scdg[group] %}
+                                                {% if args["type"] == "<class 'int'>" %}
+                                                   <row>
+                                                      <label for="timeout" class="form-label">{{ args["name"] }}</label>
+                                                      <input type="range" aria-describedby="{{ args["name"] }}Help" class="form-range" value="{{ args["default"] }}" min="0" max="{{ args["default"]|int*5 }}" name="{{ args["name"] }}" id={{ args["name"] }} oninput="this.nextElementSibling.value = this.value">
+                                                      <output>{{ args["default"] }}</output>
+                                                      <div id="{{ args["name"] }}Help" class="form-text">{{ args["help"] }}</div>
+                                                   </row>
+                                                {% elif  args["type"] == "<class 'float'>" %}
+                                                   <row>
+                                                      <label for="timeout" class="form-label">{{ args["name"] }}</label>
+                                                      <input type="range" aria-describedby="{{ args["name"] }}Help" class="form-range" value="{{ args["default"] }}" step="0.25" min="0" max="{{ args["default"]|float*5 }}" name="{{ args["name"] }}" id={{ args["name"] }} oninput="this.nextElementSibling.value = this.value">
+                                                      <output>{{ args["default"] }}</output>
+                                                      <div id="{{ args["name"] }}Help" class="form-text">{{ args["help"] }}</div>
+                                                   </row>
+                                                {% elif  args["type"] == "bool" %}
+                                                   <div class="form-check">
+                                                      {% if args["default"] %}
+                                                         <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="checkbox" name="{{ args["name"] }}" value={{ args["name"] }} id={{ args["name"] }} checked>
+                                                      {% else %}
+                                                         <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="checkbox" name="{{ args["name"] }}" value={{ args["name"] }} id={{ args["name"] }}>
+                                                      {% endif %}
+                                                      <label class="form-check-label" for={{ args["name"] }}>
+                                                      {{ args["name"] }}
+                                                      </label>
+                                                      <div id="{{ args["name"] }}Help" class="form-text">{{ args["help"] }}</div>
+                                                   </div>
+                                                {% elif  args["name"] == "binaries" or args["name"] == "dir" or  args["name"] == "exp_dir" %}
+                                                   <div class="mb-3">
+                                                      <label for="{{ args["name"] }}" class="form-label">{{ args["name"] }}</label>
+                                                      <input class="form-control" aria-describedby="{{ args["name"] }}Help" name="{{ args["name"] }}" value="" type="file" id="{{ args["name"] }}" multiple directory webkitdirectory>
+                                                      <div id="{{ args["name"] }}Help" class="form-text">
+                                                         {{ args["help"] }}
+                                                         If you use the html "input" file, then we considere the root directory being in the default directory, else use the following textual input with full path
+                                                      </div>
+                                                      <input class="form-control"  name="{{ args["name"] }}" value="{{ args["default"] }}" type="text" id="{{ args["name"] }}">
+                                                   </div>
+                                                {% elif  args["name"] == "binary" %}
+                                                   <div class="mb-3">
+                                                      <label for="{{ args["name"] }}" class="form-label">{{ args["name"] }}</label>
+                                                      <input class="form-control" aria-describedby="{{ args["name"] }}Help" name="{{ args["name"] }}" value="" type="file" id="{{ args["name"] }}" multiple>
+                                                      <div id="{{ args["name"] }}Help" class="form-text">
+                                                         {{ args["help"] }}
+                                                         If you use the html "input" file, then we considere the root directory being in the default directory, else use the following textual input with full path
+                                                      </div>
+                                                      <input class="form-control"  name="{{ args["name"] }}" value="" type="text" id="{{ args["name"] }}">
+                                                   </div>
+                                                {% else %}
+                                                   <input class="form-control" aria-describedby="{{ args["name"] }}Help" type="text" placeholder="{{ args["name"] }}" aria-label="{{ args["help"] }}">
+                                                   <div id="{{ args["name"] }}Help" class="form-text">{{ args["help"] }}</div>
+                                                {% endif %}
+                                                <hr>
+                                             {% endfor %}
+                                           {% endif %}
+                                       </p>
+                                    </div>
+                                 </div>
+                                 {% endfor %}
+                              </div>
+                              {% endfor %}
+                             </div>
+                         </div>
+                        </div>
+                     </div>
+                     <br>
+                     <div class="col-xl-12">
+                        <div class="card">
+                           <div class="card-header" id="heading2">
+                             <a class="btn btn-link" data-bs-toggle="collapse" href="#collapse2" aria-expanded="false" aria-controls="collapse2" role="button">
+                                 <i class="fas fa-chart-bar me-1"></i>
+                             </a>
+                              SEMA Classifier
+                              <div class="col-xl-6">
+                                 <div class="form-check form-switch" style="right: 5%;position: absolute;top: 30%;">
+                                     <input class="form-check-input" type="checkbox" name="class_enable" value="class_enable" id="class_enable">
+                                     <label class="form-check-label" for="class_enable">Enable</label>
+                                 </div>
+                             </div>
+                           </div>
+                           <div id="collapse2" class="collapse" aria-labelledby="heading2" data-parent="#accordion">
+                             <div class="card-body">
+                              {% for action_classifier in actions_classifier %}
+                              <div class="card-group">
+                                 {% for group in action_classifier %}
+                                 <div class="card">
+                                    <div class="card-body">
+                                       <p class="card-text">
+                                           <div class="col-auto">
+                                               <label for="exec_mode" class="col-form-label"><b>{{ group }}</b></label>
+                                           </div>
+                                           {% if action_classifier[group][-1]["is_mutually_exclusive"] %}
+                                             {% for args in action_classifier[group] %}
+                                             <div class="form-check">
+                                                {% if args["default"] %}
+                                                   <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="radio" name="{{ group }}" value={{ args["name"] }} id={{ args["name"] }} checked>
+                                                {% else %}
+                                                   <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="radio" name="{{ group }}" value={{ args["name"] }} id={{ args["name"] }}>
+                                                {% endif %}
+                                                <label class="form-check-label" for={{ args["name"] }}>
+                                                {{ args["name"] }}
+                                                </label>
+                                                <div id="{{ args["name"] }}Help" class="form-text">{{ args["help"] }}</div>
+                                             </div>
+                                             {% endfor %}
+                                           {% else %}
+                                             {% for args in action_classifier[group] %}
+                                                {% if args["type"] == "<class 'int'>" %}
+                                                   <row>
+                                                      <label for="timeout" class="form-label">{{ args["name"] }}</label>
+                                                      <input type="range" aria-describedby="{{ args["name"] }}Help" class="form-range" value="{{ args["default"] }}" min="0" max="{{ args["default"]|int*5 }}" name="{{ args["name"] }}" id={{ args["name"] }} oninput="this.nextElementSibling.value = this.value">
+                                                      <output>{{ args["default"] }}</output>
+                                                      <div id="{{ args["name"] }}Help" class="form-text">{{ args["help"] }}</div>
+                                                   </row>
+                                                {% elif  args["type"] == "<class 'float'>" %}
+                                                   <row>
+                                                      <label for="timeout" class="form-label">{{ args["name"] }}</label>
+                                                      <input type="range" aria-describedby="{{ args["name"] }}Help" class="form-range" value="{{ args["default"] }}" step="0.25" min="0" max="{{ args["default"]|float*5 }}" name="{{ args["name"] }}" id={{ args["name"] }} oninput="this.nextElementSibling.value = this.value">
+                                                      <output>{{ args["default"] }}</output>
+                                                      <div id="{{ args["name"] }}Help" class="form-text">{{ args["help"] }}</div>
+                                                   </row>
+                                                {% elif  args["type"] == "bool" %}
+                                                   <div class="form-check">
+                                                      {% if args["default"] %}
+                                                         <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="checkbox" name="{{ args["name"] }}" value={{ args["name"] }} id={{ args["name"] }} checked>
+                                                      {% else %}
+                                                         <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="checkbox" name="{{ args["name"] }}" value={{ args["name"] }} id={{ args["name"] }}>
+                                                      {% endif %}
+                                                      <label class="form-check-label" for={{ args["name"] }}>
+                                                      {{ args["name"] }}
+                                                      </label>
+                                                      <div id="{{ args["name"] }}Help" class="form-text">{{ args["help"] }}</div>
+                                                   </div>
+                                                {% elif  args["name"] == "binaries" or args["name"] == "dir" or  args["name"] == "exp_dir" %}
+                                                   <div class="mb-3">
+                                                      <label for="{{ args["name"] }}" class="form-label">{{ args["name"] }}</label>
+                                                      <input class="form-control" aria-describedby="{{ args["name"] }}Help" name="{{ args["name"] }}" value="" type="file" id="{{ args["name"] }}" multiple directory webkitdirectory>
+                                                      <div id="{{ args["name"] }}Help" class="form-text">
+                                                         {{ args["help"] }}
+                                                         If you use the html "input" file, then we considere the root directory being in the default directory, else use the following textual input with full path
+                                                      </div>
+                                                      <input class="form-control"  name="{{ args["name"] }}" value="{{ args["default"] }}" type="text" id="{{ args["name"] }}">
+                                                   </div>
+                                                {% elif  args["name"] == "binary" %}
+                                                   <div class="mb-3">
+                                                      <label for="{{ args["name"] }}" class="form-label">{{ args["name"] }}</label>
+                                                      <input class="form-control" aria-describedby="{{ args["name"] }}Help" name="{{ args["name"] }}" value="" type="file" id="{{ args["name"] }}" multiple>
+                                                      <div id="{{ args["name"] }}Help" class="form-text">
+                                                         {{ args["help"] }}
+                                                         If you use the html "input" file, then we considere the root directory being in the default directory, else use the following textual input with full path
+                                                      </div>
+                                                      <input class="form-control"  name="{{ args["name"] }}" value="" type="text" id="{{ args["name"] }}">
+                                                   </div>
+                                                {% else %}
+                                                   <input class="form-control" aria-describedby="{{ args["name"] }}Help" type="text" placeholder="{{ args["name"] }}" aria-label="{{ args["help"] }}">
+                                                   <div id="{{ args["name"] }}Help" class="form-text">{{ args["help"] }}</div>
+                                                {% endif %}
+                                                <hr>
+                                             {% endfor %}
+                                           {% endif %}
+                                       </p>
+                                    </div>
+                                 </div>
+                                 {% endfor %}
+                              </div>
+                              {% endfor %}
+                             </div>
+                         </div>
+                        </div>
+                     </div>
+                     <br>
+                     <div class="col-xl-12">
+                        <div class="card">
+                           <div class="card-header" id="heading3">
+                             <a class="btn btn-link" data-bs-toggle="collapse" href="#collapse3" aria-expanded="false" aria-controls="collapse3" role="button">
+                                 <i class="fas fa-chart-bar me-1"></i>
+                             </a> 
+                              SEMA Federated Learning (TODO)
+                              <div class="col-xl-6">
+                                 <div class="form-check form-switch" style="right: 5%;position: absolute;top: 30%;">
+                                     <input class="form-check-input" type="checkbox" id="fl_enable">
+                                     <label class="form-check-label" for="fl_enable">Enable</label>
+                                 </div>
+                             </div>
+                           </div>
+                           <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordion">
+                             <div class="card-body implem">
+                                
+                             </div>
+                         </div>
+                        </div>
+                     </div>
+                     <button class="btn btn-primary pull-right submitter" style="position: relative;margin-top: 1%;">Start Experiments</button>
+                  </div>
+                  
+               </form>
+               <footer class="py-4 bg-light mt-auto">
+                  <div class="container-fluid px-4">
+                     <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; SEMA 2022 - Christophe Crochet</div>
+                        <div>
+                           <a href="#">Privacy Policy</a>
+                           &middot;
+                           <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                     </div>
+                  </div>
+               </footer>
+            </main>
+         </div>
+      </div>
+      </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+      <script src="static/js/scripts.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+      <script src="static/assets/demo/chart-area-demo.js"></script>
+      <script src="static/assets/demo/chart-bar-demo.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+      <script src="static/js/datatables-simple-demo.js"></script>
+   </body>
+</html>

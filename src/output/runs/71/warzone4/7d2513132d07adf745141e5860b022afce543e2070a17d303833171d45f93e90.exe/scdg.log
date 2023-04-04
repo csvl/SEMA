@@ -1,0 +1,959 @@
+[1;33;40mWARNING - 2023-01-04 21:10:29,836 - [34mangr.project[0m - [34mDisabling IRSB translation cache because support for self-modifying code is enabled.[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:30,250 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:30] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:30,251 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:30] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:30,253 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:30] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:30,255 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:30] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:33,246 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:33] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:33,248 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:33] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:35,249 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:35] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:35,250 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:35] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:35,251 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:35] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:35,252 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:35] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:38,267 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:38] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:38,295 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:38] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:40,270 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:40] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:40,302 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:40] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:40,308 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:40] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:40,324 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:40] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:40,983 - [36mCustomSimProcedure[0m - {'DecodePointer': 6291456, 'RaiseException': 6291460, 'GetLastError': 6291464, 'HeapDestroy': 6291468, 'HeapAlloc': 6291472, 'HeapReAlloc': 6291476, 'HeapFree': 6291480, 'HeapSize': 6291484, 'GetProcessHeap': 6291488, 'InitializeCriticalSectionEx': 6291492, 'DeleteCriticalSection': 6291496, 'Sleep': 6291500, 'VirtualAlloc': 6291504, 'VirtualProtect': 6291508, 'MultiByteToWideChar': 6291512, 'WideCharToMultiByte': 6291516, 'FreeConsole': 6291520, 'CreateFileW': 6291524, 'ReadConsoleW': 6291528, 'ReadFile': 6291532, 'SetFilePointerEx': 6291536, 'GetFileSizeEx': 6291540, 'GetConsoleMode': 6291544, 'GetConsoleOutputCP': 6291548, 'FlushFileBuffers': 6291552, 'GetStringTypeW': 6291556, 'SetStdHandle': 6291560, 'SetConsoleCtrlHandler': 6291564, 'SetEnvironmentVariableW': 6291568, 'FreeEnvironmentStringsW': 6291572, 'GetEnvironmentStringsW': 6291576, 'GetCPInfo': 6291580, 'GetOEMCP': 6291584, 'GetACP': 6291588, 'IsValidCodePage': 6291592, 'IsDebuggerPresent': 6291596, 'OutputDebugStringW': 6291600, 'EnterCriticalSection': 6291604, 'LeaveCriticalSection': 6291608, 'UnhandledExceptionFilter': 6291612, 'SetUnhandledExceptionFilter': 6291616, 'GetCurrentProcess': 6291620, 'TerminateProcess': 6291624, 'IsProcessorFeaturePresent': 6291628, 'CloseHandle': 6291632, 'InitializeCriticalSectionAndSpinCount': 6291636, 'SetEvent': 6291640, 'ResetEvent': 6291644, 'WaitForSingleObjectEx': 6291648, 'CreateEventW': 6291652, 'GetModuleHandleW': 6291656, 'GetProcAddress': 6291660, 'GetStartupInfoW': 6291664, 'QueryPerformanceCounter': 6291668, 'GetCurrentProcessId': 6291672, 'GetCurrentThreadId': 6291676, 'GetSystemTimeAsFileTime': 6291680, 'InitializeSListHead': 6291684, 'RtlUnwind': 6291688, 'InterlockedPushEntrySList': 6291692, 'InterlockedFlushSList': 6291696, 'SetLastError': 6291700, 'EncodePointer': 6291704, 'TlsAlloc': 6291708, 'TlsGetValue': 6291712, 'TlsSetValue': 6291716, 'TlsFree': 6291720, 'FreeLibrary': 6291724, 'LoadLibraryExW': 6291728, 'GetSystemInfo': 6291732, 'VirtualQuery': 6291736, 'ExitProcess': 6291740, 'GetModuleHandleExW': 6291744, 'GetModuleFileNameW': 6291748, 'GetStdHandle': 6291752, 'WriteFile': 6291756, 'GetCommandLineA': 6291760, 'GetCommandLineW': 6291764, 'GetCurrentThread': 6291768, 'GetDateFormatW': 6291772, 'GetTimeFormatW': 6291776, 'CompareStringW': 6291780, 'LCMapStringW': 6291784, 'GetLocaleInfoW': 6291788, 'IsValidLocale': 6291792, 'GetUserDefaultLCID': 6291796, 'EnumSystemLocalesW': 6291800, 'GetFileType': 6291804, 'FindClose': 6291808, 'FindFirstFileExW': 6291812, 'FindNextFileW': 6291816, 'WriteConsoleW': 6291820, 'GetActiveWindow': 6291824, 'MessageBoxW': 6291828, 'UnregisterClassA': 6291832, 'CoCreateInstance': 6291836, 'CoTaskMemFree': 6291840, 'CoTaskMemRealloc': 6291844, 'VariantCopy': 6291848, 'VariantClear': 6291852, 'VariantInit': 6291856, 'VariantChangeType': 6291860, 'SysFreeString': 6291864, 'SysAllocStringLen': 6291868, 'SysAllocString': 6291872, 'SafeArrayDestroy': 6291876, 'KiUserExceptionDispatcher': 7344148, '_fmode': 7344152, '_commode': 7344156, '_acmdln': 7344160, '_wcmdln': 7344164}[0m
+[1;32;40mINFO - 2023-01-04 21:10:40,984 - [36mCustomSimProcedure[0m - [36mWas in angr :kernel32.dll[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:41,065 - [36mCustomSimProcedure[0m - [36mWas in angr :user32.dll[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,067 - [36mCustomSimProcedure[0m - [36mProcedure wsprintfA in DLL user32.dll has 3 arguments in json and 2 arguments in angr prototype. Taking number of arguments from json.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,068 - [36mCustomSimProcedure[0m - [36mProcedure wsprintfW in DLL user32.dll has 3 arguments in json and 2 arguments in angr prototype. Taking number of arguments from json.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,130 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600180, <SimProcedure CoTaskMemFree>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,131 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600184, <SimProcedure CoTaskMemRealloc>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,170 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6001a4, <SimProcedure SafeArrayDestroy>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,171 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600194, <SimProcedure VariantChangeType>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,171 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600188, <SimProcedure VariantCopy>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,171 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600190, <SimProcedure VariantInit>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,171 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60018c, <SimProcedure VariantClear>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,189 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x701014, <SimProcedure KiUserExceptionDispatcher>). Not re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:41,189 - [36mCustomSimProcedure[0m - [36mNo hooks for: {'_fmode': 7344152, '_commode': 7344156, '_acmdln': 7344160, '_wcmdln': 7344164}[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:41,190 - [36mCustomSimProcedure[0m - [36mcustom_hook_static[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,190 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure HeapReAlloc>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,190 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure HeapFree>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,190 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure GetProcessHeap>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,190 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure InitializeCriticalSectionEx>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,191 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure VirtualAlloc>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,191 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure VirtualProtect>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,191 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure ReadFile>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,191 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure IsProcessorFeaturePresent>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,191 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure InitializeCriticalSectionAndSpinCount>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,192 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure QueryPerformanceCounter>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,192 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure GetCurrentProcessId>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,192 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure GetCurrentThreadId>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,192 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure GetSystemTimeAsFileTime>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,192 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure EncodePointer>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,192 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure TlsAlloc>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,192 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure TlsGetValue>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,193 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure TlsSetValue>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,193 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure TlsFree>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,193 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure ExitProcess>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,193 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure GetStdHandle>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,193 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure WriteFile>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,194 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure GetCommandLineA>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,194 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure GetCommandLineW>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,194 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x400000, <SimProcedure MessageBoxW>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,194 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600010, <SimProcedure HeapAlloc>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,194 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600014, <SimProcedure HeapReAlloc>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,194 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600018, <SimProcedure HeapFree>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,195 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600020, <SimProcedure GetProcessHeap>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,195 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600024, <SimProcedure InitializeCriticalSectionEx>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,195 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600030, <SimProcedure VirtualAlloc>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,195 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600034, <SimProcedure VirtualProtect>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,195 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60004c, <SimProcedure ReadFile>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,195 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000ac, <SimProcedure IsProcessorFeaturePresent>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,195 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000b4, <SimProcedure InitializeCriticalSectionAndSpinCount>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,196 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000d4, <SimProcedure QueryPerformanceCounter>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,196 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000d8, <SimProcedure GetCurrentProcessId>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,197 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000dc, <SimProcedure GetCurrentThreadId>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,197 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000e0, <SimProcedure GetSystemTimeAsFileTime>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,197 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000f8, <SimProcedure EncodePointer>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,197 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000fc, <SimProcedure TlsAlloc>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,197 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600100, <SimProcedure TlsGetValue>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,198 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600104, <SimProcedure TlsSetValue>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,198 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600108, <SimProcedure TlsFree>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,198 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60011c, <SimProcedure ExitProcess>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,198 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600128, <SimProcedure GetStdHandle>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,198 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60012c, <SimProcedure WriteFile>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,199 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600130, <SimProcedure GetCommandLineA>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,199 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600134, <SimProcedure GetCommandLineW>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,199 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600174, <SimProcedure MessageBoxW>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,199 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x701014, <SimProcedure KiUserExceptionDispatcher>). Not re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:41,199 - [36mCustomSimProcedure[0m - [36mcustom_hook_windows_symbols[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,788 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600180, <SimProcedure CoTaskMemFree>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,790 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600180, <SimProcedure CoTaskMemFree>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,792 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600184, <SimProcedure CoTaskMemRealloc>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:41,793 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600184, <SimProcedure CoTaskMemRealloc>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:42,433 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600180, <SimProcedure CoTaskMemFree>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:42,435 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600180, <SimProcedure CoTaskMemFree>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:42,589 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600184, <SimProcedure CoTaskMemRealloc>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:42,590 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600184, <SimProcedure CoTaskMemRealloc>). Re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:43,268 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:43] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:43,285 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:43] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:43,671 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600170, <SimProcedure GetActiveWindow>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:43,673 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600170, <SimProcedure GetActiveWindow>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:44,920 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600178, <SimProcedure UnregisterClassA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:44,922 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600178, <SimProcedure UnregisterClassA>). Re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:45,276 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:45] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:45,288 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:45] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:45,294 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:45] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:45,305 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:45] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:45,619 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600170, <SimProcedure GetActiveWindow>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:45,621 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600170, <SimProcedure GetActiveWindow>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:45,750 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600178, <SimProcedure UnregisterClassA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:45,752 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600178, <SimProcedure UnregisterClassA>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:46,689 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000b0, <SimProcedure CloseHandle>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:46,692 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000b0, <SimProcedure CloseHandle>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:46,737 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600144, <SimProcedure CompareStringW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:46,739 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600144, <SimProcedure CompareStringW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:46,833 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000c4, <SimProcedure CreateEventW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:46,836 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000c4, <SimProcedure CreateEventW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,046 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600028, <SimProcedure DeleteCriticalSection>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,048 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600028, <SimProcedure DeleteCriticalSection>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,128 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600094, <SimProcedure EnterCriticalSection>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,130 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600094, <SimProcedure EnterCriticalSection>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,229 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600158, <SimProcedure EnumSystemLocalesW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,231 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600158, <SimProcedure EnumSystemLocalesW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,303 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600160, <SimProcedure FindClose>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,305 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600160, <SimProcedure FindClose>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,322 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600164, <SimProcedure FindFirstFileExW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,324 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600164, <SimProcedure FindFirstFileExW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,371 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600168, <SimProcedure FindNextFileW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,373 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600168, <SimProcedure FindNextFileW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,409 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600060, <SimProcedure FlushFileBuffers>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,411 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600060, <SimProcedure FlushFileBuffers>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,435 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600040, <SimProcedure FreeConsole>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,438 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600040, <SimProcedure FreeConsole>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,442 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600074, <SimProcedure FreeEnvironmentStringsW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,444 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600074, <SimProcedure FreeEnvironmentStringsW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,446 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60010c, <SimProcedure FreeLibrary>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,448 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60010c, <SimProcedure FreeLibrary>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,504 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60007c, <SimProcedure GetCPInfo>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,506 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60007c, <SimProcedure GetCPInfo>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,611 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600058, <SimProcedure GetConsoleMode>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,613 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600058, <SimProcedure GetConsoleMode>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,621 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60005c, <SimProcedure GetConsoleOutputCP>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,623 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60005c, <SimProcedure GetConsoleOutputCP>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,701 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600138, <SimProcedure GetCurrentThread>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,703 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600138, <SimProcedure GetCurrentThread>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,716 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60013c, <SimProcedure GetDateFormatW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,718 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60013c, <SimProcedure GetDateFormatW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,819 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600054, <SimProcedure GetFileSizeEx>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,821 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600054, <SimProcedure GetFileSizeEx>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,829 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60015c, <SimProcedure GetFileType>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,831 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60015c, <SimProcedure GetFileType>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,894 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60014c, <SimProcedure GetLocaleInfoW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:47,896 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60014c, <SimProcedure GetLocaleInfoW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,023 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600080, <SimProcedure GetOEMCP>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,025 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600080, <SimProcedure GetOEMCP>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,038 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600060, <SimProcedure FlushFileBuffers>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,040 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600060, <SimProcedure FlushFileBuffers>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,185 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000d0, <SimProcedure GetStartupInfoW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,187 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000d0, <SimProcedure GetStartupInfoW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,201 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600064, <SimProcedure GetStringTypeW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,203 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600064, <SimProcedure GetStringTypeW>). Re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:48,275 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:48] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:48,297 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:48] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,332 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600140, <SimProcedure GetTimeFormatW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,334 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600140, <SimProcedure GetTimeFormatW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,361 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600080, <SimProcedure GetOEMCP>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,363 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600080, <SimProcedure GetOEMCP>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,510 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60001c, <SimProcedure HeapSize>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,513 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60001c, <SimProcedure HeapSize>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,568 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000e4, <SimProcedure InitializeSListHead>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,570 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000e4, <SimProcedure InitializeSListHead>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,599 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000f0, <SimProcedure InterlockedFlushSList>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,601 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000f0, <SimProcedure InterlockedFlushSList>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,607 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000ec, <SimProcedure InterlockedPushEntrySList>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,610 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000ec, <SimProcedure InterlockedPushEntrySList>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,667 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600150, <SimProcedure IsValidLocale>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,669 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600150, <SimProcedure IsValidLocale>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,769 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600148, <SimProcedure LCMapStringW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,771 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600148, <SimProcedure LCMapStringW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,799 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600098, <SimProcedure LeaveCriticalSection>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,801 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600098, <SimProcedure LeaveCriticalSection>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,997 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600090, <SimProcedure OutputDebugStringW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:48,998 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600090, <SimProcedure OutputDebugStringW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,164 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600004, <SimProcedure RaiseException>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,167 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600004, <SimProcedure RaiseException>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,435 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000bc, <SimProcedure ResetEvent>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,437 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000bc, <SimProcedure ResetEvent>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,458 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000e8, <SimProcedure RtlUnwind>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,460 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000e8, <SimProcedure RtlUnwind>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,527 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60006c, <SimProcedure SetConsoleCtrlHandler>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,528 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60006c, <SimProcedure SetConsoleCtrlHandler>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,612 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600070, <SimProcedure SetEnvironmentVariableW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,614 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600070, <SimProcedure SetEnvironmentVariableW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,619 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000b8, <SimProcedure SetEvent>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,620 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000b8, <SimProcedure SetEvent>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,648 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000b8, <SimProcedure SetEvent>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,650 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000b8, <SimProcedure SetEvent>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,775 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600068, <SimProcedure SetStdHandle>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,777 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600068, <SimProcedure SetStdHandle>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,904 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60002c, <SimProcedure Sleep>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,906 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60002c, <SimProcedure Sleep>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,992 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60009c, <SimProcedure UnhandledExceptionFilter>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:49,994 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60009c, <SimProcedure UnhandledExceptionFilter>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:50,114 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000c0, <SimProcedure WaitForSingleObjectEx>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:50,116 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000c0, <SimProcedure WaitForSingleObjectEx>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:50,221 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60016c, <SimProcedure WriteConsoleW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:50,223 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60016c, <SimProcedure WriteConsoleW>). Re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:50,268 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:50] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:50,284 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:50] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:50,295 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:50] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:50,312 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:50] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:50,687 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000f0, <SimProcedure InterlockedFlushSList>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:50,688 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000f0, <SimProcedure InterlockedFlushSList>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:50,930 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60010c, <SimProcedure FreeLibrary>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:50,932 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60010c, <SimProcedure FreeLibrary>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,034 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000bc, <SimProcedure ResetEvent>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,036 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000bc, <SimProcedure ResetEvent>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,131 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60009c, <SimProcedure UnhandledExceptionFilter>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,133 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60009c, <SimProcedure UnhandledExceptionFilter>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,168 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000a4, <SimProcedure GetCurrentProcess>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,170 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000a4, <SimProcedure GetCurrentProcess>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,196 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600058, <SimProcedure GetConsoleMode>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,201 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600058, <SimProcedure GetConsoleMode>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,207 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600098, <SimProcedure LeaveCriticalSection>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,209 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600098, <SimProcedure LeaveCriticalSection>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,243 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600168, <SimProcedure FindNextFileW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,245 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600168, <SimProcedure FindNextFileW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,359 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600028, <SimProcedure DeleteCriticalSection>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,360 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600028, <SimProcedure DeleteCriticalSection>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,387 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000ec, <SimProcedure InterlockedPushEntrySList>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,389 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000ec, <SimProcedure InterlockedPushEntrySList>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,554 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600040, <SimProcedure FreeConsole>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,555 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600040, <SimProcedure FreeConsole>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,667 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600048, <SimProcedure ReadConsoleW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,668 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600048, <SimProcedure ReadConsoleW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,786 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000c0, <SimProcedure WaitForSingleObjectEx>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,788 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000c0, <SimProcedure WaitForSingleObjectEx>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,809 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600138, <SimProcedure GetCurrentThread>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,811 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600138, <SimProcedure GetCurrentThread>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,812 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600004, <SimProcedure RaiseException>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,814 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600004, <SimProcedure RaiseException>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,859 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000a4, <SimProcedure GetCurrentProcess>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,860 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000a4, <SimProcedure GetCurrentProcess>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,867 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60001c, <SimProcedure HeapSize>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,868 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60001c, <SimProcedure HeapSize>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,914 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000e8, <SimProcedure RtlUnwind>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:51,917 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000e8, <SimProcedure RtlUnwind>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,058 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60000c, <SimProcedure HeapDestroy>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,060 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60000c, <SimProcedure HeapDestroy>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,084 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600054, <SimProcedure GetFileSizeEx>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,086 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600054, <SimProcedure GetFileSizeEx>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,111 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600088, <SimProcedure IsValidCodePage>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,113 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600088, <SimProcedure IsValidCodePage>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,122 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60005c, <SimProcedure GetConsoleOutputCP>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,124 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60005c, <SimProcedure GetConsoleOutputCP>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,192 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600160, <SimProcedure FindClose>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,194 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600160, <SimProcedure FindClose>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,231 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600158, <SimProcedure EnumSystemLocalesW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,233 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600158, <SimProcedure EnumSystemLocalesW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,278 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600088, <SimProcedure IsValidCodePage>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,280 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600088, <SimProcedure IsValidCodePage>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,307 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600150, <SimProcedure IsValidLocale>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,309 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600150, <SimProcedure IsValidLocale>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,314 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000c4, <SimProcedure CreateEventW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,315 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000c4, <SimProcedure CreateEventW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,336 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600148, <SimProcedure LCMapStringW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,338 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600148, <SimProcedure LCMapStringW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,429 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600074, <SimProcedure FreeEnvironmentStringsW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,431 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600074, <SimProcedure FreeEnvironmentStringsW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,433 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60014c, <SimProcedure GetLocaleInfoW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,434 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60014c, <SimProcedure GetLocaleInfoW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,435 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600068, <SimProcedure SetStdHandle>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,437 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600068, <SimProcedure SetStdHandle>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,671 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000b0, <SimProcedure CloseHandle>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,673 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000b0, <SimProcedure CloseHandle>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,734 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000e4, <SimProcedure InitializeSListHead>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,736 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000e4, <SimProcedure InitializeSListHead>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,745 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60007c, <SimProcedure GetCPInfo>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,747 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60007c, <SimProcedure GetCPInfo>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,767 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600090, <SimProcedure OutputDebugStringW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,770 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600090, <SimProcedure OutputDebugStringW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,823 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600070, <SimProcedure SetEnvironmentVariableW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,825 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600070, <SimProcedure SetEnvironmentVariableW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,884 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600144, <SimProcedure CompareStringW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:52,886 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600144, <SimProcedure CompareStringW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,015 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600064, <SimProcedure GetStringTypeW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,017 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600064, <SimProcedure GetStringTypeW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,027 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600048, <SimProcedure ReadConsoleW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,030 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600048, <SimProcedure ReadConsoleW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,151 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600094, <SimProcedure EnterCriticalSection>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,154 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600094, <SimProcedure EnterCriticalSection>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,188 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60013c, <SimProcedure GetDateFormatW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,190 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60013c, <SimProcedure GetDateFormatW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,198 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600154, <SimProcedure GetUserDefaultLCID>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,199 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600154, <SimProcedure GetUserDefaultLCID>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,209 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600140, <SimProcedure GetTimeFormatW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,211 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600140, <SimProcedure GetTimeFormatW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,238 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600154, <SimProcedure GetUserDefaultLCID>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,241 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600154, <SimProcedure GetUserDefaultLCID>). Re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:53,282 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:53] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:53,293 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:53] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,366 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600164, <SimProcedure FindFirstFileExW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,368 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600164, <SimProcedure FindFirstFileExW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,413 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60000c, <SimProcedure HeapDestroy>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,415 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60000c, <SimProcedure HeapDestroy>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,450 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60006c, <SimProcedure SetConsoleCtrlHandler>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,452 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60006c, <SimProcedure SetConsoleCtrlHandler>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,502 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60016c, <SimProcedure WriteConsoleW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,504 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60016c, <SimProcedure WriteConsoleW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,539 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000d0, <SimProcedure GetStartupInfoW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,541 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6000d0, <SimProcedure GetStartupInfoW>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,584 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60015c, <SimProcedure GetFileType>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,586 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60015c, <SimProcedure GetFileType>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,750 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600050, <SimProcedure SetFilePointerEx>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,752 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600050, <SimProcedure SetFilePointerEx>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,917 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600050, <SimProcedure SetFilePointerEx>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,920 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600050, <SimProcedure SetFilePointerEx>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,981 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60002c, <SimProcedure Sleep>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:53,984 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60002c, <SimProcedure Sleep>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:54,034 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600190, <SimProcedure VariantInit>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:54,036 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600190, <SimProcedure VariantInit>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:54,038 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60018c, <SimProcedure VariantClear>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:54,042 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60018c, <SimProcedure VariantClear>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:54,044 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600188, <SimProcedure VariantCopy>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:54,045 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600188, <SimProcedure VariantCopy>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:54,051 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600194, <SimProcedure VariantChangeType>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:54,053 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600194, <SimProcedure VariantChangeType>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:54,064 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6001a4, <SimProcedure SafeArrayDestroy>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:54,066 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6001a4, <SimProcedure SafeArrayDestroy>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:54,846 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6001a4, <SimProcedure SafeArrayDestroy>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:54,848 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6001a4, <SimProcedure SafeArrayDestroy>). Re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:55,288 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:55] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:55,310 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:55] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:55,331 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:55] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:55,338 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:55] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:55,375 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600194, <SimProcedure VariantChangeType>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:55,378 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600194, <SimProcedure VariantChangeType>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:55,660 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600188, <SimProcedure VariantCopy>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:55,661 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600188, <SimProcedure VariantCopy>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:55,964 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600190, <SimProcedure VariantInit>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:55,965 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600190, <SimProcedure VariantInit>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:56,204 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60018c, <SimProcedure VariantClear>). Re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:56,206 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60018c, <SimProcedure VariantClear>). Re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:56,313 - [36mCustomSimProcedure[0m - [36mSyscall found:  IsProcessorFeaturePresent[<BV32 0xa>][0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:56,513 - [37mCustomSimProcedureWindows[0m - [37mLoadLibraryExW: Symbol not found[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:56,533 - [36mCustomSimProcedure[0m - {'DecodePointer': 6291456, 'RaiseException': 6291460, 'GetLastError': 6291464, 'HeapDestroy': 6291468, 'HeapAlloc': 6291472, 'HeapReAlloc': 6291476, 'HeapFree': 6291480, 'HeapSize': 6291484, 'GetProcessHeap': 6291488, 'InitializeCriticalSectionEx': 6291492, 'DeleteCriticalSection': 6291496, 'Sleep': 6291500, 'VirtualAlloc': 6291504, 'VirtualProtect': 6291508, 'MultiByteToWideChar': 6291512, 'WideCharToMultiByte': 6291516, 'FreeConsole': 6291520, 'CreateFileW': 6291524, 'ReadConsoleW': 6291528, 'ReadFile': 6291532, 'SetFilePointerEx': 6291536, 'GetFileSizeEx': 6291540, 'GetConsoleMode': 6291544, 'GetConsoleOutputCP': 6291548, 'FlushFileBuffers': 6291552, 'GetStringTypeW': 6291556, 'SetStdHandle': 6291560, 'SetConsoleCtrlHandler': 6291564, 'SetEnvironmentVariableW': 6291568, 'FreeEnvironmentStringsW': 6291572, 'GetEnvironmentStringsW': 6291576, 'GetCPInfo': 6291580, 'GetOEMCP': 6291584, 'GetACP': 6291588, 'IsValidCodePage': 6291592, 'IsDebuggerPresent': 6291596, 'OutputDebugStringW': 6291600, 'EnterCriticalSection': 6291604, 'LeaveCriticalSection': 6291608, 'UnhandledExceptionFilter': 6291612, 'SetUnhandledExceptionFilter': 6291616, 'GetCurrentProcess': 6291620, 'TerminateProcess': 6291624, 'IsProcessorFeaturePresent': 6291628, 'CloseHandle': 6291632, 'InitializeCriticalSectionAndSpinCount': 6291636, 'SetEvent': 6291640, 'ResetEvent': 6291644, 'WaitForSingleObjectEx': 6291648, 'CreateEventW': 6291652, 'GetModuleHandleW': 6291656, 'GetProcAddress': 6291660, 'GetStartupInfoW': 6291664, 'QueryPerformanceCounter': 6291668, 'GetCurrentProcessId': 6291672, 'GetCurrentThreadId': 6291676, 'GetSystemTimeAsFileTime': 6291680, 'InitializeSListHead': 6291684, 'RtlUnwind': 6291688, 'InterlockedPushEntrySList': 6291692, 'InterlockedFlushSList': 6291696, 'SetLastError': 6291700, 'EncodePointer': 6291704, 'TlsAlloc': 6291708, 'TlsGetValue': 6291712, 'TlsSetValue': 6291716, 'TlsFree': 6291720, 'FreeLibrary': 6291724, 'LoadLibraryExW': 6291728, 'GetSystemInfo': 6291732, 'VirtualQuery': 6291736, 'ExitProcess': 6291740, 'GetModuleHandleExW': 6291744, 'GetModuleFileNameW': 6291748, 'GetStdHandle': 6291752, 'WriteFile': 6291756, 'GetCommandLineA': 6291760, 'GetCommandLineW': 6291764, 'GetCurrentThread': 6291768, 'GetDateFormatW': 6291772, 'GetTimeFormatW': 6291776, 'CompareStringW': 6291780, 'LCMapStringW': 6291784, 'GetLocaleInfoW': 6291788, 'IsValidLocale': 6291792, 'GetUserDefaultLCID': 6291796, 'EnumSystemLocalesW': 6291800, 'GetFileType': 6291804, 'FindClose': 6291808, 'FindFirstFileExW': 6291812, 'FindNextFileW': 6291816, 'WriteConsoleW': 6291820, 'GetActiveWindow': 6291824, 'MessageBoxW': 6291828, 'UnregisterClassA': 6291832, 'CoCreateInstance': 6291836, 'CoTaskMemFree': 6291840, 'CoTaskMemRealloc': 6291844, 'VariantCopy': 6291848, 'VariantClear': 6291852, 'VariantInit': 6291856, 'VariantChangeType': 6291860, 'SysFreeString': 6291864, 'SysAllocStringLen': 6291868, 'SysAllocString': 6291872, 'SafeArrayDestroy': 6291876, 'KiUserExceptionDispatcher': 7344148, '_fmode': 7344152, '_commode': 7344156, '_acmdln': 7344160, '_wcmdln': 7344164, 'api-ms-win-core-synch-l1-2-0': 7344168}[0m
+[1;32;40mINFO - 2023-01-04 21:10:56,534 - [36mCustomSimProcedure[0m - [36mWas in angr :kernel32.dll[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:56,614 - [36mCustomSimProcedure[0m - [36mWas in angr :user32.dll[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:56,616 - [36mCustomSimProcedure[0m - [36mProcedure wsprintfA in DLL user32.dll has 3 arguments in json and 2 arguments in angr prototype. Taking number of arguments from json.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:56,616 - [36mCustomSimProcedure[0m - [36mProcedure wsprintfW in DLL user32.dll has 3 arguments in json and 2 arguments in angr prototype. Taking number of arguments from json.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:56,670 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x6001a4, <SimProcedure SafeArrayDestroy>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:56,670 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600194, <SimProcedure VariantChangeType>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:56,670 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600188, <SimProcedure VariantCopy>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:56,671 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600190, <SimProcedure VariantInit>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:56,671 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x60018c, <SimProcedure VariantClear>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:56,704 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600180, <SimProcedure CoTaskMemFree>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:56,704 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x600184, <SimProcedure CoTaskMemRealloc>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2023-01-04 21:10:56,716 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x701014, <SimProcedure KiUserExceptionDispatcher>). Not re-hooking.[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:56,716 - [36mCustomSimProcedure[0m - [36mNo hooks for: {'_fmode': 7344152, '_commode': 7344156, '_acmdln': 7344160, '_wcmdln': 7344164, 'api-ms-win-core-synch-l1-2-0': 7344168}[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:56,719 - [36mCustomSimProcedure[0m - [36mSyscall found:  LoadLibraryExW[<BV32 0x45e39c>, <BV32 0x0>, <BV32 0x800>][0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:56,776 - [37mCustomSimProcedureWindows[0m - [37mGetProcAddress: InitializeCriticalSectionEx[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:56,776 - [36mCustomSimProcedure[0m - [36mSyscall found:  GetProcAddress[<BV32 0x701028>, <BV32 0x45e460>][0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:56,840 - [36mCustomSimProcedure[0m - [36mSyscall found:  InitializeCriticalSectionEx[<BV32 0x5918ec>, <BV32 0xfa0>, <BV32 0x0>][0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:58,263 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:58] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:10:58,280 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:10:58] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:00,262 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:00] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:00,289 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:00] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:00,305 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:00] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:00,324 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:00] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:03,267 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:03] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:03,287 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:03] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:05,277 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:05] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:05,288 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:05] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:05,309 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:05] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:05,321 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:05] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:08,283 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:08] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:08,289 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:08] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:10,258 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:10] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:10,275 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:10] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:10,276 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:10] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:10,332 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:10] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:13,289 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:13] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:13,290 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:13] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:16,788 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:16] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:16,795 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:16] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:16,799 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:16] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:16,799 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:16] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:18,275 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:18] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:18,297 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:18] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:20,282 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:20] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:20,309 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:20] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:20,336 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:20] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:20,352 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:20] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:23,279 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:23] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:23,285 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:23] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:25,285 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:25] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:25,301 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:25] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:25,318 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:25] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:25,319 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:25] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:28,283 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:28] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:28,299 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:28] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:30,287 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:30] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:30,309 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:30] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:30,320 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:30] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:30,337 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:30] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:33,313 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:33] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:33,329 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:33] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:35,292 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:35] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:35,298 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:35] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:35,319 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:35] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:35,325 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:35] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:38,287 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:38] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:38,305 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:38] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:40,294 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:40] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:40,315 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:40] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:40,321 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:40] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:40,343 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:40] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:43,284 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:43] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:43,311 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:43] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:45,278 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:45] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:45,289 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:45] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:45,306 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:45] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:45,317 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:45] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:48,290 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:48] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:48,296 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:48] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:50,374 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:50] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:50,380 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:50] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:50,391 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:50] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:50,403 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:50] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:53,387 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:53] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:53,398 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:53] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:55,383 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:55] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:55,410 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:55] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:55,422 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:55] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:55,449 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:55] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:58,388 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:58] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:11:58,394 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:11:58] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:00,384 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:00] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:00,395 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:00] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:00,401 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:00] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:00,422 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:00] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:03,380 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:03] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:03,402 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:03] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:05,387 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:05] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:05,393 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:05] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:05,410 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:05] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:05,412 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:05] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:08,404 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:08] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:08,426 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:08] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:10,377 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:10] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:10,398 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:10] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:10,415 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:10] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:10,432 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:10] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:13,393 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:13] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:13,409 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:13] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:15,449 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:15] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:15,471 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:15] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:15,477 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:15] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:15,498 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:15] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:18,390 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:18] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:18,406 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:18] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:20,396 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:20] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:20,417 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:20] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:20,440 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:20] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:20,452 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:20] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:23,390 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:23] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:23,418 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:23] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:25,402 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:25] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:25,413 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:25] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:25,428 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:25] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:25,445 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:25] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:28,376 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:28] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:28,388 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:28] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:30,394 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:30] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:30,420 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:30] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:30,432 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:30] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:30,443 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:30] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:33,389 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:33] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:33,390 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:33] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:35,395 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:35] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:35,396 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:35] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:35,417 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:35] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:35,423 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:35] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:38,400 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:38] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:38,421 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:38] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:40,392 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:40] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:40,413 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:40] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:40,414 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:40] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:40,430 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:40] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:43,399 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:43] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:43,400 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:43] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:45,403 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:45] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:45,416 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:45] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:45,438 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:45] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:45,449 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:45] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:48,384 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:48] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:48,390 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:48] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:50,394 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:50] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:50,405 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:50] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:50,432 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:50] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:50,443 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:50] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:53,399 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:53] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:53,410 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:53] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:55,401 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:55] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:55,417 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:55] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:55,421 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:55] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:55,437 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:55] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:58,401 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:58] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:12:58,418 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:12:58] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:00,413 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:00] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:00,419 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:00] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:00,431 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:00] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:00,448 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:00] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:03,397 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:03] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:03,408 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:03] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:05,392 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:05] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:05,413 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:05] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:05,435 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:05] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:05,446 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:05] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:08,394 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:08] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:08,405 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:08] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:10,390 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:10] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:10,391 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:10] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:10,423 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:10] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:10,435 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:10] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:13,405 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:13] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:13,426 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:13] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:15,407 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:15] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:15,424 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:15] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:15,425 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:15] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:15,437 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:15] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:18,411 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:18] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:18,423 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:18] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:20,402 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:20] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:20,418 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:20] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:20,424 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:20] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:20,441 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:20] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:23,401 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:23] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:23,418 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:23] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:25,421 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:25] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:25,432 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:25] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:25,444 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:25] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:25,471 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:25] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:28,409 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:28] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:28,416 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:28] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:30,411 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:30] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:30,438 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:30] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:30,478 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:30] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:30,479 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:30] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:33,417 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:33] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:33,429 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:33] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:35,404 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:35] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:35,436 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:35] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:35,453 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:35] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:35,485 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:35] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:38,403 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:38] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:38,425 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:38] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:40,415 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:40] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:40,431 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:40] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:40,448 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:40] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:40,453 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:40] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:43,409 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:43] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:43,410 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:43] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:45,418 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:45] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:45,435 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:45] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:45,452 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:45] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:45,467 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:45] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:48,417 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:48] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:48,429 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:48] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:50,406 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:50] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:50,433 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:50] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:50,445 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:50] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:50,456 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:50] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:53,417 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:53] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:53,423 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:53] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:55,410 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:55] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:55,411 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:55] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:55,427 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:55] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:55,443 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:55] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:58,418 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:58] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:13:58,445 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:13:58] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:00,424 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:00] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:00,430 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:00] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:00,442 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:00] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:00,455 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:00] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:03,414 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:03] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:03,426 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:03] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:05,411 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:05] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:05,412 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:05] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:05,444 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:05] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:05,460 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:05] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:08,416 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:08] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:08,438 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:08] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:12,673 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:12] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:12,700 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:12] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:12,701 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:12] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:12,723 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:12] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:13,418 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:13] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:13,440 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:13] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:15,419 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:15] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:15,441 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:15] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:15,447 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:15] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:15,459 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:15] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:18,412 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:18] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:18,429 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:18] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:20,417 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:20] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:20,434 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:20] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:20,440 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:20] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:20,457 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:20] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:23,426 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:23] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:23,438 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:23] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:25,417 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:25] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:25,434 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:25] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:25,456 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:25] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:25,461 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:25] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:28,428 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:28] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:28,436 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:28] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:30,421 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:30] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:30,432 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:30] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:30,469 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:30] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:30,500 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:30] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:33,424 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:33] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:33,437 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:33] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:35,436 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:35] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:35,447 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:35] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:35,463 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:35] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:35,475 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:35] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:38,421 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:38] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:38,427 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:38] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:40,434 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:40] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:40,455 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:40] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:40,472 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:40] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:40,483 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:40] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:43,433 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:43] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:43,450 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:43] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:45,443 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:45] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:45,449 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:45] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:45,466 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:45] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:45,483 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:45] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:48,430 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:48] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:48,447 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:48] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:50,435 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:50] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:50,443 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:50] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:50,444 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:50] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:50,460 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:50] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:53,440 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:53] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:53,457 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:53] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:55,425 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:55] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:55,454 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:55] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:55,460 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:55] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:55,471 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:55] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:58,437 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:58] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:14:58,454 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:14:58] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:00,439 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:00] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:00,465 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:00] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:00,477 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:00] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:00,504 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:00] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:03,439 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:03] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:03,450 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:03] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:05,440 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:05] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:05,466 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:05] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:05,472 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:05] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:05,479 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:05] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:08,446 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:08] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:08,467 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:08] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:10,430 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:10] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:10,443 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:10] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:10,464 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:10] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:10,480 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:10] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:13,448 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:13] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:13,469 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:13] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:15,437 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:15] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:15,449 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:15] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:15,465 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:15] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:15,492 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:15] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:18,431 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:18] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:18,447 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:18] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:20,437 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:20] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:20,448 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:20] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:20,459 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:20] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:20,465 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:20] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:23,440 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:23] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:23,441 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:23] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:25,445 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:25] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:25,446 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:25] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:25,463 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:25] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:25,484 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:25] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:28,429 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:28] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:28,451 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:28] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:30,452 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:30] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:30,469 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:30] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:30,485 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:30] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:30,512 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:30] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:33,448 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:33] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:33,474 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:33] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:35,458 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:35] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:35,464 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:35] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:35,478 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:35] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:35,485 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:35] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:38,455 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:38] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:38,472 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:38] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:40,462 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:40] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:40,463 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:40] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:40,480 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:40] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:40,486 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:40] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:43,435 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:43] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:43,451 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:43] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:45,455 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:45] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:45,477 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:45] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:45,494 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:45] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:45,520 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:45] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:48,453 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:48] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:48,485 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:48] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:50,439 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:50] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:50,440 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:50] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:50,483 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:50] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:50,484 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:50] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:53,442 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:53] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:53,458 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:53] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:55,455 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:55] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:55,482 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:55] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:55,500 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:55] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:55,505 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:55] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:58,457 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:58] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:15:58,466 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:15:58] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:00,457 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:00] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:00,484 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:00] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:00,485 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:00] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:00,486 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:00] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:03,458 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:03] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:03,485 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:03] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:05,439 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:05] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:05,466 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:05] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:05,484 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:05] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:05,491 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:05] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:08,450 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:08] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:08,467 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:08] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:10,445 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:10] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:10,451 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:10] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:10,487 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:10] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:10,493 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:10] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:13,456 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:13] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:13,468 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:13] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:15,467 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:15] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:15,488 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:15] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:15,517 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:15] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:15,534 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:15] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:18,453 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:18] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:18,464 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:18] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:20,468 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:20] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:20,480 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:20] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:20,494 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:20] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:20,509 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:20] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:23,470 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:23] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:23,487 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:23] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:25,455 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:25] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:25,472 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:25] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:25,488 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:25] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:25,500 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:25] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:28,472 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:28] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:28,483 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:28] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:30,466 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:30] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:30,472 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:30] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:30,489 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:30] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:30,505 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:30] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:33,464 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:33] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:33,480 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:33] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:35,460 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:35] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:35,462 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:35] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:35,490 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:35] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:35,504 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:35] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:38,449 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:38] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:38,466 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:38] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:40,466 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:40] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:40,498 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:40] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:40,522 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:40] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:40,538 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:40] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:43,464 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:43] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:43,475 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:43] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:45,473 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:45] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:45,489 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:45] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:45,500 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:45] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:45,511 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:45] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:48,473 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:48] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:48,486 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:48] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:50,469 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:50] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:50,496 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:50] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:50,501 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:50] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:50,518 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:50] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:54,188 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:54] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:54,189 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:54] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:55,464 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:55] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:55,476 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:55] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:55,492 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:55] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:55,499 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:55] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:59,200 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:59] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:16:59,216 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:16:59] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:00,481 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:00] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:00,481 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:00] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:00,503 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:00] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:00,509 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:00] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:04,206 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:04] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:04,223 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:04] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:05,465 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:05] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:05,476 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:05] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:05,498 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:05] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:05,515 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:05] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:09,197 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:09] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:09,203 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:09] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:10,484 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:10] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:10,500 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:10] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:10,527 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:10] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:10,548 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:10] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:15,911 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:15] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:15,938 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:15] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:15,960 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:15] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:15,972 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:15] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:15,983 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:15] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:15,989 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:15] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:19,192 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:19] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:19,193 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:19] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:20,487 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:20] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:20,500 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:20] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:20,521 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:20] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:20,533 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:20] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:24,207 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:24] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:24,229 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:24] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:25,483 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:25] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:25,506 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:25] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:25,522 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:25] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:25,549 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:25] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:29,199 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:29] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:29,220 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:29] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:30,486 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:30] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:30,502 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:30] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:30,515 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:30] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:30,515 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:30] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:34,210 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:34] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:34,227 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:34] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:35,488 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:35] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:35,504 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:35] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:35,530 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:35] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:35,552 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:35] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:39,201 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:39] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:39,218 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:39] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:40,488 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:40] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:40,495 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:40] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:40,517 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:40] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:40,532 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:40] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:44,207 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:44] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:44,234 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:44] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:45,479 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:45] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:45,485 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:45] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:45,506 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:45] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:45,528 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:45] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:49,209 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:49] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:49,231 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:49] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:50,502 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:50] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:50,511 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:50] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:50,532 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:50] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:50,538 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:50] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:54,211 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:54] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:54,212 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:54] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:55,480 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:55] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:55,501 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:55] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:55,513 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:55] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:55,535 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:55] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:59,218 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:59] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:17:59,239 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:17:59] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:00,496 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:00] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:00,508 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:00] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:00,520 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:00] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:00,531 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:00] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:04,218 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:04] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:04,230 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:04] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:05,504 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:05] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:05,516 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:05] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:05,528 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:05] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:05,545 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:05] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:09,220 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:09] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:09,242 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:09] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:10,492 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:10] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:10,504 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:10] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:10,536 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:10] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:10,547 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:10] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:14,232 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:14] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:14,233 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:14] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:15,501 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:15] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:15,513 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:15] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:15,535 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:15] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:15,546 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:15] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:19,223 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:19] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:19,250 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:19] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:20,504 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:20] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:20,520 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:20] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:20,536 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:20] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:20,553 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:20] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:24,216 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:24] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:24,237 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:24] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:25,505 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:25] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:25,532 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:25] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:25,543 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:25] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:25,549 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:25] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:29,232 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:29] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:29,258 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:29] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:30,511 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:30] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:30,528 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:30] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:30,539 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:30] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:30,560 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:30] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:34,233 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:34] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:34,245 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:34] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:35,516 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:35] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:35,542 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:35] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:35,559 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:35] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:35,566 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:35] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:39,230 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:39] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:39,246 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:39] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:40,505 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:40] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:40,526 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:40] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:40,544 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:40] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:40,561 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:40] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:44,242 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:44] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:44,258 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:44] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:45,518 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:45] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:45,545 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:45] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:45,557 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:45] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:45,563 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:45] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:49,233 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:49] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:49,254 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:49] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:50,503 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:50] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:50,509 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:50] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:50,536 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:50] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:50,552 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:50] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:54,236 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:54] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:54,242 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:54] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:55,521 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:55] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:55,542 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:55] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:55,563 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:55] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:55,575 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:55] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:59,220 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:59] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:18:59,238 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:18:59] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:00,504 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:00] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:00,526 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:00] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:00,558 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:00] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:00,586 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:00] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:04,239 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:04] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:04,260 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:04] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:05,524 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:05] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:05,535 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:05] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:05,546 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:05] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:05,557 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:05] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:09,239 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:09] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:09,250 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:09] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:10,520 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:10] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:10,531 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:10] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:10,543 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:10] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:10,560 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:10] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:14,230 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:14] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:14,277 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:14] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:15,511 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:15] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:15,523 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:15] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:15,550 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:15] "GET /iteration-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:15,556 - [33mwerkzeug[0m - [33m172.17.0.1 - - [04/Jan/2023 21:19:15] "GET /progress-scdg HTTP/1.1" 200 -[0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:16,280 - [31mToolChainExplorerAnotherCDFS[0m - [31mTimeout expired for simulation ![0m[0m
+[1;32;40mINFO - 2023-01-04 21:19:16,282 - [37mGraphBuilder[0m - [37mOutput dir :src/output/runs/71//warzone4[0m[0m

@@ -1,0 +1,276 @@
+{
+  "D3DPERF_BeginEvent": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "D3DPERF_BeginEvent", 
+    "arguments": [
+      {
+        "type": " D3DCOLOR", 
+        "name": "col", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "wszName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "32": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "D3DPERF_SetRegion", 
+    "arguments": [
+      {
+        "type": " D3DCOLOR", 
+        "name": "col", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "wszName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "Direct3DCreate9": {
+    "cc": "__cdecl", 
+    "returns": " IDirect3D9", 
+    "returns_float": false, 
+    "name": "Direct3DCreate9", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "SDKVersion", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "Direct3DCreate9Ex": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "Direct3DCreate9Ex", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "SDKVersion", 
+        "is_float": false
+      }, 
+      {
+        "type": " IDirect3D9Ex**", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "D3DPERF_EndEvent": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "D3DPERF_EndEvent", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "31": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "D3DPERF_SetOptions", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwOptions", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "29": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "D3DPERF_QueryRepeatFrame", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "D3DPERF_SetOptions": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "D3DPERF_SetOptions", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwOptions", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "D3DPERF_GetStatus": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "D3DPERF_GetStatus", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "D3DPERF_SetMarker": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "D3DPERF_SetMarker", 
+    "arguments": [
+      {
+        "type": " D3DCOLOR", 
+        "name": "col", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "wszName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "D3DPERF_QueryRepeatFrame": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "D3DPERF_QueryRepeatFrame", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "D3DPERF_SetRegion": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "D3DPERF_SetRegion", 
+    "arguments": [
+      {
+        "type": " D3DCOLOR", 
+        "name": "col", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "wszName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "26": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "D3DPERF_BeginEvent", 
+    "arguments": [
+      {
+        "type": " D3DCOLOR", 
+        "name": "col", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "wszName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "27": {
+    "cc": "__cdecl", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "D3DPERF_EndEvent", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "28": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "D3DPERF_GetStatus", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "37": {
+    "cc": "__cdecl", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "Direct3DCreate9Ex", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "SDKVersion", 
+        "is_float": false
+      }, 
+      {
+        "type": " IDirect3D9Ex**", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "30": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "D3DPERF_SetMarker", 
+    "arguments": [
+      {
+        "type": " D3DCOLOR", 
+        "name": "col", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "wszName", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "36": {
+    "cc": "__cdecl", 
+    "returns": " IDirect3D9", 
+    "returns_float": false, 
+    "name": "Direct3DCreate9", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "SDKVersion", 
+        "is_float": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,452 @@
+{
+  "IoFlushAdapterBuffers": {
+    "cc": "__cdecl", 
+    "returns": " BOOLEAN", 
+    "returns_float": false, 
+    "name": "IoFlushAdapterBuffers", 
+    "arguments": [
+      {
+        "type": " PDMA_ADAPTER", 
+        "name": "DmaAdapter", 
+        "is_float": false
+      }, 
+      {
+        "type": " PMDL", 
+        "name": "Mdl", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "MapRegisterBase", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "CurrentVa", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "Length", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOLEAN", 
+        "name": "WriteToDevice", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "83": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "KeFlushWriteBuffer", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "KeFlushWriteBuffer": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "KeFlushWriteBuffer", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HalReadDmaCounter": {
+    "cc": "__cdecl", 
+    "returns": " ULONG", 
+    "returns_float": false, 
+    "name": "HalReadDmaCounter", 
+    "arguments": [
+      {
+        "type": " PDMA_ADAPTER", 
+        "name": "DmaAdapter", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "6": {
+    "cc": "__cdecl", 
+    "returns": " PVOID", 
+    "returns_float": false, 
+    "name": "HalAllocateCommonBuffer", 
+    "arguments": [
+      {
+        "type": " PDMA_ADAPTER", 
+        "name": "DmaAdapter", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "Length", 
+        "is_float": false
+      }, 
+      {
+        "type": " PPHYSICAL_ADDRESS", 
+        "name": "LogicalAddress", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOLEAN", 
+        "name": "CacheEnabled", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "KeStallExecutionProcessor": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "KeStallExecutionProcessor", 
+    "arguments": [
+      {
+        "type": " ULONG", 
+        "name": "MicroSeconds", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "74": {
+    "cc": "__cdecl", 
+    "returns": " BOOLEAN", 
+    "returns_float": false, 
+    "name": "IoFlushAdapterBuffers", 
+    "arguments": [
+      {
+        "type": " PDMA_ADAPTER", 
+        "name": "DmaAdapter", 
+        "is_float": false
+      }, 
+      {
+        "type": " PMDL", 
+        "name": "Mdl", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "MapRegisterBase", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "CurrentVa", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "Length", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOLEAN", 
+        "name": "WriteToDevice", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "75": {
+    "cc": "__cdecl", 
+    "returns": " void", 
+    "returns_float": false, 
+    "name": "IoFreeAdapterChannel", 
+    "arguments": [
+      {
+        "type": " PDMA_ADAPTER", 
+        "name": "DmaAdapter", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "76": {
+    "cc": "__cdecl", 
+    "returns": " void", 
+    "returns_float": false, 
+    "name": "IoFreeMapRegisters", 
+    "arguments": [
+      {
+        "type": " PDMA_ADAPTER", 
+        "name": "DmaAdapter", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "MapRegisterBase", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "NumberOfMapRegisters", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "77": {
+    "cc": "__cdecl", 
+    "returns": " PHYSICAL_ADDRESS", 
+    "returns_float": false, 
+    "name": "IoMapTransfer", 
+    "arguments": [
+      {
+        "type": " PDMA_ADAPTER", 
+        "name": "DmaAdapter", 
+        "is_float": false
+      }, 
+      {
+        "type": " PMDL", 
+        "name": "Mdl", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "MapRegisterBase", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "CurrentVa", 
+        "is_float": false
+      }, 
+      {
+        "type": " PULONG", 
+        "name": "Length", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOLEAN", 
+        "name": "WriteToDevice", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "IoFreeAdapterChannel": {
+    "cc": "__cdecl", 
+    "returns": " void", 
+    "returns_float": false, 
+    "name": "IoFreeAdapterChannel", 
+    "arguments": [
+      {
+        "type": " PDMA_ADAPTER", 
+        "name": "DmaAdapter", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "49": {
+    "cc": "__cdecl", 
+    "returns": " ULONG", 
+    "returns_float": false, 
+    "name": "HalReadDmaCounter", 
+    "arguments": [
+      {
+        "type": " PDMA_ADAPTER", 
+        "name": "DmaAdapter", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "KeQueryPerformanceCounter": {
+    "cc": "__cdecl", 
+    "returns": "LARGE_INTEGER", 
+    "returns_float": false, 
+    "name": "KeQueryPerformanceCounter", 
+    "arguments": [
+      {
+        "type": " PLARGE_INTEGER", 
+        "name": "PerformanceFrequency", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "IoFreeMapRegisters": {
+    "cc": "__cdecl", 
+    "returns": " void", 
+    "returns_float": false, 
+    "name": "IoFreeMapRegisters", 
+    "arguments": [
+      {
+        "type": " PDMA_ADAPTER", 
+        "name": "DmaAdapter", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "MapRegisterBase", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "NumberOfMapRegisters", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "85": {
+    "cc": "__cdecl", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "KeStallExecutionProcessor", 
+    "arguments": [
+      {
+        "type": " ULONG", 
+        "name": "MicroSeconds", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "22": {
+    "cc": "__cdecl", 
+    "returns": " void", 
+    "returns_float": false, 
+    "name": "HalFreeCommonBuffer", 
+    "arguments": [
+      {
+        "type": " PDMA_ADAPTER", 
+        "name": "DmaAdapter", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "Length", 
+        "is_float": false
+      }, 
+      {
+        "type": " PHYSICAL_ADDRESS", 
+        "name": "LogicalAddress", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "VirtualAddress", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOLEAN", 
+        "name": "CacheEnabled", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "84": {
+    "cc": "__cdecl", 
+    "returns": "LARGE_INTEGER", 
+    "returns_float": false, 
+    "name": "KeQueryPerformanceCounter", 
+    "arguments": [
+      {
+        "type": " PLARGE_INTEGER", 
+        "name": "PerformanceFrequency", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HalAllocateCommonBuffer": {
+    "cc": "__cdecl", 
+    "returns": " PVOID", 
+    "returns_float": false, 
+    "name": "HalAllocateCommonBuffer", 
+    "arguments": [
+      {
+        "type": " PDMA_ADAPTER", 
+        "name": "DmaAdapter", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "Length", 
+        "is_float": false
+      }, 
+      {
+        "type": " PPHYSICAL_ADDRESS", 
+        "name": "LogicalAddress", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOLEAN", 
+        "name": "CacheEnabled", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "IoMapTransfer": {
+    "cc": "__cdecl", 
+    "returns": " PHYSICAL_ADDRESS", 
+    "returns_float": false, 
+    "name": "IoMapTransfer", 
+    "arguments": [
+      {
+        "type": " PDMA_ADAPTER", 
+        "name": "DmaAdapter", 
+        "is_float": false
+      }, 
+      {
+        "type": " PMDL", 
+        "name": "Mdl", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "MapRegisterBase", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "CurrentVa", 
+        "is_float": false
+      }, 
+      {
+        "type": " PULONG", 
+        "name": "Length", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOLEAN", 
+        "name": "WriteToDevice", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "HalFreeCommonBuffer": {
+    "cc": "__cdecl", 
+    "returns": " void", 
+    "returns_float": false, 
+    "name": "HalFreeCommonBuffer", 
+    "arguments": [
+      {
+        "type": " PDMA_ADAPTER", 
+        "name": "DmaAdapter", 
+        "is_float": false
+      }, 
+      {
+        "type": " ULONG", 
+        "name": "Length", 
+        "is_float": false
+      }, 
+      {
+        "type": " PHYSICAL_ADDRESS", 
+        "name": "LogicalAddress", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "VirtualAddress", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOLEAN", 
+        "name": "CacheEnabled", 
+        "is_float": false
+      }
+    ]
+  }
+}

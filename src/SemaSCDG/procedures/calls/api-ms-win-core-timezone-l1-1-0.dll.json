@@ -1,0 +1,316 @@
+{
+  "1": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "FileTimeToSystemTime", 
+    "arguments": [
+      {
+        "type": "const FILETIME*", 
+        "name": "lpFileTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSYSTEMTIME", 
+        "name": "lpSystemTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetDynamicTimeZoneInformation", 
+    "arguments": [
+      {
+        "type": " PDYNAMIC_TIME_ZONE_INFORMATION", 
+        "name": "pTimeZoneInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetTimeZoneInformation", 
+    "arguments": [
+      {
+        "type": " LPTIME_ZONE_INFORMATION", 
+        "name": "lpTimeZoneInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetTimeZoneInformationForYear", 
+    "arguments": [
+      {
+        "type": " USHORT", 
+        "name": "wYear", 
+        "is_float": false
+      }, 
+      {
+        "type": " PDYNAMIC_TIME_ZONE_INFORMATION", 
+        "name": "pdtzi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPTIME_ZONE_INFORMATION", 
+        "name": "ptzi", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetDynamicTimeZoneInformation", 
+    "arguments": [
+      {
+        "type": "const DYNAMIC_TIME_ZONE_INFORMATION*", 
+        "name": "lpTimeZoneInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SystemTimeToFileTime": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SystemTimeToFileTime", 
+    "arguments": [
+      {
+        "type": "const SYSTEMTIME*", 
+        "name": "lpSystemTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPFILETIME", 
+        "name": "lpFileTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetTimeZoneInformation": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetTimeZoneInformation", 
+    "arguments": [
+      {
+        "type": " LPTIME_ZONE_INFORMATION", 
+        "name": "lpTimeZoneInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "8": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SystemTimeToTzSpecificLocalTime", 
+    "arguments": [
+      {
+        "type": "const TIME_ZONE_INFORMATION*", 
+        "name": "lpTimeZoneInformation", 
+        "is_float": false
+      }, 
+      {
+        "type": "const SYSTEMTIME*", 
+        "name": "lpUniversalTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSYSTEMTIME", 
+        "name": "lpLocalTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "9": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "TzSpecificLocalTimeToSystemTime", 
+    "arguments": [
+      {
+        "type": "const TIME_ZONE_INFORMATION*", 
+        "name": "lpTimeZoneInformation", 
+        "is_float": false
+      }, 
+      {
+        "type": "const SYSTEMTIME*", 
+        "name": "lpLocalTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSYSTEMTIME", 
+        "name": "lpUniversalTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "FileTimeToSystemTime": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "FileTimeToSystemTime", 
+    "arguments": [
+      {
+        "type": "const FILETIME*", 
+        "name": "lpFileTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSYSTEMTIME", 
+        "name": "lpSystemTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetTimeZoneInformation": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetTimeZoneInformation", 
+    "arguments": [
+      {
+        "type": "const TIME_ZONE_INFORMATION*", 
+        "name": "lpTimeZoneInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetTimeZoneInformationForYear": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "GetTimeZoneInformationForYear", 
+    "arguments": [
+      {
+        "type": " USHORT", 
+        "name": "wYear", 
+        "is_float": false
+      }, 
+      {
+        "type": " PDYNAMIC_TIME_ZONE_INFORMATION", 
+        "name": "pdtzi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPTIME_ZONE_INFORMATION", 
+        "name": "ptzi", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "7": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SystemTimeToFileTime", 
+    "arguments": [
+      {
+        "type": "const SYSTEMTIME*", 
+        "name": "lpSystemTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPFILETIME", 
+        "name": "lpFileTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetDynamicTimeZoneInformation": {
+    "cc": "__cdecl", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "GetDynamicTimeZoneInformation", 
+    "arguments": [
+      {
+        "type": " PDYNAMIC_TIME_ZONE_INFORMATION", 
+        "name": "pTimeZoneInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "6": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetTimeZoneInformation", 
+    "arguments": [
+      {
+        "type": "const TIME_ZONE_INFORMATION*", 
+        "name": "lpTimeZoneInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "TzSpecificLocalTimeToSystemTime": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "TzSpecificLocalTimeToSystemTime", 
+    "arguments": [
+      {
+        "type": "const TIME_ZONE_INFORMATION*", 
+        "name": "lpTimeZoneInformation", 
+        "is_float": false
+      }, 
+      {
+        "type": "const SYSTEMTIME*", 
+        "name": "lpLocalTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSYSTEMTIME", 
+        "name": "lpUniversalTime", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SetDynamicTimeZoneInformation": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SetDynamicTimeZoneInformation", 
+    "arguments": [
+      {
+        "type": "const DYNAMIC_TIME_ZONE_INFORMATION*", 
+        "name": "lpTimeZoneInformation", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SystemTimeToTzSpecificLocalTime": {
+    "cc": "__cdecl", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "SystemTimeToTzSpecificLocalTime", 
+    "arguments": [
+      {
+        "type": "const TIME_ZONE_INFORMATION*", 
+        "name": "lpTimeZoneInformation", 
+        "is_float": false
+      }, 
+      {
+        "type": "const SYSTEMTIME*", 
+        "name": "lpUniversalTime", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSYSTEMTIME", 
+        "name": "lpLocalTime", 
+        "is_float": false
+      }
+    ]
+  }
+}

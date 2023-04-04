@@ -1,0 +1,49 @@
+2021-12-02 18:58:01,716 [cuckoo.core.scheduler] INFO: Task #17: acquired machine cuckoo1 (label=cuckoo1)
+2021-12-02 18:58:01,717 [cuckoo.core.resultserver] DEBUG: Now tracking machine 192.168.122.254 for task #17
+2021-12-02 18:58:01,717 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Replay
+2021-12-02 18:58:01,722 [cuckoo.auxiliary.sniffer] INFO: Started sniffer with PID 24243 (interface=qemubr, host=192.168.122.254)
+2021-12-02 18:58:01,723 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Sniffer
+2021-12-02 18:58:01,746 [cuckoo.machinery.qemu] DEBUG: Starting vm cuckoo1
+2021-12-02 18:58:01,763 [cuckoo.machinery.qemu] DEBUG: Executing QEMU ['qemu-system-x86_64', '-display', 'none', '-m', '1024M', '-hda', '/home/crochetch/Documents/PhD/VMImages/images/snapshot_cuckoo1.qcow2', '-net', 'tap,ifname=tap_cuckoo1,script=no,downscript=no', '-net', 'nic,macaddr=52:54:00:12:34:56', '-enable-kvm']
+2021-12-02 18:58:01,785 [cuckoo.core.guest] INFO: Starting analysis #17 on guest (id=cuckoo1, ip=192.168.122.254)
+2021-12-02 18:58:01,863 [cuckoo.core.guest] INFO: Guest is running Cuckoo Agent 0.10 (id=cuckoo1, ip=192.168.122.254)
+2021-12-02 18:58:02,013 [cuckoo.core.guest] DEBUG: Uploading analyzer to guest (id=cuckoo1, ip=192.168.122.254, monitor=latest, size=1720485)
+2021-12-02 18:58:02,371 [cuckoo.core.resultserver] DEBUG: Task #17: live log analysis.log initialized.
+2021-12-02 18:58:07,635 [cuckoo.core.guest] DEBUG: cuckoo1: analysis #17 still processing
+2021-12-02 18:58:13,349 [cuckoo.core.guest] DEBUG: cuckoo1: analysis #17 still processing
+2021-12-02 18:58:16,468 [cuckoo.core.guest] INFO: cuckoo1: analysis completed successfully
+2021-12-02 18:58:16,476 [cuckoo.core.plugins] DEBUG: Stopped auxiliary module: Replay
+2021-12-02 18:58:16,476 [cuckoo.core.plugins] ERROR: Unable to stop auxiliary module: Sniffer
+Traceback (most recent call last):
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/plugins.py", line 164, in stop
+    module.stop()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/auxiliary/sniffer.py", line 156, in stop
+    (out, err, faq("permission-denied-for-tcpdump"))
+CuckooOperationalError: Error running tcpdump to sniff the network traffic during the analysis; stdout = '' and stderr = 'tcpdump: qemubr: No such device exists\n(SIOCGIFHWADDR: No such device)\n'. Did you enable the extra capabilities to allow running tcpdump as non-root user and disable AppArmor properly (the latter only applies to Ubuntu-based distributions with AppArmor, see also https://cuckoo.sh/docs/faq/index.html#permission-denied-for-tcpdump)?
+2021-12-02 18:58:16,481 [cuckoo.machinery.qemu] DEBUG: Stopping vm cuckoo1
+2021-12-02 18:58:16,490 [cuckoo.core.resultserver] DEBUG: Stopped tracking machine 192.168.122.254 for task #17
+2021-12-02 18:58:16,490 [cuckoo.core.resultserver] DEBUG: Cancel <Context for LOG> for task 17
+2021-12-02 18:58:16,496 [cuckoo.core.scheduler] DEBUG: Released database task #17
+2021-12-02 18:58:16,512 [cuckoo.core.plugins] DEBUG: Executed processing module "AnalysisInfo" for task #17
+2021-12-02 18:58:16,513 [cuckoo.processing.behavior] WARNING: Analysis results folder does not contain any behavior log files.
+2021-12-02 18:58:16,513 [cuckoo.core.plugins] DEBUG: Executed processing module "BehaviorAnalysis" for task #17
+2021-12-02 18:58:16,513 [cuckoo.core.plugins] DEBUG: Executed processing module "Dropped" for task #17
+2021-12-02 18:58:16,514 [cuckoo.core.plugins] DEBUG: Executed processing module "DroppedBuffer" for task #17
+2021-12-02 18:58:16,514 [cuckoo.core.plugins] DEBUG: Executed processing module "MetaInfo" for task #17
+2021-12-02 18:58:16,514 [cuckoo.core.plugins] DEBUG: Executed processing module "ProcessMemory" for task #17
+2021-12-02 18:58:16,515 [cuckoo.core.plugins] DEBUG: Executed processing module "Procmon" for task #17
+2021-12-02 18:58:16,515 [cuckoo.core.plugins] DEBUG: Executed processing module "Screenshots" for task #17
+2021-12-02 18:58:16,726 [cuckoo.core.plugins] DEBUG: Executed processing module "Static" for task #17
+2021-12-02 18:58:16,747 [cuckoo.core.plugins] DEBUG: Executed processing module "Strings" for task #17
+2021-12-02 18:58:16,765 [cuckoo.core.plugins] DEBUG: Executed processing module "TargetInfo" for task #17
+2021-12-02 18:58:16,766 [cuckoo.processing.network] WARNING: The PCAP file does not exist at path "/home/crochetch/Documents/toolchain_malware_analysis/src/sandboxes/.cuckoo/storage/analyses/17/dump.pcap".
+2021-12-02 18:58:16,767 [cuckoo.core.plugins] DEBUG: Executed processing module "NetworkAnalysis" for task #17
+2021-12-02 18:58:16,771 [cuckoo.core.plugins] DEBUG: Executed processing module "Extracted" for task #17
+2021-12-02 18:58:16,775 [cuckoo.core.plugins] DEBUG: Executed processing module "TLSMasterSecrets" for task #17
+2021-12-02 18:58:16,776 [cuckoo.core.plugins] DEBUG: Executed processing module "Debug" for task #17
+2021-12-02 18:58:16,777 [cuckoo.core.plugins] DEBUG: Running 0 signatures
+2021-12-02 18:58:16,780 [cuckoo.core.plugins] DEBUG: Executed reporting module "JsonDump"
+2021-12-02 18:58:16,814 [cuckoo.core.plugins] DEBUG: Executed reporting module "SingleFile"
+2021-12-02 18:58:16,821 [cuckoo.core.plugins] DEBUG: Executed reporting module "MongoDB"
+2021-12-02 18:58:16,821 [cuckoo.core.scheduler] INFO: Task #17: reports generation completed
+2021-12-02 18:58:16,825 [cuckoo.core.scheduler] INFO: Task #17: analysis procedure completed

@@ -1,0 +1,2378 @@
+{
+  "1": {
+    "cc": "__stdcall", 
+    "returns": "SOCKET", 
+    "returns_float": false, 
+    "name": "accept", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " struct*", 
+        "name": "addr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int*", 
+        "name": "addrlen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "2": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "bind", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": "const struct*", 
+        "name": "addr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "namelen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "3": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "closesocket", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "connect", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": "const struct*", 
+        "name": "name", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "namelen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "getpeername", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " struct*", 
+        "name": "name", 
+        "is_float": false
+      }, 
+      {
+        "type": " int*", 
+        "name": "namelen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "6": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "getsockname", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " struct*", 
+        "name": "name", 
+        "is_float": false
+      }, 
+      {
+        "type": " int*", 
+        "name": "namelen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "7": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "getsockopt", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "level", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "optname", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "optval", 
+        "is_float": false
+      }, 
+      {
+        "type": " int*", 
+        "name": "optlen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "8": {
+    "cc": "__stdcall", 
+    "returns": "u_long", 
+    "returns_float": false, 
+    "name": "htonl", 
+    "arguments": [
+      {
+        "type": " u_long", 
+        "name": "hostlong", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "9": {
+    "cc": "__stdcall", 
+    "returns": "u_short", 
+    "returns_float": false, 
+    "name": "htons", 
+    "arguments": [
+      {
+        "type": " u_short", 
+        "name": "hostshort", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "10": {
+    "cc": "__stdcall", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "inet_addr", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "cp", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "11": {
+    "cc": "__stdcall", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "inet_ntoa", 
+    "arguments": [
+      {
+        "type": " struct", 
+        "name": "in", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "12": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "ioctlsocket", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": "cmd", 
+        "is_float": false
+      }, 
+      {
+        "type": " u_long*", 
+        "name": "argp", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "13": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "listen", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "backlog", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "14": {
+    "cc": "__stdcall", 
+    "returns": "u_long", 
+    "returns_float": false, 
+    "name": "ntohl", 
+    "arguments": [
+      {
+        "type": " u_long", 
+        "name": "netlong", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "15": {
+    "cc": "__stdcall", 
+    "returns": "u_short", 
+    "returns_float": false, 
+    "name": "ntohs", 
+    "arguments": [
+      {
+        "type": " u_short", 
+        "name": "netshort", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "16": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "recv", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "len", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "flags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "17": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "recvfrom", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "len", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "flags", 
+        "is_float": false
+      }, 
+      {
+        "type": " struct*", 
+        "name": "from", 
+        "is_float": false
+      }, 
+      {
+        "type": " int*", 
+        "name": "fromlen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "18": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "select", 
+    "arguments": [
+      {
+        "type": " int", 
+        "name": "nfds", 
+        "is_float": false
+      }, 
+      {
+        "type": " fd_set*", 
+        "name": "readfds", 
+        "is_float": false
+      }, 
+      {
+        "type": " fd_set*", 
+        "name": "writefds", 
+        "is_float": false
+      }, 
+      {
+        "type": " fd_set*", 
+        "name": "exceptfds", 
+        "is_float": false
+      }, 
+      {
+        "type": "const struct*", 
+        "name": "timeout", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "19": {
+    "cc": "__stdcall", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "send", 
+    "arguments": [
+      {
+        "type": " Socket",
+        "name": "s",
+        "is_float": false
+      },
+      {
+        "type": " char",
+        "name": "buf",
+        "is_float": false
+      },
+      {
+        "type": " int",
+        "name": "len",
+        "is_float": false
+      },
+      {
+        "type": " int",
+        "name": "flags",
+        "is_float": false
+      }
+    ]
+  }, 
+  "20": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "sendto", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "len", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "flags", 
+        "is_float": false
+      }, 
+      {
+        "type": "const struct*", 
+        "name": "to", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "tolen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "21": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "setsockopt", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "level", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "optname", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "optval", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "optlen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "22": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "shutdown", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "how", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "23": {
+    "cc": "__stdcall", 
+    "returns": "SOCKET", 
+    "returns_float": false, 
+    "name": "socket", 
+    "arguments": [
+      {
+        "type": " int", 
+        "name": "af", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "type", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "protocol", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WSACancelAsyncRequest": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WSACancelAsyncRequest", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hAsyncTaskHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "send": {
+    "cc": "__stdcall", 
+    "returns": "HRESULT", 
+    "returns_float": false, 
+    "name": "send", 
+    "arguments": [
+      {
+        "type": " Socket",
+        "name": "s",
+        "is_float": false
+      },
+      {
+        "type": " char",
+        "name": "buf",
+        "is_float": false
+      },
+      {
+        "type": " int",
+        "name": "len",
+        "is_float": false
+      },
+      {
+        "type": " int",
+        "name": "flags",
+        "is_float": false
+      }
+    ]
+  }, 
+  "51": {
+    "cc": "__stdcall", 
+    "returns": " struct", 
+    "returns_float": false, 
+    "name": "gethostbyaddr", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "addr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "len", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "type", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "52": {
+    "cc": "__stdcall", 
+    "returns": " struct", 
+    "returns_float": false, 
+    "name": "gethostbyname", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "name", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "53": {
+    "cc": "__stdcall", 
+    "returns": " struct", 
+    "returns_float": false, 
+    "name": "getprotobyname", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "name", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "54": {
+    "cc": "__stdcall", 
+    "returns": " struct", 
+    "returns_float": false, 
+    "name": "getprotobynumber", 
+    "arguments": [
+      {
+        "type": " int", 
+        "name": "proto", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "55": {
+    "cc": "__stdcall", 
+    "returns": " struct", 
+    "returns_float": false, 
+    "name": "getservbyname", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "name", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "proto", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "56": {
+    "cc": "__stdcall", 
+    "returns": " struct", 
+    "returns_float": false, 
+    "name": "getservbyport", 
+    "arguments": [
+      {
+        "type": " int", 
+        "name": "port", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "proto", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "57": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "gethostname", 
+    "arguments": [
+      {
+        "type": " char*", 
+        "name": "name", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "namelen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "1107": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WSARecvEx", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "len", 
+        "is_float": false
+      }, 
+      {
+        "type": " int*", 
+        "name": "flags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "inet_ntoa": {
+    "cc": "__stdcall", 
+    "returns": " char", 
+    "returns_float": false, 
+    "name": "inet_ntoa", 
+    "arguments": [
+      {
+        "type": " struct", 
+        "name": "in", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetAcceptExSockaddrs": {
+    "cc": "__stdcall", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "GetAcceptExSockaddrs", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "lpOutputBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReceiveDataLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwLocalAddressLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwRemoteAddressLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " struct**", 
+        "name": "LocalSockaddr", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPINT", 
+        "name": "LocalSockaddrLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " struct**", 
+        "name": "RemoteSockaddr", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPINT", 
+        "name": "RemoteSockaddrLength", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "101": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WSAAsyncSelect", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND", 
+        "name": "hWnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " u_int", 
+        "name": "wMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": "lEvent", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "102": {
+    "cc": "__stdcall", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "WSAAsyncGetHostByAddr", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hWnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " u_int", 
+        "name": "wMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "addr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "len", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "type", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "buflen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "103": {
+    "cc": "__stdcall", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "WSAAsyncGetHostByName", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hWnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " u_int", 
+        "name": "wMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "name", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "buflen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "104": {
+    "cc": "__stdcall", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "WSAAsyncGetProtoByNumber", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hWnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " u_int", 
+        "name": "wMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "number", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "buflen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "105": {
+    "cc": "__stdcall", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "WSAAsyncGetProtoByName", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hWnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " u_int", 
+        "name": "wMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "name", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "buflen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "106": {
+    "cc": "__stdcall", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "WSAAsyncGetServByPort", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hWnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " u_int", 
+        "name": "wMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "port", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "proto", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "buflen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "107": {
+    "cc": "__stdcall", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "WSAAsyncGetServByName", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hWnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " u_int", 
+        "name": "wMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "name", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "proto", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "buflen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "108": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WSACancelAsyncRequest", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hAsyncTaskHandle", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "109": {
+    "cc": "__stdcall", 
+    "returns": "FARPROC", 
+    "returns_float": false, 
+    "name": "WSASetBlockingHook", 
+    "arguments": [
+      {
+        "type": " FARPROC", 
+        "name": "lpBlockFunc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "110": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WSAUnhookBlockingHook", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "111": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WSAGetLastError", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "recvfrom": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "recvfrom", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "len", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "flags", 
+        "is_float": false
+      }, 
+      {
+        "type": " struct*", 
+        "name": "from", 
+        "is_float": false
+      }, 
+      {
+        "type": " int*", 
+        "name": "fromlen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "113": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WSACancelBlockingCall", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "114": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "WSAIsBlocking", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "115": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WSAStartup", 
+    "arguments": [
+      {
+        "type": " WORD", 
+        "name": "wVersionRequired", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSADATA", 
+        "name": "lpWSAData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "1140": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "TransmitFile", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "hSocket", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hFile", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nNumberOfBytesToWrite", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nNumberOfBytesPerSend", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOVERLAPPED", 
+        "name": "lpOverlapped", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPTRANSMIT_FILE_BUFFERS", 
+        "name": "lpTransmitBuffers", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReserved", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "1141": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "AcceptEx", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "sListenSocket", 
+        "is_float": false
+      }, 
+      {
+        "type": " SOCKET", 
+        "name": "sAcceptSocket", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "lpOutputBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReceiveDataLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwLocalAddressLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwRemoteAddressLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwBytesReceived", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOVERLAPPED", 
+        "name": "lpOverlapped", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "1142": {
+    "cc": "__stdcall", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "GetAcceptExSockaddrs", 
+    "arguments": [
+      {
+        "type": " PVOID", 
+        "name": "lpOutputBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReceiveDataLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwLocalAddressLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwRemoteAddressLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " struct**", 
+        "name": "LocalSockaddr", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPINT", 
+        "name": "LocalSockaddrLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " struct**", 
+        "name": "RemoteSockaddr", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPINT", 
+        "name": "RemoteSockaddrLength", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "sendto": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "sendto", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "len", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "flags", 
+        "is_float": false
+      }, 
+      {
+        "type": "const struct*", 
+        "name": "to", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "tolen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "connect": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "connect", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": "const struct*", 
+        "name": "name", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "namelen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "getsockname": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "getsockname", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " struct*", 
+        "name": "name", 
+        "is_float": false
+      }, 
+      {
+        "type": " int*", 
+        "name": "namelen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "151": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "__WSAFDIsSet", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " fd_set*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WSARecvEx": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WSARecvEx", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "len", 
+        "is_float": false
+      }, 
+      {
+        "type": " int*", 
+        "name": "flags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WSASetBlockingHook": {
+    "cc": "__stdcall", 
+    "returns": "FARPROC", 
+    "returns_float": false, 
+    "name": "WSASetBlockingHook", 
+    "arguments": [
+      {
+        "type": " FARPROC", 
+        "name": "lpBlockFunc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "112": {
+    "cc": "__stdcall", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "WSASetLastError", 
+    "arguments": [
+      {
+        "type": " int", 
+        "name": "iError", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "inet_addr": {
+    "cc": "__stdcall", 
+    "returns": "long", 
+    "returns_float": false, 
+    "name": "inet_addr", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "cp", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WSAGetLastError": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WSAGetLastError", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "116": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WSACleanup", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "gethostbyaddr": {
+    "cc": "__stdcall", 
+    "returns": " struct", 
+    "returns_float": false, 
+    "name": "gethostbyaddr", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "addr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "len", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "type", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WSAAsyncGetHostByAddr": {
+    "cc": "__stdcall", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "WSAAsyncGetHostByAddr", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hWnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " u_int", 
+        "name": "wMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "addr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "len", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "type", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "buflen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "__WSAFDIsSet": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "__WSAFDIsSet", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": null, 
+        "is_float": false
+      }, 
+      {
+        "type": " fd_set*", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WSAAsyncGetServByName": {
+    "cc": "__stdcall", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "WSAAsyncGetServByName", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hWnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " u_int", 
+        "name": "wMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "name", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "proto", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "buflen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WSAAsyncSelect": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WSAAsyncSelect", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND", 
+        "name": "hWnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " u_int", 
+        "name": "wMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": "lEvent", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "getpeername": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "getpeername", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " struct*", 
+        "name": "name", 
+        "is_float": false
+      }, 
+      {
+        "type": " int*", 
+        "name": "namelen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "recv": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "recv", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "len", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "flags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "setsockopt": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "setsockopt", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "level", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "optname", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "optval", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "optlen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "socket": {
+    "cc": "__stdcall", 
+    "returns": "SOCKET", 
+    "returns_float": false, 
+    "name": "socket", 
+    "arguments": [
+      {
+        "type": " int", 
+        "name": "af", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "type", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "protocol", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WSAIsBlocking": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "WSAIsBlocking", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "getprotobyname": {
+    "cc": "__stdcall", 
+    "returns": " struct", 
+    "returns_float": false, 
+    "name": "getprotobyname", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "name", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "getservbyname": {
+    "cc": "__stdcall", 
+    "returns": " struct", 
+    "returns_float": false, 
+    "name": "getservbyname", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "name", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "proto", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "TransmitFile": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "TransmitFile", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "hSocket", 
+        "is_float": false
+      }, 
+      {
+        "type": " HANDLE", 
+        "name": "hFile", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nNumberOfBytesToWrite", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "nNumberOfBytesPerSend", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOVERLAPPED", 
+        "name": "lpOverlapped", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPTRANSMIT_FILE_BUFFERS", 
+        "name": "lpTransmitBuffers", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReserved", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ioctlsocket": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "ioctlsocket", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " long", 
+        "name": "cmd", 
+        "is_float": false
+      }, 
+      {
+        "type": " u_long*", 
+        "name": "argp", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WSAStartup": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WSAStartup", 
+    "arguments": [
+      {
+        "type": " WORD", 
+        "name": "wVersionRequired", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSADATA", 
+        "name": "lpWSAData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "shutdown": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "shutdown", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "how", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "select": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "select", 
+    "arguments": [
+      {
+        "type": " int", 
+        "name": "nfds", 
+        "is_float": false
+      }, 
+      {
+        "type": " fd_set*", 
+        "name": "readfds", 
+        "is_float": false
+      }, 
+      {
+        "type": " fd_set*", 
+        "name": "writefds", 
+        "is_float": false
+      }, 
+      {
+        "type": " fd_set*", 
+        "name": "exceptfds", 
+        "is_float": false
+      }, 
+      {
+        "type": "const struct*", 
+        "name": "timeout", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "gethostname": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "gethostname", 
+    "arguments": [
+      {
+        "type": " char*", 
+        "name": "name", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "namelen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "getsockopt": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "getsockopt", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "level", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "optname", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "optval", 
+        "is_float": false
+      }, 
+      {
+        "type": " int*", 
+        "name": "optlen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WSAAsyncGetHostByName": {
+    "cc": "__stdcall", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "WSAAsyncGetHostByName", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hWnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " u_int", 
+        "name": "wMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "name", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "buflen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ntohl": {
+    "cc": "__stdcall", 
+    "returns": "u_long", 
+    "returns_float": false, 
+    "name": "ntohl", 
+    "arguments": [
+      {
+        "type": " u_long", 
+        "name": "netlong", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "getservbyport": {
+    "cc": "__stdcall", 
+    "returns": " struct", 
+    "returns_float": false, 
+    "name": "getservbyport", 
+    "arguments": [
+      {
+        "type": " int", 
+        "name": "port", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "proto", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "ntohs": {
+    "cc": "__stdcall", 
+    "returns": "u_short", 
+    "returns_float": false, 
+    "name": "ntohs", 
+    "arguments": [
+      {
+        "type": " u_short", 
+        "name": "netshort", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "listen": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "listen", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "backlog", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "AcceptEx": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "AcceptEx", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "sListenSocket", 
+        "is_float": false
+      }, 
+      {
+        "type": " SOCKET", 
+        "name": "sAcceptSocket", 
+        "is_float": false
+      }, 
+      {
+        "type": " PVOID", 
+        "name": "lpOutputBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwReceiveDataLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwLocalAddressLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwRemoteAddressLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "lpdwBytesReceived", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPOVERLAPPED", 
+        "name": "lpOverlapped", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WSASetLastError": {
+    "cc": "__stdcall", 
+    "returns": "void", 
+    "returns_float": false, 
+    "name": "WSASetLastError", 
+    "arguments": [
+      {
+        "type": " int", 
+        "name": "iError", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "closesocket": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "closesocket", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WSACancelBlockingCall": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WSACancelBlockingCall", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WSAAsyncGetServByPort": {
+    "cc": "__stdcall", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "WSAAsyncGetServByPort", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hWnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " u_int", 
+        "name": "wMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "port", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "proto", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "buflen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "getprotobynumber": {
+    "cc": "__stdcall", 
+    "returns": " struct", 
+    "returns_float": false, 
+    "name": "getprotobynumber", 
+    "arguments": [
+      {
+        "type": " int", 
+        "name": "proto", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "htonl": {
+    "cc": "__stdcall", 
+    "returns": "u_long", 
+    "returns_float": false, 
+    "name": "htonl", 
+    "arguments": [
+      {
+        "type": " u_long", 
+        "name": "hostlong", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "accept": {
+    "cc": "__stdcall", 
+    "returns": "SOCKET", 
+    "returns_float": false, 
+    "name": "accept", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": " struct*", 
+        "name": "addr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int*", 
+        "name": "addrlen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "htons": {
+    "cc": "__stdcall", 
+    "returns": "u_short", 
+    "returns_float": false, 
+    "name": "htons", 
+    "arguments": [
+      {
+        "type": " u_short", 
+        "name": "hostshort", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WSAAsyncGetProtoByName": {
+    "cc": "__stdcall", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "WSAAsyncGetProtoByName", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hWnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " u_int", 
+        "name": "wMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "name", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "buflen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WSAUnhookBlockingHook": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WSAUnhookBlockingHook", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WSACleanup": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "WSACleanup", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "gethostbyname": {
+    "cc": "__stdcall", 
+    "returns": " struct", 
+    "returns_float": false, 
+    "name": "gethostbyname", 
+    "arguments": [
+      {
+        "type": "const char*", 
+        "name": "name", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "bind": {
+    "cc": "__stdcall", 
+    "returns": "int", 
+    "returns_float": false, 
+    "name": "bind", 
+    "arguments": [
+      {
+        "type": " SOCKET", 
+        "name": "s", 
+        "is_float": false
+      }, 
+      {
+        "type": "const struct*", 
+        "name": "addr", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "namelen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "WSAAsyncGetProtoByNumber": {
+    "cc": "__stdcall", 
+    "returns": "HANDLE", 
+    "returns_float": false, 
+    "name": "WSAAsyncGetProtoByNumber", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hWnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " u_int", 
+        "name": "wMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "number", 
+        "is_float": false
+      }, 
+      {
+        "type": " char*", 
+        "name": "buf", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "buflen", 
+        "is_float": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,820 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4311992.main
+05727939f8fbf5d00c8540b04253d0e4a87733d38f14a7918ce780ef2f970896.exe"]
+	1 [label="4259169.GetModuleHandleW
+4401296"]
+	2 [label="4259193.GetProcAddress
+6295592
+SetDllDirectoryW"]
+	1 -> 2 [label="(0-->1)"]
+	3 [label="4259220.SetDllDirectoryW
+4399844"]
+	2 -> 3 [label="(0-->0)"]
+	4 [label="4259228.GetProcAddress
+6295592
+SetDefaultDllDirectories"]
+	1 -> 4 [label="(0-->1)"]
+	2 -> 4 [label="(1-->1)"]
+	5 [label="4259255.SetDefaultDllDirectories
+2048"]
+	4 -> 5 [label="(0-->0)"]
+	6 [label="4260094.GetModuleFileNameW
+0
+2147372108
+2048"]
+	5 -> 6 [label="(1-->3)"]
+	7 [label="4237754.GetVersionExW
+2147371036"]
+	8 [label="4260225.GetFileAttributesW
+2147372108"]
+	6 -> 8 [label="(2-->1)"]
+	9 [label="4298240.GetCurrentDirectoryW
+2048
+4486648"]
+	5 -> 9 [label="(1-->1)"]
+	6 -> 9 [label="(3-->1)"]
+	10 [label="4259096.GetSystemDirectoryW
+2147413220
+2048"]
+	5 -> 10 [label="(1-->2)"]
+	6 -> 10 [label="(3-->2)"]
+	9 -> 10 [label="(1-->2)"]
+	11 [label="4314708.LoadLibraryExA
+ole32.dll
+0
+0"]
+	12 [label="4314914.GetProcAddress
+6295604
+OleInitialize"]
+	11 -> 12 [label="(0-->1)"]
+	13 [label="4315060.OleInitialize
+0"]
+	12 -> 13 [label="(0-->0)"]
+	14 [label="4314708.LoadLibraryExA
+COMCTL32.dll
+0
+0"]
+	15 [label="4314914.GetProcAddress
+6295612
+InitCommonControlsEx"]
+	14 -> 15 [label="(0-->1)"]
+	16 [label="4315060.InitCommonControlsEx
+2147417352"]
+	15 -> 16 [label="(0-->0)"]
+	17 [label="4299504.GdiplusStartup
+"]
+	18 [label="4314708.LoadLibraryExA
+SHELL32.dll
+0
+0"]
+	19 [label="4314914.GetProcAddress
+6295620
+SHGetMalloc"]
+	18 -> 19 [label="(0-->1)"]
+	20 [label="4315060.SHGetMalloc
+"]
+	19 -> 20 [label="(0-->0)"]
+	21 [label="4263976.GetCPInfo
+0
+2147417344"]
+	22 [label="4263996.IsDBCSLeadByte
+0"]
+	23 [label="4263996.IsDBCSLeadByte
+1"]
+	24 [label="4263996.IsDBCSLeadByte
+2"]
+	25 [label="4263996.IsDBCSLeadByte
+3"]
+	26 [label="4263996.IsDBCSLeadByte
+4"]
+	27 [label="4263996.IsDBCSLeadByte
+5"]
+	28 [label="4263996.IsDBCSLeadByte
+6"]
+	29 [label="4263996.IsDBCSLeadByte
+7"]
+	30 [label="4263996.IsDBCSLeadByte
+8"]
+	31 [label="4263996.IsDBCSLeadByte
+9"]
+	32 [label="4263996.IsDBCSLeadByte
+10"]
+	33 [label="4263996.IsDBCSLeadByte
+11"]
+	34 [label="4263996.IsDBCSLeadByte
+12"]
+	35 [label="4263996.IsDBCSLeadByte
+13"]
+	36 [label="4263996.IsDBCSLeadByte
+14"]
+	37 [label="4263996.IsDBCSLeadByte
+15"]
+	38 [label="4263996.IsDBCSLeadByte
+16"]
+	39 [label="4263996.IsDBCSLeadByte
+17"]
+	40 [label="4263996.IsDBCSLeadByte
+18"]
+	41 [label="4263996.IsDBCSLeadByte
+19"]
+	42 [label="4263996.IsDBCSLeadByte
+20"]
+	43 [label="4263996.IsDBCSLeadByte
+21"]
+	44 [label="4263996.IsDBCSLeadByte
+22"]
+	45 [label="4263996.IsDBCSLeadByte
+23"]
+	46 [label="4263996.IsDBCSLeadByte
+24"]
+	47 [label="4263996.IsDBCSLeadByte
+25"]
+	48 [label="4263996.IsDBCSLeadByte
+26"]
+	49 [label="4263996.IsDBCSLeadByte
+27"]
+	50 [label="4263996.IsDBCSLeadByte
+28"]
+	51 [label="4263996.IsDBCSLeadByte
+29"]
+	52 [label="4263996.IsDBCSLeadByte
+30"]
+	53 [label="4263996.IsDBCSLeadByte
+31"]
+	54 [label="4263996.IsDBCSLeadByte
+32"]
+	55 [label="4263996.IsDBCSLeadByte
+33"]
+	56 [label="4263996.IsDBCSLeadByte
+34"]
+	57 [label="4263996.IsDBCSLeadByte
+35"]
+	58 [label="4263996.IsDBCSLeadByte
+36"]
+	59 [label="4263996.IsDBCSLeadByte
+37"]
+	60 [label="4263996.IsDBCSLeadByte
+38"]
+	61 [label="4263996.IsDBCSLeadByte
+39"]
+	62 [label="4263996.IsDBCSLeadByte
+40"]
+	63 [label="4263996.IsDBCSLeadByte
+41"]
+	64 [label="4263996.IsDBCSLeadByte
+42"]
+	65 [label="4263996.IsDBCSLeadByte
+43"]
+	66 [label="4263996.IsDBCSLeadByte
+44"]
+	67 [label="4263996.IsDBCSLeadByte
+45"]
+	68 [label="4263996.IsDBCSLeadByte
+46"]
+	69 [label="4263996.IsDBCSLeadByte
+47"]
+	70 [label="4263996.IsDBCSLeadByte
+48"]
+	71 [label="4263996.IsDBCSLeadByte
+49"]
+	72 [label="4263996.IsDBCSLeadByte
+50"]
+	73 [label="4263996.IsDBCSLeadByte
+51"]
+	74 [label="4263996.IsDBCSLeadByte
+52"]
+	75 [label="4263996.IsDBCSLeadByte
+53"]
+	76 [label="4263996.IsDBCSLeadByte
+54"]
+	77 [label="4263996.IsDBCSLeadByte
+55"]
+	78 [label="4263996.IsDBCSLeadByte
+56"]
+	79 [label="4263996.IsDBCSLeadByte
+57"]
+	80 [label="4263996.IsDBCSLeadByte
+58"]
+	81 [label="4263996.IsDBCSLeadByte
+59"]
+	82 [label="4263996.IsDBCSLeadByte
+60"]
+	83 [label="4263996.IsDBCSLeadByte
+61"]
+	84 [label="4263996.IsDBCSLeadByte
+62"]
+	85 [label="4263996.IsDBCSLeadByte
+63"]
+	86 [label="4263996.IsDBCSLeadByte
+64"]
+	87 [label="4263996.IsDBCSLeadByte
+65"]
+	88 [label="4263996.IsDBCSLeadByte
+66"]
+	89 [label="4263996.IsDBCSLeadByte
+67"]
+	90 [label="4263996.IsDBCSLeadByte
+68"]
+	91 [label="4263996.IsDBCSLeadByte
+69"]
+	92 [label="4263996.IsDBCSLeadByte
+70"]
+	93 [label="4263996.IsDBCSLeadByte
+71"]
+	94 [label="4263996.IsDBCSLeadByte
+72"]
+	95 [label="4263996.IsDBCSLeadByte
+73"]
+	96 [label="4263996.IsDBCSLeadByte
+74"]
+	97 [label="4263996.IsDBCSLeadByte
+75"]
+	98 [label="4263996.IsDBCSLeadByte
+76"]
+	99 [label="4263996.IsDBCSLeadByte
+77"]
+	100 [label="4263996.IsDBCSLeadByte
+78"]
+	101 [label="4263996.IsDBCSLeadByte
+79"]
+	102 [label="4263996.IsDBCSLeadByte
+80"]
+	103 [label="4263996.IsDBCSLeadByte
+81"]
+	104 [label="4263996.IsDBCSLeadByte
+82"]
+	105 [label="4263996.IsDBCSLeadByte
+83"]
+	106 [label="4263996.IsDBCSLeadByte
+84"]
+	107 [label="4263996.IsDBCSLeadByte
+85"]
+	108 [label="4263996.IsDBCSLeadByte
+86"]
+	109 [label="4263996.IsDBCSLeadByte
+87"]
+	110 [label="4263996.IsDBCSLeadByte
+88"]
+	111 [label="4263996.IsDBCSLeadByte
+89"]
+	112 [label="4263996.IsDBCSLeadByte
+90"]
+	113 [label="4263996.IsDBCSLeadByte
+91"]
+	114 [label="4263996.IsDBCSLeadByte
+92"]
+	115 [label="4263996.IsDBCSLeadByte
+93"]
+	116 [label="4263996.IsDBCSLeadByte
+94"]
+	117 [label="4263996.IsDBCSLeadByte
+95"]
+	118 [label="4263996.IsDBCSLeadByte
+96"]
+	119 [label="4263996.IsDBCSLeadByte
+97"]
+	120 [label="4263996.IsDBCSLeadByte
+98"]
+	121 [label="4263996.IsDBCSLeadByte
+99"]
+	122 [label="4263996.IsDBCSLeadByte
+100"]
+	123 [label="4263996.IsDBCSLeadByte
+101"]
+	124 [label="4263996.IsDBCSLeadByte
+102"]
+	125 [label="4263996.IsDBCSLeadByte
+103"]
+	126 [label="4263996.IsDBCSLeadByte
+104"]
+	127 [label="4263996.IsDBCSLeadByte
+105"]
+	128 [label="4263996.IsDBCSLeadByte
+106"]
+	129 [label="4263996.IsDBCSLeadByte
+107"]
+	130 [label="4263996.IsDBCSLeadByte
+108"]
+	131 [label="4263996.IsDBCSLeadByte
+109"]
+	132 [label="4263996.IsDBCSLeadByte
+110"]
+	133 [label="4263996.IsDBCSLeadByte
+111"]
+	134 [label="4263996.IsDBCSLeadByte
+112"]
+	135 [label="4263996.IsDBCSLeadByte
+113"]
+	136 [label="4263996.IsDBCSLeadByte
+114"]
+	137 [label="4263996.IsDBCSLeadByte
+115"]
+	138 [label="4263996.IsDBCSLeadByte
+116"]
+	139 [label="4263996.IsDBCSLeadByte
+117"]
+	140 [label="4263996.IsDBCSLeadByte
+118"]
+	141 [label="4263996.IsDBCSLeadByte
+119"]
+	142 [label="4263996.IsDBCSLeadByte
+120"]
+	143 [label="4263996.IsDBCSLeadByte
+121"]
+	144 [label="4263996.IsDBCSLeadByte
+122"]
+	145 [label="4263996.IsDBCSLeadByte
+123"]
+	146 [label="4263996.IsDBCSLeadByte
+124"]
+	147 [label="4263996.IsDBCSLeadByte
+125"]
+	148 [label="4263996.IsDBCSLeadByte
+126"]
+	149 [label="4263996.IsDBCSLeadByte
+127"]
+	150 [label="4263996.IsDBCSLeadByte
+128"]
+	151 [label="4263996.IsDBCSLeadByte
+129"]
+	152 [label="4263996.IsDBCSLeadByte
+130"]
+	153 [label="4263996.IsDBCSLeadByte
+131"]
+	154 [label="4263996.IsDBCSLeadByte
+132"]
+	155 [label="4263996.IsDBCSLeadByte
+133"]
+	156 [label="4263996.IsDBCSLeadByte
+134"]
+	157 [label="4263996.IsDBCSLeadByte
+135"]
+	158 [label="4263996.IsDBCSLeadByte
+136"]
+	159 [label="4263996.IsDBCSLeadByte
+137"]
+	6 -> 159 [label="(0-->1)"]
+	160 [label="4263996.IsDBCSLeadByte
+138"]
+	161 [label="4263996.IsDBCSLeadByte
+139"]
+	162 [label="4263996.IsDBCSLeadByte
+140"]
+	163 [label="4263996.IsDBCSLeadByte
+141"]
+	164 [label="4263996.IsDBCSLeadByte
+142"]
+	165 [label="4263996.IsDBCSLeadByte
+143"]
+	166 [label="4263996.IsDBCSLeadByte
+144"]
+	167 [label="4263996.IsDBCSLeadByte
+145"]
+	168 [label="4263996.IsDBCSLeadByte
+146"]
+	169 [label="4263996.IsDBCSLeadByte
+147"]
+	170 [label="4263996.IsDBCSLeadByte
+148"]
+	171 [label="4263996.IsDBCSLeadByte
+149"]
+	172 [label="4263996.IsDBCSLeadByte
+150"]
+	173 [label="4263996.IsDBCSLeadByte
+151"]
+	174 [label="4263996.IsDBCSLeadByte
+152"]
+	175 [label="4263996.IsDBCSLeadByte
+153"]
+	176 [label="4263996.IsDBCSLeadByte
+154"]
+	177 [label="4263996.IsDBCSLeadByte
+155"]
+	178 [label="4263996.IsDBCSLeadByte
+156"]
+	179 [label="4263996.IsDBCSLeadByte
+157"]
+	180 [label="4263996.IsDBCSLeadByte
+158"]
+	181 [label="4263996.IsDBCSLeadByte
+159"]
+	182 [label="4263996.IsDBCSLeadByte
+160"]
+	183 [label="4263996.IsDBCSLeadByte
+161"]
+	184 [label="4263996.IsDBCSLeadByte
+162"]
+	185 [label="4263996.IsDBCSLeadByte
+163"]
+	186 [label="4263996.IsDBCSLeadByte
+164"]
+	187 [label="4263996.IsDBCSLeadByte
+165"]
+	188 [label="4263996.IsDBCSLeadByte
+166"]
+	189 [label="4263996.IsDBCSLeadByte
+167"]
+	190 [label="4263996.IsDBCSLeadByte
+168"]
+	191 [label="4263996.IsDBCSLeadByte
+169"]
+	192 [label="4263996.IsDBCSLeadByte
+170"]
+	193 [label="4263996.IsDBCSLeadByte
+171"]
+	194 [label="4263996.IsDBCSLeadByte
+172"]
+	195 [label="4263996.IsDBCSLeadByte
+173"]
+	196 [label="4263996.IsDBCSLeadByte
+174"]
+	197 [label="4263996.IsDBCSLeadByte
+175"]
+	198 [label="4263996.IsDBCSLeadByte
+176"]
+	199 [label="4263996.IsDBCSLeadByte
+177"]
+	200 [label="4263996.IsDBCSLeadByte
+178"]
+	201 [label="4263996.IsDBCSLeadByte
+179"]
+	202 [label="4263996.IsDBCSLeadByte
+180"]
+	203 [label="4263996.IsDBCSLeadByte
+181"]
+	204 [label="4263996.IsDBCSLeadByte
+182"]
+	205 [label="4263996.IsDBCSLeadByte
+183"]
+	206 [label="4263996.IsDBCSLeadByte
+184"]
+	207 [label="4263996.IsDBCSLeadByte
+185"]
+	208 [label="4263996.IsDBCSLeadByte
+186"]
+	209 [label="4263996.IsDBCSLeadByte
+187"]
+	210 [label="4263996.IsDBCSLeadByte
+188"]
+	211 [label="4263996.IsDBCSLeadByte
+189"]
+	212 [label="4263996.IsDBCSLeadByte
+190"]
+	213 [label="4263996.IsDBCSLeadByte
+191"]
+	214 [label="4263996.IsDBCSLeadByte
+192"]
+	215 [label="4263996.IsDBCSLeadByte
+193"]
+	216 [label="4263996.IsDBCSLeadByte
+194"]
+	217 [label="4263996.IsDBCSLeadByte
+195"]
+	218 [label="4263996.IsDBCSLeadByte
+196"]
+	219 [label="4263996.IsDBCSLeadByte
+197"]
+	220 [label="4263996.IsDBCSLeadByte
+198"]
+	221 [label="4263996.IsDBCSLeadByte
+199"]
+	222 [label="4263996.IsDBCSLeadByte
+200"]
+	223 [label="4263996.IsDBCSLeadByte
+201"]
+	224 [label="4263996.IsDBCSLeadByte
+202"]
+	225 [label="4263996.IsDBCSLeadByte
+203"]
+	226 [label="4263996.IsDBCSLeadByte
+204"]
+	227 [label="4263996.IsDBCSLeadByte
+205"]
+	228 [label="4263996.IsDBCSLeadByte
+206"]
+	229 [label="4263996.IsDBCSLeadByte
+207"]
+	230 [label="4263996.IsDBCSLeadByte
+208"]
+	231 [label="4263996.IsDBCSLeadByte
+209"]
+	232 [label="4263996.IsDBCSLeadByte
+210"]
+	233 [label="4263996.IsDBCSLeadByte
+211"]
+	234 [label="4263996.IsDBCSLeadByte
+212"]
+	235 [label="4263996.IsDBCSLeadByte
+213"]
+	236 [label="4263996.IsDBCSLeadByte
+214"]
+	237 [label="4263996.IsDBCSLeadByte
+215"]
+	238 [label="4263996.IsDBCSLeadByte
+216"]
+	239 [label="4263996.IsDBCSLeadByte
+217"]
+	240 [label="4263996.IsDBCSLeadByte
+218"]
+	241 [label="4263996.IsDBCSLeadByte
+219"]
+	242 [label="4263996.IsDBCSLeadByte
+220"]
+	243 [label="4263996.IsDBCSLeadByte
+221"]
+	244 [label="4263996.IsDBCSLeadByte
+222"]
+	245 [label="4263996.IsDBCSLeadByte
+223"]
+	246 [label="4263996.IsDBCSLeadByte
+224"]
+	247 [label="4263996.IsDBCSLeadByte
+225"]
+	248 [label="4263996.IsDBCSLeadByte
+226"]
+	249 [label="4263996.IsDBCSLeadByte
+227"]
+	250 [label="4263996.IsDBCSLeadByte
+228"]
+	251 [label="4263996.IsDBCSLeadByte
+229"]
+	252 [label="4263996.IsDBCSLeadByte
+230"]
+	253 [label="4263996.IsDBCSLeadByte
+231"]
+	254 [label="4263996.IsDBCSLeadByte
+232"]
+	255 [label="4263996.IsDBCSLeadByte
+233"]
+	256 [label="4263996.IsDBCSLeadByte
+234"]
+	257 [label="4263996.IsDBCSLeadByte
+235"]
+	258 [label="4263996.IsDBCSLeadByte
+236"]
+	259 [label="4263996.IsDBCSLeadByte
+237"]
+	260 [label="4263996.IsDBCSLeadByte
+238"]
+	261 [label="4263996.IsDBCSLeadByte
+239"]
+	262 [label="4263996.IsDBCSLeadByte
+240"]
+	263 [label="4263996.IsDBCSLeadByte
+241"]
+	264 [label="4263996.IsDBCSLeadByte
+242"]
+	265 [label="4263996.IsDBCSLeadByte
+243"]
+	266 [label="4263996.IsDBCSLeadByte
+244"]
+	267 [label="4263996.IsDBCSLeadByte
+245"]
+	268 [label="4263996.IsDBCSLeadByte
+246"]
+	269 [label="4263996.IsDBCSLeadByte
+247"]
+	270 [label="4263996.IsDBCSLeadByte
+248"]
+	271 [label="4263996.IsDBCSLeadByte
+249"]
+	272 [label="4263996.IsDBCSLeadByte
+250"]
+	273 [label="4263996.IsDBCSLeadByte
+251"]
+	274 [label="4263996.IsDBCSLeadByte
+252"]
+	275 [label="4263996.IsDBCSLeadByte
+253"]
+	276 [label="4263996.IsDBCSLeadByte
+254"]
+	277 [label="4263996.IsDBCSLeadByte
+255"]
+	278 [label="4312064.GetCommandLineW
+"]
+	279 [label="4311207.SetEnvironmentVariableW
+4406660
+6710886"]
+	280 [label="4311267.SetEnvironmentVariableW
+4406676
+6710896"]
+	281 [label="4312214.GetModuleFileNameW
+0
+4574744
+2048"]
+	5 -> 281 [label="(1-->3)"]
+	6 -> 281 [label="(3-->3)"]
+	9 -> 281 [label="(1-->3)"]
+	10 -> 281 [label="(2-->3)"]
+	6 -> 281 [label="(0-->0)"]
+	159 -> 281 [label="(1-->0)"]
+	282 [label="4312232.SetEnvironmentVariableW
+4406536
+4574744"]
+	281 -> 282 [label="(2-->2)"]
+	283 [label="4312239.GetLocalTime
+2147417384"]
+	284 [label="4359583.GetLastError
+"]
+	285 [label="4356956.HeapAlloc
+0
+8
+868"]
+	30 -> 285 [label="(1-->2)"]
+	286 [label="4364894.LoadLibraryExW
+4408092
+0
+2048"]
+	5 -> 286 [label="(1-->3)"]
+	6 -> 286 [label="(3-->3)"]
+	9 -> 286 [label="(1-->3)"]
+	10 -> 286 [label="(2-->3)"]
+	281 -> 286 [label="(3-->3)"]
+	287 [label="4364784.GetProcAddress
+6295628
+FlsSetValue"]
+	286 -> 287 [label="(0-->1)"]
+	288 [label="4365287.FlsSetValue
+4294967295
+3221258256"]
+	285 -> 288 [label="(0-->2)"]
+	287 -> 288 [label="(0-->0)"]
+	289 [label="4356710.HeapFree
+0
+0
+3221258256"]
+	285 -> 289 [label="(0-->3)"]
+	288 -> 289 [label="(2-->3)"]
+	23 -> 289 [label="(1-->0)"]
+	290 [label="4359688.SetLastError
+retval_GetLastError_33044_32"]
+	283 -> 290 [label="(0-->0)"]
+	291 [label="4312320.SetEnvironmentVariableW
+4406620
+2147417496"]
+	292 [label="4312323.GetModuleHandleW
+0"]
+	293 [label="4314708.LoadLibraryExA
+USER32.dll
+0
+0"]
+	294 [label="4314914.GetProcAddress
+6295636
+LoadIconW"]
+	293 -> 294 [label="(0-->1)"]
+	295 [label="4315060.LoadIconW
+4194304
+100"]
+	292 -> 295 [label="(0-->1)"]
+	122 -> 295 [label="(1-->2)"]
+	294 -> 295 [label="(0-->0)"]
+	296 [label="4314914.GetProcAddress
+6295636
+LoadBitmapW"]
+	293 -> 296 [label="(0-->1)"]
+	294 -> 296 [label="(1-->1)"]
+	297 [label="4315060.LoadBitmapW
+4194304
+101"]
+	292 -> 297 [label="(0-->1)"]
+	295 -> 297 [label="(1-->1)"]
+	123 -> 297 [label="(1-->2)"]
+	296 -> 297 [label="(0-->0)"]
+	298 [label="4314708.LoadLibraryExA
+GDI32.dll
+0
+0"]
+	299 [label="4314914.GetProcAddress
+6295648
+GetObjectW"]
+	298 -> 299 [label="(0-->1)"]
+	300 [label="4315060.GetObjectW
+retval_LoadBitmapW_33047_32
+24
+2147417340"]
+	46 -> 300 [label="(1-->2)"]
+	299 -> 300 [label="(0-->0)"]
+	301 [label="4314914.GetProcAddress
+6295636
+GetDC"]
+	293 -> 301 [label="(0-->1)"]
+	294 -> 301 [label="(1-->1)"]
+	296 -> 301 [label="(1-->1)"]
+	302 [label="4315060.GetDC
+0"]
+	301 -> 302 [label="(0-->0)"]
+	303 [label="4298136.GetDC
+0"]
+	301 -> 303 [label="(0-->0)"]
+	304 [label="4247573.GetModuleFileNameW
+0
+2147412528
+2048"]
+	5 -> 304 [label="(1-->3)"]
+	6 -> 304 [label="(3-->3)"]
+	9 -> 304 [label="(1-->3)"]
+	10 -> 304 [label="(2-->3)"]
+	281 -> 304 [label="(3-->3)"]
+	286 -> 304 [label="(3-->3)"]
+	6 -> 304 [label="(0-->0)"]
+	159 -> 304 [label="(1-->0)"]
+	281 -> 304 [label="(0-->0)"]
+	305 [label="4233220.CreateFileW
+2147412528
+2147483648
+3
+0
+3
+134217728
+0"]
+	304 -> 305 [label="(2-->1)"]
+	25 -> 305 [label="(1-->3)"]
+	25 -> 305 [label="(1-->5)"]
+	25 -> 305 [label="(1-->0)"]
+	306 [label="4356796.HeapAlloc
+0
+0
+128"]
+	150 -> 306 [label="(1-->3)"]
+	307 [label="4357077.HeapReAlloc
+0
+0
+3221259136
+288"]
+	306 -> 307 [label="(0-->3)"]
+	308 [label="4357077.HeapReAlloc
+0
+0
+3221259272
+288"]
+	307 -> 308 [label="(4-->4)"]
+	309 [label="4357077.HeapReAlloc
+0
+0
+3221259408
+488"]
+	307 -> 309 [label="(0-->3)"]
+	310 [label="4357077.HeapReAlloc
+0
+0
+3221259704
+488"]
+	308 -> 310 [label="(0-->3)"]
+	309 -> 310 [label="(4-->4)"]
+	306 -> 310 [label="(0-->0)"]
+	307 -> 310 [label="(3-->0)"]
+	311 [label="4234125.SetFilePointer
+3
+0
+2147400184
+1"]
+	25 -> 311 [label="(1-->1)"]
+	305 -> 311 [label="(3-->1)"]
+	305 -> 311 [label="(5-->1)"]
+	305 -> 311 [label="(0-->1)"]
+	23 -> 311 [label="(1-->4)"]
+	289 -> 311 [label="(0-->4)"]
+	312 [label="4234137.GetLastError
+"]
+	313 [label="4232818.ReadFile
+3
+2147400204
+8192
+2147400136
+0"]
+	25 -> 313 [label="(1-->1)"]
+	305 -> 313 [label="(3-->1)"]
+	305 -> 313 [label="(5-->1)"]
+	305 -> 313 [label="(0-->1)"]
+	311 -> 313 [label="(1-->1)"]
+	23 -> 313 [label="(1-->0)"]
+	289 -> 313 [label="(0-->0)"]
+	311 -> 313 [label="(4-->0)"]
+	314 [label="4233559.SetFilePointer
+3
+retval_SetFilePointer_33051_32
+2147400168
+0"]
+	25 -> 314 [label="(1-->1)"]
+	305 -> 314 [label="(3-->1)"]
+	305 -> 314 [label="(5-->1)"]
+	305 -> 314 [label="(0-->1)"]
+	311 -> 314 [label="(1-->1)"]
+	313 -> 314 [label="(1-->1)"]
+	315 [label="4233572.GetLastError
+"]
+	316 [label="4233559.SetFilePointer
+3
+retval_SetFilePointer_33055_32
+2147400168
+0"]
+	25 -> 316 [label="(1-->1)"]
+	305 -> 316 [label="(3-->1)"]
+	305 -> 316 [label="(5-->1)"]
+	305 -> 316 [label="(0-->1)"]
+	311 -> 316 [label="(1-->1)"]
+	313 -> 316 [label="(1-->1)"]
+	314 -> 316 [label="(1-->1)"]
+	314 -> 316 [label="(3-->3)"]
+}

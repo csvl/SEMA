@@ -1,0 +1,467 @@
+{
+    "EmptyWorkingSet": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "EmptyWorkingSet",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "hProcess",
+                "is_float": false
+            }
+        ]
+    },
+    "EnumDeviceDrivers": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "EnumDeviceDrivers",
+        "arguments": [
+            {
+                "type": "LPVOID",
+                "name": "*lpImageBase",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "cb",
+                "is_float": false
+            },
+            {
+                "type": "LPDWORD",
+                "name": "lpcbNeeded",
+                "is_float": false
+            }
+        ]
+    },
+    "EnumPageFilesA": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "EnumPageFilesA",
+        "arguments": [
+            {
+                "type": "PENUM_PAGE_FILE_CALLBACKA",
+                "name": "pCallBackRoutine",
+                "is_float": false
+            },
+            {
+                "type": "LPVOID",
+                "name": "pContext",
+                "is_float": false
+            }
+        ]
+    },
+    "EnumProcesses": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "EnumProcesses",
+        "arguments": [
+            {
+                "type": "DWORD",
+                "name": "*lpidProcess",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "cb",
+                "is_float": false
+            },
+            {
+                "type": "LPDWORD",
+                "name": "lpcbNeeded",
+                "is_float": false
+            }
+        ]
+    },
+    "EnumProcessModules": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "EnumProcessModules",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "hProcess",
+                "is_float": false
+            },
+            {
+                "type": "HMODULE",
+                "name": "*lphModule",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "cb",
+                "is_float": false
+            },
+            {
+                "type": "LPDWORD",
+                "name": "lpcbNeeded",
+                "is_float": false
+            }
+        ]
+    },
+    "EnumProcessModulesEx": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "EnumProcessModulesEx",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "hProcess",
+                "is_float": false
+            },
+            {
+                "type": "HMODULE",
+                "name": "*lphModule",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "cb",
+                "is_float": false
+            },
+            {
+                "type": "LPDWORD",
+                "name": "lpcbNeeded",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFilterFlag",
+                "is_float": false
+            }
+        ]
+    },
+    "GetDeviceDriverBaseNameA": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetDeviceDriverBaseNameA",
+        "arguments": [
+            {
+                "type": "LPVOID",
+                "name": "ImageBase",
+                "is_float": false
+            },
+            {
+                "type": "LPSTR",
+                "name": "lpFilename",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "nSize",
+                "is_float": false
+            }
+        ]
+    },
+    "GetDeviceDriverFileNameA": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetDeviceDriverFileNameA",
+        "arguments": [
+            {
+                "type": "LPVOID",
+                "name": "ImageBase",
+                "is_float": false
+            },
+            {
+                "type": "LPSTR",
+                "name": "lpFilename",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "nSize",
+                "is_float": false
+            }
+        ]
+    },
+    "GetMappedFileNameA": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetMappedFileNameA",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "hProcess",
+                "is_float": false
+            },
+            {
+                "type": "LPVOID",
+                "name": "lpv",
+                "is_float": false
+            },
+            {
+                "type": "LPSTR",
+                "name": "lpFilename",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "nSize",
+                "is_float": false
+            }
+        ]
+    },
+    "GetModuleBaseNameA": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetModuleBaseNameA",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "hProcess",
+                "is_float": false
+            },
+            {
+                "type": "HMODULE",
+                "name": "hModule",
+                "is_float": false
+            },
+            {
+                "type": "LPSTR",
+                "name": "lpBaseName",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "nSize",
+                "is_float": false
+            }
+        ]
+    },
+    "GetModuleFileNameExA": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetModuleFileNameExA",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "hProcess",
+                "is_float": false
+            },
+            {
+                "type": "HMODULE",
+                "name": "hModule",
+                "is_float": false
+            },
+            {
+                "type": "LPSTR",
+                "name": "lpFilename",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "nSize",
+                "is_float": false
+            }
+        ]
+    },
+    "GetModuleInformation": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "GetModuleInformation",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "hProcess",
+                "is_float": false
+            },
+            {
+                "type": "HMODULE",
+                "name": "hModule",
+                "is_float": false
+            },
+            {
+                "type": "LPMODULEINFO",
+                "name": "lpmodinfo",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "cb",
+                "is_float": false
+            }
+        ]
+    },
+    "GetPerformanceInfo": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "GetPerformanceInfo",
+        "arguments": [
+            {
+                "type": "PPERFORMANCE_INFORMATION",
+                "name": "pPerformanceInformation",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "cb",
+                "is_float": false
+            }
+        ]
+    },
+    "GetProcessImageFileNameA": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetProcessImageFileNameA",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "hProcess",
+                "is_float": false
+            },
+            {
+                "type": "LPSTR",
+                "name": "lpImageFileName",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "nSize",
+                "is_float": false
+            }
+        ]
+    },
+    "GetProcessMemoryInfo": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "GetProcessMemoryInfo",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "Process",
+                "is_float": false
+            },
+            {
+                "type": "PPROCESS_MEMORY_COUNTERS",
+                "name": "ppsmemCounters",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "cb",
+                "is_float": false
+            }
+        ]
+    },
+    "GetWsChanges": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "GetWsChanges",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "hProcess",
+                "is_float": false
+            },
+            {
+                "type": "PPSAPI_WS_WATCH_INFORMATION",
+                "name": "lpWatchInfo",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "cb",
+                "is_float": false
+            }
+        ]
+    },
+    "GetWsChangesEx": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "GetWsChangesEx",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "hProcess",
+                "is_float": false
+            },
+            {
+                "type": "PPSAPI_WS_WATCH_INFORMATION_EX",
+                "name": "lpWatchInfoEx",
+                "is_float": false
+            },
+            {
+                "type": "PDWORD",
+                "name": "cb",
+                "is_float": false
+            }
+        ]
+    },
+    "InitializeProcessForWsWatch": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "InitializeProcessForWsWatch",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "hProcess",
+                "is_float": false
+            }
+        ]
+    },
+    "QueryWorkingSet": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "QueryWorkingSet",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "hProcess",
+                "is_float": false
+            },
+            {
+                "type": "PVOID",
+                "name": "pv",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "cb",
+                "is_float": false
+            }
+        ]
+    },
+    "QueryWorkingSetEx": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "QueryWorkingSetEx",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "hProcess",
+                "is_float": false
+            },
+            {
+                "type": "PVOID",
+                "name": "pv",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "cb",
+                "is_float": false
+            }
+        ]
+    }
+}

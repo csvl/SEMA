@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <meta name="description" content="" />
+      <meta name="author" content="" />
+      <title>Dashboard</title>
+      <link rel="stylesheet" type="text/css" href="static/css/nyan.css">
+	   <script src="static/js/nyan.js" type="text/javascript"></script>
+      <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+      <link href="static/css/styles.css" rel="stylesheet" />
+      <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.6.2.min.js" integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+   </head>
+   <body class="sb-nav-fixed">
+      <script>
+         var nyanCat;
+         var alreadyrunflag=0 //flag to indicate whether target function has already been run
+
+         if (document.addEventListener)
+            document.addEventListener("DOMContentLoaded", function(){
+               alreadyrunflag=1; ready(); 
+            }, false)
+         else if (document.all && !window.opera){
+            document.write('<script type="text/javascript" id="contentloadtag" defer="defer" src="javascript:void(0)"><\/script>')
+            var contentloadtag=document.getElementById("contentloadtag")
+            contentloadtag.onreadystatechange=function(){
+               if (this.readyState=="complete"){
+                  alreadyrunflag=1
+                  ready();
+               }
+            }
+         }
+
+         window.onload=function(){
+            ready();
+         }
+
+         function ready() {
+            
+            //timedCount();
+         }
+
+         function timedCount() {
+            percent = document.getElementById("rainbow").style.width;
+            percent = percent.replace("px","");
+            newPercent = parseInt(percent) + 1;
+
+            nyanCat.setPercent(newPercent);
+
+            if(newPercent +15 < nyanCat.width) {
+               timer = setTimeout("timedCount()", 100);
+            }
+         }
+
+
+         $(function(){
+            nyanCat = new nyanCat(100);
+            var requiredCheckboxes = $('.implem :checkbox[required]');
+            requiredCheckboxes.change(function(){
+               if(requiredCheckboxes.is(':checked')) {
+                  requiredCheckboxes.removeAttr('required');
+               } else {
+                  requiredCheckboxes.attr('required', 'required');
+               }
+            });
+            var requiredCheckboxes_test = $('.test :checkbox[required]');
+            requiredCheckboxes_test.change(function(){
+               if(requiredCheckboxes_test.is(':checked')) {
+                  requiredCheckboxes_test.removeAttr('required');
+               } else {
+                  requiredCheckboxes_test.attr('required', 'required');
+               }
+            });
+            
+            var progress_class = $('.progress');
+            var progress_bar = $('.progress-bar');
+            var submitter = $('.submitter');
+            let ireration = 0;
+
+            function check_progress() {
+               function worker() {
+                  $.get('iteration-dl', function(data) {
+                     if (data != "None" && parseInt(data) > 0) {
+                        iteration = parseInt(data);
+                     }
+                  })
+                  $.get('progress-dl', function(data) {
+                        console.log(data)
+                       if (data == "None") {
+                           progress_class.css('display','none');
+                           $('#rainbowContainer').css('display','none');
+                           $('#rainbowContainer2').css('display','none');
+                           
+                           submitter.attr("disabled", false);
+                           nyanCat.setPercent(0);
+                           return false;
+                       }
+                       else if (parseInt(data)) {
+                           progress_class.css('display','inherit');
+                           $('#rainbowContainer').css('display','inherit');
+                           $('#rainbowContainer2').css('display','inherit');
+
+                           submitter.attr("disabled", true);
+                           progress_bar.attr("aria-valuenow", data);
+                           var percent = parseInt(data)/iteration * 100;
+                           progress_bar.css('width', percent  + '%');
+                           //setTimeout(worker, 1000)
+                           nyanCat.setPercent(percent);
+                           if(percent >= 100) {
+                              progress_class.css('display','none');
+                              $('#rainbowContainer').css('display','none');
+                              $('#rainbowContainer2').css('display','none');
+                              submitter.attr("disabled", false);
+                              nyanCat.setPercent(0);
+                              return true;
+                           } else {
+                              return false;
+                           }
+                       } else {
+                           return false;
+                       }
+                   })
+               }
+               worker()
+               var intervalId = window.setInterval(function(){
+                  var cond =  worker()
+                  if(cond) {
+                     window.clearInterval(intervalId);
+                  }
+                }, 30000); //TODO stop
+               
+           }
+           check_progress()
+         });
+      </script>
+      <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+         <!-- Navbar Brand-->
+         <a class="navbar-brand ps-3" href="index.html">SEMA</a>
+         <!-- Sidebar Toggle-->
+         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+         <!-- Navbar-->
+         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+               <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#!">Settings</a></li>
+                  <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+               </ul>
+            </li>
+         </ul>
+      </nav>
+      <div id="layoutSidenav">
+         <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+               <div class="sb-sidenav-menu">
+                  <div class="nav">
+                     <div class="sb-sidenav-menu-heading">Core</div>
+                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts1">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        SEMA tools
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                     </a>
+                     <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="index.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                SEMA toolchain
+                            </a>
+                            <a class="nav-link" href="downloader.html">
+                              <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                SEMA downloader
+                            </a>
+                        </nav>
+                    </div>
+                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                        SEMA results
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                     </a>
+                     <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav">
+                            <a class="nav-link" href="results.html">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                SEMA results viewer
+                            </a>
+                            <a class="nav-link" href="results-global.html">
+                              <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                SEMA results global
+                            </a>
+                        </nav>
+                    </div>
+                  </div>
+               </div>
+               <div class="sb-sidenav-footer">
+                  version 0.1
+               </div>
+            </nav>
+         </div>
+         <div id="layoutSidenav_content">
+            <main>
+               <form method=post enctype=multipart/form-data>
+                  <div class="container-fluid px-4">
+                     <h1 class="mt-4">SEMA malware downloader</h1>
+                     <div class="col-xl-12 rainbowContainer2">
+                        <h3 id="rainbowContainer2">Current downloading states</h3>
+                        <!-- <div class="progress" style="width: 75%; margin: auto; margin-top: 5px;margin-bottom: 5px;">
+                              <div class="progress-bar progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        -->
+                        <div>
+                           <div id="rainbowContainer" style="margin: auto; margin-top: 5px;margin-bottom: 5px;">
+                              <div id="rainbow" style="width: 1px;"></div>
+                              <div id="nyanCat"></div>
+                              <div class="clearDiv"></div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-xl-12">
+                        <div class="card">
+                           <div class="card-header" id="heading1">
+                             <a class="btn btn-link" data-bs-toggle="collapse" href="#collapse1" aria-expanded="trye" aria-controls="collapse1" role="button">
+                                 <i class="fas fa-chart-bar me-1"></i>
+                             </a>
+                              Malware downloader -  Malware Bazart
+                           </div>
+                           <div id="collapse1" class="collapse show" aria-labelledby="heading1" data-parent="#accordion">
+                             <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="db" class="form-label">Database path</label>
+                                    <input class="form-control" aria-describedby="dbHelp" name="db" value="databases/" type="text" id="db">
+                                    <div id="dbHelp" class="form-text">
+                                       Path for the downloaded samples
+                                    </div>
+                                 </div>
+                                <div class="mb-3">
+                                    <label for="TAG" class="form-label">TAG</label>
+                                    <input class="form-control" aria-describedby="TAGHelp" name="TAG" value="" type="text" id="TAG" required>
+                                    <div id="TAGHelp" class="form-text">
+                                       MalwareDB tag - Separate multiple tags with a space " "
+                                    </div>
+                                 </div>
+                                 <row>
+                                    <label for="timeout" class="form-label">Maximum samples</label>
+                                    <input type="range" aria-describedby="max_sampleHelp" class="form-range" value="50" min="0" max="2000" name="max_sample" id="max_sample" oninput="this.nextElementSibling.value = this.value">
+                                    <output>50</output>
+                                    <div id="max_sampleHelp" class="form-text">Maximum samples download</div>
+                                 </row>
+                             </div>
+                         </div>
+                        </div>
+                     </div>
+                     <button class="btn btn-primary pull-right submitter" style="position: relative;margin-top: 1%;">Start download</button>
+                  </div>
+                  
+               </form>
+               <footer class="py-4 bg-light mt-auto">
+                  <div class="container-fluid px-4">
+                     <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; SEMA 2022 - Christophe Crochet</div>
+                        <div>
+                           <a href="#">Privacy Policy</a>
+                           &middot;
+                           <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                     </div>
+                  </div>
+               </footer>
+            </main>
+         </div>
+      </div>
+      </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+      <script src="static/js/scripts.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+      <script src="static/assets/demo/chart-area-demo.js"></script>
+      <script src="static/assets/demo/chart-bar-demo.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+      <script src="static/js/datatables-simple-demo.js"></script>
+   </body>
+</html>

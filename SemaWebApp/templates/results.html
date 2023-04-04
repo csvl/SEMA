@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Dashboard</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="static/css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.2.min.js" integrity="sha256-2krYZKh//PcchRtd+H+VyyQoZ/e3EcrkxhM8ycwASPA=" crossorigin="anonymous"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="index.html">SEMA</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">Settings</a></li>
+                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="sb-sidenav-menu-heading">Core</div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts1" aria-expanded="false" aria-controls="collapseLayouts1">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                SEMA tools
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                             </a>
+                             <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="index.html">
+                                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                        SEMA toolchain
+                                    </a>
+                                    <a class="nav-link" href="downloader.html">
+                                      <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                        SEMA downloader
+                                    </a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                               <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                               SEMA results
+                               <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                               <nav class="sb-sidenav-menu-nested nav">
+                                   <a class="nav-link" href="results.html">
+                                       <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                       SEMA results viewer
+                                   </a>
+                                   <a class="nav-link" href="results-global.html">
+                                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                       SEMA results global
+                                   </a>
+                               </nav>
+                           </div>
+                         </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        version 0.1
+                    </div>
+                </nav>
+            </div>
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">SEMA results</h1>
+                        <div class="mb-3">
+                            <label for="exp_dir" class="form-label">Experiments directory (TODO)</label>
+                            <input class="form-control" aria-describedby="exp_dirHelp" name="exp_dir" value="" type="file" id="exp_dir" multiple directory webkitdirectory>
+                            <div id="exp_dirHelp" class="form-text">
+                               If you use the html "input" file, then we considere the root directory being in the default directory, else use the following textual input with full path
+                            </div>
+                            <input class="form-control"  name="exp_dir" value="{{ exp_dir }}" type="text" id="exp_dir">
+                         </div>
+                        <div class="row">
+                            <div class="btn-group" role="group" aria-label="Select test ID">
+                                {% if page > 0 %}
+                                    <a href="?page={{ page - 1 }}" class="btn btn-outline-primary">&laquo;</a>
+                                {% endif %}
+
+                                {% if page <= 5 %}
+                                    {% for page_number in range(11) %}
+                                        {% if items_page.number == (page_number) %}
+                                            <button class="btn btn-outline-primary active">
+                                                <span>{{ nb_exp - (page_number) }} <span class="sr-only">(current)</span></span>
+                                            </button>
+                                        {% else %}
+                                            <a href="?page={{ page_number }}" class="btn btn-outline-primary">
+                                                {{ nb_exp - (page_number) }}
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% elif page <= nb_exp and page > nb_exp-6 %}
+                                    {% for page_number in range(11,0,-1) %}
+                                        {% if items_page.number == (nb_exp - page_number + 1) %}
+                                            <button class="btn btn-outline-primary active">
+                                                <span>{{ nb_exp - (nb_exp - page_number + 1) }} <span class="sr-only">(current)</span></span>
+                                            </button>
+                                        {% else %}
+                                            <a href="?page={{ nb_exp - page_number + 1}}" class="btn btn-outline-primary">
+                                                {{ nb_exp - (nb_exp - page_number + 1) }}
+                                            </a>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% else %}
+                                    {% for page_number in range(5) %}
+                                            <a href="?page={{ page_number+page-5 }}" class="btn btn-outline-primary">
+                                                {{ nb_exp - (page_number+page-5) }}
+                                            </a>
+                                    {% endfor %}
+                                    <button class="btn btn-outline-primary active">
+                                        <span>{{ nb_exp - (page)}} <span class="sr-only">(current)</span></span>
+                                    </button>
+                                    {% for page_number in range(6,11) %}
+                                            <a href="?page={{ page_number+page-5 }}" class="btn btn-outline-primary">
+                                                {{ nb_exp - (page_number+page-5) }}
+                                            </a>
+                                    {% endfor %}
+                                    {% endif %}
+                                {% if page < nb_exp %}
+                                    <a href="?page={{ page + 1 }}" class="btn btn-outline-primary">&raquo;</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <br>
+                        <div class="card mb-3" id="accordion">
+                            <div class="card-header" id="heading8">
+                                <a class="btn btn-link" data-bs-toggle="collapse" href="#collapse8" aria-expanded="true" aria-controls="collapse8" role="button">
+                                    <i class="fas fa-chart-bar me-1"></i>
+                                </a>
+                               Summary
+                            </div>
+                            <div id="collapse8" class="collapse show" aria-labelledby="heading8" data-parent="#accordion">
+                                <div class="card-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>SCDG tool used</th>
+                                                <th>Classifier tool used</th>
+                                                <th>Famillies considered</th>
+                                                <th>Samples tested</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td> {{ summary["scdg_used"] }} </td>
+                                                <td> {{ summary["class_used"] }} </td>
+                                                <td> {{ summary["familly_cnt"] }} </td>
+                                                <td> {{ summary["sample_cnt"] }} </td>
+                                                <td> {{ summary["date"] }} </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        {% if summary["scdg_used"] %}
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card mb-4" id="accordion">
+                                        <div class="card-header" id="headingOne">
+                                            <a class="btn btn-link collapsed" data-bs-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" role="button">
+                                                <i class="fas fa-chart-bar me-1"></i>
+                                            </a>
+                                            Sema SCDG
+                                        </div>
+                                        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <label class="form-check-label">
+                                                    SCDG parameters
+                                                </label>
+                                                <table id="scdg_param">
+
+                                                </table>
+                                            </div>
+                                            <div class="card-body">
+                                                <label class="form-check-label">
+                                                    SCDG results
+                                                </label>
+                                                <div class="table-responsive">
+                                                    <table id="dataTable" class="table table-bordered dataTable" role="grid" aria-describedby="dataTable_info" style="width: 100%;" width="100%" cellspacing="0">
+
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            {% for familly in scdgs %}
+                                            <div class="card-header" id="heading{{ familly }}">
+                                                <a class="btn btn-link collapsed" data-bs-toggle="collapse" href="#collapse{{ familly }}" aria-expanded="false" aria-controls="collapse{{ familly }}" role="button">
+                                                    <i class="fas fa-chart-bar me-1"></i>
+                                                </a>
+                                                {{ familly }}
+                                            </div>
+                                            <div id="collapse{{ familly }}" class="collapse" aria-labelledby="heading{{ familly }}" data-parent="#accordion">
+                                                {% for samples in scdgs[familly] %}
+                                                <div class="card-header" id="heading{{ samples }}2">
+                                                    <a style="padding-left: 2%;" class="btn btn-link collapsed" data-bs-toggle="collapse" href="#collapse{{ samples }}2" aria-expanded="false" aria-controls="collapse{{ samples }}2" role="button">
+                                                        <i class="fas fa-chart-bar me-1"></i>
+                                                    </a>
+                                                    {{ samples }}
+                                                </div>
+                                                <div id="collapse{{ samples }}2" class="collapse" aria-labelledby="heading{{ samples }}2" data-parent="#accordion">
+                                                    <p class="text-break overflow-auto" style="white-space: pre-wrap; max-height: 400px; font-size: 80%;">{{ scdgs[familly][samples]["log"] }}</p>
+                                                    <hr>
+                                                    <p class="text-break overflow-auto" style="white-space: pre-wrap; max-height: 400px; font-size: 80%;">{{ scdgs[familly][samples]["json"] }}</p>
+                                                    {% if "command" in scdgs[familly][samples] %}
+                                                    <hr>
+                                                    <p class="text-break overflow-auto" style="white-space: pre-wrap; max-height: 400px; font-size: 80%;">{{ scdgs[familly][samples]["command"] }}</p>
+                                                    {% endif %}
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if summary["class_used"] %}
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="card mb-4" id="accordion">
+                                    <div class="card-header" id="heading3">
+                                        <a class="btn btn-link collapsed" data-bs-toggle="collapse" href="#collapse3" aria-expanded="false" aria-controls="collapse3" role="button">
+                                            <i class="fas fa-chart-bar me-1"></i>
+                                        </a>
+                                        Sema Classifier
+                                    </div>
+                                    <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <label class="form-check-label">
+                                                Classifier parameters
+                                            </label>
+                                            <table id="class_param">
+
+                                            </table>
+                                        </div>
+                                        <div class="card-body">
+                                            <label class="form-check-label">
+                                                Classifier results
+                                            </label>
+                                            <table id="class_res">
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <footer class="py-4 bg-light mt-auto">
+                        <div class="container-fluid px-4">
+                            <div class="d-flex align-items-center justify-content-between small">
+                                <div class="text-muted">Copyright &copy; SEMA 2022 - Christophe Crochet</div>
+                                <div>
+                                    <a href="#">Privacy Policy</a>
+                                    &middot;
+                                    <a href="#">Terms &amp; Conditions</a>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </main>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="static/js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="static/assets/demo/chart-area-demo.js"></script>
+        <script src="static/assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="https://cdn.rawgit.com/okfn/csv.js/master/csv.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                
+                 /* const setLabel = (lbl, val) => {
+                    const label = $(`#slider-${lbl}-label`);
+                    label.text(val);
+                    const slider = $(`#slider-div .${lbl}-slider-handle`);
+                    const rect = slider[0].getBoundingClientRect();
+                    label.offset({
+                      top: rect.top - 30,
+                      left: rect.left
+                    });
+                  }
+                  
+                  const setLabels = (values) => {
+                    setLabel("min", values[0]);
+                    setLabel("max", values[1]);
+                  }
+                  
+                  
+                  $('#ex2').slider().on('slide', function(ev) {
+                    setLabels(ev.value);
+                  });
+                  setLabels($('#ex2').attr("data-value").split(","));
+                
+                  let dates = {{ df_dates | safe }};
+                  const setLabel2 = (lbl, val) => {
+                    const label = $(`#slider-${lbl}-label-1`);
+                    label.text(dates[val]);
+                    const slider = $(`#slider-div-1 .${lbl}-slider-handle`);
+                    const rect = slider[0].getBoundingClientRect();
+                    label.offset({
+                      top: rect.top - 30,
+                      left: rect.left
+                    });
+                  }
+                  
+                const setLabels2 = (values) => {
+                    setLabel2("min", values[0]);
+                    setLabel2("max", values[1]);
+                  }
+                  
+                  
+                  $('#ex3').slider().on('slide', function(ev) {
+                    setLabels2(ev.value);
+                  });
+                  setLabels2($('#ex3').attr("data-value").split(","));
+                */
+                  // (A) FILE READER + HTML ELEMENTS
+                let table = document.getElementById("scdg_param");
+                var index = 0;
+                var body = null;
+                table.innerHTML = "";
+                let scdg_json = {{ scdg_params|json }};
+                let tr = table.createTHead();
+                for (let row in scdg_json) {
+                    let th = document.createElement("th");
+                    th.innerHTML = row;
+                    tr.appendChild(th);                       
+                    index++;
+                }
+                body = table.createTBody();
+                tr = body.insertRow();
+                for (let row in scdg_json) {
+                    let th = tr.insertCell();
+                    th.innerHTML = scdg_json[row];
+                    tr.appendChild(th);                       
+                    index++;
+                }
+
+                table = document.getElementById("dataTable");
+                index = 0;
+                body = null;
+                table.innerHTML = "";
+                    for (let row of CSV.parse(`{{df_csv_scdg|safe}}`)) {
+                        if(index == 0){
+                            let tr = table.createTHead();
+                            for (let col of row) {
+                                let th = document.createElement("th");
+                                th.innerHTML = col;
+                                tr.appendChild(th);
+                            }
+                            body = table.createTBody();
+                        }
+                        else{
+                            let tr = body.insertRow();
+                            let i = 0;
+                            for (let col of row) {
+                                let td = tr.insertCell();
+                                td.innerHTML = col;
+                                i++;
+                            }
+                        }
+                        index++;
+                }
+
+                table = document.getElementById("class_param");
+                body = null;
+                table.innerHTML = "";
+                let class_json = {{ class_params|json }};
+                tr = table.createTHead();
+                for (let row in class_json) {
+                    let th = document.createElement("th");
+                    th.innerHTML = row;
+                    tr.appendChild(th);                       
+                    index++;
+                }
+                body = table.createTBody();
+                tr = body.insertRow();
+                for (let row in class_json) {
+                    let th = tr.insertCell();
+                    th.innerHTML = scdg_json[row];
+                    tr.appendChild(th);                       
+                    index++;
+                }
+
+                table = document.getElementById("class_res");
+                index = 0;
+                body = null;
+                table.innerHTML = "";
+                    for (let row of CSV.parse(`{{df_csv_classifier|safe}}`)) {
+                        if(index == 0){
+                            let tr = table.createTHead();
+                            for (let col of row) {
+                                let th = document.createElement("th");
+                                th.innerHTML = col;
+                                tr.appendChild(th);
+                            }
+                            body = table.createTBody();
+                        }
+                        else{
+                            let tr = body.insertRow();
+                            let i = 0;
+                            for (let col of row) {
+                                let td = tr.insertCell();
+                                td.innerHTML = col;
+                                i++;
+                            }
+                        }
+                        index++;
+                }
+            });
+        </script>
+        <script defer src="static/js/jquery.dataTables.min.js"></script>
+        <script defer src="static/js/dataTables.bootstrap4.min.js"></script>
+        <script defer src="static/js/datatables-simple-demo.js"></script>
+    </body>
+</html>

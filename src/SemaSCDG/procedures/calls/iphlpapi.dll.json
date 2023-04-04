@@ -1,0 +1,1957 @@
+{
+    "AddIPAddress": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "AddIPAddress",
+        "arguments": [
+            {
+                "type": "IPAddr",
+                "name": "Address",
+                "is_float": false
+            },
+            {
+                "type": "IPMask",
+                "name": "IpMask",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "IfIndex",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "NTEContext",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "NTEInstance",
+                "is_float": false
+            }
+        ]
+    },
+    "AllocateAndGetTcpExTableFromStack": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "AllocateAndGetTcpExTableFromStack",
+        "arguments": [
+            {
+                "type": "PVOID",
+                "name": "ppTcpTable",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "bOrder",
+                "is_float": false
+            },
+            {
+                "type": "HANDLE",
+                "name": "hHeap",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFamily",
+                "is_float": false
+            }
+        ]
+    },
+    "AllocateAndGetUdpExTableFromStack": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "AllocateAndGetUdpExTableFromStack",
+        "arguments": [
+            {
+                "type": "PVOID",
+                "name": "ppUdpTable",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "bOrder",
+                "is_float": false
+            },
+            {
+                "type": "HANDLE",
+                "name": "hHeap",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFamily",
+                "is_float": false
+            }
+        ]
+    },
+    "CancelIfTimestampConfigChange": {
+        "cc": "__stdcall",
+        "returns": "VOID",
+        "returns_float": false,
+        "name": "CancelIfTimestampConfigChange",
+        "arguments": [
+            {
+                "type": "HIFTIMESTAMPCHANGE",
+                "name": "NotificationHandle",
+                "is_float": false
+            }
+        ]
+    },
+    "CancelIPChangeNotify": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "CancelIPChangeNotify",
+        "arguments": [
+            {
+                "type": "LPOVERLAPPED",
+                "name": "notifyOverlapped",
+                "is_float": false
+            }
+        ]
+    },
+    "CaptureInterfaceHardwareCrossTimestamp": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "CaptureInterfaceHardwareCrossTimestamp",
+        "arguments": [
+            {
+                "type": "const",
+                "name": "NET_LUID",
+                "is_float": false
+            },
+            {
+                "type": "PINTERFACE_HARDWARE_CROSSTIMESTAMP",
+                "name": "CrossTimestamp",
+                "is_float": false
+            }
+        ]
+    },
+    "CreateIpForwardEntry": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "CreateIpForwardEntry",
+        "arguments": [
+            {
+                "type": "PMIB_IPFORWARDROW",
+                "name": "pRoute",
+                "is_float": false
+            }
+        ]
+    },
+    "CreateIpNetEntry": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "CreateIpNetEntry",
+        "arguments": [
+            {
+                "type": "PMIB_IPNETROW",
+                "name": "pArpEntry",
+                "is_float": false
+            }
+        ]
+    },
+    "CreatePersistentTcpPortReservation": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "CreatePersistentTcpPortReservation",
+        "arguments": [
+            {
+                "type": "USHORT",
+                "name": "StartPort",
+                "is_float": false
+            },
+            {
+                "type": "USHORT",
+                "name": "NumberOfPorts",
+                "is_float": false
+            },
+            {
+                "type": "PULONG64",
+                "name": "Token",
+                "is_float": false
+            }
+        ]
+    },
+    "CreatePersistentUdpPortReservation": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "CreatePersistentUdpPortReservation",
+        "arguments": [
+            {
+                "type": "USHORT",
+                "name": "StartPort",
+                "is_float": false
+            },
+            {
+                "type": "USHORT",
+                "name": "NumberOfPorts",
+                "is_float": false
+            },
+            {
+                "type": "PULONG64",
+                "name": "Token",
+                "is_float": false
+            }
+        ]
+    },
+    "CreateProxyArpEntry": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "CreateProxyArpEntry",
+        "arguments": [
+            {
+                "type": "DWORD",
+                "name": "dwAddress",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwMask",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwIfIndex",
+                "is_float": false
+            }
+        ]
+    },
+    "DeleteIPAddress": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "DeleteIPAddress",
+        "arguments": [
+            {
+                "type": "ULONG",
+                "name": "NTEContext",
+                "is_float": false
+            }
+        ]
+    },
+    "DeleteIpForwardEntry": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "DeleteIpForwardEntry",
+        "arguments": [
+            {
+                "type": "PMIB_IPFORWARDROW",
+                "name": "pRoute",
+                "is_float": false
+            }
+        ]
+    },
+    "DeleteIpNetEntry": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "DeleteIpNetEntry",
+        "arguments": [
+            {
+                "type": "PMIB_IPNETROW",
+                "name": "pArpEntry",
+                "is_float": false
+            }
+        ]
+    },
+    "DeletePersistentTcpPortReservation": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "DeletePersistentTcpPortReservation",
+        "arguments": [
+            {
+                "type": "USHORT",
+                "name": "StartPort",
+                "is_float": false
+            },
+            {
+                "type": "USHORT",
+                "name": "NumberOfPorts",
+                "is_float": false
+            }
+        ]
+    },
+    "DeletePersistentUdpPortReservation": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "DeletePersistentUdpPortReservation",
+        "arguments": [
+            {
+                "type": "USHORT",
+                "name": "StartPort",
+                "is_float": false
+            },
+            {
+                "type": "USHORT",
+                "name": "NumberOfPorts",
+                "is_float": false
+            }
+        ]
+    },
+    "DeleteProxyArpEntry": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "DeleteProxyArpEntry",
+        "arguments": [
+            {
+                "type": "DWORD",
+                "name": "dwAddress",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwMask",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwIfIndex",
+                "is_float": false
+            }
+        ]
+    },
+    "DisableMediaSense": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "DisableMediaSense",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "pHandle",
+                "is_float": false
+            },
+            {
+                "type": "OVERLAPPED",
+                "name": "pOverLapped",
+                "is_float": false
+            }
+        ]
+    },
+    "EnableRouter": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "EnableRouter",
+        "arguments": [
+            {
+                "type": "HANDLE",
+                "name": "pHandle",
+                "is_float": false
+            },
+            {
+                "type": "OVERLAPPED",
+                "name": "pOverlapped",
+                "is_float": false
+            }
+        ]
+    },
+    "FlushIpNetTable": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "FlushIpNetTable",
+        "arguments": [
+            {
+                "type": "DWORD",
+                "name": "dwIfIndex",
+                "is_float": false
+            }
+        ]
+    },
+    "GetAdapterIndex": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetAdapterIndex",
+        "arguments": [
+            {
+                "type": "LPWSTR",
+                "name": "AdapterName",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "IfIndex",
+                "is_float": false
+            }
+        ]
+    },
+    "GetAdapterOrderMap": {
+        "cc": "__stdcall",
+        "returns": "PIP_ADAPTER_ORDER_MAP",
+        "returns_float": false,
+        "name": "GetAdapterOrderMap",
+        "arguments": []
+    },
+    "GetAdaptersAddresses": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetAdaptersAddresses",
+        "arguments": [
+            {
+                "type": "ULONG",
+                "name": "Family",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "Flags",
+                "is_float": false
+            },
+            {
+                "type": "PVOID",
+                "name": "Reserved",
+                "is_float": false
+            },
+            {
+                "type": "PIP_ADAPTER_ADDRESSES",
+                "name": "AdapterAddresses",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "SizePointer",
+                "is_float": false
+            }
+        ]
+    },
+    "GetAdaptersInfo": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetAdaptersInfo",
+        "arguments": [
+            {
+                "type": "PIP_ADAPTER_INFO",
+                "name": "AdapterInfo",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "SizePointer",
+                "is_float": false
+            }
+        ]
+    },
+    "GetBestInterface": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetBestInterface",
+        "arguments": [
+            {
+                "type": "IPAddr",
+                "name": "dwDestAddr",
+                "is_float": false
+            },
+            {
+                "type": "PDWORD",
+                "name": "pdwBestIfIndex",
+                "is_float": false
+            }
+        ]
+    },
+    "GetBestInterfaceEx": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetBestInterfaceEx",
+        "arguments": [
+            {
+                "type": "sockaddr",
+                "name": "pDestAddr",
+                "is_float": false
+            },
+            {
+                "type": "PDWORD",
+                "name": "pdwBestIfIndex",
+                "is_float": false
+            }
+        ]
+    },
+    "GetBestRoute": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetBestRoute",
+        "arguments": [
+            {
+                "type": "DWORD",
+                "name": "dwDestAddr",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwSourceAddr",
+                "is_float": false
+            },
+            {
+                "type": "PMIB_IPFORWARDROW",
+                "name": "pBestRoute",
+                "is_float": false
+            }
+        ]
+    },
+    "GetExtendedTcpTable": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetExtendedTcpTable",
+        "arguments": [
+            {
+                "type": "PVOID",
+                "name": "pTcpTable",
+                "is_float": false
+            },
+            {
+                "type": "PDWORD",
+                "name": "pdwSize",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "bOrder",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "ulAf",
+                "is_float": false
+            },
+            {
+                "type": "TCP_TABLE_CLASS",
+                "name": "TableClass",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "Reserved",
+                "is_float": false
+            }
+        ]
+    },
+    "GetExtendedUdpTable": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetExtendedUdpTable",
+        "arguments": [
+            {
+                "type": "PVOID",
+                "name": "pUdpTable",
+                "is_float": false
+            },
+            {
+                "type": "PDWORD",
+                "name": "pdwSize",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "bOrder",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "ulAf",
+                "is_float": false
+            },
+            {
+                "type": "UDP_TABLE_CLASS",
+                "name": "TableClass",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "Reserved",
+                "is_float": false
+            }
+        ]
+    },
+    "GetFriendlyIfIndex": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetFriendlyIfIndex",
+        "arguments": [
+            {
+                "type": "DWORD",
+                "name": "IfIndex",
+                "is_float": false
+            }
+        ]
+    },
+    "GetIcmpStatistics": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetIcmpStatistics",
+        "arguments": [
+            {
+                "type": "PMIB_ICMP",
+                "name": "Statistics",
+                "is_float": false
+            }
+        ]
+    },
+    "GetIcmpStatisticsEx": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetIcmpStatisticsEx",
+        "arguments": [
+            {
+                "type": "PMIB_ICMP_EX",
+                "name": "Statistics",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "Family",
+                "is_float": false
+            }
+        ]
+    },
+    "GetIfEntry": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetIfEntry",
+        "arguments": [
+            {
+                "type": "PMIB_IFROW",
+                "name": "pIfRow",
+                "is_float": false
+            }
+        ]
+    },
+    "GetIfTable": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetIfTable",
+        "arguments": [
+            {
+                "type": "PMIB_IFTABLE",
+                "name": "pIfTable",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "pdwSize",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "bOrder",
+                "is_float": false
+            }
+        ]
+    },
+    "GetInterfaceActiveTimestampCapabilities": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetInterfaceActiveTimestampCapabilities",
+        "arguments": [
+            {
+                "type": "const",
+                "name": "NET_LUID",
+                "is_float": false
+            },
+            {
+                "type": "PINTERFACE_TIMESTAMP_CAPABILITIES",
+                "name": "TimestampCapabilites",
+                "is_float": false
+            }
+        ]
+    },
+    "GetInterfaceCurrentTimestampCapabilities": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetInterfaceCurrentTimestampCapabilities",
+        "arguments": [
+            {
+                "type": "const",
+                "name": "NET_LUID",
+                "is_float": false
+            },
+            {
+                "type": "PINTERFACE_TIMESTAMP_CAPABILITIES",
+                "name": "TimestampCapabilites",
+                "is_float": false
+            }
+        ]
+    },
+    "GetInterfaceHardwareTimestampCapabilities": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetInterfaceHardwareTimestampCapabilities",
+        "arguments": [
+            {
+                "type": "const",
+                "name": "NET_LUID",
+                "is_float": false
+            },
+            {
+                "type": "PINTERFACE_TIMESTAMP_CAPABILITIES",
+                "name": "TimestampCapabilites",
+                "is_float": false
+            }
+        ]
+    },
+    "GetInterfaceInfo": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetInterfaceInfo",
+        "arguments": [
+            {
+                "type": "PIP_INTERFACE_INFO",
+                "name": "pIfTable",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "dwOutBufLen",
+                "is_float": false
+            }
+        ]
+    },
+    "GetInterfaceSupportedTimestampCapabilities": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetInterfaceSupportedTimestampCapabilities",
+        "arguments": [
+            {
+                "type": "const",
+                "name": "NET_LUID",
+                "is_float": false
+            },
+            {
+                "type": "PINTERFACE_TIMESTAMP_CAPABILITIES",
+                "name": "TimestampCapabilites",
+                "is_float": false
+            }
+        ]
+    },
+    "GetIpAddrTable": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetIpAddrTable",
+        "arguments": [
+            {
+                "type": "PMIB_IPADDRTABLE",
+                "name": "pIpAddrTable",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "pdwSize",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "bOrder",
+                "is_float": false
+            }
+        ]
+    },
+    "GetIpErrorString": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetIpErrorString",
+        "arguments": [
+            {
+                "type": "IP_STATUS",
+                "name": "ErrorCode",
+                "is_float": false
+            },
+            {
+                "type": "PWSTR",
+                "name": "Buffer",
+                "is_float": false
+            },
+            {
+                "type": "PDWORD",
+                "name": "Size",
+                "is_float": false
+            }
+        ]
+    },
+    "GetIpForwardTable": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetIpForwardTable",
+        "arguments": [
+            {
+                "type": "PMIB_IPFORWARDTABLE",
+                "name": "pIpForwardTable",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "pdwSize",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "bOrder",
+                "is_float": false
+            }
+        ]
+    },
+    "GetIpNetTable": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetIpNetTable",
+        "arguments": [
+            {
+                "type": "PMIB_IPNETTABLE",
+                "name": "IpNetTable",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "SizePointer",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "Order",
+                "is_float": false
+            }
+        ]
+    },
+    "GetIpStatistics": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetIpStatistics",
+        "arguments": [
+            {
+                "type": "PMIB_IPSTATS",
+                "name": "Statistics",
+                "is_float": false
+            }
+        ]
+    },
+    "GetIpStatisticsEx": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetIpStatisticsEx",
+        "arguments": [
+            {
+                "type": "PMIB_IPSTATS",
+                "name": "Statistics",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "Family",
+                "is_float": false
+            }
+        ]
+    },
+    "GetNetworkParams": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetNetworkParams",
+        "arguments": [
+            {
+                "type": "PFIXED_INFO",
+                "name": "pFixedInfo",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "pOutBufLen",
+                "is_float": false
+            }
+        ]
+    },
+    "GetNumberOfInterfaces": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetNumberOfInterfaces",
+        "arguments": [
+            {
+                "type": "PDWORD",
+                "name": "pdwNumIf",
+                "is_float": false
+            }
+        ]
+    },
+    "GetOwnerModuleFromTcp6Entry": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetOwnerModuleFromTcp6Entry",
+        "arguments": [
+            {
+                "type": "PMIB_TCP6ROW_OWNER_MODULE",
+                "name": "pTcpEntry",
+                "is_float": false
+            },
+            {
+                "type": "TCPIP_OWNER_MODULE_INFO_CLASS",
+                "name": "Class",
+                "is_float": false
+            },
+            {
+                "type": "PVOID",
+                "name": "pBuffer",
+                "is_float": false
+            },
+            {
+                "type": "PDWORD",
+                "name": "pdwSize",
+                "is_float": false
+            }
+        ]
+    },
+    "GetOwnerModuleFromTcpEntry": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetOwnerModuleFromTcpEntry",
+        "arguments": [
+            {
+                "type": "PMIB_TCPROW_OWNER_MODULE",
+                "name": "pTcpEntry",
+                "is_float": false
+            },
+            {
+                "type": "TCPIP_OWNER_MODULE_INFO_CLASS",
+                "name": "Class",
+                "is_float": false
+            },
+            {
+                "type": "PVOID",
+                "name": "pBuffer",
+                "is_float": false
+            },
+            {
+                "type": "PDWORD",
+                "name": "pdwSize",
+                "is_float": false
+            }
+        ]
+    },
+    "GetOwnerModuleFromUdp6Entry": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetOwnerModuleFromUdp6Entry",
+        "arguments": [
+            {
+                "type": "PMIB_UDP6ROW_OWNER_MODULE",
+                "name": "pUdpEntry",
+                "is_float": false
+            },
+            {
+                "type": "TCPIP_OWNER_MODULE_INFO_CLASS",
+                "name": "Class",
+                "is_float": false
+            },
+            {
+                "type": "PVOID",
+                "name": "pBuffer",
+                "is_float": false
+            },
+            {
+                "type": "PDWORD",
+                "name": "pdwSize",
+                "is_float": false
+            }
+        ]
+    },
+    "GetOwnerModuleFromUdpEntry": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetOwnerModuleFromUdpEntry",
+        "arguments": [
+            {
+                "type": "PMIB_UDPROW_OWNER_MODULE",
+                "name": "pUdpEntry",
+                "is_float": false
+            },
+            {
+                "type": "TCPIP_OWNER_MODULE_INFO_CLASS",
+                "name": "Class",
+                "is_float": false
+            },
+            {
+                "type": "PVOID",
+                "name": "pBuffer",
+                "is_float": false
+            },
+            {
+                "type": "PDWORD",
+                "name": "pdwSize",
+                "is_float": false
+            }
+        ]
+    },
+    "GetPerAdapterInfo": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetPerAdapterInfo",
+        "arguments": [
+            {
+                "type": "ULONG",
+                "name": "IfIndex",
+                "is_float": false
+            },
+            {
+                "type": "PIP_PER_ADAPTER_INFO",
+                "name": "pPerAdapterInfo",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "pOutBufLen",
+                "is_float": false
+            }
+        ]
+    },
+    "GetPerTcp6ConnectionEStats": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetPerTcp6ConnectionEStats",
+        "arguments": [
+            {
+                "type": "PMIB_TCP6ROW",
+                "name": "Row",
+                "is_float": false
+            },
+            {
+                "type": "TCP_ESTATS_TYPE",
+                "name": "EstatsType",
+                "is_float": false
+            },
+            {
+                "type": "PUCHAR",
+                "name": "Rw",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "RwVersion",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "RwSize",
+                "is_float": false
+            },
+            {
+                "type": "PUCHAR",
+                "name": "Ros",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "RosVersion",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "RosSize",
+                "is_float": false
+            },
+            {
+                "type": "PUCHAR",
+                "name": "Rod",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "RodVersion",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "RodSize",
+                "is_float": false
+            }
+        ]
+    },
+    "GetPerTcpConnectionEStats": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetPerTcpConnectionEStats",
+        "arguments": [
+            {
+                "type": "PMIB_TCPROW",
+                "name": "Row",
+                "is_float": false
+            },
+            {
+                "type": "TCP_ESTATS_TYPE",
+                "name": "EstatsType",
+                "is_float": false
+            },
+            {
+                "type": "PUCHAR",
+                "name": "Rw",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "RwVersion",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "RwSize",
+                "is_float": false
+            },
+            {
+                "type": "PUCHAR",
+                "name": "Ros",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "RosVersion",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "RosSize",
+                "is_float": false
+            },
+            {
+                "type": "PUCHAR",
+                "name": "Rod",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "RodVersion",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "RodSize",
+                "is_float": false
+            }
+        ]
+    },
+    "GetRTTAndHopCount": {
+        "cc": "__stdcall",
+        "returns": "BOOL",
+        "returns_float": false,
+        "name": "GetRTTAndHopCount",
+        "arguments": [
+            {
+                "type": "IPAddr",
+                "name": "DestIpAddress",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "HopCount",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "MaxHops",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "RTT",
+                "is_float": false
+            }
+        ]
+    },
+    "GetTcp6Table": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetTcp6Table",
+        "arguments": [
+            {
+                "type": "PMIB_TCP6TABLE",
+                "name": "TcpTable",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "SizePointer",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "Order",
+                "is_float": false
+            }
+        ]
+    },
+    "GetTcp6Table2": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetTcp6Table2",
+        "arguments": [
+            {
+                "type": "PMIB_TCP6TABLE2",
+                "name": "TcpTable",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "SizePointer",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "Order",
+                "is_float": false
+            }
+        ]
+    },
+    "GetTcpStatistics": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetTcpStatistics",
+        "arguments": [
+            {
+                "type": "PMIB_TCPSTATS",
+                "name": "Statistics",
+                "is_float": false
+            }
+        ]
+    },
+    "GetTcpStatisticsEx": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetTcpStatisticsEx",
+        "arguments": [
+            {
+                "type": "PMIB_TCPSTATS",
+                "name": "Statistics",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "Family",
+                "is_float": false
+            }
+        ]
+    },
+    "GetTcpStatisticsEx2": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetTcpStatisticsEx2",
+        "arguments": [
+            {
+                "type": "PMIB_TCPSTATS2",
+                "name": "Statistics",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "Family",
+                "is_float": false
+            }
+        ]
+    },
+    "GetTcpTable": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetTcpTable",
+        "arguments": [
+            {
+                "type": "PMIB_TCPTABLE",
+                "name": "TcpTable",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "SizePointer",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "Order",
+                "is_float": false
+            }
+        ]
+    },
+    "GetTcpTable2": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetTcpTable2",
+        "arguments": [
+            {
+                "type": "PMIB_TCPTABLE2",
+                "name": "TcpTable",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "SizePointer",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "Order",
+                "is_float": false
+            }
+        ]
+    },
+    "GetUdp6Table": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetUdp6Table",
+        "arguments": [
+            {
+                "type": "PMIB_UDP6TABLE",
+                "name": "Udp6Table",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "SizePointer",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "Order",
+                "is_float": false
+            }
+        ]
+    },
+    "GetUdpStatistics": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetUdpStatistics",
+        "arguments": [
+            {
+                "type": "PMIB_UDPSTATS",
+                "name": "Stats",
+                "is_float": false
+            }
+        ]
+    },
+    "GetUdpStatisticsEx": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetUdpStatisticsEx",
+        "arguments": [
+            {
+                "type": "PMIB_UDPSTATS",
+                "name": "Statistics",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "Family",
+                "is_float": false
+            }
+        ]
+    },
+    "GetUdpStatisticsEx2": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetUdpStatisticsEx2",
+        "arguments": [
+            {
+                "type": "PMIB_UDPSTATS2",
+                "name": "Statistics",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "Family",
+                "is_float": false
+            }
+        ]
+    },
+    "GetUdpTable": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "GetUdpTable",
+        "arguments": [
+            {
+                "type": "PMIB_UDPTABLE",
+                "name": "UdpTable",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "SizePointer",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "Order",
+                "is_float": false
+            }
+        ]
+    },
+    "GetUniDirectionalAdapterInfo": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "GetUniDirectionalAdapterInfo",
+        "arguments": [
+            {
+                "type": "PIP_UNIDIRECTIONAL_ADAPTER_ADDRESS",
+                "name": "pIPIfInfo",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "dwOutBufLen",
+                "is_float": false
+            }
+        ]
+    },
+    "IpReleaseAddress": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "IpReleaseAddress",
+        "arguments": [
+            {
+                "type": "PIP_ADAPTER_INDEX_MAP",
+                "name": "AdapterInfo",
+                "is_float": false
+            }
+        ]
+    },
+    "IpRenewAddress": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "IpRenewAddress",
+        "arguments": [
+            {
+                "type": "PIP_ADAPTER_INDEX_MAP",
+                "name": "AdapterInfo",
+                "is_float": false
+            }
+        ]
+    },
+    "LookupPersistentTcpPortReservation": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "LookupPersistentTcpPortReservation",
+        "arguments": [
+            {
+                "type": "USHORT",
+                "name": "StartPort",
+                "is_float": false
+            },
+            {
+                "type": "USHORT",
+                "name": "NumberOfPorts",
+                "is_float": false
+            },
+            {
+                "type": "PULONG64",
+                "name": "Token",
+                "is_float": false
+            }
+        ]
+    },
+    "LookupPersistentUdpPortReservation": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "LookupPersistentUdpPortReservation",
+        "arguments": [
+            {
+                "type": "USHORT",
+                "name": "StartPort",
+                "is_float": false
+            },
+            {
+                "type": "USHORT",
+                "name": "NumberOfPorts",
+                "is_float": false
+            },
+            {
+                "type": "PULONG64",
+                "name": "Token",
+                "is_float": false
+            }
+        ]
+    },
+    "NhpAllocateAndGetInterfaceInfoFromStack": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "NhpAllocateAndGetInterfaceInfoFromStack",
+        "arguments": [
+            {
+                "type": "IP_INTERFACE_NAME_INFO",
+                "name": "ppTable",
+                "is_float": false
+            },
+            {
+                "type": "PDWORD",
+                "name": "pdwCount",
+                "is_float": false
+            },
+            {
+                "type": "BOOL",
+                "name": "bOrder",
+                "is_float": false
+            },
+            {
+                "type": "HANDLE",
+                "name": "hHeap",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "dwFlags",
+                "is_float": false
+            }
+        ]
+    },
+    "NotifyAddrChange": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "NotifyAddrChange",
+        "arguments": [
+            {
+                "type": "PHANDLE",
+                "name": "Handle",
+                "is_float": false
+            },
+            {
+                "type": "LPOVERLAPPED",
+                "name": "overlapped",
+                "is_float": false
+            }
+        ]
+    },
+    "NotifyIfTimestampConfigChange": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "NotifyIfTimestampConfigChange",
+        "arguments": [
+            {
+                "type": "PVOID",
+                "name": "CallerContext",
+                "is_float": false
+            },
+            {
+                "type": "PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK",
+                "name": "Callback",
+                "is_float": false
+            },
+            {
+                "type": "HIFTIMESTAMPCHANGE",
+                "name": "NotificationHandle",
+                "is_float": false
+            }
+        ]
+    },
+    "NotifyRouteChange": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "NotifyRouteChange",
+        "arguments": [
+            {
+                "type": "PHANDLE",
+                "name": "Handle",
+                "is_float": false
+            },
+            {
+                "type": "LPOVERLAPPED",
+                "name": "overlapped",
+                "is_float": false
+            }
+        ]
+    },
+    "ParseNetworkString": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "ParseNetworkString",
+        "arguments": [
+            {
+                "type": "const",
+                "name": "WCHAR",
+                "is_float": false
+            },
+            {
+                "type": "DWORD",
+                "name": "Types",
+                "is_float": false
+            },
+            {
+                "type": "PNET_ADDRESS_INFO",
+                "name": "AddressInfo",
+                "is_float": false
+            },
+            {
+                "type": "USHORT",
+                "name": "PortNumber",
+                "is_float": false
+            },
+            {
+                "type": "BYTE",
+                "name": "PrefixLength",
+                "is_float": false
+            }
+        ]
+    },
+    "RegisterInterfaceTimestampConfigChange": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "RegisterInterfaceTimestampConfigChange",
+        "arguments": [
+            {
+                "type": "PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK",
+                "name": "Callback",
+                "is_float": false
+            },
+            {
+                "type": "PVOID",
+                "name": "CallerContext",
+                "is_float": false
+            },
+            {
+                "type": "HIFTIMESTAMPCHANGE",
+                "name": "NotificationHandle",
+                "is_float": false
+            }
+        ]
+    },
+    "ResolveNeighbor": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "ResolveNeighbor",
+        "arguments": [
+            {
+                "type": "SOCKADDR",
+                "name": "NetworkAddress",
+                "is_float": false
+            },
+            {
+                "type": "PVOID",
+                "name": "PhysicalAddress",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "PhysicalAddressLength",
+                "is_float": false
+            }
+        ]
+    },
+    "RestoreMediaSense": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "RestoreMediaSense",
+        "arguments": [
+            {
+                "type": "OVERLAPPED",
+                "name": "pOverlapped",
+                "is_float": false
+            },
+            {
+                "type": "[optional]",
+                "name": "LPDWORD",
+                "is_float": false
+            }
+        ]
+    },
+    "SendARP": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "SendARP",
+        "arguments": [
+            {
+                "type": "IPAddr",
+                "name": "DestIP",
+                "is_float": false
+            },
+            {
+                "type": "IPAddr",
+                "name": "SrcIP",
+                "is_float": false
+            },
+            {
+                "type": "PVOID",
+                "name": "pMacAddr",
+                "is_float": false
+            },
+            {
+                "type": "PULONG",
+                "name": "PhyAddrLen",
+                "is_float": false
+            }
+        ]
+    },
+    "SetIfEntry": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "SetIfEntry",
+        "arguments": [
+            {
+                "type": "PMIB_IFROW",
+                "name": "pIfRow",
+                "is_float": false
+            }
+        ]
+    },
+    "SetIpForwardEntry": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "SetIpForwardEntry",
+        "arguments": [
+            {
+                "type": "PMIB_IPFORWARDROW",
+                "name": "pRoute",
+                "is_float": false
+            }
+        ]
+    },
+    "SetIpNetEntry": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "SetIpNetEntry",
+        "arguments": [
+            {
+                "type": "PMIB_IPNETROW",
+                "name": "pArpEntry",
+                "is_float": false
+            }
+        ]
+    },
+    "SetIpStatistics": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "SetIpStatistics",
+        "arguments": [
+            {
+                "type": "PMIB_IPSTATS",
+                "name": "pIpStats",
+                "is_float": false
+            }
+        ]
+    },
+    "SetIpStatisticsEx": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "SetIpStatisticsEx",
+        "arguments": [
+            {
+                "type": "PMIB_IPSTATS",
+                "name": "Statistics",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "Family",
+                "is_float": false
+            }
+        ]
+    },
+    "SetIpTTL": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "SetIpTTL",
+        "arguments": [
+            {
+                "type": "UINT",
+                "name": "nTTL",
+                "is_float": false
+            }
+        ]
+    },
+    "SetPerTcp6ConnectionEStats": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "SetPerTcp6ConnectionEStats",
+        "arguments": [
+            {
+                "type": "PMIB_TCP6ROW",
+                "name": "Row",
+                "is_float": false
+            },
+            {
+                "type": "TCP_ESTATS_TYPE",
+                "name": "EstatsType",
+                "is_float": false
+            },
+            {
+                "type": "PUCHAR",
+                "name": "Rw",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "RwVersion",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "RwSize",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "Offset",
+                "is_float": false
+            }
+        ]
+    },
+    "SetPerTcpConnectionEStats": {
+        "cc": "__stdcall",
+        "returns": "ULONG",
+        "returns_float": false,
+        "name": "SetPerTcpConnectionEStats",
+        "arguments": [
+            {
+                "type": "PMIB_TCPROW",
+                "name": "Row",
+                "is_float": false
+            },
+            {
+                "type": "TCP_ESTATS_TYPE",
+                "name": "EstatsType",
+                "is_float": false
+            },
+            {
+                "type": "PUCHAR",
+                "name": "Rw",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "RwVersion",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "RwSize",
+                "is_float": false
+            },
+            {
+                "type": "ULONG",
+                "name": "Offset",
+                "is_float": false
+            }
+        ]
+    },
+    "SetTcpEntry": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "SetTcpEntry",
+        "arguments": [
+            {
+                "type": "PMIB_TCPROW",
+                "name": "pTcpRow",
+                "is_float": false
+            }
+        ]
+    },
+    "UnenableRouter": {
+        "cc": "__stdcall",
+        "returns": "DWORD",
+        "returns_float": false,
+        "name": "UnenableRouter",
+        "arguments": [
+            {
+                "type": "OVERLAPPED",
+                "name": "pOverlapped",
+                "is_float": false
+            },
+            {
+                "type": "LPDWORD",
+                "name": "lpdwEnableCount",
+                "is_float": false
+            }
+        ]
+    },
+    "UnregisterInterfaceTimestampConfigChange": {
+        "cc": "__stdcall",
+        "returns": "VOID",
+        "returns_float": false,
+        "name": "UnregisterInterfaceTimestampConfigChange",
+        "arguments": [
+            {
+                "type": "HIFTIMESTAMPCHANGE",
+                "name": "NotificationHandle",
+                "is_float": false
+            }
+        ]
+    }
+}

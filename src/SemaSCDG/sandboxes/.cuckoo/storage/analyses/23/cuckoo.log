@@ -1,0 +1,31 @@
+2021-12-03 09:32:30,752 [cuckoo.core.scheduler] INFO: Task #23: acquired machine cuckoo1 (label=cuckoo1)
+2021-12-03 09:32:30,752 [cuckoo.core.resultserver] DEBUG: Now tracking machine 192.168.122.227 for task #23
+2021-12-03 09:32:30,752 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Replay
+2021-12-03 09:32:30,765 [cuckoo.auxiliary.sniffer] INFO: Started sniffer with PID 36447 (interface=qemubr, host=192.168.122.227)
+2021-12-03 09:32:30,765 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Sniffer
+2021-12-03 09:32:30,791 [cuckoo.machinery.qemu] DEBUG: Starting vm cuckoo1
+2021-12-03 09:32:30,822 [cuckoo.machinery.qemu] DEBUG: Executing QEMU ['qemu-system-x86_64', '-display', 'none', '-m', '1024M', '-hda', '/home/crochetch/Documents/PhD/VMImages/images/snapshot_cuckoo1.qcow2', '-net', 'tap,ifname=tap_cuckoo1,script=no,downscript=no', '-net', 'nic,macaddr=52:54:00:12:34:56', '-enable-kvm']
+2021-12-03 09:32:30,842 [cuckoo.core.guest] INFO: Starting analysis #23 on guest (id=cuckoo1, ip=192.168.122.227)
+2021-12-03 09:32:30,848 [cuckoo.core.guest] INFO: Guest is running Cuckoo Agent 0.10 (id=cuckoo1, ip=192.168.122.227)
+2021-12-03 09:32:30,861 [cuckoo.core.guest] DEBUG: Uploading analyzer to guest (id=cuckoo1, ip=192.168.122.227, monitor=latest, size=1720485)
+2021-12-03 09:32:30,861 [cuckoo.core.plugins] DEBUG: Stopped auxiliary module: Replay
+2021-12-03 09:32:30,863 [cuckoo.core.plugins] DEBUG: Stopped auxiliary module: Sniffer
+2021-12-03 09:32:30,864 [cuckoo.machinery.qemu] DEBUG: Stopping vm cuckoo1
+2021-12-03 09:32:30,876 [cuckoo.core.resultserver] DEBUG: Stopped tracking machine 192.168.122.227 for task #23
+2021-12-03 09:32:30,882 [cuckoo.core.scheduler] ERROR: Failure in AnalysisManager.run
+Traceback (most recent call last):
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/scheduler.py", line 755, in run
+    self.launch_analysis()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/scheduler.py", line 541, in launch_analysis
+    self.guest_manage(options)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/scheduler.py", line 404, in guest_manage
+    self.guest_manager.start_analysis(options, monitor)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/guest.py", line 494, in start_analysis
+    self.upload_analyzer(monitor)
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/guest.py", line 399, in upload_analyzer
+    self.determine_analyzer_path()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/guest.py", line 369, in determine_analyzer_path
+    systemdrive = self.determine_system_drive()
+  File "/home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/lib/python2.7/site-packages/Cuckoo-2.0.7-py2.7.egg/cuckoo/core/guest.py", line 382, in determine_system_drive
+    return "%s/" % self.environ["SYSTEMDRIVE"]
+KeyError: 'SYSTEMDRIVE'

@@ -1,0 +1,7168 @@
+{
+  "mciFreeCommandResource": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "mciFreeCommandResource", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "wTable", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "4": {
+    "cc": "__stdcall", 
+    "returns": "LRESULT", 
+    "returns_float": false, 
+    "name": "CloseDriver", 
+    "arguments": [
+      {
+        "type": " HDRVR", 
+        "name": "hDriver", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam1", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "5": {
+    "cc": "__stdcall", 
+    "returns": "LRESULT", 
+    "returns_float": false, 
+    "name": "DefDriverProc", 
+    "arguments": [
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwDriverIdentifier", 
+        "is_float": false
+      }, 
+      {
+        "type": " HDRVR", 
+        "name": "hdrvr", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam1", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "6": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "DriverCallback", 
+    "arguments": [
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwCallback", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " HDRVR", 
+        "name": "hDevice", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwUser", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwParam1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwParam2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "7": {
+    "cc": "__stdcall", 
+    "returns": "HMODULE", 
+    "returns_float": false, 
+    "name": "DrvGetModuleHandle", 
+    "arguments": [
+      {
+        "type": " HDRVR", 
+        "name": "hDriver", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "8": {
+    "cc": "__stdcall", 
+    "returns": "HMODULE", 
+    "returns_float": false, 
+    "name": "GetDriverModuleHandle", 
+    "arguments": [
+      {
+        "type": " HDRVR", 
+        "name": "hDriver", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "10": {
+    "cc": "__stdcall", 
+    "returns": "HDRVR", 
+    "returns_float": false, 
+    "name": "OpenDriver", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "szDriverName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "szSectionName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "12": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "PlaySoundA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "pszSound", 
+        "is_float": false
+      }, 
+      {
+        "type": " HMODULE", 
+        "name": "hmod", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwSound", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "13": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "PlaySoundW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "pszSound", 
+        "is_float": false
+      }, 
+      {
+        "type": " HMODULE", 
+        "name": "hmod", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwSound", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "14": {
+    "cc": "__stdcall", 
+    "returns": "LRESULT", 
+    "returns_float": false, 
+    "name": "SendDriverMessage", 
+    "arguments": [
+      {
+        "type": " HDRVR", 
+        "name": "hDriver", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "message", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam1", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "19": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "auxGetDevCapsA", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPAUXCAPSA", 
+        "name": "pac", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbac", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "20": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "auxGetDevCapsW", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPAUXCAPSW", 
+        "name": "pac", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbac", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "21": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "auxGetNumDevs", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "22": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "auxGetVolume", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "pdwVolume", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "23": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "auxOutMessage", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "24": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "auxSetVolume", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwVolume", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "26": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "joyConfigChanged", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "27": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "joyGetDevCapsA", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uJoyID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPJOYCAPSA", 
+        "name": "pjc", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbjc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "28": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "joyGetDevCapsW", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uJoyID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPJOYCAPSW", 
+        "name": "pjc", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbjc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "29": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "joyGetNumDevs", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "30": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "joyGetPos", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uJoyID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPJOYINFO", 
+        "name": "pji", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "31": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "joyGetPosEx", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uJoyID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPJOYINFOEX", 
+        "name": "pji", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "32": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "joyGetThreshold", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uJoyID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUINT", 
+        "name": "puThreshold", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "33": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "joyReleaseCapture", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uJoyID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "34": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "joySetCapture", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hwnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uJoyID", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uPeriod", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fChanged", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "35": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "joySetThreshold", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uJoyID", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uThreshold", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "37": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "mciDriverNotify", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hwndCallback", 
+        "is_float": false
+      }, 
+      {
+        "type": " MCIDEVICEID", 
+        "name": "wDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uStatus", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "38": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "mciDriverYield", 
+    "arguments": [
+      {
+        "type": " MCIDEVICEID", 
+        "name": "wDeviceID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "39": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "mciFreeCommandResource", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "wTable", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "40": {
+    "cc": "__stdcall", 
+    "returns": "HTASK", 
+    "returns_float": false, 
+    "name": "mciGetCreatorTask", 
+    "arguments": [
+      {
+        "type": " MCIDEVICEID", 
+        "name": "mciId", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "41": {
+    "cc": "__stdcall", 
+    "returns": "MCIDEVICEID", 
+    "returns_float": false, 
+    "name": "mciGetDeviceIDA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "pszDevice", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "42": {
+    "cc": "__stdcall", 
+    "returns": "MCIDEVICEID", 
+    "returns_float": false, 
+    "name": "mciGetDeviceIDFromElementIDA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwElementID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpstrType", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "43": {
+    "cc": "__stdcall", 
+    "returns": "MCIDEVICEID", 
+    "returns_float": false, 
+    "name": "mciGetDeviceIDFromElementIDW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwElementID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpstrType", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "44": {
+    "cc": "__stdcall", 
+    "returns": "MCIDEVICEID", 
+    "returns_float": false, 
+    "name": "mciGetDeviceIDW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "pszDevice", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "45": {
+    "cc": "__stdcall", 
+    "returns": "DWORD_PTR", 
+    "returns_float": false, 
+    "name": "mciGetDriverData", 
+    "arguments": [
+      {
+        "type": " MCIDEVICEID", 
+        "name": "wDeviceID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "46": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "mciGetErrorStringA", 
+    "arguments": [
+      {
+        "type": " MCIERROR", 
+        "name": "mcierr", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "47": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "mciGetErrorStringW", 
+    "arguments": [
+      {
+        "type": " MCIERROR", 
+        "name": "mcierr", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "48": {
+    "cc": "__stdcall", 
+    "returns": "YIELDPROC", 
+    "returns_float": false, 
+    "name": "mciGetYieldProc", 
+    "arguments": [
+      {
+        "type": " MCIDEVICEID", 
+        "name": "mciId", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "pdwYieldData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "49": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "mciLoadCommandResource", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hInstance", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpResName", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "wType", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "50": {
+    "cc": "__stdcall", 
+    "returns": "MCIERROR", 
+    "returns_float": false, 
+    "name": "mciSendCommandA", 
+    "arguments": [
+      {
+        "type": " MCIDEVICEID", 
+        "name": "mciId", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwParam1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwParam2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "51": {
+    "cc": "__stdcall", 
+    "returns": "MCIERROR", 
+    "returns_float": false, 
+    "name": "mciSendCommandW", 
+    "arguments": [
+      {
+        "type": " MCIDEVICEID", 
+        "name": "mciId", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwParam1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwParam2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "52": {
+    "cc": "__stdcall", 
+    "returns": "MCIERROR", 
+    "returns_float": false, 
+    "name": "mciSendStringA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpstrCommand", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpstrReturnString", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uReturnLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND", 
+        "name": "hwndCallback", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "53": {
+    "cc": "__stdcall", 
+    "returns": "MCIERROR", 
+    "returns_float": false, 
+    "name": "mciSendStringW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpstrCommand", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpstrReturnString", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uReturnLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND", 
+        "name": "hwndCallback", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "54": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "mciSetDriverData", 
+    "arguments": [
+      {
+        "type": " MCIDEVICEID", 
+        "name": "wDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "55": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "mciSetYieldProc", 
+    "arguments": [
+      {
+        "type": " MCIDEVICEID", 
+        "name": "mciId", 
+        "is_float": false
+      }, 
+      {
+        "type": " YIELDPROC", 
+        "name": "fpYieldProc", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwYieldData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "57": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiConnect", 
+    "arguments": [
+      {
+        "type": " HMIDI", 
+        "name": "hmi", 
+        "is_float": false
+      }, 
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "pReserved", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "58": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiDisconnect", 
+    "arguments": [
+      {
+        "type": " HMIDI", 
+        "name": "hmi", 
+        "is_float": false
+      }, 
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "pReserved", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "59": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInAddBuffer", 
+    "arguments": [
+      {
+        "type": " HMIDIIN", 
+        "name": "hmi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIHDR", 
+        "name": "pmh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "60": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInClose", 
+    "arguments": [
+      {
+        "type": " HMIDIIN", 
+        "name": "hmi", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "61": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInGetDevCapsA", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIINCAPSA", 
+        "name": "pmic", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmic", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "62": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInGetDevCapsW", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIINCAPSW", 
+        "name": "pmic", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmic", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "63": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInGetErrorTextA", 
+    "arguments": [
+      {
+        "type": " MMRESULT", 
+        "name": "mmrError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "64": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInGetErrorTextW", 
+    "arguments": [
+      {
+        "type": " MMRESULT", 
+        "name": "mmrError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "65": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInGetID", 
+    "arguments": [
+      {
+        "type": " HMIDIIN", 
+        "name": "hmi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUINT", 
+        "name": "puDeviceID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "66": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "midiInGetNumDevs", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "67": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInMessage", 
+    "arguments": [
+      {
+        "type": " HMIDIIN", 
+        "name": "hmi", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "68": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInOpen", 
+    "arguments": [
+      {
+        "type": " LPHMIDIIN", 
+        "name": "phmi", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwCallback", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwInstance", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwOpen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "69": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInPrepareHeader", 
+    "arguments": [
+      {
+        "type": " HMIDIIN", 
+        "name": "hmi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIHDR", 
+        "name": "pmh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "70": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInReset", 
+    "arguments": [
+      {
+        "type": " HMIDIIN", 
+        "name": "hmi", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "71": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInStart", 
+    "arguments": [
+      {
+        "type": " HMIDIIN", 
+        "name": "hmi", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "72": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInStop", 
+    "arguments": [
+      {
+        "type": " HMIDIIN", 
+        "name": "hmi", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "73": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInUnprepareHeader", 
+    "arguments": [
+      {
+        "type": " HMIDIIN", 
+        "name": "hmi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIHDR", 
+        "name": "pmh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "74": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutCacheDrumPatches", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uPatch", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWORD", 
+        "name": "pwkya", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuCache", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "75": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutCachePatches", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uBank", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWORD", 
+        "name": "pwpa", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuCache", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "76": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutClose", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "77": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutGetDevCapsA", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIOUTCAPSA", 
+        "name": "pmoc", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmoc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "78": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutGetDevCapsW", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIOUTCAPSW", 
+        "name": "pmoc", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmoc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "79": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutGetErrorTextA", 
+    "arguments": [
+      {
+        "type": " MMRESULT", 
+        "name": "mmrError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "80": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutGetErrorTextW", 
+    "arguments": [
+      {
+        "type": " MMRESULT", 
+        "name": "mmrError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "81": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutGetID", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUINT", 
+        "name": "puDeviceID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "82": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "midiOutGetNumDevs", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "83": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutGetVolume", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "pdwVolume", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "84": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutLongMsg", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIHDR", 
+        "name": "pmh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "85": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutMessage", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "86": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutOpen", 
+    "arguments": [
+      {
+        "type": " LPHMIDIOUT", 
+        "name": "phmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwCallback", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwInstance", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwOpen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "87": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutPrepareHeader", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIHDR", 
+        "name": "pmh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "88": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutReset", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "89": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutSetVolume", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwVolume", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "90": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutShortMsg", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMsg", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "91": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutUnprepareHeader", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIHDR", 
+        "name": "pmh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "92": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiStreamClose", 
+    "arguments": [
+      {
+        "type": " HMIDISTRM", 
+        "name": "hms", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "93": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiStreamOpen", 
+    "arguments": [
+      {
+        "type": " LPHMIDISTRM", 
+        "name": "phms", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUINT", 
+        "name": "puDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "cMidi", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwCallback", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwInstance", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwOpen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "94": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiStreamOut", 
+    "arguments": [
+      {
+        "type": " HMIDISTRM", 
+        "name": "hms", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIHDR", 
+        "name": "pmh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "95": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiStreamPause", 
+    "arguments": [
+      {
+        "type": " HMIDISTRM", 
+        "name": "hms", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "96": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiStreamPosition", 
+    "arguments": [
+      {
+        "type": " HMIDISTRM", 
+        "name": "hms", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMTIME", 
+        "name": "lpmmt", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmmt", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "97": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiStreamProperty", 
+    "arguments": [
+      {
+        "type": " HMIDISTRM", 
+        "name": "hms", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPBYTE", 
+        "name": "lppropdata", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwProperty", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "98": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiStreamRestart", 
+    "arguments": [
+      {
+        "type": " HMIDISTRM", 
+        "name": "hms", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "99": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiStreamStop", 
+    "arguments": [
+      {
+        "type": " HMIDISTRM", 
+        "name": "hms", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "100": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerClose", 
+    "arguments": [
+      {
+        "type": " HMIXER", 
+        "name": "hmx", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "101": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerGetControlDetailsA", 
+    "arguments": [
+      {
+        "type": " HMIXEROBJ", 
+        "name": "hmxobj", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIXERCONTROLDETAILS", 
+        "name": "pmxcd", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwDetails", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "102": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerGetControlDetailsW", 
+    "arguments": [
+      {
+        "type": " HMIXEROBJ", 
+        "name": "hmxobj", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIXERCONTROLDETAILS", 
+        "name": "pmxcd", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwDetails", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "103": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerGetDevCapsA", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uMxId", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIXERCAPSA", 
+        "name": "pmxcaps", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmxcaps", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "104": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerGetDevCapsW", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uMxId", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIXERCAPSW", 
+        "name": "pmxcaps", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmxcaps", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "105": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerGetID", 
+    "arguments": [
+      {
+        "type": " HMIXEROBJ", 
+        "name": "hmxobj", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT*", 
+        "name": "puMxId", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwId", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "106": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerGetLineControlsA", 
+    "arguments": [
+      {
+        "type": " HMIXEROBJ", 
+        "name": "hmxobj", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIXERLINECONTROLSA", 
+        "name": "pmxlc", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwControls", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "107": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerGetLineControlsW", 
+    "arguments": [
+      {
+        "type": " HMIXEROBJ", 
+        "name": "hmxobj", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIXERLINECONTROLSW", 
+        "name": "pmxlc", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwControls", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "108": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerGetLineInfoA", 
+    "arguments": [
+      {
+        "type": " HMIXEROBJ", 
+        "name": "hmxobj", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIXERLINEA", 
+        "name": "pmxl", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwInfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "109": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerGetLineInfoW", 
+    "arguments": [
+      {
+        "type": " HMIXEROBJ", 
+        "name": "hmxobj", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIXERLINEW", 
+        "name": "pmxl", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwInfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "110": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "mixerGetNumDevs", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "111": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "mixerMessage", 
+    "arguments": [
+      {
+        "type": " HMIXER", 
+        "name": "hmx", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwParam1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwParam2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "112": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerOpen", 
+    "arguments": [
+      {
+        "type": " LPHMIXER", 
+        "name": "phmx", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMxId", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwCallback", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwInstance", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwOpen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "113": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerSetControlDetails", 
+    "arguments": [
+      {
+        "type": " HMIXEROBJ", 
+        "name": "hmxobj", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIXERCONTROLDETAILS", 
+        "name": "pmxcd", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwDetails", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "114": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "mmDrvInstall", 
+    "arguments": [
+      {
+        "type": " HDRVR", 
+        "name": "hDriver", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "wszDrvEntry", 
+        "is_float": false
+      }, 
+      {
+        "type": " DRIVERMSGPROC", 
+        "name": "drvMessage", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "wFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "120": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioAdvance", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMIOINFO", 
+        "name": "pmmioinfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuAdvance", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "121": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioAscend", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMCKINFO", 
+        "name": "pmmcki", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuAscend", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "122": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioClose", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuClose", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "123": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioCreateChunk", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMCKINFO", 
+        "name": "pmmcki", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuCreate", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "124": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioDescend", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMCKINFO", 
+        "name": "pmmcki", 
+        "is_float": false
+      }, 
+      {
+        "type": "const MMCKINFO*", 
+        "name": "pmmckiParent", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuDescend", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "125": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioFlush", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuFlush", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "126": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioGetInfo", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMIOINFO", 
+        "name": "pmmioinfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuInfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "127": {
+    "cc": "__stdcall", 
+    "returns": "LPMMIOPROC", 
+    "returns_float": false, 
+    "name": "mmioInstallIOProcA", 
+    "arguments": [
+      {
+        "type": " FOURCC", 
+        "name": "fccIOProc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMIOPROC", 
+        "name": "pIOProc", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiOutLongMsg": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutLongMsg", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIHDR", 
+        "name": "pmh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "129": {
+    "cc": "__stdcall", 
+    "returns": "HMMIO", 
+    "returns_float": false, 
+    "name": "mmioOpenA", 
+    "arguments": [
+      {
+        "type": " LPSTR", 
+        "name": "pszFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMIOINFO", 
+        "name": "pmmioinfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwOpen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "130": {
+    "cc": "__stdcall", 
+    "returns": "HMMIO", 
+    "returns_float": false, 
+    "name": "mmioOpenW", 
+    "arguments": [
+      {
+        "type": " LPWSTR", 
+        "name": "pszFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMIOINFO", 
+        "name": "pmmioinfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwOpen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "131": {
+    "cc": "__stdcall", 
+    "returns": "LONG", 
+    "returns_float": false, 
+    "name": "mmioRead", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " HPSTR", 
+        "name": "pch", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "cch", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "132": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioRenameA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "pszFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "pszNewFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCMMIOINFO", 
+        "name": "pmmioinfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwRename", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "133": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioRenameW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "pszFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "pszNewFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCMMIOINFO", 
+        "name": "pmmioinfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwRename", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "134": {
+    "cc": "__stdcall", 
+    "returns": "LONG", 
+    "returns_float": false, 
+    "name": "mmioSeek", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "lOffset", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "iOrigin", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "135": {
+    "cc": "__stdcall", 
+    "returns": "LRESULT", 
+    "returns_float": false, 
+    "name": "mmioSendMessage", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam1", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "136": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioSetBuffer", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "pchBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "cchBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuBuffer", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "137": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioSetInfo", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCMMIOINFO", 
+        "name": "pmmioinfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuInfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "138": {
+    "cc": "__stdcall", 
+    "returns": "FOURCC", 
+    "returns_float": false, 
+    "name": "mmioStringToFOURCCA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "sz", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "139": {
+    "cc": "__stdcall", 
+    "returns": "FOURCC", 
+    "returns_float": false, 
+    "name": "mmioStringToFOURCCW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "sz", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "140": {
+    "cc": "__stdcall", 
+    "returns": "LONG", 
+    "returns_float": false, 
+    "name": "mmioWrite", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "pch", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "cch", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "144": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "sndPlaySoundA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "pszSound", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuSound", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "145": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "sndPlaySoundW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "pszSound", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuSound", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "147": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "timeBeginPeriod", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uPeriod", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "148": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "timeEndPeriod", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uPeriod", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "149": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "timeGetDevCaps", 
+    "arguments": [
+      {
+        "type": " LPTIMECAPS", 
+        "name": "ptc", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbtc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "150": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "timeGetSystemTime", 
+    "arguments": [
+      {
+        "type": " LPMMTIME", 
+        "name": "pmmt", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmmt", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "151": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "timeGetTime", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "152": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "timeKillEvent", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uTimerID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "153": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "timeSetEvent", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uDelay", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uResolution", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPTIMECALLBACK", 
+        "name": "fptc", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwUser", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuEvent", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "154": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInAddBuffer", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEHDR", 
+        "name": "pwh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "155": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInClose", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "156": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInGetDevCapsA", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEINCAPSA", 
+        "name": "pwic", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwic", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "157": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInGetDevCapsW", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEINCAPSW", 
+        "name": "pwic", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwic", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "158": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInGetErrorTextA", 
+    "arguments": [
+      {
+        "type": " MMRESULT", 
+        "name": "mmrError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "159": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInGetErrorTextW", 
+    "arguments": [
+      {
+        "type": " MMRESULT", 
+        "name": "mmrError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "160": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInGetID", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUINT", 
+        "name": "puDeviceID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "161": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "waveInGetNumDevs", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "162": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInGetPosition", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMTIME", 
+        "name": "pmmt", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmmt", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "163": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInMessage", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "164": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInOpen", 
+    "arguments": [
+      {
+        "type": " LPHWAVEIN", 
+        "name": "phwi", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWAVEFORMATEX", 
+        "name": "pwfx", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwCallback", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwInstance", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwOpen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "165": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInPrepareHeader", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEHDR", 
+        "name": "pwh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "166": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInReset", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "167": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInStart", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "168": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInStop", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "169": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInUnprepareHeader", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEHDR", 
+        "name": "pwh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "170": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutBreakLoop", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "171": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutClose", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "172": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutGetDevCapsA", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEOUTCAPSA", 
+        "name": "pwoc", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwoc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "173": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutGetDevCapsW", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEOUTCAPSW", 
+        "name": "pwoc", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwoc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "174": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutGetErrorTextA", 
+    "arguments": [
+      {
+        "type": " MMRESULT", 
+        "name": "mmrError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "175": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutGetErrorTextW", 
+    "arguments": [
+      {
+        "type": " MMRESULT", 
+        "name": "mmrError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "176": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutGetID", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUINT", 
+        "name": "puDeviceID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "177": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "waveOutGetNumDevs", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiInGetID": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInGetID", 
+    "arguments": [
+      {
+        "type": " HMIDIIN", 
+        "name": "hmi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUINT", 
+        "name": "puDeviceID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "179": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutGetPlaybackRate", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "pdwRate", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiInReset": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInReset", 
+    "arguments": [
+      {
+        "type": " HMIDIIN", 
+        "name": "hmi", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "181": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutGetVolume", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "pdwVolume", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "182": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutMessage", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "183": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutOpen", 
+    "arguments": [
+      {
+        "type": " LPHWAVEOUT", 
+        "name": "phwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWAVEFORMATEX", 
+        "name": "pwfx", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwCallback", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwInstance", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwOpen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "184": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutPause", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "185": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutPrepareHeader", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEHDR", 
+        "name": "pwh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "186": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutReset", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "187": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutRestart", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "188": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutSetPitch", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwPitch", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "189": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutSetPlaybackRate", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwRate", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "190": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutSetVolume", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwVolume", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "191": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutUnprepareHeader", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEHDR", 
+        "name": "pwh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "192": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutWrite", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEHDR", 
+        "name": "pwh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioRenameA": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioRenameA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "pszFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "pszNewFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCMMIOINFO", 
+        "name": "pmmioinfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwRename", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiOutOpen": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutOpen", 
+    "arguments": [
+      {
+        "type": " LPHMIDIOUT", 
+        "name": "phmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwCallback", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwInstance", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwOpen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioRenameW": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioRenameW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "pszFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "pszNewFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCMMIOINFO", 
+        "name": "pmmioinfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwRename", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DriverCallback": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "DriverCallback", 
+    "arguments": [
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwCallback", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }, 
+      {
+        "type": " HDRVR", 
+        "name": "hDevice", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwUser", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwParam1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwParam2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mixerGetID": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerGetID", 
+    "arguments": [
+      {
+        "type": " HMIXEROBJ", 
+        "name": "hmxobj", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT*", 
+        "name": "puMxId", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwId", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioRead": {
+    "cc": "__stdcall", 
+    "returns": "LONG", 
+    "returns_float": false, 
+    "name": "mmioRead", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " HPSTR", 
+        "name": "pch", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "cch", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveInGetDevCapsA": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInGetDevCapsA", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEINCAPSA", 
+        "name": "pwic", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwic", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutGetDevCapsW": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutGetDevCapsW", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEOUTCAPSW", 
+        "name": "pwoc", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwoc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiOutSetVolume": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutSetVolume", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwVolume", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiOutUnprepareHeader": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutUnprepareHeader", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIHDR", 
+        "name": "pmh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioSeek": {
+    "cc": "__stdcall", 
+    "returns": "LONG", 
+    "returns_float": false, 
+    "name": "mmioSeek", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "lOffset", 
+        "is_float": false
+      }, 
+      {
+        "type": " int", 
+        "name": "iOrigin", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "timeEndPeriod": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "timeEndPeriod", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uPeriod", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "auxSetVolume": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "auxSetVolume", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwVolume", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioSetInfo": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioSetInfo", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCMMIOINFO", 
+        "name": "pmmioinfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuInfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutGetPlaybackRate": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutGetPlaybackRate", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "pdwRate", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "joyGetDevCapsW": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "joyGetDevCapsW", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uJoyID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPJOYCAPSW", 
+        "name": "pjc", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbjc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiOutCacheDrumPatches": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutCacheDrumPatches", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uPatch", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWORD", 
+        "name": "pwkya", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuCache", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "joySetThreshold": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "joySetThreshold", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uJoyID", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uThreshold", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "joyConfigChanged": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "joyConfigChanged", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiOutPrepareHeader": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutPrepareHeader", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIHDR", 
+        "name": "pmh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mixerClose": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerClose", 
+    "arguments": [
+      {
+        "type": " HMIXER", 
+        "name": "hmx", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveInUnprepareHeader": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInUnprepareHeader", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEHDR", 
+        "name": "pwh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveInGetDevCapsW": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInGetDevCapsW", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEINCAPSW", 
+        "name": "pwic", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwic", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutWrite": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutWrite", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEHDR", 
+        "name": "pwh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DefDriverProc": {
+    "cc": "__stdcall", 
+    "returns": "LRESULT", 
+    "returns_float": false, 
+    "name": "DefDriverProc", 
+    "arguments": [
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwDriverIdentifier", 
+        "is_float": false
+      }, 
+      {
+        "type": " HDRVR", 
+        "name": "hdrvr", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam1", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiInPrepareHeader": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInPrepareHeader", 
+    "arguments": [
+      {
+        "type": " HMIDIIN", 
+        "name": "hmi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIHDR", 
+        "name": "pmh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mixerGetLineControlsW": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerGetLineControlsW", 
+    "arguments": [
+      {
+        "type": " HMIXEROBJ", 
+        "name": "hmxobj", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIXERLINECONTROLSW", 
+        "name": "pmxlc", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwControls", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mciGetErrorStringW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "mciGetErrorStringW", 
+    "arguments": [
+      {
+        "type": " MCIERROR", 
+        "name": "mcierr", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mciGetErrorStringA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "mciGetErrorStringA", 
+    "arguments": [
+      {
+        "type": " MCIERROR", 
+        "name": "mcierr", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mixerGetLineControlsA": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerGetLineControlsA", 
+    "arguments": [
+      {
+        "type": " HMIXEROBJ", 
+        "name": "hmxobj", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIXERLINECONTROLSA", 
+        "name": "pmxlc", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwControls", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioClose": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioClose", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuClose", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "joyGetPosEx": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "joyGetPosEx", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uJoyID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPJOYINFOEX", 
+        "name": "pji", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutMessage": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutMessage", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveInGetID": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInGetID", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUINT", 
+        "name": "puDeviceID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiInStop": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInStop", 
+    "arguments": [
+      {
+        "type": " HMIDIIN", 
+        "name": "hmi", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mixerMessage": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "mixerMessage", 
+    "arguments": [
+      {
+        "type": " HMIXER", 
+        "name": "hmx", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwParam1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwParam2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "timeKillEvent": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "timeKillEvent", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uTimerID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioWrite": {
+    "cc": "__stdcall", 
+    "returns": "LONG", 
+    "returns_float": false, 
+    "name": "mmioWrite", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": "const char*", 
+        "name": "pch", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "cch", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mciSendStringW": {
+    "cc": "__stdcall", 
+    "returns": "MCIERROR", 
+    "returns_float": false, 
+    "name": "mciSendStringW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "lpstrCommand", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "lpstrReturnString", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uReturnLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND", 
+        "name": "hwndCallback", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mciSendStringA": {
+    "cc": "__stdcall", 
+    "returns": "MCIERROR", 
+    "returns_float": false, 
+    "name": "mciSendStringA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "lpstrCommand", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "lpstrReturnString", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uReturnLength", 
+        "is_float": false
+      }, 
+      {
+        "type": " HWND", 
+        "name": "hwndCallback", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmDrvInstall": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "mmDrvInstall", 
+    "arguments": [
+      {
+        "type": " HDRVR", 
+        "name": "hDriver", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "wszDrvEntry", 
+        "is_float": false
+      }, 
+      {
+        "type": " DRIVERMSGPROC", 
+        "name": "drvMessage", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "wFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioSetBuffer": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioSetBuffer", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "pchBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " LONG", 
+        "name": "cchBuffer", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuBuffer", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioOpenW": {
+    "cc": "__stdcall", 
+    "returns": "HMMIO", 
+    "returns_float": false, 
+    "name": "mmioOpenW", 
+    "arguments": [
+      {
+        "type": " LPWSTR", 
+        "name": "pszFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMIOINFO", 
+        "name": "pmmioinfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwOpen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveInAddBuffer": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInAddBuffer", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEHDR", 
+        "name": "pwh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiInGetNumDevs": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "midiInGetNumDevs", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mciGetDeviceIDFromElementIDW": {
+    "cc": "__stdcall", 
+    "returns": "MCIDEVICEID", 
+    "returns_float": false, 
+    "name": "mciGetDeviceIDFromElementIDW", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwElementID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpstrType", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioDescend": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioDescend", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMCKINFO", 
+        "name": "pmmcki", 
+        "is_float": false
+      }, 
+      {
+        "type": "const MMCKINFO*", 
+        "name": "pmmckiParent", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuDescend", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mciGetDeviceIDFromElementIDA": {
+    "cc": "__stdcall", 
+    "returns": "MCIDEVICEID", 
+    "returns_float": false, 
+    "name": "mciGetDeviceIDFromElementIDA", 
+    "arguments": [
+      {
+        "type": " DWORD", 
+        "name": "dwElementID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCSTR", 
+        "name": "lpstrType", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiOutShortMsg": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutShortMsg", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwMsg", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiConnect": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiConnect", 
+    "arguments": [
+      {
+        "type": " HMIDI", 
+        "name": "hmi", 
+        "is_float": false
+      }, 
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "pReserved", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutOpen": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutOpen", 
+    "arguments": [
+      {
+        "type": " LPHWAVEOUT", 
+        "name": "phwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWAVEFORMATEX", 
+        "name": "pwfx", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwCallback", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwInstance", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwOpen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveInGetPosition": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInGetPosition", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMTIME", 
+        "name": "pmmt", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmmt", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutGetID": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutGetID", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUINT", 
+        "name": "puDeviceID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiDisconnect": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiDisconnect", 
+    "arguments": [
+      {
+        "type": " HMIDI", 
+        "name": "hmi", 
+        "is_float": false
+      }, 
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPVOID", 
+        "name": "pReserved", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutBreakLoop": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutBreakLoop", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mciSetDriverData": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "mciSetDriverData", 
+    "arguments": [
+      {
+        "type": " MCIDEVICEID", 
+        "name": "wDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "OpenDriver": {
+    "cc": "__stdcall", 
+    "returns": "HDRVR", 
+    "returns_float": false, 
+    "name": "OpenDriver", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "szDriverName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "szSectionName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiStreamClose": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiStreamClose", 
+    "arguments": [
+      {
+        "type": " HMIDISTRM", 
+        "name": "hms", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutUnprepareHeader": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutUnprepareHeader", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEHDR", 
+        "name": "pwh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "128": {
+    "cc": "__stdcall", 
+    "returns": "LPMMIOPROC", 
+    "returns_float": false, 
+    "name": "mmioInstallIOProcW", 
+    "arguments": [
+      {
+        "type": " FOURCC", 
+        "name": "fccIOProc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMIOPROC", 
+        "name": "pIOProc", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "SendDriverMessage": {
+    "cc": "__stdcall", 
+    "returns": "LRESULT", 
+    "returns_float": false, 
+    "name": "SendDriverMessage", 
+    "arguments": [
+      {
+        "type": " HDRVR", 
+        "name": "hDriver", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "message", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam1", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiStreamStop": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiStreamStop", 
+    "arguments": [
+      {
+        "type": " HMIDISTRM", 
+        "name": "hms", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveInMessage": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInMessage", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mciDriverNotify": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "mciDriverNotify", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hwndCallback", 
+        "is_float": false
+      }, 
+      {
+        "type": " MCIDEVICEID", 
+        "name": "wDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uStatus", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutRestart": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutRestart", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiOutCachePatches": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutCachePatches", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uBank", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWORD", 
+        "name": "pwpa", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuCache", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "auxGetVolume": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "auxGetVolume", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "pdwVolume", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "auxGetDevCapsA": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "auxGetDevCapsA", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPAUXCAPSA", 
+        "name": "pac", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbac", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "auxGetDevCapsW": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "auxGetDevCapsW", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPAUXCAPSW", 
+        "name": "pac", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbac", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mciGetCreatorTask": {
+    "cc": "__stdcall", 
+    "returns": "HTASK", 
+    "returns_float": false, 
+    "name": "mciGetCreatorTask", 
+    "arguments": [
+      {
+        "type": " MCIDEVICEID", 
+        "name": "mciId", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutGetPitch": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutGetPitch", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "pdwPitch", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutGetVolume": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutGetVolume", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "pdwVolume", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiInGetErrorTextA": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInGetErrorTextA", 
+    "arguments": [
+      {
+        "type": " MMRESULT", 
+        "name": "mmrError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveInGetErrorTextW": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInGetErrorTextW", 
+    "arguments": [
+      {
+        "type": " MMRESULT", 
+        "name": "mmrError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiInGetErrorTextW": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInGetErrorTextW", 
+    "arguments": [
+      {
+        "type": " MMRESULT", 
+        "name": "mmrError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveInGetErrorTextA": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInGetErrorTextA", 
+    "arguments": [
+      {
+        "type": " MMRESULT", 
+        "name": "mmrError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "178": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutGetPitch", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "pdwPitch", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "180": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutGetPosition", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMTIME", 
+        "name": "pmmt", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmmt", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiOutReset": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutReset", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveInGetNumDevs": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "waveInGetNumDevs", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiOutClose": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutClose", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioInstallIOProcW": {
+    "cc": "__stdcall", 
+    "returns": "LPMMIOPROC", 
+    "returns_float": false, 
+    "name": "mmioInstallIOProcW", 
+    "arguments": [
+      {
+        "type": " FOURCC", 
+        "name": "fccIOProc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMIOPROC", 
+        "name": "pIOProc", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mciSendCommandW": {
+    "cc": "__stdcall", 
+    "returns": "MCIERROR", 
+    "returns_float": false, 
+    "name": "mciSendCommandW", 
+    "arguments": [
+      {
+        "type": " MCIDEVICEID", 
+        "name": "mciId", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwParam1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwParam2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutPrepareHeader": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutPrepareHeader", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEHDR", 
+        "name": "pwh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioInstallIOProcA": {
+    "cc": "__stdcall", 
+    "returns": "LPMMIOPROC", 
+    "returns_float": false, 
+    "name": "mmioInstallIOProcA", 
+    "arguments": [
+      {
+        "type": " FOURCC", 
+        "name": "fccIOProc", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMIOPROC", 
+        "name": "pIOProc", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mciSendCommandA": {
+    "cc": "__stdcall", 
+    "returns": "MCIERROR", 
+    "returns_float": false, 
+    "name": "mciSendCommandA", 
+    "arguments": [
+      {
+        "type": " MCIDEVICEID", 
+        "name": "mciId", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwParam1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwParam2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiInOpen": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInOpen", 
+    "arguments": [
+      {
+        "type": " LPHMIDIIN", 
+        "name": "phmi", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwCallback", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwInstance", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwOpen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutSetPlaybackRate": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutSetPlaybackRate", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwRate", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "timeBeginPeriod": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "timeBeginPeriod", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uPeriod", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mixerGetNumDevs": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "mixerGetNumDevs", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "auxGetNumDevs": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "auxGetNumDevs", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutClose": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutClose", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiInAddBuffer": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInAddBuffer", 
+    "arguments": [
+      {
+        "type": " HMIDIIN", 
+        "name": "hmi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIHDR", 
+        "name": "pmh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "CloseDriver": {
+    "cc": "__stdcall", 
+    "returns": "LRESULT", 
+    "returns_float": false, 
+    "name": "CloseDriver", 
+    "arguments": [
+      {
+        "type": " HDRVR", 
+        "name": "hDriver", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam1", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiOutGetNumDevs": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "midiOutGetNumDevs", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "joyReleaseCapture": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "joyReleaseCapture", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uJoyID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveInStart": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInStart", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiOutGetID": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutGetID", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUINT", 
+        "name": "puDeviceID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mciGetYieldProc": {
+    "cc": "__stdcall", 
+    "returns": "YIELDPROC", 
+    "returns_float": false, 
+    "name": "mciGetYieldProc", 
+    "arguments": [
+      {
+        "type": " MCIDEVICEID", 
+        "name": "mciId", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "pdwYieldData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "sndPlaySoundA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "sndPlaySoundA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "pszSound", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuSound", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutPause": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutPause", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "sndPlaySoundW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "sndPlaySoundW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "pszSound", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuSound", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mixerGetLineInfoA": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerGetLineInfoA", 
+    "arguments": [
+      {
+        "type": " HMIXEROBJ", 
+        "name": "hmxobj", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIXERLINEA", 
+        "name": "pmxl", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwInfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mixerOpen": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerOpen", 
+    "arguments": [
+      {
+        "type": " LPHMIXER", 
+        "name": "phmx", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMxId", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwCallback", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwInstance", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwOpen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiOutGetVolume": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutGetVolume", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPDWORD", 
+        "name": "pdwVolume", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutGetNumDevs": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "waveOutGetNumDevs", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mixerGetLineInfoW": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerGetLineInfoW", 
+    "arguments": [
+      {
+        "type": " HMIXEROBJ", 
+        "name": "hmxobj", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIXERLINEW", 
+        "name": "pmxl", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwInfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "PlaySoundW": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "PlaySoundW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "pszSound", 
+        "is_float": false
+      }, 
+      {
+        "type": " HMODULE", 
+        "name": "hmod", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwSound", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiInGetDevCapsW": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInGetDevCapsW", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIINCAPSW", 
+        "name": "pmic", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmic", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "joyGetPos": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "joyGetPos", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uJoyID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPJOYINFO", 
+        "name": "pji", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioGetInfo": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioGetInfo", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMIOINFO", 
+        "name": "pmmioinfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuInfo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiInGetDevCapsA": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInGetDevCapsA", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIINCAPSA", 
+        "name": "pmic", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmic", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "PlaySoundA": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "PlaySoundA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "pszSound", 
+        "is_float": false
+      }, 
+      {
+        "type": " HMODULE", 
+        "name": "hmod", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwSound", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "timeGetSystemTime": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "timeGetSystemTime", 
+    "arguments": [
+      {
+        "type": " LPMMTIME", 
+        "name": "pmmt", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmmt", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiStreamPause": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiStreamPause", 
+    "arguments": [
+      {
+        "type": " HMIDISTRM", 
+        "name": "hms", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiInMessage": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInMessage", 
+    "arguments": [
+      {
+        "type": " HMIDIIN", 
+        "name": "hmi", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiStreamPosition": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiStreamPosition", 
+    "arguments": [
+      {
+        "type": " HMIDISTRM", 
+        "name": "hms", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMTIME", 
+        "name": "lpmmt", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmmt", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "timeSetEvent": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "timeSetEvent", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uDelay", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uResolution", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPTIMECALLBACK", 
+        "name": "fptc", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwUser", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuEvent", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "auxOutMessage": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "auxOutMessage", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveInClose": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInClose", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "timeGetDevCaps": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "timeGetDevCaps", 
+    "arguments": [
+      {
+        "type": " LPTIMECAPS", 
+        "name": "ptc", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbtc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutGetErrorTextW": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutGetErrorTextW", 
+    "arguments": [
+      {
+        "type": " MMRESULT", 
+        "name": "mmrError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mixerGetDevCapsA": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerGetDevCapsA", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uMxId", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIXERCAPSA", 
+        "name": "pmxcaps", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmxcaps", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiStreamProperty": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiStreamProperty", 
+    "arguments": [
+      {
+        "type": " HMIDISTRM", 
+        "name": "hms", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPBYTE", 
+        "name": "lppropdata", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwProperty", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiStreamRestart": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiStreamRestart", 
+    "arguments": [
+      {
+        "type": " HMIDISTRM", 
+        "name": "hms", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiStreamOpen": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiStreamOpen", 
+    "arguments": [
+      {
+        "type": " LPHMIDISTRM", 
+        "name": "phms", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUINT", 
+        "name": "puDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "cMidi", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwCallback", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwInstance", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwOpen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mixerGetDevCapsW": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerGetDevCapsW", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uMxId", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIXERCAPSW", 
+        "name": "pmxcaps", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmxcaps", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutGetErrorTextA": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutGetErrorTextA", 
+    "arguments": [
+      {
+        "type": " MMRESULT", 
+        "name": "mmrError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveInReset": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInReset", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutSetVolume": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutSetVolume", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwVolume", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioOpenA": {
+    "cc": "__stdcall", 
+    "returns": "HMMIO", 
+    "returns_float": false, 
+    "name": "mmioOpenA", 
+    "arguments": [
+      {
+        "type": " LPSTR", 
+        "name": "pszFileName", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMIOINFO", 
+        "name": "pmmioinfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwOpen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "joyGetNumDevs": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "joyGetNumDevs", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiInStart": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInStart", 
+    "arguments": [
+      {
+        "type": " HMIDIIN", 
+        "name": "hmi", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "joyGetDevCapsA": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "joyGetDevCapsA", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uJoyID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPJOYCAPSA", 
+        "name": "pjc", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbjc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiOutGetDevCapsW": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutGetDevCapsW", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIOUTCAPSW", 
+        "name": "pmoc", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmoc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "joyGetThreshold": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "joyGetThreshold", 
+    "arguments": [
+      {
+        "type": " UINT", 
+        "name": "uJoyID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPUINT", 
+        "name": "puThreshold", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiInClose": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInClose", 
+    "arguments": [
+      {
+        "type": " HMIDIIN", 
+        "name": "hmi", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiOutGetDevCapsA": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutGetDevCapsA", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIOUTCAPSA", 
+        "name": "pmoc", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmoc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiInUnprepareHeader": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiInUnprepareHeader", 
+    "arguments": [
+      {
+        "type": " HMIDIIN", 
+        "name": "hmi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIHDR", 
+        "name": "pmh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mixerGetControlDetailsW": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerGetControlDetailsW", 
+    "arguments": [
+      {
+        "type": " HMIXEROBJ", 
+        "name": "hmxobj", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIXERCONTROLDETAILS", 
+        "name": "pmxcd", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwDetails", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "joySetCapture": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "joySetCapture", 
+    "arguments": [
+      {
+        "type": " HWND", 
+        "name": "hwnd", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uJoyID", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uPeriod", 
+        "is_float": false
+      }, 
+      {
+        "type": " BOOL", 
+        "name": "fChanged", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mixerGetControlDetailsA": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerGetControlDetailsA", 
+    "arguments": [
+      {
+        "type": " HMIXEROBJ", 
+        "name": "hmxobj", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIXERCONTROLDETAILS", 
+        "name": "pmxcd", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwDetails", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutReset": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutReset", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveInOpen": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInOpen", 
+    "arguments": [
+      {
+        "type": " LPHWAVEIN", 
+        "name": "phwi", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWAVEFORMATEX", 
+        "name": "pwfx", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwCallback", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dwInstance", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwOpen", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mciLoadCommandResource": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "mciLoadCommandResource", 
+    "arguments": [
+      {
+        "type": " HANDLE", 
+        "name": "hInstance", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPCWSTR", 
+        "name": "lpResName", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "wType", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiOutMessage": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutMessage", 
+    "arguments": [
+      {
+        "type": " HMIDIOUT", 
+        "name": "hmo", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw1", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD_PTR", 
+        "name": "dw2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mciGetDriverData": {
+    "cc": "__stdcall", 
+    "returns": "DWORD_PTR", 
+    "returns_float": false, 
+    "name": "mciGetDriverData", 
+    "arguments": [
+      {
+        "type": " MCIDEVICEID", 
+        "name": "wDeviceID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "GetDriverModuleHandle": {
+    "cc": "__stdcall", 
+    "returns": "HMODULE", 
+    "returns_float": false, 
+    "name": "GetDriverModuleHandle", 
+    "arguments": [
+      {
+        "type": " HDRVR", 
+        "name": "hDriver", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveInStop": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInStop", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioSendMessage": {
+    "cc": "__stdcall", 
+    "returns": "LRESULT", 
+    "returns_float": false, 
+    "name": "mmioSendMessage", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uMsg", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam1", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPARAM", 
+        "name": "lParam2", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioFlush": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioFlush", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuFlush", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiStreamOut": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiStreamOut", 
+    "arguments": [
+      {
+        "type": " HMIDISTRM", 
+        "name": "hms", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIDIHDR", 
+        "name": "pmh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mciDriverYield": {
+    "cc": "__stdcall", 
+    "returns": "UINT", 
+    "returns_float": false, 
+    "name": "mciDriverYield", 
+    "arguments": [
+      {
+        "type": " MCIDEVICEID", 
+        "name": "wDeviceID", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioCreateChunk": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioCreateChunk", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMCKINFO", 
+        "name": "pmmcki", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuCreate", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutSetPitch": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutSetPitch", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwPitch", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioAdvance": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioAdvance", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMIOINFO", 
+        "name": "pmmioinfo", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuAdvance", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiOutGetErrorTextW": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutGetErrorTextW", 
+    "arguments": [
+      {
+        "type": " MMRESULT", 
+        "name": "mmrError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutGetPosition": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutGetPosition", 
+    "arguments": [
+      {
+        "type": " HWAVEOUT", 
+        "name": "hwo", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMTIME", 
+        "name": "pmmt", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbmmt", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "midiOutGetErrorTextA": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "midiOutGetErrorTextA", 
+    "arguments": [
+      {
+        "type": " MMRESULT", 
+        "name": "mmrError", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPSTR", 
+        "name": "pszText", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cchText", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveInPrepareHeader": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveInPrepareHeader", 
+    "arguments": [
+      {
+        "type": " HWAVEIN", 
+        "name": "hwi", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEHDR", 
+        "name": "pwh", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwh", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mciSetYieldProc": {
+    "cc": "__stdcall", 
+    "returns": "BOOL", 
+    "returns_float": false, 
+    "name": "mciSetYieldProc", 
+    "arguments": [
+      {
+        "type": " MCIDEVICEID", 
+        "name": "mciId", 
+        "is_float": false
+      }, 
+      {
+        "type": " YIELDPROC", 
+        "name": "fpYieldProc", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "dwYieldData", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioStringToFOURCCA": {
+    "cc": "__stdcall", 
+    "returns": "FOURCC", 
+    "returns_float": false, 
+    "name": "mmioStringToFOURCCA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "sz", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "timeGetTime": {
+    "cc": "__stdcall", 
+    "returns": "DWORD", 
+    "returns_float": false, 
+    "name": "timeGetTime", 
+    "arguments": [
+      {
+        "type": " void", 
+        "name": null, 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioAscend": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mmioAscend", 
+    "arguments": [
+      {
+        "type": " HMMIO", 
+        "name": "hmmio", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMMCKINFO", 
+        "name": "pmmcki", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "fuAscend", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "DrvGetModuleHandle": {
+    "cc": "__stdcall", 
+    "returns": "HMODULE", 
+    "returns_float": false, 
+    "name": "DrvGetModuleHandle", 
+    "arguments": [
+      {
+        "type": " HDRVR", 
+        "name": "hDriver", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mmioStringToFOURCCW": {
+    "cc": "__stdcall", 
+    "returns": "FOURCC", 
+    "returns_float": false, 
+    "name": "mmioStringToFOURCCW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "sz", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "uFlags", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mciGetDeviceIDW": {
+    "cc": "__stdcall", 
+    "returns": "MCIDEVICEID", 
+    "returns_float": false, 
+    "name": "mciGetDeviceIDW", 
+    "arguments": [
+      {
+        "type": " LPCWSTR", 
+        "name": "pszDevice", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "waveOutGetDevCapsA": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "waveOutGetDevCapsA", 
+    "arguments": [
+      {
+        "type": " UINT_PTR", 
+        "name": "uDeviceID", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPWAVEOUTCAPSA", 
+        "name": "pwoc", 
+        "is_float": false
+      }, 
+      {
+        "type": " UINT", 
+        "name": "cbwoc", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mixerSetControlDetails": {
+    "cc": "__stdcall", 
+    "returns": "MMRESULT", 
+    "returns_float": false, 
+    "name": "mixerSetControlDetails", 
+    "arguments": [
+      {
+        "type": " HMIXEROBJ", 
+        "name": "hmxobj", 
+        "is_float": false
+      }, 
+      {
+        "type": " LPMIXERCONTROLDETAILS", 
+        "name": "pmxcd", 
+        "is_float": false
+      }, 
+      {
+        "type": " DWORD", 
+        "name": "fdwDetails", 
+        "is_float": false
+      }
+    ]
+  }, 
+  "mciGetDeviceIDA": {
+    "cc": "__stdcall", 
+    "returns": "MCIDEVICEID", 
+    "returns_float": false, 
+    "name": "mciGetDeviceIDA", 
+    "arguments": [
+      {
+        "type": " LPCSTR", 
+        "name": "pszDevice", 
+        "is_float": false
+      }
+    ]
+  }
+}

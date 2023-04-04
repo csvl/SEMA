@@ -1,0 +1,36 @@
+2021-12-02 18:43:31,700 [cuckoo.core.scheduler] INFO: Task #11: acquired machine cuckoo1 (label=cuckoo1)
+2021-12-02 18:43:31,700 [cuckoo.core.resultserver] DEBUG: Now tracking machine :ip: for task #11
+2021-12-02 18:43:31,700 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Replay
+2021-12-02 18:43:31,705 [cuckoo.auxiliary.sniffer] INFO: Started sniffer with PID 19373 (interface=qemubr, host=:ip:)
+2021-12-02 18:43:31,706 [cuckoo.core.plugins] DEBUG: Started auxiliary module: Sniffer
+2021-12-02 18:43:31,731 [cuckoo.machinery.qemu] DEBUG: Starting vm cuckoo1
+2021-12-02 18:43:31,754 [cuckoo.machinery.qemu] DEBUG: Executing QEMU ['qemu-system-x86_64', '-display', 'none', '-m', '1024M', '-hda', '/home/crochetch/Documents/PhD/VMImages/images/snapshot_cuckoo1.qcow2', '-net', 'tap,ifname=tap_cuckoo1,script=no,downscript=no', '-net', 'nic,macaddr=52:54:00:12:34:56', '-enable-kvm']
+2021-12-02 18:43:31,781 [cuckoo.core.guest] INFO: Starting analysis #11 on guest (id=cuckoo1, ip=:ip:)
+2021-12-02 18:43:31,783 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:43:32,786 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:43:33,790 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:43:34,793 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:43:35,797 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:43:36,801 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:43:37,805 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:43:38,810 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:43:39,815 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:43:40,819 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:43:41,824 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:43:42,829 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:43:43,833 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:43:44,838 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:43:45,842 [cuckoo.core.guest] DEBUG: cuckoo1: not ready yet
+2021-12-02 18:43:46,849 [cuckoo.machinery.qemu] DEBUG: Stopping vm cuckoo1
+2021-12-02 18:43:46,858 [cuckoo.core.scheduler] WARNING: Unable to stop machine cuckoo1: Trying to stop an already stopped vm cuckoo1
+2021-12-02 18:43:46,864 [cuckoo.core.resultserver] DEBUG: Stopped tracking machine :ip: for task #11
+2021-12-02 18:43:46,872 [cuckoo.core.scheduler] DEBUG: Released database task #11
+2021-12-02 18:43:46,887 [cuckoo.core.plugins] DEBUG: Executed processing module "AnalysisInfo" for task #11
+2021-12-02 18:43:46,887 [cuckoo.processing.behavior] WARNING: Analysis results folder does not contain any behavior log files.
+2021-12-02 18:43:46,887 [cuckoo.core.plugins] DEBUG: Executed processing module "BehaviorAnalysis" for task #11
+2021-12-02 18:43:46,888 [cuckoo.core.plugins] DEBUG: Executed processing module "Dropped" for task #11
+2021-12-02 18:43:46,888 [cuckoo.core.plugins] DEBUG: Executed processing module "DroppedBuffer" for task #11
+2021-12-02 18:43:46,888 [cuckoo.core.plugins] DEBUG: Executed processing module "MetaInfo" for task #11
+2021-12-02 18:43:46,889 [cuckoo.core.plugins] DEBUG: Executed processing module "ProcessMemory" for task #11
+2021-12-02 18:43:46,889 [cuckoo.core.plugins] DEBUG: Executed processing module "Procmon" for task #11
+2021-12-02 18:43:46,889 [cuckoo.core.plugins] DEBUG: Executed processing module "Screenshots" for task #11

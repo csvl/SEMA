@@ -24,6 +24,14 @@ setup(name='sema-tc',
       author_email='nomail@uclouvain.com',
       license='MIT', 
       packages=find_packages(),
+      package_data={
+        'src': [
+          'SemaSCDG/procedures/calls/*.json',
+          'SemaClassifier/classifier/saved_model/*.pkl',
+          'SemaClassifier/classifier/SVM/dico/*.pkl',
+          "submodules/*"
+        ],
+      },
       setup_requires=['wheel'],
       install_requires=[
           'pymongo', # malwexp
@@ -33,15 +41,16 @@ setup(name='sema-tc',
           'requests',
           'graphviz',
           'monkeyhex',
-          'angr==8.20.7.27', # 8.20.7.27 for symbion (not working after)
+          "protobuf==3.20.*",
+          'angr==9.2.21', # 8.20.7.27 for symbion (not working after) 9.2.21 -> no present in pypy
           'researchpy',
           'hypothesis',
           'seaborn',
           'scipy',
           'scikit-learn', #'sklearn',
           'grakel',
-          'torch',
-          'torchvision',
+          # 'torch',
+          # 'torchvision',
           'gensim',
           'avatar2',
           'r2pipe',
@@ -51,6 +60,8 @@ setup(name='sema-tc',
           'tenseal',
           'dill',
           'cryptography',
-          'logbook'
+          'logbook',
+          'mmh3',
+          'psutil'
         ],
       zip_safe=False)
