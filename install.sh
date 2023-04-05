@@ -184,6 +184,20 @@ cd $ROOTPATH/
 # install fix for federated learning with celery (bug due to encoding argument of sys.stdout and ProxyLogger)
 rm penv/lib/python3.8/site-packages/z3/z3core.py
 cp penv-fix/z3/z3core.py penv/lib/python3.8/site-packages/z3/z3core.py
+printf '\n%s\n' "=============> Install cuckoo: =============>"
+
+# Install cuckoo
+virtualenv -p /usr/bin/python2.7 penv-2.7
+source penv-2.7/bin/activate
+cd $ROOTPATH/src/submodules/toolchain_cuckoo
+ls
+pip2 install -U distorm3
+python2 stuff/monitor.py
+pip2 install .
+# create .cwd file in dist/cuckoo/private with .git/HEAD inside
+sudo apt-get install mingw-w64 make flex bison texinfo
+# create db
+
 
 printf '\n%s\n' "-------------> Install tcpdump: <-------------"
 
@@ -227,6 +241,18 @@ printf '\n%s\n' "-------------> Install malware volatility: <-------------"
 cd $ROOTPATH/src/submodules/volatility
 pip2 install .
 
+deactivate
+
+printf '\n%s\n' "-------------> Install malware custom_unipacker: <-------------"
+
+cd $ROOTPATH/
+source penv/bin/activate
+# Install custom_unipacker
+cd $ROOTPATH/src/submodules/unipacker-custom
+if [ $PYPY = true ]; then
+    pypy3 -m pip install .
+fi
+python3 -m pip install .
 deactivate
 
 cd $ROOTPATH/

@@ -63,5 +63,11 @@ setup(name='sema-tc',
           'logbook',
           'mmh3',
           'psutil'
-        ],
+          'claripy',
+          "unix",
+          'kvm',
+          'libvirt-python',
+          'unipacker',
+          "minidump==0.0.10"
+      ],
       zip_safe=False)

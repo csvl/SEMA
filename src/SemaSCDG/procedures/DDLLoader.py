@@ -11,9 +11,9 @@ class DDLLoader:
         with open(os.path.join(dirname, filename), "r") as fp:
             return json.load(fp)
 
-    def load(self, project):
+    def load(self, project,force=False,dll=None):
         if project.loader.main_object.os == "windows":
-            return {k: v for k, v in self.load_gen(project)}
+            return {k: v for k, v in self.load_gen(project,force,dll)}
         else:
             return {}  # TODO: throw error ?
 
@@ -27,10 +27,11 @@ class DDLLoader:
             # print("Fail to load_more")
             pass
 
-    def load_gen(self, project):
+    def load_gen(self, project,force=False,dll=None):
         loaded = []
+        reqName = project.loader.requested_names if not dll else dll
         for f in os.listdir(os.path.join(self.calls_dir)):
             dllname = f.replace(".json", "")
-            if dllname in project.loader.requested_names:
+            if dllname in reqName or force:
                 loaded.append(f)
                 yield dllname, self.read_call_file(f, self.calls_dir)

@@ -274,6 +274,9 @@ class SemaExplorer(ExplorationTechnique):
                 )
                 self.log.info("A state has been discarded because of simple loop")
 
+            if state.globals["n_steps"] % 1000 == 0:
+                self.log.debug("n_steps = " + str(state.globals["n_steps"]))
+                
             if state.globals["n_steps"] > self.max_step:
                 # import pdb; pdb.set_trace()
                 state.history.trim()
@@ -284,6 +287,7 @@ class SemaExplorer(ExplorationTechnique):
                 )
                 self.log.info("A state has been discarded because of max_step reached")
                 
+            # TODO check seems new
             if state.globals["loop"] > 3:
                 simgr.move(
                     from_stash="active",
@@ -376,7 +380,7 @@ class SemaExplorer(ExplorationTechnique):
             state.globals["addr_call"] = calls[1:]
 
     def step(self, simgr, stash="active", **kwargs):
-        pass
+        raise NotImplementedError()
 
     def build_snapshot(self, simgr):
         self.snapshot_state.clear()

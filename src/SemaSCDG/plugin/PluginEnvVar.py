@@ -136,3 +136,6 @@ class PluginEnvVar(angr.SimStatePlugin):
         p.env_var_requested = self.env_var_requested.copy()
         p.wenv_var_requested = self.wenv_var_requested.copy()
         return p
+    
+    def merge(self):
+        pass

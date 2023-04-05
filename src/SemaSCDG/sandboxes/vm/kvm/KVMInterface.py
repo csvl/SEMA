@@ -18,15 +18,19 @@ from VMInterface import VMInterface
 """
 TODO volume should be deleted by hand for now
 """
-
 class KVMInterface(VMInterface):
     def __init__(self, name: str, filename:str, config:str, config_vol:str, config_pool:str, image:str, 
-                 mem_mb=4194304, vcpu=2, capacity = 45, create_vm=False, user="user",password="user"):
+                 mem_mb=4194304, vcpu=2, capacity = 45, create_vm=False, user="user",password="user",guestos="linux"):
 
         self.user = user
         self.password = password
         self.filename = '/var/lib/libvirt/save/'+filename+'.img'
         self.name = name
+        self.new_name = name
+        if not guestos == "linux":
+            self.new_name = "win10" #todo
+            if False:#TODO
+                self.new_name="win7"
         self.mem_mb = mem_mb
         self.image = image
         self.vcpu = vcpu
@@ -59,7 +63,7 @@ class KVMInterface(VMInterface):
         self.get_vm_infos()
 
         try:
-            self.dom = self.conn.lookupByName(self.name)
+            self.dom = self.conn.lookupByName(self.new_name)
         except libvirt.libvirtError:
             self.log.info('libvirt: Failed to find the main domain')
             sys.exit(1)
@@ -78,7 +82,7 @@ class KVMInterface(VMInterface):
             file = open(config_vol,mode='r')
             # read all lines at once
             self.xml_vol_config = file.read()
-            self.xml_vol_config = self.xml_vol_config.replace("$name$",self.name)
+            self.xml_vol_config = self.xml_vol_config.replace("$name$",self.new_name)
             self.xml_vol_config = self.xml_vol_config.replace("$capacity$",str(self.capacity))
             # close the file
             file.close()
@@ -92,7 +96,7 @@ class KVMInterface(VMInterface):
             file = open(config_pool,mode='r')
             # read all lines at once
             self.xml_pool_config = file.read()
-            self.xml_pool_config = self.xml_pool_config.replace("$name$",self.name)
+            self.xml_pool_config = self.xml_pool_config.replace("$name$",self.new_name)
             # close the file
             file.close()
             print(self.xml_pool_config)
@@ -103,7 +107,7 @@ class KVMInterface(VMInterface):
             file = open(config,mode='r')
             # read all lines at once
             self.xml_config = file.read()
-            self.xml_config = self.xml_config.replace("$name$",self.name)
+            self.xml_config = self.xml_config.replace("$name$",self.new_name)
             self.xml_config = self.xml_config.replace("$mem_mb$",str(self.mem_mb))
             self.xml_config = self.xml_config.replace("$vcpu$",str(self.vcpu))
             self.xml_config = self.xml_config.replace("$image$",self.image)
@@ -115,7 +119,7 @@ class KVMInterface(VMInterface):
             self.xml_config = None
 
     def create_vm(self):
-        if self.name: # try catch
+        if self.new_name: # try catch
             try:
                 #self.pool = self.conn.storagePoolDefineXML(self.xml_pool_config, 0) # TODO for custom "pool"
                 self.pool = self.conn.storagePoolLookupByName("default")
@@ -139,7 +143,7 @@ class KVMInterface(VMInterface):
             sys.exit(1)
 
     def start_vm(self):
-        self.dom = self.conn.lookupByName(self.name)
+        self.dom = self.conn.lookupByName(self.new_name)
         self.dom.create()
 
     def stop_vm(self):

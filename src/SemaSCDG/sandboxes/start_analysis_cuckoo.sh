@@ -1,3 +1,3 @@
-source /home/crochetch/Documents/toolchain_malware_analysis/penv-2.7/bin/activate
-cuckoo -d --cwd /home/crochetch/Documents/toolchain_malware_analysis/src/sandboxes/.cuckoo -m 1
+source /home/crochetch/Documents/Projects/MalwareAnalysis/SEMA-ToolChain-packing/penv-2.7/bin/activate
+cuckoo -d --cwd /home/crochetch/Documents/Projects/MalwareAnalysis/SEMA-ToolChain-packing/src/ToolChainSCDG/sandboxes/.cuckoo -m 1
 deactivate
