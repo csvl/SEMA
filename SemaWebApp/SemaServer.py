@@ -361,9 +361,7 @@ class SemaServer:
                 SemaServer.sema.args_parser.args_parser_scdg.update_tool(args)
                 csv_scdg_file = "src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/" + "scdg.csv"
                 print(csv_scdg_file)
-                
                 SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_scdg.save_conf, args=([scdg_args,"src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/"])))
-        
                 SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_scdg.start_scdg, args=([args, False, csv_scdg_file])))
             
             if "class_enable" in request.form:
@@ -371,14 +369,11 @@ class SemaServer:
                 SemaServer.sema.args_parser.args_parser_class.update_tool(args)
                 csv_class_file =  "src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/" + "classifier.csv"
                 SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.init, args=([args.exp_dir, [], csv_class_file]))) # TODO familly
-                
                 SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.save_conf,args=([class_args,"src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/"])))
-                
                 SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.train, args=()))
 
                 if SemaServer.sema.tool_classifier.mode == "classification":
-                    SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.classify, args=()))
-                    
+                    SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.classify, args=()))  
                 else:
                     SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.detect, args=()))
                                 

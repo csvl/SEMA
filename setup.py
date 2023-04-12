@@ -34,6 +34,7 @@ setup(name='sema-tc',
       },
       setup_requires=['wheel'],
       install_requires=[
+          "pandas==1.5.3"
           'pymongo', # malwexp
           'pyzipper',  
           'click==8.0.3', # for task (8.0.3) 7.1.2
