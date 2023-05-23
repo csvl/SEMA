@@ -62,7 +62,7 @@ setup(name='sema-tc',
           'cryptography',
           'logbook',
           'mmh3',
-          'psutil'
+          'psutil',
           'claripy',
           "unix",
           'kvm',
