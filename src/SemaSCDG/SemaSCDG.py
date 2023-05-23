@@ -102,7 +102,7 @@ import avatar2 as avatar2
 from unipacker.core import Sample, SimpleClient, UnpackerEngine
 from unipacker.utils import RepeatedTimer, InvalidPEFile
 from unipacker.unpackers import get_unpacker
-from angr_targets import AvatarGDBConcreteTarget
+#from angr_targets import AvatarGDBConcreteTarget # TODO FIX in submodule
 
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -629,7 +629,7 @@ class SemaSCDG:
 
         # Load pre-defined syscall table
         if os_obj == "windows":
-            self.call_sim.system_call_table = self.call_sim.ddl_loader.load(projTrue if (self.is_packed and False) else False,dll)
+            self.call_sim.system_call_table = self.call_sim.ddl_loader.load(proj,True if (self.is_packed and False) else False,dll)
         else:
            self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(proj)
         
@@ -685,7 +685,7 @@ class SemaSCDG:
             # options.add(angr.options.TRACK_CONSTRAINT_ACTIONS)
             # options.add(angr.options.TRACK_JMP_ACTIONS)
 
-        self.log.info("Entry_state address = " + str(hex(addr)))
+        self.log.info("Entry_state address = " + str(addr))
         # Contains a program's memory, registers, filesystem data... any "live data" that can be changed by execution has a home in the state
         state = proj.factory.entry_state(
             addr=addr, args=args_binary, add_options=options
@@ -771,14 +771,14 @@ class SemaSCDG:
         # code at that address.
         
         if os_obj == "windows":
-            self.call_sim.loadlibs(proj,symbs=symbs,dll=dll)
+            self.call_sim.loadlibs(proj) #TODO mbs=symbs,dll=dll)
         
         self.call_sim.custom_hook_static(proj)
 
         if os_obj != "windows":
             self.call_sim.custom_hook_no_symbols(proj)
         else:
-            self.call_sim.custom_hook_windows_symbols(proj,True if (self.is_packed and False) else False,symbs)
+            self.call_sim.custom_hook_windows_symbols(proj)  #TODO ue if (self.is_packed and False) else False,symbs)
 
         if args.hooks:
             self.hooks.initialization(cont, is_64bits=True if proj.arch.name == "AMD64" else False)
