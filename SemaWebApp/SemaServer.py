@@ -37,6 +37,8 @@ import pyzipper
 import shutil
 
 class SemaServer:
+    log = logging.getLogger("SemaServer")
+    log.setLevel("INFO")
     ROOTPATH = os.getcwd()
     #SemaServer.log.info(ROOTPATH)
     
