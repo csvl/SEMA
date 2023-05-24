@@ -31,7 +31,8 @@ setup(name='sema-webapp',
           "django",
           "requests",
           "Flask-Cors==3.0.10",
-          "yara-python"
+          "yara-python",
+          "npf-web-extension"
           #"pytracemalloc==0.9.1"
           ],
       zip_safe=False)

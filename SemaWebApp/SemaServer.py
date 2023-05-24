@@ -1,7 +1,6 @@
 #!/usr/bin/env python3.9
 # -*- coding: utf-8 -*-
 
-
 # TODO add logs
 # TODO https://www.mongodb.com/docs/manual/core/geospatial-indexes/
 
@@ -35,6 +34,8 @@ import yara
 import dill
 import pyzipper
 import shutil
+from npf_web_extension.app import export
+import uuid
 
 class SemaServer:
     log = logging.getLogger("SemaServer")
@@ -237,7 +238,7 @@ class SemaServer:
     def iteration_dl():
         return str(SemaServer.malware_to_download) ## TODO
     
-    def get_fl_args(self,request):
+    def get_fl_args(request):
         fl_args = {}
         exp_args = []
         exp_args_str = ""
@@ -256,10 +257,10 @@ class SemaServer:
                         exp_args.append(request.form[action.dest])
         return fl_args, exp_args, exp_args_str
     
-    def get_mutator_args(self,request):
+    def get_mutator_args(request):
         pass # TODO bastien
     
-    def get_class_args(self,request):
+    def get_class_args(request):
         # The above code is initializing an empty dictionary `class_args` and two empty lists
         # `exp_args` and `exp_args_str`. It is not doing anything else with these variables.
         class_args = {}
@@ -302,7 +303,7 @@ class SemaServer:
         return class_args, exp_args, exp_args_str
 
     
-    def get_scdg_args(self,request):
+    def get_scdg_args(request):
         scdg_args = {}
         exp_args = []
         exp_args_str = ""
@@ -381,14 +382,14 @@ class SemaServer:
             
             # TODO dir per malware
             scdg_args, exp_args_scdg, exp_args_scdg_str = SemaServer.get_scdg_args(request)   
-            exp_args += scdg_args   
+            exp_args += exp_args_scdg   
             class_args, exp_args_class, exp_args_class_str = SemaServer.get_class_args(request)
-            exp_args += class_args  
+            exp_args += exp_args_class  
             if "fl_enable" in request.form: # TODO refactor + implement
                 fl_args, exp_args_fl, exp_args_fl_str = SemaServer.get_fl_args(request)
-                exp_args += fl_args               
-            muta_args, exp_args_muta, exp_args_muta_str = SemaServer.get_mutator_args(request)
-            exp_args += muta_args
+                exp_args += exp_args_fl               
+            # muta_args, exp_args_muta, exp_args_muta_str = SemaServer.get_mutator_args(request)
+            # exp_args += muta_args
                 
             SemaServer.log.info(exp_args)
 
@@ -697,8 +698,69 @@ class SemaServer:
         
         if os.path.isfile(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg.csv'):
             df_csv_scdg = pd.read_csv(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg.csv',sep=";")
+                  
+            print(list(df_csv_scdg.drop("filename", axis=1).drop("Syscall found", axis=1).drop("Libraries", axis=1).columns))
+            print(df_csv_scdg.drop("filename", axis=1).drop("Syscall found", axis=1).drop("Libraries", axis=1).to_csv())
+            print(df_csv_scdg[["filename", "CPU architecture"]].to_csv(index=False))
+            output = "df_csv.html"
+            # TODO change the label
+            configurationData = [
+                {
+                "id": str(uuid.uuid4()), # Must be unique TODO df_csv_scdg['filename']
+                "name": "Experiences coverage view",
+                "parameters": ["filename", "familly"],
+                "measurements": ["Total number of instr", 'Number of instr visited'], # , "Total number of blocks",'Number Syscall found' , 'Number Address found', 'Number of blocks visited', "Total number of blocks","time"
+                "data": df_csv_scdg.drop("Syscall found", axis=1).drop("Libraries", axis=1).to_csv(index=False)
+                },
+                {
+                "id": str(uuid.uuid4()), 
+                "name": "Experiences syscall view",
+                "parameters": ["filename", "familly"], 
+                "measurements": ["Number Syscall found"], # , "Total number of blocks",'Number Syscall found'
+                "data": df_csv_scdg.drop("Syscall found", axis=1).drop("Libraries", axis=1).to_csv(index=False)
+                },
+                {
+                "id": str(uuid.uuid4()), 
+                "name": "Dataset view",
+                "parameters": ["filename"], 
+                "measurements": ["OS", "CPU architecture", "familly","Binary position-independent"], # , "Total number of blocks",'Number Syscall found'
+                "data": df_csv_scdg[["filename", "CPU architecture","OS", "familly", "Binary position-independent"]].to_csv(index=False)
+                },
+            ]
+            # configurationData = {
+                # "id": "1234567-1234567894567878241-12456", # Must be unique
+                # "name": "Quickstart example",
+                # "parameters": ["N", "algorithm", "num_cpus", "cpu_brand"],
+                # "measurements": ["efficiency"],
+                # "data": """algorithm,N,num_cpus,efficiency,cpu_brand
+                # Algorithm 1,10,1,0.75,Ryzen
+                # Algorithm 1,10,4,0.85,Ryzen
+                # Algorithm 1,10,8,0.90,Ryzen
+                # Algorithm 2,10,1,0.65,Ryzen
+                # Algorithm 2,10,4,0.80,Ryzen
+                # Algorithm 2,10,8,0.87,Ryzen
+                # """, # Raw data in csv format
+            # }
+            export(configurationData, output)
+        
+            with open(output, 'r') as f:
+                df_csv_content = f.read()
+                
+            # configurationData = {
+            #     "id": df_csv_scdg['Syscall found'], # Must be unique
+            #     "name": "Experience Syscall found global view",
+            #     "parameters": ["Count"], #["N", "algorithm", "num_cpus", "cpu_brand"],
+            #     "measurements": ["efficiency"],
+            #     "data": ""
+            # }
+            # export(configurationData, output)
+        
+            # with open(output, 'r') as f:
+            #     df_csv_content = f.read()
+                
         else:
             df_csv_scdg = pd.DataFrame()
+            df_csv_content = ""
             
         if os.path.isfile(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.csv'):
             df_csv_classifier = pd.read_csv(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.csv',sep=";") 
@@ -742,6 +804,7 @@ class SemaServer:
                            df_csv_scdg=df_csv_scdg.to_csv(),
                            df_csv_classifier=df_csv_classifier.to_csv(),
                            exp_dir="src/output/runs/", # "http://"+SemaServer.vizualiser_ip+":80/?file=http://"
+                           df_csv_content=df_csv_content,
                         )
 
     @app.route('/results-global.html', methods = ['GET', 'POST'])
@@ -777,6 +840,9 @@ class SemaServer:
             df_csv = subdf
             
         csv_text = df_csv.to_csv()
+        
+        output = "df_csv.html"
+        export(df_csv, output)
             
         return render_template('result-global.html', 
                            nb_exp=nb_exp,
