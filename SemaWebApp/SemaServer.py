@@ -34,7 +34,7 @@ import yara
 import dill
 import pyzipper
 import shutil
-# from npf_web_extension.app import export
+from npf_web_extension.app import export
 import uuid
 
 class SemaServer:
@@ -741,10 +741,10 @@ class SemaServer:
                 # Algorithm 2,10,8,0.87,Ryzen
                 # """, # Raw data in csv format
             # }
-            # export(configurationData, output)
+            export(configurationData, output)
         
-            # with open(output, 'r') as f:
-            #     df_csv_content = f.read()
+            with open(output, 'r') as f:
+                df_csv_content = f.read()
                 
             # configurationData = {
             #     "id": df_csv_scdg['Syscall found'], # Must be unique
@@ -839,10 +839,10 @@ class SemaServer:
         if subdf is not None:
             df_csv = subdf
             
-        # csv_text = df_csv.to_csv()
+        csv_text = df_csv.to_csv()
         
-        # output = "df_csv.html"
-        # export(df_csv, output)
+        output = "df_csv.html"
+        export(df_csv, output)
             
         return render_template('result-global.html', 
                            nb_exp=nb_exp,

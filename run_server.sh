@@ -6,3 +6,5 @@ cp /penv-fix/angr/heap_base.py              /usr/local/lib/python3.8/dist-packag
 cp /penv-fix/angr/__init__.py               /usr/local/lib/python3.8/dist-packages/angr/storage/memory_mixins/__init__.py
 cp /penv-fix/angr/calling_conventions.py    /usr/local/lib/python3.8/dist-packages/angr/calling_conventions.py
 python3 SemaWebApp/SemaServer.py
+
+cd SemaWebApp; npm start
