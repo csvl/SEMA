@@ -298,7 +298,7 @@ class SemaSCDG:
         except:
             os.makedirs(exp_dir + "/" +  nameFileShort)
         
-        fileHandler = logging.FileHandler(exp_dir + "/" + nameFileShort + "/" + "scdg.log")
+        fileHandler = logging.FileHandler(exp_dir + "/" + nameFileShort + "/" + "scdg.ans")
         fileHandler.setFormatter(CustomFormatter())
         #logging.getLogger().handlers.clear()
         try:
