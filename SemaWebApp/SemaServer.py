@@ -393,7 +393,7 @@ class SemaServer:
                 
             SemaServer.log.info(exp_args)
 
-            args = SemaServer.sema.args_parser.parse_arguments(args_list=exp_args,allow_unk=False) # TODO
+            args = SemaServer.sema.args_parser.parse_arguments(args_list=exp_args,allow_unk=True) # TODO
             
             SemaServer.log.info(args)
 
@@ -839,7 +839,7 @@ class SemaServer:
         if subdf is not None:
             df_csv = subdf
             
-        csv_text = df_csv.to_csv()
+        # csv_text = df_csv.to_csv()
         
         output = "df_csv.html"
         export(df_csv, output)
@@ -858,7 +858,7 @@ class SemaServer:
                            df_dates=list(df_dates))
 
 
-
+ 
     def run(self):
         SemaServer.log.info("fuck")
         SemaServer.app.run(host='0.0.0.0', port=80, use_reloader=True, threaded=True)  #, processes=4

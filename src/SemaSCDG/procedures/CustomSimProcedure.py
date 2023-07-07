@@ -151,7 +151,12 @@ class CustomSimProcedure:
         "FindResourceW": 1
     }  # ,'RegCreateKeyW':1}
 
-    ANGR_CALLING_CONVENTIONS = {
+    ANGR_CALLING_CONVENTIONS_x86 = {
+        "__stdcall": SimCCStdcall,
+        "__cdecl": SimCCCdecl
+    }
+    
+    ANGR_CALLING_CONVENTIONS_x86_64 = {
         "__stdcall": SimCCStdcall,
         "__cdecl": SimCCCdecl,
         "__fastcall": SimCCMicrosoftAMD64,# TODO 32 vs 64 bits 
@@ -429,13 +434,16 @@ class CustomSimProcedure:
                     cc = list(dlls_functions[libname].values())[0]["cc"]
 
                     # Set properly calling conventions
-                    angrlib.set_default_cc("X86", self.ANGR_CALLING_CONVENTIONS[cc])
-                    angrlib.default_ccs["X86"] = self.ANGR_CALLING_CONVENTIONS[cc]
+                    angrlib.set_default_cc("X86", self.ANGR_CALLING_CONVENTIONS_x86[cc])
+                    angrlib.default_ccs["X86"] = self.ANGR_CALLING_CONVENTIONS_x86[cc]
+                    ngrlib.set_default_cc("AMD64", self.ANGR_CALLING_CONVENTIONS_x86_64[cc])
+                    angrlib.default_ccs["AMD64"] = self.ANGR_CALLING_CONVENTIONS_x86_64[cc]
                 else:
                     angrlib = SimLibrary()
                     angrlib.set_library_names(libname)
                     cc = list(dlls_functions[libname].values())[0]["cc"]
-                    angrlib.set_default_cc("X86", self.ANGR_CALLING_CONVENTIONS[cc])
+                    angrlib.set_default_cc("X86", self.ANGR_CALLING_CONVENTIONS_x86[cc])
+                    angrlib.set_default_cc("AMD", self.ANGR_CALLING_CONVENTIONS_x86_64[cc])
                     SIM_LIBRARIES.update({libname: angrlib})
 
                 procs = self.create_lib_procedures(
@@ -452,20 +460,29 @@ class CustomSimProcedure:
                     ):
                         newprocs[name] = simprocedure
                         if name in dic_symbols  and project.arch.name == "AMD64":
-                            if name  in self.FASTCALL_EXCEPTION: 
-                                project.hook(
-                                        dic_symbols[name],
-                                        simprocedure(
-                                            cc=SimCCMicrosoftAMD64(project.arch)
-                                        ),
-                                    )
+                            if project.simos.name == "windows":
+                                if name  in self.FASTCALL_EXCEPTION: 
+                                    project.hook(
+                                            dic_symbols[name],
+                                            simprocedure(
+                                                cc=SimCCMicrosoftAMD64(project.arch)
+                                            ),
+                                        )
+                                else:
+                                    project.hook(
+                                            dic_symbols[name],
+                                            simprocedure(
+                                                cc=SimCCMicrosoftAMD64(project.arch)
+                                            ),
+                                        )
                             else:
+                                print("SimCCSystemVAMD64SimCCSystemVAMD64SimCCSystemVAMD64SimCCSystemVAMD64SimCCSystemVAMD64SimCCSystemVAMD64")
                                 project.hook(
-                                        dic_symbols[name],
-                                        simprocedure(
-                                            cc=SimCCMicrosoftAMD64(project.arch)
-                                        ),
-                                    )
+                                    dic_symbols[name],
+                                    simprocedure(
+                                        cc=SimCCSystemVAMD64(project.arch)
+                                    ),
+                                )
                         else:
                             if name in dic_symbols and name not in self.EXCEPTIONS:
                                 project.hook(
@@ -506,20 +523,21 @@ class CustomSimProcedure:
         for name in dic_symbols:
             if name in self.custom_simproc_windows["custom_package"]:
                 if project.arch.name == "AMD64":
-                    if name  in self.FASTCALL_EXCEPTION: 
-                        project.hook(
-                            dic_symbols[name],
-                            self.custom_simproc_windows["custom_package"][name](
-                                cc=SimCCMicrosoftAMD64(project.arch)
-                            ),
-                        )
-                    else:
-                        project.hook(
-                            dic_symbols[name],
-                            self.custom_simproc_windows["custom_package"][name](
-                                cc=SimCCMicrosoftAMD64(project.arch)
-                            ),
-                        )
+                    if project.simos.name == "windows":
+                        if name  in self.FASTCALL_EXCEPTION: 
+                            project.hook(
+                                dic_symbols[name],
+                                self.custom_simproc_windows["custom_package"][name](
+                                    cc=SimCCMicrosoftAMD64(project.arch)
+                                ),
+                            )
+                        else:
+                            project.hook(
+                                dic_symbols[name],
+                                self.custom_simproc_windows["custom_package"][name](
+                                    cc=SimCCMicrosoftAMD64(project.arch)
+                                ),
+                            )
                 else:
                     project.hook(
                         dic_symbols[name],
@@ -534,14 +552,14 @@ class CustomSimProcedure:
                         project.hook(
                             dic_symbols[name],
                             self.custom_simproc["custom_package"][name](
-                            cc=SimCCMicrosoftAMD64(project.arch)
+                            cc=SimCCSystemVAMD64(project.arch)
                         ),
                         )
                     else:
                         project.hook(
                             dic_symbols[name],
                             self.custom_simproc["custom_package"][name](
-                            cc=SimCCMicrosoftAMD64(project.arch)
+                            cc=SimCCSystemVAMD64(project.arch)
                             ),
                         )
                 else:
@@ -576,13 +594,13 @@ class CustomSimProcedure:
                     cc = list(self.system_call_table[libname].values())[0]["cc"]
 
                     # Set properly calling conventions
-                    angrlib.set_default_cc("X86", self.ANGR_CALLING_CONVENTIONS[cc])
-                    angrlib.default_ccs["X86"] = self.ANGR_CALLING_CONVENTIONS[cc]
+                    angrlib.set_default_cc("X86", self.ANGR_CALLING_CONVENTIONS_x86[cc])
+                    angrlib.default_ccs["X86"] = self.ANGR_CALLING_CONVENTIONS_x86[cc]
                 else:
                     angrlib = SimLibrary()
                     angrlib.set_library_names(libname)
                     cc = list(self.system_call_table[libname].values())[0]["cc"]
-                    angrlib.set_default_cc("X86", self.ANGR_CALLING_CONVENTIONS[cc])
+                    angrlib.set_default_cc("X86", self.ANGR_CALLING_CONVENTIONS_x86[cc])
                     SIM_LIBRARIES.update({libname: angrlib})
 
                 procs = self.create_lib_procedures(
@@ -599,19 +617,26 @@ class CustomSimProcedure:
                     ):
                         newprocs[name] = simprocedure
                         if project.arch.name == "AMD64" and name in dic_symbols:
-                            if name  in self.FASTCALL_EXCEPTION: 
-                                project.hook(
-                                    dic_symbols[name],
-                                    simprocedure(
-                                        cc=SimCCMicrosoftAMD64(project.arch)
-                                    ),
-                                )
+                            if project.simos.name == "windows":
+                                if name  in self.FASTCALL_EXCEPTION: 
+                                    project.hook(
+                                        dic_symbols[name],
+                                        simprocedure(
+                                            cc=SimCCMicrosoftAMD64(project.arch)
+                                        ),
+                                    )
+                                else:
+                                    project.hook(
+                                        dic_symbols[name],
+                                        simprocedure(
+                                            cc=SimCCMicrosoftAMD64(project.arch)
+                                        ),
+                                    )
                             else:
+                                print("SimCCSystemVAMD64SimCCSystemVAMD64SimCCSystemVAMD64SimCCSystemVAMD64SimCCSystemVAMD64SimCCSystemVAMD64")
                                 project.hook(
                                     dic_symbols[name],
-                                    simprocedure(
-                                        cc=SimCCMicrosoftAMD64(project.arch)
-                                    ),
+                                    simprocedure(cc=SimCCSystemVAMD64(project.arch)),
                                 )
                         else:
                             if name in dic_symbols and name not in self.EXCEPTIONS:
@@ -685,18 +710,19 @@ class CustomSimProcedure:
                 # if "CreateThread" in name:
                 #     self.create_thread.add(dic_symbols[name])
                 if project.arch.name == "AMD64":
+                    print("SimCCSystemVAMD64SimCCSystemVAMD64SimCCSystemVAMD64SimCCSystemVAMD64SimCCSystemVAMD64SimCCSystemVAMD64")
                     if name  in self.FASTCALL_EXCEPTION: 
                         project.hook(
                             dic_symbols[name],
                             self.custom_simproc["custom_package"][name](
-                                cc=SimCCMicrosoftAMD64(project.arch)
+                                cc=SimCCSystemVAMD64(project.arch)
                             ),
                         )
                     else:
                         project.hook(
                             dic_symbols[name],
                             self.custom_simproc["custom_package"][name](
-                                cc=SimCCMicrosoftAMD64(project.arch)
+                                cc=SimCCSystemVAMD64(project.arch)
                             ),
                         )
                 else:
@@ -1283,33 +1309,114 @@ class CustomSimProcedure:
             #     self.create_thread.add(symb.rebased_addr)
             if name in manual_link:
                 proj.unhook(symb.rebased_addr)
-                proj.hook(symb.rebased_addr, manual_link[name](cc=SimCCStdcall(proj.arch)))
+                if proj.arch.name == "X86":
+                    proj.hook(symb.rebased_addr, manual_link[name](cc=SimCCStdcall(proj.arch)))
+                else:
+                    proj.hook(symb.rebased_addr, manual_link[name](cc=SimCCMicrosoftAMD64(proj.arch)))
             elif not name:
                 pass
             elif name == "readlink":
-                proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["posix"]["read"]())
+                if proj.arch.name == "X86":
+                    if proj.simos.name == "windows":
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["posix"]["read"]())
+                    else:
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["posix"]["read"]())
+                else:
+                    if proj.simos.name == "windows":
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["posix"]["read"](cc=SimCCMicrosoftAMD64(proj.arch)))
+                    else:
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["posix"]["read"](cc=SimCCSystemVAMD64(proj.arch)))
             elif name in ignore_simproc:
                 pass
             elif name in angr.SIM_PROCEDURES["glibc"]:
-                proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["glibc"][name]())
+                if proj.arch.name == "X86":
+                    if proj.simos.name == "windows":
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["glibc"][name]())
+                    else:
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["glibc"][name]())
+                else:
+                    if proj.simos.name == "windows":
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["glibc"][name](cc=SimCCMicrosoftAMD64(proj.arch)))
+                    else:
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["glibc"][name](cc=SimCCSystemVAMD64(proj.arch)))
             elif name in angr.SIM_PROCEDURES["libc"]:
-                proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["libc"][name]())
+                if proj.arch.name == "X86":
+                    if proj.simos.name == "windows":
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["libc"][name]())
+                    else:
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["libc"][name]())
+                else:
+                    if proj.simos.name == "windows":
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["libc"][name](cc=SimCCMicrosoftAMD64(proj.arch)))
+                    else:
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["libc"][name](cc=SimCCSystemVAMD64(proj.arch)))
             elif name in angr.SIM_PROCEDURES["posix"]:
-                proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["posix"][name]())
+                if proj.arch.name == "X86":
+                    if proj.simos.name == "windows":
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["posix"][name]())
+                    else:
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["posix"][name]())
+                else:
+                    if proj.simos.name == "windows":
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["posix"][name](cc=SimCCMicrosoftAMD64(proj.arch)))
+                    else:
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["posix"][name](cc=SimCCSystemVAMD64(proj.arch)))
             elif name in angr.SIM_PROCEDURES["linux_kernel"]:
-                proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["linux_kernel"][name]())
+                if proj.arch.name == "X86":
+                    if proj.simos.name == "windows": # TODO ??
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["linux_kernel"][name]())
+                    else:
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["linux_kernel"][name]())
+                else:
+                    if proj.simos.name == "windows":
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["linux_kernel"][name]())
+                    else:
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["linux_kernel"][name](cc=SimCCSystemVAMD64(proj.arch)))
             elif name in angr.SIM_PROCEDURES["win32"]:
-                proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["win32"][name]())
+                if proj.arch.name == "X86":
+                    proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["win32"][name]())
+                else:
+                    proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["win32"][name](cc=SimCCMicrosoftAMD64(proj.arch)))
             elif name in angr.SIM_PROCEDURES["win_user32"]:
-                proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["win_user32"][name]())
+                if proj.arch.name == "X86":
+                    proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["win_user32"][name]())
+                else:
+                    proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["win_user32"][name](cc=SimCCMicrosoftAMD64(proj.arch)))
             elif name in angr.SIM_PROCEDURES["ntdll"]:
-                proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["ntdll"][name]())
+                if proj.arch.name == "X86":
+                    if proj.simos.name == "windows":
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["ntdll"][name]())
+                    else:
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["ntdll"][name]())
+                else:
+                    if proj.simos.name == "windows":
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["ntdll"][name](cc=SimCCMicrosoftAMD64(proj.arch)))
+                    else:
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["ntdll"][name](cc=SimCCSystemVAMD64(proj.arch)))
             elif name in angr.SIM_PROCEDURES["msvcr"]:
-                proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["msvcr"][name]())
+                if proj.arch.name == "X86":
+                    if proj.simos.name == "windows":
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["msvcr"][name]())
+                    else:
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["msvcr"][name]())
+                else:
+                    if proj.simos.name == "windows":
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["msvcr"][name](cc=SimCCMicrosoftAMD64(proj.arch)))
+                    else:
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["msvcr"][name](cc=SimCCSystemVAMD64(proj.arch)))
             # elif name in angr.SIM_PROCEDURES['advapi32'] :
             #    proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES['advapi32'][name]())
             elif name in simproc64:
-                proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["libc"][simproc64[name]]())
+                if proj.arch.name == "X86":
+                    if proj.simos.name == "windows":
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["libc"][simproc64[name]]())
+                    else:
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["libc"][simproc64[name]]())
+                else:
+                    if proj.simos.name == "windows":
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["libc"][simproc64[name]](cc=SimCCMicrosoftAMD64(proj.arch)))
+                    else:
+                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["libc"][simproc64[name]](cc=SimCCSystemVAMD64(proj.arch)))
             elif "ordinal" in name:
                 # ex : ordinal.680.b'shell32.dll'
                 # import pdb; pdb.set_trace()
@@ -1402,6 +1509,59 @@ class CustomSimProcedure:
                 proj.simos.syscall_library.add(
                     name, generic[str(self.system_call_table[key]["num_args"])]
                 )
+
+    def custom_hook_linux_symbols(self, proj):
+        # self.ANG_CALLING_CONVENTION = {"__stdcall": SimCCStdcall, "__cdecl": SimCCCdecl}
+        self.log.info("custom_hook_linux_symbols")
+        proj.loader
+        symbols = proj.loader.symbols
+        custom_pack = self.custom_simproc["custom_package"]
+        generic = {}
+        generic["0"] = custom_pack["gen_simproc0"]
+        generic["1"] = custom_pack["gen_simproc1"]
+        generic["2"] = custom_pack["gen_simproc2"]
+        generic["3"] = custom_pack["gen_simproc3"]
+        generic["4"] = custom_pack["gen_simproc4"]
+        generic["5"] = custom_pack["gen_simproc5"]
+        generic["6"] = custom_pack["gen_simproc6"]
+
+        symbols = proj.loader.symbols
+        for symb in symbols:
+            if symb.name in self.custom_simproc["custom_package"]:
+                # if "CreateThread" in symb.name:
+                #     self.create_thread.add(symb.rebased_addr)
+                proj.unhook(symb.rebased_addr)
+                if proj.arch.name == "AMD64":
+                    if symb.name  in self.FASTCALL_EXCEPTION: 
+                        proj.hook(
+                            symb.rebased_addr,
+                            self.custom_simproc["custom_package"][symb.name](
+                                cc=SimCCSystemVAMD64(proj.arch)
+                            ),
+                        )
+                    else:
+                        proj.hook(
+                            symb.rebased_addr,
+                            self.custom_simproc["custom_package"][symb.name](
+                                cc=SimCCSystemVAMD64(proj.arch)
+                            ),
+                        )
+                else:
+                    if symb.name not in self.CDECL_EXCEPT:
+                        proj.hook(
+                            symb.rebased_addr,
+                            self.custom_simproc["custom_package"][
+                                symb.name
+                            ](cc=SimCCStdcall(proj.arch)),
+                        )
+                    else:
+                        # import pdb; pdb.set_trace()
+                        proj.hook(
+                            symb.rebased_addr,
+                            self.custom_simproc["custom_package"][
+                                symb.name
+                            ](cc=SimCCCdecl(proj.arch)),
+                        )
 
     def custom_hook_windows_symbols(self, proj):
         # self.ANG_CALLING_CONVENTION = {"__stdcall": SimCCStdcall, "__cdecl": SimCCCdecl}
@@ -1508,21 +1668,21 @@ class CustomSimProcedure:
                                     if real_name  in self.FASTCALL_EXCEPTION: 
                                         proj.hook(
                                             symb.rebased_addr,
-                                            self.custom_simproc["custom_package"][name](
+                                            self.custom_simproc_windows["custom_package"][name]( # TODO: check symb.name
                                                 cc=SimCCMicrosoftAMD64(proj.arch)
                                             ),
                                         )
                                     else:
                                         proj.hook(
                                             symb.rebased_addr,
-                                            self.custom_simproc["custom_package"][name](
+                                            self.custom_simproc_windows["custom_package"][name](
                                                 cc=SimCCMicrosoftAMD64(proj.arch)
                                             ),
                                         )
                                 else:
                                     proj.hook(
                                         symb.rebased_addr,
-                                        self.custom_simproc["custom_package"][
+                                        self.custom_simproc_windows["custom_package"][
                                             real_name   #TODO: check symb.name
                                         ](cc=SimCCStdcall(proj.arch)),
                                     )

@@ -139,7 +139,7 @@ class ArgumentParserSCDG:
         self.group_bin.add_argument(
             "--n_args",
             help="Number of symbolic arguments given to the binary (default : 0)",
-            default=0,
+            default=1,
             type=int,
         )
         self.group_bin.add_argument(

@@ -57,3 +57,8 @@ run-sh:
 			   -p 80:80 \
 			   --network="bridge" \
 			   -it sema-web bash
+
+clean-docker:
+	docker image prune
+	docker image prune -a
+	docker rmi $(docker images -a -q) 

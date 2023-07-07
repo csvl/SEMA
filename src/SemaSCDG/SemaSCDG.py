@@ -563,13 +563,13 @@ class SemaSCDG:
                     default_analysis_mode="symbolic" if not args.approximate else "symbolic_approximating",
             )
             symbs = proj.loader.symbols
-            for symb in symbs:
-                print(symb)
-            print(symbs)
-            print(proj.loader.shared_objects)
-            print(proj.loader.all_objects)
-            print(proj.loader.requested_names)
-            print(proj.loader.initial_load_objects)
+            # for symb in symbs:
+            #     print(symb)
+            # print(symbs)
+            # print(proj.loader.shared_objects)
+            # print(proj.loader.all_objects)
+            # print(proj.loader.requested_names)
+            # print(proj.loader.initial_load_objects)
             #exit()
             # for register in t_0x0548:
             #     print(register,hex(t_0x0548[register]))
@@ -632,6 +632,10 @@ class SemaSCDG:
             self.call_sim.system_call_table = self.call_sim.ddl_loader.load(proj,True if (self.is_packed and False) else False,dll)
         else:
            self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(proj)
+           
+        self.log.info("System call table loaded")
+        self.log.info("System call table size : " + str(len(self.call_sim.system_call_table)))
+        self.log.info("System call table : " + str(self.call_sim.system_call_table))
         
 
         # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows)
@@ -776,6 +780,7 @@ class SemaSCDG:
         self.call_sim.custom_hook_static(proj)
 
         if os_obj != "windows":
+            self.call_sim.custom_hook_linux_symbols(proj)
             self.call_sim.custom_hook_no_symbols(proj)
         else:
             self.call_sim.custom_hook_windows_symbols(proj)  #TODO ue if (self.is_packed and False) else False,symbs)
@@ -1253,7 +1258,7 @@ class SemaSCDG:
         g.build_graph(self.scdg_fin, format_out_json=format_out_json)
         
         if csv_file:
-            df = df.append({"familly":self.familly,
+            df = df.concat({"familly":self.familly,
                             "filename": nameFileShort, 
                              "time": elapsed_time,
                              "date":datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -1373,7 +1378,7 @@ class SemaSCDG:
                     "trace": self.scdg[stateDead.globals["id"]],
                 }
                 dump_id = dump_id + 1
-                self.scdg_fin.append(self.scdg[state.globals["id"]])
+                self.scdg_fin.append(self.scdg[stateDead.globals["id"]])
 
         for state in simgr.active:
             hashVal = hash(str(self.scdg[state.globals["id"]]))
@@ -1387,7 +1392,7 @@ class SemaSCDG:
                 self.scdg_fin.append(self.scdg[state.globals["id"]])
 
         for error in simgr.errored:
-            hashVal = hash(str(self.scdg[error.globals["id"]]))
+            hashVal = hash(str(self.scdg[error.state.globals["id"]]))
             if hashVal not in dic_hash_SCDG:
                 dic_hash_SCDG[hashVal] = 1
                 dump_file[dump_id] = {
@@ -1395,7 +1400,7 @@ class SemaSCDG:
                     "trace": self.scdg[error.state.globals["id"]],
                 }
                 dump_id = dump_id + 1
-                self.scdg_fin.append(self.scdg[error.globals["id"]])
+                self.scdg_fin.append(self.scdg[error.state.globals["id"]])
 
         for state in simgr.pause:
             hashVal = hash(str(self.scdg[state.globals["id"]]))
@@ -1574,7 +1579,7 @@ class SemaSCDG:
                 self.build_scdg(args,is_fl=is_fl,csv_file=csv_file)
             except Exception as e:
                 self.log.info(e)
-                self.log.info("Error: "+file+" is not a valid binary")
+                self.log.info("Error: "+self.inputs+" is not a valid binary")
             self.current_exps = 1
         else:
             import progressbar
