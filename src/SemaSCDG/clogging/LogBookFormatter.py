@@ -24,7 +24,7 @@ log_std = ColorizedStderrHandler(bubble=True)
 log_std.formatter = log_type
 # Log print to file
 log_file = TimedRotatingFileHandler(
-    os.path.join(LOG_DIR, '%s.scdg.log' % 'log'),date_format='%Y-%m-%d', bubble=True, encoding='utf-8')
+    os.path.join(LOG_DIR, '%s.scdg.ans' % 'log'),date_format='%Y-%m-%d', bubble=True, encoding='utf-8')
 log_file.formatter = log_type
 
 # Script log

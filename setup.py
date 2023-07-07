@@ -36,7 +36,7 @@ setup(name='sema-tc',
       install_requires=[
           'pymongo', # malwexp
           'pyzipper',  
-          'click==8.0.3', # for task (8.0.3) 7.1.2
+          'click==8.1.3', #==8.0.3', # for task (8.0.3) 7.1.2
           'task',
           'requests',
           'graphviz',

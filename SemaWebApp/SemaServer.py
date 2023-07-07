@@ -839,7 +839,7 @@ class SemaServer:
         if subdf is not None:
             df_csv = subdf
             
-        csv_text = df_csv.to_csv()
+        # csv_text = df_csv.to_csv()
         
         output = "df_csv.html"
         export(df_csv, output)
