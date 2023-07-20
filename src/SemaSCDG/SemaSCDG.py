@@ -733,6 +733,7 @@ class SemaSCDG:
             # options.add(angr.options.UNICORN)
             # options.add(angr.options.UNICORN_SYM_REGS_SUPPORT)
             # options.add(angr.options.UNICORN_HANDLE_TRANSMIT_SYSCALL)
+
         if self.debug_error:
             pass
             # options.add(angr.options.TRACK_JMP_ACTIONS)
@@ -742,8 +743,11 @@ class SemaSCDG:
         self.log.info("Entry_state address = " + str(addr))
         # Contains a program's memory, registers, filesystem data... any "live data" that can be changed by execution has a home in the state
         state = proj.factory.entry_state(
-            addr=addr, args=args_binary, add_options=options
+            addr=addr, args=args_binary, add_options=options,
         )
+
+        state.options.discard('ALL_FILES_EXIST')
+
         # import pdb
         # pdb.set_trace()
         if args.sim_file or True:
@@ -766,8 +770,8 @@ class SemaSCDG:
         pagefile = angr.SimFile("pagefile.sys", content=cont)
         state.fs.insert("pagefile.sys", pagefile)
 
-        state.register_plugin("plugin_env_var", PluginEnvVar())
-        state.plugin_env_var.setup_plugin(self.expl_method)
+        # state.register_plugin("plugin_env_var", PluginEnvVar())
+        # state.plugin_env_var.setup_plugin(self.expl_method)
 
         state.register_plugin("plugin_locale_info", PluginLocaleInfo())
         state.plugin_locale_info.setup_plugin()
@@ -821,11 +825,14 @@ class SemaSCDG:
                 f.close()
                 simfile.set_state(state)
 
-        # extensions = "doc docx xls xlsx ppt pptx pst ost msg eml vsd vsdx txt csv rtf wks wk1 pdf dwg onetoc2 snt jpeg jpg docb docm dot dotm dotx xlsm xlsb xlw xlt xlm xlc xltx xltm pptm pot pps ppsm ppsx ppam potx potm edb hwp 602 sxi sti sldx sldm sldm vdi vmdk vmx gpg aes ARC PAQ bz2 tbk bak tar tgz gz 7z rar zip backup iso vcd bmp png gif raw cgm tif tiff nef psd ai svg djvu m4u m3u mid wma flv 3g2 mkv 3gp mp4 mov avi asf mpeg vob mpg wmv fla swf wav mp3 sh class jar java rb asp php jsp brd sch dch dip pl vb vbs ps1 bat cmd js asm h pas cpp c cs suo sln ldf mdf ibd myi myd frm odb dbf db mdb accdb sql sqlitedb sqlite3 asc lay6 lay mml sxm otg odg uop std sxd otp odp wb2 slk dif stc sxc ots ods 3dm max 3ds uot stw sxw ott odt pem p12 csr crt key pfx der"
-        # for ext in extensions.split():
-        #     filename = '/home/Documents/afile' + ext
-        #     simfile = angr.SimFile(filename, contents='hello there'.encode())
-        #     state.fs.insert(filename, simfile)
+        extensions = "doc docx xls xlsx ppt pptx pst ost msg eml vsd vsdx txt csv rtf wks wk1 pdf dwg onetoc2 snt jpeg jpg docb docm dot dotm dotx xlsm xlsb xlw xlt xlm xlc xltx xltm pptm pot pps ppsm ppsx ppam potx potm edb hwp 602 sxi sti sldx sldm sldm vdi vmdk vmx gpg aes ARC PAQ bz2 tbk bak tar tgz gz 7z rar zip backup iso vcd bmp png gif raw cgm tif tiff nef psd ai svg djvu m4u m3u mid wma flv 3g2 mkv 3gp mp4 mov avi asf mpeg vob mpg wmv fla swf wav mp3 sh class jar java rb asp php jsp brd sch dch dip pl vb vbs ps1 bat cmd js asm h pas cpp c cs suo sln ldf mdf ibd myi myd frm odb dbf db mdb accdb sql sqlitedb sqlite3 asc lay6 lay mml sxm otg odg uop std sxd otp odp wb2 slk dif stc sxc ots ods 3dm max 3ds uot stw sxw ott odt pem p12 csr crt key pfx der"
+        
+        # okay great it's reading this like i want it to
+        # how can i con
+        directory_simfile = angr.SimFile('/home/user/Desktop', content='wtf why has this been so annoying')
+        directory_simfile.set_state(state)
+        state.fs.insert('/home/user/Desktop', directory_simfile)
+        self.log.info('inserted \'/home/user/Desktop\' SimFile')
 
 
 
@@ -1332,7 +1339,7 @@ class SemaSCDG:
         self.log.info("Syscalls Found:" + str(self.call_sim.syscall_found))
         self.log.info("Loaded libraries:" + str(proj.loader.requested_names))
 
-        total_env_var = state.plugin_env_var.ending_state(simgr)
+        #total_env_var = state.plugin_env_var.ending_state(simgr)
 
         total_registery = state.plugin_registery.ending_state(simgr)
 
@@ -1340,7 +1347,7 @@ class SemaSCDG:
 
         total_res = state.plugin_resources.ending_state(simgr)
 
-        self.log.info("Environment variables:" + str(total_env_var))
+        #self.log.info("Environment variables:" + str(total_env_var))
         self.log.info("Registery variables:" + str(total_registery))
         self.log.info("Locale informations variables:" + str(total_locale))
         self.log.info("Resources variables:" + str(total_res))
