@@ -6,23 +6,25 @@ import logging
 lw = logging.getLogger("CustomSimProcedureLinux")
 logging.getLogger("CustomSimProcedureLinux").setLevel("INFO")
 
+
+# should be safe bc gonnacry doesn't use fields of DIR *
 class opendir(angr.SimProcedure):
     def run(self, fname):
         lw.info(self.cc)
+        print('='*250)
+        fname_str = self.state.memory.load(fname,16)
+        print("opening directory ", self.state.solver.eval(fname_str, cast_to=bytes))
         p_open = self.inline_call(open, fname, 0o200000, 0)  # O_DIRECTORY
         # using the same hack we used to use for fopen etc... using the fd as a pointer
-        print("Tried to open directory: " + fname + ". Returned file descriptor: " + str(p_open.ret_expr))
+
+        # add check for DIR info
+        print(p_open.ret_expr)
+        print('='*250)
         return p_open.ret_expr
 
-# import angr
-# import logging
+from collections import namedtuple
 
-# lw = logging.getLogger("CustomSimProcedureLinux")
-# logging.getLogger("CustomSimProcedureLinux").setLevel("INFO")
-
-# from collections import namedtuple
-
-# Dirent = namedtuple("dirent", ("d_ino", "d_off", "d_reclen", "d_type", "d_name"))
+Dirent = namedtuple("dirent", ("d_ino", "d_off", "d_reclen", "d_type", "d_name"))
 
 
 # class opendir(angr.SimProcedure):
@@ -40,7 +42,7 @@ class opendir(angr.SimProcedure):
 #         malloc = angr.SIM_PROCEDURES["libc"]["malloc"]
 #         pointer = self.inline_call(malloc, 19 + 256).ret_expr
 #         self._store_amd64(pointer)
-#         return self.state.solver.If(self.condition, pointer, 0)
+#         return pointer #self.state.solver.If(self.condition, pointer, 0)
 
 #     def instrument(self):
 #         """

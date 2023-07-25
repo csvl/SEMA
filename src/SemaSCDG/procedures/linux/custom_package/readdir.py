@@ -23,6 +23,7 @@ Dirent = namedtuple("dirent", ("d_ino", "d_off", "d_reclen", "d_type", "d_name")
 class readdir(angr.SimProcedure):
     struct = None
     condition = None
+    out_of_files = False
 
     def run(self, dirp):  # pylint: disable=arguments-differ
         # TODO: make sure argument is actually a DIR struct
@@ -35,17 +36,27 @@ class readdir(angr.SimProcedure):
         malloc = angr.SIM_PROCEDURES["libc"]["malloc"]
         pointer = self.inline_call(malloc, 19 + 256).ret_expr
         self._store_amd64(pointer)
-        lw.error("HELLO"*100)
-        return self.state.solver.If(self.condition, pointer, 0)
+        print("*"*250)
+        return pointer if not self.out_of_files else 0 # TODO: self.state.solver.If(self.condition, pointer, 0)
 
-    def instrument(self):
+    def instrument(self, dirp):
         """
         Override this function to instrument the SimProcedure.
 
         The two useful variables you can override are self.struct, a named tuple of all the struct
         fields, and self.condition, the condition for whether the function succeeds.
         """
-        pass
+        if dirp.eof():
+            self.out_of_files = True
+            return
+        if dirp.tell() == 0:
+            dirp.seek(offset=275) # size of 1 dirent struct i hope
+        
+        self.struct.d_ino, readsize = dirp.read_data(8) # 8bytes i hope
+        self.struct.d_off, readsize = dirp.read_data(8)
+        self.struct.d_reclen, readsize = dirp.read_data(2)
+        self.struct.d_type, readsize = dirp.read_data(1)
+        self.struct.d_name, readsize = dirp.read_data(256)
 
     def _build_amd64(self):
         self.struct = Dirent(
