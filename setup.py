@@ -32,6 +32,7 @@ setup(name='sema-tc',
           "submodules/*"
         ],
       },
+      # https://github.com/angr/angr/pull/3895
       setup_requires=['wheel'],
       install_requires=[
           'pymongo', # malwexp
@@ -42,7 +43,7 @@ setup(name='sema-tc',
           'graphviz',
           'monkeyhex',
           "protobuf==3.20.*",
-          'angr==9.2.21', # 8.20.7.27 for symbion (not working after) 9.2.21 -> no present in pypy
+          'angr==9.2.61', # 8.20.7.27 for symbion (not working after) 9.2.21 -> no present in pypy
           'researchpy',
           'hypothesis',
           'seaborn',

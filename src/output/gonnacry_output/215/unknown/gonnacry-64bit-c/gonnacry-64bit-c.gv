@@ -1,0 +1,502 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4199616.main
+gonnacry-64bit-c
+<BV128 arg0_54_128>"]
+	1 [label="0x4014df.__libc_start_main
+4199849
+2
+576460752303357808
+0
+0"]
+	2 [label="0x402da2.getuid
+"]
+	3 [label="0x402daf.getpwuid
+1000"]
+	4 [label="0x402dc3.strlen
+/home/user"]
+	5 [label="0x402dcb.malloc
+10"]
+	4 -> 5 [label="(0-->1)"]
+	6 [label="0x402de6.strcpy
+/home/user
+3221336864"]
+	4 -> 6 [label="(1-->1)"]
+	5 -> 6 [label="(0-->0)"]
+	7 [label="0x402df2.strlen
+/home/user"]
+	4 -> 7 [label="(1-->1)"]
+	6 -> 7 [label="(1-->1)"]
+	4 -> 7 [label="(0-->0)"]
+	5 -> 7 [label="(1-->0)"]
+	8 [label="0x402f63.strlen
+/home/user/"]
+	9 [label="0x402f6f.malloc
+20"]
+	10 [label="0x402f86.strcpy
+/home/user/
+3221336960"]
+	8 -> 10 [label="(1-->1)"]
+	5 -> 10 [label="(0-->2)"]
+	6 -> 10 [label="(0-->2)"]
+	9 -> 10 [label="(0-->0)"]
+	11 [label="0x402f92.strlen
+/home/user/"]
+	8 -> 11 [label="(1-->1)"]
+	10 -> 11 [label="(1-->1)"]
+	8 -> 11 [label="(0-->0)"]
+	12 [label="0x4030db.opendir
+/home/user/Desktop/"]
+	13 [label="0x4030f2.closedir
+3221337040"]
+	12 -> 13 [label="(0-->1)"]
+	14 [label="0x402e1f.getuid
+"]
+	2 -> 14 [label="(0-->0)"]
+	15 [label="0x402e2c.getpwuid
+1000"]
+	3 -> 15 [label="(1-->1)"]
+	16 [label="0x402e55.strlen
+/home/user/"]
+	8 -> 16 [label="(1-->1)"]
+	10 -> 16 [label="(1-->1)"]
+	11 -> 16 [label="(1-->1)"]
+	8 -> 16 [label="(0-->0)"]
+	11 -> 16 [label="(0-->0)"]
+	17 [label="0x402e61.malloc
+32"]
+	18 [label="0x402e71.strlen
+3221337696"]
+	17 -> 18 [label="(0-->1)"]
+	19 [label="0x402e85.memset
+3221337696
+0
+4"]
+	17 -> 19 [label="(0-->1)"]
+	18 -> 19 [label="(1-->1)"]
+	18 -> 19 [label="(0-->3)"]
+	17 -> 19 [label="(0-->0)"]
+	18 -> 19 [label="(1-->0)"]
+	20 [label="0x402e98.strcpy
+/home/user/
+3221336960"]
+	8 -> 20 [label="(1-->1)"]
+	10 -> 20 [label="(1-->1)"]
+	11 -> 20 [label="(1-->1)"]
+	16 -> 20 [label="(1-->1)"]
+	5 -> 20 [label="(0-->2)"]
+	6 -> 20 [label="(0-->2)"]
+	10 -> 20 [label="(2-->2)"]
+	17 -> 20 [label="(0-->0)"]
+	18 -> 20 [label="(1-->0)"]
+	19 -> 20 [label="(1-->0)"]
+	19 -> 20 [label="(0-->0)"]
+	21 [label="0x402ea4.strlen
+/home/user/"]
+	8 -> 21 [label="(1-->1)"]
+	10 -> 21 [label="(1-->1)"]
+	11 -> 21 [label="(1-->1)"]
+	16 -> 21 [label="(1-->1)"]
+	20 -> 21 [label="(1-->1)"]
+	8 -> 21 [label="(0-->0)"]
+	11 -> 21 [label="(0-->0)"]
+	16 -> 21 [label="(0-->0)"]
+	22 [label="0x402ef2.strlen
+user"]
+	18 -> 22 [label="(0-->0)"]
+	19 -> 22 [label="(3-->0)"]
+	23 [label="0x402efe.malloc
+13"]
+	24 [label="0x402f26.strcat
+/media/
+user"]
+	22 -> 24 [label="(1-->2)"]
+	23 -> 24 [label="(0-->0)"]
+	25 [label="0x402f32.strlen
+/media/user"]
+	8 -> 25 [label="(0-->0)"]
+	11 -> 25 [label="(0-->0)"]
+	16 -> 25 [label="(0-->0)"]
+	21 -> 25 [label="(0-->0)"]
+	26 [label="0x402411.opendir
+/home/user/"]
+	8 -> 26 [label="(1-->1)"]
+	10 -> 26 [label="(1-->1)"]
+	11 -> 26 [label="(1-->1)"]
+	16 -> 26 [label="(1-->1)"]
+	20 -> 26 [label="(1-->1)"]
+	21 -> 26 [label="(1-->1)"]
+	27 [label="0x402691.readdir
+3221337776"]
+	26 -> 27 [label="(0-->1)"]
+	28 [label="0x402411.opendir
+/home/user/.local/share/Trash/"]
+	29 [label="0x402691.readdir
+3221338304"]
+	28 -> 29 [label="(0-->1)"]
+	30 [label="0x402444.strcpy
+doc docx xls xlsx ppt pptx pst ost msg eml vsd vsdx txt csv rtf wks wk1 pdf dwg onetoc2 snt jpeg jpg docb docm dot dotm dotx xlsm xlsb xlw xlt xlm xlc xltx xltm pptm pot pps ppsm ppsx ppam potx potm edb hwp 602 sxi sti sldx sldm sldm vdi vmdk vmx gpg aes ARC PAQ bz2 tbk bak tar tgz gz 7z rar zip backup iso vcd bmp png gif raw cgm tif tiff nef psd ai svg djvu m4u m3u mid wma flv 3g2 mkv 3gp mp4 mov avi asf mpeg vob mpg wmv fla swf wav mp3 sh class jar java rb asp php jsp brd sch dch dip pl vb vbs ps1 bat cmd js asm h pas cpp c cs suo sln ldf mdf ibd myi myd frm odb dbf db mdb accdb sql sqlitedb sqlite3 asc lay6 lay mml sxm otg odg uop std sxd otp odp wb2 slk dif stc sxc ots ods 3dm max 3ds uot stw sxw ott odt pem p12 csr crt key pfx der
+576460752303356128"]
+	31 [label="0x402466.strlen
+/home/user/.local/share/Trash/"]
+	28 -> 31 [label="(1-->1)"]
+	32 [label="0x40247c.strlen
+/file.doc"]
+	33 [label="0x40248b.malloc
+41"]
+	34 [label="0x4024ab.strcpy
+/home/user/.local/share/Trash/
+3221337696"]
+	28 -> 34 [label="(1-->1)"]
+	31 -> 34 [label="(1-->1)"]
+	17 -> 34 [label="(0-->2)"]
+	18 -> 34 [label="(1-->2)"]
+	19 -> 34 [label="(1-->2)"]
+	19 -> 34 [label="(0-->2)"]
+	20 -> 34 [label="(0-->2)"]
+	33 -> 34 [label="(0-->0)"]
+	35 [label="0x4024c8.strcat
+/home/user/.local/share/Trash/
+/file.doc"]
+	28 -> 35 [label="(1-->1)"]
+	31 -> 35 [label="(1-->1)"]
+	34 -> 35 [label="(1-->1)"]
+	32 -> 35 [label="(1-->2)"]
+	33 -> 35 [label="(0-->0)"]
+	34 -> 35 [label="(0-->0)"]
+	36 [label="0x4024e1.strtok
+576460752303356880
+4210784"]
+	30 -> 36 [label="(0-->1)"]
+	1 -> 36 [label="(0-->0)"]
+	37 [label="0x402d62.strrchr
+3221338832
+46"]
+	33 -> 37 [label="(0-->1)"]
+	34 -> 37 [label="(0-->1)"]
+	35 -> 37 [label="(0-->1)"]
+	38 [label="0x40250e.strcmp
+3221338868
+576460752303356880"]
+	30 -> 38 [label="(0-->2)"]
+	36 -> 38 [label="(1-->2)"]
+	13 -> 38 [label="(0-->0)"]
+	39 [label="0x40254b.strtok
+0
+4210784"]
+	36 -> 39 [label="(2-->2)"]
+	40 [label="0x40247c.strlen
+/file.docx"]
+	4 -> 40 [label="(0-->0)"]
+	5 -> 40 [label="(1-->0)"]
+	7 -> 40 [label="(0-->0)"]
+	41 [label="0x40248b.malloc
+42"]
+	42 [label="0x4024c8.strcat
+/home/user/.local/share/Trash/
+/file.docx"]
+	28 -> 42 [label="(1-->1)"]
+	31 -> 42 [label="(1-->1)"]
+	34 -> 42 [label="(1-->1)"]
+	35 -> 42 [label="(1-->1)"]
+	40 -> 42 [label="(1-->2)"]
+	41 -> 42 [label="(0-->0)"]
+	43 [label="0x402d62.strrchr
+3221338896
+46"]
+	41 -> 43 [label="(0-->1)"]
+	42 -> 43 [label="(0-->1)"]
+	37 -> 43 [label="(2-->2)"]
+	44 [label="0x40250e.strcmp
+3221338932
+576460752303356880"]
+	30 -> 44 [label="(0-->2)"]
+	36 -> 44 [label="(1-->2)"]
+	38 -> 44 [label="(2-->2)"]
+	45 [label="0x40214e.strlen
+/home/user/.local/share/Trash//file.docx"]
+	46 [label="0x40215b.malloc
+40"]
+	45 -> 46 [label="(0-->1)"]
+	47 [label="0x40216f.malloc
+41"]
+	33 -> 47 [label="(1-->1)"]
+	48 [label="0x402191.strcpy
+/home/user/.local/share/Trash//file.docx
+3221338896"]
+	45 -> 48 [label="(1-->1)"]
+	41 -> 48 [label="(0-->2)"]
+	42 -> 48 [label="(0-->2)"]
+	43 -> 48 [label="(1-->2)"]
+	47 -> 48 [label="(0-->0)"]
+	49 [label="0x402591.strcmp
+3221332307
+4210786"]
+	50 [label="0x4025b6.strcmp
+3221332307
+4210789"]
+	49 -> 50 [label="(1-->1)"]
+	51 [label="0x4025df.strlen
+/home/user/.local/share/Trash/"]
+	28 -> 51 [label="(1-->1)"]
+	31 -> 51 [label="(1-->1)"]
+	34 -> 51 [label="(1-->1)"]
+	35 -> 51 [label="(1-->1)"]
+	42 -> 51 [label="(1-->1)"]
+	31 -> 51 [label="(0-->0)"]
+	52 [label="0x4025f1.strlen
+3221332307"]
+	49 -> 52 [label="(1-->1)"]
+	50 -> 52 [label="(1-->1)"]
+	53 [label="0x402600.malloc
+32"]
+	17 -> 53 [label="(1-->1)"]
+	54 [label="0x402620.strcpy
+/home/user/.local/share/Trash/
+3221337696"]
+	28 -> 54 [label="(1-->1)"]
+	31 -> 54 [label="(1-->1)"]
+	34 -> 54 [label="(1-->1)"]
+	35 -> 54 [label="(1-->1)"]
+	42 -> 54 [label="(1-->1)"]
+	51 -> 54 [label="(1-->1)"]
+	17 -> 54 [label="(0-->2)"]
+	18 -> 54 [label="(1-->2)"]
+	19 -> 54 [label="(1-->2)"]
+	19 -> 54 [label="(0-->2)"]
+	20 -> 54 [label="(0-->2)"]
+	34 -> 54 [label="(2-->2)"]
+	53 -> 54 [label="(0-->0)"]
+	55 [label="0x402639.strcat
+3221339088
+3221332307"]
+	53 -> 55 [label="(0-->1)"]
+	54 -> 55 [label="(0-->1)"]
+	49 -> 55 [label="(1-->2)"]
+	50 -> 55 [label="(1-->2)"]
+	52 -> 55 [label="(1-->2)"]
+	56 [label="0x402648.strlen
+/home/user/.local/share/Trash/"]
+	28 -> 56 [label="(1-->1)"]
+	31 -> 56 [label="(1-->1)"]
+	34 -> 56 [label="(1-->1)"]
+	35 -> 56 [label="(1-->1)"]
+	42 -> 56 [label="(1-->1)"]
+	51 -> 56 [label="(1-->1)"]
+	54 -> 56 [label="(1-->1)"]
+	31 -> 56 [label="(0-->0)"]
+	51 -> 56 [label="(0-->0)"]
+	57 [label="0x402411.opendir
+/home/user/.local/share/Trash//"]
+	58 [label="0x402691.readdir
+3221339136"]
+	57 -> 58 [label="(0-->1)"]
+	59 [label="0x402682.free
+3221339088"]
+	53 -> 59 [label="(0-->1)"]
+	54 -> 59 [label="(0-->1)"]
+	55 -> 59 [label="(1-->1)"]
+	1 -> 59 [label="(0-->0)"]
+	36 -> 59 [label="(0-->0)"]
+	60 [label="0x402411.opendir
+/media/user/"]
+	61 [label="0x402691.readdir
+3221339664"]
+	60 -> 61 [label="(0-->1)"]
+	62 [label="0x402466.strlen
+/media/user/"]
+	60 -> 62 [label="(1-->1)"]
+	63 [label="0x40248b.malloc
+23"]
+	53 -> 63 [label="(0-->0)"]
+	54 -> 63 [label="(0-->0)"]
+	55 -> 63 [label="(1-->0)"]
+	59 -> 63 [label="(1-->0)"]
+	64 [label="0x4024ab.strcpy
+/media/user/
+3221337744"]
+	60 -> 64 [label="(1-->1)"]
+	62 -> 64 [label="(1-->1)"]
+	23 -> 64 [label="(0-->2)"]
+	24 -> 64 [label="(0-->2)"]
+	53 -> 64 [label="(0-->0)"]
+	54 -> 64 [label="(0-->0)"]
+	55 -> 64 [label="(1-->0)"]
+	59 -> 64 [label="(1-->0)"]
+	63 -> 64 [label="(0-->0)"]
+	65 [label="0x4024c8.strcat
+/media/user/
+/file.doc"]
+	60 -> 65 [label="(1-->1)"]
+	62 -> 65 [label="(1-->1)"]
+	64 -> 65 [label="(1-->1)"]
+	32 -> 65 [label="(1-->2)"]
+	35 -> 65 [label="(2-->2)"]
+	53 -> 65 [label="(0-->0)"]
+	54 -> 65 [label="(0-->0)"]
+	55 -> 65 [label="(1-->0)"]
+	59 -> 65 [label="(1-->0)"]
+	63 -> 65 [label="(0-->0)"]
+	64 -> 65 [label="(0-->0)"]
+	66 [label="0x402d62.strrchr
+3221339088
+46"]
+	53 -> 66 [label="(0-->1)"]
+	54 -> 66 [label="(0-->1)"]
+	55 -> 66 [label="(1-->1)"]
+	59 -> 66 [label="(1-->1)"]
+	63 -> 66 [label="(0-->1)"]
+	64 -> 66 [label="(0-->1)"]
+	65 -> 66 [label="(0-->1)"]
+	37 -> 66 [label="(2-->2)"]
+	43 -> 66 [label="(2-->2)"]
+	67 [label="0x40250e.strcmp
+3221339106
+576460752303356880"]
+	30 -> 67 [label="(0-->2)"]
+	36 -> 67 [label="(1-->2)"]
+	38 -> 67 [label="(2-->2)"]
+	44 -> 67 [label="(2-->2)"]
+	13 -> 67 [label="(0-->0)"]
+	38 -> 67 [label="(0-->0)"]
+	68 [label="0x40248b.malloc
+24"]
+	69 [label="0x4024c8.strcat
+/media/user/
+/file.docx"]
+	60 -> 69 [label="(1-->1)"]
+	62 -> 69 [label="(1-->1)"]
+	64 -> 69 [label="(1-->1)"]
+	65 -> 69 [label="(1-->1)"]
+	40 -> 69 [label="(1-->2)"]
+	42 -> 69 [label="(2-->2)"]
+	68 -> 69 [label="(0-->0)"]
+	70 [label="0x402d62.strrchr
+3221340192
+46"]
+	68 -> 70 [label="(0-->1)"]
+	69 -> 70 [label="(0-->1)"]
+	37 -> 70 [label="(2-->2)"]
+	43 -> 70 [label="(2-->2)"]
+	66 -> 70 [label="(2-->2)"]
+	71 [label="0x40250e.strcmp
+3221340210
+576460752303356880"]
+	30 -> 71 [label="(0-->2)"]
+	36 -> 71 [label="(1-->2)"]
+	38 -> 71 [label="(2-->2)"]
+	44 -> 71 [label="(2-->2)"]
+	67 -> 71 [label="(2-->2)"]
+	13 -> 71 [label="(0-->0)"]
+	38 -> 71 [label="(0-->0)"]
+	67 -> 71 [label="(0-->0)"]
+	72 [label="0x40247c.strlen
+/file.xls"]
+	32 -> 72 [label="(0-->0)"]
+	73 [label="0x4024c8.strcat
+/media/user/
+/file.xls"]
+	60 -> 73 [label="(1-->1)"]
+	62 -> 73 [label="(1-->1)"]
+	64 -> 73 [label="(1-->1)"]
+	65 -> 73 [label="(1-->1)"]
+	69 -> 73 [label="(1-->1)"]
+	72 -> 73 [label="(1-->2)"]
+	74 [label="0x402d62.strrchr
+3221340240
+46"]
+	73 -> 74 [label="(0-->1)"]
+	37 -> 74 [label="(2-->2)"]
+	43 -> 74 [label="(2-->2)"]
+	66 -> 74 [label="(2-->2)"]
+	70 -> 74 [label="(2-->2)"]
+	75 [label="0x40250e.strcmp
+3221340258
+576460752303356880"]
+	30 -> 75 [label="(0-->2)"]
+	36 -> 75 [label="(1-->2)"]
+	38 -> 75 [label="(2-->2)"]
+	44 -> 75 [label="(2-->2)"]
+	67 -> 75 [label="(2-->2)"]
+	71 -> 75 [label="(2-->2)"]
+	76 [label="0x401747.fopen
+/home/user/.local/share/Trash//file.docx
+4210714"]
+	45 -> 76 [label="(1-->1)"]
+	48 -> 76 [label="(1-->1)"]
+	77 [label="0x401766.strlen
+/home/user/.local/share/Trash//file.docx"]
+	45 -> 77 [label="(1-->1)"]
+	48 -> 77 [label="(1-->1)"]
+	76 -> 77 [label="(1-->1)"]
+	45 -> 77 [label="(0-->0)"]
+	46 -> 77 [label="(1-->0)"]
+	78 [label="0x401772.malloc
+51"]
+	79 [label="0x40178d.strcpy
+/home/user/.local/share/Trash//file.docx
+3221339024"]
+	45 -> 79 [label="(1-->1)"]
+	48 -> 79 [label="(1-->1)"]
+	76 -> 79 [label="(1-->1)"]
+	77 -> 79 [label="(1-->1)"]
+	47 -> 79 [label="(0-->2)"]
+	48 -> 79 [label="(0-->2)"]
+	78 -> 79 [label="(0-->0)"]
+	80 [label="0x401799.strlen
+/home/user/.local/share/Trash//file.docx"]
+	45 -> 80 [label="(1-->1)"]
+	48 -> 80 [label="(1-->1)"]
+	76 -> 80 [label="(1-->1)"]
+	77 -> 80 [label="(1-->1)"]
+	79 -> 80 [label="(1-->1)"]
+	45 -> 80 [label="(0-->0)"]
+	46 -> 80 [label="(1-->0)"]
+	77 -> 80 [label="(0-->0)"]
+	81 [label="0x4017c6.fopen
+/home/user/.local/share/Trash//file.docx.GNNCRY
+4210717"]
+	82 [label="0x40311f.malloc
+17"]
+	83 [label="0x403138.rand
+"]
+	2 -> 83 [label="(0-->0)"]
+	14 -> 83 [label="(0-->0)"]
+	84 [label="0x40311f.malloc
+33"]
+	85 [label="0x67bc09.malloc
+168"]
+	86 [label="0x67bc1e.memset
+3221340960
+0
+168"]
+	85 -> 86 [label="(0-->1)"]
+	85 -> 86 [label="(1-->3)"]
+	85 -> 86 [label="(0-->0)"]
+	87 [label="0x66c398.free
+0"]
+	1 -> 87 [label="(0-->0)"]
+	36 -> 87 [label="(0-->0)"]
+	59 -> 87 [label="(0-->0)"]
+	88 [label="0x67bc09.malloc
+4168"]
+	89 [label="0x67bc1e.memset
+3221341152
+0
+4168"]
+	88 -> 89 [label="(0-->1)"]
+	88 -> 89 [label="(1-->3)"]
+	88 -> 89 [label="(0-->0)"]
+	90 [label="0x66d3ad.memcpy
+3221341000
+3221340984
+8"]
+	91 [label="0x66d396.memcpy
+3221340984
+3221340848
+8"]
+	90 -> 91 [label="(2-->1)"]
+	82 -> 91 [label="(0-->2)"]
+	90 -> 91 [label="(3-->3)"]
+	90 -> 91 [label="(2-->0)"]
+}

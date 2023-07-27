@@ -8,4 +8,4 @@ class getuid(angr.SimProcedure):
     # pylint: disable=arguments-differ
     def run(self):
         lw.info(self.cc)
-        return 1000
+        return 1000 # TODO return 0 also for root
