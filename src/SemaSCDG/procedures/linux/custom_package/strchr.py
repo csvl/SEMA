@@ -8,7 +8,8 @@ class strrchr(angr.SimProcedure):
     # return address of the last occurrence
     # official angr version is more symbolic
     def run(self, string, searchedChar):
-        print("+"*250)
+        lw.info("+"*200)
+        lw.info('using strchr')
 
         if string.symbolic or searchedChar.symbolic:
             return self.state.solver.BVS(
@@ -31,4 +32,5 @@ class strrchr(angr.SimProcedure):
                 return offset
             offset -= 1
 
+        lw.info("+"*200)
         return string+offset

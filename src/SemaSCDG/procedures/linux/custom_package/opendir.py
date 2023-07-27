@@ -11,15 +11,15 @@ logging.getLogger("CustomSimProcedureLinux").setLevel("INFO")
 class opendir(angr.SimProcedure):
     def run(self, fname):
         lw.info(self.cc)
-        print('='*250)
-        fname_str = self.state.memory.load(fname,16)
-        print("opening directory ", self.state.solver.eval(fname_str, cast_to=bytes))
+        lw.info('='*250)
         p_open = self.inline_call(open, fname, 0o200000, 0)  # O_DIRECTORY
         # using the same hack we used to use for fopen etc... using the fd as a pointer
 
         # add check for DIR info
-        print(p_open.ret_expr)
-        print('='*250)
+        fname_str = self.state.memory.load(fname,32)
+        lw.info('trying to open directory: ' + str(self.state.solver.eval(fname_str, cast_to=bytes)))
+        lw.info('filepointer returned: ' + str(p_open.ret_expr))
+        lw.info('='*250)
         return p_open.ret_expr
 
 from collections import namedtuple

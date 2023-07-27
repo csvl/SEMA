@@ -825,7 +825,7 @@ class SemaSCDG:
                 f.close()
                 simfile.set_state(state)
 
-        extensions = "doc" # docx xls xlsx ppt pptx pst ost msg eml vsd vsdx txt csv rtf wks wk1 pdf dwg onetoc2 snt jpeg jpg docb docm dot dotm dotx xlsm xlsb xlw xlt xlm xlc xltx xltm pptm pot pps ppsm ppsx ppam potx potm edb hwp 602 sxi sti sldx sldm sldm vdi vmdk vmx gpg aes ARC PAQ bz2 tbk bak tar tgz gz 7z rar zip backup iso vcd bmp png gif raw cgm tif tiff nef psd ai svg djvu m4u m3u mid wma flv 3g2 mkv 3gp mp4 mov avi asf mpeg vob mpg wmv fla swf wav mp3 sh class jar java rb asp php jsp brd sch dch dip pl vb vbs ps1 bat cmd js asm h pas cpp c cs suo sln ldf mdf ibd myi myd frm odb dbf db mdb accdb sql sqlitedb sqlite3 asc lay6 lay mml sxm otg odg uop std sxd otp odp wb2 slk dif stc sxc ots ods 3dm max 3ds uot stw sxw ott odt pem p12 csr crt key pfx der"
+        extensions = "doc" # docx xls xlsx ppt pptx pst ost"# msg eml vsd vsdx txt csv rtf wks wk1 pdf dwg onetoc2 snt jpeg jpg docb docm dot dotm dotx xlsm xlsb xlw xlt xlm xlc xltx xltm pptm pot pps ppsm ppsx ppam potx potm edb hwp 602 sxi sti sldx sldm sldm vdi vmdk vmx gpg aes ARC PAQ bz2 tbk bak tar tgz gz 7z rar zip backup iso vcd bmp png gif raw cgm tif tiff nef psd ai svg djvu m4u m3u mid wma flv 3g2 mkv 3gp mp4 mov avi asf mpeg vob mpg wmv fla swf wav mp3 sh class jar java rb asp php jsp brd sch dch dip pl vb vbs ps1 bat cmd js asm h pas cpp c cs suo sln ldf mdf ibd myi myd frm odb dbf db mdb accdb sql sqlitedb sqlite3 asc lay6 lay mml sxm otg odg uop std sxd otp odp wb2 slk dif stc sxc ots ods 3dm max 3ds uot stw sxw ott odt pem p12 csr crt key pfx der"
         
         # okay great it's reading this like i want it to
         # how can i con
@@ -836,7 +836,7 @@ class SemaSCDG:
         
         directories = ['/home/user/', '/home/user/Desktop/', '/home/user/.local/share/Trash/', '/media/user/']
         for dir in directories:
-            for ext in extensions:
+            for ext in extensions.split():
                 sf = angr.SimFile(dir+'afile.'+ext, content='sigh')
                 sf.set_state(state)
                 state.fs.insert(dir+'afile.'+ext, sf)
@@ -846,24 +846,25 @@ class SemaSCDG:
         # don't include full path? work on that later
         for dir in directories:
             # directory file dirent
-            d_ino = self.state.solver.BVV(0,8*8)
-            d_off = self.state.solver.BVV(0,8*8)
-            d_reclen = self.state.solver.BVV(0, 2*8)
-            d_type = self.state.solver.BVV(4,1*8)
-            dirname = dir[:-1].encode()+b'\0'*(256-len(dir)) # dropping the last fslash
-            d_name = self.state.solver.BVV(dirname, 256*8)
-            content = claripy.concat(d_ino, d_off, d_reclen, d_type, d_name)
+            d_ino = state.solver.BVV(0,8*8)
+            d_off = state.solver.BVV(0,8*8)
+            d_reclen = state.solver.BVV(0, 2*8)
+            d_type = state.solver.BVV(4,1*8)
+            dirname = dir[:-1].encode()+b'\0'*(256-len(dir[:-1])) # dropping the last fslash
+            d_name = state.solver.BVV(dirname, 256*8)
+            content = claripy.Concat(d_ino, d_off, d_reclen, d_type, d_name)
 
-            for ext in extensions:
+            for ext in extensions.split():
                 # add each file dirent
-                d_ino = self.state.solver.BVV(0,8*8)
-                d_off = self.state.solver.BVV(0,8*8)
-                d_reclen = self.state.solver.BVV(0, 2*8)
-                d_type = self.state.solver.BVV(8,1*8)
+                d_ino = state.solver.BVV(0,8*8)
+                d_off = state.solver.BVV(0,8*8)
+                d_reclen = state.solver.BVV(0, 2*8)
+                d_type = state.solver.BVV(8,1*8)
                 fname = dir.encode()+b'afile.'+ext.encode()+b'\0'*(256-len(dir+'afile.'+ext))
-                d_name = self.state.solver.BVV(fname, 256*8)
+                d_name = state.solver.BVV(fname, 256*8)
 
-                content = claripy.concat(content, d_ino, d_off, d_reclen, d_type, d_name)
+                content = claripy.Concat(content, d_ino, d_off, d_reclen, d_type, d_name)
+                self.log.info('wrote filename afile.', ext, ' into directory file')
 
             sf = angr.SimFile(dir[:-1], content=content)
             sf.set_state(state)
