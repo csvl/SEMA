@@ -1476,6 +1476,9 @@ class SemaSCDG:
         return exploration_tech
 
     def setup_stash(self, tsimgr):
+        tsimgr.active[0].globals["strtok"] = []
+        tsimgr.active[0].globals["strtok_r"] = []
+
         tsimgr.active[0].globals["id"] = 0
         tsimgr.active[0].globals["JumpExcedeed"] = False
         tsimgr.active[0].globals["JumpTable"] = {}
