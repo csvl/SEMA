@@ -135,6 +135,12 @@ class CustomSimProcedure:
         "SetDefaultDllDirectories": 0,
         "CreateProcessA": [0, 1],
         "URLDownloadToFileA": [1,2],
+        'strcmp':[0,1],
+        'strcpy':[0,1],
+        'strcat': [0,1],
+        'strtok':[0,1],
+        'strtok_r':[0,1],
+        'strchr':0,
         #"fputc": 0,
         #"send":
     }   # ,'RegCreateKeyW':1}

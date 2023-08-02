@@ -860,7 +860,7 @@ class SemaSCDG:
                 d_off = state.solver.BVV(0,8*8)
                 d_reclen = state.solver.BVV(0, 2*8)
                 d_type = state.solver.BVV(8,1*8)
-                fname = dir.encode()+b'afile.'+ext.encode()+b'\0'*(256-len(dir+'afile.'+ext))
+                fname = b'afile.'+ext.encode()+b'\0'*(256-len('afile.'+ext))
                 d_name = state.solver.BVV(fname, 256*8)
 
                 content = claripy.Concat(content, d_ino, d_off, d_reclen, d_type, d_name)

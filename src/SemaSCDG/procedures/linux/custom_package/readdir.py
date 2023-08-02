@@ -27,7 +27,8 @@ class readdir(angr.SimProcedure):
 
     def run(self, dirp):  # pylint: disable=arguments-differ
         lw.info("*"*200)
-        lw.info('reading directory')
+        simdp = self.state.posix.get_fd(fd=dirp)
+        lw.info(f'reading directory: {simdp.file.name}')
         # TODO: make sure argument is actually a DIR struct
         if self.state.arch.name != "AMD64":
             lw.error("readdir SimProcedure is only implemented for AMD64")
@@ -41,7 +42,7 @@ class readdir(angr.SimProcedure):
         if self.out_of_files:
             lw.info('returned nullptr')
         else:
-            lw.info('returned dirent ptr'+str(hex(pointer)))
+            lw.info('returned dirent ptr: '+str(hex(pointer)))
         lw.info("*"*250)
         return 0 if self.out_of_files else pointer #if not self.out_of_files else 0 # TODO: self.state.solver.If(self.condition, pointer, 0)
 
