@@ -300,9 +300,15 @@ class PluginHooks: # TODO replace with classses
             def run(self, in_fd, out_fd, key, iv):
                 # doesn't matter what happens here, but you are responsible for figuring out how this is gonna
                 # interact with angr simfiles and stuff
+                print('0'*100)
+                print(in_fd)
+                print(out_fd)
 
-                print(in_fd.file.name, + 'A'*200)
-                print(out_fd.file.name, + 'A'*200)
+                # print(self.state.mem[in_fd].int)
+                # print(self.state.posix.get_fd(self.state.mem[in_fd].int).file.name)
+
+                print(key)
+                print(iv)
 
                 chunksize = 512 # because that's what it is in gonnacry
 
@@ -315,15 +321,17 @@ class PluginHooks: # TODO replace with classses
                 fwrite = angr.SIM_PROCEDURES["libc"]["fwrite"]
 
                 while(True):
-                    amt_read = self.inline_call(fread, buff, 1, chunksize, in_fd).return_expr
+                    amt_read = self.inline_call(fread, buff, 1, chunksize, in_fd).ret_expr
+
+                    print(amt_read)
 
                     self.inline_call(fwrite, buff, 1, amt_read, out_fd)
 
-                    if amt_read != chunksize or amt_read == 0:
+                    if self.state.solver.is_true(amt_read != chunksize) or self.state.solver.is_true(amt_read == 0):
                         break
 
 
-                malloc = angr.SIM_PROCEDURES["libc"]["free"]
+                free = angr.SIM_PROCEDURES["libc"]["free"]
                 buff = self.inline_call(free, buff).ret_expr
 
 
