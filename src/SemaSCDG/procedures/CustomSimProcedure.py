@@ -141,6 +141,11 @@ class CustomSimProcedure:
         'strtok':[0,1],
         'strtok_r':[0,1],
         'strchr':0,
+        'strlen':0,
+        'puts':0,
+        'strncmp': [0,1],
+        'printf': 0,
+        'fprintf': 1,
         #"fputc": 0,
         #"send":
     }   # ,'RegCreateKeyW':1}
@@ -1165,7 +1170,8 @@ class CustomSimProcedure:
                 try:
                     string = state.mem[args[index_str]].string.concrete
                     if hasattr(string, "decode"):
-                        args[index_str] = string.decode("utf-8")
+                        # args[index_str] = string.decode("utf-8")
+                        args[index_str] = string.decode()
                     else:
                         args[index_str] = string
                     #dic["ref_str"] = {(index_str + 1): arg_str}  # TODO

@@ -1,0 +1,1207 @@
+[
+    {
+        "0": {
+            "status": "active",
+            "trace": [
+                {
+                    "name": "main",
+                    "args": [
+                        "./conti_binary",
+                        "--path",
+                        "/home/user/"
+                    ],
+                    "addr": 4210983,
+                    "ret": "symbolic",
+                    "addr_func": 4210983
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        4096
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x40413b",
+                    "ret": 3221323840
+                },
+                {
+                    "name": "strcmp",
+                    "ref_str": {
+                        "1": 576460752303357895,
+                        "2": 4219854
+                    },
+                    "args": [
+                        576460752303357895,
+                        4219854
+                    ],
+                    "addr_func": "0xa9f150",
+                    "addr": "0x404472",
+                    "ret": 0
+                },
+                {
+                    "name": "strcmp",
+                    "ref_str": {
+                        "1": 4218895,
+                        "2": 4219854
+                    },
+                    "args": [
+                        4218895,
+                        4219854
+                    ],
+                    "addr_func": "0xa9f150",
+                    "addr": "0x40448c",
+                    "ret": 4294967295
+                },
+                {
+                    "name": "strcmp",
+                    "ref_str": {
+                        "1": 4218904,
+                        "2": 4219854
+                    },
+                    "args": [
+                        4218904,
+                        4219854
+                    ],
+                    "addr_func": "0xa9f150",
+                    "addr": "0x4044a6",
+                    "ret": 1
+                },
+                {
+                    "name": "strcmp",
+                    "ref_str": {
+                        "1": 4218917,
+                        "2": 4219854
+                    },
+                    "args": [
+                        4218917,
+                        4219854
+                    ],
+                    "addr_func": "0xa9f150",
+                    "addr": "0x4044c0",
+                    "ret": 1
+                },
+                {
+                    "name": "strcmp",
+                    "ref_str": {
+                        "1": 576460752303357895,
+                        "2": 4219935
+                    },
+                    "args": [
+                        576460752303357895,
+                        4219935
+                    ],
+                    "addr_func": "0xa9f150",
+                    "addr": "0x404472",
+                    "ret": 1
+                },
+                {
+                    "name": "strcmp",
+                    "ref_str": {
+                        "1": 576460752303357902,
+                        "2": 4219935
+                    },
+                    "args": [
+                        576460752303357902,
+                        4219935
+                    ],
+                    "addr_func": "0xa9f150",
+                    "addr": "0x404472",
+                    "ret": 1
+                },
+                {
+                    "name": "strcmp",
+                    "ref_str": {
+                        "1": 576460752303357895,
+                        "2": 4219961
+                    },
+                    "args": [
+                        576460752303357895,
+                        4219961
+                    ],
+                    "addr_func": "0xa9f150",
+                    "addr": "0x404472",
+                    "ret": 4294967295
+                },
+                {
+                    "name": "strcmp",
+                    "ref_str": {
+                        "1": 576460752303357902,
+                        "2": 4219961
+                    },
+                    "args": [
+                        576460752303357902,
+                        4219961
+                    ],
+                    "addr_func": "0xa9f150",
+                    "addr": "0x404472",
+                    "ret": 1
+                },
+                {
+                    "name": "strcmp",
+                    "ref_str": {
+                        "1": 576460752303357895,
+                        "2": 4218895
+                    },
+                    "args": [
+                        576460752303357895,
+                        4218895
+                    ],
+                    "addr_func": "0xa9f150",
+                    "addr": "0x404472",
+                    "ret": 1
+                },
+                {
+                    "name": "strcmp",
+                    "ref_str": {
+                        "1": 576460752303357902,
+                        "2": 4218895
+                    },
+                    "args": [
+                        576460752303357902,
+                        4218895
+                    ],
+                    "addr_func": "0xa9f150",
+                    "addr": "0x404472",
+                    "ret": 1
+                },
+                {
+                    "name": "strcmp",
+                    "ref_str": {
+                        "1": 576460752303357895,
+                        "2": 4218904
+                    },
+                    "args": [
+                        576460752303357895,
+                        4218904
+                    ],
+                    "addr_func": "0xa9f150",
+                    "addr": "0x404472",
+                    "ret": 4294967295
+                },
+                {
+                    "name": "strcmp",
+                    "ref_str": {
+                        "1": 576460752303357902,
+                        "2": 4218904
+                    },
+                    "args": [
+                        576460752303357902,
+                        4218904
+                    ],
+                    "addr_func": "0xa9f150",
+                    "addr": "0x404472",
+                    "ret": 1
+                },
+                {
+                    "name": "strcmp",
+                    "ref_str": {
+                        "1": 576460752303357895,
+                        "2": 4218917
+                    },
+                    "args": [
+                        576460752303357895,
+                        4218917
+                    ],
+                    "addr_func": "0xa9f150",
+                    "addr": "0x404472",
+                    "ret": 4294967295
+                },
+                {
+                    "name": "strcmp",
+                    "ref_str": {
+                        "1": 576460752303357902,
+                        "2": 4218917
+                    },
+                    "args": [
+                        576460752303357902,
+                        4218917
+                    ],
+                    "addr_func": "0xa9f150",
+                    "addr": "0x404472",
+                    "ret": 1
+                },
+                {
+                    "name": "puts",
+                    "ref_str": {
+                        "1": 4217696
+                    },
+                    "args": [
+                        "\n\n--------------------------------"
+                    ],
+                    "addr_func": "0xa84420",
+                    "addr": "0x4042ce",
+                    "ret": 35
+                },
+                {
+                    "name": "printf",
+                    "args": [
+                        4217736
+                    ],
+                    "addr_func": "0xa61c90",
+                    "addr": "0x4042e2",
+                    "ret": 31
+                },
+                {
+                    "name": "puts",
+                    "ref_str": {
+                        "1": 4217768
+                    },
+                    "args": [
+                        "\n--------------------------------\n"
+                    ],
+                    "addr_func": "0xa84420",
+                    "addr": "0x4042f1",
+                    "ret": 35
+                },
+                {
+                    "name": "strlen",
+                    "ref_str": {
+                        "1": 576460752303356928
+                    },
+                    "args": [
+                        "-----BEGIN RSA PUBLIC KEY-----\nMIICCgKCAgEAzE9EcNlVWVD90IXnZbm2xF5enn2UtGv9yFDoufSvFTAs2524xqqx\nvSQw3WmX4OUdth5/EuWixPAKw2X/nN2qx+AeAC4rT7bvHzSpyH0nQT1LJHZlIJWV\nOl95FLY15sppOTb7cFBItIeSV+EuPsaf6mI6hPT83mdEbkZImNN8/tmXJ3CHQ3TL\nbcz+H1skTZlnpo4D2sWEUU+A/w1hnI0xW6KFQJwn6Kzt2wzBEnziaPYYP9+YyQnH\nh7v+blvxCpqedTWQfMEnpYoGd8eaoCP8AAWOcxXKAbTeBZRfR2J5VD58c7hy1Q9E\n12h0q+WZpGKhqrGq/r5iWRnaXqIOqwbgb/yHWz/xpUQLOaKmmYicdxy6brS6zNTg\n8vVJNo6uUUPlipYRcfkURb88/jeGV3WdrJp5vY1HOJtsku5PKRqS1t6P32WtJa7Z\nNEt3KswSSuC9AabFYgBvq8Kmhr+UNBh0JWK2HP4cPwkS6cT9olmyr6nMBFmI7Mbk\nr5R88udWwNgtT9fgdGmLHNqHcWJN/uhdJiSy1kvSOIPcw0O3MfqH/KaB8Tqm3wjW\nLZcQ6ejtWFjbH7aIOYdynDBiych8gZBpaFoLW2D72LJk5pjXWM7DiGFYajlYnthG\nY4d5ymhbUfy748uKuZy0h2H7BAkcjV0Vc0yI1ycnwmvjOFaLm/3m2RMCAwEAAQ==\n-----END RSA PUBLIC KEY-----\n"
+                    ],
+                    "addr_func": "0xa9f630",
+                    "addr": "0x403866",
+                    "ret": 775
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        776
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x403879",
+                    "ret": 3221327952
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        120
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x87bc09",
+                    "ret": 3221328752
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221328752,
+                        0,
+                        120
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x87bc1e",
+                    "ret": 3221328752
+                },
+                {
+                    "name": "pthread_once",
+                    "args": [
+                        10307268,
+                        8870768
+                    ],
+                    "addr_func": "0x1111580",
+                    "addr": "0x8e2aa8",
+                    "ret": "None"
+                },
+                {
+                    "name": "pthread_once",
+                    "args": [
+                        10307608,
+                        8877504
+                    ],
+                    "addr_func": "0x1111580",
+                    "addr": "0x8e2aa8",
+                    "ret": "None"
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        56
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x87bc09",
+                    "ret": 3221328896
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221328896,
+                        0,
+                        56
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x87bc1e",
+                    "ret": 3221328896
+                },
+                {
+                    "name": "getenv",
+                    "args": [
+                        9584323
+                    ],
+                    "addr_func": "0xa45ea0",
+                    "addr": "0x7e119b",
+                    "ret": 0
+                },
+                {
+                    "name": "pthread_once",
+                    "args": [
+                        10307608,
+                        8877504
+                    ],
+                    "addr_func": "0x1301050",
+                    "addr": "0x7e1262",
+                    "ret": 0
+                },
+                {
+                    "name": "pthread_once",
+                    "args": [
+                        10307596,
+                        8877456
+                    ],
+                    "addr_func": "0x1111580",
+                    "addr": "0x8e2aa8",
+                    "ret": "None"
+                },
+                {
+                    "name": "pthread_once",
+                    "args": [
+                        10307596,
+                        8877456
+                    ],
+                    "addr_func": "0x1301050",
+                    "addr": "0xa46e22",
+                    "ret": 0
+                },
+                {
+                    "name": "pthread_once",
+                    "args": [
+                        10307588,
+                        8876912
+                    ],
+                    "addr_func": "0x1111580",
+                    "addr": "0x8e2aa8",
+                    "ret": "None"
+                },
+                {
+                    "name": "pthread_once",
+                    "args": [
+                        10307588,
+                        8876912
+                    ],
+                    "addr_func": "0x1301050",
+                    "addr": "0x778650",
+                    "ret": 0
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        56
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x87bc09",
+                    "ret": 3221328976
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221328976,
+                        0,
+                        56
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x87bc1e",
+                    "ret": 3221328976
+                },
+                {
+                    "name": "pthread_once",
+                    "args": [
+                        10307268,
+                        8870768
+                    ],
+                    "addr_func": "0x1301050",
+                    "addr": "0x8e29c9",
+                    "ret": 0
+                },
+                {
+                    "name": "free",
+                    "args": [
+                        0
+                    ],
+                    "addr_func": "0xa9a6d0",
+                    "addr": "0x87612c",
+                    "ret": "None"
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        56
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x87bc09",
+                    "ret": 3221329056
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221329056,
+                        0,
+                        56
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x87bc1e",
+                    "ret": 3221329056
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        16
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x87bc09",
+                    "ret": 3221329136
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221329136,
+                        0,
+                        16
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x87bc1e",
+                    "ret": 3221329136
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        32
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x87bc09",
+                    "ret": 3221329168
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221329168,
+                        0,
+                        32
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x87bc1e",
+                    "ret": 3221329168
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        32
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x87bc09",
+                    "ret": 3221329216
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221329216,
+                        0,
+                        32
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x87bc1e",
+                    "ret": 3221329216
+                },
+                {
+                    "name": "free",
+                    "args": [
+                        0
+                    ],
+                    "addr_func": "0xa9a6d0",
+                    "addr": "0x88fb5e",
+                    "ret": "None"
+                },
+                {
+                    "name": "free",
+                    "args": [
+                        0
+                    ],
+                    "addr_func": "0xa9a6d0",
+                    "addr": "0x88fb6c",
+                    "ret": "None"
+                },
+                {
+                    "name": "free",
+                    "args": [
+                        0
+                    ],
+                    "addr_func": "0xa9a6d0",
+                    "addr": "0x88fb7d",
+                    "ret": "None"
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        96
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x87bc09",
+                    "ret": 3221329264
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221329264,
+                        0,
+                        96
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x87bc1e",
+                    "ret": 3221329264
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        120
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x87bc09",
+                    "ret": 3221329376
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221329376,
+                        0,
+                        120
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x87bc1e",
+                    "ret": 3221329376
+                },
+                {
+                    "name": "pthread_once",
+                    "args": [
+                        10307268,
+                        8870768
+                    ],
+                    "addr_func": "0x1111580",
+                    "addr": "0x8e2aa8",
+                    "ret": 0
+                },
+                {
+                    "name": "free",
+                    "args": [
+                        0
+                    ],
+                    "addr_func": "0xa9a6d0",
+                    "addr": "0x87612c",
+                    "ret": "None"
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        56
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x87bc09",
+                    "ret": 3221329520
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221329520,
+                        0,
+                        56
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x87bc1e",
+                    "ret": 3221329520
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        16
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x87bc09",
+                    "ret": 3221329600
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221329600,
+                        0,
+                        16
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x87bc1e",
+                    "ret": 3221329600
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        32
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x87bc09",
+                    "ret": 3221329632
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221329632,
+                        0,
+                        32
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x87bc1e",
+                    "ret": 3221329632
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        32
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x87bc09",
+                    "ret": 3221329680
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221329680,
+                        0,
+                        32
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x87bc1e",
+                    "ret": 3221329680
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        120
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x87bc09",
+                    "ret": 3221329728
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221329728,
+                        0,
+                        120
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x87bc1e",
+                    "ret": 3221329728
+                },
+                {
+                    "name": "pthread_once",
+                    "args": [
+                        10307268,
+                        8870768
+                    ],
+                    "addr_func": "0x1111580",
+                    "addr": "0x8e2aa8",
+                    "ret": 0
+                },
+                {
+                    "name": "free",
+                    "args": [
+                        0
+                    ],
+                    "addr_func": "0xa9a6d0",
+                    "addr": "0x87612c",
+                    "ret": "None"
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        56
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x87bc09",
+                    "ret": 3221329872
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221329872,
+                        0,
+                        56
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x87bc1e",
+                    "ret": 3221329872
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        16
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x87bc09",
+                    "ret": 3221329952
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221329952,
+                        0,
+                        16
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x87bc1e",
+                    "ret": 3221329952
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        32
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x87bc09",
+                    "ret": 3221329984
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221329984,
+                        0,
+                        32
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x87bc1e",
+                    "ret": 3221329984
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        32
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x87bc09",
+                    "ret": 3221330032
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221330032,
+                        0,
+                        32
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x87bc1e",
+                    "ret": 3221330032
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        256
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x88f237",
+                    "ret": 3221330080
+                },
+                {
+                    "name": "memcpy",
+                    "args": [
+                        3221330080,
+                        576460752303356928,
+                        31
+                    ],
+                    "addr_func": "0x1200000",
+                    "addr": "0x7adafd",
+                    "ret": 3221330080
+                },
+                {
+                    "name": "strncmp",
+                    "ref_str": {
+                        "1": 3221330080,
+                        "2": 9755328
+                    },
+                    "args": [
+                        3221330080,
+                        9755328,
+                        11
+                    ],
+                    "addr_func": "0xa9f710",
+                    "addr": "0x88f286",
+                    "ret": 0
+                },
+                {
+                    "name": "strncmp",
+                    "ref_str": {
+                        "1": 3221330105,
+                        "2": 9755299
+                    },
+                    "args": [
+                        3221330105,
+                        9755299,
+                        6
+                    ],
+                    "addr_func": "0xa9f710",
+                    "addr": "0x88f2ab",
+                    "ret": 0
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        15
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x88f2c4",
+                    "ret": 3221330352
+                },
+                {
+                    "name": "memcpy",
+                    "args": [
+                        3221330352,
+                        3221330091,
+                        15
+                    ],
+                    "addr_func": "0x1200000",
+                    "addr": "0x88f2e4",
+                    "ret": 3221330352
+                },
+                {
+                    "name": "free",
+                    "args": [
+                        3221330080
+                    ],
+                    "addr_func": "0xa9a6d0",
+                    "addr": "0x88f2f3",
+                    "ret": "None"
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        256
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x88f2ff",
+                    "ret": 3221330080
+                },
+                {
+                    "name": "memcpy",
+                    "args": [
+                        3221330080,
+                        576460752303356959,
+                        65
+                    ],
+                    "addr_func": "0x1200000",
+                    "addr": "0x7adafd",
+                    "ret": 3221330080
+                },
+                {
+                    "name": "IFuncResolver.memchr",
+                    "args": [],
+                    "addr_func": "0xaa03d0",
+                    "addr": "0x88f371",
+                    "ret": "0x0"
+                },
+                {
+                    "name": "IFuncResolver.memchr",
+                    "args": [],
+                    "addr_func": "0x1301058",
+                    "addr": "0x88f371",
+                    "ret": "0x0"
+                },
+                {
+                    "name": "strncmp",
+                    "ref_str": {
+                        "1": 3221330080,
+                        "2": 9755312
+                    },
+                    "args": [
+                        3221330080,
+                        9755312,
+                        9
+                    ],
+                    "addr_func": "0xa9f710",
+                    "addr": "0x88f5af",
+                    "ret": 1
+                },
+                {
+                    "name": "strncmp",
+                    "ref_str": {
+                        "1": 3221330080,
+                        "2": 9755312
+                    },
+                    "args": [
+                        3221330080,
+                        9755312,
+                        9
+                    ],
+                    "addr_func": "0xa9f710",
+                    "addr": "0x88f3af",
+                    "ret": 1
+                },
+                {
+                    "name": "strlen",
+                    "ref_str": {
+                        "1": 3221330080
+                    },
+                    "args": [
+                        "MIICCgKCAgEAzE9EcNlVWVD90IXnZbm2xF5enn2UtGv9yFDoufSvFTAs2524xqqx\n"
+                    ],
+                    "addr_func": "0xa9f630",
+                    "addr": "0x7add54",
+                    "ret": 65
+                },
+                {
+                    "name": "malloc",
+                    "args": [
+                        88
+                    ],
+                    "addr_func": "0xa9a0e0",
+                    "addr": "0x7cbe74",
+                    "ret": 3221330384
+                },
+                {
+                    "name": "memset",
+                    "args": [
+                        3221330384,
+                        0,
+                        65
+                    ],
+                    "addr_func": "0xaa0540",
+                    "addr": "0x7cbdf7",
+                    "ret": 3221330384
+                },
+                {
+                    "name": "memcpy",
+                    "args": [
+                        3221330384,
+                        3221330080,
+                        65
+                    ],
+                    "addr_func": "0x1200000",
+                    "addr": "0x7adc9d",
+                    "ret": 3221330384
+                }
+            ]
+        },
+        "sections": {
+            "": {
+                "vaddr": 4194304,
+                "memsize": 0,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".interp": {
+                "vaddr": 4195096,
+                "memsize": 28,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".note.gnu.property": {
+                "vaddr": 4195128,
+                "memsize": 32,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".note.gnu.build-id": {
+                "vaddr": 4195160,
+                "memsize": 36,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".note.ABI-tag": {
+                "vaddr": 4195196,
+                "memsize": 32,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".gnu.hash": {
+                "vaddr": 4195232,
+                "memsize": 36,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".dynsym": {
+                "vaddr": 4195272,
+                "memsize": 1104,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".dynstr": {
+                "vaddr": 4196376,
+                "memsize": 516,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".gnu.version": {
+                "vaddr": 4196892,
+                "memsize": 92,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".gnu.version_r": {
+                "vaddr": 4196984,
+                "memsize": 112,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".rela.dyn": {
+                "vaddr": 4197096,
+                "memsize": 384,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".rela.plt": {
+                "vaddr": 4197480,
+                "memsize": 936,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".init": {
+                "vaddr": 4202496,
+                "memsize": 23,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": true
+            },
+            ".plt": {
+                "vaddr": 4202528,
+                "memsize": 640,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": true
+            },
+            ".plt.got": {
+                "vaddr": 4203168,
+                "memsize": 8,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": true
+            },
+            ".text": {
+                "vaddr": 4203184,
+                "memsize": 10193,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": true
+            },
+            ".fini": {
+                "vaddr": 4213380,
+                "memsize": 9,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": true
+            },
+            ".rodata": {
+                "vaddr": 4214784,
+                "memsize": 5354,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".eh_frame_hdr": {
+                "vaddr": 4220140,
+                "memsize": 268,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".eh_frame": {
+                "vaddr": 4220408,
+                "memsize": 1096,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".init_array": {
+                "vaddr": 4226456,
+                "memsize": 24,
+                "is_readable": true,
+                "is_writable": true,
+                "is_executable": false
+            },
+            ".fini_array": {
+                "vaddr": 4226480,
+                "memsize": 8,
+                "is_readable": true,
+                "is_writable": true,
+                "is_executable": false
+            },
+            ".dynamic": {
+                "vaddr": 4226488,
+                "memsize": 512,
+                "is_readable": true,
+                "is_writable": true,
+                "is_executable": false
+            },
+            ".got": {
+                "vaddr": 4227000,
+                "memsize": 48,
+                "is_readable": true,
+                "is_writable": true,
+                "is_executable": false
+            },
+            ".got.plt": {
+                "vaddr": 4227048,
+                "memsize": 336,
+                "is_readable": true,
+                "is_writable": true,
+                "is_executable": false
+            },
+            ".data": {
+                "vaddr": 4227392,
+                "memsize": 72,
+                "is_readable": true,
+                "is_writable": true,
+                "is_executable": false
+            },
+            ".bss": {
+                "vaddr": 4227488,
+                "memsize": 288,
+                "is_readable": true,
+                "is_writable": true,
+                "is_executable": false
+            },
+            ".comment": {
+                "vaddr": 4194304,
+                "memsize": 30,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".symtab": {
+                "vaddr": 4194304,
+                "memsize": 3000,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".strtab": {
+                "vaddr": 4194304,
+                "memsize": 1975,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".shstrtab": {
+                "vaddr": 4194304,
+                "memsize": 282,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            }
+        }
+    }
+]

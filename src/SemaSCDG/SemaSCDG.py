@@ -133,7 +133,7 @@ class SemaSCDG:
         jump_concrete_dict={},
         max_simul_state=1,
         max_in_pause_stach=500,
-        fast_main=False,
+        fast_main=True,
         force_symbolique_return=False,
         string_resolv=True,
         print_on=True,
@@ -666,9 +666,9 @@ class SemaSCDG:
 
         # Defining arguments given to the program (minimum is filename)
         args_binary = [nameFileShort]
-        if args.n_args:
-            for i in range(args.n_args):
-                args_binary.append(claripy.BVS("arg" + str(i), 8 * 16))
+
+        for i in range(args.n_args):
+            args_binary.append(claripy.BVS("arg" + str(i), 8 * 16))
 
         # Load pre-defined syscall table
         if os_obj == "windows":
@@ -740,13 +740,21 @@ class SemaSCDG:
             # options.add(angr.options.TRACK_CONSTRAINT_ACTIONS)
             # options.add(angr.options.TRACK_JMP_ACTIONS)
 
+        args_binary = [
+            './conti_binary',
+            '--path',
+            '/home/user',
+        ]
+
         self.log.info("Entry_state address = " + str(addr))
         # Contains a program's memory, registers, filesystem data... any "live data" that can be changed by execution has a home in the state
         state = proj.factory.entry_state(
-            addr=addr, args=args_binary, add_options=options,
+            addr=addr,
+            args=args_binary,
+            add_options=options,
         )
 
-        state.options.discard('ALL_FILES_EXIST')
+        state.options.discard("ALL_FILES_EXIST")
 
         # import pdb
         # pdb.set_trace()
@@ -807,12 +815,13 @@ class SemaSCDG:
             state.mem[ProcessHeap + 0xC].dword = 0x0  # heapflags windowsvistaorgreater
             state.mem[ProcessHeap + 0x40].dword = 0x0  # heapflags else
 
-        # Constraint arguments to ASCII
-        for i in range(1, len(args_binary)):
-            for byte in args_binary[i].chop(8):
-                # state.add_constraints(byte != '\x00') # null
-                state.add_constraints(byte >= " ")  # '\x20'
-                state.add_constraints(byte <= "~")  # '\x7e'
+        # Constraint arguments to ASCII -- commenting to pass concrete arguments
+        
+        # for i in range(1, len(args_binary)):
+        #     for byte in args_binary[i].chop(8):
+        #         # state.add_constraints(byte != '\x00') # null
+        #         state.add_constraints(byte >= " ")  # '\x20'
+        #         state.add_constraints(byte <= "~")  # '\x7e'
 
         # Creation of file with concrete content for cleanware
         # TODO WORK in Progress, need to think about automation of the process (like an argument with file name to create)
@@ -825,54 +834,56 @@ class SemaSCDG:
                 f.close()
                 simfile.set_state(state)
 
-        extensions = "doc" # docx xls xlsx ppt pptx pst ost"# msg eml vsd vsdx txt csv rtf wks wk1 pdf dwg onetoc2 snt jpeg jpg docb docm dot dotm dotx xlsm xlsb xlw xlt xlm xlc xltx xltm pptm pot pps ppsm ppsx ppam potx potm edb hwp 602 sxi sti sldx sldm sldm vdi vmdk vmx gpg aes ARC PAQ bz2 tbk bak tar tgz gz 7z rar zip backup iso vcd bmp png gif raw cgm tif tiff nef psd ai svg djvu m4u m3u mid wma flv 3g2 mkv 3gp mp4 mov avi asf mpeg vob mpg wmv fla swf wav mp3 sh class jar java rb asp php jsp brd sch dch dip pl vb vbs ps1 bat cmd js asm h pas cpp c cs suo sln ldf mdf ibd myi myd frm odb dbf db mdb accdb sql sqlitedb sqlite3 asc lay6 lay mml sxm otg odg uop std sxd otp odp wb2 slk dif stc sxc ots ods 3dm max 3ds uot stw sxw ott odt pem p12 csr crt key pfx der"
-        
+        extensions = "doc docx xls xlsx ppt pptx pst ost"# msg eml vsd vsdx txt csv rtf wks wk1 pdf dwg onetoc2 snt jpeg jpg docb docm dot dotm dotx xlsm xlsb xlw xlt xlm xlc xltx xltm pptm pot pps ppsm ppsx ppam potx potm edb hwp 602 sxi sti sldx sldm sldm vdi vmdk vmx gpg aes ARC PAQ bz2 tbk bak tar tgz gz 7z rar zip backup iso vcd bmp png gif raw cgm tif tiff nef psd ai svg djvu m4u m3u mid wma flv 3g2 mkv 3gp mp4 mov avi asf mpeg vob mpg wmv fla swf wav mp3 sh class jar java rb asp php jsp brd sch dch dip pl vb vbs ps1 bat cmd js asm h pas cpp c cs suo sln ldf mdf ibd myi myd frm odb dbf db mdb accdb sql sqlitedb sqlite3 asc lay6 lay mml sxm otg odg uop std sxd otp odp wb2 slk dif stc sxc ots ods 3dm max 3ds uot stw sxw ott odt pem p12 csr crt key pfx der"
+
         # okay great it's reading this like i want it to
         # how can i con
-        directory_simfile = angr.SimFile('/home/user/Desktop', content='wtf why has this been so annoying')
-        directory_simfile.set_state(state)
-        state.fs.insert('/home/user/Desktop', directory_simfile)
-        self.log.info('inserted \'/home/user/Desktop\' SimFile')
-        
-        directories = ['/home/user/', '/home/user/Desktop/', '/home/user/.local/share/Trash/', '/media/user/']
+
+        directories = [
+            "/home/user",
+            "/home/user/Desktop",
+            "/home/user/.local/share/Trash",
+            "/media/user",
+        ]
         for dir in directories:
             for ext in extensions.split():
-                sf = angr.SimFile(dir+'afile.'+ext, content='sigh')
+                sf = angr.SimFile(dir + "/afile." + ext, content="sigh")
                 sf.set_state(state)
-                state.fs.insert(dir+'afile.'+ext, sf)
-                self.log.info('inserted ' + dir + 'afile.'+ext+' SimFile')
-
+                state.fs.insert(dir + "/afile." + ext, sf)
+                self.log.info("inserted " + dir + "/afile." + ext + " SimFile")
 
         # don't include full path? work on that later
         for dir in directories:
             # directory file dirent
-            d_ino = state.solver.BVV(0,8*8)
-            d_off = state.solver.BVV(0,8*8)
-            d_reclen = state.solver.BVV(0, 2*8)
-            d_type = state.solver.BVV(4,1*8)
-            dirname = dir[:-1].encode()+b'\0'*(256-len(dir[:-1])) # dropping the last fslash
-            d_name = state.solver.BVV(dirname, 256*8)
+            d_ino = state.solver.BVV(0, 8 * 8)
+            d_off = state.solver.BVV(0, 8 * 8)
+            d_reclen = state.solver.BVV(0, 2 * 8)
+            d_type = state.solver.BVV(4, 1 * 8)
+
+            # syntax highlighting breaks on this next thing
+            dirname = f'{dir:\0<256}'
+            d_name = state.solver.BVV(dirname.encode(), 256 * 8)
             content = claripy.Concat(d_ino, d_off, d_reclen, d_type, d_name)
 
             for ext in extensions.split():
                 # add each file dirent
-                d_ino = state.solver.BVV(0,8*8)
-                d_off = state.solver.BVV(0,8*8)
-                d_reclen = state.solver.BVV(0, 2*8)
-                d_type = state.solver.BVV(8,1*8)
-                fname = b'afile.'+ext.encode()+b'\0'*(256-len('afile.'+ext))
-                d_name = state.solver.BVV(fname, 256*8)
+                d_ino = state.solver.BVV(0, 8 * 8)
+                d_off = state.solver.BVV(0, 8 * 8)
+                d_reclen = state.solver.BVV(0, 2 * 8)
+                d_type = state.solver.BVV(8, 1 * 8)
+                tmp = 'afile.'+ext
+                fname = f'{tmp:\0<256}'
+                d_name = state.solver.BVV(fname.encode(), 256 * 8)
 
-                content = claripy.Concat(content, d_ino, d_off, d_reclen, d_type, d_name)
-                self.log.info('wrote filename afile.', ext, ' into directory file')
+                content = claripy.Concat(
+                    content, d_ino, d_off, d_reclen, d_type, d_name
+                )
+                self.log.info("wrote filename afile.", ext, " into directory file")
 
-            sf = angr.SimFile(dir[:-1], content=content)
+            sf = angr.SimFile(dir, content=content)
             sf.set_state(state)
-            state.fs.insert(dir[:-1], sf)
-            self.log.info('inserted ', dir[:-1], ' simfile')
-
-
-
+            state.fs.insert(dir, sf)
+            self.log.info("inserted ", dir, " simfile")
 
         #### Custom Hooking ####
         # Mechanism by which angr replaces library code with a python summary
@@ -982,6 +993,10 @@ class SemaSCDG:
                 block_dict[state.inspect.address] = 1
 
         # Improved "Break point"
+
+        # state.inspect.b(
+        #     'instruction',instruction=0x0040431a,when=angr.BP_BEFORE,action=angr.BP_IPYTHON,
+        # )
 
         if args.pre_run_thread:
             state.plugin_thread.pre_run_thread(cont, self.inputs)
@@ -1377,7 +1392,7 @@ class SemaSCDG:
         self.log.info("Syscalls Found:" + str(self.call_sim.syscall_found))
         self.log.info("Loaded libraries:" + str(proj.loader.requested_names))
 
-        #total_env_var = state.plugin_env_var.ending_state(simgr)
+        # total_env_var = state.plugin_env_var.ending_state(simgr)
 
         total_registery = state.plugin_registery.ending_state(simgr)
 
@@ -1385,7 +1400,7 @@ class SemaSCDG:
 
         total_res = state.plugin_resources.ending_state(simgr)
 
-        #self.log.info("Environment variables:" + str(total_env_var))
+        # self.log.info("Environment variables:" + str(total_env_var))
         self.log.info("Registery variables:" + str(total_registery))
         self.log.info("Locale informations variables:" + str(total_locale))
         self.log.info("Resources variables:" + str(total_res))
@@ -1633,6 +1648,15 @@ class SemaSCDG:
                 self.scdg_fin.append(self.scdg[state.globals["id"]])
 
         self.print_memory_info(main_obj, dump_file)
+
+                        
+        with open(exp_dir+'filecontents.txt','w') as f:
+            for s in simgr.deadended:
+                for fname in s.fs._files.keys():
+                    f.write(fname.decode()+':\n'+repr(s.posix.dump_file_by_path(fname)) +'\n\n')
+            
+            f.write(f'Total number of simfiles: {len(s.fs._files.keys())}\n\n')
+            f.write(f'files{s.fs._files.keys()}')
 
         if self.discard_scdg:
             # self.log.info(dump_file)

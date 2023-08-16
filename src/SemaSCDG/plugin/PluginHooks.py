@@ -340,5 +340,9 @@ class PluginHooks: # TODO replace with classses
                 self.inline_call(rewind, out_fd)
 
         
-        proj.hook_symbol('encrypt', gonnacry_encrypt_function())
-        print('hello'*10000)
+        # proj.hook_symbol('encrypt', gonnacry_encrypt_function())
+
+        @proj.hook(0x004038c6, length=5)
+        def hook_PEM_read_bio_RSAPublicKey(state):
+            print('hook'*100)
+            return
