@@ -697,6 +697,8 @@ class SemaSCDG:
                 cont = f.read()
             simfile = angr.SimFile(nameFileShort, content=cont)
             state.fs.insert(nameFileShort, simfile)
+            pagefile = angr.SimFile("pagefile.sys", content=cont)
+            state.fs.insert("pagefile.sys", pagefile)
         
         state.options.discard("LAZY_SOLVES") 
         if not (self.is_packed and self.unpack_mode == "symbion") or True:
@@ -707,8 +709,7 @@ class SemaSCDG:
             #state.libc.max_variable_size = 0x20000000*2 + 0x18000000
             #state.libc.max_memcpy_size   = 0x20000000*2
 
-        pagefile = angr.SimFile("pagefile.sys", content=cont)
-        state.fs.insert("pagefile.sys", pagefile)
+
         
         state.register_plugin("plugin_env_var", PluginEnvVar()) 
         state.plugin_env_var.setup_plugin(self.expl_method)
