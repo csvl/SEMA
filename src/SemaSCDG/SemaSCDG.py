@@ -221,6 +221,10 @@ class SemaSCDG:
         with open(os.path.join(path, "scdg_conf.json"), "w") as f:
             json.dump(args, f, indent=4)
 
+    def new_instr(self, state):
+        self.instr_count[state.addr] = 1
+        # import pdb; pdb.set_trace()
+
     def build_scdg(self, args, is_fl=False, csv_file=None):
         # Create directory to store SCDG if it doesn't exist
         self.scdg.clear()
