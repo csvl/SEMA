@@ -35,6 +35,19 @@ class ArgumentParserClassifier:
             type=int,
             default=3,
         )
+
+        self.group_gnn = self.parser.add_argument_group('GNN options')
+        self.group_gnn.add_argument(
+            "--num_layers",
+            help="Number of layers for the GNN (default: 4)",
+            type=int,
+            default=4,
+        )
+        self.group_gnn.add_argument(
+            "--explain",
+            help="Only for GNN model: explain the prediction (default: False)\n",
+            action='store_true'
+        )
         
         self.group_dl = self.parser.add_argument_group('Deep Learning options')
         self.group_dl.add_argument(
@@ -109,6 +122,18 @@ class ArgumentParserClassifier:
             help="TODO",
             action="store_true",
             
+        )
+        self.group_cl.add_argument(
+            "--gin",
+            help="TODO",
+            action="store_true",
+   
+        )
+        self.group_cl.add_argument(
+            "--ginjk",
+            help="TODO",
+            action="store_true",
+   
         )
         
         # TODO dynamic
@@ -215,8 +240,8 @@ class ArgumentParserClassifier:
         #     else:
         #         self.tcw.classifier_name = class_method
         #else:
-        self.tcw.classifier_name = "wl" if args.wl else "inria" if args.inria else "dl" if args.dl else "gspan"
-
+        self.tcw.classifier_name = "wl" if args.wl else "inria" if args.inria else "dl" if args.dl else "gin" if args.gin else "ginjk" if args.ginjk else "gspan"
+        
         if args.threshold:
             self.tcw.threshold = args.threshold
 

@@ -58,7 +58,50 @@ class ArgumentParserSCDG:
             action="store_true",
             
         )
+        self.group_expl.add_argument(
+            "--STOCH",
+            help="TODO",
+            action="store_true",
+            
+        )
+        self.group_expl.add_argument(
+            "--CSTOCH1",
+            help="TODO",
+            action="store_true",
+            
+        )
+        self.group_expl.add_argument(
+            "--CSTOCH2",
+            help="TODO",
+            action="store_true",
+            
+        )
+        self.group_expl.add_argument(
+            "--CSTOCH3",
+            help="TODO",
+            action="store_true",
+            
+        )
+        self.group_expl.add_argument(
+            "--WSELECT1",
+            help="TODO",
+            action="store_true",
+            
+        )
+        self.group_expl.add_argument(
+            "--WSELECT2",
+            help="TODO",
+            action="store_true",
+            
+        )
+        self.group_expl.add_argument(
+            "--WSELECT3",
+            help="TODO",
+            action="store_true",
+            
+        )
         
+
         self.group_output = self.parser.add_mutually_exclusive_group() # required=True
         self.group_output.title = 'Format to save graph output'
         self.group_output.add_argument(
@@ -318,7 +361,14 @@ class ArgumentParserSCDG:
                 else ("SDFS"  if args.SDFS \
                 else ("SCDFS" if args.SCDFS \
                 else ("ThreadCDFS" if args.ThreadCDFS \
-                else  "CBFS"))))))
+                else ("STOCH" if args.STOCH \
+                else ("CSTOCH1" if args.CSTOCH1 \
+                else ("CSTOCH2" if args.CSTOCH2 \
+                else ("CSTOCH3" if args.CSTOCH3 \
+                else ("WSELECT1" if args.WSELECT1 \
+                else ("WSELECT2" if args.WSELECT2 \
+                else ("WSELECT3" if args.WSELECT3 \
+                else  "CBFS")))))))))))))
 
         familly = "unknown"
         if args.familly:
