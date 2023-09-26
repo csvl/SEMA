@@ -7,10 +7,8 @@ import numpy as np
 from grakel import Graph
 from grakel.datasets import fetch_dataset
 
-try:
-    from clogging.CustomFormatter import CustomFormatter
-except:
-    from ..clogging.CustomFormatter import CustomFormatter
+
+from clogging.CustomFormatter import CustomFormatter
         
 class Classifier():
     def __init__(self,path, name, threshold):

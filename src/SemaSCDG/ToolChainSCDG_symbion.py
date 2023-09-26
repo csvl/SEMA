@@ -21,7 +21,7 @@ import logging
 from capstone import *
 
 # Personnal stuf
-from helper.GraphBuilder import *
+from SCDGHelper.GraphBuilder import *
 
 # Syscall table stuff
 import angr
@@ -46,7 +46,7 @@ import avatar2 as avatar2
 import angr
 import claripy
 from clogging.CustomFormatter import CustomFormatter
-from helper.ArgumentParserSCDG import ArgumentParserSCDG
+from SCDGHelper.ArgumentParserSCDG import ArgumentParserSCDG
 
 from unipacker.core import Sample, SimpleClient, UnpackerEngine
 from unipacker.utils import RepeatedTimer

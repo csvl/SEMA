@@ -7,8 +7,6 @@ import numpy as np
 
 import pandas as pd
 from sklearn.model_selection import train_test_split,StratifiedShuffleSplit
-from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score
 import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score,recall_score , f1_score
@@ -18,12 +16,8 @@ from grakel.kernels import WeisfeilerLehman, VertexHistogram,ShortestPath,Random
 from sklearn.svm import SVC
 from sklearn.metrics import roc_curve, roc_auc_score
 
-try:
-    from .SVMClassifier import SVMClassifier
-    from clogging.CustomFormatter import CustomFormatter
-except:
-    from .SVMClassifier import SVMClassifier
-    from ...clogging.CustomFormatter import CustomFormatter
+from SVMClassifier import SVMClassifier
+from clogging.CustomFormatter import CustomFormatter
         
 CLASS_DIR = os.path.dirname(os.path.abspath(__file__))
 BINARY_CLASS = False # TODO

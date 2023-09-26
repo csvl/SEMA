@@ -4,19 +4,14 @@ import logging
 import os
 import time
 import dill
+import sys
 
-try:
-    from classifier.GM.GSpanClassifier import GSpanClassifier
-    from helper.ArgumentParserClassifier import ArgumentParserClassifier
-    from classifier.SVM.SVMInriaClassifier import SVMInriaClassifier
-    from classifier.SVM.SVMWLClassifier import SVMWLClassifier
-    from clogging.CustomFormatter import CustomFormatter
-except:
-    from src.SemaClassifier.classifier.GM.GSpanClassifier import GSpanClassifier
-    from src.SemaClassifier.helper.ArgumentParserClassifier import ArgumentParserClassifier
-    from src.SemaClassifier.classifier.SVM.SVMInriaClassifier import SVMInriaClassifier
-    from src.SemaClassifier.classifier.SVM.SVMWLClassifier import SVMWLClassifier
-    from src.SemaClassifier.clogging.CustomFormatter import CustomFormatter
+from classifier.GM.GSpanClassifier import GSpanClassifier
+from ClassifierHelper.ArgumentParserClassifier import ArgumentParserClassifier
+from classifier.SVM.SVMInriaClassifier import SVMInriaClassifier
+from classifier.SVM.SVMWLClassifier import SVMWLClassifier
+from clogging.CustomFormatter import CustomFormatter
+
 
 import pandas as pd
 
@@ -68,7 +63,7 @@ class SemaClassifier:
             biggest_subgraph = args.biggest_subgraph
             epoch = args.epoch
             shared_type = 1#args.smodel
-            self.mode = "classification" if args.classification else "detection"
+            self.mode = "detection" if args.detection else "classification"
         else:
             threshold = args["threshold"]
             support = args["support"]
@@ -196,23 +191,25 @@ class SemaClassifier:
         self.elapsed_time = time.time() - self.start_time
         
     def save_csv(self):
-        if self.csv_path:
-            self.df = self.df.append({"path":self.input_path, 
-                             "time training": self.training_elapsed_time,
-                             "time class/detect": self.elapsed_time,
-                             "date": datetime.datetime.now(),
-                             "Number of training samples": len(self.classifier.train_dataset) if self.classifier.train_dataset else 0,
-                             "Number of test samples": len(self.classifier.test_dataset) if self.classifier.test_dataset else 0,
-                             "Number of validation samples":len(self.classifier.val_dataset) if self.classifier.val_dataset else 0,
-                             "fscore":self.classifier.fscore,
-                             "accuracy":self.classifier.accuracy,
-                             "precision":self.classifier.precision,
-                             "recall":self.classifier.recall,
-                             "loss":self.classifier.loss,
-                             "tpr":self.classifier.tpr,
-                            #  "balanced_accuracy": self.classifier.balance_accuracy,
-                            }, ignore_index=True)
-            self.df.to_csv(self.csv_path, index=False,sep=";")
+        pass
+        # if self.csv_path:
+        #     #TODO change pandas version to 1.5.3 or change to concat
+        #     self.df = self.df.append({"path":self.input_path, 
+        #                      "time training": self.training_elapsed_time,
+        #                      "time class/detect": self.elapsed_time,
+        #                      "date": datetime.datetime.now(),
+        #                      "Number of training samples": len(self.classifier.train_dataset) if self.classifier.train_dataset else 0,
+        #                      "Number of test samples": len(self.classifier.test_dataset) if self.classifier.test_dataset else 0,
+        #                      "Number of validation samples":len(self.classifier.val_dataset) if self.classifier.val_dataset else 0,
+        #                      "fscore":self.classifier.fscore,
+        #                      "accuracy":self.classifier.accuracy,
+        #                      "precision":self.classifier.precision,
+        #                      "recall":self.classifier.recall,
+        #                      "loss":self.classifier.loss,
+        #                      "tpr":self.classifier.tpr,
+        #                     #  "balanced_accuracy": self.classifier.balance_accuracy,
+        #                     }, ignore_index=True)
+        #     self.df.to_csv(self.csv_path, index=False,sep=";")
 
 def main():
     tc = SemaClassifier()

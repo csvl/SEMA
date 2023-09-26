@@ -19,7 +19,7 @@ RUN  apt update; apt-get --fix-missing -y install \
 
 # Cuckoo
 RUN apt update; apt-get --fix-missing -y install \
-                # python \  # Deprecated
+                # python  # Deprecated
                 # python-pip \
                 # python-dev \
                 # python-virtualenv \
@@ -30,12 +30,12 @@ RUN apt update; apt-get --fix-missing -y install \
                 zlib1g-dev \
                 swig \
                 qemu-kvm \
-                #libvirt-bin \ # Deprecated
+                #libvirt-bin  # Deprecated
                 libvirt-daemon-system \
                 libvirt-clients \
-                #ubuntu-vm-builder \  # Deprecated
+                #ubuntu-vm-builder   # Deprecated
                 bridge-utils \
-                #python-libvirt \ # Deprecated
+                #python-libvirt  # Deprecated
                 python3-libvirt \
                 tcpdump \
                 apparmor-utils \
@@ -44,7 +44,7 @@ RUN apt update; apt-get --fix-missing -y install \
                 libjpeg-turbo8-dev \
                 libpng-dev \
                 libossp-uuid-dev \
-                #libfreerdp-dev \ # Deprecated
+                #libfreerdp-dev  # Deprecated
                 freerdp2-dev \
                 libvirt-dev \
                 python3-wheel 

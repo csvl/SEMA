@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import monkeyhex  # this will format numerical results in hexadecimal
 import logging
-from .SemaExplorer import SemaExplorer
+from SemaExplorer import SemaExplorer
 
 
 class SemaExplorerBFS(SemaExplorer):

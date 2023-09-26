@@ -5,13 +5,12 @@ import os
 import sys
 from collections import defaultdict
 from typing import Optional, Set, List, Tuple, Dict, TYPE_CHECKING
-from angr.knowledge_plugins.functions import Function
+#from angr.knowledge_plugins.functions import Function
 # for pypy3
 # sys.path.insert(0, '/usr/local/lib')
 # sys.path.insert(0, os.path.expanduser('~/lib'))
 # sys.path.insert(0, os.path.expanduser('/home/crochetch/Documents/toolchain_malware_analysis/penv/lib'))
 from pprint import pprint, pformat
-from collections import defaultdict
 
 import json as json_dumper
 from builtins import open as open_file
@@ -29,66 +28,36 @@ import angr
 from angr.sim_type import SimTypeInt, SimTypePointer, SimTypeArray, SimTypeChar
 
 import gc
-
-# Personnal stuf
-try:
-    from .helper.GraphBuilder import *
-    from .procedures.CustomSimProcedure import *
-    from .plugin.PluginEnvVar import *
-    from .plugin.PluginLocaleInfo import *
-    from .plugin.PluginRegistery import *
-    from .plugin.PluginHooks import *
-    from .plugin.PluginWideChar import *
-    from .plugin.PluginResources import *
-    from .plugin.PluginEvasion import *
-    from .plugin.PluginCommands import *
-    from .plugin.PluginThread import *
-    from .plugin.PluginIoC import *
-    from .plugin.PluginAtom import *
-    from .explorer.SemaExplorerDFS import SemaExplorerDFS
-    from .explorer.SemaExplorerChooseDFS import SemaExplorerChooseDFS
-    from .explorer.SemaExplorerCDFS import SemaExplorerCDFS
-    from .explorer.SemaExplorerBFS import SemaExplorerBFS
-    from .explorer.SemaExplorerCBFS import SemaExplorerCBFS
-    from .explorer.SemaExplorerSDFS import SemaExplorerSDFS
-    from .explorer.SemaExplorerDBFS import SemaExplorerDBFS
-    from .explorer.SemaThreadCDFS import SemaThreadCDFS
-    from .explorer.SemaExplorerAnotherCDFS import SemaExplorerAnotherCDFS
-    from .clogging.CustomFormatter import CustomFormatter
-    from .clogging.LogBookFormatter import *
-    from .helper.ArgumentParserSCDG import ArgumentParserSCDG
-    from .sandboxes.CuckooInterface import CuckooInterface
-except:
-    from helper.GraphBuilder import *
-    from procedures.CustomSimProcedure import *
-    from plugin.PluginEnvVar import *
-    from plugin.PluginThread import *
-    from plugin.PluginLocaleInfo import *
-    from plugin.PluginRegistery import *
-    from plugin.PluginHooks import *
-    from plugin.PluginWideChar import *
-    from plugin.PluginResources import *
-    from plugin.PluginEvasion import *
-    from plugin.PluginCommands import *
-    from plugin.PluginIoC import *
-    from plugin.PluginAtom import *
-    from explorer.SemaExplorerDFS import SemaExplorerDFS
-    from explorer.SemaExplorerChooseDFS import SemaExplorerChooseDFS
-    from explorer.SemaExplorerCDFS import SemaExplorerCDFS
-    from explorer.SemaExplorerBFS import SemaExplorerBFS
-    from explorer.SemaExplorerCBFS import SemaExplorerCBFS
-    from explorer.SemaExplorerSDFS import SemaExplorerSDFS
-    from explorer.SemaExplorerDBFS import SemaExplorerDBFS
-    from explorer.SemaExplorerAnotherCDFS import SemaExplorerAnotherCDFS
-    from explorer.SemaThreadCDFS import SemaThreadCDFS
-    from clogging.CustomFormatter import CustomFormatter
-    from clogging.LogBookFormatter import * # TODO
-    from helper.ArgumentParserSCDG import ArgumentParserSCDG
-    from sandboxes.CuckooInterface import CuckooInterface
-
-import angr
-import claripy
 import pandas as pd
+
+
+# Personnal stuff
+from SCDGHelper.GraphBuilder import *
+from procedures.CustomSimProcedure import *
+from plugin.PluginEnvVar import *
+from plugin.PluginThread import *
+from plugin.PluginLocaleInfo import *
+from plugin.PluginRegistery import *
+from plugin.PluginHooks import *
+from plugin.PluginWideChar import *
+from plugin.PluginResources import *
+from plugin.PluginEvasion import *
+from plugin.PluginCommands import *
+from plugin.PluginIoC import *
+from plugin.PluginAtom import *
+from explorer.SemaExplorerDFS import SemaExplorerDFS
+from explorer.SemaExplorerChooseDFS import SemaExplorerChooseDFS
+from explorer.SemaExplorerCDFS import SemaExplorerCDFS
+from explorer.SemaExplorerBFS import SemaExplorerBFS
+from explorer.SemaExplorerCBFS import SemaExplorerCBFS
+from explorer.SemaExplorerSDFS import SemaExplorerSDFS
+from explorer.SemaExplorerDBFS import SemaExplorerDBFS
+from explorer.SemaExplorerAnotherCDFS import SemaExplorerAnotherCDFS
+from explorer.SemaThreadCDFS import SemaThreadCDFS
+from clogging.CustomFormatter import CustomFormatter
+from clogging.LogBookFormatter import * # TODO
+from SCDGHelper.ArgumentParserSCDG import ArgumentParserSCDG
+from sandboxes.CuckooInterface import CuckooInterface
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -104,10 +73,9 @@ from unipacker.utils import RepeatedTimer, InvalidPEFile
 from unipacker.unpackers import get_unpacker
 #from angr_targets import AvatarGDBConcreteTarget # TODO FIX in submodule
 
-
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-class SemaSCDG:
+class SemaSCDG():
     """
     TODO
     """
@@ -277,15 +245,15 @@ class SemaSCDG:
             
         self.log.info(args)
 
-        if exp_dir != "output/runs/"+ str(self.current_exp_dir) + "/":
-            setup = open_file("src/output/runs/"+ str(self.current_exp_dir) + "/" + "setup.txt", "w")
-            setup.write(str(self.jump_it) + "\n")
-            setup.write(str(self.loop_counter_concrete) + "\n")
-            setup.write(str(self.max_simul_state) + "\n")
-            setup.write(str(self.max_in_pause_stach) + "\n")
-            setup.write(str(self.max_step) + "\n")
-            setup.write(str(self.max_end_state))
-            setup.close()
+        # if exp_dir != "output/runs/"+ str(self.current_exp_dir) + "/":
+        #     setup = open("output/runs/"+ str(self.current_exp_dir) + "/" + "setup.txt", "w")
+        #     setup.write(str(self.jump_it) + "\n")
+        #     setup.write(str(self.loop_counter_concrete) + "\n")
+        #     setup.write(str(self.max_simul_state) + "\n")
+        #     setup.write(str(self.max_in_pause_stach) + "\n")
+        #     setup.write(str(self.max_step) + "\n")
+        #     setup.write(str(self.max_end_state))
+        #     setup.close()
 
         # Take name of the sample without full path
         if "/" in self.inputs:
@@ -696,6 +664,7 @@ class SemaSCDG:
         )
         # import pdb
         # pdb.set_trace()
+        cont = ""
         if args.sim_file:
             with open_file(self.inputs, "rb") as f:
                 cont = f.read()
@@ -1575,11 +1544,11 @@ class SemaSCDG:
             # TODO update familly
             self.log.info("You decide to analyse a single binary: "+ self.inputs)
             # *|CURSOR_MARCADOR|*
-            try:
-                self.build_scdg(args,is_fl=is_fl,csv_file=csv_file)
-            except Exception as e:
-                self.log.info(e)
-                self.log.info("Error: "+self.inputs+" is not a valid binary")
+            #try:
+            self.build_scdg(args,is_fl=is_fl,csv_file=csv_file)
+            # except Exception as e:
+            #     self.log.info(e)
+            #     self.log.info("Error: "+self.inputs+" is not a valid binary")
             self.current_exps = 1
         else:
             import progressbar

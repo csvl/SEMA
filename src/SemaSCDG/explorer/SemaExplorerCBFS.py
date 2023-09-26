@@ -2,7 +2,7 @@
 import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from collections import deque
-from .SemaExplorer import SemaExplorer
+from SemaExplorer import SemaExplorer
 
 
 class SemaExplorerCBFS(SemaExplorer):

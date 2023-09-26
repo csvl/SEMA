@@ -1,20 +1,13 @@
 import glob
 import logging
-try:
-    from src.SemaClassifier.SemaClassifier import SemaClassifier
-    from SemaSCDG.clogging.CustomFormatter import CustomFormatter
-except:
-    from .SemaClassifier import SemaClassifier
-    from .SemaSCDG.clogging.CustomFormatter import CustomFormatter
-
-try:
-    from .HE.HE_SEALS import F, RSA
-except:
-    from HE.HE_SEALS import F, RSA
 import os
 import dill
 import celery
 import json
+
+from src.SemaClassifier.SemaClassifier import SemaClassifier
+from SemaSCDG.clogging.CustomFormatter import CustomFormatter
+from HE.HE_SEALS import F, RSA
 
 # TODO parametrise with arguments
 

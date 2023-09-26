@@ -1,6 +1,6 @@
-from .SandBoxInterface import SandBoxInterface
-from .vm.kvm.KVMInterface import KVMInterface
-from .vm.virtualbox import VirtualBoxInterface
+from SandBoxInterface import SandBoxInterface
+from vm.kvm.KVMInterface import KVMInterface
+from vm.virtualbox import VirtualBoxInterface
 import os
 import subprocess
 import time

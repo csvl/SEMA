@@ -17,10 +17,7 @@ import os
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
-try:
-    from clogging.CustomFormatter import CustomFormatter
-except:
-    from ...clogging.CustomFormatter import CustomFormatter
+from clogging.CustomFormatter import CustomFormatter
        
 
 class DLDataset(torch.utils.data.Dataset):

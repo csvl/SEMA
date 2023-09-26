@@ -16,16 +16,10 @@ import logging
 
 RANDOM_SEED=np.random.seed(10)
 
-try:
-	from .DLClassifier import DLClassifier	
-	from .DLDataset import DLDataset
-	from ..Classifier import Classifier
-	from clogging.CustomFormatter import CustomFormatter
-except:
-	from .DLClassifier import DLClassifier	
-	from .DLDataset import DLDataset
-	from ..Classifier import Classifier
-	from ...clogging.CustomFormatter import CustomFormatter
+from DLClassifier import DLClassifier	
+from DLDataset import DLDataset
+from classifier.Classifier import Classifier
+from clogging.CustomFormatter import CustomFormatter
 	 
 
 class DLTrainerClassifier(Classifier):

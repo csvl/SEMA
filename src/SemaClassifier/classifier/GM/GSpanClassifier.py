@@ -9,12 +9,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import progressbar
 
-try:
-    from ..Classifier import Classifier
-    from clogging.CustomFormatter import CustomFormatter
-except:
-    from ..Classifier import Classifier
-    from ...clogging.CustomFormatter import CustomFormatter
+from classifier.Classifier import Classifier
+from clogging.CustomFormatter import CustomFormatter
         
 
 class GSpanClassifier(Classifier):

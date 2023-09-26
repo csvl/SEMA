@@ -8,12 +8,8 @@ except:
     exit(-1)
 import numpy as np
 
-try:
-    from clogging.CustomFormatter import CustomFormatter
-    from classifier.Classifier import Classifier
-except:
-    from ...clogging.CustomFormatter import CustomFormatter
-    from ..Classifier import Classifier
+from clogging.CustomFormatter import CustomFormatter
+from classifier.Classifier import Classifier
        
 
 RANDOM_SEED=np.random.seed(10)
