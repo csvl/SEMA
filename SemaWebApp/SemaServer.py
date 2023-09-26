@@ -21,14 +21,12 @@ from django.core.paginator import (
     EmptyPage,
     PageNotAnInteger,
 )
-import json
 import datetime
 from flask_cors import CORS
 import pathlib
 import pandas as pd
 
 from src.Sema import *
-import threading
 import yara
 
 import dill
@@ -68,6 +66,7 @@ class SemaServer:
     # enable CORS
     CORS(app, resources={r'/*': {'origins': '*'}})
     
+    #TODO refactor
     def init_class_args(self):    
         for group in SemaServer.sema.args_parser.args_parser_class.parser._mutually_exclusive_groups:
             #SemaServer.log.info(group.title)
@@ -178,8 +177,8 @@ class SemaServer:
         # Init actions_classifier with current arguments available in ArgParser
         SemaServer.actions_classifier = [{}]
         self.init_class_args()
-        self.log.info("SCDG arguments: ")
-        self.log.info(SemaServer.actions_scdg)
+        self.log.info("Classifier arguments: ")
+        self.log.info(SemaServer.actions_classifier)
         
         # Useless now
         hostname = socket.gethostname() 
@@ -410,8 +409,8 @@ class SemaServer:
                 SemaServer.sema.current_exp_dir = len(glob.glob("src/" + args.exp_dir + "/*")) + 1
                 exp_dir = "src/" + args.exp_dir + str(SemaServer.sema.current_exp_dir) + "/"
                 args.binaries = exp_dir
-            elif args.binaries_mutated == "output/runs/" and "mutator_enable" in request.form:
-                pass # TODO bastien
+            #elif args.binaries_mutated == "output/runs/" and "mutator_enable" in request.form:
+            #    pass # TODO bastien
             else:
                 SemaServer.sema.current_exp_dir = int(args.binaries.split("/")[-1]) # TODO
                   
@@ -432,10 +431,12 @@ class SemaServer:
                 csv_class_file =  "src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/" + "classifier.csv"
                 SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.init, args=([args.exp_dir, [], csv_class_file]))) # TODO familly
                 SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.save_conf,args=([class_args,"src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/"])))
-                SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.train, args=()))
-                if SemaServer.sema.tool_classifier.mode == "classification":
+                if SemaServer.sema.tool_classifier.args.train:
+                    SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.train, args=()))
+                elif SemaServer.sema.tool_classifier.mode == "classification":
+                    print("lol")
                     SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.classify, args=()))
-                else:
+                elif SemaServer.sema.tool_classifier.mode == "detection":
                     SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.detect, args=()))
                 SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.save_csv, args=()))
             

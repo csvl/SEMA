@@ -4,16 +4,11 @@ from re import sub
 import logging
 import progressbar
 import glob
-try:
-    from SemaClassifier.SemaClassifier import SemaClassifier
-    from SemaSCDG.SemaSCDG import SemaSCDG
-    from helper.ArgumentParserTC import ArgumentParserTC
-    from SemaSCDG.clogging.CustomFormatter import CustomFormatter
-except:
-    from src.SemaClassifier.SemaClassifier import SemaClassifier
-    from src.SemaSCDG.SemaSCDG import SemaSCDG
-    from src.helper.ArgumentParserTC import ArgumentParserTC
-    from src.SemaSCDG.clogging.CustomFormatter import CustomFormatter
+
+from SemaClassifier.SemaClassifier import SemaClassifier
+from SemaSCDG.SemaSCDG import SemaSCDG
+from SemaHelper.ArgumentParserTC import ArgumentParserTC
+from SemaSCDG.clogging.CustomFormatter import CustomFormatter
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -61,9 +56,8 @@ def main():
     if sema.args.exp_dir == "output/runs/":
         sema.args.exp_dir =  "src/" +  sema.args.exp_dir + str(sema.current_exp_dir) + "/"
         sema.args.binaries = sema.args.exp_dir
-    
-    sema.tool_scdg.save_conf(sema.args)
-    sema.tool_classifier.save_conf(sema.args)
+    #sema.tool_scdg.save_conf(sema.args)    -> 1 more agr (path) required
+    #sema.tool_classifier.save_conf(sema.args)
     
     sema.tool_scdg.start_scdg(sema.args)
     

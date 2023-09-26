@@ -2,7 +2,7 @@
 import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 import sys
-from .SemaExplorer import SemaExplorer
+from SemaExplorer import SemaExplorer
 
 class SemaExplorerSDFS(SemaExplorer):
     def __init__(

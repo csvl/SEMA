@@ -3,7 +3,7 @@ import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from collections import deque
 import sys
-from .SemaExplorer import SemaExplorer
+from SemaExplorer import SemaExplorer
 
 
 class SemaExplorerCDFS(SemaExplorer):

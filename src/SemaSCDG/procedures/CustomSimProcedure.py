@@ -10,8 +10,8 @@ from angr.procedures import SIM_LIBRARIES
 from angr.procedures.definitions import SimLibrary
 from angr.calling_conventions import SimCCStdcall, SimCCCdecl, SimCCSystemVAMD64, SimCCMicrosoftAMD64
 
-from .DDLLoader import DDLLoader
-from .LinuxTableLoader import LinuxTableLoader
+from DDLLoader import DDLLoader
+from LinuxTableLoader import LinuxTableLoader
 
 builtins = dir(__builtins__)
 
@@ -436,7 +436,7 @@ class CustomSimProcedure:
                     # Set properly calling conventions
                     angrlib.set_default_cc("X86", self.ANGR_CALLING_CONVENTIONS_x86[cc])
                     angrlib.default_ccs["X86"] = self.ANGR_CALLING_CONVENTIONS_x86[cc]
-                    ngrlib.set_default_cc("AMD64", self.ANGR_CALLING_CONVENTIONS_x86_64[cc])
+                    angrlib.set_default_cc("AMD64", self.ANGR_CALLING_CONVENTIONS_x86_64[cc])
                     angrlib.default_ccs["AMD64"] = self.ANGR_CALLING_CONVENTIONS_x86_64[cc]
                 else:
                     angrlib = SimLibrary()

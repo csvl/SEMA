@@ -9,23 +9,17 @@ import progressbar
 import pandas as pd
 from sklearn.model_selection import train_test_split,StratifiedShuffleSplit
 from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score
 import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score,recall_score , f1_score
 from grakel import Graph
 from grakel.datasets import fetch_dataset
 from grakel.kernels import WeisfeilerLehman, VertexHistogram,ShortestPath,RandomWalk,RandomWalkLabeled,PropagationAttr,NeighborhoodSubgraphPairwiseDistance,WeisfeilerLehmanOptimalAssignment,PyramidMatch
-from sklearn.svm import SVC
 from sklearn.metrics import roc_curve, roc_auc_score
 
-try:
-    from ..Classifier import Classifier
-    from clogging.CustomFormatter import CustomFormatter
-except:
-    from ..Classifier import Classifier
-    from ...clogging.CustomFormatter import CustomFormatter
-     
+from classifier.Classifier import Classifier
+from clogging.CustomFormatter import CustomFormatter
+   
 
 CLASS_DIR = os.path.dirname(os.path.abspath(__file__))
 BINARY_CLASS = False # TODO
@@ -64,32 +58,36 @@ class SVMClassifier(Classifier):
         self.dataset = []
         self.label = []
         for family in self.families:
+            #import pdb; pdb.set_trace()
             path = self.path.replace("/SemaClassifier","/") + '/'  + self.original_path + family + '/' if self.path.replace("/SemaClassifier","/") not in self.original_path else self.original_path + family + '/'
             path = path.replace("SemaClassifier/","").replace("/src/src/","/src/") # TODO refactor
+            
             self.log.info("Subpath: " + path)
             if not os.path.isdir(path) :
                 self.log.info("Dataset should be a folder containing malware classify by familly in subfolder")
                 exit(-1)
             else:
                 #filenames = glob.glob(path+'/SCDG_*') + glob.glob(path+'test/SCDG_*')
-                filenames_folder = [os.path.join(path, f) for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))]
-                if len(filenames_folder) > 1 and family not in self.fam_idx :
+                # filenames_folder = [os.path.join(path, f) for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))]
+                # if len(filenames_folder) > 1 and family not in self.fam_idx :
+                #     self.fam_idx.append(family)
+                #for file_fol in filenames_folder:
+                filenames = [os.path.join(path, f) for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+                if len(filenames) > 1 and family not in self.fam_idx :
                     self.fam_idx.append(family)
-                for file_fol in filenames_folder:
-                    filenames = [os.path.join(file_fol, f) for f in os.listdir(file_fol) if os.path.isfile(os.path.join(file_fol, f))]
-                    for file in filenames:
-                        if file.endswith(".gs"):
-                            G = self.read_gs(file,self.mapping)
-                            if len(G.node_labels) > 1:
-                                self.dataset.append(G)
-                            if BINARY_CLASS and len(G.node_labels) > 1:
-                                if family == 'clean':
-                                    self.label.append(family)
-                                else:
-                                    self.label.append('malware')
+                for file in filenames:
+                    if file.endswith(".gs"):
+                        G = self.read_gs(file,self.mapping)
+                        if len(G.node_labels) > 1:
+                            self.dataset.append(G)
+                        if BINARY_CLASS and len(G.node_labels) > 1:
+                            if family == 'clean':
+                                self.label.append(family)
                             else:
-                                if len(G.node_labels) > 1:
-                                    self.label.append(family)
+                                self.label.append('malware')
+                        else:
+                            if len(G.node_labels) > 1:
+                                self.label.append(family)
         bar.finish()
     
     def split_dataset(self):

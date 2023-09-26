@@ -28,9 +28,10 @@ log_file = TimedRotatingFileHandler(
 log_file.formatter = log_type
 
 # Script log
-run_log = Logger("script_log")
 def init_logger():
+    run_log = Logger("script_log")
     logbook.set_datetime_format("local")
     run_log.handlers = []
     run_log.handlers.append(log_file)
     run_log.handlers.append(log_std)
+    return run_log

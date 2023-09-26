@@ -3,7 +3,7 @@ import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from collections import deque
 import sys
-from .SemaExplorer import SemaExplorer
+from SemaExplorer import SemaExplorer
 from angr.exploration_techniques.threading import Threading
 import concurrent.futures
 from angr.engines.engine import TLSMixin

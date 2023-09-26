@@ -6,16 +6,13 @@ import os
 from matplotlib.pyplot import cla
 from numpy import double
 from SemaSCDG.clogging.CustomFormatter import CustomFormatter
-from src.SemaClassifier.SemaClassifier import SemaClassifier
-from src.SemaSCDG.SemaSCDG import SemaSCDG
-try:
-    from CeleryTasks import *
-    from HE.HE_SEALS import F
-    from helper.ArgumentParserFL import ArgumentParserFL
-except:
-    from .CeleryTasks import *
-    from .HE.HE_SEALS import F
-    from .helper.ArgumentParserFL import ArgumentParserFL
+from SemaClassifier.SemaClassifier import SemaClassifier
+from SemaSCDG.SemaSCDG import SemaSCDG
+
+from CeleryTasks import *
+from HE.HE_SEALS import F
+from SemaHelper.ArgumentParserFL import ArgumentParserFL
+
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
