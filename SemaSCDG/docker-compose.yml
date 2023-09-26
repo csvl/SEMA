@@ -1,0 +1,18 @@
+# docker-compose.yml
+version: '0.1'
+
+networks:
+  micro_network:
+    external:
+      name: micro_network
+
+services:
+  SemaSCDG:
+    container_name: SemaSCDG
+    build:
+      context: .
+    ports:
+    - "5001:5001"
+    networks:
+    - micro_network
+    restart: always
