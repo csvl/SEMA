@@ -1,0 +1,41 @@
+sudo: required
+language: python
+
+matrix:
+  include:
+  - name: "Python 3.7.1 on Xenial Linux"
+    python: 3.7           # this works for Linux but is ignored on macOS or Windows
+    dist: xenial          # required for Python >= 3.7
+    cache: pip
+    install:
+        - pip install --upgrade pip setuptools pytest-xdist wheel twine
+        - pip install -e .
+    deploy:
+      provider: pypi
+      user: Masrepus
+      password:
+        secure: jmlsP5GjRg92yVmsjcnqizqu5G56aeey2jF6bD32/RU5sIligjNNobYbDGPPH4UWyZ73/D2aa81FwAtXxR76On367QhIxK4pQUyyAPuhaF7/IRxN1LA9rXg98r+43QkuphdDPLP3hI3n4TxXMV2cfJcDmyeb5HA0BRtjeTAa5clLw3fJ8/MKzo9EHdzy2JNo2ACR23Fzd8E4hqcTvasl4rn8bqOcw7O6/gVNvCV2xx9lEMScyGQk22zqFDMEXDk4usDISO6ZGz/BUrBLL5PxBS1RXlE0Phj+QedMUSg0rIivuz2Zep/uDx6rUkg2HWj7Ou6M/vthIYB6qyrBMhTgOctODQ0WaH8Q1gO7WwX8eWxhswRCYm0FPCU8C7FhjuKJyiOqsBxitQKn+m2fiyc5yUBC9wsVr3JbjxLNyFeVv8K7o5kU7Pr4GcM0VyjUcZwDIP51ZLFtkDv50HoU8wGo5JrgtxjYmroLIJFmSmsI9uZiBfQgomwd+eAWe+bf7fWH4+RAz/qXY6g4wEk7szw7kTCXC15bjdSYwZRFCWQwZF1rmTUapmYCzeH0QQUO6LBnfWDfb+IUSmdiXNGf458uNUdhl0maPpb0qkRjGBNvxElPy1IdbcZRP1RPe7cFJ1UXiuYhY6hF5cIY/GOKR9woQzavKTUw4gaAUX2jOC9DzHA=
+      distributions: sdist bdist_wheel
+      on:
+        tags: true
+        all_branches: true
+  - name: Python 3.7.2 on macOS
+    os: osx
+    osx_image: xcode10.2  # Python 3.7.2 running on macOS 10.14.3
+    language: shell       # 'language: python' is an error on Travis CI macOS
+    install:
+        - pip3 install --upgrade pip setuptools pytest-xdist wheel twine
+        - pip3 install -e .
+  - name: Python 3.7.3 on Windows
+    os: windows           # Windows 10.0.17134 N/A Build 17134
+    language: shell       # 'language: python' is an error on Travis CI Windows
+    before_install: choco install python make
+    env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
+    install:
+        - pip3 install --user --upgrade pip setuptools pytest-xdist wheel twine
+        - pip3 install --user -e .
+  allow_failures:
+  - os: windows
+
+script:
+- python3 -m pytest -s -n $((($(getconf _NPROCESSORS_ONLN)+1)/2)) || python -m pytest -s -n $((($(getconf _NPROCESSORS_ONLN)+1)/2))

@@ -1,0 +1,414 @@
+#!/usr/local/bin/python3
+
+from functools import reduce
+from io import BytesIO
+from pymongo import MongoClient
+from pprint import pformat
+from pyzipper import AESZipFile
+import operator
+import click
+import json
+import requests
+import subprocess
+
+from helpers import *
+
+
+# mongodb database name
+DB_NAME = "malwexp"
+
+# bazaar api endpoint
+url = "https://mb-api.abuse.ch/api/v1/"
+# bazaar zpi encryption password
+zip_pwd = b"infected"
+
+
+db = MongoClient()[DB_NAME]
+
+
+###############################################################################
+# malwexp                                                                     #
+###############################################################################
+
+
+@click.group(context_settings=dict(help_option_names=['-h', '--help']))
+def malwexp():
+    """
+    Interact with malwexp database.
+
+    This database stores malware metadata and experiments, for the A-team.
+    """
+    pass
+
+
+###############################################################################
+# malware                                                                     #
+###############################################################################
+
+
+@malwexp.group()
+def malware():
+    """
+    Interact with malwares inside malwexp database.
+
+    Malwares are documents in the database, with at least the following fields:
+
+    \b
+    - hashes, list of known hashes (md5, sha256, …) of the malware (at least one)
+    - date, estimated creation date of the malware, in YYYY-MM-DD format
+    - family, family the malware belongs to (e.g. wanacry)
+    - type, type of the malware (e.g. ransomware)
+    - platform, platform for which the malware is designed (e.g. win32)
+    - source, entity where the malware was found
+    - location, location where the malware can be retrieved for experiments
+    """
+    pass
+
+
+@malware.command()
+@click.argument('files', nargs=-1, required=False, type=click.File('r'))
+@click.option('-p', '--prompt', count=True, help="Prompt to create a document.")
+@click.option('-f', '--force', is_flag=True, help="Skip confirmation prompt.")
+@click.option('-q', '--quiet', is_flag=True, help="Hide debug ouptut text.")
+def create(files, prompt, force, quiet):
+    """
+    Create new malware documents in the database.
+
+    Parses all input FILES for one or more malwares described in JSON format.
+    """
+    malwares = []
+
+    for file in files:
+        for malware in parse_file(file, validate_malware):
+            malwares.append(malware)
+
+    for _ in range(prompt):
+        malware = prompt_malware(quiet)
+        malwares.append(malware)
+
+    if len(malwares) == 0:
+        raise click.ClickException("nothing found.")
+
+    if not force:
+        if not quiet:
+            desc = f"{len(malwares)} malwares" if len(malwares) > 1 else "one malware"
+            click.echo(f"Adding {desc} to the database.")
+        click.confirm('Do you confirm?', abort=True)
+
+    db.malware.insert_many(malwares)
+
+    if not quiet:
+        desc = f"{len(malwares)} malwares" if len(malwares) > 1 else "one malware"
+        click.echo(f"Added {desc}.")
+
+
+@malware.command()
+@click.argument("hash")
+@click.option('-o', '--output', type=click.File('w'), help="Output file to write result.")
+@click.option('-q', '--quiet', is_flag=True, help="Hide debug ouptut text.")
+def get(hash, output, quiet):
+    """
+    Retrieve all malware documents corresponding to a given HASH.
+    """
+    malwares = list(db.malware.find({"hash": hash}, {'_id': 0}))
+
+    if len(malwares) == 0:
+        raise click.ClickException("nothing found.")
+
+    if not quiet:
+        desc = f"{len(malwares)} malwares" if len(malwares) > 1 else "one malware"
+        click.echo(f"Found {desc}.")
+
+    string = json_str(malwares)
+    if output is None:
+        click.echo(string)
+    else:
+        output.write(string)
+
+
+@malware.command()
+@click.argument("hash")
+@click.option('-f', '--force', is_flag=True, help="Skip confirmation prompt.")
+@click.option('-q', '--quiet', is_flag=True, help="Hide debug ouptut text.")
+def delete(hash, force, quiet):
+    """
+    Delete all malware documents corresponding to a given HASH.
+    """
+    count = db.malware.count_documents({"hash": hash})
+
+    if count == 0:
+        raise click.ClickException("nothing found.")
+
+    if not force:
+        if not quiet:
+            desc = f"{count} malwares" if count > 1 else "one malware"
+            click.echo(f"Deleting {desc} from the database.")
+        click.confirm('Do you confirm?', abort=True)
+
+    result = db.malware.delete_many({"hash": hash})
+
+    if not quiet:
+        desc = f"{result.deleted_count} malwares" if result.deleted_count > 1 else "one malware"
+        click.echo(f"Deleted {desc}.")
+
+
+@malware.command()
+@click.option('--all/--any', default=True, help="Get documents matching either all or at least one filter. Default behavior is all.")
+@click.option('-f', '--filter', multiple=True, type=(str, str), help="Filter documents on a specified field. First parameter is the name of the field, and the second is the query for that field. Match all documents containing the query in their value for that field, ignoring case.")
+@click.option('-c', '--creation', type=click.DateTime(['%Y-%m-%d']), help="Filter documents for a specific creation date.")
+@click.option('-d', '--date', type=click.DateTime(['%Y-%m-%d']), help="Filter documents for a specific malware date.")
+@click.option('-b', '--before', type=click.DateTime(['%Y-%m-%d']), help="Filter documents on the date field, matching all dates before and including this one.")
+@click.option('-a', '--after', type=click.DateTime(['%Y-%m-%d']), help="Filter documents on the date field, matching all dates after and including this one.")
+@click.option('-o', '--output', type=click.File('w'), help="Output file to write result.")
+@click.option('-q', '--quiet', is_flag=True, help="Hide debug ouptut text.")
+def search(all, filter, creation, date, before, after, output, quiet):
+    """
+    Retrieve malware documents based on a set of filters.
+    """
+    filters = get_filters(filter, creation, date, before, after, all)
+    malwares = list(db.malware.find(filters, {'_id': 0}))
+
+    if len(malwares) == 0:
+        raise click.ClickException("nothing found.")
+
+    if not quiet:
+        desc = f"{len(malwares)} malwares" if len(malwares) > 1 else "one malware"
+        click.echo(f"Found {desc}.")
+
+    # write as single object if only one
+    string = json_str(malwares if len(malwares) > 1 else malwares[0])
+    if output is None:
+        click.echo(string)
+    else:
+        output.write(string)
+
+
+@malware.command()
+@click.argument('hashes', nargs=-1, required=True)
+@click.argument('field')
+@click.argument('value')
+@click.option('-q', '--quiet', is_flag=True, help="Hide debug ouptut text.")
+def batch_update(hashes, field, value, quiet):
+    """
+    Update all malwares from a list of HASHES to set FIELD to VALUE.
+    """
+    if field in ["_id", "user", "creation", "hash", "date"]:
+        raise click.ClickException(f"cannot batch update {field} field.")
+
+    for hash in hashes:
+        malwares = list(db.malware.find({"hash": hash}, {'_id': 0}))
+
+        if len(malwares) == 0:
+            if not quiet:
+                click.echo(f"No malware found for {hash}.")
+            continue
+
+        db.malware.delete_many({"hash": hash})
+
+        for malware in malwares:
+            malware[field] = value
+
+        db.malware.insert_many(malwares)
+
+        if not quiet:
+            desc = f"{len(malwares)} malwares" if len(malwares) > 1 else "one malware"
+            click.echo(f"Updated {desc} for {hash}.")
+
+
+###############################################################################
+# experiment                                                                  #
+###############################################################################
+
+
+@malwexp.group()
+def experiment():
+    """
+    Interact with experiments inside malwexp database.
+
+    Experiments are documents in the database, with at least the following fields:
+
+    \b
+    - authors, list of authors of the experiment
+    - samples, list of hashes of malwares used in the experiment
+    - date, date of the experiment, in YYYY-MM-DD format
+    - description, short description of the experiment
+    """
+    pass
+
+
+@experiment.command()
+@click.argument('files', nargs=-1, required=False, type=click.File('r'))
+@click.option('-p', '--prompt', count=True, help="Prompt to create a document.")
+@click.option('-f', '--force', is_flag=True, help="Skip confirmation prompt.")
+@click.option('-q', '--quiet', is_flag=True, help="Hide debug ouptut text.")
+def create(files, prompt, force, quiet):
+    """
+    Create new experiment documents in the database.
+
+    Parses all input FILES for one or more experiments described in JSON format.
+    """
+    experiments = []
+
+    for file in files:
+        for experiment in parse_file(file, validate_experiment):
+            experiments.append(experiment)
+
+    for _ in range(prompt):
+        experiment = prompt_experiment(quiet)
+        experiments.append(experiment)
+
+
+    if len(experiments) == 0:
+        raise click.ClickException("nothing found.")
+
+    if not force:
+        if not quiet:
+            desc = f"{len(experiments)} experiments" if len(experiments) > 1 else "one experiment"
+            click.echo("Adding {desc} to the database.")
+        click.confirm('Do you confirm?', abort=True)
+
+    db.experiment.insert_many(experiments)
+
+    if not quiet:
+        desc = f"{len(experiments)} experiments" if len(experiments) > 1 else "one experiment"
+        click.echo(f"Added {desc}.")
+
+
+@experiment.command()
+@click.option('--all/--any', default=True, help="Get documents matching either all filters, or at least one filter. Default behavior is all.")
+@click.option('-f', '--filter', multiple=True, type=(str, str), help="Filter documents on a specified field. First parameter is the name of the field, and the second is the query for that field. Match all documents containing the query in their value for that field, ignoring case.")
+@click.option('-c', '--creation', type=click.DateTime(['%Y-%m-%d']), help="Filter documents for a specific creation date.")
+@click.option('-d', '--date', type=click.DateTime(['%Y-%m-%d']), help="Filter documents for a specific experiment date.")
+@click.option('-b', '--before', type=click.DateTime(['%Y-%m-%d']), help="Filter documents on the date field, matching all dates before and including this one.")
+@click.option('-a', '--after', type=click.DateTime(['%Y-%m-%d']), help="Filter documents on the date field, matching all dates after and including this one.")
+@click.option('-o', '--output', type=click.File('w'), help="Output file to write result.")
+@click.option('-q', '--quiet', is_flag=True, help="Hide debug ouptut text.")
+def search(all, filter, creation, date, before, after, output, quiet):
+    """
+    Retrieve experiment documents based on a set of filters.
+    """
+    filters = get_filters(filter, creation, date, before, after, all)
+    experiments = list(db.experiment.find(filters, {'_id': 0}))
+
+    if len(experiments) == 0:
+        raise click.ClickException("nothing found.")
+
+    if not quiet:
+        desc = f"{len(experiments)} experiments" if len(experiments) > 1 else "one experiment"
+        click.echo(f"Found {desc}.")
+
+    # write as single object if only one
+    string = json_str(experiments if len(experiments) > 1 else experiments[0])
+    if output is None:
+        click.echo(string)
+    else:
+        output.write(string)
+
+
+###############################################################################
+# bazaar                                                                      #
+###############################################################################
+
+
+@malwexp.group()
+def bazaar():
+    """
+    Retrieve malware information and samples from bazaar.abuse.ch.
+
+    Information are converted to be compatible with malwexp database.
+    """
+    pass
+
+
+@bazaar.command()
+@click.argument("hash")
+@click.argument("output-dir", type=click.Path(exists=True, file_okay=False, writable=True))
+@click.option('-q', '--quiet', is_flag=True, help="Hide debug ouptut text.")
+def download(hash, output_dir, quiet):
+    """
+    Download malware executable with a given HASH (sha256 only) from bazaar.
+    The retrieved file is stored in OUTPUT_DIR, with HASH as its name.
+    """
+    form = { "query": "get_file", "sha256_hash": hash }
+    response = requests.post(url, data=form, timeout=(1, 10))
+
+    if response.status_code != 200:
+        raise click.ClickException("connection error.")
+
+    if response.headers['Content-Type'] != 'application/zip':
+        raise click.ClickException("nothing found.")
+
+    with AESZipFile(BytesIO(response.content)) as zipped:
+        zipped.extractall(output_dir, pwd=zip_pwd)
+
+    if not quiet:
+        click.echo(f"Download one malware executable.")
+
+
+@bazaar.command()
+@click.argument("hash")
+@click.option('-o', '--output', type=click.File('w'), help="Output file to write result.")
+@click.option('-q', '--quiet', is_flag=True, help="Hide debug ouptut text.")
+def get(hash, output, quiet):
+    """
+    Retrieve all malwares from bazaar corresponding to a given HASH.
+    """
+    form = { "query": "get_info", "hash": hash }
+    response = requests.post(url, data=form).json()
+
+    if response["query_status"] != "ok":
+        raise click.ClickException("nothing found.")
+
+    malwares = []
+    for value in response["data"]:
+        malwares.append(bazaar_to_malwexp(value))
+
+    if not quiet:
+        desc = f"{len(malwares)} malwares" if len(malwares) > 1 else "one malware"
+        click.echo(f"Found {desc}.")
+
+    # write as single object if only one
+    string = json_str(malwares if len(malwares) > 1 else malwares[0])
+    if output is None:
+        click.echo(string)
+    else:
+        output.write(string)
+
+
+@bazaar.command()
+@click.argument("family")
+@click.option('-l', '--limit', type=int, help="Number of malwares to retrieve.")
+@click.option('-o', '--output', type=click.File('w'), help="Output file to write result.")
+@click.option('-q', '--quiet', is_flag=True, help="Hide debug ouptut text.")
+def search(family, limit, output, quiet):
+    """
+    Retrieve recent malwares from bazaar corresponding to a given FAMILY.
+    """
+    form = { "query": "get_siginfo", "signature": family, "limit": limit }
+    response = requests.post(url, data=form).json()
+
+    if response["query_status"] != "ok":
+        click.echo(response["query_status"])
+        raise click.ClickException("nothing found.")
+
+    malwares = []
+    for value in response["data"]:
+        malwares.append(bazaar_to_malwexp(value))
+
+    if not quiet:
+        desc = f"{len(malwares)} malwares" if len(malwares) > 1 else "one malware"
+        click.echo(f"Found {desc}.")
+
+    # write as single object if only one
+    string = json_str(malwares if len(malwares) > 1 else malwares[0])
+    if output is None:
+        click.echo(string)
+    else:
+        output.write(string)
+
+
+###############################################################################
+
+
+if __name__ == '__main__':
+    malwexp()
