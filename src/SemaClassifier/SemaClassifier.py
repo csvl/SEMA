@@ -68,7 +68,7 @@ class SemaClassifier:
             biggest_subgraph = args.biggest_subgraph
             epoch = args.epoch
             shared_type = 1#args.smodel
-            self.mode = "classification" if args.classification else "detection"
+            self.mode = "detection" if args.detection else "classification"
         else:
             threshold = args["threshold"]
             support = args["support"]
@@ -182,6 +182,7 @@ class SemaClassifier:
             else:
                 args_train["path"] = self.input_path
             self.classifier.train(**args_train)
+            # import pdb; pdb.set_trace()
             self.save_model(self.classifier,ROOT_DIR + "/classifier/saved_model/"+ self.classifier_name +"_model.pkl")
         
             self.training_elapsed_time = time.time() - self.start_time
