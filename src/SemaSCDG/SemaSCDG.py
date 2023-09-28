@@ -186,6 +186,9 @@ class SemaSCDG:
         self.scdg_fin = []
         
         self.new = {}
+
+        # Option for exploration evalutation
+        self.instr_count = {}
                 
         #logging.getLogger("angr").setLevel("WARNING")
         #logging.getLogger("angr").setLevel("DEBUG")
