@@ -62,15 +62,6 @@ sudo apt-get --fix-missing -y install libcap2-bin
 
 sudo apt-get --fix-missing -y install libcairo2-dev libjpeg-turbo8-dev libpng-dev libossp-uuid-dev libfreerdp-dev
 sudo apt-get --fix-missing -y install libvirt-dev python3-wheel 
-#FL
-sudo apt install rabbitmq-server
-sudo apt-get install zip
-
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-sudo apt remove --purge cmake
-sudo apt install snapd
-sudo snap install cmake --classic
 
 ## Install mongodb
 sudo apt-get -y install mongodb
@@ -79,18 +70,6 @@ sudo apt-get -y install mongodb
 sudo apt-get install -y postgresql libpq-dev
 
 sudo apt-get install -y gdb-multiarch
-
-if [ $PYPY = true ]; then
-    # ln -s /usr/lib/x86_64-linux-gnu/libyara.so.3 /usr/lib/pypy3/lib/libyara.so
-    sudo apt-get update
-    sudo apt-get install libc6 
-    sudo add-apt-repository ppa:pypy/ppa
-    sudo apt update
-    sudo apt install pypy3 pypy3-dev
-    #sudo snap install pypy3 --classic
-    sudo apt-get install g++
-    sudo apt-get install libatlas-base-dev
-fi
 
 # gspan
 sudo apt-get install libgoogle-glog-*
@@ -109,53 +88,6 @@ pip install --upgrade pip
 pip3 install wheel
 pip3 install setuptools_rust
 pip3 install .
-
-if [ $CUDA = true ]; then
-  # CUDA core 
-  wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
-  sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
-  sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
-  sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
-  sudo apt-get update
-  sudo apt-get -y install cuda
-fi
-
-if [ $PYPY = true ]; then
-    # your standard pip install folder could caused problems
-    pypy3 -m ensurepip
-    pypy3 -m pip install --upgrade pip testresources setuptools wheel
-    pypy3 -m pip install setuptools_rust
-    pypy3 -m pip install numpy pandas
-    pypy3 -m pip install pybind11 avatar2
-    pypy3 -m pip install yara-python # yara
-    pypy3 -m pip install sklearn 
-    pypy3 -m pip install matplotlib
-    pypy3 -m pip install grakel
-    pypy3 -m pip install seaborn 
-    #pypy3 -m pip install ft2font
-    pypy3 -m pip install  . 
-    sudo apt-get install libjansson-dev
-    pypy3 -m pip install unicorn
-    pypy3 -m pip install grakel
-    pypy3 -m pip install gensim
-    #pypy3 -m pip install torch
-    pypy3 -m pip install --global-option="build" --global-option="--enable-cuckoo" --global-option="--enable-magic" yara-python
-    #pypy3 -m pip install --global-option="build"  yara 
-
-    # TODO
-    cd /tmp/ 
-    pypy3 -m pip install yara-python==3.11.0 -t . #yara
-    sudo mkdir /usr/lib/pypy3/lib
-    sudo cp usr/lib/pypy3/lib/libyara.so /usr/lib/pypy3/lib/libyara.so
-    sudo cp $ROOTPATH/penv/lib/python3.8/site-packages/angr/lib/angr_native.so /home/crochetch/.local/lib/pypy3.7/site-packages/angr/lib/angr_native.so #/usr/lib/pypy3/lib/angr_native.so
-
-    cd $ROOTPATH
-    # pypy3 -m pip install  libvirt-python # TODO error when installing pypy with snap
-    # # https://github.com/paramiko/paramiko/issues/1435
-    # pypy3 -m pip uninstall paramiko
-    # pypy3 -m pip uninstall PyNaCl
-    # PARAMIKO_REPLACE=1 pypy3 -m pip install https://github.com/ploxiln/paramiko-ng/archive/2.7.2.tar.gz#egg=paramiko
-fi
 
 deactivate
 
@@ -198,9 +130,7 @@ pip2 install .
 sudo apt-get install mingw-w64 make flex bison texinfo
 # create db
 
-
 printf '\n%s\n' "-------------> Install tcpdump: <-------------"
-
 
 ## Installing tcpdump
 sudo aa-disable /usr/sbin/tcpdump
@@ -221,19 +151,6 @@ tar xvf guacamole-server-1.3.0.tar.gz && cd guacamole-server-1.3.0
 make && sudo make install && cd ..
 sudo ldconfig
 sudo /etc/init.d/guacd start
-
-if [ $VMS = true ]; then
-    printf '\n%s\n' "-------------> Download vms database: <-------------"
-    cd $ROOTPATH/src/ToolChainSCDG/sandboxes/toolchain_sandbox_images/
-    wget "https://uclouvain-my.sharepoint.com/:u:/g/personal/christophe_crochet_uclouvain_be/ETxNbh8gN8ZDi_NSVV3WhxIBEVECn0YiSf-0Z9Ur6B-Utg?download=1" -O win7_x64_cuckoo.zip 
-    wget "https://uclouvain-my.sharepoint.com/:u:/g/personal/christophe_crochet_uclouvain_be/EbgBGWhZqDtPt64cKxn5-2wBIu97kENuXLBqNpDvS9DCvg?download=1" -O ubuntu18.04_cuckoo.zip
-fi
-if [ $VMI = true ] && [$VMS = true]; then
-    printf '\n%s\n' "-------------> Install vms database: <-------------"
-    ## Unzip vms
-    bash unzip.sh
-    cd $ROOTPATH/
-fi
 
 printf '\n%s\n' "-------------> Install malware volatility: <-------------"
 

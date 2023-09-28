@@ -30,6 +30,15 @@ build-web-sema:
 	docker build  --rm -t sema-web-nf -f Dockerfile.sema.webapp --build-arg image=sema .
 	docker build  --rm -t sema-web -f Dockerfile.sema.fix --build-arg image=sema-web-nf .
 
+build-toolchain:
+	docker-compose -f SemaWebApp/docker-compose.deploy.yml build
+
+build-web-app:
+	docker build --rm -t sema-web-app  -f SemaWebApp/Dockerfile .
+
+build-scdg:
+	docker build --rm -t sema-scdg -f SemaSCDG/Dockerfile .
+
 run-web:
 	#bash update_etc_hosts.sh
 	docker run  \
@@ -57,6 +66,36 @@ run-sh:
 			   -p 80:80 \
 			   --network="bridge" \
 			   -it sema-web bash
+			   
+
+run-web-app:
+	docker run \
+				--rm \
+				-v $(PWD)/SemaWebApp/:/sema-web-app \
+				-v /tmp/.X11-unix:/tmp/.X11-unix \
+				-e DISPLAY=$(DISPLAY) \
+				-p 5000:5000 \
+				--network="bridge" \
+				-it sema-web-app python3 application/SemaServer.py
+
+run-scdg-service:	
+	docker run \
+				--rm \
+				-v $(PWD)/SemaSCDG/:/sema-scdg \
+				-v $(PWD)/submodules/angr-utils:/sema-scdg/submodules/angr-utils \
+				-v $(PWD)/submodules/bingraphvis:/sema-scdg/submodules/bingraphvis \
+				-v $(PWD)/penv-fix/:/sema-scdg/penv-fix \
+				-v $(PWD)/database/:/sema-scdg/database\
+				-e DISPLAY=$(DISPLAY) \
+				-v /tmp/.X11-unix:/tmp/.X11-unix \
+				-p 5000:5000 \
+				--network="bridge" \
+				-it sema-scdg bash
+				
+clean-empty-directory:
+	sudo rm -r -f SemaSCDG/submodules
+	sudo rm -r -f SemaSCDG/penv-fix
+	sudo rm -r -f SemaSCDG/database
 
 clean-docker:
 	docker image prune
