@@ -59,13 +59,6 @@ from clogging.LogBookFormatter import * # TODO
 from SCDGHelper.ArgumentParserSCDG import ArgumentParserSCDG
 from sandboxes.CuckooInterface import CuckooInterface
 
-import matplotlib.pyplot as plt
-import numpy as np
-
-import shutil
-
-import dill
-import nose
 import avatar2 as avatar2
 
 from unipacker.core import Sample, SimpleClient, UnpackerEngine
@@ -1610,7 +1603,8 @@ def main():
     args_parser = ArgumentParserSCDG(toolc)
     args = args_parser.parse_arguments()
     args_parser.update_tool(args)
-    toolc.start_scdg(args, is_fl=False,csv_file=None)
+    #TODO : replace by API call
+    #toolc.start_scdg(args, is_fl=False,csv_file=None)
 
 
 if __name__ == "__main__":

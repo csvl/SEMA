@@ -1,28 +1,20 @@
 # docker-compose.deploy.yml
 version: '0.1'
 
-networks:
-  micro_network:
-    external:
-      name: micro_network
-
 services:
-  frontend-app:
-    container_name: web-app
+  web-app:
+    image: sema-web-app:latest
     build:
       context: .
     ports:
     - "5000:5000"
-    networks:
-    - micro_network
     restart: always
-
+  
   SemaSCDG:
-    container_name: SemaSCDG
+    image: sema-scdg:latest
     build:
-      context: .
+      context: ..
+      dockerfile: ./SemaSCDG/Dockerfile
     ports:
     - "5001:5001"
-    networks:
-    - micro_network
     restart: always
