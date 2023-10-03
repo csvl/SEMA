@@ -113,7 +113,7 @@ class PluginEnvVar(angr.SimStatePlugin):
                 else:
                     if sstate.plugin_env_var.env_var_requested[key] not in total_env_var[key]:
                         total_env_var[key].append(str(sstate.plugin_env_var.env_var_requested[key]))
-        for key in sstate.plugin_env_var.wenv_var_requested.keys():
+            for key in sstate.plugin_env_var.wenv_var_requested.keys():
                 if key not in total_env_var:
                     total_env_var[key] = []
                     if sstate.plugin_env_var.wenv_var_requested[key] not in total_env_var[key]:

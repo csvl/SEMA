@@ -154,7 +154,7 @@ class SemaSCDG():
         self.families = []
         self.inputs = None
         self.expl_method = None
-        self.familly = None
+        self.family = None
         
         self.nb_exps = 0
         self.current_exps = 0
@@ -165,9 +165,23 @@ class SemaSCDG():
         self.is_packed = is_packed
         self.concrete_target_is_local = concrete_target_is_local
         
-    def save_conf(self, args, path):
+    def save_conf(self, path):
+        attributes = {}
+        for attr in dir(self):
+            if not attr.startswith("__") and not callable(getattr(self, attr)):
+                value = getattr(self, attr)
+                try:
+                    json.dumps(value)
+                    attributes[attr] = value
+                except TypeError:
+                    pass
         with open(os.path.join(path, "scdg_conf.json"), "w") as f:
-            json.dump(args, f, indent=4)
+            json.dump(attributes, f, indent=4)
+
+    def save_sys_call_table(self, table, path):
+        with open(os.path.join(path, "sys_call_table.json"), "w") as f:
+            json.dump(table, f, indent=4)
+
 
     def build_scdg(self, args, is_fl=False, csv_file=None):
         # Create directory to store SCDG if it doesn't exist
@@ -185,7 +199,7 @@ class SemaSCDG():
                 self.log.info(df)
             except:
                 df = pd.DataFrame(
-                    columns=["familly",
+                    columns=["family",
                              "filename", 
                              "time",
                              "date",
@@ -209,74 +223,62 @@ class SemaSCDG():
                              ]) # TODO add frame type
         
         if not is_fl:
-            exp_dir = args.exp_dir
+            exp_dir = "database/SCDG/runs/" + args.exp_dir + "/"
             nargs = args.n_args
             disjoint_union = args.disjoint_union
             not_comp_args = args.not_comp_args
             min_size = args.min_size
             not_ignore_zero = args.not_ignore_zero
             three_edges = args.three_edges
-            dir = args.dir
             verbose = args.verbose_scdg
             format_out_json = args.json # TODO refactor if we add more 
             self.discard_scdg = args.discard_SCDG
         else:
-            exp_dir = args["exp_dir"]
+            exp_dir = "database/SCDG/runs/" + args["exp_dir"] + "/"
             nargs = args["n_args"]
             disjoint_union = args["disjoint_union"]
             not_comp_args = args["not_comp_args"]
             min_size = args["min_size"]
             not_ignore_zero = args["not_ignore_zero"]
             three_edges = args["three_edges"]
-            dir = args["dir"]
             verbose = args["verbose_scdg"]
             format_out_json = args["json"]
             self.discard_scdg = args["discard_SCDG"]
         try:
-            os.stat(args.exp_dir)
-        except:
             os.makedirs(exp_dir)
+        except:
+            self.log.warning("The specified output directory already exists and can contain files from previous experiment")
             
-        self.log.info(args)
-
-        # if exp_dir != "output/runs/"+ str(self.current_exp_dir) + "/":
-        #     setup = open("output/runs/"+ str(self.current_exp_dir) + "/" + "setup.txt", "w")
-        #     setup.write(str(self.jump_it) + "\n")
-        #     setup.write(str(self.loop_counter_concrete) + "\n")
-        #     setup.write(str(self.max_simul_state) + "\n")
-        #     setup.write(str(self.max_in_pause_stach) + "\n")
-        #     setup.write(str(self.max_step) + "\n")
-        #     setup.write(str(self.max_end_state))
-        #     setup.close()
+        
+        self.save_conf(exp_dir)
+        #self.save_conf(vars(args), exp_dir) #Add 1 argument in save_conf + modify -> give different parameters
 
         # Take name of the sample without full path
+        self.log.info("Results wil be saved into : " + exp_dir)
         if "/" in self.inputs:
             nameFileShort = self.inputs.split("/")[-1]
         else:
             nameFileShort = self.inputs
         try:
-            os.stat(exp_dir + "/" +  nameFileShort)
+            os.stat(exp_dir + nameFileShort)
         except:
-            os.makedirs(exp_dir + "/" +  nameFileShort)
-        
-        fileHandler = logging.FileHandler(exp_dir + "/" + nameFileShort + "/" + "scdg.ans")
+            os.makedirs(exp_dir + nameFileShort)
+        fileHandler = logging.FileHandler(exp_dir + nameFileShort + "/" + "scdg.ans")
         fileHandler.setFormatter(CustomFormatter())
         #logging.getLogger().handlers.clear()
         try:
             logging.getLogger().removeHandler(fileHandler)
         except:
-            self.log.info("Exeption remove filehandle")
+            self.log.info("Exception remove filehandler")
             pass
         
         logging.getLogger().addHandler(fileHandler)
-        self.log.info(csv_file)
+        #self.log.info(csv_file)
 
 
-        exp_dir = exp_dir + "/" + nameFileShort + "/"
-        #dir = dir + "/" + nameFileShort + "/"
-        self.log.info(exp_dir)
+        exp_dir = exp_dir + nameFileShort + "/"
         
-        title = "--- Building SCDG of " + self.familly  +"/" + nameFileShort  + " ---"
+        title = "--- Building SCDG of " + self.family  +"/" + nameFileShort  + " ---"
         self.log.info("\n" + "-" * len(title) + "\n" + title + "\n" + "-" * len(title))
 
         #####################################################
@@ -596,7 +598,9 @@ class SemaSCDG():
            
         self.log.info("System call table loaded")
         self.log.info("System call table size : " + str(len(self.call_sim.system_call_table)))
-        self.log.info("System call table : " + str(self.call_sim.system_call_table))
+        self.save_sys_call_table(self.call_sim.system_call_table, exp_dir)
+        self.log.info("System call table saved at : " + exp_dir + "sys_call_table.json")
+        #self.log.info("System call table : " + str(self.call_sim.system_call_table))
         
 
         # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows)
@@ -686,8 +690,6 @@ class SemaSCDG():
             )
             #state.libc.max_variable_size = 0x20000000*2 + 0x18000000
             #state.libc.max_memcpy_size   = 0x20000000*2
-
-
         
         state.register_plugin("plugin_env_var", PluginEnvVar()) 
         state.plugin_env_var.setup_plugin(self.expl_method)
@@ -1212,10 +1214,11 @@ class SemaSCDG():
         self.log.info("Total execution time: " + str(elapsed_time))
         
         if args.track_command:
-            self.commands.track(simgr, self.scdg,exp_dir)
+            self.commands.track(simgr, self.scdg, exp_dir)
         if args.ioc_report:
-            self.ioc.build_ioc(self.scdg,exp_dir)
+            self.ioc.build_ioc(self.scdg, exp_dir)
         # Build SCDG
+        self.log.info(exp_dir)
         self.build_scdg_fin(exp_dir, nameFileShort, main_obj, state, simgr)
         
         g = GraphBuilder(
@@ -1226,14 +1229,14 @@ class SemaSCDG():
             min_size=min_size,
             ignore_zero=(not not_ignore_zero),
             three_edges=three_edges,
-            odir=dir,
+            odir=exp_dir,
             verbose=verbose,
-            familly=self.familly
+            family=self.family
         )
         g.build_graph(self.scdg_fin, format_out_json=format_out_json)
         
         if csv_file:
-            df = df.concat({"familly":self.familly,
+            df = df.concat({"family":self.family,
                             "filename": nameFileShort, 
                              "time": elapsed_time,
                              "date":datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
@@ -1543,10 +1546,9 @@ class SemaSCDG():
         # soft, hard = resource.getrlimit(rsrc)
         # self.log.info('Soft limit changed to :', soft)
 
-        self.log.info(self.inputs)
         if os.path.isfile(self.inputs):
             self.nb_exps = 1
-            # TODO update familly
+            # TODO update family
             self.log.info("You decide to analyse a single binary: "+ self.inputs)
             # *|CURSOR_MARCADOR|*
             #try:
@@ -1557,8 +1559,7 @@ class SemaSCDG():
             self.current_exps = 1
         else:
             import progressbar
-            last_familiy = "unknown"
-            self.log.info(self.inputs)
+            last_family = "unknown"
             if os.path.isdir(self.inputs):
                 subfolder = [os.path.join(self.inputs, f) for f in os.listdir(self.inputs) if os.path.isdir(os.path.join(self.inputs, f))]
                
@@ -1579,12 +1580,12 @@ class SemaSCDG():
                     fc = 0
                     current_family = folder.split("/")[-1]
                     if not is_fl:
-                        args.exp_dir = args.exp_dir.replace(last_familiy,current_family) 
+                        args.exp_dir = args.exp_dir.replace(last_family,current_family) 
                     else:
-                        args["exp_dir"] = args["exp_dir"].replace(last_familiy,current_family) 
+                        args["exp_dir"] = args["exp_dir"].replace(last_family,current_family) 
                     for file in files:
                         self.inputs = file
-                        self.familly = current_family
+                        self.family = current_family
                         #try:
                         self.build_scdg(args, is_fl, csv_file=csv_file)
                         # except Exception as e:
@@ -1594,14 +1595,14 @@ class SemaSCDG():
                         self.current_exps += 1
                         bar.update(fc)
                     self.families += current_family
-                    last_familiy = current_family
+                    last_family = current_family
                     bar.finish()
                     ffc+=1
                     bar_f.update(ffc)
                 bar_f.finish()
             else:
-                self.log.info("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/malware-inputs/Sample_paper")
-                # exit(-1)
+                self.log.info("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/Binaries/malware-win/small_train")
+                exit(-1)
 
 
 def main():
@@ -1616,11 +1617,9 @@ def main():
     args_parser = ArgumentParserSCDG(toolc)
     args = args_parser.parse_arguments()
     args_parser.update_tool(args)
-    #TODO : replace by API call
-    #toolc.start_scdg(args, is_fl=False,csv_file=None)
+    toolc.start_scdg(args, is_fl=False,csv_file=None)
 
 
 if __name__ == "__main__":
-    
     main()
             

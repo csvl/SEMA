@@ -433,7 +433,7 @@ class SemaServer:
             #     SemaServer.sema.tool_classifier.args = args
             #     SemaServer.sema.args_parser.args_parser_class.update_tool(args)
             #     csv_class_file =  "src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/" + "classifier.csv"
-            #     SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.init, args=([args.exp_dir, [], csv_class_file]))) # TODO familly
+            #     SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.init, args=([args.exp_dir, [], csv_class_file]))) # TODO family
             #     SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.save_conf,args=([class_args,"src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/"])))
             #     if SemaServer.sema.tool_classifier.args.train:
             #         SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.train, args=()))
@@ -680,11 +680,11 @@ class SemaServer:
             class_params = {}
             summary["class_used"] = False
         
-        summary["familly_cnt"] = 0
+        summary["family_cnt"] = 0
         summary["sample_cnt"] = 0
         for subdir in os.listdir(SemaServer.sema_res_dir + str(nb_exp-int(page))):
             if os.path.isdir(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir):
-                summary["familly_cnt"] += 1
+                summary["family_cnt"] += 1
                 scdgs[subdir] = {}
                 for malware in os.listdir(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir):
                     summary["sample_cnt"] += 1
@@ -713,14 +713,14 @@ class SemaServer:
                 {
                 "id": str(uuid.uuid4()), # Must be unique TODO df_csv_scdg['filename']
                 "name": "Experiences coverage view",
-                "parameters": ["filename", "familly"],
+                "parameters": ["filename", "family"],
                 "measurements": ["Total number of instr", 'Number of instr visited'], # , "Total number of blocks",'Number Syscall found' , 'Number Address found', 'Number of blocks visited', "Total number of blocks","time"
                 "data": df_csv_scdg.drop("Syscall found", axis=1).drop("Libraries", axis=1).to_csv(index=False)
                 },
                 {
                 "id": str(uuid.uuid4()), 
                 "name": "Experiences syscall view",
-                "parameters": ["filename", "familly"], 
+                "parameters": ["filename", "family"], 
                 "measurements": ["Number Syscall found"], # , "Total number of blocks",'Number Syscall found'
                 "data": df_csv_scdg.drop("Syscall found", axis=1).drop("Libraries", axis=1).to_csv(index=False)
                 },
@@ -728,8 +728,8 @@ class SemaServer:
                 "id": str(uuid.uuid4()), 
                 "name": "Dataset view",
                 "parameters": ["filename"], 
-                "measurements": ["OS", "CPU architecture", "familly","Binary position-independent"], # , "Total number of blocks",'Number Syscall found'
-                "data": df_csv_scdg[["filename", "CPU architecture","OS", "familly", "Binary position-independent"]].to_csv(index=False)
+                "measurements": ["OS", "CPU architecture", "family","Binary position-independent"], # , "Total number of blocks",'Number Syscall found'
+                "data": df_csv_scdg[["filename", "CPU architecture","OS", "family", "Binary position-independent"]].to_csv(index=False)
                 },
             ]
             # configurationData = {
