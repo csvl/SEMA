@@ -21,7 +21,7 @@ class GraphBuilder:
         odir=None,
         get_info=False,
         verbose=False,
-        familly="unknown"
+        family="unknown"
     ):
         self.DISCARD = {
             "LoopBreaker",
@@ -69,11 +69,11 @@ class GraphBuilder:
             self.name = name
 
         if odir:
-            self.odir = odir + "/" + familly
+            self.odir = odir
             if not os.path.exists(self.odir):
                 os.makedirs(self.odir)
         else:
-            self.odir = "output/runs/" + familly # ROOT_DIR +
+            self.odir = "database/SCDG/runs/" + family # ROOT_DIR +
         self.lw.info("Output dir :" + self.odir)
 
     # Create a mapping for the different syscall name and an unique identifier.
@@ -255,10 +255,10 @@ class GraphBuilder:
     def build_graph(self, SCDG, format_out_json="gs"):
         json_content = {}
         if not format_out_json:
-            self.graph_file = open(self.odir + "/" + self.name + "/"+ self.name + ".gs", "w")
+            self.graph_file = open(self.odir + "/final_SCDG.gs", "w")
             self.graph_file.write("t # 0\n")
         else:
-            self.graph_file = open(self.odir + "/" + self.name + "/"+ self.name + ".json", "w")
+            self.graph_file = open(self.odir + "/final_SCDG.json", "w")
 
         if self.MERGE_CALL:
             json_content["nodes"] = []
@@ -315,7 +315,7 @@ class GraphBuilder:
                     self.graph_file.write(l)
 
             # dot.render(self.odir+'/SCDG_'+self.name+'.dot', view=False,nslimit=2)
-            dot.save(self.odir + "/"+  self.name + "/" + self.name + ".gv")
+            dot.save(self.odir + "/final_SCDG.gv")
             if format_out_json:
                 json.dump(json_content, self.graph_file)
         else:
@@ -355,7 +355,8 @@ class GraphBuilder:
                         else:
                             self.graph_file.write(l)
 
-                    dot.save("../output/test-output/disjoint_union" + str(i) + ".gv")
+                    #dot.save("../output/test-output/disjoint_union" + str(i) + ".gv")
+                    dot.save(self.odir + "/test-output/disjoint_union" + str(i) + ".gv")
                     self.id = 0
                     self.tabnode = []
                     self.tablink = []
@@ -365,7 +366,7 @@ class GraphBuilder:
                     self.nodes.clear()
                     dot.clear()
 
-            dot.save("../output/test-output/disjoint_union.gv")
+            dot.save(self.odir + "/test-output/disjoint_union.gv")
             if format_out_json:
                 json.dump(json_content, self.graph_file)
         self.graph_file.close()

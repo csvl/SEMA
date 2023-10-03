@@ -212,11 +212,11 @@ class ArgumentParserSCDG:
             action="store_true",
             
         )
-        self.group_scdg.add_argument(
-            "--dir",
-            help=" Directory to save outputs graph for gspan  (default : output/runs/<exp_run>)",
-            default="output/runs/",
-        )
+        # self.group_scdg.add_argument(
+        #     "--dir",
+        #     help=" Directory to save outputs graph for gspan  (default : output/runs/<exp_run>)",
+        #     default="database/SCDG/runs/",
+        # )
         self.group_scdg.add_argument(
             "--discard_SCDG",
             help="Do not keep intermediate SCDG in file  (default : False)",
@@ -266,10 +266,9 @@ class ArgumentParserSCDG:
             
         )
         self.group.add_argument(
-            "--exp_dir",
-            help=" Directory to save SCDG extracted (default : output/runs/<exp_run>)",
-            default="output/runs/",
-            
+            "exp_dir",
+            help=" Name of the output directory", 
+
         )
         self.group.add_argument(
             "--memory_limit",
@@ -290,8 +289,8 @@ class ArgumentParserSCDG:
             
         )
         self.group.add_argument(
-            "--familly",
-            help="Familly of the malware (default : unknown)",
+            "--family",
+            help="family of the malware (default : unknown)",
             
         )
         self.group.add_argument("binary", 
@@ -320,10 +319,10 @@ class ArgumentParserSCDG:
                 else ("ThreadCDFS" if args.ThreadCDFS \
                 else  "CBFS"))))))
 
-        familly = "unknown"
-        if args.familly:
-            familly = args.familly
-        args.exp_dir = args.exp_dir + familly + "/"
+        family = "unknown"
+        if args.family:
+            family = args.family
+        args.exp_dir = args.exp_dir + "/" + family
 
         if args.timeout:
             self.tool_scdg.timeout = args.timeout
@@ -361,7 +360,7 @@ class ArgumentParserSCDG:
 
         self.tool_scdg.inputs = inputs
         self.tool_scdg.expl_method = expl_method
-        self.tool_scdg.familly = familly
+        self.tool_scdg.family = family
         self.tool_scdg.memory_limit = args.memory_limit # Add custom value
 
     def parse_arguments(self, allow_unk = False, args_list=None):
