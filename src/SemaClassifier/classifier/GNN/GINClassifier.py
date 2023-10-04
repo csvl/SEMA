@@ -1,6 +1,6 @@
 import torch
 import torch.nn.functional as F
-from torch_geometric.nn import GINConv, global_mean_pool
+from torch_geometric.nn import GINConv, global_mean_pool, GINEConv
 
 
 class GIN(torch.nn.Module):

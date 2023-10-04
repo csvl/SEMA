@@ -135,6 +135,18 @@ class ArgumentParserClassifier:
             action="store_true",
    
         )
+        self.group_cl.add_argument(
+            "--rgin",
+            help="TODO",
+            action="store_true",
+
+        )
+        self.group_cl.add_argument(
+            "--rginjk",
+            help="TODO",
+            action="store_true",
+
+        )
         
         # TODO dynamic
         self.group_familly = self.parser.add_argument_group('Malware familly')
@@ -240,7 +252,7 @@ class ArgumentParserClassifier:
         #     else:
         #         self.tcw.classifier_name = class_method
         #else:
-        self.tcw.classifier_name = "wl" if args.wl else "inria" if args.inria else "dl" if args.dl else "gin" if args.gin else "ginjk" if args.ginjk else "gspan"
+        self.tcw.classifier_name = "wl" if args.wl else "inria" if args.inria else "dl" if args.dl else "gin" if args.gin else "ginjk" if args.ginjk else "rgin" if args.rgin else "rginjk" if args.rginjk else "gspan"
         
         if args.threshold:
             self.tcw.threshold = args.threshold

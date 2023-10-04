@@ -18,6 +18,9 @@ import logging
 from ..Classifier import Classifier
 from .GINClassifier import GIN
 from .GINJKClassifier import GINJK
+from .GCNClassifier import GCN
+from .RGINClassifier import RanGIN
+from .RGINJKClassifier import RanGINJK
 from .GNNExplainability import GNNExplainability
 from .utils import gen_graph_data, read_gs_4_gnn
 import copy
@@ -35,8 +38,9 @@ def collate_fn(data_list):
 class GNNTrainer(Classifier):
     def __init__(self, path, name, threshold=0.45,
                  families=['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT'],
-                 num_layers=2, hidden=64, lr=0.001, epochs=350, batch_size=1,
+                 num_layers=4, hidden=64, lr=0.001, epochs=350, batch_size=1,
                  multi_gpu=1):
+        
         super().__init__(path, name, threshold)
 
         self.multi_gpu = multi_gpu
@@ -100,7 +104,7 @@ class GNNTrainer(Classifier):
                     self.fam_dict[family] = len(self.fam_idx) - 1
                 for file in filenames:
                     if file.endswith(".gs"):
-                        edges, nodes, vertices, edge_labels = read_gs_4_gnn(file,self.mapping)
+                        edges, nodes, vertices, edge_labels = read_gs_4_gnn(file, self.mapping)
                         data = gen_graph_data(edges, nodes, vertices, edge_labels, self.fam_dict[family])
                         if len(data.edge_index.size()) > 1:
                             if len(nodes) > 1 and len(data.edge_index.size()) > 1:
@@ -139,6 +143,9 @@ class GNNTrainer(Classifier):
         lr=self.lr
         batch_size=self.batch_size
         self.init_dataset(path)
+        step_size = 8e-3
+        m = 3
+        
 
         self.log.info("Dataset len: " + str(len(self.dataset)))
         self.dataset_len = len(self.dataset)
@@ -162,6 +169,12 @@ class GNNTrainer(Classifier):
                 self.clf = GraphSAGE(dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
             elif self.name=="ginjk":
                 self.clf = GINJK(dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
+            elif self.name=="rgin":
+                self.clf = RanGIN(dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
+            elif self.name=="rginjk":
+                self.clf = RanGINJK(dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
+            elif self.name=="gcn":
+                self.clf = GCN(dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
 
             optimizer = torch.optim.Adam(self.clf.parameters(), lr=lr)#, weight_decay=5e-4)
             criterion = torch.nn.CrossEntropyLoss()
@@ -175,7 +188,7 @@ class GNNTrainer(Classifier):
                              eta_min = 1e-4) # Minimum learning rate.
             # import pdb; pdb.set_trace()
             torch.autograd.set_detect_anomaly(True)
-            patience = 20 # Number of epochs to wait for improvement
+            patience = 100 # Number of epochs to wait for improvement
             best_val_loss = float('inf')
             best_val_bal_acc = 0
             best_model_wts = copy.deepcopy(self.clf.state_dict())
@@ -186,9 +199,25 @@ class GNNTrainer(Classifier):
                 loss_all = 0
                 for data in train_loader:
                     optimizer.zero_grad()
-                    out = self.clf(data.x, data.edge_index, data.batch)
+
+                    perturb = torch.FloatTensor(data.x.shape[0], self.hidden).uniform_(-step_size, step_size)
+                    perturb.requires_grad_()
+
+                    out = self.clf(data.x, data.edge_index, data.edge_attr, data.batch, perturb)
                     loss = criterion(out, data.y)
+                    loss /= m
                     # loss = self.clf.loss(out, dataset.data.y, dataset.data.edge_index)
+
+                    for _ in range(m-1):
+                        loss.backward()
+                        perturb_data = perturb.detach() + step_size * torch.sign(perturb.grad.detach())
+                        perturb.data = perturb_data.data
+                        perturb.grad[:] = 0
+
+                        out = out = self.clf(data.x, data.edge_index, data.edge_attr, data.batch, perturb)
+                        loss = criterion(out, data.y)
+                        loss /= m
+
                     loss.backward()
                     loss_all += data.num_graphs * loss.item()
                     optimizer.step()
@@ -205,7 +234,7 @@ class GNNTrainer(Classifier):
                 targets = []
                 with torch.no_grad():
                     for val_data in val_loader:
-                        val_out = self.clf(val_data.x, val_data.edge_index, val_data.batch)
+                        val_out = self.clf(val_data.x, val_data.edge_index, val_data.edge_attr, val_data.batch)
                         val_loss += criterion(val_out, val_data.y).item()
                         val_pred = val_out.argmax(dim=1)
                         val_correct += val_pred.eq(val_data.y).sum().item()
@@ -244,7 +273,7 @@ class GNNTrainer(Classifier):
             self.y_pred = list()
             correct = 0
             for data in val_loader:
-                out = self.clf(data.x, data.edge_index, data.batch)
+                out = self.clf(data.x, data.edge_index, data.edge_attr, data.batch)
                 pred = out.argmax(dim=1)
                 # correct += int((pred == data.y).sum())
                 correct += pred.eq(data.y).sum().item()
@@ -261,7 +290,7 @@ class GNNTrainer(Classifier):
             correct = 0
             
             for data in val_loader:
-                out = self.clf(data.x, data.edge_index, data.batch)
+                out = self.clf(data.x, data.edge_index, data.edge_attr, data.batch)
                 pred = out.argmax(dim=1)
                 # correct += int((pred == data.y).sum())
                 correct += pred.eq(data.y).sum().item()
@@ -281,7 +310,7 @@ class GNNTrainer(Classifier):
             correct = 0
             # import pdb; pdb.set_trace() 
             for data in val_loader:
-                out = self.clf(data.x, data.edge_index, data.batch)
+                out = self.clf(data.x, data.edge_index, data.edge_attr, data.batch)
                 pred = out.argmax(dim=1)
                 # correct += int((pred == data.y).sum())
                 correct += pred.eq(data.y).sum().item()
@@ -297,7 +326,7 @@ class GNNTrainer(Classifier):
             correct = 0
             # import pdb; pdb.set_trace() 
             for data in val_loader:
-                out = self.clf(data.x, data.edge_index, data.batch)
+                out = self.clf(data.x, data.edge_index, data.edge_attr, data.batch)
                 pred = out.argmax(dim=1)
                 # correct += int((pred == data.y).sum())
                 correct += pred.eq(data.y).sum().item()

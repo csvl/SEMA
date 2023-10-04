@@ -39,8 +39,10 @@ class SVMClassifier(Classifier):
         f.close()
         self.path = path  
         self.path = self.path.replace("/usr/local/lib/python3.8/dist-packages/","/app/")
-        self.mapping = self.read_mapping(self.path.replace("/SemaClassifier","/") + 'mapping.txt')
-        self.mapping_inv = self.read_mapping_inverse(self.path.replace("/SemaClassifier","/") + 'mapping.txt')
+        # self.mapping = self.read_mapping(self.path.replace("/SemaClassifier","/") + 'mapping.txt')
+        # self.mapping_inv = self.read_mapping_inverse(self.path.replace("/SemaClassifier","/") + 'mapping.txt')
+        self.mapping = self.read_mapping('mapping.txt')
+        self.mapping_inv = self.read_mapping_inverse('mapping.txt')
         self.dataset = []
         self.label = []
         self.fam_idx = []

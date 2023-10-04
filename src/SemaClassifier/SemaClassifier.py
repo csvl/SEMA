@@ -98,8 +98,12 @@ class SemaClassifier:
                 self.classifier = GNNTrainer(path=ROOT_DIR, name="gin", threshold=threshold, families=families, num_layers=num_layers)
             elif self.classifier_name == "ginjk":
                 self.classifier = GNNTrainer(path=ROOT_DIR, name="ginjk", threshold=threshold, families=families, num_layers=num_layers)
+            elif self.classifier_name == "rgin":
+                self.classifier = GNNTrainer(path=ROOT_DIR, name="rgin", threshold=threshold, families=families, num_layers=num_layers)
+            elif self.classifier_name == "rginjk":
+                self.classifier = GNNTrainer(path=ROOT_DIR, name="rginjk", threshold=threshold, families=families, num_layers=num_layers)
             else:
-                self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
+                self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl|gin|ginjk|rgin|rginjk)")
                 exit(-1)    
         else: # TODO improve
             if self.classifier_name == "gspan":
@@ -118,8 +122,12 @@ class SemaClassifier:
                 self.classifier = self.load_model(ROOT_DIR + "/classifier/saved_model/gin_model.pkl")
             elif self.classifier_name == "ginjk":
                 self.classifier = self.load_model(ROOT_DIR + "/classifier/saved_model/ginjk_model.pkl")
+            elif self.classifier_name == "rgin":
+                self.classifier = self.load_model(ROOT_DIR + "/classifier/saved_model/rgin_model.pkl")
+            elif self.classifier_name == "rginjk":
+                self.classifier = self.load_model(ROOT_DIR + "/classifier/saved_model/rginjk_model.pkl")
             else:
-                self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl|gin|ginjk)")
+                self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl|gin|ginjk|rgin)")
                 exit(-1)   
             self.classifier.families = families
         fileHandler = logging.FileHandler(args.binaries + "/classifier.log")
@@ -203,7 +211,7 @@ class SemaClassifier:
     def classify(self):
         self.classifier.classify(path=(None if self.args.train else self.input_path))
         self.elapsed_time = time.time() - self.start_time
-        self.log.info(self.classifier.get_stat_classifier())
+        # self.log.info(self.classifier.get_stat_classifier())
     def detect(self):
         self.classifier.detection(path=(None if self.args.train else self.input_path))
         self.elapsed_time = time.time() - self.start_time
@@ -246,6 +254,7 @@ def main():
         tc.classifier.get_stat_classifier()
     elif tc.mode == "detection":
         tc.detect()
+        tc.classifier.get_stat_classifier()
     
     elapsed_time = time.time() - tc.start_time
     
