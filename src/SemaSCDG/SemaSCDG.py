@@ -113,6 +113,8 @@ import dill
 import nose
 import avatar2 as avatar2
 
+import r2pipe
+
 from unipacker.core import Sample, SimpleClient, UnpackerEngine
 from unipacker.utils import RepeatedTimer, InvalidPEFile
 from unipacker.unpackers import get_unpacker
@@ -654,11 +656,22 @@ class SemaSCDG:
         else:
            self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(proj)
         
-
-        # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows)
+        # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows) 
+        r = r2pipe.open(self.inputs)
+        out_r2 = r.cmd('f ~sym._main')
+        out_r2 = r.cmd('f ~sym._main')   
         addr_main = proj.loader.find_symbol("main")
         if addr_main and self.fast_main:
             addr = addr_main.rebased_addr
+        elif out_r2:
+            addr= None
+            try:
+                iter = out_r2.split("\n")
+                for s in iter:
+                    if s.endswith("._main"):
+                        addr = int(s.split(" ")[0],16)
+            except:
+                pass
         else:
             addr = None
 
@@ -880,8 +893,8 @@ class SemaSCDG:
         
         state.inspect.b("instruction", when=angr.BP_AFTER, action=self.new_instr)
         
+        state.inspect.b("instruction",when=angr.BP_BEFORE, action=nothing)
         if args.count_block:
-            state.inspect.b("instruction",when=angr.BP_BEFORE, action=nothing)
             state.inspect.b("instruction",when=angr.BP_AFTER, action=count)
             state.inspect.b("irsb",when=angr.BP_BEFORE, action=countblock)
 

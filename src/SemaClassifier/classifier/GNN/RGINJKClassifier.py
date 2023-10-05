@@ -26,6 +26,8 @@ class GINConv(MessagePassing):
         # import pdb; pdb.set_trace()   
         edge_embedding = self.edge_encoder(edge_attr)
         out = self.mlp((1 + self.eps) *x + self.propagate(edge_index, x=x, edge_attr=edge_embedding))
+        # out = self.mlp((1 + self.eps) *x + self.propagate(edge_index, x=x))
+
     
         return out
 
@@ -76,12 +78,12 @@ class RanGINJK_node(torch.nn.Module):
         xs = []
         for i in range(self.num_layers):
             # h = F.relu(self.convs[i](h_list[i], edge_index, edge_attr))
-            try:
-                # h = self.convs[i](h, edge_index, edge_attr)
-                h = F.relu(self.convs[i](h, edge_index, edge_attr))
-            except:
-                import pdb; pdb.set_trace()
-
+            # try:
+            #     # h = self.convs[i](h, edge_index, edge_attr)
+            #     h = F.relu(self.convs[i](h, edge_index, edge_attr))
+            # except:
+            #     import pdb; pdb.set_trace()
+            h = F.relu(self.convs[i](h, edge_index, edge_attr))
             h_list.append(h)
 
             # x = F.relu(self.convs[i](x, edge_index))

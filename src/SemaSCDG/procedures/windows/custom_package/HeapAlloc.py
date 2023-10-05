@@ -7,6 +7,9 @@ class HeapAlloc(angr.SimProcedure):
     def run(self, HeapHandle, Flags, Size): #pylint:disable=arguments-differ, unused-argument
         addr = self.state.heap._malloc(Size)
 
+        # Update heap size
+        self.state.globals["HeapSize"][addr] = Size
+
         # conditionally zero the allocated memory
         if self.state.solver.solution(Flags & 8, 8):
             if isinstance(self.state.heap, angr.SimHeapPTMalloc):

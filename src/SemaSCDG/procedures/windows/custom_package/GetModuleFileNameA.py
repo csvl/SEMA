@@ -9,23 +9,26 @@ lw = logging.getLogger("CustomSimProcedureWindows")
 class GetModuleFileNameA(angr.SimProcedure):
     def getFakeName(self, size):
         # import pdb; pdb.set_trace()
-        name = self.state.project.filename.split("/")[-1]
+        name = self.state.project.filename.split("\\")[-1].split("/")[-1]
         path = (name[: size - 1] + "\0").encode("utf-8")  # truncate if too long
         return path
 
     def decodeString(self, ptr):
         lib = self.state.mem[ptr].string.concrete
+        # import pdb; pdb.set_trace()
         if not isinstance(lib, str):
-            lib = lib.decode("utf-8") # TODO 
+            if hasattr(lib, "decode"):
+                lib = lib.decode("utf-8") # TODO 
         return lib
 
     def run(self, module, buf_filename, size_buf):
+        # import pdb; pdb.set_trace()
         self.state.project
         size = self.state.solver.eval(size_buf)
 
         # if NULL, retrieve path of exe of current process
         # We create a fake one
-        if self.state.solver.is_true(module == 0):
+        if self.state.solver.is_true(module == 0) or self.state.solver.is_true(module == self.project.loader.main_object.mapped_base):
             path_rough = self.getFakeName(size)
             lw.info("GetModuleFileNameA: " + str(path_rough))
             path = self.state.solver.BVV(path_rough)
