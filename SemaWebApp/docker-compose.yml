@@ -1,12 +1,20 @@
 # docker-compose.yml
 version: '0.1'
 
+networks:
+  micro_network:
+    name: micro_network
+    external: True
+
 services:
   web-app:
+    container_name: web-app
     image: sema-web-app:latest
     build:
       context: .
     ports:
     - "5000:5000"
+    networks:
+      - micro_network
     restart: always
   

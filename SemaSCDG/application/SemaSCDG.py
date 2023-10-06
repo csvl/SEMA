@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-from ast import arg
+#from ast import arg
 import datetime
 import os
 import sys
-import r2pipe
-from collections import defaultdict
-from typing import Optional, Set, List, Tuple, Dict, TYPE_CHECKING
+#from collections import defaultdict
+#from typing import Optional, Set, List, Tuple, Dict, TYPE_CHECKING
 #from angr.knowledge_plugins.functions import Function
 # for pypy3
 # sys.path.insert(0, '/usr/local/lib')
@@ -20,17 +19,17 @@ import time
 
 # from submodules.claripy import claripy
 import claripy
-import monkeyhex  # this will format numerical results in hexadecimal
+#import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from capstone import *
 # from angrutils import * 
 # Syscall table stuff
 import angr
-from angr.sim_type import SimTypeInt, SimTypePointer, SimTypeArray, SimTypeChar
+#from angr.sim_type import SimTypeInt, SimTypePointer, SimTypeArray, SimTypeChar
 
 import gc
 import pandas as pd
-
+import logging
 
 # Personnal stuff
 from SCDGHelper.GraphBuilder import *
@@ -47,7 +46,7 @@ from plugin.PluginCommands import *
 from plugin.PluginIoC import *
 from plugin.PluginAtom import *
 from explorer.SemaExplorerDFS import SemaExplorerDFS
-from explorer.SemaExplorerChooseDFS import SemaExplorerChooseDFS
+#from explorer.SemaExplorerChooseDFS import SemaExplorerChooseDFS
 from explorer.SemaExplorerCDFS import SemaExplorerCDFS
 from explorer.SemaExplorerBFS import SemaExplorerBFS
 from explorer.SemaExplorerCBFS import SemaExplorerCBFS
@@ -64,10 +63,11 @@ import avatar2 as avatar2
 
 from unipacker.core import Sample, SimpleClient, UnpackerEngine
 from unipacker.utils import RepeatedTimer, InvalidPEFile
-from unipacker.unpackers import get_unpacker
+#from unipacker.unpackers import get_unpacker
 #from angr_targets import AvatarGDBConcreteTarget # TODO FIX in submodule
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 class SemaSCDG():
     """
@@ -165,6 +165,8 @@ class SemaSCDG():
         self.is_packed = is_packed
         self.concrete_target_is_local = concrete_target_is_local
         
+
+    
     def save_conf(self, path):
         attributes = {}
         for attr in dir(self):
@@ -988,39 +990,29 @@ class SemaSCDG():
             MALWARE_EXECUTION_END = 0x401879
             FAKE_CC = 0x401861
             VENV_DETECTED = 0x401847
-            # self.log.info("[1]Let get program symbols")
-            # print(avatar_gdb.avatar.get_info_function_targets())
             self.log.info("[0]Let the malware unpack itself")
             state = self.execute_concretly(proj, state, UNPACKING_FINISHED)
-            # # print("cac  a")
             print(dump_file["sections"]["UPX1"])
-            #exit()
-            #self.log.info("[1]Let get program symbols")
+            self.log.info("[1]Let get program symbols")
             print(proj.concrete_target.avatar.get_info_sharelib_targets(local_ddl_path))
-            # print(proj.concrete_target.avatar.get_info_reg_targets())
             print(proj.concrete_target.get_mappings())
             print(proj.concrete_target.get_heap_address())
-            #exit(0)
-            self.log.info("[1]Executing malware concretely until address: " + hex(STARTING_DECISION_ADDRESS))
+            self.log.info("[2]Executing malware concretely until address: " + hex(STARTING_DECISION_ADDRESS))
             state = self.execute_concretly(proj, state, STARTING_DECISION_ADDRESS, [])
             print(proj.concrete_target.save_dump(dump_file["sections"]["UPX1"]["vaddr"],dump_file["sections"]["UPX1"]["vaddr"]+dump_file["sections"]["UPX1"]["memsize"]))
-            #self.log.info("[1]Let get program symbols")
             # print(proj.concrete_target.avatar.get_info_function_targets())
             # print(proj.concrete_target.avatar.get_info_reg_targets())
             mapps = proj.concrete_target.get_mappings()
             for map in mapps:
                 print(map)
             print(proj.loader.main_object.threads)
-            #exit(0)
             state.concrete.sync()
             state.concrete = None
-            #exit(0)
             proj.concrete_target = None
             proj.loader.concrete = None
             proj.factory.concrete_engine = None
             # reass = proj.analyses.Reassembler()
             # reass.symbolize()
-            #exit(0)
             # # # # # # declaring symbolic buffer
             # arg0 = claripy.BVS('arg0', 8 * 32)
             # symbolic_buffer_address = state.regs.esp + 0x18
@@ -1505,7 +1497,6 @@ class SemaSCDG():
             self.log.info(dump_file["sections"][name])
 
     def start_scdg(self, args, is_fl=False,csv_file=None):
-        
         sys.setrecursionlimit(10000)
         gc.collect()
         
@@ -1524,17 +1515,9 @@ class SemaSCDG():
             logging.getLogger("angr").setLevel("INFO")
             logging.getLogger('claripy').setLevel('INFO')
             self.log.setLevel(logging.INFO)
-        else:
-            # logging.getLogger('claripy').disabled = True
-            pass
-            ch = logging.StreamHandler()
-            ch.setLevel(logging.INFO)
-            ch.setFormatter(CustomFormatter())
+        else :
             self.log = logging.getLogger("SemaSCDG")
-            self.log.addHandler(ch)
-            self.log.propagate = False
-            self.log.setLevel(logging.INFO)
-        
+            self.log.setLevel(logging.ERROR)
         # import resource
 
         # rsrc = resource.RLIMIT_DATA
@@ -1551,11 +1534,7 @@ class SemaSCDG():
             # TODO update family
             self.log.info("You decide to analyse a single binary: "+ self.inputs)
             # *|CURSOR_MARCADOR|*
-            #try:
             self.build_scdg(args,is_fl=is_fl,csv_file=csv_file)
-            # except Exception as e:
-            #     self.log.info(e)
-            #     self.log.info("Error: "+self.inputs+" is not a valid binary")
             self.current_exps = 1
         else:
             import progressbar
@@ -1586,11 +1565,7 @@ class SemaSCDG():
                     for file in files:
                         self.inputs = file
                         self.family = current_family
-                        #try:
                         self.build_scdg(args, is_fl, csv_file=csv_file)
-                        # except Exception as e:
-                        #     self.log.info(e)
-                        #     self.log.info("Error: "+file+" is not a valid binary")
                         fc+=1
                         self.current_exps += 1
                         bar.update(fc)
@@ -1604,22 +1579,20 @@ class SemaSCDG():
                 self.log.info("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/Binaries/malware-win/small_train")
                 exit(-1)
 
-
 def main():
     toolc = SemaSCDG(
         print_sm_step=True,
         print_syscall=True,
         debug_error=True,
         debug_string=True,
-        print_on=True,
-        is_from_web=False
+        print_on=True
     )
-    args_parser = ArgumentParserSCDG(toolc)
+    args_parser = ArgumentParserSCDG()
     args = args_parser.parse_arguments()
-    args_parser.update_tool(args)
+    toolc = args_parser.update_tool(args, toolc)
     toolc.start_scdg(args, is_fl=False,csv_file=None)
-
 
 if __name__ == "__main__":
     main()
+
             
