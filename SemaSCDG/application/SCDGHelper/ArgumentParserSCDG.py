@@ -4,7 +4,7 @@ import sys
 
 class ArgumentParserSCDG:
     # TODO customize for other tools
-    def __init__(self, tool_scdg):
+    def __init__(self):
         self.parser = argparse.ArgumentParser(description="SCDG module arguments")
         #self.parser._optionals.title = "SCDG module arguments"
         
@@ -302,14 +302,12 @@ class ArgumentParserSCDG:
             type=int,
             default=1,
         )
-    
-        self.tool_scdg = tool_scdg
 
-    def update_tool(self,args):
+    def update_tool(self, args, tool_scdg):
         inputs = args.binary
-        if not self.tool_scdg.print_on:
-            self.tool_scdg.print_on = args.verbose
-        self.tool_scdg.debug_error = args.debug_error
+        if not tool_scdg.print_on:
+            tool_scdg.print_on = args.verbose
+        tool_scdg.debug_error = args.debug_error
         expl_method = "DFS"   if args.DFS else \
                      ("BFS"   if args.BFS \
                 else ("CDFS"  if args.CDFS \
@@ -318,6 +316,7 @@ class ArgumentParserSCDG:
                 else ("SCDFS" if args.SCDFS \
                 else ("ThreadCDFS" if args.ThreadCDFS \
                 else  "CBFS"))))))
+        tool_scdg.timeout = 9999
 
         family = "unknown"
         if args.family:
@@ -325,43 +324,44 @@ class ArgumentParserSCDG:
         args.exp_dir = args.exp_dir + "/" + family
 
         if args.timeout:
-            self.tool_scdg.timeout = args.timeout
+            tool_scdg.timeout = args.timeout
         if args.symb_loop:
-            self.tool_scdg.jump_it = args.symb_loop
+            tool_scdg.jump_it = args.symb_loop
         if args.conc_loop:
-            self.tool_scdg.loop_counter_concrete = args.conc_loop
+            tool_scdg.loop_counter_concrete = args.conc_loop
         if args.eval_time:
-            self.tool_scdg.eval_time = True
+            tool_scdg.eval_time = True
 
-        self.tool_scdg.max_simul_state = args.simul_state
+        tool_scdg.max_simul_state = args.simul_state
 
-        self.tool_scdg.string_resolv = not args.not_resolv_string
+        tool_scdg.string_resolv = not args.not_resolv_string
         if args.limit_pause:
-            self.tool_scdg.max_in_pause_stach = args.limit_pause
+            tool_scdg.max_in_pause_stach = args.limit_pause
         if args.max_step:
-            self.tool_scdg.max_step = args.max_step
+            tool_scdg.max_step = args.max_step
         if args.max_deadend:
-            self.tool_scdg.max_end_state = args.max_deadend
+            tool_scdg.max_end_state = args.max_deadend
         
-        self.tool_scdg.is_packed = args.packed
+        tool_scdg.is_packed = args.packed
 
         if args.concrete_target_is_local:
-            self.tool_scdg.concrete_target_is_local = True
+            tool_scdg.concrete_target_is_local = True
         
-        if self.tool_scdg.is_packed:
+        if tool_scdg.is_packed:
             if args.unipacker:
                 mode = "unipacker"
-                self.tool_scdg.log.info("Unpack with %s",mode)
-                self.tool_scdg.unpack_mode = mode
+                tool_scdg.log.info("Unpack with %s",mode)
+                tool_scdg.unpack_mode = mode
             elif args.symbion:
                 mode = "symbion"
-                self.tool_scdg.log.info("Unpack with %s",mode)
-                self.tool_scdg.unpack_mode = mode
+                tool_scdg.log.info("Unpack with %s",mode)
+                tool_scdg.unpack_mode = mode
 
-        self.tool_scdg.inputs = inputs
-        self.tool_scdg.expl_method = expl_method
-        self.tool_scdg.family = family
-        self.tool_scdg.memory_limit = args.memory_limit # Add custom value
+        tool_scdg.inputs = inputs
+        tool_scdg.expl_method = expl_method
+        tool_scdg.family = family
+        tool_scdg.memory_limit = args.memory_limit # Add custom value
+        return tool_scdg
 
     def parse_arguments(self, allow_unk = False, args_list=None):
         args = None

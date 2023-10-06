@@ -12,7 +12,7 @@ import socket
 import threading
 import sys
 import time
-#import requests
+import requests
 # from tkinter import N
 from flask import Flask, flash, request, redirect, url_for, send_from_directory, Response, session, render_template, Markup
 #from werkzeug.utils import secure_filename
@@ -35,11 +35,8 @@ import pandas as pd
 #import shutil
 from npf_web_extension.app import export
 import uuid
-import logging
 
 class SemaServer:
-    log = logging.getLogger("SemaServer")
-    log.setLevel("INFO")
     ROOTPATH = os.getcwd()
     #SemaServer.log.info(ROOTPATH)
     
@@ -112,69 +109,23 @@ class SemaServer:
     #             elif not isinstance(action, argparse._HelpAction):
     #                 SemaServer.actions_classifier[-1][group_name].append({'name': action.dest, 'help': action.help, "type": str(action.type), "default": action.default, "is_mutually_exclusive": False})
         
-    #TODO : replace by an API call to get args
-    # def init_scdg_args(self):    
-    #     for group in SemaServer.sema.args_parser.args_parser_scdg.parser._mutually_exclusive_groups:
-    #         if group.title == "positional arguments":
-    #             continue
-    #         if group.title == "optional arguments":
-    #             continue
-            
-    #         if len(SemaServer.actions_scdg[-1]) == 3:
-    #             SemaServer.actions_scdg.append({})
-                
-    #         for action in group._group_actions:
-    #             # TODO add group_name in new dictionary
-    #             group_name = group.title
-    #             if group_name not in SemaServer.actions_scdg[-1]:
-    #                 SemaServer.actions_scdg[-1][group_name] = []
-    #             if isinstance(action, argparse._StoreTrueAction):
-    #                 SemaServer.actions_scdg[-1][group_name].append({'name': action.dest, 'help': action.help, "type": "bool", "default": False, "is_mutually_exclusive": True})
-    #             elif isinstance(action, argparse._StoreFalseAction):
-    #                 SemaServer.actions_scdg[-1][group_name].append({'name': action.dest, 'help': action.help, "type": "bool", "default": True,  "is_mutually_exclusive": True})
-    #             elif not isinstance(action, argparse._HelpAction):
-    #                 SemaServer.actions_scdg[-1][group_name].append({'name': action.dest, 'help': action.help, "type": str(action.type), "default": action.default, "is_mutually_exclusive": True})
-            
-    #     for group in SemaServer.sema.args_parser.args_parser_scdg.parser._action_groups:
-    #         if group.title == "positional arguments":
-    #             continue
-    #         if group.title == "optional arguments":
-    #             continue
-            
-    #         if len(SemaServer.actions_scdg[-1]) == 3:
-    #             SemaServer.actions_scdg.append({})
-                
-    #         for action in group._group_actions:
-    #             # TODO add group_name in new dictionary
-    #             group_name = group.title
-    #             # SemaServer.log.info(action)
-    #             if group_name not in SemaServer.actions_scdg[-1]:
-    #                 SemaServer.actions_scdg[-1][group_name] = []
-    #             if isinstance(action, argparse._StoreTrueAction):
-    #                 SemaServer.actions_scdg[-1][group_name].append({'name': action.dest, 'help': action.help, "type": "bool", "default": False, "is_mutually_exclusive": False})
-    #             elif isinstance(action, argparse._StoreFalseAction):
-    #                 SemaServer.actions_scdg[-1][group_name].append({'name': action.dest, 'help': action.help, "type": "bool", "default": True, "is_mutually_exclusive": False})
-    #             elif not isinstance(action, argparse._HelpAction):
-    #                 SemaServer.actions_scdg[-1][group_name].append({'name': action.dest, 'help': action.help, "type": str(action.type), "default": action.default, "is_mutually_exclusive": False})
-    #         # SemaServer.log.info(SemaServer.actions_scdg)
-    #         # exit(0)
+    def init_scdg_args(self):  
+        """Do an API call to the sema-scdg container to get the arguments to put on the index page"""
+        response = requests.get('http://sema-scdg:5001/scdg_args')
+        return response.json()
           
     
     # TODO refactor
     def __init__(self,dir_path=None,experiments=None):
-        #SemaServer.sema = Sema(is_from_tc=False, is_from_web=True)
-        
-        self.log = logging.getLogger('SemaServer')
+        self.log = SemaServer.app.logger
         
         # List that contains a dictionary containing all the arguments, it is then used
         # to generate dynamically the UI
         # Each element of the list is a HTML row that contains as element the associated dictionary
         
         # Init actions_scdg with current arguments available in ArgParser
-        SemaServer.actions_scdg = [{}]
-        #self.init_scdg_args()
-        self.log.info("SCDG arguments: ")
-        self.log.info(self.actions_scdg)
+        SemaServer.actions_scdg = self.init_scdg_args()
+        self.log.info("SCDG arguments retreived")
         
         # Init actions_classifier with current arguments available in ArgParser
         SemaServer.actions_classifier = [{}]
@@ -182,19 +133,11 @@ class SemaServer:
         self.log.info("Classifier arguments: ")
         self.log.info(SemaServer.actions_classifier)
         
-        # Useless now
-        hostname = socket.gethostname() 
-        local_ip = socket.gethostbyname(hostname)
-        SemaServer.local_ip = local_ip
-        self.log.info(local_ip)
-        # vizualiser_ip = socket.gethostbyname("ivy-visualizer")
-        # SemaServer.vizualiser_ip = vizualiser_ip
-        
         SemaServer.exps = []
         SemaServer.download_thread = None
         SemaServer.malware_to_download = 0
         SemaServer.malware_to_downloaded = 0
-        SemaServer.sema_res_dir = "src/output/runs/" # TODO dynamic
+        SemaServer.sema_res_dir = "database/runs/" # TODO dynamic
         SemaServer.current_exp = 0
 
 
@@ -223,13 +166,15 @@ class SemaServer:
         """
         return redirect('index.html', code =302)
     
-    # @app.route('/progress-scdg', methods = ['GET', 'POST'])
-    # def progress():
-    #     return str(SemaServer.sema.tool_scdg.current_exps)
+    @app.route('/progress-scdg', methods = ['GET', 'POST'])
+    def progress():
+        response = requests.get('http://sema-scdg:5001/progress')
+        return str(response.content)
+        return str(SemaServer.sema.tool_scdg.current_exps)
     
-    # @app.route('/iteration-scdg', methods = ['GET', 'POST'])
-    # def iteration():
-    #     return str(SemaServer.sema.tool_scdg.nb_exps)
+    @app.route('/iteration-scdg', methods = ['GET', 'POST'])
+    def iteration():
+        return str(SemaServer.sema.tool_scdg.nb_exps)
     
     # @app.route('/progress-dl', methods = ['GET', 'POST'])
     # def progress_dl():
@@ -304,100 +249,42 @@ class SemaServer:
             exp_args.append("None")
         return class_args, exp_args, exp_args_str
 
-    #Get the parameters entered on the page to transmit them to the toolchain
-    def get_scdg_args(request):
-        scdg_args = {}
-        exp_args = []
-        exp_args_str = ""
-        # Start with _mutually_exclusive_groups
-        for group in SemaServer.sema.args_parser.args_parser_scdg.parser._mutually_exclusive_groups:
-            if group.title in request.form:
-                exp_args.append("--" + request.form[group.title])
-                scdg_args[request.form[group.title]] = True
-        
-        for group in SemaServer.sema.args_parser.args_parser_scdg.parser._action_groups:
-            for action in group._group_actions:
-                if action.dest == "binary":
-                    pass
-                ##
-                # About folder & path used
-                ##
-                elif action.dest == "exp_dir":
-                    if len(request.files["exp_dir"].filename) > 0:
-                        exp_args.append("--" + action.dest)
-                        exp_args.append(request.files["exp_dir"].split("/")[0])
-                    else:
-                        exp_args.append("--" + action.dest)
-                        exp_args.append(request.form[action.dest])
-                        scdg_args[action.dest] = request.form[action.dest]
-                elif action.dest == "dir":
-                    if len(request.files["dir"].filename) > 0:
-                        exp_args.append("--" + action.dest)
-                        exp_args.append(request.form[action.dest].split("/")[0])
-                    else:
-                        exp_args.append("--" + action.dest)
-                        exp_args.append(request.form[action.dest])
-                        scdg_args[action.dest] = request.form[action.dest]
-                ##
-                # The rest of the arguments
-                ##
-                elif action.dest in request.form:
-                    # TODO add group_name in new dictionary
-                    group_name = group.title
-                    # For boolean arguments
-                    if isinstance(action, argparse._StoreTrueAction) or isinstance(action, argparse._StoreFalseAction):
-                        exp_args.append("--" + action.dest)
-                        exp_args_str += "--" + action.dest + " "
-                        scdg_args[action.dest] = True
-                    else:
-                        exp_args.append("--" + action.dest)
-                        exp_args.append(request.form[action.dest])
-                        exp_args_str += "--" + action.dest + " " + request.form[action.dest] + " "  
-                        scdg_args[action.dest] = request.form[action.dest]     
-        if len(request.form["binary"]) > 0:
-            # If there is a specified path in the binary field, we refacor the input to point toward the right path in the docker
-            binary = request.form["binary"]
-            binary_split = binary.split("/src")
-            SemaServer.log.info(binary_split)
-            binary = "/app/src" + binary_split[1]
-            exp_args.append(binary)
-            scdg_args["binary"] = binary
-        else: # TODO
-            # To implement: when the binary is uploaded -> Do we want to "upload" since it is only local for now
-            exp_args.append(str(request.files["binary"].filename))
-            exp_args_str += str(request.files["binary"].filename)  
-        return scdg_args, exp_args, exp_args_str
-
     @app.route('/index.html', methods = ['GET', 'POST'])
     def serve_index():
         """
         It creates a folder for the project, and then calls the upload function
         :return: the upload function.
         """
+
         if request.method == 'POST':
-            SemaServer.log.info(request.form)
-            
             scdg_args = {}
             class_args = {}
             fl_args = {}
-            exp_args = []
+
+            #Separate the different arguments of the different part of the toolchain
+            exp_number = 1
+            arguments = dict(request.form)
+            for key,value in arguments.items():
+                if (key,value) == ('boundary', 'experiment separation'):
+                    exp_number += 1
+                if exp_number == 1:
+                    scdg_args[key] = value
+                elif exp_number == 2:
+                    class_args[key] = value
+                elif exp_number == 3:
+                    fl_args[key] = value
+
             
-            # TODO dir per malware
-            scdg_args, exp_args_scdg, exp_args_scdg_str = SemaServer.get_scdg_args(request)   
-            exp_args += exp_args_scdg   
-            class_args, exp_args_class, exp_args_class_str = SemaServer.get_class_args(request)
-            exp_args += exp_args_class  
+            # TODO dir per malware 
+            
+            # class_args, exp_args_class, exp_args_class_str = SemaServer.get_class_args(request)
+            # exp_args += exp_args_class  
             # if "fl_enable" in request.form: # TODO refactor + implement
             #     fl_args, exp_args_fl, exp_args_fl_str = SemaServer.get_fl_args(request)
             #     exp_args += exp_args_fl               
             # muta_args, exp_args_muta, exp_args_muta_str = SemaServer.get_mutator_args(request)
             # exp_args += muta_args
-                
-            SemaServer.log.info(exp_args)
-
-            #args = SemaServer.sema.args_parser.parse_arguments(args_list=exp_args,allow_unk=True) # TODO
             
-            #SemaServer.log.info(args)
 
             ##
             # Here we link the individual argument about input/output folder so they match
@@ -421,14 +308,9 @@ class SemaServer:
             # Here we start the experiments
             ##  
             #TODO replace by API call
-            # if "scdg_enable" in request.form:
-            #     SemaServer.sema.tool_scdg.args = args
-            #     SemaServer.sema.args_parser.args_parser_scdg.update_tool(args)
-            #     csv_scdg_file = "src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/" + "scdg.csv"
-            #     SemaServer.log.info(csv_scdg_file)
-            #     SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_scdg.save_conf, args=([scdg_args,"src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/"])))
-            #     SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_scdg.start_scdg, args=([args, False, csv_scdg_file])))
-            
+            if "scdg_enable" in request.form:
+                response = requests.post('http://sema-scdg:5001/run_scdg', json=scdg_args)
+
             # if "class_enable" in request.form:
             #     SemaServer.sema.tool_classifier.args = args
             #     SemaServer.sema.args_parser.args_parser_class.update_tool(args)
@@ -454,7 +336,8 @@ class SemaServer:
             #     SemaServer.sema.tool_scdg.current_exp_dir =SemaServer.sema.current_exp_dir
             # except:
             #     pass
-            threading.Thread(target=SemaServer.manage_exps, args=([args])).start()
+            
+            #threading.Thread(target=SemaServer.manage_exps, args=([args])).start()
             
             return render_template('index.html', 
                                 actions_scdg=SemaServer.actions_scdg, 
@@ -473,13 +356,17 @@ class SemaServer:
             elem.start()  
             elem.join()  
     
-    @app.route('/start-scdg', methods = ['GET', 'POST'])
+    # @app.route('/start-scdg', methods = ['GET', 'POST'])
     def start_scdg():
         """
         :return: the upload function.
         """
-        SemaServer.sema.args_parser.args_parser_scdg = 0 # TODO
-        SemaServer.sema.tool_scdg.start_scdg(SemaServer.sema.args_parser.args_parser_scdg)
+        print("ask to launch scdg")
+        response = requests.get('http://sema-scdg:5001/run_scdg', json={'username': 'example', 'password': 'pass123'})
+        if response.status_code == 200:
+            print("Product created and user registered successfully")
+        else:
+            print("Failed to create product")
         
     @app.route('/start-classify', methods = ['GET', 'POST'])
     def start_classifier():
@@ -865,12 +752,11 @@ class SemaServer:
 
  
     def run(self):
-        SemaServer.app.run(host='0.0.0.0', port=80, use_reloader=True, threaded=True)  #, processes=4
+        SemaServer.app.run(host='0.0.0.0', port=5000, use_reloader=True, threaded=True)  #, processes=4
         
 def main():
     sema = SemaServer()
     sema.run()
-    sys.exit(sema.exec_())
     
 if __name__ == '__main__':
     main()

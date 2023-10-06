@@ -22,14 +22,6 @@ build-web-sema-pypy:
 	docker build  --rm -t sema -f Dockerfile.sema.fl --build-arg image=sema-pypy .
 	docker build  --rm -t sema-web -f Dockerfile.sema.webapp --build-arg image=sema .
 
-build-web-sema:
-	docker build  --rm -t sema-init -f Dockerfile.sema .
-	#docker build  --rm  -t sema-pypy -f Dockerfile.sema.pypy .
-	#docker build  --rm -t sema -f Dockerfile.sema.cuda --build-arg image=sema-pypy . # -pypy-cuda
-	#docker build  --rm -t sema -f Dockerfile.sema.fl --build-arg image=sema-init .
-	docker build  --rm -t sema-web-nf -f Dockerfile.sema.webapp --build-arg image=sema .
-	docker build  --rm -t sema-web -f Dockerfile.sema.fix --build-arg image=sema-web-nf .
-
 build-toolchain:
 	docker-compose -f SemaWebApp/docker-compose.deploy.yml build
 
@@ -39,50 +31,71 @@ build-web-app:
 build-scdg:
 	docker build --rm -t sema-scdg -f SemaSCDG/Dockerfile .			   
 
-run-web-app:
+run-web-app-service:
 	docker run \
 		--rm \
 		-v $(PWD)/SemaWebApp/:/sema-web-app \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-e DISPLAY=$(DISPLAY) \
 		-p 5000:5000 \
-		--network="bridge" \
+		--net=micro_network \
+		--name="sema-web-app" \
 		-it sema-web-app python3 application/SemaServer.py
 
 run-scdg-service:	
 	docker run \
 		--rm \
 		-v $(PWD)/SemaSCDG/:/sema-scdg \
-		-v $(PWD)/submodules/angr-utils:/sema-scdg/submodules/angr-utils \
-		-v $(PWD)/submodules/bingraphvis:/sema-scdg/submodules/bingraphvis \
-		-v $(PWD)/penv-fix/:/sema-scdg/penv-fix \
-		-v $(PWD)/database/:/sema-scdg/database\
+		-v $(PWD)/submodules/angr-utils:/sema-scdg/application/submodules/angr-utils \
+		-v $(PWD)/submodules/bingraphvis:/sema-scdg/application/submodules/bingraphvis \
+		-v $(PWD)/penv-fix/:/sema-scdg/application/penv-fix \
+		-v $(PWD)/database/:/sema-scdg/application/database\
 		-e DISPLAY=$(DISPLAY) \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-p 5001:5001 \
-		--network="bridge" \
+		--net=micro_network \
+		--name="sema-scdg" \
 		-it sema-scdg bash
+
+run-scdg-test:	
+	docker run \
+		--rm -i\
+		-v $(PWD)/SemaSCDG/:/sema-scdg \
+		-v $(PWD)/submodules/angr-utils:/sema-scdg/application/submodules/angr-utils \
+		-v $(PWD)/submodules/bingraphvis:/sema-scdg/application/submodules/bingraphvis \
+		-v $(PWD)/penv-fix/:/sema-scdg/application/penv-fix \
+		-v $(PWD)/database/:/sema-scdg/application/database\
+		-e DISPLAY=$(DISPLAY) \
+		-v /tmp/.X11-unix:/tmp/.X11-unix \
+		-p 5001:5001 \
+		--net=micro_network\
+		--name="sema-scdg" \
+		sema-scdg python3 SCDGApp.py
 
 run-toolchain:
 	docker run \
-		--rm -d -i \
+		--rm -d -i\
 		-v $(PWD)/SemaSCDG/:/sema-scdg \
-		-v $(PWD)/submodules/angr-utils:/sema-scdg/submodules/angr-utils \
-		-v $(PWD)/submodules/bingraphvis:/sema-scdg/submodules/bingraphvis \
-		-v $(PWD)/penv-fix/:/sema-scdg/penv-fix \
-		-v $(PWD)/database/:/sema-scdg/database\
+		-v $(PWD)/submodules/angr-utils:/sema-scdg/application/submodules/angr-utils \
+		-v $(PWD)/submodules/bingraphvis:/sema-scdg/application/submodules/bingraphvis \
+		-v $(PWD)/penv-fix/:/sema-scdg/application/penv-fix \
+		-v $(PWD)/database/:/sema-scdg/application/database\
 		-e DISPLAY=$(DISPLAY) \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-p 5001:5001 \
-		--network="bridge" \
-		sema-scdg
+		--net=micro_network \
+		--name="sema-scdg" \
+		sema-scdg python3 SCDGApp.py
+	sleep 3
 	docker run \
 		--rm \
 		-v $(PWD)/SemaWebApp/:/sema-web-app \
+		-v $(PWD)/database/:/sema-web-app/application/database\
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-e DISPLAY=$(DISPLAY) \
 		-p 5000:5000 \
-		--network="bridge" \
+		--net=micro_network \
+		--name="sema-web-app"\
 		-it sema-web-app python3 application/SemaServer.py
 
 stop-all-containers:
@@ -99,10 +112,10 @@ clean-scdg-saved-runs:
 	sudo rm -r database/SCDG/saved_runs/*
 				
 clean-scdg-empty-directory:
-	sudo rm -r -f SemaSCDG/submodules
-	sudo rm -r -f SemaSCDG/penv-fix
-	sudo rm -r -f SemaSCDG/database
-	sudo rm -r -f SemaSCDG/logs
+	sudo rm -r -f SemaSCDG/application/submodules
+	sudo rm -r -f SemaSCDG/application/penv-fix
+	sudo rm -r -f SemaSCDG/application/database
+	sudo rm -r -f SemaSCDG/application/logs
 
 clean-docker:
 	docker image prune

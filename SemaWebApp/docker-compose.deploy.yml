@@ -1,8 +1,14 @@
 # docker-compose.deploy.yml
 version: '0.1'
 
+networks:
+  micro_network:
+    name: micro_network
+    external: True
+
 services:
   web-app:
+    container_name: web-app
     image: sema-web-app:latest
     build:
       context: .
@@ -10,7 +16,8 @@ services:
     - "5000:5000"
     restart: always
   
-  SemaSCDG:
+  sema-scdg:
+    container_name: scdg
     image: sema-scdg:latest
     build:
       context: ..
