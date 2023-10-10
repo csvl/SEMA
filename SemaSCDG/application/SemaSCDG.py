@@ -1,37 +1,24 @@
 #!/usr/bin/env python3
-#from ast import arg
 import datetime
 import os
 import sys
-#from collections import defaultdict
-#from typing import Optional, Set, List, Tuple, Dict, TYPE_CHECKING
-#from angr.knowledge_plugins.functions import Function
-# for pypy3
-# sys.path.insert(0, '/usr/local/lib')
-# sys.path.insert(0, os.path.expanduser('~/lib'))
-# sys.path.insert(0, os.path.expanduser('/home/crochetch/Documents/toolchain_malware_analysis/penv/lib'))
-from pprint import pprint, pformat
 
 import json as json_dumper
 from builtins import open as open_file
 import threading
 import time
 
-# from submodules.claripy import claripy
 import claripy
 #import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from capstone import *
-# from angrutils import * 
-# Syscall table stuff
+
 import angr
-#from angr.sim_type import SimTypeInt, SimTypePointer, SimTypeArray, SimTypeChar
 
 import gc
 import pandas as pd
 import logging
 
-# Personnal stuff
 from SCDGHelper.GraphBuilder import *
 from procedures.CustomSimProcedure import *
 from plugin.PluginEnvVar import *
@@ -46,7 +33,6 @@ from plugin.PluginCommands import *
 from plugin.PluginIoC import *
 from plugin.PluginAtom import *
 from explorer.SemaExplorerDFS import SemaExplorerDFS
-#from explorer.SemaExplorerChooseDFS import SemaExplorerChooseDFS
 from explorer.SemaExplorerCDFS import SemaExplorerCDFS
 from explorer.SemaExplorerBFS import SemaExplorerBFS
 from explorer.SemaExplorerCBFS import SemaExplorerCBFS
@@ -63,7 +49,6 @@ import avatar2 as avatar2
 
 from unipacker.core import Sample, SimpleClient, UnpackerEngine
 from unipacker.utils import RepeatedTimer, InvalidPEFile
-#from unipacker.unpackers import get_unpacker
 #from angr_targets import AvatarGDBConcreteTarget # TODO FIX in submodule
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -99,9 +84,6 @@ class SemaSCDG():
         print_syscall=False,
         debug_error=False,
         debug_string=False,
-        is_from_tc = False,
-        is_from_web = False,
-        is_fl = False,
         is_packed=False,
         concrete_target_is_local = False
     ):
@@ -143,7 +125,7 @@ class SemaSCDG():
         self.call_sim = CustomSimProcedure(
             self.scdg, self.scdg_fin, 
             string_resolv=string_resolv, print_on=print_on, 
-            print_syscall=print_syscall, is_from_tc=is_from_tc, is_from_web=is_from_web
+            print_syscall=print_syscall
         )
         
         self.hooks = PluginHooks()
@@ -159,14 +141,14 @@ class SemaSCDG():
         self.nb_exps = 0
         self.current_exps = 0
         self.current_exp_dir = 0
-        self.discard_scdg = True
+        self.keep_inter_scdg = False
         
         self.unpack_mode = None
         self.is_packed = is_packed
         self.concrete_target_is_local = concrete_target_is_local
         
 
-    
+    #Save the configuration of the experiment in a json file
     def save_conf(self, path):
         attributes = {}
         for attr in dir(self):
@@ -180,6 +162,7 @@ class SemaSCDG():
         with open(os.path.join(path, "scdg_conf.json"), "w") as f:
             json.dump(attributes, f, indent=4)
 
+    #Save the syscall table in a json file
     def save_sys_call_table(self, table, path):
         with open(os.path.join(path, "sys_call_table.json"), "w") as f:
             json.dump(table, f, indent=4)
@@ -224,28 +207,16 @@ class SemaSCDG():
                              "Number of instr visited",
                              ]) # TODO add frame type
         
-        if not is_fl:
-            exp_dir = "database/SCDG/runs/" + args.exp_dir + "/"
-            nargs = args.n_args
-            disjoint_union = args.disjoint_union
-            not_comp_args = args.not_comp_args
-            min_size = args.min_size
-            not_ignore_zero = args.not_ignore_zero
-            three_edges = args.three_edges
-            verbose = args.verbose_scdg
-            format_out_json = args.json # TODO refactor if we add more 
-            self.discard_scdg = args.discard_SCDG
-        else:
-            exp_dir = "database/SCDG/runs/" + args["exp_dir"] + "/"
-            nargs = args["n_args"]
-            disjoint_union = args["disjoint_union"]
-            not_comp_args = args["not_comp_args"]
-            min_size = args["min_size"]
-            not_ignore_zero = args["not_ignore_zero"]
-            three_edges = args["three_edges"]
-            verbose = args["verbose_scdg"]
-            format_out_json = args["json"]
-            self.discard_scdg = args["discard_SCDG"]
+        exp_dir = "database/SCDG/runs/" + args.exp_dir + "/"
+        nargs = args.n_args
+        disjoint_union = args.disjoint_union
+        not_comp_args = args.not_comp_args
+        min_size = args.min_size
+        not_ignore_zero = args.not_ignore_zero
+        three_edges = args.three_edges
+        verbose = args.verbose_scdg
+        format_out_json = args.json # TODO refactor if we add more 
+        self.keep_inter_scdg = args.keep_inter_SCDG
         try:
             os.makedirs(exp_dir)
         except:
@@ -253,7 +224,7 @@ class SemaSCDG():
             
         
         self.save_conf(exp_dir)
-        #self.save_conf(vars(args), exp_dir) #Add 1 argument in save_conf + modify -> give different parameters
+        #self.save_conf(vars(args), exp_dir) #todo -> Add 1 argument in save_conf + modify -> it gives different information about the conf
 
         # Take name of the sample without full path
         self.log.info("Results wil be saved into : " + exp_dir)
@@ -276,7 +247,6 @@ class SemaSCDG():
         
         logging.getLogger().addHandler(fileHandler)
         #self.log.info(csv_file)
-
 
         exp_dir = exp_dir + nameFileShort + "/"
         
@@ -1440,7 +1410,7 @@ class SemaSCDG():
                 
         self.print_memory_info(main_obj, dump_file)
         
-        if self.discard_scdg:
+        if self.keep_inter_scdg:
             # self.log.info(dump_file)
             ofilename = exp_dir  + "inter_SCDG.json"
             self.log.info(ofilename)
@@ -1518,7 +1488,6 @@ class SemaSCDG():
 
         # soft, hard = resource.getrlimit(rsrc)
         # self.log.info('Soft limit changed to :', soft)
-
         if os.path.isfile(self.inputs):
             self.nb_exps = 1
             # TODO update family
@@ -1528,7 +1497,7 @@ class SemaSCDG():
             self.current_exps = 1
         else:
             import progressbar
-            last_family = "unknown"
+            last_family = "Unknown"
             if os.path.isdir(self.inputs):
                 subfolder = [os.path.join(self.inputs, f) for f in os.listdir(self.inputs) if os.path.isdir(os.path.join(self.inputs, f))]
                

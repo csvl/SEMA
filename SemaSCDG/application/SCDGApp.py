@@ -9,20 +9,22 @@ from SemaSCDG import SemaSCDG
 app = Flask(__name__)
 app.debug = True
 
+#Parse the parameters received in the request and launch the SCDG
 @app.route('/run_scdg', methods=['POST'])
 def run_scdg():
     scdg_parser = ArgumentParserSCDG()
     args_parser = scdg_parser.parser
     user_data = request.json
     exp_args = []
-    print(user_data)
     # Start with _mutually_exclusive_groups
     for group in args_parser._mutually_exclusive_groups:
         if group.title in user_data:
             exp_args.append("--" + user_data[group.title])
 
+    # For action groups
     for group in args_parser._action_groups:
         for action in group._group_actions:
+            #Handle after since mandatory arguments
             if action.dest == "binary" or action.dest == "exp_dir":
                 pass
             elif action.dest in user_data:
@@ -56,7 +58,7 @@ def run_scdg():
     except:
         return "Something went wrong"
     
-
+# Return a json object containing all the available parameters of the SCDG as well as their group, default value and help message
 @app.route('/scdg_args', methods=['GET'])
 def get_args():
     args_parser = ArgumentParserSCDG().parser
@@ -73,7 +75,6 @@ def get_args():
                 args_list.append({})
             
             for action in group._group_actions:
-                # TODO add group_name in new dictionary
                 group_name = group.title
                 if group_name not in args_list[-1]:
                     args_list[-1][group_name] = []

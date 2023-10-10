@@ -235,7 +235,7 @@ class CustomSimProcedure:
         
     }
 
-    def __init__(self, scdg, scdg_fin, is_from_tc,is_from_web, string_resolv=True, print_on=True, print_syscall=True):
+    def __init__(self, scdg, scdg_fin, string_resolv=True, print_on=True, print_syscall=True):
         # ch = logging.StreamHandler() # TODO bug duplicate logs
         # ch.setLevel(logging.INFO)
         # ch.setFormatter(CustomFormatter())
@@ -243,9 +243,6 @@ class CustomSimProcedure:
         self.log.setLevel(logging.INFO)
         # self.log.addHandler(ch)
         # self.log.propagate = False
-
-        self.is_from_tc = is_from_tc
-        self.is_from_web = is_from_web
 
         self.custom_simproc_windows = {}
         self.init_windows_sim_proc()
@@ -278,10 +275,6 @@ class CustomSimProcedure:
         self.log.debug("Windows lib path = " + str(path))
         skip_dirs = ["definitions"]
         pkg = "procedures.windows"
-        if self.is_from_tc:
-            pkg = "SemaSCDG.procedures.windows"
-        if self.is_from_web:
-            pkg = "src.SemaSCDG.procedures.windows"
         for pkg_name, package in autoimport.auto_import_packages(
             pkg, path, skip_dirs
         ):
@@ -330,10 +323,6 @@ class CustomSimProcedure:
         self.log.debug("Linux lib path = " + str(path))
         skip_dirs = ["definitions"]
         pkg = "procedures.linux"
-        if self.is_from_tc:
-            pkg = "SemaSCDG.procedures.linux"
-        if self.is_from_web:
-            pkg = "src.SemaSCDG.procedures.linux"
         for pkg_name, package in autoimport.auto_import_packages(
             pkg, path, skip_dirs
         ):
