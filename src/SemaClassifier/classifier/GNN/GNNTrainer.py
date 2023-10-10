@@ -27,13 +27,6 @@ import copy
 
 CLASS_DIR = os.path.dirname(os.path.abspath(__file__))
 BINARY_CLASS = False # TODO
-def collate_fn(data_list):
-        print("AAAAAAAAAAA")
-        dimensions = [max([d.x.size()[i] for d in data_list]) for i in range(len(data_list[0].x.size()))]
-        for i in range(len(data_list)):
-            data_list[i] = F.pad(data_list[i].x, [(0, dimensions[j] - data_list[i].size()[j]) for j in range(len(dimensions))])
-        batched_data = Batch.from_data_list(data_list)
-        return batched_data
 
 class GNNTrainer(Classifier):
     def __init__(self, path, name, threshold=0.45,
@@ -158,15 +151,15 @@ class GNNTrainer(Classifier):
             # import pdb; pdb.set_trace()
 
             num_classes = len(np.unique(self.label))
-            train_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)#, collate_fn=collate_fn)
+            train_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
             val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
 
             # import pdb; pdb.set_trace()
             
             if self.name=="gin":
                 self.clf = GIN(dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
-            elif self.name=="sage":
-                self.clf = GraphSAGE(dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
+            # elif self.name=="sage":
+            #     self.clf = GraphSAGE(dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
             elif self.name=="ginjk":
                 self.clf = GINJK(dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
             elif self.name=="rgin":
@@ -352,7 +345,7 @@ class GNNTrainer(Classifier):
         self.log.info("F1-score %2.2f %%" %(f_score))
 
         
-        # with open(f"output/gnn_eval/ml_eval_stats.csv", "a") as f:
+        # with open(f"output/gnn_eval/flag_eval_stats.csv", "a") as f:
         #     f.write(f"{accuracy},{balanced_accuracy},{precision},{recall},{f_score}\n")
     
         if BINARY_CLASS:
@@ -392,7 +385,7 @@ class GNNTrainer(Classifier):
         heatmap.xaxis.set_ticklabels(heatmap.xaxis.get_ticklabels(), rotation=45, ha='right', fontsize=fontsize)
         plt.ylabel('True label')
         plt.xlabel('Predicted label')
-        plt.show()
+        # plt.show()
         print("AAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
         plt.savefig(self.original_path + "figure.png")
         # plt.savefig("/home/sambt/Desktop/figure.png")

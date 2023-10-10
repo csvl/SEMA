@@ -146,3 +146,64 @@ class RanGINJK(torch.nn.Module):
         graph_rep = self.graph_pred_linear(pooled_rep)
 
         return F.log_softmax(graph_rep, dim=-1)
+    
+
+class RanGINJK_virtualnode(torch.nn.Module):
+    def __init__(self, num_features, hidden, num_classes, num_layers=4, drop_ratio=0.5, residual=False):
+        super(RanGINJK_virtualnode, self).__init__()
+        self.num_layers = num_layers
+        self.emb_dim = hidden
+        self.num_tasks = num_classes
+        self.num_features = num_features
+        self.drop_ratio = drop_ratio
+        self.residual = residual
+
+        if self.num_layers < 2:
+            raise ValueError("Number of GNN layers must be greater than 1.")
+        
+        ### set the initial virtual node embedding to 0.
+        self.virtualnode_embedding = torch.nn.Embedding(1, hidden)
+        torch.nn.init.constant_(self.virtualnode_embedding.weight.data, 0)
+
+
+        self.convs = torch.nn.ModuleList()
+
+        self.mlp_virtualnode_list = torch.nn.ModuleList()
+
+        for layer in range(num_layers):
+            self.convs.append(GINConv(hidden))
+        
+        for layer in range(num_layers - 1):
+            self.mlp_virtualnode_list.append(
+                torch.nn.Sequential(
+                    torch.nn.Linear(hidden, hidden), 
+                    torch.nn.ReLU(),
+                    torch.nn.Linear(hidden, hidden), 
+                    torch.nn.ReLU()
+                    ))
+    
+    def forward(self, x, edge_index, edge_attr, batch, perturb=None):
+
+        virtualnode_embedding = self.virtualnode_embedding(torch.zeros(batch[-1].item() + 1).to(edge_index.dtype).to(edge_index.device))
+        tmp = x + perturb if perturb is not None else x
+        h_list = []
+        h = tmp
+
+        for i in range(self.num_layers):
+            h = h + virtualnode_embedding[batch]
+            h = self.convs[i](h, edge_index, edge_attr)
+            h_list.append(h)
+
+
+            if i < self.num_layers - 1:
+                    ### add message from graph nodes to virtual nodes
+                    virtualnode_embedding_temp = global_add_pool(h_list[i], batch) + virtualnode_embedding
+                    ### transform virtual nodes using MLP
+
+                    if self.residual:
+                        virtualnode_embedding = virtualnode_embedding + F.dropout(self.mlp_virtualnode_list[i](virtualnode_embedding_temp), self.drop_ratio, training = self.training)
+                    else:
+                        virtualnode_embedding = F.dropout(self.mlp_virtualnode_list[i](virtualnode_embedding_temp), self.drop_ratio, training = self.training)
+        node_representation = torch.cat(h_list, dim=1)  # Concatenate representations from all layers
+        return node_representation
+    

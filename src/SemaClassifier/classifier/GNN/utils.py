@@ -31,8 +31,8 @@ def gen_graph_data(edges, nodes, vertices, edge_labels, label):
     x = torch.tensor([torch.tensor(nodes[v]) for v in vertices])
     x = x.unsqueeze(-1)
     # import pdb; pdb.set_trace()
-    # edge_attr = torch.tensor([edge_labels[e] for e in edges])
-    edge_attr = torch.tensor([0.0 for _ in edges])
+    edge_attr = torch.tensor([edge_labels[e] for e in edges])
+    # edge_attr = torch.tensor([0.0 for _ in edges])
     num_nodes = len(vertices)
     # edge_index=torch.tensor(edges).t().contiguous()
     y = torch.tensor([label])
@@ -145,7 +145,8 @@ def get_graph_info(graph, linear=False):
     if linear:
       if node > 0:
         if node-1 not in tmp:
-          tmp.append(node-1)  
+          tmp.append(node-1) 
+    # import pdb; pdb.set_trace()
     if node < tmp[0]:
       input_nodes.append(node)
       type = 0
@@ -169,3 +170,16 @@ def save_graph(graph, path):
 
 def load_graph(path):
   return nx.read_yaml(path)
+
+
+# INFO:Classifier:Accuracy 86.73 %
+# INFO:Classifier:Balanced accuracy 86.67 %
+# INFO:Classifier:Precision 89.29 %
+# INFO:Classifier:Recall 86.73 %
+# INFO:Classifier:F1-score 85.36 %
+
+# INFO:Classifier:Accuracy 89.80 %
+# INFO:Classifier:Balanced accuracy 89.67 %
+# INFO:Classifier:Precision 90.53 %
+# INFO:Classifier:Recall 89.80 %
+# INFO:Classifier:F1-score 89.44 %
