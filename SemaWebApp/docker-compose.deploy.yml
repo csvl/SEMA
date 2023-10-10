@@ -14,10 +14,12 @@ services:
       context: .
     ports:
     - "5000:5000"
+    depends_on:
+      - sema-scdg
     restart: always
   
   sema-scdg:
-    container_name: scdg
+    container_name: sema-scdg
     image: sema-scdg:latest
     build:
       context: ..

@@ -1,28 +1,5 @@
-install-local:
-	echo "Readme for further information about the parameters"
-	bash install.sh
-
-build-light-sema:
-	docker build  --rm -t sema -f Dockerfile.sema .
-
-build-full-sema:
-	docker build  --rm -t sema-init -f Dockerfile.sema .
-	docker build  --rm -t sema-pypy -f Dockerfile.sema.pypy .
-	docker build  --rm -t sema-pypy-cuda -f Dockerfile.sema.cuda --build-arg image=sema-pypy .
-	docker build  --rm -t sema -f Dockerfile.sema.fl --build-arg image=sema-pypy-cuda .
-
-build-cuda-sema:
-	docker build  --rm -t sema-init -f Dockerfile.sema .
-	docker build  --rm -t sema -f Dockerfile.sema.cuda --build-arg image=sema-init .
-
-build-web-sema-pypy:
-	docker build  --rm -t sema-init -f Dockerfile.sema .
-	docker build  --rm -t sema-pypy -f Dockerfile.sema.pypy .
-	#docker build  --rm -t sema -f Dockerfile.sema.cuda --build-arg image=sema-pypy . # -pypy-cuda
-	docker build  --rm -t sema -f Dockerfile.sema.fl --build-arg image=sema-pypy .
-	docker build  --rm -t sema-web -f Dockerfile.sema.webapp --build-arg image=sema .
-
 build-toolchain:
+	docker network inspect my_local_network >/dev/null 2>&1 || docker network create --driver bridge my_local_network
 	docker-compose -f SemaWebApp/docker-compose.deploy.yml build
 
 build-web-app:
@@ -90,7 +67,6 @@ run-toolchain:
 	docker run \
 		--rm \
 		-v $(PWD)/SemaWebApp/:/sema-web-app \
-		-v $(PWD)/database/:/sema-web-app/application/database\
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-e DISPLAY=$(DISPLAY) \
 		-p 5000:5000 \

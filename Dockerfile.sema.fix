@@ -1,6 +1,0 @@
-ARG image
-
-FROM $image:latest
-
-RUN echo "Installing angr"
-ADD penv-fix/angr/stack_pointer_tracker.py /penv-fix/angr/stack_pointer_tracker.py 

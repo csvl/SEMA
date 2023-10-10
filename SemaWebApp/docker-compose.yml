@@ -16,5 +16,7 @@ services:
     - "5000:5000"
     networks:
       - micro_network
+    depends_on:
+      - sema-scdg
     restart: always
   

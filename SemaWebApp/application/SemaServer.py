@@ -109,14 +109,13 @@ class SemaServer:
     #             elif not isinstance(action, argparse._HelpAction):
     #                 SemaServer.actions_classifier[-1][group_name].append({'name': action.dest, 'help': action.help, "type": str(action.type), "default": action.default, "is_mutually_exclusive": False})
         
+    #Ask the SCDG microservice for available parameters and returns them
     def init_scdg_args(self):  
         """Do an API call to the sema-scdg container to get the arguments to put on the index page"""
         response = requests.get('http://sema-scdg:5001/scdg_args')
         return response.json()
           
-    
-    # TODO refactor
-    def __init__(self,dir_path=None,experiments=None):
+    def __init__(self):
         self.log = SemaServer.app.logger
         
         # List that contains a dictionary containing all the arguments, it is then used
@@ -129,9 +128,9 @@ class SemaServer:
         
         # Init actions_classifier with current arguments available in ArgParser
         SemaServer.actions_classifier = [{}]
-        #self.init_class_args()
-        self.log.info("Classifier arguments: ")
-        self.log.info(SemaServer.actions_classifier)
+        # #self.init_class_args()
+        # self.log.info("Classifier arguments: ")
+        # self.log.info(SemaServer.actions_classifier)
         
         SemaServer.exps = []
         SemaServer.download_thread = None
@@ -166,15 +165,17 @@ class SemaServer:
         """
         return redirect('index.html', code =302)
     
+    #TODO
     @app.route('/progress-scdg', methods = ['GET', 'POST'])
     def progress():
         response = requests.get('http://sema-scdg:5001/progress')
         return str(response.content)
         return str(SemaServer.sema.tool_scdg.current_exps)
     
-    @app.route('/iteration-scdg', methods = ['GET', 'POST'])
-    def iteration():
-        return str(SemaServer.sema.tool_scdg.nb_exps)
+    # @app.route('/iteration-scdg', methods = ['GET', 'POST'])
+    # def iteration():
+    #     return
+    #     return str(SemaServer.sema.tool_scdg.nb_exps)
     
     # @app.route('/progress-dl', methods = ['GET', 'POST'])
     # def progress_dl():
@@ -184,70 +185,49 @@ class SemaServer:
     # def iteration_dl():
     #     return str(SemaServer.malware_to_download) ## TODO
     
-    # def get_fl_args(request):
-    #     fl_args = {}
+    
+    #Get the parameters entered on the page to transmit them to the classifier
+    # def get_class_args(request):
+    #     # The above code is initializing an empty dictionary `class_args` and two empty lists
+    #     # `exp_args` and `exp_args_str`. It is not doing anything else with these variables.
+    #     class_args = {}
     #     exp_args = []
     #     exp_args_str = ""
-    #     for group in SemaServer.sema.args_parser.args_parser_scdg.parser._mutually_exclusive_groups:
+    #     for group in SemaServer.sema.args_parser.args_parser_class.parser._mutually_exclusive_groups:
+    #         #SemaServer.log.info(group.title)
     #         if group.title in request.form:
     #             exp_args.append("--" + request.form[group.title])
-    #     for group in SemaServer.sema.args_parser.args_parser_scdg.parser._action_groups:
+    #             class_args[request.form[group.title]] = True
+    #     for group in SemaServer.sema.args_parser.args_parser_class.parser._action_groups:
     #         for action in group._group_actions:
-    #             if action.dest in request.form:
+    #             if action.dest == "binaries":
+    #                 pass
+    #             elif action.dest in request.form:
     #                 # TODO add group_name in new dictionary
     #                 group_name = group.title
     #                 if isinstance(action, argparse._StoreTrueAction) or isinstance(action, argparse._StoreFalseAction):
     #                     exp_args.append("--" + action.dest)
+    #                     class_args[action.dest] = True
     #                 else:
     #                     exp_args.append("--" + action.dest)
     #                     exp_args.append(request.form[action.dest])
-    #     return fl_args, exp_args, exp_args_str
-    
-    # def get_mutator_args(request):
-    #     pass # TODO bastien
-    
-    #Get the parameters entered on the page to transmit them to the toolchain
-    def get_class_args(request):
-        # The above code is initializing an empty dictionary `class_args` and two empty lists
-        # `exp_args` and `exp_args_str`. It is not doing anything else with these variables.
-        class_args = {}
-        exp_args = []
-        exp_args_str = ""
-        for group in SemaServer.sema.args_parser.args_parser_class.parser._mutually_exclusive_groups:
-            #SemaServer.log.info(group.title)
-            if group.title in request.form:
-                exp_args.append("--" + request.form[group.title])
-                class_args[request.form[group.title]] = True
-        for group in SemaServer.sema.args_parser.args_parser_class.parser._action_groups:
-            for action in group._group_actions:
-                if action.dest == "binaries":
-                    pass
-                elif action.dest in request.form:
-                    # TODO add group_name in new dictionary
-                    group_name = group.title
-                    if isinstance(action, argparse._StoreTrueAction) or isinstance(action, argparse._StoreFalseAction):
-                        exp_args.append("--" + action.dest)
-                        class_args[action.dest] = True
-                    else:
-                        exp_args.append("--" + action.dest)
-                        exp_args.append(request.form[action.dest])
-                        class_args[action.dest] = request.form[action.dest]
+    #                     class_args[action.dest] = request.form[action.dest]
                 
-        if len(request.form["binaries"]) > 0:
-            binaries = request.form["binaries"]
-            binary_split = binaries.split("/src")
-            SemaServer.log.info(binary_split)
-            #exit()
-            if len(binary_split) > 1:
-                binaries = "/app/src/" + binary_split[1]
-            else:
-                binaries = "/app/src/" + binary_split[0]
-            exp_args.append(binaries)
-            class_args["binaries"] = binaries        
-            #exp_args.append(request.files["binaries"].split("/")[0])
-        else:
-            exp_args.append("None")
-        return class_args, exp_args, exp_args_str
+    #     if len(request.form["binaries"]) > 0:
+    #         binaries = request.form["binaries"]
+    #         binary_split = binaries.split("/src")
+    #         SemaServer.log.info(binary_split)
+    #         #exit()
+    #         if len(binary_split) > 1:
+    #             binaries = "/app/src/" + binary_split[1]
+    #         else:
+    #             binaries = "/app/src/" + binary_split[0]
+    #         exp_args.append(binaries)
+    #         class_args["binaries"] = binaries        
+    #         #exp_args.append(request.files["binaries"].split("/")[0])
+    #     else:
+    #         exp_args.append("None")
+    #     return class_args, exp_args, exp_args_str
 
     @app.route('/index.html', methods = ['GET', 'POST'])
     def serve_index():
@@ -274,44 +254,17 @@ class SemaServer:
                 elif exp_number == 3:
                     fl_args[key] = value
 
-            
-            # TODO dir per malware 
-            
-            # class_args, exp_args_class, exp_args_class_str = SemaServer.get_class_args(request)
-            # exp_args += exp_args_class  
-            # if "fl_enable" in request.form: # TODO refactor + implement
-            #     fl_args, exp_args_fl, exp_args_fl_str = SemaServer.get_fl_args(request)
-            #     exp_args += exp_args_fl               
-            # muta_args, exp_args_muta, exp_args_muta_str = SemaServer.get_mutator_args(request)
-            # exp_args += muta_args
-            
-
-            ##
-            # Here we link the individual argument about input/output folder so they match
-            # Typically: [mutator] -> [scdg] -> [class] 
-            ##
-            # if args.exp_dir == "output/runs/" and "scdg_enable" in request.form:
-            #     SemaServer.sema.current_exp_dir = len(glob.glob("src/" + args.exp_dir + "/*")) + 1
-            #     args.exp_dir = "src/" + args.exp_dir + str(SemaServer.sema.current_exp_dir) + "/"
-            #     args.dir = "src/" + args.dir + str(SemaServer.sema.current_exp_dir) + "/"
-            #     args.binaries = args.exp_dir
-            # elif args.binaries == "output/runs/" and "class_enable" in request.form:
-            #     SemaServer.sema.current_exp_dir = len(glob.glob("src/" + args.exp_dir + "/*")) + 1
-            #     exp_dir = "src/" + args.exp_dir + str(SemaServer.sema.current_exp_dir) + "/"
-            #     args.binaries = exp_dir
-            # #elif args.binaries_mutated == "output/runs/" and "mutator_enable" in request.form:
-            # #    pass # TODO bastien
-            # else:
-            #     SemaServer.sema.current_exp_dir = int(args.binaries.split("/")[-1]) # TODO
-                  
             ##
             # Here we start the experiments
             ##  
-            #TODO replace by API call
             if "scdg_enable" in request.form:
+                #Send request to SCDG microservices to start an SCDG with the parameters specified in scdg_args
                 response = requests.post('http://sema-scdg:5001/run_scdg', json=scdg_args)
+                SemaServer.app.logger.info(response.content)
 
-            # if "class_enable" in request.form:
+            #TODO replace by API call
+            if "class_enable" in request.form:
+                pass
             #     SemaServer.sema.tool_classifier.args = args
             #     SemaServer.sema.args_parser.args_parser_class.update_tool(args)
             #     csv_class_file =  "src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/" + "classifier.csv"
@@ -325,80 +278,24 @@ class SemaServer:
             #         SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.detect, args=()))
             #     SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.save_csv, args=()))
             
-            # if "fl_enable" in request.form:
-            #     pass
+        return render_template('index.html', 
+                            actions_scdg=SemaServer.actions_scdg, 
+                            actions_classifier=SemaServer.actions_classifier,
+                            progress=0)
             
-            # if "mutator_enable" in request.form:
-            #     pass # TODO bastien
-            
-            # try:
-            #     os.mkdir("src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/")
-            #     SemaServer.sema.tool_scdg.current_exp_dir =SemaServer.sema.current_exp_dir
-            # except:
-            #     pass
-            
-            #threading.Thread(target=SemaServer.manage_exps, args=([args])).start()
-            
-            return render_template('index.html', 
-                                actions_scdg=SemaServer.actions_scdg, 
-                                actions_classifier=SemaServer.actions_classifier,
-                                progress=0) # TODO 0rtt
-        #TODO Can be removed ?
-        else:
-            return render_template('index.html', 
-                                actions_scdg=SemaServer.actions_scdg, 
-                                actions_classifier=SemaServer.actions_classifier,
-                                progress=0)
-            
-    def manage_exps(args):
-        while len(SemaServer.exps) > 0:
-            elem = SemaServer.exps.pop(0)
-            elem.start()  
-            elem.join()  
+    # def manage_exps(args):
+    #     while len(SemaServer.exps) > 0:
+    #         elem = SemaServer.exps.pop(0)
+    #         elem.start()  
+    #         elem.join()  
     
-    # @app.route('/start-scdg', methods = ['GET', 'POST'])
-    def start_scdg():
-        """
-        :return: the upload function.
-        """
-        print("ask to launch scdg")
-        response = requests.get('http://sema-scdg:5001/run_scdg', json={'username': 'example', 'password': 'pass123'})
-        if response.status_code == 200:
-            print("Product created and user registered successfully")
-        else:
-            print("Failed to create product")
-        
-    @app.route('/start-classify', methods = ['GET', 'POST'])
-    def start_classifier():
-        """
-        :return: the upload function.
-        """
-        SemaServer.sema.args = 0 # TODO
-        SemaServer.sema.tool_classifier.init(exp_dir=SemaServer.sema.args.exp_dir)
-        SemaServer.sema.tool_classifier.train()
-
-        if SemaServer.sema.tool_classifier.mode == "classification":
-            SemaServer.sema.tool_classifier.classify()
-        else:
-            SemaServer.sema.tool_classifier.detect()
-
-        elapsed_time = time.time() - SemaServer.sema.start_time
-        SemaServer.sema.log.info("Total execution time: " + str(elapsed_time))
-
-        if SemaServer.sema.args.train: # TODO
-            args_res = {}
-            if SemaServer.sema.tool_classifier.classifier_name == "gspan":
-                args_res["target"] = SemaServer.sema.mode
-            SemaServer.sema.log.info(SemaServer.sema.tool_classifier.classifier.get_stat_classifier(**args_res))
-        
+    # @app.route('/directory/<int:directory>/file/<path:file>')
+    # def send_file(directory,file):
+    #     return send_from_directory(SemaServer.sema_res_dir + str(directory), file)
     
-    @app.route('/directory/<int:directory>/file/<path:file>')
-    def send_file(directory,file):
-        return send_from_directory(SemaServer.sema_res_dir + str(directory), file)
-    
-    @app.route('/key/<string:implem>')
-    def send_key(implem):
-        return send_from_directory(SemaServer.key_path, implem)
+    # @app.route('/key/<string:implem>')
+    # def send_key(implem):
+    #     return send_from_directory(SemaServer.key_path, implem)
     
     # def download_malware(tags, limit, db):
     #     SemaServer.malware_to_download = 0
@@ -508,246 +405,246 @@ class SemaServer:
     #     if SemaServer.download_thread:
     #         SemaServer.download_thread.join()
         
-    @app.route('/downloader.html', methods = ['GET', 'POST'])
-    def serve_download():
-        if request.method == 'POST':
-            SemaServer.download_thread = threading.Thread(target=SemaServer.download_malware, args=([request.form['TAG'].split(' '), request.form['max_sample'], request.form['db']])).start()
-        return render_template('downloader.html')
+    # @app.route('/downloader.html', methods = ['GET', 'POST'])
+    # def serve_download():
+    #     if request.method == 'POST':
+    #         SemaServer.download_thread = threading.Thread(target=SemaServer.download_malware, args=([request.form['TAG'].split(' '), request.form['max_sample'], request.form['db']])).start()
+    #     return render_template('downloader.html')
     
-    @app.route('/results.html', methods = ['GET', 'POST'])
-    def serve_results():
-        """
-        It creates a folder for the project, and then calls the upload function
-        :return: the upload function.
-        """
-        # TODO
-        SemaServer.log.info(SemaServer.sema_res_dir)
-        SemaServer.log.info(os.listdir(SemaServer.sema_res_dir))
-        nb_exp = len(os.listdir(SemaServer.sema_res_dir))
+    # @app.route('/results.html', methods = ['GET', 'POST'])
+    # def serve_results():
+    #     """
+    #     It creates a folder for the project, and then calls the upload function
+    #     :return: the upload function.
+    #     """
+    #     # TODO
+    #     SemaServer.log.info(SemaServer.sema_res_dir)
+    #     SemaServer.log.info(os.listdir(SemaServer.sema_res_dir))
+    #     nb_exp = len(os.listdir(SemaServer.sema_res_dir))
         
-        summary = {}
-        default_page = 0
-        page = request.args.get('page', default_page)
-        try:
-            page = page.number
-        except:
-            pass
-        # Get queryset of items to paginate
-        rge = range(nb_exp,0,-1)
-        SemaServer.log.info([i for i in rge])
-        SemaServer.log.info(page)
-        items = [i for i in rge]
+    #     summary = {}
+    #     default_page = 0
+    #     page = request.args.get('page', default_page)
+    #     try:
+    #         page = page.number
+    #     except:
+    #         pass
+    #     # Get queryset of items to paginate
+    #     rge = range(nb_exp,0,-1)
+    #     SemaServer.log.info([i for i in rge])
+    #     SemaServer.log.info(page)
+    #     items = [i for i in rge]
 
-        # Paginate items
-        items_per_page = 1
-        paginator = Paginator(items, per_page=items_per_page)
+    #     # Paginate items
+    #     items_per_page = 1
+    #     paginator = Paginator(items, per_page=items_per_page)
 
-        try:
-            items_page = paginator.page(page)
-        except PageNotAnInteger:
-            items_page = paginator.page(default_page)
-        except EmptyPage:
-            items_page = paginator.page(paginator.num_pages)
+    #     try:
+    #         items_page = paginator.page(page)
+    #     except PageNotAnInteger:
+    #         items_page = paginator.page(default_page)
+    #     except EmptyPage:
+    #         items_page = paginator.page(paginator.num_pages)
         
-        scdgs = {}
+    #     scdgs = {}
         
-        try:
-            scdg_params = json.loads(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg_conf.json').read())
-            summary["scdg_used"] = True
-            summary["date"] = os.path.getctime(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg_conf.json')
-        except:
-            scdg_params = {}
-            summary["scdg_used"] = False
+    #     try:
+    #         scdg_params = json.loads(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg_conf.json').read())
+    #         summary["scdg_used"] = True
+    #         summary["date"] = os.path.getctime(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg_conf.json')
+    #     except:
+    #         scdg_params = {}
+    #         summary["scdg_used"] = False
         
-        try:    
-            class_params = json.loads(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/class_conf.json').read())
-            summary["class_used"] = True
-            summary["date"] = os.path.getctime(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/class_conf.json')
-        except:
-            class_params = {}
-            summary["class_used"] = False
+    #     try:    
+    #         class_params = json.loads(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/class_conf.json').read())
+    #         summary["class_used"] = True
+    #         summary["date"] = os.path.getctime(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/class_conf.json')
+    #     except:
+    #         class_params = {}
+    #         summary["class_used"] = False
         
-        summary["family_cnt"] = 0
-        summary["sample_cnt"] = 0
-        for subdir in os.listdir(SemaServer.sema_res_dir + str(nb_exp-int(page))):
-            if os.path.isdir(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir):
-                summary["family_cnt"] += 1
-                scdgs[subdir] = {}
-                for malware in os.listdir(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir):
-                    summary["sample_cnt"] += 1
-                    if os.path.isdir(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware):
-                        malware_id = malware.split(".")[0]
-                        scdgs[subdir][malware_id] = {}
-                        for file in os.listdir(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware):
-                            if file.endswith(".json"):
-                                scdgs[subdir][malware_id]["json"] = json.dumps(json.load(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir  + '/' + malware + '/' + file)), indent=2)
-                            elif file.endswith("commands.log"):
-                                scdgs[subdir][malware_id]["command"] = open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware  + '/' + file,"r").read() #.close()
-                            elif file.endswith(".log"):
-                                scdgs[subdir][malware_id]["log"] = open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware  + '/' + file,"r").read() #.close()
-        # scdg_logs = json.loads(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg_conf.json').read())
-        # class_logs = json.loads(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.json').read())
+    #     summary["family_cnt"] = 0
+    #     summary["sample_cnt"] = 0
+    #     for subdir in os.listdir(SemaServer.sema_res_dir + str(nb_exp-int(page))):
+    #         if os.path.isdir(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir):
+    #             summary["family_cnt"] += 1
+    #             scdgs[subdir] = {}
+    #             for malware in os.listdir(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir):
+    #                 summary["sample_cnt"] += 1
+    #                 if os.path.isdir(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware):
+    #                     malware_id = malware.split(".")[0]
+    #                     scdgs[subdir][malware_id] = {}
+    #                     for file in os.listdir(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware):
+    #                         if file.endswith(".json"):
+    #                             scdgs[subdir][malware_id]["json"] = json.dumps(json.load(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir  + '/' + malware + '/' + file)), indent=2)
+    #                         elif file.endswith("commands.log"):
+    #                             scdgs[subdir][malware_id]["command"] = open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware  + '/' + file,"r").read() #.close()
+    #                         elif file.endswith(".log"):
+    #                             scdgs[subdir][malware_id]["log"] = open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware  + '/' + file,"r").read() #.close()
+    #     # scdg_logs = json.loads(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg_conf.json').read())
+    #     # class_logs = json.loads(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.json').read())
         
-        if os.path.isfile(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg.csv'):
-            df_csv_scdg = pd.read_csv(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg.csv',sep=";")
+    #     if os.path.isfile(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg.csv'):
+    #         df_csv_scdg = pd.read_csv(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg.csv',sep=";")
                   
-            print(list(df_csv_scdg.drop("filename", axis=1).drop("Syscall found", axis=1).drop("Libraries", axis=1).columns))
-            print(df_csv_scdg.drop("filename", axis=1).drop("Syscall found", axis=1).drop("Libraries", axis=1).to_csv())
-            print(df_csv_scdg[["filename", "CPU architecture"]].to_csv(index=False))
-            output = "df_csv.html"
-            # TODO change the label
-            configurationData = [
-                {
-                "id": str(uuid.uuid4()), # Must be unique TODO df_csv_scdg['filename']
-                "name": "Experiences coverage view",
-                "parameters": ["filename", "family"],
-                "measurements": ["Total number of instr", 'Number of instr visited'], # , "Total number of blocks",'Number Syscall found' , 'Number Address found', 'Number of blocks visited', "Total number of blocks","time"
-                "data": df_csv_scdg.drop("Syscall found", axis=1).drop("Libraries", axis=1).to_csv(index=False)
-                },
-                {
-                "id": str(uuid.uuid4()), 
-                "name": "Experiences syscall view",
-                "parameters": ["filename", "family"], 
-                "measurements": ["Number Syscall found"], # , "Total number of blocks",'Number Syscall found'
-                "data": df_csv_scdg.drop("Syscall found", axis=1).drop("Libraries", axis=1).to_csv(index=False)
-                },
-                {
-                "id": str(uuid.uuid4()), 
-                "name": "Dataset view",
-                "parameters": ["filename"], 
-                "measurements": ["OS", "CPU architecture", "family","Binary position-independent"], # , "Total number of blocks",'Number Syscall found'
-                "data": df_csv_scdg[["filename", "CPU architecture","OS", "family", "Binary position-independent"]].to_csv(index=False)
-                },
-            ]
-            # configurationData = {
-                # "id": "1234567-1234567894567878241-12456", # Must be unique
-                # "name": "Quickstart example",
-                # "parameters": ["N", "algorithm", "num_cpus", "cpu_brand"],
-                # "measurements": ["efficiency"],
-                # "data": """algorithm,N,num_cpus,efficiency,cpu_brand
-                # Algorithm 1,10,1,0.75,Ryzen
-                # Algorithm 1,10,4,0.85,Ryzen
-                # Algorithm 1,10,8,0.90,Ryzen
-                # Algorithm 2,10,1,0.65,Ryzen
-                # Algorithm 2,10,4,0.80,Ryzen
-                # Algorithm 2,10,8,0.87,Ryzen
-                # """, # Raw data in csv format
-            # }
-            export(configurationData, output)
+    #         print(list(df_csv_scdg.drop("filename", axis=1).drop("Syscall found", axis=1).drop("Libraries", axis=1).columns))
+    #         print(df_csv_scdg.drop("filename", axis=1).drop("Syscall found", axis=1).drop("Libraries", axis=1).to_csv())
+    #         print(df_csv_scdg[["filename", "CPU architecture"]].to_csv(index=False))
+    #         output = "df_csv.html"
+    #         # TODO change the label
+    #         configurationData = [
+    #             {
+    #             "id": str(uuid.uuid4()), # Must be unique TODO df_csv_scdg['filename']
+    #             "name": "Experiences coverage view",
+    #             "parameters": ["filename", "family"],
+    #             "measurements": ["Total number of instr", 'Number of instr visited'], # , "Total number of blocks",'Number Syscall found' , 'Number Address found', 'Number of blocks visited', "Total number of blocks","time"
+    #             "data": df_csv_scdg.drop("Syscall found", axis=1).drop("Libraries", axis=1).to_csv(index=False)
+    #             },
+    #             {
+    #             "id": str(uuid.uuid4()), 
+    #             "name": "Experiences syscall view",
+    #             "parameters": ["filename", "family"], 
+    #             "measurements": ["Number Syscall found"], # , "Total number of blocks",'Number Syscall found'
+    #             "data": df_csv_scdg.drop("Syscall found", axis=1).drop("Libraries", axis=1).to_csv(index=False)
+    #             },
+    #             {
+    #             "id": str(uuid.uuid4()), 
+    #             "name": "Dataset view",
+    #             "parameters": ["filename"], 
+    #             "measurements": ["OS", "CPU architecture", "family","Binary position-independent"], # , "Total number of blocks",'Number Syscall found'
+    #             "data": df_csv_scdg[["filename", "CPU architecture","OS", "family", "Binary position-independent"]].to_csv(index=False)
+    #             },
+    #         ]
+    #         # configurationData = {
+    #             # "id": "1234567-1234567894567878241-12456", # Must be unique
+    #             # "name": "Quickstart example",
+    #             # "parameters": ["N", "algorithm", "num_cpus", "cpu_brand"],
+    #             # "measurements": ["efficiency"],
+    #             # "data": """algorithm,N,num_cpus,efficiency,cpu_brand
+    #             # Algorithm 1,10,1,0.75,Ryzen
+    #             # Algorithm 1,10,4,0.85,Ryzen
+    #             # Algorithm 1,10,8,0.90,Ryzen
+    #             # Algorithm 2,10,1,0.65,Ryzen
+    #             # Algorithm 2,10,4,0.80,Ryzen
+    #             # Algorithm 2,10,8,0.87,Ryzen
+    #             # """, # Raw data in csv format
+    #         # }
+    #         export(configurationData, output)
         
-            with open(output, 'r') as f:
-                df_csv_content = f.read()
+    #         with open(output, 'r') as f:
+    #             df_csv_content = f.read()
                 
-            # configurationData = {
-            #     "id": df_csv_scdg['Syscall found'], # Must be unique
-            #     "name": "Experience Syscall found global view",
-            #     "parameters": ["Count"], #["N", "algorithm", "num_cpus", "cpu_brand"],
-            #     "measurements": ["efficiency"],
-            #     "data": ""
-            # }
-            # export(configurationData, output)
+    #         # configurationData = {
+    #         #     "id": df_csv_scdg['Syscall found'], # Must be unique
+    #         #     "name": "Experience Syscall found global view",
+    #         #     "parameters": ["Count"], #["N", "algorithm", "num_cpus", "cpu_brand"],
+    #         #     "measurements": ["efficiency"],
+    #         #     "data": ""
+    #         # }
+    #         # export(configurationData, output)
         
-            # with open(output, 'r') as f:
-            #     df_csv_content = f.read()
+    #         # with open(output, 'r') as f:
+    #         #     df_csv_content = f.read()
                 
-        else:
-            df_csv_scdg = pd.DataFrame()
-            df_csv_content = ""
+    #     else:
+    #         df_csv_scdg = pd.DataFrame()
+    #         df_csv_content = ""
             
-        if os.path.isfile(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.csv'):
-            df_csv_classifier = pd.read_csv(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.csv',sep=";") 
-        else:
-            df_csv_classifier = pd.DataFrame()
+    #     if os.path.isfile(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.csv'):
+    #         df_csv_classifier = pd.read_csv(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.csv',sep=";") 
+    #     else:
+    #         df_csv_classifier = pd.DataFrame()
             
-        if os.path.isfile(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.log'):
-            log_csv_classifier = open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.log').read()
-        else:
-            log_csv_classifier = ""
+    #     if os.path.isfile(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.log'):
+    #         log_csv_classifier = open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.log').read()
+    #     else:
+    #         log_csv_classifier = ""
         
-        SemaServer.current_exp = SemaServer.sema_res_dir + str(nb_exp-int(page))
-        exp_dir = os.listdir(SemaServer.current_exp)
+    #     SemaServer.current_exp = SemaServer.sema_res_dir + str(nb_exp-int(page))
+    #     exp_dir = os.listdir(SemaServer.current_exp)
        
-        # Get page number from request, 
-        # default to first page
-        # try:
-        #     binary_fc       = open(plantuml_file_png, 'rb').read()  # fc aka file_content
-        #     base64_utf8_str = b64encode(binary_fc).decode('utf-8')
+    #     # Get page number from request, 
+    #     # default to first page
+    #     # try:
+    #     #     binary_fc       = open(plantuml_file_png, 'rb').read()  # fc aka file_content
+    #     #     base64_utf8_str = b64encode(binary_fc).decode('utf-8')
 
-        #     ext     = plantuml_file_png.split('.')[-1]
-        # except:
-        #     base64_utf8_str = ''
-        #     ext = 'png'
-        # dataurl = f'data:image/{ext};base64,{base64_utf8_str}'
+    #     #     ext     = plantuml_file_png.split('.')[-1]
+    #     # except:
+    #     #     base64_utf8_str = ''
+    #     #     ext = 'png'
+    #     # dataurl = f'data:image/{ext};base64,{base64_utf8_str}'
         
-        SemaServer.log.info(items_page)
-        SemaServer.log.info(paginator)
+    #     SemaServer.log.info(items_page)
+    #     SemaServer.log.info(paginator)
     
         
-        return render_template('results.html', 
-                           items_page=items_page,
-                           nb_exp=nb_exp,
-                           page=int(page),
-                           current_exp=SemaServer.current_exp,
-                           scdg_params=scdg_params,
-                           class_params=class_params,
-                           scdgs=scdgs,
-                           summary=summary,
-                           log_csv_classifier=log_csv_classifier,
-                           df_csv_scdg=df_csv_scdg.to_csv(),
-                           df_csv_classifier=df_csv_classifier.to_csv(),
-                           exp_dir="src/output/runs/", # "http://"+SemaServer.vizualiser_ip+":80/?file=http://"
-                           df_csv_content=df_csv_content,
-                        )
+    #     return render_template('results.html', 
+    #                        items_page=items_page,
+    #                        nb_exp=nb_exp,
+    #                        page=int(page),
+    #                        current_exp=SemaServer.current_exp,
+    #                        scdg_params=scdg_params,
+    #                        class_params=class_params,
+    #                        scdgs=scdgs,
+    #                        summary=summary,
+    #                        log_csv_classifier=log_csv_classifier,
+    #                        df_csv_scdg=df_csv_scdg.to_csv(),
+    #                        df_csv_classifier=df_csv_classifier.to_csv(),
+    #                        exp_dir="src/output/runs/", # "http://"+SemaServer.vizualiser_ip+":80/?file=http://"
+    #                        df_csv_content=df_csv_content,
+                        # )
 
-    @app.route('/results-global.html', methods = ['GET', 'POST'])
-    def serve_results_global():
-        """
-        It creates a folder for the project, and then calls the upload function
-        :return: the upload function.
-        """
-        nb_exp = len(os.listdir(SemaServer.sema_res_dir)) - 2
+    # @app.route('/results-global.html', methods = ['GET', 'POST'])
+    # def serve_results_global():
+    #     """
+    #     It creates a folder for the project, and then calls the upload function
+    #     :return: the upload function.
+    #     """
+    #     nb_exp = len(os.listdir(SemaServer.sema_res_dir)) - 2
         
-        SemaServer.log.info(request.form)
+    #     SemaServer.log.info(request.form)
         
-        summary = {}
-        df_csv = pd.read_csv(SemaServer.sema_res_dir + 'data.csv',parse_dates=['date'])
+    #     summary = {}
+    #     df_csv = pd.read_csv(SemaServer.sema_res_dir + 'data.csv',parse_dates=['date'])
         
-        df_simplify_date = df_csv
-        df_simplify_date['date'] = df_csv['date'].dt.strftime('%d/%m/%Y')
-        df_date_min_max = df_simplify_date['date'].agg(['min', 'max'])
-        df_nb_date = df_simplify_date['date'].nunique()
-        df_dates = df_simplify_date['date'].unique()
-        SemaServer.log.info(list(df_dates))
-        SemaServer.log.info(df_date_min_max)
-        SemaServer.log.info(df_nb_date)
-        minimum_date = df_date_min_max["min"]
-        maximum_date = df_date_min_max["max"]
+    #     df_simplify_date = df_csv
+    #     df_simplify_date['date'] = df_csv['date'].dt.strftime('%d/%m/%Y')
+    #     df_date_min_max = df_simplify_date['date'].agg(['min', 'max'])
+    #     df_nb_date = df_simplify_date['date'].nunique()
+    #     df_dates = df_simplify_date['date'].unique()
+    #     SemaServer.log.info(list(df_dates))
+    #     SemaServer.log.info(df_date_min_max)
+    #     SemaServer.log.info(df_nb_date)
+    #     minimum_date = df_date_min_max["min"]
+    #     maximum_date = df_date_min_max["max"]
                 
-        subdf = None
-        #if len(request.form) >= 0:
-        for key in request.form:
-            pass
+    #     subdf = None
+    #     #if len(request.form) >= 0:
+    #     for key in request.form:
+    #         pass
         
-        if subdf is not None:
-            df_csv = subdf
+    #     if subdf is not None:
+    #         df_csv = subdf
             
-        # csv_text = df_csv.to_csv()
+    #     # csv_text = df_csv.to_csv()
         
-        output = "df_csv.html"
-        export(df_csv, output)
+    #     output = "df_csv.html"
+    #     export(df_csv, output)
             
-        return render_template('result-global.html', 
-                           nb_exp=nb_exp,
-                           current_exp=SemaServer.current_exp,
-                           summary=summary,
-                           csv_text=csv_text,
-                           server_tests=SemaServer.server_tests, 
-                           client_tests=SemaServer.client_tests,
-                           implems=SemaServer.implems,
-                           min_date=None,
-                           max_date=None,
-                           df_nb_date=df_nb_date,
-                           df_dates=list(df_dates))
+    #     return render_template('result-global.html', 
+    #                        nb_exp=nb_exp,
+    #                        current_exp=SemaServer.current_exp,
+    #                        summary=summary,
+    #                        csv_text=csv_text,
+    #                        server_tests=SemaServer.server_tests, 
+    #                        client_tests=SemaServer.client_tests,
+    #                        implems=SemaServer.implems,
+    #                        min_date=None,
+    #                        max_date=None,
+    #                        df_nb_date=df_nb_date,
+    #                        df_dates=list(df_dates))
 
 
  

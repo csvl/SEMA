@@ -212,15 +212,10 @@ class ArgumentParserSCDG:
             action="store_true",
             
         )
-        # self.group_scdg.add_argument(
-        #     "--dir",
-        #     help=" Directory to save outputs graph for gspan  (default : output/runs/<exp_run>)",
-        #     default="database/SCDG/runs/",
-        # )
         self.group_scdg.add_argument(
-            "--discard_SCDG",
-            help="Do not keep intermediate SCDG in file  (default : False)",
-            action="store_false",
+            "--keep_inter_SCDG",
+            help="keep intermediate SCDG in file  (default : False)",
+            action="store_true",
             
         )
         self.group_scdg.add_argument(
@@ -268,6 +263,7 @@ class ArgumentParserSCDG:
         self.group.add_argument(
             "exp_dir",
             help=" Name of the output directory", 
+            default = "Test",
 
         )
         self.group.add_argument(
@@ -291,6 +287,7 @@ class ArgumentParserSCDG:
         self.group.add_argument(
             "--family",
             help="family of the malware (default : unknown)",
+            default="Unknown",
             
         )
         self.group.add_argument("binary", 
@@ -318,9 +315,7 @@ class ArgumentParserSCDG:
                 else  "CBFS"))))))
         tool_scdg.timeout = 9999
 
-        family = "unknown"
-        if args.family:
-            family = args.family
+        family = args.family
         args.exp_dir = args.exp_dir + "/" + family
 
         if args.timeout:
