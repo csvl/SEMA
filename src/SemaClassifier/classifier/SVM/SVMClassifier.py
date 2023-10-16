@@ -130,9 +130,6 @@ class SVMClassifier(Classifier):
         self.precision = precision_score(self.label, self.y_pred,average='weighted')*100
         self.recall = recall_score(self.label, self.y_pred,average='weighted')*100
 
-        with open(f"output/gnn_eval/flag_eval_stats.csv", "a") as f:
-            f.write(f"{self.accuracy},{self.balanced_accuracy},{self.precision},{self.recall},{self.fscore}\n")
-
         if BINARY_CLASS:
             conf = confusion_matrix(self.label,self.y_pred,labels=['clean','malware'])
             y_score1 = self.clf.predict_proba(self.K_val)[:,1]
@@ -169,7 +166,7 @@ class SVMClassifier(Classifier):
         heatmap.xaxis.set_ticklabels(heatmap.xaxis.get_ticklabels(), rotation=45, ha='right', fontsize=fontsize)
         plt.ylabel('True label')
         plt.xlabel('Predicted label')
-        # plt.show()
+        plt.show()
         #plt.savefig(self.original_path + "figure.png")
         return f_score
     

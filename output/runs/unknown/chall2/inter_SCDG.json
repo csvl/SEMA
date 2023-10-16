@@ -1,0 +1,464 @@
+[
+    {
+        "0": {
+            "status": "errored",
+            "trace": [
+                {
+                    "name": "main",
+                    "args": [
+                        "chall2"
+                    ],
+                    "addr": 4222240,
+                    "ret": "symbolic",
+                    "addr_func": 4222240
+                },
+                {
+                    "name": "__libc_start_main",
+                    "args": [
+                        4262444,
+                        1,
+                        576460752303357856,
+                        0,
+                        0
+                    ],
+                    "addr_func": "0x729dc0",
+                    "addr": "0x406d3f",
+                    "ret": "None"
+                },
+                {
+                    "name": "strcmp",
+                    "args": [
+                        4949408,
+                        9282007
+                    ],
+                    "addr_func": "0x7a82e0",
+                    "addr": "0x736790",
+                    "ret": 4294967295
+                },
+                {
+                    "name": "getenv",
+                    "args": [
+                        9274054
+                    ],
+                    "addr_func": "0x744b70",
+                    "addr": "0x7367c2",
+                    "ret": 0
+                },
+                {
+                    "name": "getenv",
+                    "args": [
+                        9274062
+                    ],
+                    "addr_func": "0x744b70",
+                    "addr": "0x73715f",
+                    "ret": 0
+                },
+                {
+                    "name": "getenv",
+                    "args": [
+                        9163883
+                    ],
+                    "addr_func": "0x744b70",
+                    "addr": "0x737191",
+                    "ret": 0
+                },
+                {
+                    "name": "getenv",
+                    "args": [
+                        9274069
+                    ],
+                    "addr_func": "0x744b70",
+                    "addr": "0x7371b2",
+                    "ret": 0
+                },
+                {
+                    "name": "strcmp",
+                    "args": [
+                        9282007,
+                        9282007
+                    ],
+                    "addr_func": "0x7a82e0",
+                    "addr": "0x7371e0",
+                    "ret": 0
+                },
+                {
+                    "name": "strlen",
+                    "args": [
+                        9282007
+                    ],
+                    "addr_func": "0x7a86a0",
+                    "addr": "0x736506",
+                    "ret": 1
+                },
+                {
+                    "name": "strlen",
+                    "args": [
+                        9282007
+                    ],
+                    "addr_func": "0x7a86a0",
+                    "addr": "0x736506",
+                    "ret": 1
+                },
+                {
+                    "name": "strlen",
+                    "args": [
+                        9282007
+                    ],
+                    "addr_func": "0x7a86a0",
+                    "addr": "0x736506",
+                    "ret": 1
+                },
+                {
+                    "name": "strlen",
+                    "args": [
+                        9282007
+                    ],
+                    "addr_func": "0x7a86a0",
+                    "addr": "0x736506",
+                    "ret": 1
+                },
+                {
+                    "name": "strlen",
+                    "args": [
+                        9282007
+                    ],
+                    "addr_func": "0x7a86a0",
+                    "addr": "0x736506",
+                    "ret": 1
+                },
+                {
+                    "name": "strlen",
+                    "args": [
+                        9282007
+                    ],
+                    "addr_func": "0x7a86a0",
+                    "addr": "0x736506",
+                    "ret": 1
+                },
+                {
+                    "name": "strlen",
+                    "args": [
+                        9282007
+                    ],
+                    "addr_func": "0x7a86a0",
+                    "addr": "0x736506",
+                    "ret": 1
+                },
+                {
+                    "name": "strlen",
+                    "args": [
+                        9282007
+                    ],
+                    "addr_func": "0x7a86a0",
+                    "addr": "0x736506",
+                    "ret": 1
+                },
+                {
+                    "name": "strlen",
+                    "args": [
+                        9282007
+                    ],
+                    "addr_func": "0x7a86a0",
+                    "addr": "0x736506",
+                    "ret": 1
+                },
+                {
+                    "name": "strlen",
+                    "args": [
+                        9282007
+                    ],
+                    "addr_func": "0x7a86a0",
+                    "addr": "0x736506",
+                    "ret": 1
+                },
+                {
+                    "name": "strlen",
+                    "args": [
+                        9282007
+                    ],
+                    "addr_func": "0x7a86a0",
+                    "addr": "0x736506",
+                    "ret": 1
+                },
+                {
+                    "name": "strlen",
+                    "args": [
+                        9282007
+                    ],
+                    "addr_func": "0x7a86a0",
+                    "addr": "0x736506",
+                    "ret": 1
+                },
+                {
+                    "name": "strcmp",
+                    "args": [
+                        9282007,
+                        9282007
+                    ],
+                    "addr_func": "0x7a82e0",
+                    "addr": "0x7365c6",
+                    "ret": 0
+                },
+                {
+                    "name": "free",
+                    "args": [
+                        0
+                    ],
+                    "addr_func": "0x7a53e0",
+                    "addr": "0x736b69",
+                    "ret": "None"
+                },
+                {
+                    "name": "clock_gettime",
+                    "args": [
+                        2,
+                        576460752303357072
+                    ],
+                    "addr_func": "0x7e5650",
+                    "addr": "0x49dc2b",
+                    "ret": "0x0"
+                }
+            ]
+        },
+        "sections": {
+            "": {
+                "vaddr": 0,
+                "memsize": 0,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".interp": {
+                "vaddr": 4194928,
+                "memsize": 28,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".note.gnu.property": {
+                "vaddr": 4194960,
+                "memsize": 32,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".note.ABI-tag": {
+                "vaddr": 4194992,
+                "memsize": 32,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".note.gnu.build-id": {
+                "vaddr": 4195024,
+                "memsize": 36,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".dynsym": {
+                "vaddr": 4195064,
+                "memsize": 5664,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".dynstr": {
+                "vaddr": 4200728,
+                "memsize": 2604,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".gnu.hash": {
+                "vaddr": 4203336,
+                "memsize": 48,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".gnu.version": {
+                "vaddr": 4203384,
+                "memsize": 472,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".gnu.version_r": {
+                "vaddr": 4203856,
+                "memsize": 304,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".rela.dyn": {
+                "vaddr": 4204160,
+                "memsize": 96,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".rela.plt": {
+                "vaddr": 4204256,
+                "memsize": 2640,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".init": {
+                "vaddr": 4206896,
+                "memsize": 27,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": true
+            },
+            ".plt": {
+                "vaddr": 4206928,
+                "memsize": 1776,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": true
+            },
+            ".text": {
+                "vaddr": 4208704,
+                "memsize": 729377,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": true
+            },
+            ".fini": {
+                "vaddr": 4938084,
+                "memsize": 13,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": true
+            },
+            ".rodata": {
+                "vaddr": 4938112,
+                "memsize": 72624,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".eh_frame": {
+                "vaddr": 5010736,
+                "memsize": 20284,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".eh_frame_hdr": {
+                "vaddr": 5031020,
+                "memsize": 4052,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".fini_array": {
+                "vaddr": 5041128,
+                "memsize": 8,
+                "is_readable": true,
+                "is_writable": true,
+                "is_executable": false
+            },
+            ".init_array": {
+                "vaddr": 5041136,
+                "memsize": 8,
+                "is_readable": true,
+                "is_writable": true,
+                "is_executable": false
+            },
+            ".data.rel.ro": {
+                "vaddr": 5041144,
+                "memsize": 480,
+                "is_readable": true,
+                "is_writable": true,
+                "is_executable": false
+            },
+            ".dynamic": {
+                "vaddr": 5041624,
+                "memsize": 512,
+                "is_readable": true,
+                "is_writable": true,
+                "is_executable": false
+            },
+            ".got": {
+                "vaddr": 5042136,
+                "memsize": 16,
+                "is_readable": true,
+                "is_writable": true,
+                "is_executable": false
+            },
+            ".got.plt": {
+                "vaddr": 5042152,
+                "memsize": 904,
+                "is_readable": true,
+                "is_writable": true,
+                "is_executable": false
+            },
+            ".tm_clone_table": {
+                "vaddr": 5043056,
+                "memsize": 0,
+                "is_readable": true,
+                "is_writable": true,
+                "is_executable": false
+            },
+            ".data": {
+                "vaddr": 5043072,
+                "memsize": 82752,
+                "is_readable": true,
+                "is_writable": true,
+                "is_executable": false
+            },
+            ".bss": {
+                "vaddr": 5125824,
+                "memsize": 16200,
+                "is_readable": true,
+                "is_writable": true,
+                "is_executable": false
+            },
+            ".comment": {
+                "vaddr": 0,
+                "memsize": 54,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".debug-ghc-link-info": {
+                "vaddr": 0,
+                "memsize": 3116,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".note.gnu.gold-version": {
+                "vaddr": 0,
+                "memsize": 28,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".symtab": {
+                "vaddr": 0,
+                "memsize": 104856,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".strtab": {
+                "vaddr": 0,
+                "memsize": 147503,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".shstrtab": {
+                "vaddr": 0,
+                "memsize": 351,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            }
+        }
+    }
+]

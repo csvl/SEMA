@@ -1,0 +1,50 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4222240.main
+chall2"]
+	1 [label="0x406d3f.__libc_start_main
+4262444
+1
+576460752303357856
+0
+0"]
+	2 [label="0x736790.strcmp
+4949408
+9282007"]
+	3 [label="0x7367c2.getenv
+9274054"]
+	4 [label="0x73715f.getenv
+9274062"]
+	5 [label="0x737191.getenv
+9163883"]
+	6 [label="0x7371b2.getenv
+9274069"]
+	7 [label="0x7371e0.strcmp
+9282007
+9282007"]
+	2 -> 7 [label="(2-->1)"]
+	2 -> 7 [label="(2-->2)"]
+	8 [label="0x736506.strlen
+9282007"]
+	2 -> 8 [label="(2-->1)"]
+	7 -> 8 [label="(1-->1)"]
+	7 -> 8 [label="(2-->1)"]
+	1 -> 8 [label="(2-->0)"]
+	9 [label="0x7365c6.strcmp
+9282007
+9282007"]
+	2 -> 9 [label="(2-->1)"]
+	7 -> 9 [label="(1-->1)"]
+	7 -> 9 [label="(2-->1)"]
+	8 -> 9 [label="(1-->1)"]
+	2 -> 9 [label="(2-->2)"]
+	7 -> 9 [label="(1-->2)"]
+	7 -> 9 [label="(2-->2)"]
+	8 -> 9 [label="(1-->2)"]
+	10 [label="0x736b69.free
+0"]
+	1 -> 10 [label="(0-->0)"]
+	11 [label="0x49dc2b.clock_gettime
+2
+576460752303357072"]
+}

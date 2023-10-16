@@ -1,0 +1,272 @@
+[
+    {
+        "0": {
+            "status": "deadendend",
+            "trace": [
+                {
+                    "name": "main",
+                    "args": [
+                        "0425f6cf8c9cc7c507e766119262f9c7c5c90baf9ef744d64f9f7b4fe526fb45"
+                    ],
+                    "addr": 4203630,
+                    "ret": "symbolic",
+                    "addr_func": 4203630
+                },
+                {
+                    "name": "LoadLibraryA",
+                    "args": [
+                        "ntdll"
+                    ],
+                    "addr_func": "0x500054",
+                    "addr": "0x402787",
+                    "ret": 6295592
+                },
+                {
+                    "name": "GetProcAddress",
+                    "args": [
+                        6295592,
+                        "_vsnwprintf"
+                    ],
+                    "addr_func": "0x500048",
+                    "addr": "0x40278e",
+                    "ret": 6295596
+                },
+                {
+                    "name": "GetStdHandle",
+                    "args": [
+                        4294967285
+                    ],
+                    "addr_func": "0x500014",
+                    "addr": "0x4027a3",
+                    "ret": 1001
+                },
+                {
+                    "name": "GetConsoleScreenBufferInfo",
+                    "args": [
+                        1001,
+                        2147417572
+                    ],
+                    "addr_func": "0x500058",
+                    "addr": "0x4027b8",
+                    "ret": "<BV32 retval_GetConsoleScreenBufferInfo_131069_32>"
+                },
+                {
+                    "name": "EnterCriticalSection",
+                    "args": [
+                        4263296
+                    ],
+                    "addr_func": "0x500070",
+                    "addr": "0x4057fc",
+                    "ret": "None"
+                },
+                {
+                    "name": "GetProcessHeap",
+                    "args": [],
+                    "addr_func": "0x500034",
+                    "addr": "0x40280b",
+                    "ret": "0x0"
+                },
+                {
+                    "name": "HeapAlloc",
+                    "args": [
+                        1,
+                        8,
+                        131072
+                    ],
+                    "addr_func": "0x50002c",
+                    "addr": "0x402812",
+                    "ret": 3221356584
+                },
+                {
+                    "name": "_vsnwprintf",
+                    "args": [
+                        3221356584,
+                        65536,
+                        4243724,
+                        2147417604
+                    ],
+                    "addr_func": "0x60102c",
+                    "addr": "0x40282b",
+                    "ret": "<BV32 retval__vsnwprintf_131070_32>"
+                },
+                {
+                    "name": "OutputDebugStringW",
+                    "args": [
+                        ""
+                    ],
+                    "addr_func": "0x500020",
+                    "addr": "0x402859",
+                    "ret": "None"
+                }
+            ]
+        },
+        "1": {
+            "status": "deadendend",
+            "trace": [
+                {
+                    "name": "main",
+                    "args": [
+                        "0425f6cf8c9cc7c507e766119262f9c7c5c90baf9ef744d64f9f7b4fe526fb45"
+                    ],
+                    "addr": 4203630,
+                    "ret": "symbolic",
+                    "addr_func": 4203630
+                },
+                {
+                    "name": "LoadLibraryA",
+                    "args": [
+                        "ntdll"
+                    ],
+                    "addr_func": "0x500054",
+                    "addr": "0x402787",
+                    "ret": 6295592
+                },
+                {
+                    "name": "GetProcAddress",
+                    "args": [
+                        6295592,
+                        "_vsnwprintf"
+                    ],
+                    "addr_func": "0x500048",
+                    "addr": "0x40278e",
+                    "ret": 6295596
+                },
+                {
+                    "name": "GetStdHandle",
+                    "args": [
+                        4294967285
+                    ],
+                    "addr_func": "0x500014",
+                    "addr": "0x4027a3",
+                    "ret": 1001
+                },
+                {
+                    "name": "GetConsoleScreenBufferInfo",
+                    "args": [
+                        1001,
+                        2147417572
+                    ],
+                    "addr_func": "0x500058",
+                    "addr": "0x4027b8",
+                    "ret": "<BV32 retval_GetConsoleScreenBufferInfo_131069_32>"
+                },
+                {
+                    "name": "InitializeCriticalSection",
+                    "args": [
+                        4263296
+                    ],
+                    "addr_func": "0x500038",
+                    "addr": "0x4027d1",
+                    "ret": "None"
+                },
+                {
+                    "name": "CreateFileW",
+                    "args": [
+                        "DBG_LOG.TXT",
+                        4,
+                        1,
+                        0,
+                        4,
+                        0,
+                        0
+                    ],
+                    "addr_func": "0x500018",
+                    "addr": "0x4027e7",
+                    "ret": 3
+                },
+                {
+                    "name": "EnterCriticalSection",
+                    "args": [
+                        4263296
+                    ],
+                    "addr_func": "0x500070",
+                    "addr": "0x4057fc",
+                    "ret": "None"
+                },
+                {
+                    "name": "GetProcessHeap",
+                    "args": [],
+                    "addr_func": "0x500034",
+                    "addr": "0x40280b",
+                    "ret": "0x0"
+                },
+                {
+                    "name": "HeapAlloc",
+                    "args": [
+                        1,
+                        8,
+                        131072
+                    ],
+                    "addr_func": "0x50002c",
+                    "addr": "0x402812",
+                    "ret": 3221356584
+                },
+                {
+                    "name": "_vsnwprintf",
+                    "args": [
+                        3221356584,
+                        65536,
+                        4243724,
+                        2147417604
+                    ],
+                    "addr_func": "0x60102c",
+                    "addr": "0x40282b",
+                    "ret": "<BV32 retval__vsnwprintf_131071_32>"
+                },
+                {
+                    "name": "OutputDebugStringW",
+                    "args": [
+                        ""
+                    ],
+                    "addr_func": "0x500020",
+                    "addr": "0x402859",
+                    "ret": "None"
+                }
+            ]
+        },
+        "sections": {
+            ".text": {
+                "vaddr": 4198400,
+                "memsize": 41508,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": true
+            },
+            ".rdata": {
+                "vaddr": 4243456,
+                "memsize": 14932,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".data": {
+                "vaddr": 4259840,
+                "memsize": 3512,
+                "is_readable": true,
+                "is_writable": true,
+                "is_executable": false
+            },
+            ".sbz": {
+                "vaddr": 4263936,
+                "memsize": 51200,
+                "is_readable": true,
+                "is_writable": true,
+                "is_executable": false
+            },
+            ".rsrc": {
+                "vaddr": 4317184,
+                "memsize": 1952,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            },
+            ".reloc": {
+                "vaddr": 4321280,
+                "memsize": 1860,
+                "is_readable": true,
+                "is_writable": false,
+                "is_executable": false
+            }
+        }
+    }
+]
