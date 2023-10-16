@@ -12,7 +12,7 @@ from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix, accuracy_score, precision_score,recall_score , f1_score
+from sklearn.metrics import confusion_matrix, accuracy_score, precision_score,recall_score , f1_score, balanced_accuracy_score
 from grakel import Graph
 from grakel.datasets import fetch_dataset
 from grakel.kernels import WeisfeilerLehman, VertexHistogram,ShortestPath,RandomWalk,RandomWalkLabeled,PropagationAttr,NeighborhoodSubgraphPairwiseDistance,WeisfeilerLehmanOptimalAssignment,PyramidMatch
@@ -39,8 +39,10 @@ class SVMClassifier(Classifier):
         f.close()
         self.path = path  
         self.path = self.path.replace("/usr/local/lib/python3.8/dist-packages/","/app/")
-        self.mapping = self.read_mapping(self.path.replace("/SemaClassifier","/") + 'mapping.txt')
-        self.mapping_inv = self.read_mapping_inverse(self.path.replace("/SemaClassifier","/") + 'mapping.txt')
+        # self.mapping = self.read_mapping(self.path.replace("/SemaClassifier","/") + 'mapping.txt')
+        # self.mapping_inv = self.read_mapping_inverse(self.path.replace("/SemaClassifier","/") + 'mapping.txt')
+        self.mapping = self.read_mapping('mapping.txt')
+        self.mapping_inv = self.read_mapping_inverse('mapping.txt')
         self.dataset = []
         self.label = []
         self.fam_idx = []
@@ -64,32 +66,40 @@ class SVMClassifier(Classifier):
         self.dataset = []
         self.label = []
         for family in self.families:
+            # import pdb; pdb.set_trace()
             path = self.path.replace("/SemaClassifier","/") + '/'  + self.original_path + family + '/' if self.path.replace("/SemaClassifier","/") not in self.original_path else self.original_path + family + '/'
             path = path.replace("SemaClassifier/","").replace("/src/src/","/src/") # TODO refactor
+            # path = path.replace("SemaClassifier/","").replace("/src/","/") # TODO refactor
+            # path = path.replace("//","/")
             self.log.info("Subpath: " + path)
             if not os.path.isdir(path) :
                 self.log.info("Dataset should be a folder containing malware classify by familly in subfolder")
                 exit(-1)
             else:
                 #filenames = glob.glob(path+'/SCDG_*') + glob.glob(path+'test/SCDG_*')
-                filenames_folder = [os.path.join(path, f) for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))]
-                if len(filenames_folder) > 1 and family not in self.fam_idx :
+                # import pdb; pdb.set_trace()
+
+                # filenames_folder = [os.path.join(path, f) for f in os.listdir(path) if os.path.isdir(os.path.join(path, f))]
+                # filenames_folder = [os.path.join(path, f) for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+                # if len(filenames_folder) > 1 and family not in self.fam_idx :
+                #     self.fam_idx.append(family)
+                # for file_fol in filenames_folder:
+                filenames = [os.path.join(path, f) for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+                if len(filenames) > 1 and family not in self.fam_idx :
                     self.fam_idx.append(family)
-                for file_fol in filenames_folder:
-                    filenames = [os.path.join(file_fol, f) for f in os.listdir(file_fol) if os.path.isfile(os.path.join(file_fol, f))]
-                    for file in filenames:
-                        if file.endswith(".gs"):
-                            G = self.read_gs(file,self.mapping)
-                            if len(G.node_labels) > 1:
-                                self.dataset.append(G)
-                            if BINARY_CLASS and len(G.node_labels) > 1:
-                                if family == 'clean':
-                                    self.label.append(family)
-                                else:
-                                    self.label.append('malware')
+                for file in filenames:      
+                    if file.endswith(".gs"):
+                        G = self.read_gs(file,self.mapping)
+                        if len(G.node_labels) > 1:
+                            self.dataset.append(G)
+                        if BINARY_CLASS and len(G.node_labels) > 1:
+                            if family == 'clean':
+                                self.label.append(family)
                             else:
-                                if len(G.node_labels) > 1:
-                                    self.label.append(family)
+                                self.label.append('malware')
+                        else:
+                            if len(G.node_labels) > 1:
+                                self.label.append(family)
         bar.finish()
     
     def split_dataset(self):
@@ -116,10 +126,10 @@ class SVMClassifier(Classifier):
         
         self.fscore = f_score
         self.accuracy = accuracy_score(self.label, self.y_pred)*100
+        self.balanced_accuracy = balanced_accuracy_score(self.label, self.y_pred)*100
         self.precision = precision_score(self.label, self.y_pred,average='weighted')*100
         self.recall = recall_score(self.label, self.y_pred,average='weighted')*100
 
-    
         if BINARY_CLASS:
             conf = confusion_matrix(self.label,self.y_pred,labels=['clean','malware'])
             y_score1 = self.clf.predict_proba(self.K_val)[:,1]
@@ -131,7 +141,7 @@ class SVMClassifier(Classifier):
             plt.plot([0, 0], [1, 0] , c=".7"), plt.plot([1, 1] , c=".7")
             plt.ylabel('True Positive Rate')
             plt.xlabel('False Positive Rate')
-            plt.show()
+            # plt.show()
             #plt.savefig(self.original_path + "figure_binary.png")
 
         else:

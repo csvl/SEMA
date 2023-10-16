@@ -1,0 +1,41 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4199520.main
+Example_SEMA_code2.exe"]
+	1 [label="0x40134f.GetModuleHandleA
+libgcc_s_dw2-1.dll"]
+	2 [label="0x401368.LoadLibraryA
+libgcc_s_dw2-1.dll"]
+	1 -> 2 [label="(1-->1)"]
+	1 -> 2 [label="(0-->0)"]
+	3 [label="0x401380.GetProcAddress
+6295592
+__register_frame_info"]
+	1 -> 3 [label="(0-->1)"]
+	2 -> 3 [label="(0-->1)"]
+	4 [label="0x401395.GetProcAddress
+6295592
+__deregister_frame_info"]
+	1 -> 4 [label="(0-->1)"]
+	2 -> 4 [label="(0-->1)"]
+	3 -> 4 [label="(1-->1)"]
+	5 [label="0x401401.atexit
+4199472"]
+	6 [label="0x401ae6.atexit
+4201104"]
+	7 [label="0x401476.GetTickCount
+"]
+	8 [label="0x40148c.Sleep
+5000"]
+	9 [label="0x401494.GetTickCount
+"]
+	7 -> 9 [label="(0-->0)"]
+	10 [label="0x4014e8.MessageBoxA
+0
+Hello world !
+
+0"]
+	11 [label="0x4015db.exit
+0"]
+	8 -> 11 [label="(0-->0)"]
+}

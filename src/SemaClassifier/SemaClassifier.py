@@ -58,7 +58,7 @@ class SemaClassifier:
 
     def init_classifer(self,args,
                 families=['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT'],
-                is_fl=False, from_saved_model=False):
+                is_fl=False, input_path=None, from_saved_model=False):
         self.log.info(args)
         if not is_fl:
             threshold = args.threshold
@@ -68,7 +68,7 @@ class SemaClassifier:
             biggest_subgraph = args.biggest_subgraph
             epoch = args.epoch
             shared_type = 1#args.smodel
-            self.mode = "classification" if args.classification else "detection"
+            self.mode = "detection" if args.detection else "classification"
         else:
             threshold = args["threshold"]
             support = args["support"]
@@ -91,7 +91,7 @@ class SemaClassifier:
                     from .classifier.DL.DLTrainerClassifier import DLTrainerClassifier
                 self.classifier = DLTrainerClassifier(path=ROOT_DIR,epoch=epoch,shared_type=shared_type)
             else:
-                self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
+                self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl|gin|ginjk|rgin|rginjk|fginjk)")
                 exit(-1)    
         else: # TODO improve
             if self.classifier_name == "gspan":
@@ -145,7 +145,7 @@ class SemaClassifier:
                 for folder in subfolder:
                     last_familiy = folder.split("/")[-1]
                     families.append(str(last_familiy))
-            self.init_classifer(args=self.args,families=families,from_saved_model=(not self.args.train))
+            self.init_classifer(args=self.args, families=families, input_path=self.input_path, from_saved_model=(not self.args.train))
         
         if csv_file:
             try:
@@ -182,6 +182,7 @@ class SemaClassifier:
             else:
                 args_train["path"] = self.input_path
             self.classifier.train(**args_train)
+            # import pdb; pdb.set_trace()
             self.save_model(self.classifier,ROOT_DIR + "/classifier/saved_model/"+ self.classifier_name +"_model.pkl")
         
             self.training_elapsed_time = time.time() - self.start_time
@@ -190,7 +191,7 @@ class SemaClassifier:
     def classify(self):
         self.classifier.classify(path=(None if self.args.train else self.input_path))
         self.elapsed_time = time.time() - self.start_time
-        self.log.info(self.classifier.get_stat_classifier())
+        # self.log.info(self.classifier.get_stat_classifier())
     def detect(self):
         self.classifier.detection(path=(None if self.args.train else self.input_path))
         self.elapsed_time = time.time() - self.start_time
@@ -228,6 +229,7 @@ def main():
         tc.classifier.get_stat_classifier()
     elif tc.mode == "detection":
         tc.detect()
+        tc.classifier.get_stat_classifier()
     
     elapsed_time = time.time() - tc.start_time
     

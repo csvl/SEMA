@@ -233,9 +233,9 @@ During symbolic analysis of a binary, all system calls and their arguments found
 ### How to use ?
 Just run the script : 
 ```bash
-pypy3 SemaSCDG.py BINARY_NAME
+pypy3 src/SemaSCDG/SemaSCDG.py BINARY_NAME
 
-python3 SemaSCDG.py BINARY_NAME
+python3 src/SemaSCDG/SemaSCDG.py BINARY_NAME
 
 usage: update_readme_usage.py [--DFS | --BFS | --CDFS | --CBFS] [--gs | --json] [--symbion | --unipacker] [--packed] [--concrete_target_is_local] [--symb_loop SYMB_LOOP]
                               [--limit_pause LIMIT_PAUSE] [--max_step MAX_STEP] [--max_deadend MAX_DEADEND] [--simul_state SIMUL_STATE] [--n_args N_ARGS] [--conc_loop CONC_LOOP]
@@ -309,22 +309,22 @@ Password for Examples archive is "infected". Warning : it contains real samples 
 
 ```bash
 # +- 447 sec <SimulationManager with 61 deadended>
-pypy3 SemaSCDG/SemaSCDG.py --DFS --verbose_scdg databases/malware-win/train/nitol/00b2f45c7befbced2efaeb92a725bb3d  
+pypy3 src/SemaSCDG/SemaSCDG.py --DFS --verbose_scdg databases/malware-win/train/nitol/00b2f45c7befbced2efaeb92a725bb3d  
 
 # +- 512 sec <SimulationManager with 61 deadended>
 # (virtual env/penv)
-python3 SemaSCDG/SemaSCDG.py --DFS --verbose_scdg databases/malware-win/train/nitol/00b2f45c7befbced2efaeb92a725bb3d 
+python3 src/SemaSCDG/SemaSCDG.py --DFS --verbose_scdg databases/malware-win/train/nitol/00b2f45c7befbced2efaeb92a725bb3d 
 ```
 
 ```bash
 # timeout (+- 607 sec) 
 # <SimulationManager with 6 active, 168 deadended, 61 pause, 100 ExcessLoop> + 109 SCDG
-pypy3 SemaSCDG/SemaSCDG.py --DFS --verbose_scdg databases/malware-win/train/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df 
+pypy3 src/SemaSCDG/SemaSCDG.py --DFS --verbose_scdg databases/malware-win/train/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df 
 
 # timeout (611 sec) 
 # <SimulationManager with 5 active, 69 deadended, 63 pause, 100 ExcessLoop> + 53 SCDG
 # (virtual env/penv)
-python3 SemaSCDG/SemaSCDG.py --DFS --verbose_scdg databases/malware-win/train/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df 
+python3 src/SemaSCDG/SemaSCDG.py --DFS --verbose_scdg databases/malware-win/train/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df 
 ```
 
 :page_with_curl: Model & Classification extractor (`SemaClassifier`)
@@ -345,7 +345,7 @@ Another classifier we use is the Support Vector Machine (`SVM`) with INRIA graph
 
 Just run the script : 
 ```bash
-python3 SemaClassifier.py FOLDER/FILE
+python3 SemaClassifier/SemaClassifier.py FOLDER/FILE
 
 usage: update_readme_usage.py [-h] [--threshold THRESHOLD] [--biggest_subgraph BIGGEST_SUBGRAPH] [--support SUPPORT] [--ctimeout CTIMEOUT] [--epoch EPOCH] [--sepoch SEPOCH]
                               [--data_scale DATA_SCALE] [--vector_size VECTOR_SIZE] [--batch_size BATCH_SIZE] (--classification | --detection) (--wl | --inria | --dl | --gspan)
@@ -529,3 +529,50 @@ Main authors of the projects:
 Under the supervision and with the support of **Fabrizio Biondi** (Avast) 
 
 Under the supervision and with the support of our professor **Axel Legay** (UCLouvain) (:heart:)
+
+If you use SEMA or data from this repo for your research please take a look at the following papers:
+
+```
+@inproceedings{bertrand2022tool,
+  title={Tool Paper-SEMA: Symbolic Execution Toolchain for Malware Analysis},
+  author={Bertrand Van Ouytsel, Charles-Henry and Crochet, Christophe and Dam, Khanh Huu The and Legay, Axel},
+  booktitle={International Conference on Risks and Security of Internet and Systems},
+  pages={62--68},
+  year={2022},
+  organization={Springer}
+}
+
+
+
+@InProceedings{10.1007/978-3-031-22295-5_16,
+author="Bertrand Van Ouytsel, Charles-Henry
+and Legay, Axel",
+editor="Reiser, Hans P.
+and Kyas, Marcel",
+title="Malware Analysis with Symbolic Execution and Graph Kernel",
+booktitle="Secure IT Systems",
+year="2022",
+publisher="Springer International Publishing",
+address="Cham",
+pages="292--310",
+}
+
+
+
+@inproceedings{10.1145/3538969.3538996,
+author = {Bertrand Van Ouytsel, Charles-Henry and Dam, Khanh Huu The and Legay, Axel},
+title = {Symbolic Analysis Meets Federated Learning to Enhance Malware Identifier},
+year = {2022},
+isbn = {9781450396707},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3538969.3538996},
+doi = {10.1145/3538969.3538996},
+articleno = {150},
+numpages = {10},
+keywords = {Symbolic Analysis, Malware Detection, Data Privacy, Federated Learning},
+location = {Vienna, Austria},
+series = {ARES '22}
+}
+
+```

@@ -1,0 +1,29 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4626472.main
+897e01eafce2598ea8af8d75f531b87118872fb82f101aa788fc987fdac0ff62"]
+	1 [label="0x406cd8.GetModuleHandleA
+0"]
+	2 [label="0x403e29.GetKeyboardType
+0"]
+	3 [label="0x46906c.GetCommandLineA
+"]
+	4 [label="0x401366.GetStartupInfoA
+2147417460"]
+	5 [label="0x469080.GetACP
+"]
+	3 -> 5 [label="(0-->0)"]
+	6 [label="0x46908a.GetCurrentThreadId
+"]
+	3 -> 6 [label="(0-->0)"]
+	5 -> 6 [label="(0-->0)"]
+	7 [label="0x4016ae.VirtualAlloc
+0
+1310720
+4096
+4"]
+	2 -> 7 [label="(0-->4)"]
+	8 [label="0x41410c.EnterCriticalSection
+8"]
+	4 -> 8 [label="(0-->0)"]
+}

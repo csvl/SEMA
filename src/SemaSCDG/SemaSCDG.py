@@ -54,6 +54,13 @@ try:
     from .explorer.SemaExplorerDBFS import SemaExplorerDBFS
     from .explorer.SemaThreadCDFS import SemaThreadCDFS
     from .explorer.SemaExplorerAnotherCDFS import SemaExplorerAnotherCDFS
+    from .explorer.SemaExplorerSTOCH import SemaExplorerSTOCH
+    from .explorer.SemaExplorerCSTOCH1 import SemaExplorerCSTOCH1
+    from .explorer.SemaExplorerCSTOCH2 import SemaExplorerCSTOCH2
+    from .explorer.SemaExplorerCSTOCH3 import SemaExplorerCSTOCH3
+    from .explorer.SemaExplorerWSELECT1 import SemaExplorerWSELECT1
+    from .explorer.SemaExplorerWSELECT2 import SemaExplorerWSELECT2
+    from .explorer.SemaExplorerWSELECT3 import SemaExplorerWSELECT3
     from .clogging.CustomFormatter import CustomFormatter
     from .clogging.LogBookFormatter import *
     from .helper.ArgumentParserSCDG import ArgumentParserSCDG
@@ -81,6 +88,13 @@ except:
     from explorer.SemaExplorerDBFS import SemaExplorerDBFS
     from explorer.SemaExplorerAnotherCDFS import SemaExplorerAnotherCDFS
     from explorer.SemaThreadCDFS import SemaThreadCDFS
+    from explorer.SemaExplorerSTOCH import SemaExplorerSTOCH
+    from explorer.SemaExplorerCSTOCH1 import SemaExplorerCSTOCH1
+    from explorer.SemaExplorerCSTOCH2 import SemaExplorerCSTOCH2
+    from explorer.SemaExplorerCSTOCH3 import SemaExplorerCSTOCH3
+    from explorer.SemaExplorerWSELECT1 import SemaExplorerWSELECT1
+    from explorer.SemaExplorerWSELECT2 import SemaExplorerWSELECT2
+    from explorer.SemaExplorerWSELECT3 import SemaExplorerWSELECT3
     from clogging.CustomFormatter import CustomFormatter
     from clogging.LogBookFormatter import * # TODO
     from helper.ArgumentParserSCDG import ArgumentParserSCDG
@@ -98,6 +112,8 @@ import shutil
 import dill
 import nose
 import avatar2 as avatar2
+
+import r2pipe
 
 from unipacker.core import Sample, SimpleClient, UnpackerEngine
 from unipacker.utils import RepeatedTimer, InvalidPEFile
@@ -172,6 +188,9 @@ class SemaSCDG:
         self.scdg_fin = []
         
         self.new = {}
+
+        # Option for exploration evalutation
+        self.instr_count = {}
                 
         #logging.getLogger("angr").setLevel("WARNING")
         #logging.getLogger("angr").setLevel("DEBUG")
@@ -206,6 +225,10 @@ class SemaSCDG:
     def save_conf(self, args, path):
         with open(os.path.join(path, "scdg_conf.json"), "w") as f:
             json.dump(args, f, indent=4)
+
+    def new_instr(self, state):
+        self.instr_count[state.addr] = 1
+        # import pdb; pdb.set_trace()
 
     def build_scdg(self, args, is_fl=False, csv_file=None):
         # Create directory to store SCDG if it doesn't exist
@@ -633,11 +656,22 @@ class SemaSCDG:
         else:
            self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(proj)
         
-
-        # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows)
+        # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows) 
+        r = r2pipe.open(self.inputs)
+        out_r2 = r.cmd('f ~sym._main')
+        out_r2 = r.cmd('f ~sym._main')   
         addr_main = proj.loader.find_symbol("main")
         if addr_main and self.fast_main:
             addr = addr_main.rebased_addr
+        elif out_r2:
+            addr= None
+            try:
+                iter = out_r2.split("\n")
+                for s in iter:
+                    if s.endswith("._main"):
+                        addr = int(s.split(" ")[0],16)
+            except:
+                pass
         else:
             addr = None
 
@@ -857,8 +891,10 @@ class SemaSCDG:
         state.inspect.b("call", when=angr.BP_BEFORE, action=self.call_sim.add_addr_call)
         state.inspect.b("call", when=angr.BP_AFTER, action=self.call_sim.rm_addr_call)
         
+        state.inspect.b("instruction", when=angr.BP_AFTER, action=self.new_instr)
+        
+        state.inspect.b("instruction",when=angr.BP_BEFORE, action=nothing)
         if args.count_block:
-            state.inspect.b("instruction",when=angr.BP_BEFORE, action=nothing)
             state.inspect.b("instruction",when=angr.BP_AFTER, action=count)
             state.inspect.b("irsb",when=angr.BP_BEFORE, action=countblock)
 
@@ -1316,7 +1352,40 @@ class SemaSCDG:
             exploration_tech = SemaThreadCDFS(
                 simgr, 0, args.exp_dir, nameFileShort, self
             )
-            
+        elif self.expl_method == "STOCH":
+            exploration_tech = SemaExplorerSTOCH(
+                simgr, 0, args.exp_dir, nameFileShort, self
+            )
+        elif self.expl_method == "CSTOCH1":
+            # import pdb; pdb.set_trace()
+            exploration_tech = SemaExplorerCSTOCH1(
+                simgr, 0, args.exp_dir, nameFileShort, self
+            )
+        elif self.expl_method == "CSTOCH2":
+            # import pdb; pdb.set_trace()
+            exploration_tech = SemaExplorerCSTOCH2(
+                simgr, 0, args.exp_dir, nameFileShort, self
+            )
+        elif self.expl_method == "CSTOCH3":
+            # import pdb; pdb.set_trace()
+            exploration_tech = SemaExplorerCSTOCH3(
+                simgr, 0, args.exp_dir, nameFileShort, self
+            )
+        elif self.expl_method == "WSELECT1":
+            # import pdb; pdb.set_trace()
+            exploration_tech = SemaExplorerWSELECT1(
+                simgr, 0, args.exp_dir, nameFileShort, self
+            )
+        elif self.expl_method == "WSELECT2":
+            # import pdb; pdb.set_trace()
+            exploration_tech = SemaExplorerWSELECT2(
+                simgr, 0, args.exp_dir, nameFileShort, self
+            )
+        elif self.expl_method == "WSELECT3":
+            # import pdb; pdb.set_trace()
+            exploration_tech = SemaExplorerWSELECT3(
+                simgr, 0, args.exp_dir, nameFileShort, self
+            )
         return exploration_tech
 
 

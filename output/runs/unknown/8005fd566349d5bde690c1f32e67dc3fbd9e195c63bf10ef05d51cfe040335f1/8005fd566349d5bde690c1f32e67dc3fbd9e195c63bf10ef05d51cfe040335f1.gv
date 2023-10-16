@@ -1,0 +1,43 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4204131.main
+8005fd566349d5bde690c1f32e67dc3fbd9e195c63bf10ef05d51cfe040335f1"]
+	1 [label="0x40297c.LoadLibraryA
+ntdll"]
+	2 [label="0x402983.GetProcAddress
+6295592
+_vsnwprintf"]
+	1 -> 2 [label="(0-->1)"]
+	3 [label="0x402998.GetStdHandle
+4294967285"]
+	4 [label="0x4029ad.GetConsoleScreenBufferInfo
+1001
+2147417572"]
+	3 -> 4 [label="(0-->1)"]
+	5 [label="0x4059f1.EnterCriticalSection
+4263392"]
+	6 [label="0x402a00.GetProcessHeap
+"]
+	7 [label="0x402a07.HeapAlloc
+1
+8
+131072"]
+	8 [label="0x402a20._vsnwprintf
+3221356584
+65536
+4243724
+2147417604"]
+	7 -> 8 [label="(0-->1)"]
+	9 [label="0x402a4e.OutputDebugStringW
+"]
+	10 [label="0x4029c6.InitializeCriticalSection
+4263392"]
+	11 [label="0x4029dc.CreateFileW
+DBG_LOG.TXT
+4
+1
+0
+4
+0
+0"]
+}

@@ -1,0 +1,17 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="5368751792.main
+maze.exe"]
+	1 [label="0x14000c2dd.LoadLibraryExW
+api-ms-win-core-synch-l1-2-0
+0
+2048"]
+	2 [label="0x14000c367.GetProcAddress
+5370810432
+InitializeCriticalSectionEx"]
+	1 -> 2 [label="(0-->1)"]
+	3 [label="0x14000c517.InitializeCriticalSectionEx
+5369022064
+4000
+0"]
+}
