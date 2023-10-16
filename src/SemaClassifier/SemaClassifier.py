@@ -61,7 +61,7 @@ class SemaClassifier:
 
     def init_classifer(self,args,
                 families=['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT'],
-                is_fl=False, from_saved_model=False):
+                is_fl=False, input_path=None, from_saved_model=False):
         self.log.info(args)
         if not is_fl:
             threshold = args.threshold
@@ -72,6 +72,17 @@ class SemaClassifier:
             epoch = args.epoch
             shared_type = 1#args.smodel
             num_layers = args.num_layers
+            flag = not args.no_flag
+            patience = args.patience
+            step_size = args.step_size
+            m = args.M
+            self.net_linear = args.net_linear
+            self.drop_ratio = args.drop_ratio
+            self.drop_path_p = args.drop_path_p
+            self.edge_p = args.edge_p
+            self.net_seed = args.net_seed
+            self.residual = args.residual
+            self.graph_model = args.graph_model
             self.mode = "detection" if args.detection else "classification"
         else:
             threshold = args["threshold"]
@@ -95,15 +106,28 @@ class SemaClassifier:
                     from .classifier.DL.DLTrainerClassifier import DLTrainerClassifier
                 self.classifier = DLTrainerClassifier(path=ROOT_DIR,epoch=epoch,shared_type=shared_type)
             elif self.classifier_name == "gin":
-                self.classifier = GNNTrainer(path=ROOT_DIR, name="gin", threshold=threshold, families=families, num_layers=num_layers)
+                self.classifier = GNNTrainer(path=ROOT_DIR, name="gin", threshold=threshold, families=families,
+                                             num_layers=num_layers, input_path=input_path)
             elif self.classifier_name == "ginjk":
-                self.classifier = GNNTrainer(path=ROOT_DIR, name="ginjk", threshold=threshold, families=families, num_layers=num_layers)
+                self.classifier = GNNTrainer(path=ROOT_DIR, name="ginjk", threshold=threshold, families=families,
+                                             num_layers=num_layers, input_path=input_path)
             elif self.classifier_name == "rgin":
-                self.classifier = GNNTrainer(path=ROOT_DIR, name="rgin", threshold=threshold, families=families, num_layers=num_layers)
+                self.classifier = GNNTrainer(path=ROOT_DIR, name="rgin", threshold=threshold, families=families,
+                                             num_layers=num_layers, input_path=input_path, flag=flag,
+                                             patience=patience, step_size=step_size, m=m)
+            elif self.classifier_name == "fginjk":
+                self.classifier = GNNTrainer(path=ROOT_DIR, name="fginjk", threshold=threshold, families=families,
+                                             num_layers=num_layers, input_path=input_path, flag=flag,
+                                             patience=patience, step_size=step_size, m=m)
             elif self.classifier_name == "rginjk":
-                self.classifier = GNNTrainer(path=ROOT_DIR, name="rginjk", threshold=threshold, families=families, num_layers=num_layers)
+                self.classifier = GNNTrainer(path=ROOT_DIR, name="rginjk", threshold=threshold, families=families,
+                                             num_layers=num_layers, input_path=input_path, flag=flag,
+                                             patience=patience, m=m, step_size=step_size,
+                                             graph_model=self.graph_model, net_linear=self.net_linear,
+                                             drop_ratio=self.drop_ratio, drop_path_p=self.drop_path_p,
+                                             edge_p=self.edge_p, net_seed=self.net_seed, residual=self.residual)
             else:
-                self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl|gin|ginjk|rgin|rginjk)")
+                self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl|gin|ginjk|rgin|rginjk|fginjk)")
                 exit(-1)    
         else: # TODO improve
             if self.classifier_name == "gspan":
@@ -126,8 +150,10 @@ class SemaClassifier:
                 self.classifier = self.load_model(ROOT_DIR + "/classifier/saved_model/rgin_model.pkl")
             elif self.classifier_name == "rginjk":
                 self.classifier = self.load_model(ROOT_DIR + "/classifier/saved_model/rginjk_model.pkl")
+            elif self.classifier_name == "fginjk":
+                self.classifier = self.load_model(ROOT_DIR + "/classifier/saved_model/fginjk_model.pkl")
             else:
-                self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl|gin|ginjk|rgin)")
+                self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl|gin|ginjk|rginjk|fginjk)")
                 exit(-1)   
             self.classifier.families = families
         fileHandler = logging.FileHandler(args.binaries + "/classifier.log")
@@ -165,7 +191,7 @@ class SemaClassifier:
                 for folder in subfolder:
                     last_familiy = folder.split("/")[-1]
                     families.append(str(last_familiy))
-            self.init_classifer(args=self.args,families=families,from_saved_model=(not self.args.train))
+            self.init_classifer(args=self.args, families=families, input_path=self.input_path, from_saved_model=(not self.args.train))
         
         if csv_file:
             try:

@@ -47,7 +47,7 @@ def gen_graph_data(edges, nodes, vertices, edge_labels, label):
 
     # import pdb; pdb.set_trace()
     data = Data(x=x, edge_index=edge_index, edge_attr=edge_attr, num_nodes=num_nodes, y=y)
-    print(data)
+    # print(data)
     # import pdb; pdb.set_trace()
     return data
 

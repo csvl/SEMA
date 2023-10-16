@@ -30,7 +30,7 @@ class GINJK(torch.nn.Module):
                 )
         self.fc = torch.nn.Linear(hidden * num_layers, num_classes)  # Adjust the output dimension
 
-    def forward(self, x, edge_index, batch):
+    def forward(self, x, edge_index, edge_attr, batch):
         xs = []
         for i in range(self.num_layers):
             x = F.relu(self.convs[i](x, edge_index))

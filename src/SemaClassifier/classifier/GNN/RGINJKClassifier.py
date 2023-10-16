@@ -170,7 +170,10 @@ class GINJK_flag_node(torch.nn.Module):
         return node_representation
     
 class RanGINJK_node(torch.nn.Module):
-    def __init__(self, num_features, hidden, num_classes, num_layers=4, net_linear=False, drop_ratio=0.5, drop_path_p=0.01, edge_p=0.6, net_seed=47, residual=False):
+    def __init__(self, num_features, hidden, num_classes, num_layers=4,
+                 graph_model="ER", net_linear=False, drop_ratio=0.5,
+                 drop_path_p=0.01, edge_p=0.6, net_seed=47,
+                 residual=False):
         super(RanGINJK_node, self).__init__()
         self.num_layers = num_layers
         self.emb_dim = hidden
@@ -185,9 +188,10 @@ class RanGINJK_node(torch.nn.Module):
         self.convs = torch.nn.ModuleList()
         self.net_linear = net_linear
         self.drop_path_p = drop_path_p
-        self.net_args = {'graph_model': "ER",
+        self.net_args = {'graph_model': graph_model,
                          'P': edge_p,
                          'seed': net_seed,
+                         'K': self.num_layers//2,
                          'net_linear': net_linear}
         net_graph = build_graph(self.num_layers-1, self.net_args)
         self.stage = StageBlock(net_graph, hidden, net_linear, drop_ratio, drop_path_p)
@@ -220,17 +224,26 @@ class RanGINJK_node(torch.nn.Module):
         return node_representation
 
 class RanGINJK(torch.nn.Module):
-    def __init__(self, num_features, hidden, num_classes, num_layers=4):
+    def __init__(self, num_features, hidden, num_classes, num_layers=4,
+                 graph_model="ER", net_linear=False, drop_ratio=0.5,
+                 drop_path_p=0.01, edge_p=0.6, net_seed=47,
+                 residual=False):
         super(RanGINJK, self).__init__()
         self.num_layers = num_layers
         self.emb_dim = hidden
         self.num_tasks = num_classes
         self.num_features = num_features
+        print(f"Hidden={hidden}, num_classes={num_classes}, self.num_layers={self.num_layers},\
+              graph_model={graph_model}, net_linear={net_linear}, drop_ratio={drop_ratio},\
+              drop_path_p={drop_path_p}, edge_p={edge_p}, net_seed={net_seed}, residual={residual}")
+
 
         if self.num_layers < 2:
             raise ValueError("Number of GNN layers must be greater than 1.")
         
-        self.gnn_node = RanGINJK_node(num_features, hidden, num_classes, num_layers)
+        self.gnn_node = RanGINJK_node(num_features, hidden, num_classes, num_layers,
+                                      graph_model, net_linear, drop_ratio,
+                                      drop_path_p, edge_p, net_seed, residual)
         # self.gnn_node = RanGINJK_virtualnode(num_features, hidden, num_classes, num_layers)
 
         self.pool = global_mean_pool

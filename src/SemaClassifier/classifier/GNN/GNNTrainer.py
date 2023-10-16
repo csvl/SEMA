@@ -21,6 +21,7 @@ from .GINJKClassifier import GINJK
 from .GCNClassifier import GCN
 from .RGINClassifier import RanGIN
 from .RGINJKClassifier import RanGINJK
+from .GINJKFlagClassifier import GINJKFlag
 from .GNNExplainability import GNNExplainability
 from .utils import gen_graph_data, read_gs_4_gnn
 import copy
@@ -31,12 +32,12 @@ BINARY_CLASS = False # TODO
 class GNNTrainer(Classifier):
     def __init__(self, path, name, threshold=0.45,
                  families=['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT'],
-                 num_layers=4, hidden=64, lr=0.001, epochs=350, batch_size=1,
-                 multi_gpu=1):
+                 num_layers=4, input_path=None, hidden=64, lr=0.001, epochs=350, batch_size=1, 
+                 flag=True, patience=-1, m=3, step_size=8e-3, graph_model="ER", net_linear=False, drop_ratio=0.5,
+                 drop_path_p=0.01, edge_p=0.6, net_seed=47,
+                 residual=False):
         
         super().__init__(path, name, threshold)
-
-        self.multi_gpu = multi_gpu
 
         self.path = path
         self.name = name
@@ -63,12 +64,47 @@ class GNNTrainer(Classifier):
         self.lr = lr
         self.epochs = epochs
         self.batch_size = batch_size
+        self.input_path = input_path
+        self.flag = flag
+        self.patience = patience
+        if self.patience > 0:
+            print("Patience for early stoppping is set to {}".format(self.patience))
+        self.m=m
+        self.step_size=step_size
 
         self.train_index, self.val_index = [],[]
         self.original_path = ""
         self.train_dataset, self.val_dataset, self.y_train, self.y_val = [],[],[],[]
         # self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         self.device = torch.device("cpu")
+
+        self.init_dataset(self.input_path)        
+        self.log.info("Dataset len: " + str(len(self.dataset)))
+        self.dataset_len = len(self.dataset)
+        num_classes = len(np.unique(self.label))
+
+        if self.dataset_len > 0:            
+            self.split_dataset()
+            # dataset = self.train_dataset
+            # val_dataset = self.val_dataset
+            if self.name=="gin":
+                self.clf = GIN(self.train_dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
+            # elif self.name=="sage":
+            #     self.clf = GraphSAGE(self.train_dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
+            elif self.name=="ginjk":
+                self.clf = GINJK(self.train_dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
+            elif self.name=="rgin":
+                self.clf = RanGIN(self.train_dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
+            elif self.name=="fginjk":
+                self.clf = GINJKFlag(self.train_dataset[0].num_node_features, self.hidden, num_classes, self.num_layers,
+                                     drop_ratio=drop_ratio, residual=residual)
+            elif self.name=="rginjk":
+                self.clf = RanGINJK(self.train_dataset[0].num_node_features, self.hidden, num_classes, self.num_layers,
+                                    graph_model=graph_model, net_linear=net_linear, drop_ratio=drop_ratio,
+                                    drop_path_p=drop_path_p, edge_p=edge_p, net_seed=net_seed,
+                                    residual=residual)
+            elif self.name=="gcn":
+                self.clf = GCN(self.train_dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
 
 
     def init_dataset(self, path):
@@ -131,43 +167,20 @@ class GNNTrainer(Classifier):
         dname = dirname.split("_")[0]
         return dname, name
     
-    def train(self, path):
+    def train_vanilla(self, path):
+        print("############# VANILLA TRAINING #############")
         epoch=self.epochs
         lr=self.lr
         batch_size=self.batch_size
-        self.init_dataset(path)
-        step_size = 8e-3
-        m = 3
-        
 
-        self.log.info("Dataset len: " + str(len(self.dataset)))
-        self.dataset_len = len(self.dataset)
-        # import pdb; pdb.set_trace()
         if self.dataset_len > 0:            
-            self.split_dataset()
+            # self.split_dataset()
             dataset = self.train_dataset
             val_dataset = self.val_dataset
             # dataset = self.dataset
-            # import pdb; pdb.set_trace()
-
-            num_classes = len(np.unique(self.label))
+            
             train_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
             val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
-
-            # import pdb; pdb.set_trace()
-            
-            if self.name=="gin":
-                self.clf = GIN(dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
-            # elif self.name=="sage":
-            #     self.clf = GraphSAGE(dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
-            elif self.name=="ginjk":
-                self.clf = GINJK(dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
-            elif self.name=="rgin":
-                self.clf = RanGIN(dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
-            elif self.name=="rginjk":
-                self.clf = RanGINJK(dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
-            elif self.name=="gcn":
-                self.clf = GCN(dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
 
             optimizer = torch.optim.Adam(self.clf.parameters(), lr=lr)#, weight_decay=5e-4)
             criterion = torch.nn.CrossEntropyLoss()
@@ -181,7 +194,101 @@ class GNNTrainer(Classifier):
                              eta_min = 1e-4) # Minimum learning rate.
             # import pdb; pdb.set_trace()
             torch.autograd.set_detect_anomaly(True)
-            patience = 100 # Number of epochs to wait for improvement
+            # patience = 100 # Number of epochs to wait for improvement
+            best_val_loss = float('inf')
+            best_val_bal_acc = 0
+            best_model_wts = copy.deepcopy(self.clf.state_dict())
+            counter = 0  # Counter to keep track of epochs without improvement
+            for ep in range(epoch):
+                self.clf.train()
+                # import pdb; pdb.set_trace()
+                loss_all = 0
+                for data in train_loader:
+                    optimizer.zero_grad()
+
+                    out = self.clf(data.x, data.edge_index, data.edge_attr, data.batch)
+                    loss = criterion(out, data.y)
+                    # loss = self.clf.loss(out, dataset.data.y, dataset.data.edge_index)
+                    loss.backward()
+                    loss_all += data.num_graphs * loss.item()
+                    optimizer.step()
+
+                before_lr = optimizer.param_groups[0]["lr"]
+                scheduler.step()
+                after_lr = optimizer.param_groups[0]["lr"]
+                train_loss = loss_all / len(dataset)
+
+                # validation
+                self.clf.eval()
+                val_loss = 0
+                val_correct = 0
+                val_predictions = []
+                targets = []
+                with torch.no_grad():
+                    for val_data in val_loader:
+                        val_out = self.clf(val_data.x, val_data.edge_index, val_data.edge_attr, val_data.batch)
+                        val_loss += criterion(val_out, val_data.y).item()
+                        val_pred = val_out.argmax(dim=1)
+                        val_correct += val_pred.eq(val_data.y).sum().item()
+                        val_predictions.extend(val_pred.cpu().numpy())
+                        targets.extend(val_data.y)
+                
+                val_loss /= len(val_dataset)
+                val_accuracy = (val_correct / len(val_dataset))*100
+                val_bal_accuracy = balanced_accuracy_score(targets, val_predictions)*100
+                val_f1_score = f1_score(targets, val_predictions,average='weighted')*100
+
+                # Check if validation loss has improved
+                if ((best_val_bal_acc < val_bal_accuracy) or
+                    (best_val_bal_acc == val_bal_accuracy and val_loss < best_val_loss)):
+                    best_val_loss = val_loss
+                    best_val_bal_acc = val_bal_accuracy
+                    # Save the current best model
+                    # torch.save(self.clf.state_dict(), best_model_path)
+                    best_model_wts = copy.deepcopy(self.clf.state_dict())
+                    counter = 0                   
+                else:
+                    counter += 1
+                    if self.patience > 0 and counter >= self.patience:
+                        print("Validation loss did not improve for {} epochs. Stopping training.".format(patience))
+                        break
+                print("Epoch: %03d/%03d: lr %.5f -> %.5f | Train Loss: %.5f | Val Loss: %.5f | Val Accuracy: %.3f%% | Val BAL Accuracy: %.3f%% | Val f1-score: %.3f%% | patience counter: %.0f" % (ep, epoch-1, before_lr, after_lr, train_loss, val_loss, val_accuracy, val_bal_accuracy, val_f1_score, counter))
+            self.clf.load_state_dict(best_model_wts)
+            self.log.info('--------------------FIT OK----------------')
+        else:
+            self.log.info("Dataset length should be > 0")
+            exit(-1)
+
+    def train_flag(self, path):
+        print("############# FLAG TRAINING #############")
+        epoch=self.epochs
+        lr=self.lr
+        batch_size=self.batch_size
+        step_size = self.step_size
+        m = self.m
+        
+        # import pdb; pdb.set_trace()
+        if self.dataset_len > 0:            
+            # self.split_dataset()
+            dataset = self.train_dataset
+            val_dataset = self.val_dataset
+            # dataset = self.dataset
+
+            train_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
+            val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
+
+            optimizer = torch.optim.Adam(self.clf.parameters(), lr=lr)#, weight_decay=5e-4)
+            criterion = torch.nn.CrossEntropyLoss()
+            # scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.5)
+            # scheduler = torch.optim.lr_scheduler.CosineAnnealingWarmRestarts(optimizer, 
+            #                             T_0 = 8,# Number of iterations for the first restart
+            #                             T_mult = 1, # A factor increases TiTi​ after a restart
+            #                             eta_min = 1e-5) # Minimum learning rate
+            scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer,
+                              T_max = 42, # Maximum number of iterations.
+                             eta_min = 1e-4) # Minimum learning rate.
+            # import pdb; pdb.set_trace()
+            torch.autograd.set_detect_anomaly(True)
             best_val_loss = float('inf')
             best_val_bal_acc = 0
             best_model_wts = copy.deepcopy(self.clf.state_dict())
@@ -237,6 +344,8 @@ class GNNTrainer(Classifier):
                 val_loss /= len(val_dataset)
                 val_accuracy = (val_correct / len(val_dataset))*100
                 val_bal_accuracy = balanced_accuracy_score(targets, val_predictions)*100
+                val_f1_score = f1_score(targets, val_predictions,average='weighted')*100
+
                 # Check if validation loss has improved
                 if ((best_val_bal_acc < val_bal_accuracy) or
                     (best_val_bal_acc == val_bal_accuracy and val_loss < best_val_loss)):
@@ -248,15 +357,21 @@ class GNNTrainer(Classifier):
                     counter = 0                   
                 else:
                     counter += 1
-                    # if counter >= patience:
-                    #     print("Validation loss did not improve for {} epochs. Stopping training.".format(patience))
-                    #     break
-                print("Epoch: %03d/%03d: lr %.5f -> %.5f | Train Loss: %.5f | Val Loss: %.5f | Val Accuracy: %.3f%% | Val BAL Accuracy: %.3f%% | patience counter: %.0f" % (ep, epoch-1, before_lr, after_lr, train_loss, val_loss, val_accuracy, val_bal_accuracy, counter))
+                    if self.patience > 0 and counter >= self.patience:
+                        print("Validation loss did not improve for {} epochs. Stopping training.".format(patience))
+                        break
+                print("Epoch: %03d/%03d: lr %.5f -> %.5f | Train Loss: %.5f | Val Loss: %.5f | Val Accuracy: %.3f%% | Val BAL Accuracy: %.3f%% | Val f1-score: %.3f%% | patience counter: %.0f" % (ep, epoch-1, before_lr, after_lr, train_loss, val_loss, val_accuracy, val_bal_accuracy, val_f1_score, counter))
             self.clf.load_state_dict(best_model_wts)
             self.log.info('--------------------FIT OK----------------')
         else:
             self.log.info("Dataset length should be > 0")
             exit(-1)
+
+    def train(self, path):
+        if self.flag:
+            self.train_flag(path)
+        else:
+            self.train_vanilla(path)
 
     @torch.no_grad()
     def classify(self,path=None):
@@ -345,8 +460,8 @@ class GNNTrainer(Classifier):
         self.log.info("F1-score %2.2f %%" %(f_score))
 
         
-        # with open(f"output/gnn_eval/flag_eval_stats.csv", "a") as f:
-        #     f.write(f"{accuracy},{balanced_accuracy},{precision},{recall},{f_score}\n")
+        with open(f"output/gnn_eval/flag_eval_stats.csv", "a") as f:
+            f.write(f"{accuracy},{balanced_accuracy},{precision},{recall},{f_score},{self.flag}\n")
     
         if BINARY_CLASS:
             conf = confusion_matrix(self.label,self.y_pred,labels=['clean','malware'])

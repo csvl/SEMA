@@ -66,7 +66,7 @@ class GINJKFlag_node(torch.nn.Module):
         return node_representation
 
 class GINJKFlag(torch.nn.Module):
-    def __init__(self, num_features, hidden, num_classes, num_layers=4):
+    def __init__(self, num_features, hidden, num_classes, num_layers=4, drop_ratio=0.5, residual=False):
         super(GINJKFlag, self).__init__()
         self.num_layers = num_layers
         self.emb_dim = hidden
@@ -76,7 +76,7 @@ class GINJKFlag(torch.nn.Module):
         if self.num_layers < 2:
             raise ValueError("Number of GNN layers must be greater than 1.")
         
-        self.gnn_node = GINJKFlag_node(num_features, hidden, num_classes, num_layers)
+        self.gnn_node = GINJKFlag_node(num_features, hidden, num_classes, num_layers, drop_ratio, residual)
 
         self.pool = global_mean_pool
         # self.pool = global_add_pool
