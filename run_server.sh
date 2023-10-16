@@ -1,3 +1,4 @@
+cd SemaWebApp/; python3 -m pip install .; cd ..; 
 python3 -m pip install .;
 cp /penv-fix/angr/stack_pointer_tracker.py  /usr/local/lib/python3.8/dist-packages/angr/analyses/stack_pointer_tracker.py
 cp /penv-fix/angr/threading.py              /usr/local/lib/python3.8/dist-packages/angr/exploration_techniques/threading.py
