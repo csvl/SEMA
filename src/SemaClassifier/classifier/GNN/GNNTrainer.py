@@ -32,7 +32,7 @@ BINARY_CLASS = False # TODO
 class GNNTrainer(Classifier):
     def __init__(self, path, name, threshold=0.45,
                  families=['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT'],
-                 num_layers=4, input_path=None, hidden=64, lr=0.001, epochs=350, batch_size=1, 
+                 num_layers=4, input_path=None, hidden=64, lr=0.001, epoch=350, batch_size=1, 
                  flag=True, patience=-1, m=3, step_size=8e-3, graph_model="ER", net_linear=False, drop_ratio=0.5,
                  drop_path_p=0.01, edge_p=0.6, net_seed=47,
                  residual=False):
@@ -62,7 +62,7 @@ class GNNTrainer(Classifier):
         self.num_layers = num_layers
         self.hidden = hidden
         self.lr = lr
-        self.epochs = epochs
+        self.epoch = epoch
         self.batch_size = batch_size
         self.input_path = input_path
         self.flag = flag
@@ -169,7 +169,7 @@ class GNNTrainer(Classifier):
     
     def train_vanilla(self, path):
         print("############# VANILLA TRAINING #############")
-        epoch=self.epochs
+        epoch=self.epoch
         lr=self.lr
         batch_size=self.batch_size
 
@@ -194,11 +194,11 @@ class GNNTrainer(Classifier):
                              eta_min = 1e-4) # Minimum learning rate.
             # import pdb; pdb.set_trace()
             torch.autograd.set_detect_anomaly(True)
-            # patience = 100 # Number of epochs to wait for improvement
+            # patience = 100 # Number of epoch to wait for improvement
             best_val_loss = float('inf')
             best_val_bal_acc = 0
             best_model_wts = copy.deepcopy(self.clf.state_dict())
-            counter = 0  # Counter to keep track of epochs without improvement
+            counter = 0  # Counter to keep track of epoch without improvement
             for ep in range(epoch):
                 self.clf.train()
                 # import pdb; pdb.set_trace()
@@ -250,7 +250,7 @@ class GNNTrainer(Classifier):
                 else:
                     counter += 1
                     if self.patience > 0 and counter >= self.patience:
-                        print("Validation loss did not improve for {} epochs. Stopping training.".format(patience))
+                        print("Validation loss did not improve for {} epoch. Stopping training.".format(patience))
                         break
                 print("Epoch: %03d/%03d: lr %.5f -> %.5f | Train Loss: %.5f | Val Loss: %.5f | Val Accuracy: %.3f%% | Val BAL Accuracy: %.3f%% | Val f1-score: %.3f%% | patience counter: %.0f" % (ep, epoch-1, before_lr, after_lr, train_loss, val_loss, val_accuracy, val_bal_accuracy, val_f1_score, counter))
             self.clf.load_state_dict(best_model_wts)
@@ -261,7 +261,7 @@ class GNNTrainer(Classifier):
 
     def train_flag(self, path):
         print("############# FLAG TRAINING #############")
-        epoch=self.epochs
+        epoch=self.epoch
         lr=self.lr
         batch_size=self.batch_size
         step_size = self.step_size
@@ -292,7 +292,7 @@ class GNNTrainer(Classifier):
             best_val_loss = float('inf')
             best_val_bal_acc = 0
             best_model_wts = copy.deepcopy(self.clf.state_dict())
-            counter = 0  # Counter to keep track of epochs without improvement
+            counter = 0  # Counter to keep track of epoch without improvement
             for ep in range(epoch):
                 self.clf.train()
                 # import pdb; pdb.set_trace()
@@ -358,7 +358,7 @@ class GNNTrainer(Classifier):
                 else:
                     counter += 1
                     if self.patience > 0 and counter >= self.patience:
-                        print("Validation loss did not improve for {} epochs. Stopping training.".format(patience))
+                        print("Validation loss did not improve for {} epoch. Stopping training.".format(patience))
                         break
                 print("Epoch: %03d/%03d: lr %.5f -> %.5f | Train Loss: %.5f | Val Loss: %.5f | Val Accuracy: %.3f%% | Val BAL Accuracy: %.3f%% | Val f1-score: %.3f%% | patience counter: %.0f" % (ep, epoch-1, before_lr, after_lr, train_loss, val_loss, val_accuracy, val_bal_accuracy, val_f1_score, counter))
             self.clf.load_state_dict(best_model_wts)

@@ -73,10 +73,10 @@ for method in ["CDFS"]:
                 for classifier in ["rginjk", "fginjk"]:
                     print(f"############# Training {method} with {classifier} and {num_layer} layers on {split} #############")
                     # Construct the train_command
-                    train_command = f"python SemaClassifier/SemaClassifier.py --train --{classifier} --num_layers {num_layer} ./databases/examples_samy/big_dataset/merged/traindatabal/{method}/{split}"
+                    train_command = f"python SemaClassifier/SemaClassifier.py --train --{classifier} --num_layers {num_layer} --epoch 350 --no_flag ./databases/examples_samy/big_dataset/merged/traindatabal/{method}/{split}"
                     # Execute the train_command
                     subprocess.run(train_command, shell=True)
-                    with open(f"output/gnn_eval/flag_eval_stats.csv", "a") as f:
+                    with open(f"output/gnn_eval/randgnn_eval_stats.csv", "a") as f:
                         f.write(f"{itr},{method},{classifier},{num_layer},{split},")
                     print(f"############# Testing {method} with {classifier} and {num_layer} layers on {split} #############")
                     # Construct the test_command
@@ -91,10 +91,10 @@ for method in ["CDFS"]:
                 for classifier in ["rginjk", "fginjk"]:
                     print(f"############# Training {method} with {classifier} and {num_layer} layers on {split} #############")
                     # Construct the train_command
-                    train_command = f"python SemaClassifier/SemaClassifier.py --train --{classifier} --num_layers {num_layer} --no_flag ./databases/examples_samy/big_dataset/merged/traindatabal/{method}/{split}"
+                    train_command = f"python SemaClassifier/SemaClassifier.py --train --{classifier} --num_layers {num_layer} --epoch 350 ./databases/examples_samy/big_dataset/merged/traindatabal/{method}/{split}"
                     # Execute the train_command
                     subprocess.run(train_command, shell=True)
-                    with open(f"output/gnn_eval/flag_eval_stats.csv", "a") as f:
+                    with open(f"output/gnn_eval/randgnn_eval_stats.csv", "a") as f:
                         f.write(f"{itr},{method},{classifier},{num_layer},{split},")
                     print(f"############# Testing {method} with {classifier} and {num_layer} layers on {split} #############")
                     # Construct the test_command
