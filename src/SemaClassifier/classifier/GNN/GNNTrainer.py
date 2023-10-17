@@ -460,8 +460,8 @@ class GNNTrainer(Classifier):
         self.log.info("F1-score %2.2f %%" %(f_score))
 
         
-        with open(f"output/gnn_eval/flag_eval_stats.csv", "a") as f:
-            f.write(f"{accuracy},{balanced_accuracy},{precision},{recall},{f_score},{self.flag}\n")
+        # with open(f"output/gnn_eval/flag_eval_stats.csv", "a") as f:
+        #     f.write(f"{accuracy},{balanced_accuracy},{precision},{recall},{f_score},{self.flag}\n")
     
         if BINARY_CLASS:
             conf = confusion_matrix(self.label,self.y_pred,labels=['clean','malware'])
@@ -504,7 +504,7 @@ class GNNTrainer(Classifier):
         print("AAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
         plt.savefig(self.original_path + "figure.png")
         # plt.savefig("/home/sambt/Desktop/figure.png")
-        return f_score
+        return accuracy, balanced_accuracy, precision, recall, f_score
     
     def explain(self, path=None, output_path=None):
         if path is None:

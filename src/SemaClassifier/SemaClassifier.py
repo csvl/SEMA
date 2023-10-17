@@ -233,11 +233,17 @@ class SemaClassifier:
         
             self.training_elapsed_time = time.time() - self.start_time
             self.log.info("Total training time: " + str(self.training_elapsed_time))
+            #write training time to file
+            with open(f"output/gnn_eval/randgnn_eval_stats.csv", "a") as f:
+                f.write(f"{self.training_elapsed_time},{self.flag},{self.graph_model}\n")
 
     def classify(self):
         self.classifier.classify(path=(None if self.args.train else self.input_path))
         self.elapsed_time = time.time() - self.start_time
         # self.log.info(self.classifier.get_stat_classifier())
+        accuracy, balanced_accuracy, precision, recall, f_score = self.classifier.get_stat_classifier()
+        with open(f"output/gnn_eval/randgnn_eval_stats.csv", "a") as f:
+            f.write(f"{accuracy},{balanced_accuracy},{precision},{recall},{f_score}\n")
     def detect(self):
         self.classifier.detection(path=(None if self.args.train else self.input_path))
         self.elapsed_time = time.time() - self.start_time
@@ -277,7 +283,7 @@ def main():
         training_elapsed_time = time.time() - tc.start_time
     elif tc.mode == "classification":
         tc.classify()
-        tc.classifier.get_stat_classifier()
+        # // get stats and write file:
     elif tc.mode == "detection":
         tc.detect()
         tc.classifier.get_stat_classifier()
