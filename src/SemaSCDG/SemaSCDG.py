@@ -1289,35 +1289,35 @@ class SemaSCDG:
         )
         g.build_graph(self.scdg_fin, format_out_json=format_out_json)
         
-        if csv_file:
-            df = df.append({"familly":self.familly,
-                            "filename": nameFileShort, 
-                             "time": elapsed_time,
-                             "date":datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        #if csv_file:
+            # df = df.append({"familly":self.familly,
+            #                 "filename": nameFileShort, 
+            #                  "time": elapsed_time,
+            #                  "date":datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                              
-                             "Syscall found": json.dumps(self.call_sim.syscall_found), 
-                             "EnvVar found": json.dumps(total_env_var), 
-                             "Locale found": json.dumps(total_locale), 
-                             "Resources found": json.dumps(total_res), 
-                             "Registry found": json.dumps(total_registery), 
+            #                  "Syscall found": json.dumps(self.call_sim.syscall_found), 
+            #                  "EnvVar found": json.dumps(total_env_var), 
+            #                  "Locale found": json.dumps(total_locale), 
+            #                  "Resources found": json.dumps(total_res), 
+            #                  "Registry found": json.dumps(total_registery), 
                              
-                             "Number Address found": 0, 
-                             "Number Syscall found": len(self.call_sim.syscall_found), 
-                             "Libraries":str(proj.loader.requested_names),
-                             "OS": proj.loader.main_object.os,
-                             "CPU architecture": proj.loader.main_object.arch.name,
-                             "Entry point": proj.loader.main_object.entry,
-                             "Min/Max addresses": str(proj.loader.main_object.mapped_base) + "/" + str(proj.loader.main_object.max_addr),
-                             "Stack executable": proj.loader.main_object.execstack,
-                             "Binary position-independent:": proj.loader.main_object.pic,
-                             "Total number of blocks": nbblocks,
-                             "Total number of instr": nbinstr,
-                             "Number of blocks visited": len(block_dict),
-                             "Number of instr visited": len(instr_dict),
-                            }, 
-                           ignore_index=True)
-            self.log.info(csv_file)
-            df.to_csv(csv_file, index=False,sep=";")
+            #                  "Number Address found": 0, 
+            #                  "Number Syscall found": len(self.call_sim.syscall_found), 
+            #                  "Libraries":str(proj.loader.requested_names),
+            #                  "OS": proj.loader.main_object.os,
+            #                  "CPU architecture": proj.loader.main_object.arch.name,
+            #                  "Entry point": proj.loader.main_object.entry,
+            #                  "Min/Max addresses": str(proj.loader.main_object.mapped_base) + "/" + str(proj.loader.main_object.max_addr),
+            #                  "Stack executable": proj.loader.main_object.execstack,
+            #                  "Binary position-independent:": proj.loader.main_object.pic,
+            #                  "Total number of blocks": nbblocks,
+            #                  "Total number of instr": nbinstr,
+            #                  "Number of blocks visited": len(block_dict),
+            #                  "Number of instr visited": len(instr_dict),
+            #                 }, 
+            #                ignore_index=True)
+            # self.log.info(csv_file)
+            # df.to_csv(csv_file, index=False,sep=";")
         logging.getLogger().removeHandler(fileHandler)
 
     def get_exploration_tech(self, args, exp_dir, nameFileShort, simgr):
@@ -1644,7 +1644,7 @@ class SemaSCDG:
                 self.build_scdg(args,is_fl=is_fl,csv_file=csv_file)
             except Exception as e:
                 self.log.info(e)
-                self.log.info("Error: "+file+" is not a valid binary")
+                self.log.info("Error: "+self.inputs+" is not a valid binary")
             self.current_exps = 1
         else:
             import progressbar

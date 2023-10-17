@@ -410,8 +410,8 @@ class SemaServer:
                 SemaServer.sema.current_exp_dir = len(glob.glob("src/" + args.exp_dir + "/*")) + 1
                 exp_dir = "src/" + args.exp_dir + str(SemaServer.sema.current_exp_dir) + "/"
                 args.binaries = exp_dir
-            elif args.binaries_mutated == "output/runs/" and "mutator_enable" in request.form:
-                pass # TODO bastien
+            # elif args.binaries_mutated == "output/runs/" and "mutator_enable" in request.form:
+            #     pass # TODO bastien
             else:
                 SemaServer.sema.current_exp_dir = int(args.binaries.split("/")[-1]) # TODO
                   
@@ -442,8 +442,8 @@ class SemaServer:
             if "fl_enable" in request.form:
                 pass
             
-            if "mutator_enable" in request.form:
-                pass # TODO bastien
+            # if "mutator_enable" in request.form:
+            #     pass # TODO bastien
             
             try:
                 os.mkdir("src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/")

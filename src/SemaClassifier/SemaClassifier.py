@@ -6,13 +6,11 @@ import time
 import dill
 
 try:
-    from classifier.GM.GSpanClassifier import GSpanClassifier
     from helper.ArgumentParserClassifier import ArgumentParserClassifier
     from classifier.SVM.SVMInriaClassifier import SVMInriaClassifier
     from classifier.SVM.SVMWLClassifier import SVMWLClassifier
     from clogging.CustomFormatter import CustomFormatter
 except:
-    from src.SemaClassifier.classifier.GM.GSpanClassifier import GSpanClassifier
     from src.SemaClassifier.helper.ArgumentParserClassifier import ArgumentParserClassifier
     from src.SemaClassifier.classifier.SVM.SVMInriaClassifier import SVMInriaClassifier
     from src.SemaClassifier.classifier.SVM.SVMWLClassifier import SVMWLClassifier
