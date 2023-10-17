@@ -1,0 +1,454 @@
+[1;32;40mINFO - 2023-10-17 12:40:59,405 - angr.project - Loading binary database/Binaries/malware-win/small_train/upatre/00a8c63b42803a887b12865ba5f388bf[0m
+[1;33;40mWARNING - 2023-10-17 12:40:59,428 - angr.project - Disabling IRSB translation cache because support for self-modifying code is enabled.[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,430 - angr.project - Using builtin SimProcedure for unresolved HttpOpenRequestA from wininet.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,430 - angr.project - Using builtin SimProcedure for unresolved InternetQueryOptionW from wininet.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,431 - angr.project - Using builtin SimProcedure for unresolved InternetSetOptionW from wininet.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,431 - angr.project - Using builtin SimProcedure for unresolved HttpSendRequestW from wininet.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,431 - angr.project - Using builtin SimProcedure for unresolved InternetConnectA from wininet.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,431 - angr.project - Using builtin SimProcedure for unresolved InternetOpenW from wininet.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,432 - angr.project - Using builtin SimProcedure for unresolved HttpQueryInfoW from wininet.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,432 - angr.project - Using builtin SimProcedure for unresolved InternetReadFile from wininet.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,432 - angr.project - Using builtin SimProcedure for unresolved CloseHandle from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,432 - angr.project - Using builtin SimProcedure for unresolved GetFileSize from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,433 - angr.project - Using builtin SimProcedure for unresolved GetModuleHandleW from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,433 - angr.project - Using builtin SimProcedure for unresolved ExitProcess from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,433 - angr.project - Using builtin SimProcedure for unresolved HeapCreate from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,433 - angr.project - Using builtin SimProcedure for unresolved HeapAlloc from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,434 - angr.project - Using builtin SimProcedure for unresolved GetModuleFileNameW from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,434 - angr.project - Using builtin SimProcedure for unresolved GetTempPathW from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,434 - angr.project - Using builtin SimProcedure for unresolved HeapDestroy from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,434 - angr.project - Using builtin SimProcedure for unresolved GetCurrentDirectoryW from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,434 - angr.project - Using builtin SimProcedure for unresolved Sleep from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,435 - angr.project - Using builtin SimProcedure for unresolved FreeLibrary from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,435 - angr.project - Using builtin SimProcedure for unresolved GetProcAddress from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,435 - angr.project - Using builtin SimProcedure for unresolved LoadLibraryW from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,435 - angr.project - Using builtin SimProcedure for unresolved HeapFree from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,436 - angr.project - Using builtin SimProcedure for unresolved DeleteFileW from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,436 - angr.project - Using builtin SimProcedure for unresolved lstrlenW from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,436 - angr.project - Using builtin SimProcedure for unresolved WriteFile from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,436 - angr.project - Using builtin SimProcedure for unresolved lstrcmpW from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,437 - angr.project - Using builtin SimProcedure for unresolved ReadFile from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,437 - angr.project - Using builtin SimProcedure for unresolved CreateFileW from kernel32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,437 - angr.project - Using builtin SimProcedure for unresolved wsprintfW from user32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:01,438 - angr.project - Using builtin SimProcedure for unresolved ShellExecuteW from shell32.dll[0m
+[1;32;40mINFO - 2023-10-17 12:41:10,269 - werkzeug - 172.18.0.3 - - [17/Oct/2023 12:41:10] "[33mGET /progress HTTP/1.1[0m" 404 -[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,244 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,245 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,245 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,246 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,246 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,246 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,247 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,247 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,247 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,248 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,248 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,248 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,248 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,249 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,249 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,249 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,250 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,250 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,250 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,250 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,251 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,251 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,251 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,251 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,252 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,252 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,252 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,253 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,253 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,253 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,254 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,254 - claripy.ast.bv - BVV value is being coerced from a unicode string, encoding as utf-8[0m
+[1;32;40mINFO - 2023-10-17 12:41:12,255 - CustomSimProcedure - {'HttpOpenRequestA': 5242880, 'InternetQueryOptionW': 5242884, 'InternetSetOptionW': 5242888, 'HttpSendRequestW': 5242892, 'InternetConnectA': 5242896, 'InternetOpenW': 5242900, 'HttpQueryInfoW': 5242904, 'InternetReadFile': 5242908, 'CloseHandle': 5242912, 'GetFileSize': 5242916, 'GetModuleHandleW': 5242920, 'ExitProcess': 5242924, 'HeapCreate': 5242928, 'HeapAlloc': 5242932, 'GetModuleFileNameW': 5242936, 'GetTempPathW': 5242940, 'HeapDestroy': 5242944, 'GetCurrentDirectoryW': 5242948, 'Sleep': 5242952, 'FreeLibrary': 5242956, 'GetProcAddress': 5242960, 'LoadLibraryW': 5242964, 'HeapFree': 5242968, 'DeleteFileW': 5242972, 'lstrlenW': 5242976, 'WriteFile': 5242980, 'lstrcmpW': 5242984, 'ReadFile': 5242988, 'CreateFileW': 5242992, 'wsprintfW': 5242996, 'ShellExecuteW': 5243000, 'KiUserExceptionDispatcher': 6295572, '_fmode': 6295576, '_commode': 6295580, '_acmdln': 6295584, '_wcmdln': 6295588}[0m
+[1;32;40mINFO - 2023-10-17 12:41:12,255 - CustomSimProcedure - Was in angr :user32.dll[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,257 - CustomSimProcedure - Procedure wsprintfA in DLL user32.dll has 3 arguments in json and 2 arguments in angr prototype. Taking number of arguments from json.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,257 - CustomSimProcedure - Procedure wsprintfW in DLL user32.dll has 3 arguments in json and 2 arguments in angr prototype. Taking number of arguments from json.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,615 - angr.project - Address is already hooked, during hook(0x500014, <SimProcedure InternetOpenW>). Not re-hooking.[0m
+[1;32;40mINFO - 2023-10-17 12:41:12,616 - CustomSimProcedure - Was in angr :kernel32.dll[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,692 - angr.project - Address is already hooked, during hook(0x50003c, <SimProcedure GetTempPathW>). Not re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,693 - angr.project - Address is already hooked, during hook(0x500040, <SimProcedure HeapDestroy>). Not re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,693 - angr.project - Address is already hooked, during hook(0x500048, <SimProcedure Sleep>). Not re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,747 - angr.project - Address is already hooked, during hook(0x500000, <SimProcedure HttpOpenRequestA>). Not re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,747 - angr.project - Address is already hooked, during hook(0x500010, <SimProcedure InternetConnectA>). Not re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,747 - angr.project - Address is already hooked, during hook(0x601014, <SimProcedure KiUserExceptionDispatcher>). Not re-hooking.[0m
+[1;32;40mINFO - 2023-10-17 12:41:12,747 - CustomSimProcedure - No hooks for: {'_fmode': 6295576, '_commode': 6295580, '_acmdln': 6295584, '_wcmdln': 6295588}[0m
+[1;32;40mINFO - 2023-10-17 12:41:12,747 - CustomSimProcedure - custom_hook_static[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,748 - angr.project - Address 0x400000 not hooked[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,748 - angr.project - Address is already hooked, during hook(0x400000, <SimProcedure ExitProcess>). Not re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,748 - angr.project - Address is already hooked, during hook(0x400000, <SimProcedure HeapCreate>). Not re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,748 - angr.project - Address is already hooked, during hook(0x400000, <SimProcedure HeapAlloc>). Not re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,749 - angr.project - Address is already hooked, during hook(0x400000, <SimProcedure HeapFree>). Not re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,749 - angr.project - Address is already hooked, during hook(0x400000, <SimProcedure WriteFile>). Not re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,749 - angr.project - Address is already hooked, during hook(0x400000, <SimProcedure ReadFile>). Not re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,750 - angr.project - Address is already hooked, during hook(0x50002c, <SimProcedure ExitProcess>). Not re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,750 - angr.project - Address is already hooked, during hook(0x500030, <SimProcedure HeapCreate>). Not re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,750 - angr.project - Address is already hooked, during hook(0x500034, <SimProcedure HeapAlloc>). Not re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,751 - angr.project - Address is already hooked, during hook(0x500058, <SimProcedure HeapFree>). Not re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,751 - angr.project - Address is already hooked, during hook(0x500064, <SimProcedure WriteFile>). Not re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,751 - angr.project - Address is already hooked, during hook(0x50006c, <SimProcedure ReadFile>). Not re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,751 - angr.project - Address is already hooked, during hook(0x601014, <SimProcedure KiUserExceptionDispatcher>). Not re-hooking.[0m
+[1;32;40mINFO - 2023-10-17 12:41:12,751 - CustomSimProcedure - custom_hook_windows_symbols[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,770 - angr.project - Address is already hooked, during hook(0x500014, <SimProcedure InternetOpenW>). Re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:12,772 - angr.project - Address is already hooked, during hook(0x500014, <SimProcedure InternetOpenW>). Re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:15,824 - angr.project - Address is already hooked, during hook(0x50003c, <SimProcedure GetTempPathW>). Re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:15,826 - angr.project - Address is already hooked, during hook(0x50003c, <SimProcedure GetTempPathW>). Re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:16,599 - angr.project - Address is already hooked, during hook(0x500048, <SimProcedure Sleep>). Re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:16,600 - angr.project - Address is already hooked, during hook(0x500048, <SimProcedure Sleep>). Re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:17,636 - angr.project - Address is already hooked, during hook(0x500040, <SimProcedure HeapDestroy>). Re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:17,637 - angr.project - Address is already hooked, during hook(0x500040, <SimProcedure HeapDestroy>). Re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:17,967 - angr.project - Address is already hooked, during hook(0x50003c, <SimProcedure GetTempPathW>). Re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:17,968 - angr.project - Address is already hooked, during hook(0x50003c, <SimProcedure GetTempPathW>). Re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:18,273 - angr.project - Address is already hooked, during hook(0x500040, <SimProcedure HeapDestroy>). Re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:18,274 - angr.project - Address is already hooked, during hook(0x500040, <SimProcedure HeapDestroy>). Re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:18,531 - angr.project - Address is already hooked, during hook(0x500048, <SimProcedure Sleep>). Re-hooking.[0m
+[1;33;40mWARNING - 2023-10-17 12:41:18,532 - angr.project - Address is already hooked, during hook(0x500048, <SimProcedure Sleep>). Re-hooking.[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,828 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;33;40mWARNING - 2023-10-17 12:41:18,834 - angr.engines.vex.lifter - Self-modifying code is not always correctly optimized by PyVEX. To guarantee correctness, VEX optimizations have been disabled.[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,879 - angr.engines.engine - Ticked state: <IRSB from 0x401053: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,879 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:18,881 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,893 - CustomSimProcedureWindows - GetModuleHandleW: NULL[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,894 - CustomSimProcedure - Syscall found:  GetModuleHandleW[<BV32 0x0>][0m
+[1;32;40mINFO - 2023-10-17 12:41:18,902 - angr.engines.engine - Ticked state: <SimProcedure GetModuleHandleW from 0x500028: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,903 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:18,903 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,910 - angr.engines.engine - Ticked state: <IRSB from 0x40106d: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,912 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:18,912 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,918 - angr.engines.engine - Ticked state: <IRSB from 0x40107a: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,919 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:18,919 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,921 - CustomSimProcedure - Syscall found:  HeapCreate[<BV32 0x0>, <BV32 0x2000>, <BV32 0x0>][0m
+[1;32;40mINFO - 2023-10-17 12:41:18,922 - angr.engines.engine - Ticked state: <SimProcedure HeapCreate from 0x500030: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,923 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:18,923 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,934 - angr.engines.engine - Ticked state: <IRSB from 0x401088: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,935 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:18,936 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,946 - CustomSimProcedure - Syscall found:  HeapAlloc[<BV32 0x1>, <BV32 0x8>, <BV32 0x2000>][0m
+[1;32;40mINFO - 2023-10-17 12:41:18,948 - angr.engines.engine - Ticked state: <SimProcedure HeapAlloc from 0x500034: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,948 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:18,949 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,954 - angr.engines.engine - Ticked state: <IRSB from 0x401095: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,955 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,971 - CustomSimProcedure - Syscall found:  HeapAlloc[<BV32 0x1>, <BV32 0x8>, <BV32 0x2000>][0m
+[1;32;40mINFO - 2023-10-17 12:41:18,973 - angr.engines.engine - Ticked state: <SimProcedure HeapAlloc from 0x500034: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,973 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:18,974 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,981 - angr.engines.engine - Ticked state: <IRSB from 0x4010a3: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,982 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:18,982 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,985 - CustomSimProcedureWindows - GetModuleFileNameA: b'0\x000\x00a\x008\x00c\x006\x003\x00b\x004\x002\x008\x000\x003\x00a\x008\x008\x007\x00b\x001\x002\x008\x006\x005\x00b\x00a\x005\x00f\x003\x008\x008\x00b\x00f\x00\x00\x00'[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,986 - CustomSimProcedure - Syscall found:  GetModuleFileNameW[<BV32 0x0>, <BV32 0xc0020028>, <BV32 0x2000>][0m
+[1;32;40mINFO - 2023-10-17 12:41:18,993 - angr.engines.engine - Ticked state: <SimProcedure GetModuleFileNameW from 0x500038: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:18,993 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:18,994 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,004 - angr.engines.engine - Ticked state: <IRSB from 0x4010af: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,004 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,005 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,007 - CustomSimProcedure - Syscall found:  GetTempPathW[<BV32 0x1000>, <BV32 0xc0022030>][0m
+[1;32;40mINFO - 2023-10-17 12:41:19,053 - angr.engines.engine - Ticked state: <SimProcedure GetTempPathW from 0x50003c: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,054 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,054 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,060 - angr.engines.engine - Ticked state: <IRSB from 0x4010bd: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,061 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,062 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,064 - CustomSimProcedure - Syscall found:  wsprintfW[<BV32 0xc0022030>, <BV32 0x403120>][0m
+[1;32;40mINFO - 2023-10-17 12:41:19,088 - angr.engines.engine - Ticked state: <SimProcedure wsprintfW from 0x500074: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,089 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,089 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,097 - angr.engines.engine - Ticked state: <IRSB from 0x4010d3: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,098 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,098 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,109 - CustomSimProcedureWindows - CreateFileA: CreateFileW  asks to create file 00a8c63b42803a887b12865ba5f388bf[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,110 - CustomSimProcedure - Syscall found:  CreateFileW[<BV32 0xc0020028>, <BV32 0x80000000>, <BV32 0x1>, <BV32 0x0>, <BV32 0x3>, <BV32 0x80>, <BV32 0x0>][0m
+[1;32;40mINFO - 2023-10-17 12:41:19,118 - angr.engines.engine - Ticked state: <SimProcedure CreateFileW from 0x500070: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,119 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,119 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,125 - angr.engines.engine - Ticked state: <IRSB from 0x4010ed: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,125 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,126 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,131 - angr.engines.engine - Ticked state: <IRSB from 0x401100: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,132 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,132 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,134 - CustomSimProcedureWindows - GetFileSize: GetFileSize  asks file size of <BV32 0x3>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,135 - CustomSimProcedure - Syscall found:  GetFileSize[<BV32 0x3>, <BV32 0x0>][0m
+[1;32;40mINFO - 2023-10-17 12:41:19,187 - angr.engines.engine - Ticked state: <SimProcedure GetFileSize from 0x500024: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,188 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,188 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,192 - angr.engines.engine - Ticked state: <IRSB from 0x401108: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,193 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,193 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,205 - CustomSimProcedure - Syscall found:  lstrlenW[<BV32 0xc0020028>][0m
+[1;32;40mINFO - 2023-10-17 12:41:19,212 - angr.engines.engine - Ticked state: <SimProcedure lstrlenW from 0x500060: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,213 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,213 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,220 - angr.engines.engine - Ticked state: <IRSB from 0x401114: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,221 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;33;40mWARNING - 2023-10-17 12:41:19,251 - angr.state_plugins.heap.heap_base - Allocation request of 1048643 bytes exceeded maximum of 128 bytes; allocating 128 bytes[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,255 - CustomSimProcedure - Syscall found:  HeapAlloc[<BV32 0x1>, <BV32 0x8>, <BV32 0x44 + retval_GetFileSize_131072_32>][0m
+[1;32;40mINFO - 2023-10-17 12:41:19,257 - angr.engines.engine - Ticked state: <SimProcedure HeapAlloc from 0x500034: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,257 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,258 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,264 - angr.engines.engine - Ticked state: <IRSB from 0x401127: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,264 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,265 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,274 - angr.engines.engine - Ticked state: <IRSB from 0x401132: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,275 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,276 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,684 - CustomSimProcedure - Syscall found:  ReadFile[<BV32 0x3>, <BV32 0xc0024038>, <BV32 retval_GetFileSize_131072_32>, <BV32 0x7ffefe24>, <BV32 0x0>][0m
+[1;32;40mINFO - 2023-10-17 12:41:19,686 - angr.engines.engine - Ticked state: <SimProcedure ReadFile from 0x50006c: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,686 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,687 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,691 - angr.engines.engine - Ticked state: <IRSB from 0x401144: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,691 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,691 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,698 - CustomSimProcedure - Syscall found:  lstrcmpW[<BV32 0xc0020028>, <BV32 0xc0022030>][0m
+[1;32;40mINFO - 2023-10-17 12:41:19,704 - angr.engines.engine - Ticked state: <SimProcedure lstrcmpW from 0x500068: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,705 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,705 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,712 - angr.engines.engine - Ticked state: <IRSB from 0x40114e: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,712 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,713 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,716 - angr.engines.engine - Ticked state: <IRSB from 0x401156: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,717 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,726 - CustomSimProcedure - Syscall found:  lstrlenW[<BV32 0xc0020028>][0m
+[1;32;40mINFO - 2023-10-17 12:41:19,734 - angr.engines.engine - Ticked state: <SimProcedure lstrlenW from 0x500060: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,735 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,735 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,742 - angr.engines.engine - Ticked state: <IRSB from 0x401159: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,742 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,743 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,750 - angr.engines.engine - Ticked state: <IRSB from 0x40102e: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,750 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,751 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,829 - angr.engines.engine - Ticked state: <IRSB from 0x401037: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,830 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:19,830 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,871 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,873 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,911 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,912 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,946 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,947 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,983 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:19,985 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,022 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,023 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,061 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,062 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,098 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,099 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,140 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,142 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,181 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,182 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,217 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,218 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,254 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,255 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,293 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,295 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,331 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,332 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,369 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,371 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,409 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,412 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,448 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,449 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,485 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,486 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,523 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,524 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,562 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,563 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,607 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,608 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,643 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,645 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,683 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,684 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,722 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,723 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,761 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,762 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,798 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,799 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,835 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,836 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,879 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,880 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,919 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,920 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,961 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,963 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,998 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:20,999 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,038 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,039 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,079 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,080 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,117 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,118 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,155 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,156 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,192 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,193 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,231 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,232 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,267 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,268 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,307 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,309 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,346 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,347 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,383 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,383 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,419 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,420 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,455 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,456 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,492 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,493 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,529 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,530 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,565 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,566 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,608 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,609 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,646 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,647 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,683 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,684 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,721 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,722 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,760 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,761 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,799 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,799 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,838 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,839 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,874 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,876 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,913 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,914 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,951 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,952 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,990 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:21,991 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,029 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,030 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,063 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,064 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,099 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,102 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,139 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,141 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,179 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,180 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,216 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,217 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,256 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,257 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,295 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,296 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,332 - angr.engines.engine - Ticked state: <IRSB from 0x40103f: 1 sat 1 unsat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,333 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:22,333 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,339 - angr.engines.engine - Ticked state: <IRSB from 0x40104e: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,339 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:22,340 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,350 - angr.engines.engine - Ticked state: <IRSB from 0x40116b: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,351 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,353 - CustomSimProcedureWindows - CreateFileA: CreateFileW  asks to create file [0m
+[1;32;40mINFO - 2023-10-17 12:41:22,354 - CustomSimProcedureWindows - fd is none[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,354 - CustomSimProcedure - Syscall found:  CreateFileW[<BV32 0xc0022030>, <BV32 0x40000000>, <BV32 0x2>, <BV32 0x0>, <BV32 0x2>, <BV32 0x80>, <BV32 0x0>][0m
+[1;32;40mINFO - 2023-10-17 12:41:22,382 - angr.engines.engine - Ticked state: <SimProcedure CreateFileW from 0x500070: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,383 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:22,384 - angr.sim_manager - Stepping active of <SimulationManager with 1 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,402 - angr.engines.engine - Ticked state: <IRSB from 0x401187: 2 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,403 - SemaExplorerCBFS - A new block of execution have been executed with changes in sim_manager.
+[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,403 - SemaExplorerCBFS - Currently, simulation manager is :
+<SimulationManager with 2 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,403 - SemaExplorerCBFS - pause stash len :0[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,403 - SemaExplorerCBFS - fork_stack : 1[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,404 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:22,404 - angr.sim_manager - Stepping active of <SimulationManager with 2 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,416 - angr.engines.engine - Ticked state: <IRSB from 0x4010f5: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,421 - angr.engines.engine - Ticked state: <IRSB from 0x401193: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,422 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:22,422 - angr.sim_manager - Stepping active of <SimulationManager with 2 active>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,424 - angr.procedures.stubs.CallReturn - A factory.call_state-created path returned![0m
+[1;32;40mINFO - 2023-10-17 12:41:22,424 - CustomSimProcedure - Syscall found:  CallReturn[][0m
+[1;32;40mINFO - 2023-10-17 12:41:22,424 - angr.engines.engine - Ticked state: <SimProcedure CallReturn from 0xb01000: empty>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,431 - CustomSimProcedure - Syscall found:  lstrlenW[<BV32 0xc0020028>][0m
+[1;32;40mINFO - 2023-10-17 12:41:22,438 - angr.engines.engine - Ticked state: <SimProcedure lstrlenW from 0x500060: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,438 - SemaExplorerCBFS - A new block of execution have been executed with changes in sim_manager.
+[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,438 - SemaExplorerCBFS - Currently, simulation manager is :
+<SimulationManager with 1 active, 1 deadended>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,438 - SemaExplorerCBFS - pause stash len :0[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,438 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:22,439 - angr.sim_manager - Stepping active of <SimulationManager with 1 active, 1 deadended>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,449 - angr.engines.engine - Ticked state: <IRSB from 0x40119b: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:22,449 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:22,450 - angr.sim_manager - Stepping active of <SimulationManager with 1 active, 1 deadended>[0m
+[1;33;40mWARNING - 2023-10-17 12:41:22,478 - angr.state_plugins.posix - Tried to look up a symbolic fd - constrained to 4 and opened b'/tmp/angr_implicit_0'[0m
+[1;33;40mWARNING - 2023-10-17 12:41:22,493 - angr.storage.file - Symbolic write size is too large for threshold - concretizing to min (1048643)[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,570 - CustomSimProcedureWindows - {3: '00a8c63b42803a887b12865ba5f388bf'}[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,571 - CustomSimProcedureWindows - <angr.storage.file.SimFileDescriptor object at 0x7ff5c89e8fd0>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,571 - CustomSimProcedureWindows - 4[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,571 - CustomSimProcedure - Syscall found:  WriteFile[<BV32 retval_CreateFileW_131074_32>, <BV32 0xc0024038>, <BV32 0x44 + retval_GetFileSize_131072_32>, <BV32 0x7ffefe24>, <BV32 0x0>][0m
+[1;32;40mINFO - 2023-10-17 12:41:24,573 - angr.engines.engine - Ticked state: <SimProcedure WriteFile from 0x500064: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,574 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:24,574 - angr.sim_manager - Stepping active of <SimulationManager with 1 active, 1 deadended>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,579 - angr.engines.engine - Ticked state: <IRSB from 0x4011af: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,580 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:24,580 - angr.sim_manager - Stepping active of <SimulationManager with 1 active, 1 deadended>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,582 - CustomSimProcedure - Syscall found:  CloseHandle[<BV32 0x3>][0m
+[1;32;40mINFO - 2023-10-17 12:41:24,583 - angr.engines.engine - Ticked state: <SimProcedure CloseHandle from 0x500020: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,583 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:24,584 - angr.sim_manager - Stepping active of <SimulationManager with 1 active, 1 deadended>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,590 - angr.engines.engine - Ticked state: <IRSB from 0x4011ba: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,590 - angr.sim_manager - Stepping active of <SimulationManager with 1 active, 1 deadended>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,593 - CustomSimProcedure - Syscall found:  CloseHandle[<BV32 retval_CreateFileW_131074_32>][0m
+[1;32;40mINFO - 2023-10-17 12:41:24,594 - angr.engines.engine - Ticked state: <SimProcedure CloseHandle from 0x500020: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,595 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:24,595 - angr.sim_manager - Stepping active of <SimulationManager with 1 active, 1 deadended>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,601 - angr.engines.engine - Ticked state: <IRSB from 0x4011bf: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,601 - angr.sim_manager - Stepping active of <SimulationManager with 1 active, 1 deadended>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,604 - CustomSimProcedure - Syscall found:  GetTempPathW[<BV32 0x1000>, <BV32 0xc0020028>][0m
+[1;32;40mINFO - 2023-10-17 12:41:24,633 - angr.engines.engine - Ticked state: <SimProcedure GetTempPathW from 0x50003c: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,634 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:24,634 - angr.sim_manager - Stepping active of <SimulationManager with 1 active, 1 deadended>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,641 - angr.engines.engine - Ticked state: <IRSB from 0x4011cb: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,642 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:24,643 - angr.sim_manager - Stepping active of <SimulationManager with 1 active, 1 deadended>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,649 - CustomSimProcedure - Syscall found:  ShellExecuteW[<BV32 0x0>, <BV32 0x403114>, <BV32 0xc0022030>, <BV32 0x0>, <BV32 0xc0020028>, <BV32 0x0>][0m
+[1;32;40mINFO - 2023-10-17 12:41:24,657 - angr.engines.engine - Ticked state: <SimProcedure ShellExecuteW from 0x500078: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,657 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:24,657 - angr.sim_manager - Stepping active of <SimulationManager with 1 active, 1 deadended>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,661 - angr.engines.engine - Ticked state: <IRSB from 0x4011dd: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,662 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:24,662 - angr.sim_manager - Stepping active of <SimulationManager with 1 active, 1 deadended>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,665 - angr.engines.engine - Ticked state: <IRSB from 0x401074: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,666 - SemaExplorerCBFS - Hey new addr ![0m
+[1;32;40mINFO - 2023-10-17 12:41:24,666 - angr.sim_manager - Stepping active of <SimulationManager with 1 active, 1 deadended>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,670 - CustomSimProcedure - Syscall found:  ExitProcess[<BV32 0x0>][0m
+[1;32;40mINFO - 2023-10-17 12:41:24,670 - angr.engines.engine - Ticked state: <SimProcedure ExitProcess from 0x50002c: 1 sat>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,671 - angr.sim_manager - Stepping active of <SimulationManager with 1 active, 1 deadended>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,675 - angr.engines.engine - Ticked state: <SimProcedure PathTerminator from 0x50002c: empty>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,676 - SemaExplorerCBFS - A new block of execution have been executed with changes in sim_manager.
+[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,676 - SemaExplorerCBFS - Currently, simulation manager is :
+<SimulationManager with 2 deadended>[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,676 - SemaExplorerCBFS - pause stash len :0[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,676 - SemaExplorerCBFS - len(simgr.active) <= 0 or deadended >= self.max_end_state)[0m
+[1;32;40mINFO - 2023-10-17 12:41:24,696 - GraphBuilder - Output dir :database/SCDG/runs/Test/Unknown/00a8c63b42803a887b12865ba5f388bf/[0m
