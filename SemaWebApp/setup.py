@@ -26,7 +26,8 @@ setup(name='sema-webapp',
       packages=find_packages(),
       setup_requires=['wheel'],
       install_requires=[
-          'flask', # malwexp
+          "Werkzeug==2.2.2",
+          'flask==2.0.3', # malwexp
           "flask_session",
           "django",
           "requests",
