@@ -31,7 +31,7 @@ class SemaExplorerBFS(SemaExplorer):
             worker.jump_concrete_dict,
             worker.max_simul_state,
             worker.max_in_pause_stach,
-            worker.print_on,
+            worker.verbose,
             worker.print_sm_step,
             worker.print_syscall,
             worker.debug_error,

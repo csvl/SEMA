@@ -197,11 +197,11 @@ Binary parameters:
   --n_args N_ARGS       Number of symbolic arguments given to the binary (default : 0)
   --conc_loop CONC_LOOP
                         TODO (default : 1024)
-  --count_block         TODO
-  --sim_file            TODO
-  --track_command       TODO
-  --ioc_report          TODO
-  --hooks               TODO
+  --count_block         Count block (default : False)
+  --sim_file            Create SimFile with binary  TODO (default : False)
+  --track_command       Track command loop of RATs  (default : False)
+  --ioc_report          produces and IoC report  (default : False)
+  --hooks               activates the hooks for time-consuming functions  (default : False)
 
 SCDG creation parameter:
   --min_size MIN_SIZE   Minimum size required for a trace to be used in SCDG (default : 3)
@@ -218,7 +218,7 @@ Thread parameters :
   --post_run_thread     TDOD
 
 Global parameter:
-  --approximate         TODO
+  --approximate         Symbolic approximation (default : False)
   --timeout TIMEOUT     Timeout in seconds before ending extraction (default : 600)
   --not_resolv_string   Do we try to resolv references of string (default : False)
   --memory_limit        Skip binary experiment when memory > 90% (default : False)

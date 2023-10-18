@@ -44,7 +44,7 @@ class SemaExplorer(ExplorationTechnique):
         jump_concrete_dict={},
         max_simul_state=1,
         max_in_pause_stach=500,
-        print_on=False,
+        verbose=False,
         print_sm_step=False,
         print_syscall=False,
         debug_error=False,
@@ -90,7 +90,7 @@ class SemaExplorer(ExplorationTechnique):
         self.scdg_fin = []
         self.dict_addr_vis = {}
 
-        self.print_on = print_on
+        self.verbose = verbose
         self.print_sm_step = print_sm_step
         self.print_syscall = print_syscall
         self.debug_error = debug_error
@@ -114,43 +114,11 @@ class SemaExplorer(ExplorationTechnique):
                 val = val.to_claripy()
 
         except Exception as e:
-            if self.print_on:
+            if self.verbose:
                 self.log.info("Symbolic value encountered !")
                 print(e)
             return value
         return val
-
-    def __proper_formating(self, state, value):
-        """
-        Take a state and a value (argument/return value) and return an appropriate reprensentation to use in SCDG.
-        """
-        if hasattr(value, "to_claripy"):
-            value = value.to_claripy()
-
-        if hasattr(value, "symbolic") and value.symbolic and hasattr(value, "name"):
-            # self.log.info("case 1 formating")
-            return value.name
-        elif (
-            hasattr(value, "symbolic") and value.symbolic and len(value.variables) == 1
-        ):
-            # import pdb; pdb.set_trace()
-            # self.log.info("case 2 formating")
-            # self.log.info(value.variables)
-
-            return list(value.variables)[0]
-        elif hasattr(value, "symbolic") and value.symbolic:
-            # self.log.info('case 3 : multiple variables involved')
-            # TODO improve this
-            ret = "_".join(list(value.variables))
-
-            return ret
-        else:
-            # self.log.info("case 4 formating")
-            try:
-                val = state.solver.eval_one(value)
-                return val
-            except:
-                return value
 
     def take_smallest(self, simgr, source_stash):
         """
@@ -195,54 +163,6 @@ class SemaExplorer(ExplorationTechnique):
                 max_step = s.globals["n_steps"]
 
         simgr.move(source_stash, "active", lambda s: s.globals["id"] == id_to_move)
-
-    def __take_custom(self, simgr, source_stash, moves):
-        """
-        Take a state of source_stash with smallest amount of steps and append it to active stash
-        @pre : source_stash exists
-        """
-        id_to_move = 0
-        if len(simgr.stashes[source_stash]) == 0:
-            return
-
-        for s in simgr.stashes[source_stash]:
-            if (
-                str(self.check_constraint(s, s.history.jump_target))
-                not in self.dict_addr_vis
-            ):
-                id_to_move = s.globals["id"]
-                simgr.move(
-                    source_stash, "active", lambda s: s.globals["id"] == id_to_move
-                )
-                # self.log.info('optimization for exploration used')
-                return
-        self.take_smallest(simgr, source_stash)
-
-    def __take_custom_deep(self, simgr, source_stash):
-        id_to_move = 0
-        if len(simgr.stashes[source_stash]) == 0:
-            return
-
-        for s in simgr.stashes[source_stash]:
-            if (
-                str(self.check_constraint(s, s.history.jump_target))
-                not in self.dict_addr_vis
-            ):
-                id_to_move = s.globals["id"]
-                simgr.move(
-                    source_stash, "active", lambda s: s.globals["id"] == id_to_move
-                )
-                # self.log.info('optimization for exploration used')
-                return
-        self.take_longuest(simgr, source_stash)
-
-    def __change_main_state(self, simgr, source_stash):
-        """
-        Take a state of source_stash and append it to active stash
-        @pre : source_stash exists
-        """
-        if len(simgr.stashes[source_stash]) > 0:
-            simgr.stashes["active"].append(simgr.stashes[source_stash].pop())
 
     def mv_bad_active(self, simgr):
         """
@@ -297,20 +217,6 @@ class SemaExplorer(ExplorationTechnique):
                 )
                 self.log.info("A state has been discarded because of 1 loop reached")
 
-    def __mv_new_addr_state(self, simgr):
-        """
-        Check new_addr stash and update it correctly
-        """
-        for s in simgr.stashes["new_addr"]:
-            if (
-                str(self.check_constraint(s, s.history.jump_target))
-                in self.dict_addr_vis
-            ):
-                id_to_move = s.globals["id"]
-                simgr.move("new_addr", "pause", lambda s: s.globals["id"] == id_to_move)
-                # self.log.info('optimization for exploration used')
-                return
-
     def __update_id_stash(self, simgr, id, new_id):
         """
         Inspect active stash
@@ -345,40 +251,6 @@ class SemaExplorer(ExplorationTechnique):
         first_state.globals["id"] = id
 
     # Break at specific instruction and open debug mode.
-    def __debug_instr(self, state):
-        if state.inspect.instruction == int(
-            "0x0040123f", 16
-        ) or state.inspect.instruction == int("0x0040126e", 16):
-            self.log.info("Debug function\n\n")
-            self.log.info(hex(state.inspect.instruction))
-            import pdb
-
-            pdb.set_trace()
-
-    def __debug_read(self, state):
-        if state.solver.eval(state.inspect.mem_read_address) == int("0xf404120", 16):
-            self.log.info("Read function\n\n")
-            self.log.info(state.inspect.mem_read_address)
-            import pdb
-
-            pdb.set_trace()
-
-    def __debug_write(self, state):
-        if state.solver.eval(state.inspect.mem_write_address) == int("0xf404120", 16):
-            self.log.info("Write function\n\n")
-            self.log.info(state.inspect.mem_write_address)
-            import pdb
-
-            pdb.set_trace()
-
-    def __add_addr_call(self, state):
-        test = state.globals["addr_call"] + [state.scratch.ins_addr]
-        state.globals["addr_call"] = test
-
-    def __rm_addr_call(self, state):
-        calls = state.globals["addr_call"]
-        if len(calls) > 1:
-            state.globals["addr_call"] = calls[1:]
 
     def step(self, simgr, stash="active", **kwargs):
         raise NotImplementedError()
@@ -499,8 +371,6 @@ class SemaExplorer(ExplorationTechnique):
 
     def remove_exceeded_jump(self, simgr):
         if len(self.loopBreak_stack) > 0:
-            # if PRINT_ON :
-            #    self.log.info('Length of LoopBreaker Stack at this step: '+  str(len(self.loopBreak_stack)))
             for i in range(len(self.loopBreak_stack)):
                 self.log.info("A state has been discarded because of jump")
                 guilty_state_id, addr = self.loopBreak_stack.pop()
@@ -562,8 +432,6 @@ class SemaExplorer(ExplorationTechnique):
             to_clean = len(simgr.deadended) - self.deadended
             for i in range(to_clean):
                 simgr.deadended[-i - 1].globals["id"]
-                # if PRINT_ON:
-                #    self.log.info("End of the trace number "+str(id_cur))
             self.deadended = len(simgr.deadended)
 
     def manage_fork(self, simgr):

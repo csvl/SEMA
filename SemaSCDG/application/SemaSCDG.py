@@ -79,7 +79,7 @@ class SemaSCDG():
         fast_main=False,
         force_symbolique_return=False,
         string_resolv=True,
-        print_on=True,
+        verbose=False,
         print_sm_step=False,
         print_syscall=False,
         debug_error=False,
@@ -106,7 +106,7 @@ class SemaSCDG():
         self.fast_main = fast_main
         self.force_symbolique_return = force_symbolique_return
 
-        self.print_on = print_on
+        self.verbose = verbose
         self.print_sm_step = print_sm_step
         self.print_syscall = print_syscall
         self.debug_error = debug_error
@@ -124,7 +124,7 @@ class SemaSCDG():
 
         self.call_sim = CustomSimProcedure(
             self.scdg, self.scdg_fin, 
-            string_resolv=string_resolv, print_on=print_on, 
+            string_resolv=string_resolv, verbose=self.verbose, 
             print_syscall=print_syscall
         )
         
@@ -161,11 +161,6 @@ class SemaSCDG():
                     pass
         with open(os.path.join(path, "scdg_conf.json"), "w") as f:
             json.dump(attributes, f, indent=4)
-
-    #Save the syscall table in a json file
-    def save_sys_call_table(self, table, path):
-        with open(os.path.join(path, "sys_call_table.json"), "w") as f:
-            json.dump(table, f, indent=4)
 
 
     def build_scdg(self, args, is_fl=False, csv_file=None):
@@ -263,8 +258,228 @@ class SemaSCDG():
 
         # Load a binary into a project = control base
         proj = None
-        dll = None
-        proj = angr.Project(
+        cuckoo = None
+        if self.is_packed and self.unpack_mode == "symbion":
+            # nameFile = os.path.join(os.path.dirname(os.path.realpath(__file__)),
+            #                               os.path.join('..', 'binaries',
+            #                               'tests','x86_64',
+            #                               'packed_elf64'))
+                        
+            #nameFile = "/home/crochetch/Documents/toolchain_malware_analysis/src/submodules/binaries/tests/x86_64/packed_elf64"
+            #st = os.stat(nameFile)
+            #os.chmod(nameFile, st.st_mode | stat.S_IEXEC)
+
+
+            print(nameFile)
+            analysis = nameFile
+
+            proj = angr.Project(
+                nameFile,
+                use_sim_procedures=True,
+                load_options={
+                    "auto_load_libs": True
+                },  # ,load_options={"auto_load_libs":False}
+                support_selfmodifying_code=True,
+                # arch="",
+            )
+
+            # Getting from a binary file to its representation in a virtual address space
+            main_obj = proj.loader.main_object
+            os_obj = main_obj.os
+
+            self.log.info("OS recognized as : " + str(os_obj))
+            self.log.info("CPU architecture recognized as : " + str(proj.arch))
+
+            # First set everything up
+
+            GDB_SERVER_IP = '127.0.0.1'
+            GDB_SERVER_PORT = 9876
+
+            if not self.concrete_target_is_local:
+                filename = "cuckoo_ubuntu18.04"
+                gos = "linux"
+                if "win" in os_obj:
+                    if False:
+                        filename = "win7_x64_cuckoo"
+                    else:
+                        filename = "win10"
+                    gos = "windows"
+
+                cuckoo = CuckooInterface(name=filename, ossys="linux", guestos=gos, create_vm=False)
+                GDB_SERVER_IP = cuckoo.start_sandbox(GDB_SERVER_PORT)
+                cuckoo.load_analysis(analysis)
+                remote_binary=cuckoo.start_analysis(analysis)       
+                print(GDB_SERVER_IP)     
+            else:
+                # TODO use the one in sandbox
+                print("gdbserver %s:%s %s" % (GDB_SERVER_IP,GDB_SERVER_PORT,nameFile))
+                subprocess.Popen("gdbserver %s:%s %s" % (GDB_SERVER_IP,GDB_SERVER_PORT,nameFile),
+                                        stdout=subprocess.PIPE,
+                                        stderr=subprocess.PIPE,
+                                        shell=True)
+            avatar_gdb = None
+            local_ddl_path = self.call_sim.ddl_loader.calls_dir.replace("calls","windows7_ddls")
+            try:
+                self.log.info("AvatarGDBConcreteTarget("+ GDB_SERVER_IP+","+ str(GDB_SERVER_PORT) +")")
+                avatar_gdb = AvatarGDBConcreteTarget(avatar2.archs.x86.X86,
+                                                    GDB_SERVER_IP, GDB_SERVER_PORT,remote_binary,local_ddl_path)  # TODO modify to send file and update gdbserver conf
+            except Exception as e:
+                time.sleep(5)
+                self.log.info("AvatarGDBConcreteTarget failure")
+                try:
+                    avatar_gdb = AvatarGDBConcreteTarget(avatar2.archs.x86.X86, # TODO 
+                                                    GDB_SERVER_IP, GDB_SERVER_PORT,remote_binary,local_ddl_path) 
+                except Exception as ee:
+                    exit(-1)
+            print(nameFile)   
+            print(avatar_gdb) 
+            
+            self.call_sim.system_call_table = self.call_sim.ddl_loader.load(proj,True if (self.is_packed and False) else False)
+            
+            preload = []
+            for lib in self.call_sim.system_call_table:
+                #for key in self.call_sim.system_call_table[lib]: 
+                print(lib)
+                    #preload.append(lib)
+            print(proj.loader.shared_objects)
+            
+            proj = angr.Project(
+                nameFile,
+                use_sim_procedures=True,
+                load_options={
+                    "auto_load_libs": True,
+                    "load_debug_info": True,
+                    "preload_libs": preload
+                },  # ,load_options={"auto_load_libs":False}
+                support_selfmodifying_code=True,
+                concrete_target=avatar_gdb
+            )
+            #self.call_sim.system_call_table.clear()
+            #print(proj.concrete_target.avatar.get_info_sharelib_targets(local_ddl_path))
+            
+            for lib in proj.concrete_target.avatar.get_info_sharelib_targets(local_ddl_path)[0]:
+                print(lib["id"]) # TODO lowercase folder
+                if lib["target-name"] == lib["host-name"] :
+                    print("Changed")
+                #if "kernel" not in lib["target-name"].lower():
+                #preload.append(lib["id"].replace("C:\\",self.call_sim.ddl_loader.calls_dir.replace("calls","windows7_ddls/C:/")).replace("\\","/").replace("system","System")) # 
+            #exit()
+            proj = angr.Project(
+                nameFile,
+                use_sim_procedures=True,
+                load_options={
+                    "auto_load_libs": False,
+                    "load_debug_info": True,
+                    "preload_libs": preload
+                },  # ,load_options={"auto_load_libs":False}
+                support_selfmodifying_code=True,
+                concrete_target=avatar_gdb
+            )
+            for lib in self.call_sim.system_call_table:
+                print(proj.loader.find_all_symbols(lib))
+            print("biatch")
+            #for obj in proj.loader.all_objects:
+            #    print(obj)
+            #exit()
+        elif self.is_packed and self.unpack_mode == "unipacker":
+            try:
+                unpacker_heartbeat = RepeatedTimer(120, print, "- still running -", file=sys.stderr)
+                event = threading.Event()
+                client = SimpleClient(event)
+                sample = Sample(nameFile)
+                unpacked_file_path = nameFile.replace(nameFileShort,"unpacked_"+nameFileShort)
+                engine = UnpackerEngine(sample, unpacked_file_path)
+                self.log.info("Unpacking process with unipacker")
+                engine.register_client(client)
+                unpacker_heartbeat.start()
+                threading.Thread(target=engine.emu).start()
+                event.wait()
+                unpacker_heartbeat.stop()
+                engine.stop()
+                nameFile = unpacked_file_path
+                proj = angr.Project(
+                    nameFile,
+                    use_sim_procedures=True,
+                    load_options={
+                        "auto_load_libs": True
+                    },  # ,load_options={"auto_load_libs":False}
+                    support_selfmodifying_code=True,
+                    # arch="",
+                )
+            except InvalidPEFile as e:
+                self.unpack_mode = "symbion"
+                self.build_scdg(args, nameFile, self.expl_method)
+                return
+        else:  
+            # if nameFile.endswith(".bin") or nameFile.endswith(".dmp"):
+            #     main_opt = {'backend': 'blob', "arch":"x86","simos":"windows"}#cle.Blob(nameFile,arch=avatar2.archs.x86.X86,binary_stream=True)
+            #     #nameFile = loader
+            #     main_opt = {} #0x0005f227 0x400000 0x001191f7
+            #     proj = angr.Project(
+            #         nameFile,
+            #         use_sim_procedures=True,
+            #         load_options={
+            #             "auto_load_libs": True
+            #         },  # ,load_options={"auto_load_libs":False}
+            #         support_selfmodifying_code=True if not nameFile.endswith(".dmp") else False,
+            #         main_opts=main_opt,
+            #         #simos = "windows"if nameFile.endswith(".bin") or nameFile.endswith(".dmp") else None
+            #         # arch="",
+            #     )
+            #     main_obj = proj.loader.main_object
+            #     first_sec = False
+            #     libs = []
+            #     dll = []
+            #     for sec in main_obj.sections:
+            #         name = sec.name.replace("\x00", "")
+            #         if not first_sec:
+            #             first_sec = True
+            #         else:
+            #             if "KERNELBASE.dll" in name:
+            #                 name = name.replace("KERNELBASE.dll","KernelBase.dll")
+            #             dll.append(name.split("\\")[-1])
+            #             print(dll)
+            #             libs.append(name.replace("C:\\",self.call_sim.ddl_loader.calls_dir.replace("calls","windows10_ddls/C:/")).replace("\\","/")) # .replace("system","System") 
+            #             self.log.info(name)
+            #             #self.log.info(dump_file["sections"][name])
+            #     t_0x0548 = proj.loader.main_object.get_thread_registers_by_id() # 0x1b30 0x0548 0x13c4 0x1ecc 0x760
+            #     print(t_0x0548)
+            #     print(hex(t_0x0548["eip"]) )
+            #     # print(proj.loader.memory[t_0x0548["esp"]])
+            #     main_opt = {"entry_point":t_0x0548["eip"]} # "entry_point":t_0x0548["eip"]
+            #     print(main_opt)
+            #     #exit()
+            #     proj = angr.Project(
+            #         nameFile,
+            #         use_sim_procedures=True, # if not nameFile.endswith(".dmp") else False,
+            #         load_options={
+            #             "auto_load_libs": True,
+            #             "load_debug_info": True,
+            #             #"preload_libs": libs,
+            #         },  # ,load_options={"auto_load_libs":False}
+            #         support_selfmodifying_code=True, #if not nameFile.endswith(".dmp") else False,
+            #         main_opts=main_opt,
+            #         #simos = "windows"if nameFile.endswith(".bin") or nameFile.endswith(".dmp") else None
+            #         # arch="",
+            #     )
+            #     symbs = proj.loader.symbols
+            #     for symb in symbs:
+            #         print(symb)
+            #     print(symbs)
+            #     print(proj.loader.shared_objects)
+            #     print(proj.loader.all_objects)
+            #     print(proj.loader.requested_names)
+            #     print(proj.loader.initial_load_objects)
+            #     for register in t_0x0548:
+            #         print(register,hex(t_0x0548[register]))
+            #     #exit()
+                
+            # else:
+            main_opt = {}
+            libs  = []
+            dll = None
+            main_opt = {"entry_point": 0x401500} # 0x4014e0
+            proj = angr.Project(
                     self.inputs,
                     use_sim_procedures=True,
                     load_options={
@@ -277,7 +492,7 @@ class SemaSCDG():
                     #simos = "windows"if nameFile.endswith(".bin") or nameFile.endswith(".dmp") else None
                     # arch="",
                     default_analysis_mode="symbolic" if not args.approximate else "symbolic_approximating",
-        )
+            )
 
         # Getting from a binary file to its representation in a virtual address space
         main_obj = proj.loader.main_object
@@ -308,7 +523,7 @@ class SemaSCDG():
             
             
         # Informations about program
-        if self.print_on:
+        if self.verbose:
             self.log.info("Libraries used are :\n" + str(proj.loader.requested_names))
             self.log.info("OS recognized as : " + str(os_obj))
             self.log.info("CPU architecture recognized as : " + str(proj.arch))
@@ -338,11 +553,7 @@ class SemaSCDG():
            
         self.log.info("System call table loaded")
         self.log.info("System call table size : " + str(len(self.call_sim.system_call_table)))
-        self.save_sys_call_table(self.call_sim.system_call_table, exp_dir)
-        self.log.info("System call table saved at : " + exp_dir + "sys_call_table.json")
-        #self.log.info("System call table : " + str(self.call_sim.system_call_table))
         
-
         # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows)
         addr_main = proj.loader.find_symbol("main")
         if addr_main and self.fast_main:
@@ -506,6 +717,7 @@ class SemaSCDG():
         # This function is used to show the addresses exectuted with : state.inspect.b("instruction",when=angr.BP_BEFORE, action=nothing)
         # Peut etre rename la function
         # Rajouter un parameter eventuellement pour ajouter ou non la feature
+
         def nothing(state):
             if False:
                 print(hex(state.addr))
@@ -1013,7 +1225,6 @@ def main():
         print_syscall=True,
         debug_error=True,
         debug_string=True,
-        print_on=True
     )
     args_parser = ArgumentParserSCDG()
     args = args_parser.parse_arguments()
