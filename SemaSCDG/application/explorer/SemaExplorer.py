@@ -18,7 +18,8 @@ from angr.exploration_techniques import ExplorationTechnique
 # from sim_procedure.simprocedures import *
 # from sim_procedure.CustomSimProcedureWindows import custom_simproc_windows
 
-
+# (1) TODO manon: better integration with angr
+# (2) TODO manon: better parametrization
 class SemaExplorer(ExplorationTechnique):
     """
     TODO
