@@ -165,25 +165,17 @@ class SemaServer:
         """
         return redirect('index.html', code =302)
     
-    #TODO
-    @app.route('/progress-scdg', methods = ['GET', 'POST'])
-    def progress():
-        response = requests.get('http://sema-scdg:5001/progress')
-        return str(response.content)
-        return str(SemaServer.sema.tool_scdg.current_exps)
+    #TODO : make the nyan cat works
+    # @app.route('/progress-scdg', methods = ['GET', 'POST'])
+    # def progress():
+    #     response = requests.get('http://sema-scdg:5001/progress')
+    #     return str(response.content)
+    #     return str(SemaServer.sema.tool_scdg.current_exps)
     
     # @app.route('/iteration-scdg', methods = ['GET', 'POST'])
     # def iteration():
     #     return
     #     return str(SemaServer.sema.tool_scdg.nb_exps)
-    
-    # @app.route('/progress-dl', methods = ['GET', 'POST'])
-    # def progress_dl():
-    #     return str(SemaServer.malware_to_downloaded) ## TODO
-    
-    # @app.route('/iteration-dl', methods = ['GET', 'POST'])
-    # def iteration_dl():
-    #     return str(SemaServer.malware_to_download) ## TODO
     
     
     #Get the parameters entered on the page to transmit them to the classifier
@@ -251,8 +243,6 @@ class SemaServer:
                     scdg_args[key] = value
                 elif exp_number == 2:
                     class_args[key] = value
-                elif exp_number == 3:
-                    fl_args[key] = value
 
             ##
             # Here we start the experiments
@@ -649,7 +639,7 @@ class SemaServer:
 
  
     def run(self):
-        SemaServer.app.run(host='0.0.0.0', port=5000, use_reloader=True, threaded=True)  #, processes=4
+        SemaServer.app.run(host='0.0.0.0', port=5000, use_reloader=True)  #, processes=4
         
 def main():
     sema = SemaServer()

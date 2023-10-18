@@ -48,7 +48,6 @@ def run_scdg():
         print_syscall=True,
         debug_error=True,
         debug_string=True,
-        print_on=True
     )
     args = scdg_parser.parse_arguments(args_list=exp_args, allow_unk=True)
     scdg_parser = scdg_parser.update_tool(args, toolc)

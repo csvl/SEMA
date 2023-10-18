@@ -144,7 +144,7 @@ class ArgumentParserSCDG:
         )
         self.group_bin.add_argument(
             "--conc_loop",
-            help="Number of symbolic arguments given to the binary (default : 1024)",
+            help="TODO (default : 1024)",
             default=10240,
             type=int,
         )
@@ -302,8 +302,8 @@ class ArgumentParserSCDG:
 
     def update_tool(self, args, tool_scdg):
         inputs = args.binary
-        if not tool_scdg.print_on:
-            tool_scdg.print_on = args.verbose
+        if not tool_scdg.verbose:
+            tool_scdg.verbose = args.verbose
         tool_scdg.debug_error = args.debug_error
         expl_method = "DFS"   if args.DFS else \
                      ("BFS"   if args.BFS \

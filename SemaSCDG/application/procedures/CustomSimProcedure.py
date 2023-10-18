@@ -235,7 +235,7 @@ class CustomSimProcedure:
         
     }
 
-    def __init__(self, scdg, scdg_fin, string_resolv=True, print_on=True, print_syscall=True):
+    def __init__(self, scdg, scdg_fin, string_resolv=True, verbose=False, print_syscall=True):
         # ch = logging.StreamHandler() # TODO bug duplicate logs
         # ch.setLevel(logging.INFO)
         # ch.setFormatter(CustomFormatter())
@@ -256,7 +256,7 @@ class CustomSimProcedure:
         self.system_call_table = {}
 
         self.string_resolv = string_resolv
-        self.print_on = print_on
+        self.verbose = verbose
 
         self.scdg = scdg  # todo, not elegant
         self.scdg_fin = scdg_fin
@@ -797,14 +797,11 @@ class CustomSimProcedure:
 
         if name == "rt_sigaction" or name == "sigaction":
             state.inspect.simprocedure_result = state.solver.BVV(0, state.arch.bits)
-            # self.log.info("Value of return value changed for sigaction to AVOID problem")
 
         # Get proto of the function
         for key in self.system_call_table.keys():
             if name in self.system_call_table[key]:
                 self.system_call_table[key][name]
-                # if PRINT_ON :
-                #    self.log.info(callee['arguments'])
 
         if n_args > 0 and n_args < len(regs):
             regs = regs[0:n_args]
@@ -916,7 +913,7 @@ class CustomSimProcedure:
 
         if syscall in self.FUNCTION_RETURNS:
             ret = self.FUNCTION_RETURNS[syscall](state)
-            if self.print_on:
+            if self.verbose:
                 self.log.info("return value of " + str(name) + " :" + str(ret))
             dic["ret"] = hex(ret)
         else:
@@ -948,7 +945,7 @@ class CustomSimProcedure:
                 val = val.to_claripy()
 
         except Exception:
-            if self.print_on:
+            if self.verbose:
                 self.log.info("Symbolic value encountered !")
             return value
         return val
@@ -1048,7 +1045,7 @@ class CustomSimProcedure:
                 self.syscall_found[key_name] = self.syscall_found[key_name] + 1
                 
 
-        if name and self.print_on:
+        if name and self.verbose:
             self.log.info("Syscall found:  " + str(name) + str(args))
 
         if self.scdg[id][-1]["name"] == name and args:
