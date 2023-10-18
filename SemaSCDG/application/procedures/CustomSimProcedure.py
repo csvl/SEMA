@@ -267,6 +267,8 @@ class CustomSimProcedure:
         
         self.print_syscall = print_syscall
 
+    
+    # (3) TODO manon: Try to separate the Linux/Windows/Generic logics in different module (for the whole file)
     def init_windows_sim_proc(self):
         # Import all classes under the current directory, and group them based on
         # lib names.
@@ -316,7 +318,7 @@ class CustomSimProcedure:
                             ] = proc
 
         # self.log.info(self.custom_simproc_windows)
-
+    # (3) TODO manon: Try to separate the Linux/Windows/Generic logics in different module
     def init_linux_sim_proc(self):
         self.custom_simproc = {}
         path = os.path.dirname(os.path.abspath(__file__)) + "/linux"
@@ -365,6 +367,16 @@ class CustomSimProcedure:
         return type(name, (angr.SimProcedure,), contains)
 
     def create_lib_procedures(self, dlldict, libname, angrlib):
+        """_summary_
+        TODO CH for manon
+        Args:
+            dlldict (_type_): _description_
+            libname (_type_): _description_
+            angrlib (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
         procedures = {}
         for k, v in dlldict.items():
             name = k
@@ -406,7 +418,14 @@ class CustomSimProcedure:
             procedures.update({name: sp})
         return procedures
 
+    # (3) TODO manon: refactor duplicated code
     def loadlibs_proc(self, dlls_functions, project):
+        """_summary_
+        TODO CH for manon
+        Args:
+            dlls_functions (_type_): _description_
+            project (_type_): _description_
+        """
         symbols = project.loader.symbols
         dic_symbols = {symb.name: symb.rebased_addr for symb in symbols}
         self.log.info(dic_symbols)
@@ -565,7 +584,13 @@ class CustomSimProcedure:
         self.log.info("No hooks for: %s", str(dic_symbols))
         # self.log.info(dic_symbols)
 
+    # (3) TODO manon: refactor duplicated code
     def loadlibs(self, project):
+        """_summary_
+        TODO CH for manon
+        Args:
+            project (_type_): _description_
+        """
         symbols = project.loader.symbols
         dic_symbols = {symb.name: symb.rebased_addr for symb in symbols}
         self.log.info(dic_symbols)
@@ -728,6 +753,8 @@ class CustomSimProcedure:
         self.log.info("No hooks for: %s", str(dic_symbols))
         # self.log.info(dic_symbols)
 
+    # (3) TODO manon: move that to a separate module, configurable eventually
+    # state.inspect.b("simprocedure", when=angr.BP_BEFORE, action=self.call_sim.add_call_debug) in SemaSCDG.py
     def add_call_debug(self, state):
         name = state.inspect.simprocedure_name
         sim_proc = state.inspect.simprocedure
@@ -741,7 +768,20 @@ class CustomSimProcedure:
 
         self.add_SysCall(name, n_args, state)
 
+    # (3) TODO manon: move that to a separate module, always enabled
+    # (2) TODO manon: check correctness of the function with old project version + refactor 
+    # This function create the SCDG based on encounter syscall during execution -> very important for the project
     def add_SysCall(self, syscall, n_args, state):
+        """_summary_
+        TODO CH for manon
+        Args:
+            syscall (_type_): _description_
+            n_args (_type_): _description_
+            state (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
         # global SCDG
         dic = {}
 
@@ -945,7 +985,16 @@ class CustomSimProcedure:
             except:
                 return value
 
+    # (3) TODO manon: move that to a separate module, always enabled
+    # (2) TODO manon: check correctness of the function with old project version + refactor
+    # This function create the SCDG based on encounter syscall during execution -> very important for the project
+    # Similar to add_SysCall but with more information (CH)
     def add_call(self, state):
+        """_summary_
+        TODO CH for manon
+        Args:
+            state (_type_): _description_
+        """
         name = state.inspect.simprocedure_name
         #print(name)
         #dic = {}
@@ -1262,10 +1311,13 @@ class CustomSimProcedure:
             self.scdg[id][-1]["ret"] = ret
         else:
             pass
-
+        
+    # (3) TODO manon: refactor duplicated code
     def custom_hook_static(self, proj):
-        """
-        TODO pre-post + automatization
+        """_summary_
+        TODO CH pre-post + automatization
+        Args:
+            proj (_type_): _description_
         """
         self.log.info("custom_hook_static")
         proj.loader
@@ -1420,7 +1472,13 @@ class CustomSimProcedure:
 
     ["win32", "win_user32", "ntdll", "msvcr", "advapi32"]  # TODO what is it ?
 
+    # (3) TODO manon: refactor duplicated code
     def custom_hook_no_symbols(self, proj):
+        """_summary_
+        TODO CH for manon
+        Args:
+            proj (_type_): _description_
+        """
         self.log.info("custom_hook_no_symbols")
 
         custom_pack = self.custom_simproc["custom_package"]
@@ -1499,7 +1557,13 @@ class CustomSimProcedure:
                     name, generic[str(self.system_call_table[key]["num_args"])]
                 )
 
+    # (3) TODO manon: refactor duplicated code
     def custom_hook_linux_symbols(self, proj):
+        """_summary_
+        TODO CH
+        Args:
+            proj (_type_): _description_
+        """
         # self.ANG_CALLING_CONVENTION = {"__stdcall": SimCCStdcall, "__cdecl": SimCCCdecl}
         self.log.info("custom_hook_linux_symbols")
         proj.loader
@@ -1552,7 +1616,13 @@ class CustomSimProcedure:
                             ](cc=SimCCCdecl(proj.arch)),
                         )
 
+    # (3) TODO manon: refactor duplicated code
     def custom_hook_windows_symbols(self, proj):
+        """_summary_
+        TODO CH
+        Args:
+            proj (_type_): _description_
+        """
         # self.ANG_CALLING_CONVENTION = {"__stdcall": SimCCStdcall, "__cdecl": SimCCCdecl}
         self.log.info("custom_hook_windows_symbols")
         proj.loader
@@ -1686,7 +1756,8 @@ class CustomSimProcedure:
 
                 else:
                     pass
-
+    
+    # (3) TODO manon: move that to a module
     # Break at specific instruction and open debug mode.
     def debug_instr(self, state):
         if state.inspect.instruction == int(
