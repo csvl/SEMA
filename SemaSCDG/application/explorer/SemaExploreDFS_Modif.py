@@ -1,45 +1,34 @@
 #!/usr/bin/env python3
 import monkeyhex  # this will format numerical results in hexadecimal
 import logging
+import sys
 from SemaExplorer import SemaExplorer
+import configparser
 
+config = configparser.ConfigParser()
+config.read('config.ini')
 
-class SemaExplorerBFS(SemaExplorer):
+class SemaExplorerDFS_Modif(SemaExplorer):
     def __init__(
         self,
         simgr,
-        max_length,
         exp_dir,
         nameFileShort,
-        worker,
+        scdg_graph,
+        call_sim
     ):
-        super(SemaExplorerBFS, self).__init__(
+        super(SemaExplorerDFS_Modif, self).__init__(
             simgr,
-            max_length,
             exp_dir,
             nameFileShort,
-            worker.scdg,
-            worker.call_sim,
-            #worker.eval_time,
-            #worker.timeout,
-            #worker.max_end_state,
-            #worker.max_step,
-            #worker.timeout_tab,
-            #worker.jump_it,
-            #worker.loop_counter_concrete,
-            worker.jump_dict,
-            worker.jump_concrete_dict,
-            #worker.max_simul_state,
-            #worker.max_in_pause_stach,
-            #worker.verbose,
-            #worker.print_sm_step,
-            #worker.print_syscall,
-            #worker.debug_error,
+            scdg_graph,
+            call_sim
         )
-        self.log = logging.getLogger("SemaExplorerBFS")
+        self.log = logging.getLogger("SemaExplorerDFS")
         self.log.setLevel("INFO")
-
+        
     def step(self, simgr, stash="active", **kwargs):
+
         try:
             simgr = simgr.step(stash=stash, **kwargs)
         except Exception as inst:
@@ -50,40 +39,34 @@ class SemaExplorerBFS(SemaExplorer):
             # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             self.log.warning(exc_type, exc_obj)
             exit(-1)
-
         super().build_snapshot(simgr)
 
-        if self.print_sm_step and (
+        if self.verbose and (
             len(self.fork_stack) > 0 or len(simgr.deadended) > self.deadended
         ):
             self.log.info(
-                "A new block of execution have been executed with changes in sim_manager.\n"
+                "A new block of execution have been executed with changes in sim_manager."
             )
             self.log.info("Currently, simulation manager is :\n" + str(simgr))
             self.log.info("pause stash len :" + str(len(simgr.stashes["pause"])))
 
-        if self.print_sm_step and len(self.fork_stack) > 0:
-            self.log.info("fork_stack : " + str(len(self.fork_stack)))
-
-        # if self.print_sm_step:
-        #    self.log.info("len(self.loopBreak_stack) : " + str(len(self.loopBreak_stack)))
-        #    self.log.info("state.globals['n_steps'] : " + str(state.globals['n_steps']))
-
+        if self.verbose and len(self.fork_stack) > 0:
+            self.log.info("fork_stack : " + str(len(self.fork_stack)) + " " + hex(simgr.active[0].addr) + " " + hex(simgr.active[1].addr))
+            
         # We detect fork for a state
         super().manage_fork(simgr)
 
+        # Command loop -> not loop over the same command forever
+        #super().remove_loop(simgr)
+        
         # Remove state which performed more jump than the limit allowed
         super().remove_exceeded_jump(simgr)
 
         # Manage ended state
         super().manage_deadended(simgr)
-
+        
         super().mv_bad_active(simgr)
-        # import pdb; pdb.set_trace()
 
-        while simgr.active:
-            simgr.stashes["pause"].append(simgr.active.pop())
-            
         # If limit of simultaneous state is not reached and we have some states available in pause stash
         if len(simgr.stashes["pause"]) > 0 and len(simgr.active) < self.max_simul_state:
             moves = min(
@@ -91,10 +74,10 @@ class SemaExplorerBFS(SemaExplorer):
                 len(simgr.stashes["pause"]),
             )
             for m in range(moves):
-                super().take_smallest(simgr, "pause")
-
+                super().take_longuest(simgr, "pause")
+                    
         super().manage_pause(simgr)
-
+        
         super().drop_excessed_loop(simgr)
 
         # If states end with errors, it is often worth investigating. Set DEBUG_ERROR to live debug
@@ -113,5 +96,5 @@ class SemaExplorerBFS(SemaExplorer):
         super().excessed_loop_to_active(simgr)
 
         super().time_evaluation(simgr)
-
+       
         return simgr

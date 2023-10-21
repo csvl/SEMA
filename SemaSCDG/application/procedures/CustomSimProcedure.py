@@ -1073,7 +1073,7 @@ class CustomSimProcedure:
             #             else:
             #                 args[i] = string
 
-            #             if self.debug_string:
+            #             if self.debug_string: # Rename
             #                 # import pdb
 
             #                 # pdb.set_trace()

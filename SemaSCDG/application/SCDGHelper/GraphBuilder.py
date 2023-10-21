@@ -5,8 +5,6 @@ import os
 import json
 import logging
 
-# from ToolChainWorkerExporer import ROOT_DIR
-
 
 class GraphBuilder:
     def __init__(
@@ -252,9 +250,9 @@ class GraphBuilder:
                     "e " + str(i[0]) + " " + str(node1[0]) + " " + label + "\n"
                 )
 
-    def build_graph(self, SCDG, format_out_json="gs"):
+    def build_graph(self, SCDG, graph_output="gs"):
         json_content = {}
-        if not format_out_json:
+        if graph_output == "gs":
             self.graph_file = open(self.odir + "/final_SCDG.gs", "w")
             self.graph_file.write("t # 0\n")
         else:
@@ -287,7 +285,7 @@ class GraphBuilder:
 
             # Save data parts
             for n in self.tabnode:
-                if format_out_json:
+                if graph_output == "json":
                     # json_content['nodes'].append(n)
                     id_node = n.replace("\n", "").split(" ")[1]
                     node_name = self.nodes[id_node].split(" ")[0]
@@ -303,7 +301,7 @@ class GraphBuilder:
                 else:
                     self.graph_file.write(n)
             for l in self.tablink:
-                if format_out_json:
+                if graph_output == "json":
                     tab_split = l.split(" ")
                     newlink = {
                         "id1": tab_split[1],
@@ -316,7 +314,7 @@ class GraphBuilder:
 
             # dot.render(self.odir+'/SCDG_'+self.name+'.dot', view=False,nslimit=2)
             dot.save(self.odir + "/final_SCDG.gv")
-            if format_out_json:
+            if graph_output == "json":
                 json.dump(json_content, self.graph_file)
         else:
             dot = Digraph(comment="SCDG with disjoint union", format="dot")
@@ -328,7 +326,7 @@ class GraphBuilder:
                     self.build_links(SCDG[i], dot)
 
                     for n in self.tabnode:
-                        if format_out_json:
+                        if graph_output == "json":
                             # json_content['nodes'].append(n)
                             id_node = n.replace("\n", "").split(" ")[1]
                             node_name = self.nodes[id_node].split(" ")[0]
@@ -344,7 +342,7 @@ class GraphBuilder:
                         else:
                             self.graph_file.write(n)
                     for l in self.tablink:
-                        if format_out_json:
+                        if graph_output == "json":
                             tab_split = l.split(" ")
                             newlink = {
                                 "id1": tab_split[1],
@@ -367,7 +365,7 @@ class GraphBuilder:
                     dot.clear()
 
             dot.save(self.odir + "/test-output/disjoint_union.gv")
-            if format_out_json:
+            if graph_output == "json":
                 json.dump(json_content, self.graph_file)
         self.graph_file.close()
         # dot.render('output/test-output/disjoint_union.gv', view=False) # really heavy could crash

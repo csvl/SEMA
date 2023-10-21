@@ -18,6 +18,7 @@ import angr
 import gc
 import pandas as pd
 import logging
+import configparser
 
 from SCDGHelper.GraphBuilder import *
 from procedures.CustomSimProcedure import *
@@ -39,10 +40,11 @@ from explorer.SemaExplorerCBFS import SemaExplorerCBFS
 from explorer.SemaExplorerSDFS import SemaExplorerSDFS
 from explorer.SemaExplorerDBFS import SemaExplorerDBFS
 from explorer.SemaExplorerAnotherCDFS import SemaExplorerAnotherCDFS
+from explorer.SemaExploreDFS_Modif import SemaExplorerDFS_Modif
 from explorer.SemaThreadCDFS import SemaThreadCDFS
 from clogging.CustomFormatter import CustomFormatter
 from clogging.LogBookFormatter import * # TODO
-from SCDGHelper.ArgumentParserSCDG import ArgumentParserSCDG
+#from SCDGHelper.ArgumentParserSCDG import ArgumentParserSCDG
 from sandboxes.CuckooInterface import CuckooInterface
 
 import avatar2 as avatar2
@@ -58,95 +60,58 @@ class SemaSCDG():
     """
     TODO
     """
-
-    BINARY_OEP = None
-    UNPACK_ADDRESS = None  # unpacking address
-    VENV_DETECTED = None   # address for virtual environment obfuscation detection
-    BINARY_EXECUTION_END = None
-    # (2) TODO manon: cleanup the arguments (file config ? + better propagation of the argument to the different classes, ie explorers) 
-    def __init__(
-        self,
-        timeout=600,
-        max_end_state=600,
-        max_step=10000000000000,
-        timeout_tab=[1200, 2400, 3600],
-        jump_it=10000000000000000000000000,
-        loop_counter_concrete=10000000000000000000000000,
-        jump_dict={},
-        jump_concrete_dict={},
-        max_simul_state=1,
-        max_in_pause_stach=500,
-        fast_main=False,
-        force_symbolique_return=False,
-        string_resolv=True,
-        verbose=False,
-        print_sm_step=False,
-        print_syscall=False,
-        debug_error=False,
-        debug_string=False,
-        is_packed=False,
-        concrete_target_is_local = False
-    ):
+    #TODO Christophe : check config files -> good ? 
+    def __init__(self):
+        config = configparser.ConfigParser()
+        config.read('config.ini')
         self.start_time = time.time()
-        self.timeout = timeout  # In seconds
-        self.max_end_state = max_end_state
-        self.max_step = max_step
-        self.timeout_tab = timeout_tab
 
-        # Option relative to loop
-        self.jump_it = jump_it
-        self.loop_counter_concrete = loop_counter_concrete
-        self.jump_dict = jump_dict
-        self.jump_concrete_dict = jump_concrete_dict
+        # TODO Christophe : not proposed in the web app -> add if useful
+        self.fast_main = config['SCDG_arg'].getboolean('fast_main')
 
-        # Options relative to stash management
-        self.max_simul_state = max_simul_state
-        self.max_in_pause_stach = max_in_pause_stach
+        self.verbose = config['SCDG_arg'].getboolean('verbose')
+        self.print_syscall = config['SCDG_arg'].getboolean('print_syscall')
+        self.string_resolve = config['SCDG_arg'].getboolean('string_resolve')
+        self.concrete_target_is_local = config['SCDG_arg'].getboolean('concrete_target_is_local')
+        self.is_packed = config['SCDG_arg'].getboolean('is_packed')
+        self.unpack_mode = config['SCDG_arg']['packing_type']
+        self.keep_inter_scdg = config['SCDG_arg'].getboolean('keep_inter_scdg')
+        self.pre_run_thread = config['SCDG_arg'].getboolean('pre_run_thread')
+        self.post_run_thread = config['SCDG_arg'].getboolean('post_run_thread')
+        self.approximate = config['SCDG_arg'].getboolean('approximate')
+        self.track_command = config['SCDG_arg'].getboolean('track_command')
+        self.ioc_report = config['SCDG_arg'].getboolean('ioc_report')
+        self.hooks_enable = config['SCDG_arg'].getboolean('hooks')
+        self.sim_file = config['SCDG_arg'].getboolean('sim_file')
+        self.count_block = config['SCDG_arg'].getboolean('count_block')
+        self.expl_method = config['SCDG_arg']["expl_method"]
+        self.family = config['SCDG_arg']['family']
+        self.exp_dir = config['SCDG_arg']['exp_dir'] + "/" + self.family
+        self.binary_path = config['SCDG_arg']['binary_path']
+        self.n_args = int(config['SCDG_arg']['n_args'])
+        self.csv_file = config['SCDG_arg']['csv_file']
 
-        self.fast_main = fast_main
-        self.force_symbolique_return = force_symbolique_return
+        self.config = config
 
-        self.verbose = verbose
-        self.print_sm_step = print_sm_step
-        self.print_syscall = print_syscall
-        self.debug_error = debug_error
-        self.debug_string = debug_string
-        
-        self.scdg = []
+        self.scdg_graph = []
         self.scdg_fin = []
-        
         self.new = {}
-                
-        #logging.getLogger("angr").setLevel("WARNING")
-        #logging.getLogger("angr").setLevel("DEBUG")
-        
-        # create console handler with a higher log level
 
         self.call_sim = CustomSimProcedure(
-            self.scdg, self.scdg_fin, 
-            string_resolv=string_resolv, verbose=self.verbose, 
-            print_syscall=print_syscall
+            self.scdg_graph, self.scdg_fin, 
+            string_resolv=self.string_resolve, verbose=self.verbose, 
+            print_syscall=self.print_syscall
         )
         
         self.hooks = PluginHooks()
         self.commands = PluginCommands()
         self.ioc = PluginIoC()
-        self.eval_time = False
         
         self.families = []
-        self.inputs = None
-        self.expl_method = None
-        self.family = None
         
         self.nb_exps = 0
         self.current_exps = 0
         self.current_exp_dir = 0
-        self.keep_inter_scdg = False
-        
-        self.unpack_mode = None
-        self.is_packed = is_packed
-        self.concrete_target_is_local = concrete_target_is_local
-        
 
     #Save the configuration of the experiment in a json file
     def save_conf(self, path):
@@ -162,77 +127,106 @@ class SemaSCDG():
         with open(os.path.join(path, "scdg_conf.json"), "w") as f:
             json.dump(attributes, f, indent=4)
 
+    #Check if the csv file exists, if not, create and return a Dataframe
+    def setup_csv(self):
+        try:
+            df = pd.read_csv(self.csv_file,sep=";")
+            self.log.info(df)
+        except:
+            df = pd.DataFrame(
+                columns=["family",
+                            "filename", 
+                            "time",
+                            "date",
+                            "Syscall found", 
+                            "EnvVar found",
+                            "Locale found",
+                            "Resources found",
+                            "Registry found",
+                            "Address found", 
+                            "Libraries",
+                            "OS",
+                            "CPU architecture",
+                            "Entry point",
+                            "Min/Max addresses",
+                            "Stack executable",
+                            "Binary position-independent",
+                            "Total number of blocks",
+                            "Total number of instr",
+                            "Number of blocks visited",
+                            "Number of instr visited",
+                            ]) # TODO add frame type
+        return df
+    
+    def save_to_csv(self, df, proj, stats):
+        to_append = pd.DataFrame({"family":self.family,
+                    "filename": stats["nameFileShort"], 
+                    "time": stats["elapsed_time"],
+                    "date":datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    
+                    "Syscall found": json.dumps(self.call_sim.syscall_found),  # (3) TODO manon: with the configuration of plugins, verify that the plugin is enable before 
+                    "EnvVar found": json.dumps(stats["total_env_var"]), 
+                    "Locale found": json.dumps(stats["total_locale"]), 
+                    "Resources found": json.dumps(stats["total_res"]), 
+                    "Registry found": json.dumps(stats["total_registery"]), 
+                    
+                    "Number Address found": 0, 
+                    "Number Syscall found": len(self.call_sim.syscall_found), 
+                    "Libraries":str(proj.loader.requested_names),
+                    "OS": proj.loader.main_object.os,
+                    "CPU architecture": proj.loader.main_object.arch.name,
+                    "Entry point": proj.loader.main_object.entry,
+                    "Min/Max addresses": str(proj.loader.main_object.mapped_base) + "/" + str(proj.loader.main_object.max_addr),
+                    "Stack executable": proj.loader.main_object.execstack,
+                    "Binary position-independent:": proj.loader.main_object.pic,
+                    "Total number of blocks": stats["nbblocks"],
+                    "Total number of instr": stats["nbinstr"],
+                    "Number of blocks visited": len(stats["block_dict"]),
+                    "Number of instr visited": len(stats["instr_dict"]),
+                }, index=[1])
+        df = pd.concat([df, to_append], ignore_index=True)
+        self.log.info(self.csv_file)
+        df.to_csv(self.exp_dir + self.csv_file, index=False,sep=";")
 
-    def build_scdg(self, args, is_fl=False, csv_file=None):
+
+    def build_scdg(self):
         # Create directory to store SCDG if it doesn't exist
-        self.scdg.clear()
+        self.scdg_graph.clear()
         self.scdg_fin.clear()
         self.call_sim.syscall_found.clear()
         self.call_sim.system_call_table.clear()
+        stats = dict()
         
         # TODO check if PE file get /GUARD option (VS code) with leaf
         
         self.start_time = time.time()
-        # (3) TODO manon: make it works with new version of pandas
-        if csv_file:
-            try:
-                df = pd.read_csv(csv_file,sep=";")
-                self.log.info(df)
-            except:
-                df = pd.DataFrame(
-                    columns=["family",
-                             "filename", 
-                             "time",
-                             "date",
-                             "Syscall found", 
-                             "EnvVar found",
-                             "Locale found",
-                             "Resources found",
-                             "Registry found",
-                             "Address found", 
-                             "Libraries",
-                             "OS",
-                             "CPU architecture",
-                             "Entry point",
-                             "Min/Max addresses",
-                             "Stack executable",
-                             "Binary position-independent",
-                             "Total number of blocks",
-                             "Total number of instr",
-                             "Number of blocks visited",
-                             "Number of instr visited",
-                             ]) # TODO add frame type
+
+        df = None
+        if self.csv_file != "":
+            df = self.setup_csv()
         
-        exp_dir = "database/SCDG/runs/" + args.exp_dir + "/"
-        nargs = args.n_args
-        disjoint_union = args.disjoint_union
-        not_comp_args = args.not_comp_args
-        min_size = args.min_size
-        not_ignore_zero = args.not_ignore_zero
-        three_edges = args.three_edges
-        verbose = args.verbose_scdg
-        format_out_json = args.json # TODO refactor if we add more 
-        self.keep_inter_scdg = args.keep_inter_SCDG
+        self.exp_dir = "database/SCDG/runs/" + self.exp_dir + "/"
         try:
-            os.makedirs(exp_dir)
+            os.makedirs(self.exp_dir)
         except:
             self.log.warning("The specified output directory already exists and can contain files from previous experiment")
             
         
-        self.save_conf(exp_dir)
+        self.save_conf(self.exp_dir)
         #self.save_conf(vars(args), exp_dir) #todo -> Add 1 argument in save_conf + modify -> it gives different information about the conf
 
         # Take name of the sample without full path
-        self.log.info("Results wil be saved into : " + exp_dir)
-        if "/" in self.inputs:
-            nameFileShort = self.inputs.split("/")[-1]
+        self.log.info("Results wil be saved into : " + self.exp_dir)
+        if "/" in self.binary_path:
+            nameFileShort = self.binary_path.split("/")[-1]
         else:
-            nameFileShort = self.inputs
+            nameFileShort = self.binary_path
+        stats["nameFileShort"] = nameFileShort
         try:
-            os.stat(exp_dir + nameFileShort)
+            os.stat(self.exp_dir + nameFileShort)
         except:
-            os.makedirs(exp_dir + nameFileShort)
-        fileHandler = logging.FileHandler(exp_dir + nameFileShort + "/" + "scdg.ans")
+            os.makedirs(self.exp_dir + nameFileShort)
+        fileHandler = logging.FileHandler(self.exp_dir + nameFileShort + "/" + "scdg.ans")
         fileHandler.setFormatter(CustomFormatter())
         #logging.getLogger().handlers.clear()
         try:
@@ -242,9 +236,8 @@ class SemaSCDG():
             pass
         
         logging.getLogger().addHandler(fileHandler)
-        #self.log.info(csv_file)
 
-        exp_dir = exp_dir + nameFileShort + "/"
+        self.exp_dir = self.exp_dir + nameFileShort + "/"
         
         title = "--- Building SCDG of " + self.family  +"/" + nameFileShort  + " ---"
         self.log.info("\n" + "-" * len(title) + "\n" + title + "\n" + "-" * len(title))
@@ -259,7 +252,7 @@ class SemaSCDG():
         # Load a binary into a project = control base
         proj = None
         cuckoo = None
-        if self.is_packed and self.unpack_mode == "symbion":
+        if self.is_packed and self.packing_type == "symbion":
             # nameFile = os.path.join(os.path.dirname(os.path.realpath(__file__)),
             #                               os.path.join('..', 'binaries',
             #                               'tests','x86_64',
@@ -381,7 +374,7 @@ class SemaSCDG():
             #for obj in proj.loader.all_objects:
             #    print(obj)
             #exit()
-        elif self.is_packed and self.unpack_mode == "unipacker":
+        elif self.is_packed and self.packing_type == "unipacker":
             try:
                 unpacker_heartbeat = RepeatedTimer(120, print, "- still running -", file=sys.stderr)
                 event = threading.Event()
@@ -407,8 +400,8 @@ class SemaSCDG():
                     # arch="",
                 )
             except InvalidPEFile as e:
-                self.unpack_mode = "symbion"
-                self.build_scdg(args, nameFile, self.expl_method)
+                self.packing_type = "symbion"
+                self.build_scdg(nameFile)
                 return
         else:  
             # if nameFile.endswith(".bin") or nameFile.endswith(".dmp"):
@@ -480,7 +473,7 @@ class SemaSCDG():
             dll = None
             main_opt = {"entry_point": 0x401500} # 0x4014e0
             proj = angr.Project(
-                    self.inputs,
+                    self.binary_path,
                     use_sim_procedures=True,
                     load_options={
                         "auto_load_libs": True,
@@ -491,7 +484,7 @@ class SemaSCDG():
                     #main_opts=main_opt,
                     #simos = "windows"if nameFile.endswith(".bin") or nameFile.endswith(".dmp") else None
                     # arch="",
-                    default_analysis_mode="symbolic" if not args.approximate else "symbolic_approximating",
+                    default_analysis_mode="symbolic" if not self.approximate else "symbolic_approximating",
             )
 
         # Getting from a binary file to its representation in a virtual address space
@@ -502,7 +495,7 @@ class SemaSCDG():
         nbblocks = 0
         vaddr = 0
         memsize = 0
-        if args.count_block:
+        if self.count_block:
             # count total number of blocks and instructions
             for sec in main_obj.sections:
                 name = sec.name.replace("\x00", "")
@@ -520,7 +513,8 @@ class SemaSCDG():
                     nbblocks -= 1
                 else:
                     i += len(block.bytes)
-            
+        stats["nbblocks"] = nbblocks  
+        stats["nbinstr"] = nbinstr 
             
         # Informations about program
         if self.verbose:
@@ -541,8 +535,8 @@ class SemaSCDG():
 
         # Defining arguments given to the program (minimum is filename)
         args_binary = [nameFileShort] 
-        if args.n_args:
-            for i in range(args.n_args):
+        if self.n_args:
+            for i in range(self.n_args):
                 args_binary.append(claripy.BVS("arg" + str(i), 8 * 16))
 
         # Load pre-defined syscall table
@@ -596,7 +590,7 @@ class SemaSCDG():
         # options.add(angr.options.UNICORN)
         # options.add(angr.options.UNICORN_SYM_REGS_SUPPORT)
         # options.add(angr.options.UNICORN_HANDLE_TRANSMIT_SYSCALL)
-        if self.debug_error:
+        if self.verbose:
             pass
             # options.add(angr.options.TRACK_JMP_ACTIONS)
             # options.add(angr.options.TRACK_CONSTRAINT_ACTIONS)
@@ -610,8 +604,8 @@ class SemaSCDG():
         # import pdb
         # pdb.set_trace()
         cont = ""
-        if args.sim_file:
-            with open_file(self.inputs, "rb") as f:
+        if self.sim_file:
+            with open_file(self.binary_path, "rb") as f:
                 cont = f.read()
             simfile = angr.SimFile(nameFileShort, content=cont)
             state.fs.insert(nameFileShort, simfile)
@@ -619,7 +613,7 @@ class SemaSCDG():
             state.fs.insert("pagefile.sys", pagefile)
         
         state.options.discard("LAZY_SOLVES") 
-        if not (self.is_packed and self.unpack_mode == "symbion") or True:
+        if not (self.is_packed and self.packing_type == "symbion") or True:
             state.register_plugin(
                 "heap", 
                 angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc(heap_size=0x10000000)
@@ -644,18 +638,17 @@ class SemaSCDG():
         
         state.register_plugin("plugin_atom", PluginAtom())  
         
-        state.register_plugin("plugin_thread", PluginThread(self, exp_dir, proj, nameFileShort, options, args))
+        state.register_plugin("plugin_thread", PluginThread(self, self.exp_dir, proj, nameFileShort, options))
         
         # Create ProcessHeap struct and set heapflages to 0
+        tib_addr = state.regs.fs.concat(state.solver.BVV(0, 16))
         if proj.arch.name == "AMD64":
-            tib_addr = state.regs.fs.concat(state.solver.BVV(0, 16))
             peb_addr = state.mem[tib_addr + 0x60].qword.resolved
             ProcessHeap = peb_addr + 0x500 #0x18
             state.mem[peb_addr + 0x10].qword = ProcessHeap
             state.mem[ProcessHeap + 0x18].dword = 0x0 # heapflags windowsvistaorgreater
             state.mem[ProcessHeap + 0x70].dword = 0x0 # heapflags else
         else:
-            tib_addr = state.regs.fs.concat(state.solver.BVV(0, 16))
             peb_addr = state.mem[tib_addr + 0x30].dword.resolved
             ProcessHeap = peb_addr + 0x500
             state.mem[peb_addr + 0x18].dword = ProcessHeap
@@ -697,13 +690,13 @@ class SemaSCDG():
         else:
             self.call_sim.custom_hook_windows_symbols(proj)  #TODO ue if (self.is_packed and False) else False,symbs)
 
-        if args.hooks:
+        if self.hooks_enable:
             self.hooks.initialization(cont, is_64bits=True if proj.arch.name == "AMD64" else False)
             self.hooks.hook(state,proj,self.call_sim)
                 
         # Creation of simulation managerinline_call, primary interface in angr for performing execution
         
-        nthread = None if args.sthread <= 1 else args.sthread # TODO not working -> implement state_step
+        nthread = None #if args.sthread <= 1 else args.sthread # TODO not working -> implement state_step
         simgr = proj.factory.simulation_manager(state,threads=nthread)
         
         dump_file = {}
@@ -734,15 +727,15 @@ class SemaSCDG():
                 
         # Improved "Break point"
         
-        if args.pre_run_thread:
-            state.plugin_thread.pre_run_thread(cont, self.inputs)
+        if self.pre_run_thread:
+            state.plugin_thread.pre_run_thread(cont, self.binary_path)
                 
         state.inspect.b("simprocedure", when=angr.BP_AFTER, action=self.call_sim.add_call)
         state.inspect.b("simprocedure", when=angr.BP_BEFORE, action=self.call_sim.add_call_debug)
         state.inspect.b("call", when=angr.BP_BEFORE, action=self.call_sim.add_addr_call)
         state.inspect.b("call", when=angr.BP_AFTER, action=self.call_sim.rm_addr_call)
         
-        if args.count_block:
+        if self.count_block:
             state.inspect.b("instruction",when=angr.BP_BEFORE, action=nothing)
             state.inspect.b("instruction",when=angr.BP_AFTER, action=count)
             state.inspect.b("irsb",when=angr.BP_BEFORE, action=countblock)
@@ -750,17 +743,13 @@ class SemaSCDG():
         # TODO : make plugins out of these globals values
         # Globals is a simple dict already managed by Angr which is deeply copied from states to states
         
-        self.setup_stash(simgr) 
-        if args.runtime_run_thread:
-            simgr.active[0].globals["is_thread"] = True
-        
         # (3) TODO manon: move that but as serena purposes car je ne sais pas ahah
         for sec in main_obj.sections:
             name = sec.name.replace("\x00", "")
             if name == ".rsrc":
                 simgr.active[0].globals["rsrc"] = sec.vaddr
         
-        self.scdg.append(
+        self.scdg_graph.append(
             [
                 {
                     "name": "main",
@@ -772,43 +761,7 @@ class SemaSCDG():
             ]
         )
 
-        self.jump_dict[0] = {}
-        self.jump_concrete_dict[0] = {}
-
-        # The stash where states are moved to wait
-        # until some space becomes available in Active stash.
-        # The size of the space in this stash is a parameter of
-        # the toolchain. If new states appear and there is no
-        # space available in the Pause stash, some states are
-        # dropped.
-        simgr.stashes["pause"] = []
-
-        # The stash where states leading to new
-        # instruction addresses (not yet explored) of the binary
-        # are kept. If CDFS or CBFS are not used, this stash
-        # merges with the pause stash.
-        simgr.stashes["new_addr"] = []
-
-        # The stash where states exceeding the
-        # threshold related to number of steps are moved. If
-        # new states are needed and there is no state available
-        # in pause stash, states in this stash are used to resume
-        # exploration (their step counter are put back to zero).
-        simgr.stashes["ExcessLoop"] = []
-
-        # The stash where states which exceed the
-        # threshold related to loops are moved. If new states
-        # are needed and there is no state available in pause
-        # or ExcessStep stash, states in this stash are used to
-        # resume exploration (their loop counter are put back
-        # to zero).
-        simgr.stashes["ExcessStep"] = []
-        
-        simgr.stashes["deadbeef"] = []
-        
-        simgr.stashes["lost"] = []
-        
-        exploration_tech = self.get_exploration_tech(args, exp_dir, nameFileShort, simgr)
+        exploration_tech = self.get_exploration_tech(nameFileShort, simgr)
         
         self.log.info(proj.loader.all_pe_objects)
         self.log.info(proj.loader.extern_object)
@@ -830,10 +783,10 @@ class SemaSCDG():
             + "\n------------------------------"
         )
         
-        if args.post_run_thread:
+        if self.post_run_thread:
             state.plugin_thread.post_run_thread(simgr)
         
-        if args.count_block:
+        if self.count_block:
             self.log.info("Total number of blocks: " + str(nbblocks))
             self.log.info("Total number of instr: " + str(nbinstr))
             self.log.info("Number of blocks visited: " + str(len(block_dict)))
@@ -843,12 +796,16 @@ class SemaSCDG():
         self.log.info("Loaded libraries:" + str(proj.loader.requested_names))
         
         total_env_var = state.plugin_env_var.ending_state(simgr)
+        stats["total_env_var"] = total_env_var
                     
         total_registery = state.plugin_registery.ending_state(simgr)
+        stats["total_registery"] = total_registery
                     
         total_locale = state.plugin_locale_info.ending_state(simgr)
+        stats["total_locale"] = total_locale
                     
         total_res = state.plugin_resources.ending_state(simgr)
+        stats["total_res"] = total_res
                     
         self.log.info("Environment variables:" + str(total_env_var))
         self.log.info("Registery variables:" + str(total_registery))
@@ -856,259 +813,202 @@ class SemaSCDG():
         self.log.info("Resources variables:" + str(total_res))
         
         elapsed_time = time.time() - self.start_time
+        stats["elapsed_time"] = elapsed_time
         self.log.info("Total execution time: " + str(elapsed_time))
         
-        if args.track_command:
-            self.commands.track(simgr, self.scdg, exp_dir)
-        if args.ioc_report:
-            self.ioc.build_ioc(self.scdg, exp_dir)
+        if self.track_command:
+            self.commands.track(simgr, self.scdg_graph, self.exp_dir)
+        if self.ioc_report:
+            self.ioc.build_ioc(self.scdg_graph, self.exp_dir)
         # Build SCDG
-        self.log.info(exp_dir)
-        self.build_scdg_fin(exp_dir, nameFileShort, main_obj, state, simgr)
+        self.log.info(self.exp_dir)
+        self.build_scdg_fin(nameFileShort, main_obj, state, simgr)
         
         g = GraphBuilder(
             name=nameFileShort,
             mapping="mapping.txt", # (2) TODO manon: make this configurable, i propose a mapping file with the name of the binary and the absolute path to avoid errors
-            merge_call=(not disjoint_union),
-            comp_args=(not not_comp_args),
-            min_size=min_size,
-            ignore_zero=(not not_ignore_zero),
-            three_edges=three_edges,
-            odir=exp_dir,
-            verbose=verbose,
+            merge_call=(not self.config['build_graph_arg'].getboolean('disjoint_union')),
+            comp_args=(not self.config['build_graph_arg'].getboolean('not_comp_args')),
+            min_size=int(self.config['build_graph_arg']['min_size']),
+            ignore_zero=(not self.config['build_graph_arg'].getboolean('not_ignore_zero')),
+            three_edges=self.config['build_graph_arg'].getboolean('three_edges'),
+            odir=self.exp_dir,
+            verbose=self.verbose,
             family=self.family
         )
-        g.build_graph(self.scdg_fin, format_out_json=format_out_json)
+        g.build_graph(self.scdg_fin, graph_output=self.config['build_graph_arg']['graph_output'])
         
-        # (3) TODO manon: make this work with new version of pandas :(
-        if csv_file:
-            df = df.concat({"family":self.family,
-                            "filename": nameFileShort, 
-                             "time": elapsed_time,
-                             "date":datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                             
-                             "Syscall found": json.dumps(self.call_sim.syscall_found),  # (3) TODO manon: with the configuration of plugins, verify that the plugin is enable before 
-                             "EnvVar found": json.dumps(total_env_var), 
-                             "Locale found": json.dumps(total_locale), 
-                             "Resources found": json.dumps(total_res), 
-                             "Registry found": json.dumps(total_registery), 
-                             
-                             "Number Address found": 0, 
-                             "Number Syscall found": len(self.call_sim.syscall_found), 
-                             "Libraries":str(proj.loader.requested_names),
-                             "OS": proj.loader.main_object.os,
-                             "CPU architecture": proj.loader.main_object.arch.name,
-                             "Entry point": proj.loader.main_object.entry,
-                             "Min/Max addresses": str(proj.loader.main_object.mapped_base) + "/" + str(proj.loader.main_object.max_addr),
-                             "Stack executable": proj.loader.main_object.execstack,
-                             "Binary position-independent:": proj.loader.main_object.pic,
-                             "Total number of blocks": nbblocks,
-                             "Total number of instr": nbinstr,
-                             "Number of blocks visited": len(block_dict),
-                             "Number of instr visited": len(instr_dict),
-                            }, 
-                           ignore_index=True)
-            self.log.info(csv_file)
-            df.to_csv(csv_file, index=False,sep=";")
+        if df is not None:
+            stats["block_dict"] = block_dict
+            stats["instr_dict"] = instr_dict
+            self.save_to_csv(df, proj=proj, stats=stats)
+
         logging.getLogger().removeHandler(fileHandler)
 
-    def get_exploration_tech(self, args, exp_dir, nameFileShort, simgr):
-        exploration_tech = SemaExplorerDFS(
-            simgr, 0, exp_dir, nameFileShort, self
+    def get_exploration_tech(self, nameFileShort, simgr):
+        # exploration_tech = SemaExplorerDFS(
+        #     simgr, 0, self.exp_dir, nameFileShort, self
+        # )
+        # if self.expl_method == "CDFS":
+        #     exploration_tech = SemaExplorerCDFS(
+        #         simgr, 0, self.exp_dir, nameFileShort, self
+        #     )
+        # elif self.expl_method == "CBFS":
+        #     exploration_tech = SemaExplorerCBFS(
+        #         simgr, 0, self.exp_dir, nameFileShort, self
+        #     )
+        # elif self.expl_method == "BFS":
+        #     exploration_tech = SemaExplorerBFS(
+        #         simgr, 0, self.exp_dir, nameFileShort, self
+        #     )
+        # elif self.expl_method == "SCDFS":
+        #     exploration_tech = SemaExplorerAnotherCDFS(
+        #         simgr, 0, self.exp_dir, nameFileShort, self
+        #     )
+        # elif self.expl_method == "DBFS":
+        #     exploration_tech = SemaExplorerDBFS(
+        #         simgr, 0, self.exp_dir, nameFileShort, self
+        #     )
+        # elif self.expl_method == "SDFS":
+        #     exploration_tech = SemaExplorerSDFS(
+        #         simgr, 0, self.exp_dir, nameFileShort, self
+        #     )
+        # elif self.expl_method == "ThreadCDFS":
+        #     exploration_tech = SemaThreadCDFS(
+        #         simgr, 0, self.exp_dir, nameFileShort, self
+        #     )
+
+        exploration_tech = SemaExplorerDFS_Modif(
+            simgr, self.exp_dir, nameFileShort, self.scdg_graph, self.call_sim
         )
-        if self.expl_method == "CDFS":
-            exploration_tech = SemaExplorerCDFS(
-                simgr, 0, exp_dir, nameFileShort, self
-            )
-        elif self.expl_method == "CBFS":
-            exploration_tech = SemaExplorerCBFS(
-                simgr, 0, exp_dir, nameFileShort, self
-            )
-        elif self.expl_method == "BFS":
-            exploration_tech = SemaExplorerBFS(
-                simgr, 0, exp_dir, nameFileShort, self
-            )
-        elif self.expl_method == "SCDFS":
-            exploration_tech = SemaExplorerAnotherCDFS(
-                simgr, 0, args.exp_dir, nameFileShort, self
-            )
-        elif self.expl_method == "DBFS":
-            exploration_tech = SemaExplorerDBFS(
-                simgr, 0, args.exp_dir, nameFileShort, self
-            )
-        elif self.expl_method == "SDFS":
-            exploration_tech = SemaExplorerSDFS(
-                simgr, 0, args.exp_dir, nameFileShort, self
-            )
-        elif self.expl_method == "ThreadCDFS":
-            exploration_tech = SemaThreadCDFS(
-                simgr, 0, args.exp_dir, nameFileShort, self
-            )
             
         return exploration_tech
 
 
-    def setup_stash(self, tsimgr):
-        tsimgr.active[0].globals["id"] = 0
-        tsimgr.active[0].globals["JumpExcedeed"] = False
-        tsimgr.active[0].globals["JumpTable"] = {}
-        tsimgr.active[0].globals["n_steps"] = 0
-        tsimgr.active[0].globals["n_forks"] = 0
-        tsimgr.active[0].globals["last_instr"] = 0
-        tsimgr.active[0].globals["counter_instr"] = 0
-        tsimgr.active[0].globals["loaded_libs"] = {}
-        tsimgr.active[0].globals["addr_call"] = []
-        tsimgr.active[0].globals["loop"] = 0
-        tsimgr.active[0].globals["crypt_algo"] = 0
-        tsimgr.active[0].globals["crypt_result"] = 0
-        tsimgr.active[0].globals["n_buffer"] = 0
-        tsimgr.active[0].globals["n_calls"] = 0
-        tsimgr.active[0].globals["recv"] = 0
-        tsimgr.active[0].globals["rsrc"] = 0
-        tsimgr.active[0].globals["resources"] = {}
-        tsimgr.active[0].globals["df"] = 0
-        tsimgr.active[0].globals["files"] = {}
-        tsimgr.active[0].globals["n_calls_recv"] = 0
-        tsimgr.active[0].globals["n_calls_send"] = 0
-        tsimgr.active[0].globals["n_buffer_send"] = 0
-        tsimgr.active[0].globals["buffer_send"] = []
-        tsimgr.active[0].globals["files"] = {}
-        tsimgr.active[0].globals["FindFirstFile"] = 0
-        tsimgr.active[0].globals["FindNextFile"] = 0
-        tsimgr.active[0].globals["GetMessageA"] = 0
-        tsimgr.active[0].globals["GetLastError"] = claripy.BVS("last_error", 32)
-        tsimgr.active[0].globals["HeapSize"] = {}
-        tsimgr.active[0].globals["CreateThread"] = 0
-        tsimgr.active[0].globals["CreateRemoteThread"] = 0
-        tsimgr.active[0].globals["condition"] = ""
-        tsimgr.active[0].globals["files_fd"] = {}
-        tsimgr.active[0].globals["create_thread_address"] = []
-        tsimgr.active[0].globals["is_thread"] = False
-        tsimgr.active[0].globals["recv"] = 0
-        tsimgr.active[0].globals["allow_web_interaction"] = False
+
         
 
-    def build_scdg_fin(self, exp_dir, nameFileShort, main_obj, state, simgr):
+    def build_scdg_fin(self, nameFileShort, main_obj, state, simgr):
         dump_file = {}
         dump_id = 0
         dic_hash_SCDG = {}
         # (3) TODO manon: refactor if time, a litle bit ugly now :(
         # Add all traces with relevant content to graph construction
         for stateDead in simgr.deadended:
-            hashVal = hash(str(self.scdg[stateDead.globals["id"]]))
+            hashVal = hash(str(self.scdg_graph[stateDead.globals["id"]]))
             if hashVal not in dic_hash_SCDG:
                 dic_hash_SCDG[hashVal] = 1
                 dump_file[dump_id] = {
-                    "status": "deadendend",
-                    "trace": self.scdg[stateDead.globals["id"]],
+                    "status": "deadended",
+                    "trace": self.scdg_graph[stateDead.globals["id"]],
                 }
                 dump_id = dump_id + 1
-                self.scdg_fin.append(self.scdg[stateDead.globals["id"]])
+                self.scdg_fin.append(self.scdg_graph[stateDead.globals["id"]])
 
         for state in simgr.active:
-            hashVal = hash(str(self.scdg[state.globals["id"]]))
+            hashVal = hash(str(self.scdg_graph[state.globals["id"]]))
             if hashVal not in dic_hash_SCDG:
                 dic_hash_SCDG[hashVal] = 1
                 dump_file[dump_id] = {
                     "status": "active",
-                    "trace": self.scdg[state.globals["id"]],
+                    "trace": self.scdg_graph[state.globals["id"]],
                 }
                 dump_id = dump_id + 1
-                self.scdg_fin.append(self.scdg[state.globals["id"]])
+                self.scdg_fin.append(self.scdg_graph[state.globals["id"]])
 
         for error in simgr.errored:
-            hashVal = hash(str(self.scdg[error.state.globals["id"]]))
+            hashVal = hash(str(self.scdg_graph[error.state.globals["id"]]))
             if hashVal not in dic_hash_SCDG:
                 dic_hash_SCDG[hashVal] = 1
                 dump_file[dump_id] = {
                     "status": "errored",
-                    "trace": self.scdg[error.state.globals["id"]],
+                    "trace": self.scdg_graph[error.state.globals["id"]],
                 }
                 dump_id = dump_id + 1
-                self.scdg_fin.append(self.scdg[error.state.globals["id"]])
+                self.scdg_fin.append(self.scdg_graph[error.state.globals["id"]])
 
         for state in simgr.pause:
-            hashVal = hash(str(self.scdg[state.globals["id"]]))
+            hashVal = hash(str(self.scdg_graph[state.globals["id"]]))
             if hashVal not in dic_hash_SCDG:
                 dic_hash_SCDG[hashVal] = 1
                 dump_file[dump_id] = {
                     "status": "pause",
-                    "trace": self.scdg[state.globals["id"]],
+                    "trace": self.scdg_graph[state.globals["id"]],
                 }
                 dump_id = dump_id + 1
-                self.scdg_fin.append(self.scdg[state.globals["id"]])
+                self.scdg_fin.append(self.scdg_graph[state.globals["id"]])
 
         for state in simgr.stashes["ExcessLoop"]:
-            hashVal = hash(str(self.scdg[state.globals["id"]]))
+            hashVal = hash(str(self.scdg_graph[state.globals["id"]]))
             if hashVal not in dic_hash_SCDG:
                 dic_hash_SCDG[hashVal] = 1
                 dump_file[dump_id] = {
                     "status": "ExcessLoop",
-                    "trace": self.scdg[state.globals["id"]],
+                    "trace": self.scdg_graph[state.globals["id"]],
                 }
                 dump_id = dump_id + 1
-                self.scdg_fin.append(self.scdg[state.globals["id"]])
+                self.scdg_fin.append(self.scdg_graph[state.globals["id"]])
 
         for state in simgr.stashes["ExcessStep"]:
-            hashVal = hash(str(self.scdg[state.globals["id"]]))
+            hashVal = hash(str(self.scdg_graph[state.globals["id"]]))
             if hashVal not in dic_hash_SCDG:
                 dic_hash_SCDG[hashVal] = 1
                 dump_file[dump_id] = {
                     "status": "ExcessStep",
-                    "trace": self.scdg[state.globals["id"]],
+                    "trace": self.scdg_graph[state.globals["id"]],
                 }
                 dump_id = dump_id + 1
-                self.scdg_fin.append(self.scdg[state.globals["id"]])
+                self.scdg_fin.append(self.scdg_graph[state.globals["id"]])
 
         for state in simgr.unconstrained:
-            hashVal = hash(str(self.scdg[state.globals["id"]]))
+            hashVal = hash(str(self.scdg_graph[state.globals["id"]]))
             if hashVal not in dic_hash_SCDG:
                 dic_hash_SCDG[hashVal] = 1
                 dump_file[dump_id] = {
                     "status": "unconstrained",
-                    "trace": self.scdg[state.globals["id"]],
+                    "trace": self.scdg_graph[state.globals["id"]],
                 }
                 dump_id = dump_id + 1
-                self.scdg_fin.append(self.scdg[state.globals["id"]])
+                self.scdg_fin.append(self.scdg_graph[state.globals["id"]])
                 
         for state in simgr.stashes["new_addr"]:
-            hashVal = hash(str(self.scdg[state.globals["id"]]))
+            hashVal = hash(str(self.scdg_graph[state.globals["id"]]))
             if hashVal not in dic_hash_SCDG:
                 dic_hash_SCDG[hashVal] = 1
                 dump_file[dump_id] = {
                     "status": "new_addr",
-                    "trace": self.scdg[state.globals["id"]],
+                    "trace": self.scdg_graph[state.globals["id"]],
                 }
                 dump_id = dump_id + 1
-                self.scdg_fin.append(self.scdg[state.globals["id"]])
+                self.scdg_fin.append(self.scdg_graph[state.globals["id"]])
                 
         for state in simgr.stashes["deadbeef"]:
-            hashVal = hash(str(self.scdg[state.globals["id"]]))
+            hashVal = hash(str(self.scdg_graph[state.globals["id"]]))
             if hashVal not in dic_hash_SCDG:
                 dic_hash_SCDG[hashVal] = 1
                 dump_file[dump_id] = {
                     "status": "deadbeef",
-                    "trace": self.scdg[state.globals["id"]],
+                    "trace": self.scdg_graph[state.globals["id"]],
                 }
                 dump_id = dump_id + 1
-                self.scdg_fin.append(self.scdg[state.globals["id"]])
+                self.scdg_fin.append(self.scdg_graph[state.globals["id"]])
                 
         for state in simgr.stashes["lost"]:
-            hashVal = hash(str(self.scdg[state.globals["id"]]))
+            hashVal = hash(str(self.scdg_graph[state.globals["id"]]))
             if hashVal not in dic_hash_SCDG:
                 dic_hash_SCDG[hashVal] = 1
                 dump_file[dump_id] = {
                     "status": "lost",
-                    "trace": self.scdg[state.globals["id"]],
+                    "trace": self.scdg_graph[state.globals["id"]],
                 }
                 dump_id = dump_id + 1
-                self.scdg_fin.append(self.scdg[state.globals["id"]])
+                self.scdg_fin.append(self.scdg_graph[state.globals["id"]])
                 
         self.print_memory_info(main_obj, dump_file)
         
         if self.keep_inter_scdg:
             # self.log.info(dump_file)
-            ofilename = exp_dir  + "inter_SCDG.json"
+            ofilename = self.exp_dir  + "inter_SCDG.json"
             self.log.info(ofilename)
             list_obj = []
             # Check if file exists
@@ -1136,16 +1036,16 @@ class SemaSCDG():
             self.log.info(name)
             self.log.info(dump_file["sections"][name])
 
-    def start_scdg(self, args, is_fl=False,csv_file=None):
+    def start_scdg(self):
         sys.setrecursionlimit(10000)
         gc.collect()
         
-        self.inputs = "".join(self.inputs.rstrip())
+        self.binary_path = "".join(self.binary_path.rstrip())
         self.nb_exps = 0
         self.current_exps = 0
         
         # (3) TODO manon: make this configurable, different level of logging
-        if args.verbose_scdg:
+        if self.verbose:
             logging.getLogger("SemaSCDG").handlers.clear()
             ch = logging.StreamHandler()
             ch.setLevel(logging.INFO)
@@ -1169,18 +1069,18 @@ class SemaSCDG():
 
         # soft, hard = resource.getrlimit(rsrc)
         # self.log.info('Soft limit changed to :', soft)
-        if os.path.isfile(self.inputs):
+        if os.path.isfile(self.binary_path):
             self.nb_exps = 1
             # TODO update family
-            self.log.info("You decide to analyse a single binary: "+ self.inputs)
+            self.log.info("You decide to analyse a single binary: "+ self.binary_path)
             # *|CURSOR_MARCADOR|*
-            self.build_scdg(args,is_fl=is_fl,csv_file=csv_file)
+            self.build_scdg()
             self.current_exps = 1
         else:
             import progressbar
             last_family = "Unknown"
-            if os.path.isdir(self.inputs):
-                subfolder = [os.path.join(self.inputs, f) for f in os.listdir(self.inputs) if os.path.isdir(os.path.join(self.inputs, f))]
+            if os.path.isdir(self.binary_path):
+                subfolder = [os.path.join(self.binary_path, f) for f in os.listdir(self.binary_path) if os.path.isdir(os.path.join(self.binary_path, f))]
                
                 for folder in subfolder:
                     files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and not f.endswith(".zip")]
@@ -1198,14 +1098,11 @@ class SemaSCDG():
                     bar.start()
                     fc = 0
                     current_family = folder.split("/")[-1]
-                    if not is_fl:
-                        args.exp_dir = args.exp_dir.replace(last_family,current_family) 
-                    else:
-                        args["exp_dir"] = args["exp_dir"].replace(last_family,current_family) 
+                    self.exp_dir = self.exp_dir.replace(last_family,current_family) 
                     for file in files:
-                        self.inputs = file
+                        self.binary_path = file
                         self.family = current_family
-                        self.build_scdg(args, is_fl, csv_file=csv_file)
+                        self.build_scdg()
                         fc+=1
                         self.current_exps += 1
                         bar.update(fc)
@@ -1220,16 +1117,8 @@ class SemaSCDG():
                 exit(-1)
 
 def main():
-    toolc = SemaSCDG(
-        print_sm_step=True,
-        print_syscall=True,
-        debug_error=True,
-        debug_string=True,
-    )
-    args_parser = ArgumentParserSCDG()
-    args = args_parser.parse_arguments()
-    toolc = args_parser.update_tool(args, toolc)
-    toolc.start_scdg(args, is_fl=False,csv_file=None)
+    toolc = SemaSCDG()
+    toolc.start_scdg()
 
 if __name__ == "__main__":
     main()

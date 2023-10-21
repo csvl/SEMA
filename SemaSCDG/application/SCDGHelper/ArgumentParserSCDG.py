@@ -9,7 +9,7 @@ class ArgumentParserSCDG:
         #self.parser._optionals.title = "SCDG module arguments"
         
         self.group_expl = self.parser.add_mutually_exclusive_group() # required=True
-        self.group_expl.title = 'SCDG exploration techniques used'
+        self.group_expl.title = 'expl_method'
         self.group_expl.add_argument(
             "--DFS",
             help="TODO",
@@ -58,9 +58,16 @@ class ArgumentParserSCDG:
             action="store_true",
             
         )
+
+        self.group_expl.add_argument(
+            "--test",
+            help="TODO",
+            action="store_true",
+            
+        )
         
         self.group_output = self.parser.add_mutually_exclusive_group() # required=True
-        self.group_output.title = 'Format to save graph output'
+        self.group_output.title = 'graph_output'
         self.group_output.add_argument(
             "--gs",
             help=".GS format",
@@ -75,7 +82,7 @@ class ArgumentParserSCDG:
         )
         
         self.group_unpacked = self.parser.add_mutually_exclusive_group() # required=True
-        self.group_unpacked.title = 'Unpacking method (iff --packed)'
+        self.group_unpacked.title = 'packing_type'
         self.group_unpacked.add_argument(
             "--symbion",
             help="Concolic unpacking method (linux | windows [in progress])",
@@ -91,7 +98,7 @@ class ArgumentParserSCDG:
         
         self.group_packed = self.parser.add_argument_group('Packed malware')
         self.group_packed.add_argument(
-            "--packed",
+            "--is_packed",
             help="Is the binary packed ? (default : False)",
             action="store_true",
             
@@ -105,13 +112,13 @@ class ArgumentParserSCDG:
         
         self.group_expl_param = self.parser.add_argument_group('SCDG exploration techniques parameters')
         self.group_expl_param.add_argument(
-            "--symb_loop",
+            "--jump_it",
             help="Number of iteration allowed for a symbolic loop (default : 3) ",
             default=3,
             type=int,
         )
         self.group_expl_param.add_argument(
-            "--limit_pause",
+            "--max_in_pause_stach",
             help="Number of states allowed in pause stash (default : 200)",
             default=200,
             type=int,
@@ -123,13 +130,13 @@ class ArgumentParserSCDG:
             type=int,
         )
         self.group_expl_param.add_argument(
-            "--max_deadend",
+            "--max_end_state",
             help="Number of deadended state required to stop (default : 600)",
             default=600,
             type=int,
         )
         self.group_expl_param.add_argument(
-            "--simul_state",
+            "--max_simul_state",
             help="Number of simultaneous states we explore with simulation manager (default : 5)",
             default=5,
             type=int,
@@ -143,8 +150,8 @@ class ArgumentParserSCDG:
             type=int,
         )
         self.group_bin.add_argument(
-            "--conc_loop",
-            help="TODO (default : 1024)",
+            "--loop_counter_concrete",
+            help="TODO (default : 10240)",
             default=10240,
             type=int,
         )
@@ -175,7 +182,7 @@ class ArgumentParserSCDG:
    
         )
         self.group_rats.add_argument(
-            "--hooks",
+            "--hooks_enable",
             help="activates the hooks for time-consuming functions  (default : False)",
             action="store_true",
    
@@ -250,12 +257,12 @@ class ArgumentParserSCDG:
         )     
         self.group.add_argument(
             "--timeout",
-            help="Timeout in seconds before ending extraction (default : 200)",
+            help="Timeout in seconds before ending extraction (default : 1000)",
             default=1000,
             type=int,
         )     
         self.group.add_argument(
-            "--not_resolv_string",
+            "--string_resolve",
             help="Do we try to resolv references of string (default : False)",
             action="store_true",
             
@@ -273,90 +280,28 @@ class ArgumentParserSCDG:
             
         )
         self.group.add_argument(
-            "--verbose_scdg",
+            "--verbose",
             help="Verbose output during calls extraction  (default : False)",
             action="store_true",
             
         )
+
         self.group.add_argument(
-            "--debug_error",
-            help="Debug error states (default : False)",
+            "--print_syscall",
+            help="Verbose output indicating syscalls  (default : False)",
             action="store_true",
             
         )
+
         self.group.add_argument(
             "--family",
-            help="family of the malware (default : unknown)",
+            help="family of the malware (default : Unknown)",
             default="Unknown",
             
         )
         self.group.add_argument("binary", 
                 help="Name of the binary to analyze",
                 )
-        self.group.add_argument(
-            "--sthread",
-            help="Number of thread used (default: 1)",
-            type=int,
-            default=1,
-        )
-
-    def update_tool(self, args, tool_scdg):
-        inputs = args.binary
-        if not tool_scdg.verbose:
-            tool_scdg.verbose = args.verbose
-        tool_scdg.debug_error = args.debug_error
-        expl_method = "DFS"   if args.DFS else \
-                     ("BFS"   if args.BFS \
-                else ("CDFS"  if args.CDFS \
-                else ("DBFS"  if args.DBFS \
-                else ("SDFS"  if args.SDFS \
-                else ("SCDFS" if args.SCDFS \
-                else ("ThreadCDFS" if args.ThreadCDFS \
-                else  "CBFS"))))))
-        tool_scdg.timeout = 9999
-
-        family = args.family
-        args.exp_dir = args.exp_dir + "/" + family
-
-        if args.timeout:
-            tool_scdg.timeout = args.timeout
-        if args.symb_loop:
-            tool_scdg.jump_it = args.symb_loop
-        if args.conc_loop:
-            tool_scdg.loop_counter_concrete = args.conc_loop
-        if args.eval_time:
-            tool_scdg.eval_time = True
-
-        tool_scdg.max_simul_state = args.simul_state
-
-        tool_scdg.string_resolv = not args.not_resolv_string
-        if args.limit_pause:
-            tool_scdg.max_in_pause_stach = args.limit_pause
-        if args.max_step:
-            tool_scdg.max_step = args.max_step
-        if args.max_deadend:
-            tool_scdg.max_end_state = args.max_deadend
-        
-        tool_scdg.is_packed = args.packed
-
-        if args.concrete_target_is_local:
-            tool_scdg.concrete_target_is_local = True
-        
-        if tool_scdg.is_packed:
-            if args.unipacker:
-                mode = "unipacker"
-                tool_scdg.log.info("Unpack with %s",mode)
-                tool_scdg.unpack_mode = mode
-            elif args.symbion:
-                mode = "symbion"
-                tool_scdg.log.info("Unpack with %s",mode)
-                tool_scdg.unpack_mode = mode
-
-        tool_scdg.inputs = inputs
-        tool_scdg.expl_method = expl_method
-        tool_scdg.family = family
-        tool_scdg.memory_limit = args.memory_limit # Add custom value
-        return tool_scdg
 
     def parse_arguments(self, allow_unk = False, args_list=None):
         args = None

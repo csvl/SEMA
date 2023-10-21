@@ -319,9 +319,11 @@
                                                 {% elif  args["type"] == "bool" %}
                                                    <div class="form-check">
                                                       {% if args["default"] %}
-                                                         <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="checkbox" name="{{ args["name"] }}" value={{ args["name"] }} id={{ args["name"] }} checked>
+                                                         <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="checkbox" name="{{ args["name"] }}" value=true id={{ args["name"] }} checked>
+                                                         <input type="hidden"   name="{{ args["name"] }}" value="false" />
                                                       {% else %}
-                                                         <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="checkbox" name="{{ args["name"] }}" value={{ args["name"] }} id={{ args["name"] }}>
+                                                         <input class="form-check-input"  aria-describedby="{{ args["name"] }}Help" type="checkbox" name="{{ args["name"] }}" value=true id={{ args["name"] }}>
+                                                         <input type="hidden"   name="{{ args["name"] }}" value="false" />
                                                       {% endif %}
                                                       <label class="form-check-label" for={{ args["name"] }}>
                                                       {{ args["name"] }}
@@ -339,7 +341,7 @@
                                                 {% elif  args["name"] == "binary" %}
                                                    <div class="mb-3">
                                                       <label for="{{ args["name"] }}" class="form-label">{{ args["name"] }}</label>
-                                                      <input class="form-control" aria-describedby="{{ args["name"] }}Help" name="{{ args["name"] }}" value="" type="file" id="{{ args["name"] }}" multiple>
+                                                      <input class="form-control" aria-describedby="{{ args["name"] }}Help" name="{{ args["name"] }}" type="file" id="{{ args["name"] }}" multiple>
                                                       <div id="{{ args["name"] }}Help" class="form-text">
                                                          {{ args["help"] }}
                                                          Please select files from the database directory

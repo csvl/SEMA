@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import requests
 import argparse
+import configparser
 
 from SCDGHelper.ArgumentParserSCDG import ArgumentParserSCDG
 from SemaSCDG import SemaSCDG
@@ -9,50 +10,27 @@ from SemaSCDG import SemaSCDG
 app = Flask(__name__)
 app.debug = True
 
+config = configparser.ConfigParser()
+config.read('config.ini')
+
 #Parse the parameters received in the request and launch the SCDG
 @app.route('/run_scdg', methods=['POST'])
 def run_scdg():
-    scdg_parser = ArgumentParserSCDG()
-    args_parser = scdg_parser.parser
+    #Modify config file with the args provided in web app
     user_data = request.json
-    exp_args = []
-    # Start with _mutually_exclusive_groups
-    for group in args_parser._mutually_exclusive_groups:
-        if group.title in user_data:
-            exp_args.append("--" + user_data[group.title])
+    for arg in user_data:
+        if arg in config['explorer_arg']:
+            config.set('explorer_arg', arg, user_data[arg])
+        if arg in config['SCDG_arg']:
+            config.set('SCDG_arg', arg, user_data[arg])
+        if arg in config['build_graph_arg']:
+            config.set('build_graph_arg', arg, user_data[arg])
+    with open('config.ini', 'w') as configfile:
+        config.write(configfile)
 
-    # For action groups
-    for group in args_parser._action_groups:
-        for action in group._group_actions:
-            #Handle after since mandatory arguments
-            if action.dest == "binary" or action.dest == "exp_dir":
-                pass
-            elif action.dest in user_data:
-                # TODO add group_name in new dictionary
-                group_name = group.title
-                # For boolean arguments
-                if isinstance(action, argparse._StoreTrueAction) or isinstance(action, argparse._StoreFalseAction):
-                    exp_args.append("--" + action.dest)
-                else:
-                    exp_args.append("--" + action.dest)
-                    exp_args.append(user_data[action.dest])  
-    exp_args.append(user_data["exp_dir"]) 
-    if len(user_data["binary"]) > 0:
-        exp_args.append(user_data["binary"])
-    else: # TODO
-        # To implement: when the binary is uploaded -> Do we want to "upload" since it is only local for now
-        exp_args.append(str(user_data["binary"]))
-
-    toolc = SemaSCDG(
-        print_sm_step=True,
-        print_syscall=True,
-        debug_error=True,
-        debug_string=True,
-    )
-    args = scdg_parser.parse_arguments(args_list=exp_args, allow_unk=True)
-    scdg_parser = scdg_parser.update_tool(args, toolc)
+    toolc = SemaSCDG()
     try:
-        toolc.start_scdg(args, is_fl=False,csv_file=None)
+        toolc.start_scdg()
         return "Request successful"
     except:
         return "Something went wrong"
@@ -69,7 +47,6 @@ def get_args():
                 continue
             if group.title == "optional arguments":
                 continue
-        
             if len(args_list[-1]) == 3:
                 args_list.append({})
             
