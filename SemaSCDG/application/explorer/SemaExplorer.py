@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 import time as timer
 import sys
-import monkeyhex  # this will format numerical results in hexadecimal
+#import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from collections import deque
 import angr
 import psutil
-# Personnal stuf
+import claripy
+import configparser
 
-
-# Syscall table stuff
+config = configparser.ConfigParser()
+config.read('config.ini')
 
 # import sim_procedure.dll_table as dll
 # from sim_procedure.SimProceduresLoader import SimProcedures
@@ -19,7 +20,6 @@ from angr.exploration_techniques import ExplorationTechnique
 # from sim_procedure.CustomSimProcedureWindows import custom_simproc_windows
 
 # (1) TODO manon: better integration with angr
-# (2) TODO manon: better parametrization
 class SemaExplorer(ExplorationTechnique):
     """
     TODO
@@ -28,40 +28,31 @@ class SemaExplorer(ExplorationTechnique):
     def __init__(
         self,
         simgr,
-        max_length,
         exp_dir,
         nameFileShort,
-        scdg,
-        call_sim,
-        eval_time=False,
-        timeout=600,
-        max_end_state=600,
-        max_step=100000000000000000000,
-        timeout_tab=[1200, 2400, 3600],
-        jump_it=100000000000,
-        loop_counter_concrete=10000000000,
-        jump_dict={},
-        jump_concrete_dict={},
-        max_simul_state=1,
-        max_in_pause_stach=500,
-        verbose=False,
-        print_sm_step=False,
-        print_syscall=False,
-        debug_error=False,
-        memory_limit=True # TODO args
+        scdg_graph,
+        call_sim
     ):
-        #TODO refactor
         super(SemaExplorer, self).__init__()
-        self._max_length = max_length
-        self.timeout = timeout
-        self.jump_it = jump_it
-        self.timeout_tab = timeout_tab
 
+        #TODO Christophe : check config files -> good ? 
+        self.memory_limit = config['explorer_arg'].getboolean('memory_limit')
+        self.verbose = config['explorer_arg'].getboolean('verbose')
+        self.eval_time = config['explorer_arg'].getboolean('eval_time')
+        self.runtime_run_thread = config['explorer_arg'].getboolean('runtime_run_thread')
+        #self._max_length = int(config['explorer_arg']['max_length'])
+        self.timeout = int(config['explorer_arg']['timeout'])
+        self.max_end_state = int(config['explorer_arg']['max_end_state'])
+        self.max_step = int(config['explorer_arg']['max_step'])
+        self.jump_it = int(config['explorer_arg']['jump_it'])
+        self.loop_counter_concrete = int(config['explorer_arg']['loop_counter_concrete'])
+        self.max_simul_state = int(config['explorer_arg']['max_simul_state'])
+        self.max_in_pause_stach = int(config['explorer_arg']['max_in_pause_stach'])
+        self.timeout_tab = config['explorer_arg']['timeout_tab']
         self.start_time = timer.time()
         self.log = logging.getLogger("SemaExplorer")
         self.log.setLevel("INFO")
 
-        self.max_end_state = max_end_state
         self.errored = 0
         self.unconstrained = 0
         self.deadended = 0
@@ -69,39 +60,111 @@ class SemaExplorer(ExplorationTechnique):
         self.id = 0
         self.snapshot_state = {}
         self.fork_stack = deque()
-        self.pause_stash = simgr.stashes["pause"]
+        self.loopBreak_stack = deque()
+
+        self.pause_stash = "pause"
+        self.new_addr_stash = "new_addr"
+        self.excessLoop_stash = "ExcessLoop"
+        self.excessStep_stash = "ExcessStep"
+        self.deadbeef_stash = "deadbeef"
+        self.lost_stash = "lost"
+
         self.exp_dir = exp_dir
         self.nameFileShort = nameFileShort
-        self.eval_time = eval_time
         self.time_id = 0
-        self.print_sm_step = True
 
-        self.loopBreak_stack = deque()
-        self.jump_concrete_dict = jump_concrete_dict
-        self.jump_dict = jump_dict
+        self.scdg_graph = scdg_graph
+        self.call_sim = call_sim
+        
+        self.jump_dict = {}
+        self.jump_concrete_dict = {}
         self.jump_dict[0] = {}
         self.jump_concrete_dict[0] = {}
-        self.loop_counter_concrete = loop_counter_concrete
-        self.max_step = max_step
-        self.max_simul_state = max_simul_state
-        self.max_in_pause_stach = max_in_pause_stach
-
-        self.scdg = scdg
+        
         self.scdg_fin = []
         self.dict_addr_vis = {}
-
-        self.verbose = verbose
-        self.print_sm_step = print_sm_step
-        self.print_syscall = print_syscall
-        self.debug_error = debug_error
-
-        self.loopBreak_stack = deque()
-
-        self.call_sim = call_sim
-
-        self.expl_method = "DFS"
-        self.memory_limit = memory_limit
         
+
+    def setup(self, simgr):
+        # The stash where states are moved to wait
+        # until some space becomes available in Active stash.
+        # The size of the space in this stash is a parameter of
+        # the toolchain. If new states appear and there is no
+        # space available in the Pause stash, some states are
+        # dropped.
+        if self.pause_stash not in simgr.stashes:
+            simgr.stashes[self.pause_stash] = []
+
+        # The stash where states leading to new
+        # instruction addresses (not yet explored) of the binary
+        # are kept. If CDFS or CBFS are not used, this stash
+        # merges with the pause stash.
+        if self.new_addr_stash not in simgr.stashes:
+            simgr.stashes[self.new_addr_stash] = []
+
+
+        # The stash where states which exceed the
+        # threshold related to loops are moved. If new states
+        # are needed and there is no state available in pause
+        # or ExcessStep stash, states in this stash are used to
+        # resume exploration (their loop counter are put back
+        # to zero).
+        if self.excessLoop_stash not in simgr.stashes:
+            simgr.stashes[self.excessLoop_stash] = []
+
+        # The stash where states exceeding the
+        # threshold related to number of steps are moved. If
+        # new states are needed and there is no state available
+        # in pause stash, states in this stash are used to resume
+        # exploration (their step counter are put back to zero).
+        if self.excessStep_stash not in simgr.stashes:
+            simgr.stashes[self.excessStep_stash] = []
+
+        if self.deadbeef_stash not in simgr.stashes:
+            simgr.stashes[self.deadbeef_stash] = []
+
+        if self.lost_stash not in simgr.stashes:
+            simgr.stashes[self.lost_stash] = []
+
+        simgr.active[0].globals["id"] = 0
+        simgr.active[0].globals["JumpExcedeed"] = False
+        simgr.active[0].globals["JumpTable"] = {}
+        simgr.active[0].globals["n_steps"] = 0
+        simgr.active[0].globals["n_forks"] = 0
+        simgr.active[0].globals["last_instr"] = 0
+        simgr.active[0].globals["counter_instr"] = 0
+        simgr.active[0].globals["loaded_libs"] = {}
+        simgr.active[0].globals["addr_call"] = []
+        simgr.active[0].globals["loop"] = 0
+        simgr.active[0].globals["crypt_algo"] = 0
+        simgr.active[0].globals["crypt_result"] = 0
+        simgr.active[0].globals["n_buffer"] = 0
+        simgr.active[0].globals["n_calls"] = 0
+        simgr.active[0].globals["recv"] = 0
+        simgr.active[0].globals["rsrc"] = 0
+        simgr.active[0].globals["resources"] = {}
+        simgr.active[0].globals["df"] = 0
+        simgr.active[0].globals["files"] = {}
+        simgr.active[0].globals["n_calls_recv"] = 0
+        simgr.active[0].globals["n_calls_send"] = 0
+        simgr.active[0].globals["n_buffer_send"] = 0
+        simgr.active[0].globals["buffer_send"] = []
+        simgr.active[0].globals["files"] = {}
+        simgr.active[0].globals["FindFirstFile"] = 0
+        simgr.active[0].globals["FindNextFile"] = 0
+        simgr.active[0].globals["GetMessageA"] = 0
+        simgr.active[0].globals["GetLastError"] = claripy.BVS("last_error", 32)
+        simgr.active[0].globals["HeapSize"] = {}
+        simgr.active[0].globals["CreateThread"] = 0
+        simgr.active[0].globals["CreateRemoteThread"] = 0
+        simgr.active[0].globals["condition"] = ""
+        simgr.active[0].globals["files_fd"] = {}
+        simgr.active[0].globals["create_thread_address"] = []
+        simgr.active[0].globals["is_thread"] = False
+        simgr.active[0].globals["recv"] = 0
+        simgr.active[0].globals["allow_web_interaction"] = False
+        if self.runtime_run_thread:
+            simgr.active[0].globals["is_thread"] = True
 
     def _filter(self, s):
         return True  # s.history.block_count > self._max_length
@@ -384,31 +447,31 @@ class SemaExplorer(ExplorationTechnique):
         #######     Timeout reached ?  #######
         ######################################
         if self.eval_time:
-            new = "deadendend"
+            new = "deadended"
             for stateDead in simgr.deadended:
-                self.scdg[stateDead.globals["id"]][0]["ret"] = new
-                self.scdg_fin.append(self.scdg[stateDead.globals["id"]])
+                self.scdg_graph[stateDead.globals["id"]][0]["ret"] = new
+                self.scdg_fin.append(self.scdg_graph[stateDead.globals["id"]])
             new = "active"
             for state in simgr.active:
-                self.scdg[state.globals["id"]][0]["ret"] = new
-                self.scdg_fin.append(self.scdg[state.globals["id"]])
+                self.scdg_graph[state.globals["id"]][0]["ret"] = new
+                self.scdg_fin.append(self.scdg_graph[state.globals["id"]])
             new = "errored"
             for error in simgr.errored:
                 state = error.state
-                self.scdg[state.globals["id"]][0]["ret"] = new
-                self.scdg_fin.append(self.scdg[state.globals["id"]])
+                self.scdg_graph[state.globals["id"]][0]["ret"] = new
+                self.scdg_fin.append(self.scdg_graph[state.globals["id"]])
             new = "ExcessLoop"
             for state in simgr.stashes["ExcessLoop"]:
-                self.scdg[state.globals["id"]][0]["ret"] = new
-                self.scdg_fin.append(self.scdg[state.globals["id"]])
+                self.scdg_graph[state.globals["id"]][0]["ret"] = new
+                self.scdg_fin.append(self.scdg_graph[state.globals["id"]])
             new = "ExcessStep"
             for state in simgr.stashes["ExcessStep"]:
-                self.scdg[state.globals["id"]][0]["ret"] = new
-                self.scdg_fin.append(self.scdg[state.globals["id"]])
+                self.scdg_graph[state.globals["id"]][0]["ret"] = new
+                self.scdg_fin.append(self.scdg_graph[state.globals["id"]])
             new = "unconstrained"
             for state in simgr.unconstrained:
-                self.scdg[state.globals["id"]][0]["ret"] = new
-                self.scdg_fin.append(self.scdg[state.globals["id"]])
+                self.scdg_graph[state.globals["id"]][0]["ret"] = new
+                self.scdg_fin.append(self.scdg_graph[state.globals["id"]])
 
             with open(
                 self.exp_dir
@@ -424,8 +487,6 @@ class SemaExplorer(ExplorationTechnique):
             self.time_id = self.time_id + 1
             if self.time_id >= len(self.timeout_tab):
                 self.log.info("All timeouts were tested !\n\n\n")
-        else:
-            pass
 
     def manage_deadended(self, simgr):
         if len(simgr.deadended) > self.deadended:
@@ -458,8 +519,8 @@ class SemaExplorer(ExplorationTechnique):
                         )
                         #sys.exit(0)
 
-                    self.scdg.append(self.scdg[prev_id].copy())
-                    self.scdg[-1][0] = self.scdg[prev_id][0].copy()
+                    self.scdg_graph.append(self.scdg_graph[prev_id].copy())
+                    self.scdg_graph[-1][0] = self.scdg_graph[prev_id][0].copy()
 
                     self.jump_dict[self.id] = self.jump_dict[prev_id].copy()
                     self.jump_concrete_dict[self.id] = self.jump_concrete_dict[

@@ -250,7 +250,7 @@ class SemaServer:
             if "scdg_enable" in request.form:
                 #Send request to SCDG microservices to start an SCDG with the parameters specified in scdg_args
                 response = requests.post('http://sema-scdg:5001/run_scdg', json=scdg_args)
-                SemaServer.app.logger.info(response.content)
+                SemaServer.app.logger.info(str(response.content))
 
             #TODO replace by API call
             if "class_enable" in request.form:

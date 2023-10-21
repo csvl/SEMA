@@ -11,7 +11,7 @@ from .PluginResources import *
 from .PluginEvasion import *
 
 class PluginThread(angr.SimStatePlugin):
-    def __init__(self, sema_scdg, exp_dir, proj, nameFileShort, options, args):
+    def __init__(self, sema_scdg, exp_dir, proj, nameFileShort, options):
         super(PluginThread, self).__init__()
         self.last_error = 0
         self.registery_block = 0
@@ -23,7 +23,6 @@ class PluginThread(angr.SimStatePlugin):
         self.proj = proj
         self.nameFileShort = nameFileShort
         self.options = options
-        self.args = args
         
     def post_run_thread(self, simgr):
         self.log.info("Run post-thread analysis")
@@ -215,10 +214,10 @@ class PluginThread(angr.SimStatePlugin):
             tstate = state
             #tstate.globals["id"] = tstate.globals["id"] + 1
         
-        if self.args:
-            nthread = None if self.args.sthread <= 1 else self.args.sthread
-        else:
-            nthread = None
+        # if self.args:
+        #     nthread = None if self.args.sthread <= 1 else self.args.sthread
+        # else:
+        nthread = None
             
         tsimgr = self.proj.factory.simulation_manager(tstate,threads=nthread)
         tsimgr._techniques = []  
@@ -267,7 +266,7 @@ class PluginThread(angr.SimStatePlugin):
         
         tsimgr.active[0].globals["is_thread"] = True
                             
-        exploration_tech_thread = self.sema_scdg.get_exploration_tech(self.args, self.exp_dir, self.nameFileShort, tsimgr)
+        exploration_tech_thread = self.sema_scdg.get_exploration_tech(self.nameFileShort, tsimgr)
         
         tsimgr.use_technique(exploration_tech_thread)
 
