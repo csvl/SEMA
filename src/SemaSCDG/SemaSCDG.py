@@ -301,7 +301,8 @@ class SemaSCDG:
         self.log.info(args)
 
         if exp_dir != "output/runs/"+ str(self.current_exp_dir) + "/":
-            setup = open_file("src/output/runs/"+ str(self.current_exp_dir) + "/" + "setup.txt", "w")
+            # setup = open_file("src/output/runs/"+ str(self.current_exp_dir) + "/" + "setup.txt", "w")
+            setup = open_file("./output/runs/"+ str(self.current_exp_dir) + "/" + "setup.txt", "w")
             setup.write(str(self.jump_it) + "\n")
             setup.write(str(self.loop_counter_concrete) + "\n")
             setup.write(str(self.max_simul_state) + "\n")
@@ -674,6 +675,9 @@ class SemaSCDG:
                 pass
         else:
             addr = None
+        
+        # Example paper code 1
+        # addr = 0x401476
 
         # Wabot
         # addr = 0x004081fc
@@ -695,7 +699,7 @@ class SemaSCDG:
             options = {angr.options.MEMORY_CHUNK_INDIVIDUAL_READS} #{angr.options.USE_SYSTEM_TIMES} # {angr.options.SIMPLIFY_MEMORY_READS} # angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS {angr.options.SYMBOLIC_INITIAL_VALUES
             # options.add(angr.options.EFFICIENT_STATE_MERGING)
             # options.add(angr.options.DOWNSIZE_Z3)
-            options.add(angr.options.USE_SYSTEM_TIMES)
+            # options.add(angr.options.USE_SYSTEM_TIMES)
             # options.add(angr.options.OPTIMIZE_IR)
             # options.add(angr.options.FAST_MEMORY)
             # options.add(angr.options.SIMPLIFY_MEMORY_READS)
@@ -868,6 +872,10 @@ class SemaSCDG:
             
             
         def nothing(state):
+            # if hex(state.addr) == "0x404bab":
+            #     print("***** PRINT ESI *****")
+            #     print(state.regs.esi)
+            # if True:
             if False:
                 print(hex(state.addr))
                     

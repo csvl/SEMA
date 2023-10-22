@@ -29,6 +29,7 @@ lw = logging.getLogger("CustomSimProcedureWindows")
 class GetStartupInfoA(angr.SimProcedure):
     #NO_RET = True
     def run(self, lpStartupInfo):
+        return
         # Get pointer to STARTUPINFO struct
         #startupinfo_ptr = self.state.mem[self.state.mem[lpStartupInfo].int.resolved].int.resolved
         
