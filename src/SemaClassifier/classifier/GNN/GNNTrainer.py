@@ -12,6 +12,7 @@ import glob
 from torch_geometric.data import Batch
 from torch_geometric.loader import DataLoader
 from torch_geometric.datasets import TUDataset
+from torch_geometric import compile
 import numpy as np
 import logging
 
@@ -25,6 +26,9 @@ from .GINJKFlagClassifier import GINJKFlag
 from .GNNExplainability import GNNExplainability
 from .utils import gen_graph_data, read_gs_4_gnn
 import copy
+
+# import torch._dynamo
+# torch._dynamo.config.suppress_errors = True
 
 CLASS_DIR = os.path.dirname(os.path.abspath(__file__))
 BINARY_CLASS = False # TODO
@@ -105,6 +109,8 @@ class GNNTrainer(Classifier):
                                     residual=residual)
             elif self.name=="gcn":
                 self.clf = GCN(self.train_dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
+            
+            # self.clf = compile(self.clf, fullgraph=True) # dynamic=True
 
 
     def init_dataset(self, path):
@@ -135,8 +141,8 @@ class GNNTrainer(Classifier):
                     if file.endswith(".gs"):
                         edges, nodes, vertices, edge_labels = read_gs_4_gnn(file, self.mapping)
                         data = gen_graph_data(edges, nodes, vertices, edge_labels, self.fam_dict[family])
-                        if len(data.edge_index.size()) > 1:
-                            if len(nodes) > 1 and len(data.edge_index.size()) > 1:
+                        if len(edges) > 0:
+                            if len(nodes) > 1:
                                 self.dataset.append(data)
                             if BINARY_CLASS and len(nodes) > 1:
                                 if family == 'clean':
@@ -197,6 +203,7 @@ class GNNTrainer(Classifier):
             # patience = 100 # Number of epoch to wait for improvement
             best_val_loss = float('inf')
             best_val_bal_acc = 0
+            best_val_f1_score = 0
             best_model_wts = copy.deepcopy(self.clf.state_dict())
             counter = 0  # Counter to keep track of epoch without improvement
             for ep in range(epoch):
@@ -239,10 +246,12 @@ class GNNTrainer(Classifier):
                 val_f1_score = f1_score(targets, val_predictions,average='weighted')*100
 
                 # Check if validation loss has improved
-                if ((best_val_bal_acc < val_bal_accuracy) or
-                    (best_val_bal_acc == val_bal_accuracy and val_loss < best_val_loss)):
+                if ((val_f1_score > best_val_f1_score) or
+                    (val_f1_score == best_val_f1_score and best_val_bal_acc < val_bal_accuracy) or
+                    (val_f1_score == best_val_f1_score and best_val_bal_acc == val_bal_accuracy and val_loss < best_val_loss)):
                     best_val_loss = val_loss
                     best_val_bal_acc = val_bal_accuracy
+                    best_val_f1_score = val_f1_score
                     # Save the current best model
                     # torch.save(self.clf.state_dict(), best_model_path)
                     best_model_wts = copy.deepcopy(self.clf.state_dict())
@@ -250,7 +259,7 @@ class GNNTrainer(Classifier):
                 else:
                     counter += 1
                     if self.patience > 0 and counter >= self.patience:
-                        print("Validation loss did not improve for {} epoch. Stopping training.".format(patience))
+                        print("Validation loss did not improve for {} epoch. Stopping training.".format(self.patience))
                         break
                 print("Epoch: %03d/%03d: lr %.5f -> %.5f | Train Loss: %.5f | Val Loss: %.5f | Val Accuracy: %.3f%% | Val BAL Accuracy: %.3f%% | Val f1-score: %.3f%% | patience counter: %.0f" % (ep, epoch-1, before_lr, after_lr, train_loss, val_loss, val_accuracy, val_bal_accuracy, val_f1_score, counter))
             self.clf.load_state_dict(best_model_wts)
@@ -291,6 +300,7 @@ class GNNTrainer(Classifier):
             torch.autograd.set_detect_anomaly(True)
             best_val_loss = float('inf')
             best_val_bal_acc = 0
+            best_val_f1_score = 0
             best_model_wts = copy.deepcopy(self.clf.state_dict())
             counter = 0  # Counter to keep track of epoch without improvement
             for ep in range(epoch):
@@ -314,7 +324,7 @@ class GNNTrainer(Classifier):
                         perturb.data = perturb_data.data
                         perturb.grad[:] = 0
 
-                        out = out = self.clf(data.x, data.edge_index, data.edge_attr, data.batch, perturb)
+                        out = self.clf(data.x, data.edge_index, data.edge_attr, data.batch, perturb)
                         loss = criterion(out, data.y)
                         loss /= m
 
@@ -347,10 +357,12 @@ class GNNTrainer(Classifier):
                 val_f1_score = f1_score(targets, val_predictions,average='weighted')*100
 
                 # Check if validation loss has improved
-                if ((best_val_bal_acc < val_bal_accuracy) or
-                    (best_val_bal_acc == val_bal_accuracy and val_loss < best_val_loss)):
+                if ((val_f1_score > best_val_f1_score) or
+                    (val_f1_score == best_val_f1_score and best_val_bal_acc < val_bal_accuracy) or
+                    (val_f1_score == best_val_f1_score and best_val_bal_acc == val_bal_accuracy and val_loss < best_val_loss)):
                     best_val_loss = val_loss
                     best_val_bal_acc = val_bal_accuracy
+                    best_val_f1_score = val_f1_score
                     # Save the current best model
                     # torch.save(self.clf.state_dict(), best_model_path)
                     best_model_wts = copy.deepcopy(self.clf.state_dict())
@@ -358,7 +370,7 @@ class GNNTrainer(Classifier):
                 else:
                     counter += 1
                     if self.patience > 0 and counter >= self.patience:
-                        print("Validation loss did not improve for {} epoch. Stopping training.".format(patience))
+                        print("Validation loss did not improve for {} epoch. Stopping training.".format(self.patience))
                         break
                 print("Epoch: %03d/%03d: lr %.5f -> %.5f | Train Loss: %.5f | Val Loss: %.5f | Val Accuracy: %.3f%% | Val BAL Accuracy: %.3f%% | Val f1-score: %.3f%% | patience counter: %.0f" % (ep, epoch-1, before_lr, after_lr, train_loss, val_loss, val_accuracy, val_bal_accuracy, val_f1_score, counter))
             self.clf.load_state_dict(best_model_wts)
@@ -392,6 +404,7 @@ class GNNTrainer(Classifier):
         else:
             # import pdb; pdb.set_trace()
             self.init_dataset(path)
+            print("Dataset len: " + str(len(self.dataset)))
             self.clf.eval()
             val_loader = DataLoader(self.dataset, batch_size=64, shuffle=False)
             self.y_pred = list()
@@ -500,7 +513,7 @@ class GNNTrainer(Classifier):
         heatmap.xaxis.set_ticklabels(heatmap.xaxis.get_ticklabels(), rotation=45, ha='right', fontsize=fontsize)
         plt.ylabel('True label')
         plt.xlabel('Predicted label')
-        # plt.show()
+        plt.show()
         print("AAAAAAHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
         plt.savefig(self.original_path + "figure.png")
         # plt.savefig("/home/sambt/Desktop/figure.png")

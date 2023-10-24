@@ -41,6 +41,10 @@ def gen_graph_data(edges, nodes, vertices, edge_labels, label):
 
     if (len(edge_index.size()) == 2):
         edge_index = edge_index.transpose(0, 1)
+    # else:
+    #     # edge_index = edge_index.contiguous()
+    #     # edge_index = edge_index.view(-1, 2)
+    #     import pdb; pdb.set_trace()
     # correct edge_attr dimensions
     edge_attr = edge_attr.to(torch.float32)
     edge_attr = edge_attr.unsqueeze(-1)

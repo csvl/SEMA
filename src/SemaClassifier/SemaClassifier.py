@@ -107,10 +107,10 @@ class SemaClassifier:
                 self.classifier = DLTrainerClassifier(path=ROOT_DIR,epoch=epoch,shared_type=shared_type)
             elif self.classifier_name == "gin":
                 self.classifier = GNNTrainer(path=ROOT_DIR,epoch=epoch, name="gin", threshold=threshold, families=families,
-                                             num_layers=num_layers, input_path=input_path)
+                                             num_layers=num_layers, input_path=input_path, flag=self.flag)
             elif self.classifier_name == "ginjk":
                 self.classifier = GNNTrainer(path=ROOT_DIR,epoch=epoch, name="ginjk", threshold=threshold, families=families,
-                                             num_layers=num_layers, input_path=input_path)
+                                             num_layers=num_layers, input_path=input_path, flag=self.flag)
             elif self.classifier_name == "rgin":
                 self.classifier = GNNTrainer(path=ROOT_DIR,epoch=epoch, name="rgin", threshold=threshold, families=families,
                                              num_layers=num_layers, input_path=input_path, flag=self.flag,
