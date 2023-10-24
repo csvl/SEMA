@@ -219,7 +219,7 @@ class SemaClassifier:
             self.training_elapsed_time = time.time() - self.start_time
             #write training time to file
             with open(f"output/gnn_eval/randgnn_eval_stats.csv", "a") as f:
-                f.write(f"{self.training_elapsed_time:.2f},{self.flag},{self.graph_model}")
+                f.write(f"{self.training_elapsed_time:.2f},{self.flag},{self.graph_model},")
             self.log.info("Total training time: " + str(self.training_elapsed_time))
 
     def classify(self):
