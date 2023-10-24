@@ -689,6 +689,9 @@ class SemaSCDG:
         # addr = 0x6f7100 # 0x5f4f10 0x01187c00 0x40139a
         # addr = 0x06fda90
         # addr = 0x06f7e90
+
+        # Nitol
+        addr = 0x402f52
         
         # Create initial state of the binary
         if self.is_packed and self.unpack_mode == "symbion":
@@ -875,8 +878,8 @@ class SemaSCDG:
             # if hex(state.addr) == "0x404bab":
             #     print("***** PRINT ESI *****")
             #     print(state.regs.esi)
-            # if True:
-            if False:
+            if True:
+            # if False:
                 print(hex(state.addr))
                     
         instr_dict = {}

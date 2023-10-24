@@ -37,7 +37,23 @@ class SemaExplorerWSELECT3(SemaExplorer):
             max_length,
             exp_dir,
             nameFileShort,
-            worker
+            worker.scdg,
+            worker.call_sim,
+            worker.eval_time,
+            worker.timeout,
+            worker.max_end_state,
+            worker.max_step,
+            worker.timeout_tab,
+            worker.jump_it,
+            worker.loop_counter_concrete,
+            worker.jump_dict,
+            worker.jump_concrete_dict,
+            worker.max_simul_state,
+            worker.max_in_pause_stach,
+            worker.print_on,
+            worker.print_sm_step,
+            worker.print_syscall,
+            worker.debug_error,
         )
         self.start_state = simgr.one_active
         # self.restart_prob = restart_prob

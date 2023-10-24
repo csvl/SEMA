@@ -50,6 +50,7 @@ class SVMWLClassifier(SVMClassifier):
             self.y_pred = self.clf.predict(self.K_val)
         else:
             super().init_dataset(path)
+            print("Dataset len: " + str(len(self.dataset)))
             K_test = self.gk.transform(self.dataset)
             self.y_pred = self.clf.predict(K_test)
 

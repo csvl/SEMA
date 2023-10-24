@@ -90,16 +90,17 @@ class SVMClassifier(Classifier):
                 for file in filenames:      
                     if file.endswith(".gs"):
                         G = self.read_gs(file,self.mapping)
-                        if len(G.node_labels) > 1:
-                            self.dataset.append(G)
-                        if BINARY_CLASS and len(G.node_labels) > 1:
-                            if family == 'clean':
-                                self.label.append(family)
-                            else:
-                                self.label.append('malware')
-                        else:
+                        if len(G.edge_labels) > 0:
                             if len(G.node_labels) > 1:
-                                self.label.append(family)
+                                self.dataset.append(G)
+                            if BINARY_CLASS and len(G.node_labels) > 1:
+                                if family == 'clean':
+                                    self.label.append(family)
+                                else:
+                                    self.label.append('malware')
+                            else:
+                                if len(G.node_labels) > 1:
+                                    self.label.append(family)
         bar.finish()
     
     def split_dataset(self):
@@ -168,5 +169,5 @@ class SVMClassifier(Classifier):
         plt.xlabel('Predicted label')
         plt.show()
         #plt.savefig(self.original_path + "figure.png")
-        return f_score
+        return self.accuracy, self.balanced_accuracy, self.precision, self.recall, f_score
     
