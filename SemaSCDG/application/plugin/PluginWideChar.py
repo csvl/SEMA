@@ -15,3 +15,4 @@ class PluginWideChar(angr.SimStatePlugin):
         p.widechar_address = self.widechar_address.copy()
         p.stop_flag = self.stop_flag
         return p
+    

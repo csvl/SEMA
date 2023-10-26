@@ -158,7 +158,7 @@ class ArgumentParserSCDG:
         
         self.group_rats= self.parser.add_argument_group('RATs custom parameters')
         self.group_rats.add_argument(
-            "--count_block",
+            "--count_block_enable",
             help="Count block (default : False)",
             action="store_true",
             

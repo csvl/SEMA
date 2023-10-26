@@ -226,8 +226,8 @@ class PluginThread(angr.SimStatePlugin):
             tstate.options.discard("LAZY_SOLVES")
             tstate.register_plugin("heap", angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc(heap_size =int(64*4096*10*10*10*4*2)))
                         
-            tstate.register_plugin("plugin_env_var", PluginEnvVar()) 
-            tstate.plugin_env_var.setup_plugin(self.expl_method)
+            tstate.register_plugin("plugin_env_var", PluginEnvVar(expl_meth=self.expl_method)) 
+            tstate.plugin_env_var.setup_plugin()
             
             tstate.register_plugin("plugin_locale_info", PluginLocaleInfo()) 
             tstate.plugin_locale_info.setup_plugin()
@@ -275,7 +275,7 @@ class PluginThread(angr.SimStatePlugin):
                     + "\n------------------------------")
                                 
         tsimgr.run()
-        self.sema_scdg.build_scdg_fin(self.exp_dir, self.nameFileShort, self.state.proj.loader.main_object, tstate, tsimgr)
+        self.sema_scdg.build_scdg(self.state.proj.loader.main_object, tstate, tsimgr)
         self.sema_scdg.build_ioc(self.exp_dir, self.nameFileShort, self.state.proj.loader.main_object, tstate, tsimgr)
         
 

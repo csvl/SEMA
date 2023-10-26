@@ -2,7 +2,7 @@ import angr
 
 
 class PluginEnvVar(angr.SimStatePlugin):
-    def __init__(self):
+    def __init__(self, expl_meth):
         super(PluginEnvVar, self).__init__()
         self.last_error = 0
         self.env_block = 0
@@ -13,7 +13,7 @@ class PluginEnvVar(angr.SimStatePlugin):
         self.wenv_var_requested = {}
         self.stop_flag = False
         self.dict_calls = {}
-        self.expl_method = "BFS"
+        self.expl_method = expl_meth
         
         self.windows_env_vars = {
             "ALLUSERSPROFILE": "C:\\ProgramData\\",
@@ -66,7 +66,7 @@ class PluginEnvVar(angr.SimStatePlugin):
             "QT_MESSAGE_PATTERN": "", #"[%{time yyyyMMdd h:mm:ss.zzz t} %{if-debug}D%{endif}%{if-info}I%{endif}%{if-warning}W%{endif}%{if-critical}C%{endif}%{if-fatal}F%{endif}] %{file}:%{line} - %{message}\0\0"
         }
         
-    def setup_plugin(self, expl_method):
+    def setup_plugin(self):
         self.env_block = self.state.heap.malloc(32767) 
         for i in range(32767):
             c = self.state.solver.BVS("c_env_block{}".format(i), 8)
@@ -89,7 +89,6 @@ class PluginEnvVar(angr.SimStatePlugin):
         self.state.memory.store(self.env_block, env_var_bv)
         env_var_wbv = self.state.solver.BVV(env_var_wstr)
         self.state.memory.store(self.env_block, env_var_wbv)
-        self.expl_method = expl_method
             
     def update_dic(self, call_name):
         if call_name in self.dict_calls:
@@ -125,7 +124,7 @@ class PluginEnvVar(angr.SimStatePlugin):
     
     @angr.SimStatePlugin.memo
     def copy(self, memo):
-        p = PluginEnvVar()
+        p = PluginEnvVar(self.expl_method)
         p.last_error = self.last_error
         p.env_block = self.env_block
         p.env_blockw = self.env_blockw
