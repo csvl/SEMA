@@ -35,7 +35,6 @@ class SemaExplorer(ExplorationTechnique):
     ):
         super(SemaExplorer, self).__init__()
 
-        #TODO Christophe : check config files -> good ? 
         self.memory_limit = config['explorer_arg'].getboolean('memory_limit')
         self.verbose = config['explorer_arg'].getboolean('verbose')
         self.eval_time = config['explorer_arg'].getboolean('eval_time')
@@ -86,37 +85,24 @@ class SemaExplorer(ExplorationTechnique):
         
 
     def setup(self, simgr):
-        # The stash where states are moved to wait
-        # until some space becomes available in Active stash.
-        # The size of the space in this stash is a parameter of
-        # the toolchain. If new states appear and there is no
-        # space available in the Pause stash, some states are
-        # dropped.
+        # The stash where states are moved to wait until some space becomes available in Active stash. The size of the space in this stash is a parameter of
+        # the toolchain. If new states appear and there is no space available in the Pause stash, some states are dropped.
         if self.pause_stash not in simgr.stashes:
             simgr.stashes[self.pause_stash] = []
 
-        # The stash where states leading to new
-        # instruction addresses (not yet explored) of the binary
-        # are kept. If CDFS or CBFS are not used, this stash
-        # merges with the pause stash.
+        # The stash where states leading to new instruction addresses (not yet explored) of the binary are kept. 
+        # If CDFS or CBFS are not used, this stash merges with the pause stash.
         if self.new_addr_stash not in simgr.stashes:
             simgr.stashes[self.new_addr_stash] = []
 
 
-        # The stash where states which exceed the
-        # threshold related to loops are moved. If new states
-        # are needed and there is no state available in pause
-        # or ExcessStep stash, states in this stash are used to
-        # resume exploration (their loop counter are put back
-        # to zero).
+        # The stash where states which exceed the threshold related to loops are moved. If new states are needed and there is no state available in pause
+        # or ExcessStep stash, states in this stash are used to resume exploration (their loop counter are put back to zero).
         if self.excessLoop_stash not in simgr.stashes:
             simgr.stashes[self.excessLoop_stash] = []
 
-        # The stash where states exceeding the
-        # threshold related to number of steps are moved. If
-        # new states are needed and there is no state available
-        # in pause stash, states in this stash are used to resume
-        # exploration (their step counter are put back to zero).
+        # The stash where states exceeding the threshold related to number of steps are moved. If new states are needed and there is no state available
+        # in pause stash, states in this stash are used to resume exploration (their step counter are put back to zero).
         if self.excessStep_stash not in simgr.stashes:
             simgr.stashes[self.excessStep_stash] = []
 
@@ -126,6 +112,7 @@ class SemaExplorer(ExplorationTechnique):
         if self.lost_stash not in simgr.stashes:
             simgr.stashes[self.lost_stash] = []
 
+        #TODO : split in specific observer what is needed
         simgr.active[0].globals["id"] = 0
         simgr.active[0].globals["JumpExcedeed"] = False
         simgr.active[0].globals["JumpTable"] = {}
@@ -161,7 +148,6 @@ class SemaExplorer(ExplorationTechnique):
         simgr.active[0].globals["files_fd"] = {}
         simgr.active[0].globals["create_thread_address"] = []
         simgr.active[0].globals["is_thread"] = False
-        simgr.active[0].globals["recv"] = 0
         simgr.active[0].globals["allow_web_interaction"] = False
         if self.runtime_run_thread:
             simgr.active[0].globals["is_thread"] = True

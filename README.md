@@ -192,7 +192,7 @@ SCDG exploration techniques parameters:
 Binary parameters:
   n_args :                Number of symbolic arguments given to the binary (default : 0)
   loop_counter_concrete : TODO (default : 10240)
-  count_block :           TODO
+  count_block_enable :    TODO
   sim_file    :           TODO
   track_command :         TODO
   ioc_report    :         TODO
