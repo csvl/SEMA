@@ -78,7 +78,7 @@ class SVMWLClassifier(SVMClassifier):
             f = open(CLASS_DIR+'/dico/myDico6.pkl','wb')
             pickle.dump(self.dico_precomputed,f)
             f.close()
-            self.clf = SVC(kernel='precomputed',probability=True)
+            self.clf = SVC(kernel='precomputed',probability=True,random_state=42)
             self.clf.fit(self.K_train, self.y_train)
             self.log.info('--------------------FIT OK----------------')
         else:
