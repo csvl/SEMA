@@ -10,5 +10,5 @@ class AddAtomA(angr.SimProcedure):
     def run(self, lpString):
         # self.state.memory.store(lpString, claripy.BVS("WIN32_FIND_DATA", 8 * 320))
         # ret_expr = claripy.BVS("handle_first_file", 32)
-        self.state.plugin_atom.atoms[lpString] = claripy.BVS("atom", 32)
+        self.state.plugin_atom.atoms[lpString] = claripy.BVS("atom", self.arch.bits)
         return 0 if lpString not in self.state.plugin_atom.atoms else self.state.plugin_atom.atoms[lpString]

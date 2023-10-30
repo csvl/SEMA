@@ -104,6 +104,9 @@ class SVMClassifier(Classifier):
         bar.finish()
     
     def split_dataset(self):
+        print("########## Dataset:")
+        for f in self.dataset[:200:20]:
+            print(f"{len(f.node_labels)} -- {len(f.edge_labels)}")
         sss = StratifiedShuffleSplit(n_splits=1, test_size=0.4, random_state=24)
         for train, test in sss.split(self.dataset, self.label):
             self.train_index = train
@@ -114,6 +117,14 @@ class SVMClassifier(Classifier):
         for i in self.val_index:
             self.val_dataset.append(self.dataset[i])
             self.y_val.append(self.label[i])
+        print("########## Train set:")
+        #import pdb; pdb.set_trace()
+        for g in self.train_dataset[:4]:
+            print(f"{len(g.node_labels)} -- {len(g.edge_labels)}")
+        print("########## Valid set:")
+        for e in self.val_dataset[:4]:
+            print(f"{len(e.node_labels)} -- {len(e.edge_labels)}")
+
 
     def get_stat_classifier(self):
         logging.basicConfig(level=logging.INFO)

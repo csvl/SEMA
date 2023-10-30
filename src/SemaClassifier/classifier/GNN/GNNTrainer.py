@@ -36,7 +36,7 @@ BINARY_CLASS = False # TODO
 class GNNTrainer(Classifier):
     def __init__(self, path, name, threshold=0.45,
                  families=['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT'],
-                 num_layers=4, input_path=None, hidden=64, lr=0.001, epoch=350, batch_size=1, 
+                 num_layers=4, input_path=None, hidden=32, lr=0.001, epoch=350, batch_size=1, 
                  flag=True, patience=-1, m=3, step_size=8e-3, graph_model="ER", net_linear=False, drop_ratio=0.5,
                  drop_path_p=0.01, edge_p=0.6, net_seed=47,
                  residual=False):
@@ -156,6 +156,10 @@ class GNNTrainer(Classifier):
         bar.finish()
 
     def split_dataset(self):
+        print("########## Dataset:")
+        # import pdb; pdb.set_trace()
+        for f in self.dataset[:200:20]:
+            print(f"{f.num_nodes} -- {f.num_edges}")
         sss = StratifiedShuffleSplit(n_splits=1, test_size=0.4, random_state=24)
         for train, test in sss.split(self.dataset, self.label):
             self.train_index = train
@@ -166,6 +170,13 @@ class GNNTrainer(Classifier):
         for i in self.val_index:
             self.val_dataset.append(self.dataset[i])
             self.y_val.append(self.label[i])
+        print("########## Train set:")
+        # import pdb; pdb.set_trace()
+        for g in self.train_dataset[:4]:
+            print(f"{g.num_nodes} -- {g.num_edges}")
+        print("########## Valid set:")
+        for e in self.val_dataset[:4]:
+            print(f"{e.num_nodes} -- {e.num_edges}")
 
     def get_label(self,fname):
         name = os.path.basename(fname)

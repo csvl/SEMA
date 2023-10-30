@@ -237,7 +237,7 @@ class SemaSCDG:
         self.call_sim.syscall_found.clear()
         self.call_sim.system_call_table.clear()
         
-        # TODO check if PE file get /GUARD option (VS code) with leaf
+        # TODO check if PE file get /GUARD option (VS code) with lief
         
         self.start_time = time.time()
         if csv_file:
@@ -691,7 +691,7 @@ class SemaSCDG:
         # addr = 0x06f7e90
 
         # Nitol
-        addr = 0x402f52
+        # addr = 0x402f52
         
         # Create initial state of the binary
         if self.is_packed and self.unpack_mode == "symbion":
