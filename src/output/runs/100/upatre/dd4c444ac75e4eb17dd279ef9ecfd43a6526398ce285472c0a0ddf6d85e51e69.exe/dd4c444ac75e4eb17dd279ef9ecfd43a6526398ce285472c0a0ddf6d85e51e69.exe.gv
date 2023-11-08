@@ -1,0 +1,476 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4240928.main
+dd4c444ac75e4eb17dd279ef9ecfd43a6526398ce285472c0a0ddf6d85e51e69.exe"]
+	1 [label="0x40b73a.LoadLibraryA
+KERNEL32.DLL"]
+	2 [label="0x40b74f.GetProcAddress
+6295592
+GetLastError"]
+	1 -> 2 [label="(0-->1)"]
+	3 [label="0x40b74f.GetProcAddress
+6295592
+lstrcpyA"]
+	1 -> 3 [label="(0-->1)"]
+	2 -> 3 [label="(1-->1)"]
+	4 [label="0x40b74f.GetProcAddress
+6295592
+GetModuleHandleA"]
+	1 -> 4 [label="(0-->1)"]
+	2 -> 4 [label="(1-->1)"]
+	3 -> 4 [label="(1-->1)"]
+	5 [label="0x40b74f.GetProcAddress
+6295592
+GetCommandLineA"]
+	1 -> 5 [label="(0-->1)"]
+	2 -> 5 [label="(1-->1)"]
+	3 -> 5 [label="(1-->1)"]
+	4 -> 5 [label="(1-->1)"]
+	6 [label="0x40b74f.GetProcAddress
+6295592
+FindFirstFileA"]
+	1 -> 6 [label="(0-->1)"]
+	2 -> 6 [label="(1-->1)"]
+	3 -> 6 [label="(1-->1)"]
+	4 -> 6 [label="(1-->1)"]
+	5 -> 6 [label="(1-->1)"]
+	7 [label="0x40b74f.GetProcAddress
+6295592
+FindClose"]
+	1 -> 7 [label="(0-->1)"]
+	2 -> 7 [label="(1-->1)"]
+	3 -> 7 [label="(1-->1)"]
+	4 -> 7 [label="(1-->1)"]
+	5 -> 7 [label="(1-->1)"]
+	6 -> 7 [label="(1-->1)"]
+	8 [label="0x40b74f.GetProcAddress
+6295592
+FindNextFileA"]
+	1 -> 8 [label="(0-->1)"]
+	2 -> 8 [label="(1-->1)"]
+	3 -> 8 [label="(1-->1)"]
+	4 -> 8 [label="(1-->1)"]
+	5 -> 8 [label="(1-->1)"]
+	6 -> 8 [label="(1-->1)"]
+	7 -> 8 [label="(1-->1)"]
+	9 [label="0x40b74f.GetProcAddress
+6295592
+GetCurrentProcessId"]
+	1 -> 9 [label="(0-->1)"]
+	2 -> 9 [label="(1-->1)"]
+	3 -> 9 [label="(1-->1)"]
+	4 -> 9 [label="(1-->1)"]
+	5 -> 9 [label="(1-->1)"]
+	6 -> 9 [label="(1-->1)"]
+	7 -> 9 [label="(1-->1)"]
+	8 -> 9 [label="(1-->1)"]
+	10 [label="0x40b74f.GetProcAddress
+6295592
+GetCurrentProcess"]
+	1 -> 10 [label="(0-->1)"]
+	2 -> 10 [label="(1-->1)"]
+	3 -> 10 [label="(1-->1)"]
+	4 -> 10 [label="(1-->1)"]
+	5 -> 10 [label="(1-->1)"]
+	6 -> 10 [label="(1-->1)"]
+	7 -> 10 [label="(1-->1)"]
+	8 -> 10 [label="(1-->1)"]
+	9 -> 10 [label="(1-->1)"]
+	11 [label="0x40b74f.GetProcAddress
+6295592
+GetSystemTimeAsFileTime"]
+	1 -> 11 [label="(0-->1)"]
+	2 -> 11 [label="(1-->1)"]
+	3 -> 11 [label="(1-->1)"]
+	4 -> 11 [label="(1-->1)"]
+	5 -> 11 [label="(1-->1)"]
+	6 -> 11 [label="(1-->1)"]
+	7 -> 11 [label="(1-->1)"]
+	8 -> 11 [label="(1-->1)"]
+	9 -> 11 [label="(1-->1)"]
+	10 -> 11 [label="(1-->1)"]
+	12 [label="0x40b74f.GetProcAddress
+6295592
+GetComputerNameA"]
+	1 -> 12 [label="(0-->1)"]
+	2 -> 12 [label="(1-->1)"]
+	3 -> 12 [label="(1-->1)"]
+	4 -> 12 [label="(1-->1)"]
+	5 -> 12 [label="(1-->1)"]
+	6 -> 12 [label="(1-->1)"]
+	7 -> 12 [label="(1-->1)"]
+	8 -> 12 [label="(1-->1)"]
+	9 -> 12 [label="(1-->1)"]
+	10 -> 12 [label="(1-->1)"]
+	11 -> 12 [label="(1-->1)"]
+	13 [label="0x40b74f.GetProcAddress
+6295592
+CreateFileA"]
+	1 -> 13 [label="(0-->1)"]
+	2 -> 13 [label="(1-->1)"]
+	3 -> 13 [label="(1-->1)"]
+	4 -> 13 [label="(1-->1)"]
+	5 -> 13 [label="(1-->1)"]
+	6 -> 13 [label="(1-->1)"]
+	7 -> 13 [label="(1-->1)"]
+	8 -> 13 [label="(1-->1)"]
+	9 -> 13 [label="(1-->1)"]
+	10 -> 13 [label="(1-->1)"]
+	11 -> 13 [label="(1-->1)"]
+	12 -> 13 [label="(1-->1)"]
+	14 [label="0x40b73a.LoadLibraryA
+gdi32.dll"]
+	15 [label="0x40b74f.GetProcAddress
+6295644
+DeleteObject"]
+	14 -> 15 [label="(0-->1)"]
+	16 [label="0x40b74f.GetProcAddress
+6295644
+CreateFontIndirectA"]
+	14 -> 16 [label="(0-->1)"]
+	15 -> 16 [label="(1-->1)"]
+	17 [label="0x40b73a.LoadLibraryA
+user32.dll"]
+	18 [label="0x40b74f.GetProcAddress
+6295652
+GetMessageA"]
+	17 -> 18 [label="(0-->1)"]
+	19 [label="0x40b74f.GetProcAddress
+6295652
+PostQuitMessage"]
+	17 -> 19 [label="(0-->1)"]
+	18 -> 19 [label="(1-->1)"]
+	20 [label="0x40b74f.GetProcAddress
+6295652
+GetClientRect"]
+	17 -> 20 [label="(0-->1)"]
+	18 -> 20 [label="(1-->1)"]
+	19 -> 20 [label="(1-->1)"]
+	21 [label="0x40b74f.GetProcAddress
+6295652
+UpdateWindow"]
+	17 -> 21 [label="(0-->1)"]
+	18 -> 21 [label="(1-->1)"]
+	19 -> 21 [label="(1-->1)"]
+	20 -> 21 [label="(1-->1)"]
+	22 [label="0x40b74f.GetProcAddress
+6295652
+EndPaint"]
+	17 -> 22 [label="(0-->1)"]
+	18 -> 22 [label="(1-->1)"]
+	19 -> 22 [label="(1-->1)"]
+	20 -> 22 [label="(1-->1)"]
+	21 -> 22 [label="(1-->1)"]
+	23 [label="0x40b74f.GetProcAddress
+6295652
+DrawTextA"]
+	17 -> 23 [label="(0-->1)"]
+	18 -> 23 [label="(1-->1)"]
+	19 -> 23 [label="(1-->1)"]
+	20 -> 23 [label="(1-->1)"]
+	21 -> 23 [label="(1-->1)"]
+	22 -> 23 [label="(1-->1)"]
+	24 [label="0x40b74f.GetProcAddress
+6295652
+DispatchMessageA"]
+	17 -> 24 [label="(0-->1)"]
+	18 -> 24 [label="(1-->1)"]
+	19 -> 24 [label="(1-->1)"]
+	20 -> 24 [label="(1-->1)"]
+	21 -> 24 [label="(1-->1)"]
+	22 -> 24 [label="(1-->1)"]
+	23 -> 24 [label="(1-->1)"]
+	25 [label="0x40b74f.GetProcAddress
+6295652
+BeginPaint"]
+	17 -> 25 [label="(0-->1)"]
+	18 -> 25 [label="(1-->1)"]
+	19 -> 25 [label="(1-->1)"]
+	20 -> 25 [label="(1-->1)"]
+	21 -> 25 [label="(1-->1)"]
+	22 -> 25 [label="(1-->1)"]
+	23 -> 25 [label="(1-->1)"]
+	24 -> 25 [label="(1-->1)"]
+	26 [label="0x40b74f.GetProcAddress
+6295652
+TranslateMessage"]
+	17 -> 26 [label="(0-->1)"]
+	18 -> 26 [label="(1-->1)"]
+	19 -> 26 [label="(1-->1)"]
+	20 -> 26 [label="(1-->1)"]
+	21 -> 26 [label="(1-->1)"]
+	22 -> 26 [label="(1-->1)"]
+	23 -> 26 [label="(1-->1)"]
+	24 -> 26 [label="(1-->1)"]
+	25 -> 26 [label="(1-->1)"]
+	27 [label="0x40b74f.GetProcAddress
+6295652
+MoveWindow"]
+	17 -> 27 [label="(0-->1)"]
+	18 -> 27 [label="(1-->1)"]
+	19 -> 27 [label="(1-->1)"]
+	20 -> 27 [label="(1-->1)"]
+	21 -> 27 [label="(1-->1)"]
+	22 -> 27 [label="(1-->1)"]
+	23 -> 27 [label="(1-->1)"]
+	24 -> 27 [label="(1-->1)"]
+	25 -> 27 [label="(1-->1)"]
+	26 -> 27 [label="(1-->1)"]
+	28 [label="0x40b74f.GetProcAddress
+6295652
+CreateWindowExA"]
+	17 -> 28 [label="(0-->1)"]
+	18 -> 28 [label="(1-->1)"]
+	19 -> 28 [label="(1-->1)"]
+	20 -> 28 [label="(1-->1)"]
+	21 -> 28 [label="(1-->1)"]
+	22 -> 28 [label="(1-->1)"]
+	23 -> 28 [label="(1-->1)"]
+	24 -> 28 [label="(1-->1)"]
+	25 -> 28 [label="(1-->1)"]
+	26 -> 28 [label="(1-->1)"]
+	27 -> 28 [label="(1-->1)"]
+	29 [label="0x40b74f.GetProcAddress
+6295652
+RegisterClassExA"]
+	17 -> 29 [label="(0-->1)"]
+	18 -> 29 [label="(1-->1)"]
+	19 -> 29 [label="(1-->1)"]
+	20 -> 29 [label="(1-->1)"]
+	21 -> 29 [label="(1-->1)"]
+	22 -> 29 [label="(1-->1)"]
+	23 -> 29 [label="(1-->1)"]
+	24 -> 29 [label="(1-->1)"]
+	25 -> 29 [label="(1-->1)"]
+	26 -> 29 [label="(1-->1)"]
+	27 -> 29 [label="(1-->1)"]
+	28 -> 29 [label="(1-->1)"]
+	30 [label="0x40b74f.GetProcAddress
+6295652
+DefWindowProcA"]
+	17 -> 30 [label="(0-->1)"]
+	18 -> 30 [label="(1-->1)"]
+	19 -> 30 [label="(1-->1)"]
+	20 -> 30 [label="(1-->1)"]
+	21 -> 30 [label="(1-->1)"]
+	22 -> 30 [label="(1-->1)"]
+	23 -> 30 [label="(1-->1)"]
+	24 -> 30 [label="(1-->1)"]
+	25 -> 30 [label="(1-->1)"]
+	26 -> 30 [label="(1-->1)"]
+	27 -> 30 [label="(1-->1)"]
+	28 -> 30 [label="(1-->1)"]
+	29 -> 30 [label="(1-->1)"]
+	31 [label="0x40b74f.GetProcAddress
+6295652
+MessageBoxA"]
+	17 -> 31 [label="(0-->1)"]
+	18 -> 31 [label="(1-->1)"]
+	19 -> 31 [label="(1-->1)"]
+	20 -> 31 [label="(1-->1)"]
+	21 -> 31 [label="(1-->1)"]
+	22 -> 31 [label="(1-->1)"]
+	23 -> 31 [label="(1-->1)"]
+	24 -> 31 [label="(1-->1)"]
+	25 -> 31 [label="(1-->1)"]
+	26 -> 31 [label="(1-->1)"]
+	27 -> 31 [label="(1-->1)"]
+	28 -> 31 [label="(1-->1)"]
+	29 -> 31 [label="(1-->1)"]
+	30 -> 31 [label="(1-->1)"]
+	32 [label="0x40b74f.GetProcAddress
+6295652
+SendMessageA"]
+	17 -> 32 [label="(0-->1)"]
+	18 -> 32 [label="(1-->1)"]
+	19 -> 32 [label="(1-->1)"]
+	20 -> 32 [label="(1-->1)"]
+	21 -> 32 [label="(1-->1)"]
+	22 -> 32 [label="(1-->1)"]
+	23 -> 32 [label="(1-->1)"]
+	24 -> 32 [label="(1-->1)"]
+	25 -> 32 [label="(1-->1)"]
+	26 -> 32 [label="(1-->1)"]
+	27 -> 32 [label="(1-->1)"]
+	28 -> 32 [label="(1-->1)"]
+	29 -> 32 [label="(1-->1)"]
+	30 -> 32 [label="(1-->1)"]
+	31 -> 32 [label="(1-->1)"]
+	33 [label="0x40b74f.GetProcAddress
+6295652
+LoadIconA"]
+	17 -> 33 [label="(0-->1)"]
+	18 -> 33 [label="(1-->1)"]
+	19 -> 33 [label="(1-->1)"]
+	20 -> 33 [label="(1-->1)"]
+	21 -> 33 [label="(1-->1)"]
+	22 -> 33 [label="(1-->1)"]
+	23 -> 33 [label="(1-->1)"]
+	24 -> 33 [label="(1-->1)"]
+	25 -> 33 [label="(1-->1)"]
+	26 -> 33 [label="(1-->1)"]
+	27 -> 33 [label="(1-->1)"]
+	28 -> 33 [label="(1-->1)"]
+	29 -> 33 [label="(1-->1)"]
+	30 -> 33 [label="(1-->1)"]
+	31 -> 33 [label="(1-->1)"]
+	32 -> 33 [label="(1-->1)"]
+	34 [label="0x40b74f.GetProcAddress
+6295652
+DestroyWindow"]
+	17 -> 34 [label="(0-->1)"]
+	18 -> 34 [label="(1-->1)"]
+	19 -> 34 [label="(1-->1)"]
+	20 -> 34 [label="(1-->1)"]
+	21 -> 34 [label="(1-->1)"]
+	22 -> 34 [label="(1-->1)"]
+	23 -> 34 [label="(1-->1)"]
+	24 -> 34 [label="(1-->1)"]
+	25 -> 34 [label="(1-->1)"]
+	26 -> 34 [label="(1-->1)"]
+	27 -> 34 [label="(1-->1)"]
+	28 -> 34 [label="(1-->1)"]
+	29 -> 34 [label="(1-->1)"]
+	30 -> 34 [label="(1-->1)"]
+	31 -> 34 [label="(1-->1)"]
+	32 -> 34 [label="(1-->1)"]
+	33 -> 34 [label="(1-->1)"]
+	35 [label="0x40b74f.GetProcAddress
+6295652
+LoadCursorA"]
+	17 -> 35 [label="(0-->1)"]
+	18 -> 35 [label="(1-->1)"]
+	19 -> 35 [label="(1-->1)"]
+	20 -> 35 [label="(1-->1)"]
+	21 -> 35 [label="(1-->1)"]
+	22 -> 35 [label="(1-->1)"]
+	23 -> 35 [label="(1-->1)"]
+	24 -> 35 [label="(1-->1)"]
+	25 -> 35 [label="(1-->1)"]
+	26 -> 35 [label="(1-->1)"]
+	27 -> 35 [label="(1-->1)"]
+	28 -> 35 [label="(1-->1)"]
+	29 -> 35 [label="(1-->1)"]
+	30 -> 35 [label="(1-->1)"]
+	31 -> 35 [label="(1-->1)"]
+	32 -> 35 [label="(1-->1)"]
+	33 -> 35 [label="(1-->1)"]
+	34 -> 35 [label="(1-->1)"]
+	36 [label="0x40b74f.GetProcAddress
+6295652
+ShowWindow"]
+	17 -> 36 [label="(0-->1)"]
+	18 -> 36 [label="(1-->1)"]
+	19 -> 36 [label="(1-->1)"]
+	20 -> 36 [label="(1-->1)"]
+	21 -> 36 [label="(1-->1)"]
+	22 -> 36 [label="(1-->1)"]
+	23 -> 36 [label="(1-->1)"]
+	24 -> 36 [label="(1-->1)"]
+	25 -> 36 [label="(1-->1)"]
+	26 -> 36 [label="(1-->1)"]
+	27 -> 36 [label="(1-->1)"]
+	28 -> 36 [label="(1-->1)"]
+	29 -> 36 [label="(1-->1)"]
+	30 -> 36 [label="(1-->1)"]
+	31 -> 36 [label="(1-->1)"]
+	32 -> 36 [label="(1-->1)"]
+	33 -> 36 [label="(1-->1)"]
+	34 -> 36 [label="(1-->1)"]
+	35 -> 36 [label="(1-->1)"]
+	37 [label="0x40b74f.GetProcAddress
+6295652
+GetWindowRect"]
+	17 -> 37 [label="(0-->1)"]
+	18 -> 37 [label="(1-->1)"]
+	19 -> 37 [label="(1-->1)"]
+	20 -> 37 [label="(1-->1)"]
+	21 -> 37 [label="(1-->1)"]
+	22 -> 37 [label="(1-->1)"]
+	23 -> 37 [label="(1-->1)"]
+	24 -> 37 [label="(1-->1)"]
+	25 -> 37 [label="(1-->1)"]
+	26 -> 37 [label="(1-->1)"]
+	27 -> 37 [label="(1-->1)"]
+	28 -> 37 [label="(1-->1)"]
+	29 -> 37 [label="(1-->1)"]
+	30 -> 37 [label="(1-->1)"]
+	31 -> 37 [label="(1-->1)"]
+	32 -> 37 [label="(1-->1)"]
+	33 -> 37 [label="(1-->1)"]
+	34 -> 37 [label="(1-->1)"]
+	35 -> 37 [label="(1-->1)"]
+	36 -> 37 [label="(1-->1)"]
+	38 [label="0x40b77d.VirtualProtect
+4194304
+4096
+4
+2147417560"]
+	39 [label="0x40b792.VirtualProtect
+4194304
+4096
+0
+2147417560"]
+	38 -> 39 [label="(1-->1)"]
+	38 -> 39 [label="(2-->2)"]
+	38 -> 39 [label="(4-->4)"]
+	38 -> 39 [label="(0-->0)"]
+	40 [label="0x402993.GetCommandLineA
+"]
+	41 [label="0x4029e5.GetModuleHandleA
+0"]
+	38 -> 41 [label="(1-->0)"]
+	39 -> 41 [label="(1-->0)"]
+	42 [label="0x402a10.LoadIconA
+0
+"]
+	43 [label="0x402a27.LoadCursorA
+0
+"]
+	44 [label="0x402a37.RegisterClassExA
+4214960"]
+	45 [label="0x402a6e.CreateWindowExA
+0
+second
+mini
+262144
+4294962296
+4294964296
+641
+590
+0
+0
+4194304
+0"]
+	38 -> 45 [label="(1-->11)"]
+	39 -> 45 [label="(1-->11)"]
+	41 -> 45 [label="(0-->11)"]
+	46 [label="0x402a8a.ShowWindow
+retval_CreateWindowExA_131072_32
+5"]
+	47 [label="0x402abc.UpdateWindow
+retval_CreateWindowExA_131072_32"]
+	46 -> 47 [label="(1-->1)"]
+	48 [label="0x402acd.GetMessageA
+4215008
+0
+0
+0"]
+	38 -> 48 [label="(0-->0)"]
+	39 -> 48 [label="(0-->0)"]
+	49 [label="0x402adc.TranslateMessage
+4215008"]
+	48 -> 49 [label="(1-->1)"]
+	50 [label="0x402ae7.DispatchMessageA
+4215008"]
+	48 -> 50 [label="(1-->1)"]
+	49 -> 50 [label="(1-->1)"]
+	51 [label="0x402ab0.MoveWindow
+retval_CreateWindowExA_131072_32
+4294962295
+4294964295
+642
+591
+0"]
+	46 -> 51 [label="(1-->1)"]
+}

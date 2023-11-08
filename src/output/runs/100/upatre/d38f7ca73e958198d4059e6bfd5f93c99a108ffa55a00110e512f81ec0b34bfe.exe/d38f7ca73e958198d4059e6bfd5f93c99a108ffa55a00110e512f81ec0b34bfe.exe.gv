@@ -1,0 +1,14 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4198483.main
+d38f7ca73e958198d4059e6bfd5f93c99a108ffa55a00110e512f81ec0b34bfe.exe"]
+	1 [label="0x403012.GetTickCount
+"]
+	2 [label="0x403018.GetVersion
+"]
+	1 -> 2 [label="(0-->0)"]
+	3 [label="0x40302a.waveInClose
+4210617"]
+	4 [label="0x40303c.ExitProcess
+0"]
+}

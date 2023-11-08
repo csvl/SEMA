@@ -1,0 +1,22 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4203054.main
+76f4f4aaa9bfdaa065f100cdb007d4cdeaebd47242d86342ba638589fef5e82a.exe"]
+	1 [label="0x4012ad.GetVersionExW
+4198324"]
+	2 [label="0x4012b7.GetProcessHeap
+"]
+	3 [label="0x4012c4.GetModuleHandleW
+0"]
+	4 [label="0x4012d9.HeapAlloc
+1
+0
+1024"]
+	5 [label="0x4012fb.DialogBoxParamW
+4194304
+
+0
+4199621
+0"]
+	3 -> 5 [label="(0-->1)"]
+}

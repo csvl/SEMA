@@ -1,0 +1,43 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4390912.main
+7d443ed38b8a19686fd1e3d17d5d1ca71015e698445177e63a9c12c2c3e5986f.exe"]
+	1 [label="0x401262.__GetMainArgs
+"]
+	2 [label="0x4088fd.GetCommandLineA
+"]
+	1 -> 2 [label="(0-->0)"]
+	3 [label="0x408949.GetModuleHandleA
+0"]
+	4 [label="0x4078a5.OpenMutexA
+2031617
+0
+KingKarton_10"]
+	5 [label="0x4078b5.CloseHandle
+retval_OpenMutexA_131070_32"]
+	6 [label="0x4078bc.exit
+"]
+	1 -> 6 [label="(0-->0)"]
+	2 -> 6 [label="(0-->0)"]
+	7 [label="0x4078df.GetVersionExA
+4300112"]
+	5 -> 7 [label="(0-->0)"]
+	8 [label="0x4078ee.GetSystemDirectoryA
+C:\Windows\System32
+255"]
+	9 [label="0x4078f3.GetTickCount
+"]
+	1 -> 9 [label="(0-->0)"]
+	2 -> 9 [label="(0-->0)"]
+	6 -> 9 [label="(0-->0)"]
+	10 [label="0x4078f9.srand
+retval_GetTickCount_131079_32"]
+	11 [label="0x407913.GetModuleFileNameA
+4194304
+7d443ed38b8a19686fd1e3d17d5d1ca71015e698445177e63a9c12c2c3e5986f.exe
+260"]
+	3 -> 11 [label="(0-->1)"]
+	0 -> 11 [label="(1-->2)"]
+	12 [label="0x4078f9.srand
+retval_GetTickCount_131075_32"]
+}

@@ -1,0 +1,72 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4202368.main
+a402dbb95f4c77b0fa73d16dbbc59a92a9e654f2e8504bfebad9b73edcbf958c.exe"]
+	1 [label="0x401fad.__set_app_type
+"]
+	2 [label="0x401fc2.__p__fmode
+"]
+	1 -> 2 [label="(0-->0)"]
+	3 [label="0x401fd0.__p__commode
+"]
+	1 -> 3 [label="(0-->0)"]
+	2 -> 3 [label="(0-->0)"]
+	4 [label="0x401269._controlfp
+"]
+	1 -> 4 [label="(0-->0)"]
+	2 -> 4 [label="(0-->0)"]
+	3 -> 4 [label="(0-->0)"]
+	5 [label="0x402012._initterm
+4206808
+4206812"]
+	6 [label="0x402035.__getmainargs
+2147417496
+2147417480
+2147417492
+0
+2147417484"]
+	7 [label="0x402045._initterm
+4206800
+4206804"]
+	5 -> 7 [label="(0-->0)"]
+	8 [label="0x402084.GetStartupInfoA
+2147417500"]
+	5 -> 8 [label="(0-->0)"]
+	7 -> 8 [label="(0-->0)"]
+	9 [label="0x4020a8.GetModuleHandleA
+0"]
+	10 [label="0x401093.GetCommandLineA
+"]
+	1 -> 10 [label="(0-->0)"]
+	2 -> 10 [label="(0-->0)"]
+	3 -> 10 [label="(0-->0)"]
+	4 -> 10 [label="(0-->0)"]
+	11 [label="0x4010ae.CreateMutexA
+0
+0
+0"]
+	12 [label="0x4010c5.LoadIconA
+2147418095
+"]
+	13 [label="0x4010d1.LoadCursorA
+2147418095
+"]
+	12 -> 13 [label="(1-->1)"]
+	14 [label="0x4010fa.RegisterClassExA
+2147417384"]
+	15 [label="0x401100.ordinal.17.comctl32.dll
+"]
+	1 -> 15 [label="(0-->0)"]
+	2 -> 15 [label="(0-->0)"]
+	3 -> 15 [label="(0-->0)"]
+	4 -> 15 [label="(0-->0)"]
+	10 -> 15 [label="(0-->0)"]
+	16 [label="0x40110f.LoadLibraryExA
+"]
+	1 -> 16 [label="(0-->0)"]
+	2 -> 16 [label="(0-->0)"]
+	3 -> 16 [label="(0-->0)"]
+	4 -> 16 [label="(0-->0)"]
+	10 -> 16 [label="(0-->0)"]
+	15 -> 16 [label="(0-->0)"]
+}

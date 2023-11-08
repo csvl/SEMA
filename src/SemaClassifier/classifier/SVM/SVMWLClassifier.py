@@ -20,10 +20,10 @@ from sklearn.metrics import roc_curve, roc_auc_score
 
 try:
     from .SVMClassifier import SVMClassifier
-    from clogging.CustomFormatter import CustomFormatter
+    # from clogging.CustomFormatter import CustomFormatter
 except:
     from .SVMClassifier import SVMClassifier
-    from ...clogging.CustomFormatter import CustomFormatter
+    # from ...clogging.CustomFormatter import CustomFormatter
 
 
 CLASS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -38,25 +38,34 @@ class SVMWLClassifier(SVMClassifier):
 
         ch = logging.StreamHandler()
         ch.setLevel(logging.INFO)
-        ch.setFormatter(CustomFormatter())
+        # ch.setFormatter(CustomFormatter())
         self.log = logging.getLogger("SVMWLClassifier")
         self.log.setLevel(logging.INFO)
         self.log.addHandler(ch)
         self.log.propagate = False
         self.gk = None
 
-    def classify(self,path=None):
-        if path is None:
+    def classify(self,path=None, dataset=None):
+        if dataset is not None:
+            self.dataset = dataset
+            self.K_test = self.gk.transform(self.dataset)
+            self.y_pred = self.clf.predict(self.K_test)
+        elif path is None:
             self.y_pred = self.clf.predict(self.K_val)
         else:
             super().init_dataset(path)
             print("Dataset len: " + str(len(self.dataset)))
             K_test = self.gk.transform(self.dataset)
             self.y_pred = self.clf.predict(K_test)
+        return self.y_pred
 
 
-    def detection(self,path=None):
-        if path is None:
+    def detection(self,path=None, dataset=None):
+        if dataset is not None:
+            self.dataset = dataset
+            self.K_test = self.gk.transform(self.dataset)
+            self.y_pred = self.clf.predict(self.K_test)
+        elif path is None:
             self.y_pred = self.clf.predict(self.K_val)
         else:
             super().init_dataset(path)
@@ -64,14 +73,20 @@ class SVMWLClassifier(SVMClassifier):
             self.y_pred = self.clf.predict(K_test)
 
 
-    def train(self,path):
-        super().init_dataset(path)
+    def train(self,path=None, dataset=None, label=None):
+        if dataset is not None:
+            self.dataset = dataset
+        elif path is not None:
+            super().init_dataset(path)
+        else:
+            self.log.info("Dataset length should be > 0")
+            exit(-1)
         # import pdb; pdb.set_trace()
         self.log.info("Dataset len: " + str(len(self.dataset)))
         self.dataset_len = len(self.dataset)
 
         if self.dataset_len > 0:
-            super().split_dataset()
+            super().split_dataset(label)
             self.gk = WeisfeilerLehmanOptimalAssignment(normalize=True)
             self.K_train = self.gk.fit_transform(self.train_dataset)
             self.K_val = self.gk.transform(self.val_dataset)

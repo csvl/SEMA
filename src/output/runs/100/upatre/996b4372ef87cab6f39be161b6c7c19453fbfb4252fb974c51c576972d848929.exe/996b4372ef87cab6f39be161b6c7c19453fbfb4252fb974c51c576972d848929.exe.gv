@@ -1,0 +1,56 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4200994.main
+996b4372ef87cab6f39be161b6c7c19453fbfb4252fb974c51c576972d848929.exe"]
+	1 [label="0x401620.GetProcessHeap
+"]
+	2 [label="0x40162b.GetCurrentThreadId
+"]
+	1 -> 2 [label="(0-->0)"]
+	3 [label="0x401638.GetModuleHandleA
+0"]
+	4 [label="0x401672.RegisterClassExA
+2147417500"]
+	5 [label="0x401684.HeapCreate
+1
+4096
+65536"]
+	6 [label="0x4016bf.CreateWindowExA
+0
+itaartas
+timesure
+0
+180
+220
+130
+302
+0
+0
+4194304
+0"]
+	3 -> 6 [label="(0-->11)"]
+	7 [label="0x4016cd.ShowWindow
+retval_CreateWindowExA_131070_32
+0"]
+	8 [label="0x4016d9.UpdateWindow
+retval_CreateWindowExA_131070_32"]
+	7 -> 8 [label="(1-->1)"]
+	9 [label="0x4016f8.GetMessageA
+2147417512
+0
+0
+0"]
+	5 -> 9 [label="(1-->0)"]
+	5 -> 9 [label="(0-->0)"]
+	10 [label="0x4016e7.TranslateMessage
+2147417512"]
+	9 -> 10 [label="(1-->1)"]
+	11 [label="0x4016ee.DispatchMessageA
+2147417512"]
+	9 -> 11 [label="(1-->1)"]
+	10 -> 11 [label="(1-->1)"]
+	12 [label="0x401702.ordinal.17.comctl32.dll
+"]
+	1 -> 12 [label="(0-->0)"]
+	2 -> 12 [label="(0-->0)"]
+}

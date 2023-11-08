@@ -1,0 +1,69 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4199019.main
+7443af82777e0565cac4ca173214199301d6a1c2c38b36fe168a26d23206618e.exe"]
+	1 [label="0x4012a0.VirtualAlloc
+0
+10940000
+4096
+4"]
+	2 [label="0x4010bf.GetComputerNameW
+CharlyBVO_PC
+2147417444"]
+	3 [label="0x4010ec.GetVersionExW
+3768112604"]
+	4 [label="0x4012df.GetModuleFileNameW
+0
+7443af82777e0565cac4ca173214199301d6a1c2c38b36fe168a26d23206618e.exe
+4096"]
+	0 -> 4 [label="(1-->2)"]
+	1 -> 4 [label="(3-->3)"]
+	5 [label="0x4012ec.GetTempPathW
+4096
+"]
+	1 -> 5 [label="(3-->1)"]
+	4 -> 5 [label="(3-->1)"]
+	6 [label="0x401306.swprintf
+
+3768109692
+
+3768109792"]
+	7 [label="0x401322.CreateFileW
+7443af82777e0565cac4ca173214199301d6a1c2c38b36fe168a26d23206618e.exe
+2147483648
+1
+0
+3
+128
+0"]
+	0 -> 7 [label="(1-->1)"]
+	4 -> 7 [label="(2-->1)"]
+	8 [label="0x401337.GetFileSize
+3
+0"]
+	7 -> 8 [label="(5-->1)"]
+	7 -> 8 [label="(0-->1)"]
+	9 [label="0x401342.lstrlenW
+7443af82777e0565cac4ca173214199301d6a1c2c38b36fe168a26d23206618e.exe"]
+	0 -> 9 [label="(1-->1)"]
+	4 -> 9 [label="(2-->1)"]
+	7 -> 9 [label="(1-->1)"]
+	10 [label="0x401366.ReadFile
+3
+3758096384
+retval_GetFileSize_131073_32
+2147417564
+0"]
+	7 -> 10 [label="(5-->1)"]
+	7 -> 10 [label="(0-->1)"]
+	8 -> 10 [label="(1-->1)"]
+	1 -> 10 [label="(0-->2)"]
+	7 -> 10 [label="(3-->0)"]
+	11 [label="0x401372.lstrcmpW
+7443af82777e0565cac4ca173214199301d6a1c2c38b36fe168a26d23206618e.exe
+"]
+	0 -> 11 [label="(1-->1)"]
+	4 -> 11 [label="(2-->1)"]
+	7 -> 11 [label="(1-->1)"]
+	9 -> 11 [label="(1-->1)"]
+}

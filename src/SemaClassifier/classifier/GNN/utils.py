@@ -8,7 +8,7 @@ import torch
 from torch_geometric.data import Data
 import torch.nn.functional as F
 from torch_geometric.data import Batch
-# from grakel import Graph
+from grakel import Graph
 from torch.utils.data import Dataset
 
 import networkx as nx
@@ -27,10 +27,10 @@ class PyGDataset(Dataset):
 
 # Process the graph data and convert to a PyG Data object.
 def gen_graph_data(edges, nodes, vertices, edge_labels, label):
+    # import pdb; pdb.set_trace()
     edges = list(edges)
     x = torch.tensor([torch.tensor(nodes[v]) for v in vertices])
     x = x.unsqueeze(-1)
-    # import pdb; pdb.set_trace()
     edge_attr = torch.tensor([edge_labels[e] for e in edges])
     # edge_attr = torch.tensor([0.0 for _ in edges])
     num_nodes = len(vertices)
@@ -54,9 +54,135 @@ def gen_graph_data(edges, nodes, vertices, edge_labels, label):
     # print(data)
     # import pdb; pdb.set_trace()
     return data
+def read_json_4_wl(path, mapping, lonely=True):
+    vertices = {}
+    nodes = {}
+    edges = {}
+    edge_labels = {}
+    c_edges = 1
+    with open(path) as f:
+        data = json.load(f)
+        for node in data['nodes']:
+            v = int(node['id'])
+            vertices[v] = []
+            v_label = node['name'] # TODO use mapping instead of name
+            # import pdb; pdb.set_trace()
+            # nodes[v] = v_label
+            nodes[v] = mapping[v_label] 
+        for link in data['links']:
+            v1 = int(link["id1"])
+            v2 = int(link["id2"])
+            edges[tuple((v1,v2))] = 1
+            edge_labels[tuple((v1,v2))] = int(link["label"])
+            c_edges = c_edges + 1
+            vertices[v1].append(v2)
+            vertices[v2].append(v1)
+        
+        if not lonely:
+            #STUFF below to delete lonely nodes
+            de = []
+            count = 0
+            vertices_ok = {}
+            nodes_ok = {}
+            map_clean = {}
+            # find index of lonely node
+            for key in vertices:
+                if not vertices[key]:
+                    de.append(key)
+                else:
+                    map_clean[key] = count
+                    count = count +1
+            #delete them
+            for key in de:
+                del vertices[key]
 
+            for key in vertices:
+                local_dic = {}
+                for v in vertices[key]:
+                    local_dic[map_clean[v]] = 1.0
+                
+                #self.log.info(local_dic)
+                vertices_ok[map_clean[key]] = local_dic
+                nodes_ok[map_clean[key]] = nodes[key]
 
-def read_gs_4_gnn(path, lonely=True):
+            # if len(vertices_ok) <= 1:
+            #     self.log.info(vertices_ok)
+
+            G = Graph(vertices_ok,node_labels=nodes_ok,edge_labels=edge_labels)
+            # G = edges, nodes_ok, vertices_ok, edge_labels
+            # import pdb; pdb.set_trace()
+        else:
+            G = Graph(vertices,node_labels=nodes,edge_labels=edge_labels)
+            # G = edges, nodes, vertices, edge_labels
+            # import pdb; pdb.set_trace()
+    # import pdb; pdb.set_trace()
+    return G    
+
+def read_json_4_gnn(path, mapping, lonely=True):
+    vertices = {}
+    nodes = {}
+    edges = {}
+    edge_labels = {}
+    c_edges = 1
+    with open(path) as f:
+        data = json.load(f)
+        for node in data['nodes']:
+            v = int(node['id'])
+            vertices[v] = []
+            v_label = node['name'] # TODO use mapping instead of name
+            # import pdb; pdb.set_trace()
+            # nodes[v] = v_label
+            nodes[v] = mapping[v_label] 
+        for link in data['links']:
+            v1 = int(link["id1"])
+            v2 = int(link["id2"])
+            edges[tuple((v1,v2))] = 1
+            edge_labels[tuple((v1,v2))] = int(link["label"])
+            c_edges = c_edges + 1
+            vertices[v1].append(v2)
+            vertices[v2].append(v1)
+        
+        if not lonely:
+            #STUFF below to delete lonely nodes
+            de = []
+            count = 0
+            vertices_ok = {}
+            nodes_ok = {}
+            map_clean = {}
+            # find index of lonely node
+            for key in vertices:
+                if not vertices[key]:
+                    de.append(key)
+                else:
+                    map_clean[key] = count
+                    count = count +1
+            #delete them
+            for key in de:
+                del vertices[key]
+
+            for key in vertices:
+                local_dic = {}
+                for v in vertices[key]:
+                    local_dic[map_clean[v]] = 1.0
+                
+                #self.log.info(local_dic)
+                vertices_ok[map_clean[key]] = local_dic
+                nodes_ok[map_clean[key]] = nodes[key]
+
+            # if len(vertices_ok) <= 1:
+            #     self.log.info(vertices_ok)
+
+            # G = Graph(vertices_ok,node_labels=nodes_ok,edge_labels=edge_labels)
+            G = edges, nodes_ok, vertices_ok, edge_labels
+            # import pdb; pdb.set_trace()
+        else:
+            # G = Graph(vertices,node_labels=nodes,edge_labels=edge_labels)
+            G = edges, nodes, vertices, edge_labels
+            # import pdb; pdb.set_trace()
+    # import pdb; pdb.set_trace()
+    return G
+
+def read_gs_4_gnn(path, mapping, lonely=True):
     f = open(path,'r')
     vertices = {}
     nodes = {}
@@ -133,6 +259,14 @@ def read_mapping(path):
     map_file.close()
     return mapping
 
+def read_mapping_inverse(path):
+        map_file = open(path,'r')
+        mapping = {}
+        for line in map_file:
+            tab = line.split('\n')[0].split(' ')
+            mapping[tab[1]] = int(tab[0])
+        map_file.close()
+        return mapping
 
 ######################### Utils for RAN-GNN ################################
 
