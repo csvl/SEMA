@@ -21,10 +21,10 @@ from sklearn.metrics import roc_curve, roc_auc_score
 
 try:
     from ..Classifier import Classifier
-    from clogging.CustomFormatter import CustomFormatter
+    # from clogging.CustomFormatter import CustomFormatter
 except:
-    from ..Classifier import Classifier
-    from ...clogging.CustomFormatter import CustomFormatter
+    from Classifier import Classifier
+    # from ...clogging.CustomFormatter import CustomFormatter
      
 
 CLASS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -103,28 +103,17 @@ class SVMClassifier(Classifier):
                                     self.label.append(family)
         bar.finish()
     
-    def split_dataset(self):
-        print("########## Dataset:")
-        for f in self.dataset[:200:20]:
-            print(f"{len(f.node_labels)} -- {len(f.edge_labels)}")
+    def split_dataset(self, label):
         sss = StratifiedShuffleSplit(n_splits=1, test_size=0.4, random_state=24)
-        for train, test in sss.split(self.dataset, self.label):
+        for train, test in sss.split(self.dataset, label):
             self.train_index = train
             self.val_index = test
         for i in self.train_index:
             self.train_dataset.append(self.dataset[i])
-            self.y_train.append(self.label[i])  
+            self.y_train.append(label[i])  
         for i in self.val_index:
             self.val_dataset.append(self.dataset[i])
-            self.y_val.append(self.label[i])
-        print("########## Train set:")
-        #import pdb; pdb.set_trace()
-        for g in self.train_dataset[:4]:
-            print(f"{len(g.node_labels)} -- {len(g.edge_labels)}")
-        print("########## Valid set:")
-        for e in self.val_dataset[:4]:
-            print(f"{len(e.node_labels)} -- {len(e.edge_labels)}")
-
+            self.y_val.append(label[i])
 
     def get_stat_classifier(self):
         logging.basicConfig(level=logging.INFO)

@@ -1,0 +1,184 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4203165.main
+815aa659d536ceda993e5f69d2107478e012eb9a823efbfbb774fa70265fda11.exe"]
+	1 [label="0x4022bc.VirtualAlloc
+0
+1939
+12288
+64"]
+	2 [label="0xe0000045.VirtualProtect
+4214784
+4096
+4
+2147417548"]
+	3 [label="0xe0000045.VirtualProtect
+4206592
+8192
+4
+2147417548"]
+	2 -> 3 [label="(3-->3)"]
+	2 -> 3 [label="(4-->4)"]
+	2 -> 3 [label="(0-->0)"]
+	4 [label="0xe0000045.VirtualProtect
+4202496
+4096
+4
+2147417548"]
+	2 -> 4 [label="(2-->2)"]
+	2 -> 4 [label="(3-->3)"]
+	3 -> 4 [label="(3-->3)"]
+	2 -> 4 [label="(4-->4)"]
+	3 -> 4 [label="(4-->4)"]
+	2 -> 4 [label="(0-->0)"]
+	3 -> 4 [label="(0-->0)"]
+	5 [label="0xe0000045.VirtualProtect
+4198400
+4096
+4
+2147417548"]
+	2 -> 5 [label="(2-->2)"]
+	4 -> 5 [label="(2-->2)"]
+	2 -> 5 [label="(3-->3)"]
+	3 -> 5 [label="(3-->3)"]
+	4 -> 5 [label="(3-->3)"]
+	2 -> 5 [label="(4-->4)"]
+	3 -> 5 [label="(4-->4)"]
+	4 -> 5 [label="(4-->4)"]
+	2 -> 5 [label="(0-->0)"]
+	3 -> 5 [label="(0-->0)"]
+	4 -> 5 [label="(0-->0)"]
+	6 [label="0xe0000104.VirtualProtect
+4231168
+1
+64
+2147417556"]
+	2 -> 6 [label="(0-->2)"]
+	3 -> 6 [label="(0-->2)"]
+	4 -> 6 [label="(0-->2)"]
+	5 -> 6 [label="(0-->2)"]
+	1 -> 6 [label="(4-->3)"]
+	2 -> 6 [label="(0-->0)"]
+	3 -> 6 [label="(0-->0)"]
+	4 -> 6 [label="(0-->0)"]
+	5 -> 6 [label="(0-->0)"]
+	7 [label="0xe000012e.GetModuleHandleA
+user32.dll"]
+	8 [label="0xe0000155.GetProcAddress
+6295592
+CreateWindowExA"]
+	7 -> 8 [label="(0-->1)"]
+	9 [label="0xe0000155.GetProcAddress
+6295592
+GetMessageA"]
+	7 -> 9 [label="(0-->1)"]
+	8 -> 9 [label="(1-->1)"]
+	10 [label="0xe0000155.GetProcAddress
+6295592
+DispatchMessageA"]
+	7 -> 10 [label="(0-->1)"]
+	8 -> 10 [label="(1-->1)"]
+	9 -> 10 [label="(1-->1)"]
+	11 [label="0xe0000155.GetProcAddress
+6295592
+DefWindowProcA"]
+	7 -> 11 [label="(0-->1)"]
+	8 -> 11 [label="(1-->1)"]
+	9 -> 11 [label="(1-->1)"]
+	10 -> 11 [label="(1-->1)"]
+	12 [label="0xe0000155.GetProcAddress
+6295592
+PostQuitMessage"]
+	7 -> 12 [label="(0-->1)"]
+	8 -> 12 [label="(1-->1)"]
+	9 -> 12 [label="(1-->1)"]
+	10 -> 12 [label="(1-->1)"]
+	11 -> 12 [label="(1-->1)"]
+	13 [label="0xe0000155.GetProcAddress
+6295592
+GetDoubleClickTime"]
+	7 -> 13 [label="(0-->1)"]
+	8 -> 13 [label="(1-->1)"]
+	9 -> 13 [label="(1-->1)"]
+	10 -> 13 [label="(1-->1)"]
+	11 -> 13 [label="(1-->1)"]
+	12 -> 13 [label="(1-->1)"]
+	14 [label="0xe0000155.GetProcAddress
+6295592
+UpdateWindow"]
+	7 -> 14 [label="(0-->1)"]
+	8 -> 14 [label="(1-->1)"]
+	9 -> 14 [label="(1-->1)"]
+	10 -> 14 [label="(1-->1)"]
+	11 -> 14 [label="(1-->1)"]
+	12 -> 14 [label="(1-->1)"]
+	13 -> 14 [label="(1-->1)"]
+	15 [label="0xe0000155.GetProcAddress
+6295592
+GetQueueStatus"]
+	7 -> 15 [label="(0-->1)"]
+	8 -> 15 [label="(1-->1)"]
+	9 -> 15 [label="(1-->1)"]
+	10 -> 15 [label="(1-->1)"]
+	11 -> 15 [label="(1-->1)"]
+	12 -> 15 [label="(1-->1)"]
+	13 -> 15 [label="(1-->1)"]
+	14 -> 15 [label="(1-->1)"]
+	16 [label="0xe0000155.GetProcAddress
+6295592
+LoadIconA"]
+	7 -> 16 [label="(0-->1)"]
+	8 -> 16 [label="(1-->1)"]
+	9 -> 16 [label="(1-->1)"]
+	10 -> 16 [label="(1-->1)"]
+	11 -> 16 [label="(1-->1)"]
+	12 -> 16 [label="(1-->1)"]
+	13 -> 16 [label="(1-->1)"]
+	14 -> 16 [label="(1-->1)"]
+	15 -> 16 [label="(1-->1)"]
+	17 [label="0xe0000155.GetProcAddress
+6295592
+RegisterClassA"]
+	7 -> 17 [label="(0-->1)"]
+	8 -> 17 [label="(1-->1)"]
+	9 -> 17 [label="(1-->1)"]
+	10 -> 17 [label="(1-->1)"]
+	11 -> 17 [label="(1-->1)"]
+	12 -> 17 [label="(1-->1)"]
+	13 -> 17 [label="(1-->1)"]
+	14 -> 17 [label="(1-->1)"]
+	15 -> 17 [label="(1-->1)"]
+	16 -> 17 [label="(1-->1)"]
+	18 [label="0xe000012e.GetModuleHandleA
+GDI32.dll"]
+	19 [label="0xe0000155.GetProcAddress
+6295636
+CreateBitmap"]
+	18 -> 19 [label="(0-->1)"]
+	20 [label="0xe0000155.GetProcAddress
+6295636
+IntersectClipRect"]
+	18 -> 20 [label="(0-->1)"]
+	19 -> 20 [label="(1-->1)"]
+	21 [label="0xe0000155.GetProcAddress
+6295636
+ExcludeClipRect"]
+	18 -> 21 [label="(0-->1)"]
+	19 -> 21 [label="(1-->1)"]
+	20 -> 21 [label="(1-->1)"]
+	22 [label="0xe0000155.GetProcAddress
+6295636
+UpdateColors"]
+	18 -> 22 [label="(0-->1)"]
+	19 -> 22 [label="(1-->1)"]
+	20 -> 22 [label="(1-->1)"]
+	21 -> 22 [label="(1-->1)"]
+	23 [label="0xe0000155.GetProcAddress
+6295636
+GetTextExtentPoint32A"]
+	18 -> 23 [label="(0-->1)"]
+	19 -> 23 [label="(1-->1)"]
+	20 -> 23 [label="(1-->1)"]
+	21 -> 23 [label="(1-->1)"]
+	22 -> 23 [label="(1-->1)"]
+}

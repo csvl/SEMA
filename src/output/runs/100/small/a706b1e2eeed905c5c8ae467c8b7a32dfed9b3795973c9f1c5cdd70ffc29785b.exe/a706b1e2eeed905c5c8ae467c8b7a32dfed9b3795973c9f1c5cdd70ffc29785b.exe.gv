@@ -1,0 +1,198 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4198400.main
+a706b1e2eeed905c5c8ae467c8b7a32dfed9b3795973c9f1c5cdd70ffc29785b.exe"]
+	1 [label="0x40100d.OpenMutexA
+2031617
+0
+05387337392A20730D545F6985EB80691B51F7690E5FFF65803ABB6E015474081D15482073A5C76715"]
+	2 [label="0x401019.ExitProcess
+0"]
+	3 [label="0x4012d5.GetSystemDirectoryA
+C:\Windows\System32
+256"]
+	4 [label="0x4012f0.GetWindowsDirectoryA
+C:\Windows
+256"]
+	3 -> 4 [label="(2-->2)"]
+	5 [label="0x401300.SHGetSpecialFolderPathA
+0
+4218519
+38
+0"]
+	6 [label="0x401311.GetModuleFileNameA
+0
+a706b1e2eeed905c5c8ae467c8b7a32dfed9b3795973c9f1c5cdd70ffc29785b.exe
+256"]
+	0 -> 6 [label="(1-->2)"]
+	3 -> 6 [label="(2-->3)"]
+	4 -> 6 [label="(2-->3)"]
+	7 [label="0x401516.RegOpenKeyExA
+2147483650
+SOFTWARE\Microsoft\Windows\CurrentVersion\Run\
+0
+983103
+4220055"]
+	8 [label="0x401535.RegSetValueExA
+key_handle_RegOpenKeyExA_131070_32
+Layersecurity Servicemonitor
+0
+1
+4219031
+30"]
+	5 -> 8 [label="(0-->4)"]
+	9 [label="0x401540.RegCloseKey
+key_handle_RegOpenKeyExA_131070_32"]
+	8 -> 9 [label="(1-->1)"]
+	10 [label="0x401ed3.FindFirstFileA
+C:\Windows\System32\LSSMON.EXE
+2147417254"]
+	11 [label="0x401ee5.FindClose
+retval_FindFirstFileA_131081_32"]
+	5 -> 11 [label="(0-->0)"]
+	8 -> 11 [label="(4-->0)"]
+	12 [label="0x401916.CopyFileA
+a706b1e2eeed905c5c8ae467c8b7a32dfed9b3795973c9f1c5cdd70ffc29785b.exe
+C:\Windows\System32\spool.exe
+0"]
+	0 -> 12 [label="(1-->1)"]
+	6 -> 12 [label="(2-->1)"]
+	5 -> 12 [label="(0-->0)"]
+	8 -> 12 [label="(4-->0)"]
+	11 -> 12 [label="(0-->0)"]
+	13 [label="0x401916.CopyFileA
+a706b1e2eeed905c5c8ae467c8b7a32dfed9b3795973c9f1c5cdd70ffc29785b.exe
+C:\Users\Public\Documents\Internet Explorer\iexplor.exe
+0"]
+	0 -> 13 [label="(1-->1)"]
+	6 -> 13 [label="(2-->1)"]
+	12 -> 13 [label="(1-->1)"]
+	5 -> 13 [label="(0-->0)"]
+	8 -> 13 [label="(4-->0)"]
+	11 -> 13 [label="(0-->0)"]
+	12 -> 13 [label="(0-->0)"]
+	14 [label="0x401916.CopyFileA
+a706b1e2eeed905c5c8ae467c8b7a32dfed9b3795973c9f1c5cdd70ffc29785b.exe
+C:\Users\Public\Documents\Mozilla Firefox\firefoxe.exe
+0"]
+	0 -> 14 [label="(1-->1)"]
+	6 -> 14 [label="(2-->1)"]
+	12 -> 14 [label="(1-->1)"]
+	13 -> 14 [label="(1-->1)"]
+	5 -> 14 [label="(0-->0)"]
+	8 -> 14 [label="(4-->0)"]
+	11 -> 14 [label="(0-->0)"]
+	12 -> 14 [label="(0-->0)"]
+	13 -> 14 [label="(0-->0)"]
+	15 [label="0x401916.CopyFileA
+a706b1e2eeed905c5c8ae467c8b7a32dfed9b3795973c9f1c5cdd70ffc29785b.exe
+C:\Windows\System32\LSASSMGR.EXE
+0"]
+	0 -> 15 [label="(1-->1)"]
+	6 -> 15 [label="(2-->1)"]
+	12 -> 15 [label="(1-->1)"]
+	13 -> 15 [label="(1-->1)"]
+	14 -> 15 [label="(1-->1)"]
+	5 -> 15 [label="(0-->0)"]
+	8 -> 15 [label="(4-->0)"]
+	11 -> 15 [label="(0-->0)"]
+	12 -> 15 [label="(0-->0)"]
+	13 -> 15 [label="(0-->0)"]
+	14 -> 15 [label="(0-->0)"]
+	16 [label="0x40179a.RegOpenKeyExA
+2147483650
+SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\
+0
+983103
+4220055"]
+	7 -> 16 [label="(1-->1)"]
+	7 -> 16 [label="(4-->4)"]
+	7 -> 16 [label="(5-->5)"]
+	17 [label="0x4017af.RegCreateKeyA
+key_handle_RegOpenKeyExA_131082_32
+spoolsv.exe
+4220059"]
+	18 [label="0x4017dd.RegSetValueExA
+0
+Debugger
+0
+1
+4221087
+29"]
+	5 -> 18 [label="(0-->4)"]
+	8 -> 18 [label="(4-->4)"]
+	11 -> 18 [label="(0-->4)"]
+	12 -> 18 [label="(0-->4)"]
+	13 -> 18 [label="(0-->4)"]
+	14 -> 18 [label="(0-->4)"]
+	15 -> 18 [label="(0-->4)"]
+	19 [label="0x4017e8.RegCloseKey
+0"]
+	20 [label="0x401809.RegCreateKeyA
+key_handle_RegOpenKeyExA_131082_32
+iexplore.exe
+4220059"]
+	17 -> 20 [label="(1-->1)"]
+	17 -> 20 [label="(3-->3)"]
+	21 [label="0x401837.RegSetValueExA
+0
+Debugger
+0
+1
+4221599
+55"]
+	18 -> 21 [label="(2-->2)"]
+	5 -> 21 [label="(0-->4)"]
+	8 -> 21 [label="(4-->4)"]
+	11 -> 21 [label="(0-->4)"]
+	12 -> 21 [label="(0-->4)"]
+	13 -> 21 [label="(0-->4)"]
+	14 -> 21 [label="(0-->4)"]
+	15 -> 21 [label="(0-->4)"]
+	18 -> 21 [label="(4-->4)"]
+	22 [label="0x401842.RegCloseKey
+0"]
+	23 [label="0x401857.RegCreateKeyA
+key_handle_RegOpenKeyExA_131082_32
+firefox.exe
+4220059"]
+	17 -> 23 [label="(1-->1)"]
+	20 -> 23 [label="(1-->1)"]
+	17 -> 23 [label="(3-->3)"]
+	20 -> 23 [label="(3-->3)"]
+	24 [label="0x401885.RegSetValueExA
+0
+Debugger
+0
+1
+4222111
+54"]
+	18 -> 24 [label="(2-->2)"]
+	21 -> 24 [label="(2-->2)"]
+	5 -> 24 [label="(0-->4)"]
+	8 -> 24 [label="(4-->4)"]
+	11 -> 24 [label="(0-->4)"]
+	12 -> 24 [label="(0-->4)"]
+	13 -> 24 [label="(0-->4)"]
+	14 -> 24 [label="(0-->4)"]
+	15 -> 24 [label="(0-->4)"]
+	18 -> 24 [label="(4-->4)"]
+	21 -> 24 [label="(4-->4)"]
+	25 [label="0x401890.RegCloseKey
+0"]
+	26 [label="0x40189b.RegCloseKey
+key_handle_RegOpenKeyExA_131082_32"]
+	17 -> 26 [label="(1-->1)"]
+	20 -> 26 [label="(1-->1)"]
+	23 -> 26 [label="(1-->1)"]
+	27 [label="0x40105b.ShellExecuteA
+0
+open
+C:\Windows\System32\LSASSMGR.EXE
+0
+0
+5"]
+	15 -> 27 [label="(2-->3)"]
+	28 [label="0x401062.ExitProcess
+0"]
+}

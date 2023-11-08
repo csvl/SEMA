@@ -24,7 +24,7 @@ from .RGINClassifier import RanGIN
 from .RGINJKClassifier import RanGINJK
 from .GINJKFlagClassifier import GINJKFlag
 from .GNNExplainability import GNNExplainability
-from .utils import gen_graph_data, read_gs_4_gnn
+from .utils import gen_graph_data, read_gs_4_gnn, read_json_4_gnn
 import copy
 
 # import torch._dynamo
@@ -36,7 +36,7 @@ BINARY_CLASS = False # TODO
 class GNNTrainer(Classifier):
     def __init__(self, path, name, threshold=0.45,
                  families=['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT'],
-                 num_layers=4, input_path=None, hidden=32, lr=0.001, epoch=350, batch_size=1, 
+                 num_layers=4, input_path=None, hidden=32, lr=0.001, epoch=350, batch_size=32, 
                  flag=True, patience=-1, m=3, step_size=8e-3, graph_model="ER", net_linear=False, drop_ratio=0.5,
                  drop_path_p=0.01, edge_p=0.6, net_seed=47,
                  residual=False):
@@ -138,8 +138,10 @@ class GNNTrainer(Classifier):
                     self.fam_idx.append(family)
                     self.fam_dict[family] = len(self.fam_idx) - 1
                 for file in filenames:
-                    if file.endswith(".gs"):
-                        edges, nodes, vertices, edge_labels = read_gs_4_gnn(file, self.mapping)
+                    # if file.endswith(".gs"):
+                    if file.endswith(".json"):
+                        # edges, nodes, vertices, edge_labels = read_gs_4_gnn(file, self.mapping)
+                        edges, nodes, vertices, edge_labels = read_json_4_gnn(file, self.mapping_inv)
                         data = gen_graph_data(edges, nodes, vertices, edge_labels, self.fam_dict[family])
                         if len(edges) > 0:
                             if len(nodes) > 1:
@@ -416,6 +418,7 @@ class GNNTrainer(Classifier):
             # import pdb; pdb.set_trace()
             self.init_dataset(path)
             print("Dataset len: " + str(len(self.dataset)))
+            import pdb; pdb.set_trace()
             self.clf.eval()
             val_loader = DataLoader(self.dataset, batch_size=64, shuffle=False)
             self.y_pred = list()

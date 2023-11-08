@@ -1,0 +1,387 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4227584.main
+54edd65eb391a23c2c2bb8866705be4d010fa71934228698df1a587de79b03c4.exe"]
+	1 [label="0x407aea.LoadLibraryA
+KERNEL32.DLL"]
+	2 [label="0x407aff.GetProcAddress
+6295592
+AddAtomA"]
+	1 -> 2 [label="(0-->1)"]
+	3 [label="0x407aff.GetProcAddress
+6295592
+CloseHandle"]
+	1 -> 3 [label="(0-->1)"]
+	2 -> 3 [label="(1-->1)"]
+	4 [label="0x407aff.GetProcAddress
+6295592
+CreateProcessA"]
+	1 -> 4 [label="(0-->1)"]
+	2 -> 4 [label="(1-->1)"]
+	3 -> 4 [label="(1-->1)"]
+	5 [label="0x407aff.GetProcAddress
+6295592
+ExitProcess"]
+	1 -> 5 [label="(0-->1)"]
+	2 -> 5 [label="(1-->1)"]
+	3 -> 5 [label="(1-->1)"]
+	4 -> 5 [label="(1-->1)"]
+	6 [label="0x407aff.GetProcAddress
+6295592
+FindAtomA"]
+	1 -> 6 [label="(0-->1)"]
+	2 -> 6 [label="(1-->1)"]
+	3 -> 6 [label="(1-->1)"]
+	4 -> 6 [label="(1-->1)"]
+	5 -> 6 [label="(1-->1)"]
+	7 [label="0x407aff.GetProcAddress
+6295592
+GetAtomNameA"]
+	1 -> 7 [label="(0-->1)"]
+	2 -> 7 [label="(1-->1)"]
+	3 -> 7 [label="(1-->1)"]
+	4 -> 7 [label="(1-->1)"]
+	5 -> 7 [label="(1-->1)"]
+	6 -> 7 [label="(1-->1)"]
+	8 [label="0x407aff.GetProcAddress
+6295592
+GetSystemDirectoryA"]
+	1 -> 8 [label="(0-->1)"]
+	2 -> 8 [label="(1-->1)"]
+	3 -> 8 [label="(1-->1)"]
+	4 -> 8 [label="(1-->1)"]
+	5 -> 8 [label="(1-->1)"]
+	6 -> 8 [label="(1-->1)"]
+	7 -> 8 [label="(1-->1)"]
+	9 [label="0x407aff.GetProcAddress
+6295592
+LoadLibraryA"]
+	1 -> 9 [label="(0-->1)"]
+	2 -> 9 [label="(1-->1)"]
+	3 -> 9 [label="(1-->1)"]
+	4 -> 9 [label="(1-->1)"]
+	5 -> 9 [label="(1-->1)"]
+	6 -> 9 [label="(1-->1)"]
+	7 -> 9 [label="(1-->1)"]
+	8 -> 9 [label="(1-->1)"]
+	10 [label="0x407aff.GetProcAddress
+6295592
+SetUnhandledExceptionFilter"]
+	1 -> 10 [label="(0-->1)"]
+	2 -> 10 [label="(1-->1)"]
+	3 -> 10 [label="(1-->1)"]
+	4 -> 10 [label="(1-->1)"]
+	5 -> 10 [label="(1-->1)"]
+	6 -> 10 [label="(1-->1)"]
+	7 -> 10 [label="(1-->1)"]
+	8 -> 10 [label="(1-->1)"]
+	9 -> 10 [label="(1-->1)"]
+	11 [label="0x407aff.GetProcAddress
+6295592
+Sleep"]
+	1 -> 11 [label="(0-->1)"]
+	2 -> 11 [label="(1-->1)"]
+	3 -> 11 [label="(1-->1)"]
+	4 -> 11 [label="(1-->1)"]
+	5 -> 11 [label="(1-->1)"]
+	6 -> 11 [label="(1-->1)"]
+	7 -> 11 [label="(1-->1)"]
+	8 -> 11 [label="(1-->1)"]
+	9 -> 11 [label="(1-->1)"]
+	10 -> 11 [label="(1-->1)"]
+	12 [label="0x407aff.GetProcAddress
+6295592
+lstrcatA"]
+	1 -> 12 [label="(0-->1)"]
+	2 -> 12 [label="(1-->1)"]
+	3 -> 12 [label="(1-->1)"]
+	4 -> 12 [label="(1-->1)"]
+	5 -> 12 [label="(1-->1)"]
+	6 -> 12 [label="(1-->1)"]
+	7 -> 12 [label="(1-->1)"]
+	8 -> 12 [label="(1-->1)"]
+	9 -> 12 [label="(1-->1)"]
+	10 -> 12 [label="(1-->1)"]
+	11 -> 12 [label="(1-->1)"]
+	13 [label="0x407aff.GetProcAddress
+6295592
+lstrlenA"]
+	1 -> 13 [label="(0-->1)"]
+	2 -> 13 [label="(1-->1)"]
+	3 -> 13 [label="(1-->1)"]
+	4 -> 13 [label="(1-->1)"]
+	5 -> 13 [label="(1-->1)"]
+	6 -> 13 [label="(1-->1)"]
+	7 -> 13 [label="(1-->1)"]
+	8 -> 13 [label="(1-->1)"]
+	9 -> 13 [label="(1-->1)"]
+	10 -> 13 [label="(1-->1)"]
+	11 -> 13 [label="(1-->1)"]
+	12 -> 13 [label="(1-->1)"]
+	14 [label="0x407aea.LoadLibraryA
+msvcrt.dll"]
+	15 [label="0x407aff.GetProcAddress
+6295636
+__getmainargs"]
+	14 -> 15 [label="(0-->1)"]
+	16 [label="0x407aff.GetProcAddress
+6295636
+__p__environ"]
+	14 -> 16 [label="(0-->1)"]
+	15 -> 16 [label="(1-->1)"]
+	17 [label="0x407aff.GetProcAddress
+6295636
+__p__fmode"]
+	14 -> 17 [label="(0-->1)"]
+	15 -> 17 [label="(1-->1)"]
+	16 -> 17 [label="(1-->1)"]
+	18 [label="0x407aff.GetProcAddress
+6295636
+__set_app_type"]
+	14 -> 18 [label="(0-->1)"]
+	15 -> 18 [label="(1-->1)"]
+	16 -> 18 [label="(1-->1)"]
+	17 -> 18 [label="(1-->1)"]
+	19 [label="0x407aff.GetProcAddress
+6295636
+_cexit"]
+	14 -> 19 [label="(0-->1)"]
+	15 -> 19 [label="(1-->1)"]
+	16 -> 19 [label="(1-->1)"]
+	17 -> 19 [label="(1-->1)"]
+	18 -> 19 [label="(1-->1)"]
+	20 [label="0x407aff.GetProcAddress
+6295636
+_iob"]
+	14 -> 20 [label="(0-->1)"]
+	15 -> 20 [label="(1-->1)"]
+	16 -> 20 [label="(1-->1)"]
+	17 -> 20 [label="(1-->1)"]
+	18 -> 20 [label="(1-->1)"]
+	19 -> 20 [label="(1-->1)"]
+	21 [label="0x407aff.GetProcAddress
+6295636
+_onexit"]
+	14 -> 21 [label="(0-->1)"]
+	15 -> 21 [label="(1-->1)"]
+	16 -> 21 [label="(1-->1)"]
+	17 -> 21 [label="(1-->1)"]
+	18 -> 21 [label="(1-->1)"]
+	19 -> 21 [label="(1-->1)"]
+	20 -> 21 [label="(1-->1)"]
+	22 [label="0x407aff.GetProcAddress
+6295636
+_setmode"]
+	14 -> 22 [label="(0-->1)"]
+	15 -> 22 [label="(1-->1)"]
+	16 -> 22 [label="(1-->1)"]
+	17 -> 22 [label="(1-->1)"]
+	18 -> 22 [label="(1-->1)"]
+	19 -> 22 [label="(1-->1)"]
+	20 -> 22 [label="(1-->1)"]
+	21 -> 22 [label="(1-->1)"]
+	23 [label="0x407aff.GetProcAddress
+6295636
+abort"]
+	14 -> 23 [label="(0-->1)"]
+	15 -> 23 [label="(1-->1)"]
+	16 -> 23 [label="(1-->1)"]
+	17 -> 23 [label="(1-->1)"]
+	18 -> 23 [label="(1-->1)"]
+	19 -> 23 [label="(1-->1)"]
+	20 -> 23 [label="(1-->1)"]
+	21 -> 23 [label="(1-->1)"]
+	22 -> 23 [label="(1-->1)"]
+	24 [label="0x407aff.GetProcAddress
+6295636
+atexit"]
+	14 -> 24 [label="(0-->1)"]
+	15 -> 24 [label="(1-->1)"]
+	16 -> 24 [label="(1-->1)"]
+	17 -> 24 [label="(1-->1)"]
+	18 -> 24 [label="(1-->1)"]
+	19 -> 24 [label="(1-->1)"]
+	20 -> 24 [label="(1-->1)"]
+	21 -> 24 [label="(1-->1)"]
+	22 -> 24 [label="(1-->1)"]
+	23 -> 24 [label="(1-->1)"]
+	25 [label="0x407aff.GetProcAddress
+6295636
+fflush"]
+	14 -> 25 [label="(0-->1)"]
+	15 -> 25 [label="(1-->1)"]
+	16 -> 25 [label="(1-->1)"]
+	17 -> 25 [label="(1-->1)"]
+	18 -> 25 [label="(1-->1)"]
+	19 -> 25 [label="(1-->1)"]
+	20 -> 25 [label="(1-->1)"]
+	21 -> 25 [label="(1-->1)"]
+	22 -> 25 [label="(1-->1)"]
+	23 -> 25 [label="(1-->1)"]
+	24 -> 25 [label="(1-->1)"]
+	26 [label="0x407aff.GetProcAddress
+6295636
+fprintf"]
+	14 -> 26 [label="(0-->1)"]
+	15 -> 26 [label="(1-->1)"]
+	16 -> 26 [label="(1-->1)"]
+	17 -> 26 [label="(1-->1)"]
+	18 -> 26 [label="(1-->1)"]
+	19 -> 26 [label="(1-->1)"]
+	20 -> 26 [label="(1-->1)"]
+	21 -> 26 [label="(1-->1)"]
+	22 -> 26 [label="(1-->1)"]
+	23 -> 26 [label="(1-->1)"]
+	24 -> 26 [label="(1-->1)"]
+	25 -> 26 [label="(1-->1)"]
+	27 [label="0x407aff.GetProcAddress
+6295636
+free"]
+	14 -> 27 [label="(0-->1)"]
+	15 -> 27 [label="(1-->1)"]
+	16 -> 27 [label="(1-->1)"]
+	17 -> 27 [label="(1-->1)"]
+	18 -> 27 [label="(1-->1)"]
+	19 -> 27 [label="(1-->1)"]
+	20 -> 27 [label="(1-->1)"]
+	21 -> 27 [label="(1-->1)"]
+	22 -> 27 [label="(1-->1)"]
+	23 -> 27 [label="(1-->1)"]
+	24 -> 27 [label="(1-->1)"]
+	25 -> 27 [label="(1-->1)"]
+	26 -> 27 [label="(1-->1)"]
+	28 [label="0x407aff.GetProcAddress
+6295636
+malloc"]
+	14 -> 28 [label="(0-->1)"]
+	15 -> 28 [label="(1-->1)"]
+	16 -> 28 [label="(1-->1)"]
+	17 -> 28 [label="(1-->1)"]
+	18 -> 28 [label="(1-->1)"]
+	19 -> 28 [label="(1-->1)"]
+	20 -> 28 [label="(1-->1)"]
+	21 -> 28 [label="(1-->1)"]
+	22 -> 28 [label="(1-->1)"]
+	23 -> 28 [label="(1-->1)"]
+	24 -> 28 [label="(1-->1)"]
+	25 -> 28 [label="(1-->1)"]
+	26 -> 28 [label="(1-->1)"]
+	27 -> 28 [label="(1-->1)"]
+	29 [label="0x407aff.GetProcAddress
+6295636
+memcpy"]
+	14 -> 29 [label="(0-->1)"]
+	15 -> 29 [label="(1-->1)"]
+	16 -> 29 [label="(1-->1)"]
+	17 -> 29 [label="(1-->1)"]
+	18 -> 29 [label="(1-->1)"]
+	19 -> 29 [label="(1-->1)"]
+	20 -> 29 [label="(1-->1)"]
+	21 -> 29 [label="(1-->1)"]
+	22 -> 29 [label="(1-->1)"]
+	23 -> 29 [label="(1-->1)"]
+	24 -> 29 [label="(1-->1)"]
+	25 -> 29 [label="(1-->1)"]
+	26 -> 29 [label="(1-->1)"]
+	27 -> 29 [label="(1-->1)"]
+	28 -> 29 [label="(1-->1)"]
+	30 [label="0x407aff.GetProcAddress
+6295636
+memset"]
+	14 -> 30 [label="(0-->1)"]
+	15 -> 30 [label="(1-->1)"]
+	16 -> 30 [label="(1-->1)"]
+	17 -> 30 [label="(1-->1)"]
+	18 -> 30 [label="(1-->1)"]
+	19 -> 30 [label="(1-->1)"]
+	20 -> 30 [label="(1-->1)"]
+	21 -> 30 [label="(1-->1)"]
+	22 -> 30 [label="(1-->1)"]
+	23 -> 30 [label="(1-->1)"]
+	24 -> 30 [label="(1-->1)"]
+	25 -> 30 [label="(1-->1)"]
+	26 -> 30 [label="(1-->1)"]
+	27 -> 30 [label="(1-->1)"]
+	28 -> 30 [label="(1-->1)"]
+	29 -> 30 [label="(1-->1)"]
+	31 [label="0x407aff.GetProcAddress
+6295636
+signal"]
+	14 -> 31 [label="(0-->1)"]
+	15 -> 31 [label="(1-->1)"]
+	16 -> 31 [label="(1-->1)"]
+	17 -> 31 [label="(1-->1)"]
+	18 -> 31 [label="(1-->1)"]
+	19 -> 31 [label="(1-->1)"]
+	20 -> 31 [label="(1-->1)"]
+	21 -> 31 [label="(1-->1)"]
+	22 -> 31 [label="(1-->1)"]
+	23 -> 31 [label="(1-->1)"]
+	24 -> 31 [label="(1-->1)"]
+	25 -> 31 [label="(1-->1)"]
+	26 -> 31 [label="(1-->1)"]
+	27 -> 31 [label="(1-->1)"]
+	28 -> 31 [label="(1-->1)"]
+	29 -> 31 [label="(1-->1)"]
+	30 -> 31 [label="(1-->1)"]
+	32 [label="0x407b2d.VirtualProtect
+4194304
+4096
+4
+2147417560"]
+	33 [label="0x407b42.VirtualProtect
+4194304
+4096
+0
+2147417560"]
+	32 -> 33 [label="(1-->1)"]
+	32 -> 33 [label="(2-->2)"]
+	32 -> 33 [label="(4-->4)"]
+	32 -> 33 [label="(0-->0)"]
+	34 [label="0x4012ad.__set_app_type
+"]
+	35 [label="0x40115e.SetUnhandledExceptionFilter
+4198400"]
+	32 -> 35 [label="(0-->0)"]
+	33 -> 35 [label="(0-->0)"]
+	36 [label="0x40119e.__getmainargs
+4210692
+4210688
+2147417564
+4294967295
+2147417568"]
+	37 [label="0x401210.__p__fmode
+"]
+	34 -> 37 [label="(0-->0)"]
+	38 [label="0x401827.FindAtomA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-LIBGCCW32-EH-2-SJLJ-GTHR-MINGW32"]
+	39 [label="0x401848.malloc
+60"]
+	40 [label="0x40194f.AddAtomA
+AAaaaaaaaaaaaaAaaaaaaaaaaaAaAaaa-LIBGCCW32-EH-2-SJLJ-GTHR-MINGW32"]
+	41 [label="0x4016ff.GetAtomNameA
+atom_131070_32
+
+66"]
+	42 [label="0x4019ed.fprintf
+5242968
+%s:%u: failed assertion `%s'
+"]
+	43 [label="0x4019fd.fflush
+5242968"]
+	42 -> 43 [label="(1-->1)"]
+	44 [label="0x401a02.abort
+"]
+	34 -> 44 [label="(0-->0)"]
+	37 -> 44 [label="(0-->0)"]
+	45 [label="0x401968.free
+3221356584"]
+	39 -> 45 [label="(0-->1)"]
+	46 [label="0x401970.FindAtomA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-LIBGCCW32-EH-2-SJLJ-GTHR-MINGW32"]
+	38 -> 46 [label="(1-->1)"]
+	47 [label="0x4016ff.GetAtomNameA
+0
+
+66"]
+}

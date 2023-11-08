@@ -1,0 +1,10 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4199428.main
+0a1cb355c948c9397fb386cbe259f1dae2ae2fa96060ef4d45a38cd4325cc519.exe"]
+	1 [label="0x402000.GetACP
+"]
+	2 [label="0x402006.GetModuleHandleA
+"]
+	1 -> 2 [label="(0-->0)"]
+}

@@ -1,0 +1,61 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4198400.main
+296dac8deb6dea52bd2caa508690f1660efc5b31b4d0b789cdb6e2008fdfcb23.exe"]
+	1 [label="0x401007.GetModuleHandleA
+0"]
+	2 [label="0x401012.GetCommandLineA
+"]
+	3 [label="0x401188.GetSystemMetrics
+63"]
+	4 [label="0x4011b6.LoadIconA
+0
+"]
+	5 [label="0x4011c8.LoadCursorA
+0
+"]
+	6 [label="0x4011d8.LoadMenuA
+4194304
+"]
+	1 -> 6 [label="(0-->1)"]
+	7 [label="0x4011e1.SetMenu
+0
+retval_LoadMenuA_131072_32"]
+	8 [label="0x4011ea.RegisterClassExA
+2147417524"]
+	9 [label="0x40121e.CreateWindowExA
+0
+LastWinGL
+MyApp
+13565952
+2147483648
+2147483648
+2147483648
+2147483648
+0
+0
+4194304
+0"]
+	1 -> 9 [label="(0-->11)"]
+	6 -> 9 [label="(1-->11)"]
+	10 [label="0x40122c.ShowWindow
+retval_CreateWindowExA_131075_32
+10"]
+	11 [label="0x401234.UpdateWindow
+retval_CreateWindowExA_131075_32"]
+	10 -> 11 [label="(1-->1)"]
+	12 [label="0x401243.GetMessageA
+2147417496
+0
+0
+0"]
+	13 [label="0x401250.TranslateMessage
+2147417496"]
+	12 -> 13 [label="(1-->1)"]
+	14 [label="0x401259.DispatchMessageA
+2147417496"]
+	12 -> 14 [label="(1-->1)"]
+	13 -> 14 [label="(1-->1)"]
+	15 [label="0x401032.ExitProcess
+0"]
+}

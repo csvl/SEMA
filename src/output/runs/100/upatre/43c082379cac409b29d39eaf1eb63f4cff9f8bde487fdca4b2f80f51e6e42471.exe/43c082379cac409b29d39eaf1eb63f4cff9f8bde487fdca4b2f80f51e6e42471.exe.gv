@@ -1,0 +1,57 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4206064.main
+43c082379cac409b29d39eaf1eb63f4cff9f8bde487fdca4b2f80f51e6e42471.exe"]
+	1 [label="0x402993.GetCommandLineA
+"]
+	2 [label="0x4029e5.GetModuleHandleA
+0"]
+	3 [label="0x402a10.LoadIconA
+0
+"]
+	4 [label="0x402a27.LoadCursorA
+0
+"]
+	5 [label="0x402a37.RegisterClassExA
+4214960"]
+	6 [label="0x402a6e.CreateWindowExA
+0
+second
+mini
+262144
+4294962296
+4294964296
+641
+590
+0
+0
+4194304
+0"]
+	2 -> 6 [label="(0-->11)"]
+	7 [label="0x402a8a.ShowWindow
+retval_CreateWindowExA_131072_32
+5"]
+	8 [label="0x402abc.UpdateWindow
+retval_CreateWindowExA_131072_32"]
+	7 -> 8 [label="(1-->1)"]
+	9 [label="0x402acd.GetMessageA
+4215008
+0
+0
+0"]
+	10 [label="0x402adc.TranslateMessage
+4215008"]
+	9 -> 10 [label="(1-->1)"]
+	11 [label="0x402ae7.DispatchMessageA
+4215008"]
+	9 -> 11 [label="(1-->1)"]
+	10 -> 11 [label="(1-->1)"]
+	12 [label="0x402ab0.MoveWindow
+retval_CreateWindowExA_131072_32
+4294962295
+4294964295
+642
+591
+0"]
+	7 -> 12 [label="(1-->1)"]
+}
