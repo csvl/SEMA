@@ -1,12 +1,12 @@
 build-toolchain:
 	docker network inspect my_local_network >/dev/null 2>&1 || docker network create --driver bridge my_local_network
-	DOCKER_BUILDKIT=0 docker-compose -f SemaWebApp/docker-compose.deploy.yml build
+	DOCKER_BUILDKIT=0 docker-compose -f docker-compose.deploy.yml build
 
 build-web-app:
-	docker build --rm -t sema-web-app  -f SemaWebApp/Dockerfile .
+	docker build --rm --cache-from sema-web-app:latest -t sema-web-app  -f SemaWebApp/Dockerfile .
 
 build-scdg:
-	docker build --rm -t sema-scdg -f SemaSCDG/Dockerfile .			   
+	docker build --rm --cache-from sema-scdg:latest -t sema-scdg -f SemaSCDG/Dockerfile .			   
 
 run-web-app-service:
 	docker run \
@@ -63,7 +63,7 @@ run-toolchain:
 		--net=micro_network \
 		--name="sema-scdg" \
 		sema-scdg python3 SCDGApp.py
-	sleep 3
+	sleep 5
 	docker run \
 		--rm \
 		-v $(PWD)/SemaWebApp/:/sema-web-app \

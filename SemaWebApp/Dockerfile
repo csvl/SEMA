@@ -15,7 +15,7 @@ RUN  apt update; apt-get --fix-missing -y install \
                 curl
 
          
-COPY requirements.txt /sema-web-app/requirements.txt
+COPY ./SemaWebApp/requirements.txt /sema-web-app/requirements.txt
 WORKDIR /sema-web-app/
 RUN pip3 install -r requirements.txt
 RUN apt-get install graphviz -y
