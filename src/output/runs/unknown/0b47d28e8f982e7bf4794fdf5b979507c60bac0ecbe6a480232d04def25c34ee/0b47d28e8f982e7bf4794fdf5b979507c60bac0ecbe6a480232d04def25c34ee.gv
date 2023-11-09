@@ -1,0 +1,76 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4513876.main
+0b47d28e8f982e7bf4794fdf5b979507c60bac0ecbe6a480232d04def25c34ee"]
+	1 [label="0x4060ac.GetModuleHandleA
+0"]
+	2 [label="0x4032d9.GetKeyboardType
+0"]
+	3 [label="0x405f57.GetCommandLineA
+"]
+	4 [label="0x401316.GetStartupInfoA
+2147417460"]
+	5 [label="0x405f6b.GetVersion
+"]
+	3 -> 5 [label="(0-->0)"]
+	6 [label="0x405fa9.GetThreadLocale
+"]
+	3 -> 6 [label="(0-->0)"]
+	5 -> 6 [label="(0-->0)"]
+	7 [label="0x405e4e.GetLocaleInfoA
+retval_GetThreadLocale_131086_32
+4100
+
+7"]
+	8 [label="0x405fb8.GetCurrentThreadId
+"]
+	3 -> 8 [label="(0-->0)"]
+	5 -> 8 [label="(0-->0)"]
+	6 -> 8 [label="(0-->0)"]
+	9 [label="0x401b8f.InitializeCriticalSection
+4527560"]
+	4 -> 9 [label="(0-->0)"]
+	10 [label="0x401bcc.LocalAlloc
+0
+4088"]
+	11 [label="0x401607.VirtualAlloc
+0
+1048576
+8192
+1"]
+	12 [label="0x401385.LocalAlloc
+0
+1604"]
+	13 [label="0x401815.VirtualAlloc
+3758096384
+16384
+4096
+4"]
+	11 -> 13 [label="(0-->1)"]
+	2 -> 13 [label="(0-->4)"]
+	11 -> 13 [label="(0-->0)"]
+	14 [label="0x401c91.LocalFree
+3221356584"]
+	10 -> 14 [label="(0-->1)"]
+	15 [label="0x401cb5.VirtualFree
+3758096384
+0
+32768"]
+	11 -> 15 [label="(0-->1)"]
+	13 -> 15 [label="(1-->1)"]
+	13 -> 15 [label="(0-->1)"]
+	11 -> 15 [label="(4-->0)"]
+	16 [label="0x401d06.LocalFree
+3221360680"]
+	12 -> 16 [label="(0-->1)"]
+	17 [label="0x401d3e.DeleteCriticalSection
+4527560"]
+	9 -> 17 [label="(1-->1)"]
+	4 -> 17 [label="(0-->0)"]
+	9 -> 17 [label="(0-->0)"]
+	18 [label="0x4041cf.ExitProcess
+0"]
+	4 -> 18 [label="(0-->0)"]
+	9 -> 18 [label="(0-->0)"]
+	17 -> 18 [label="(0-->0)"]
+}

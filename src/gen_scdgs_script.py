@@ -18,24 +18,24 @@ import subprocess
 #             # subprocess.run(cmd, shell=True)
 #             print(cmd)
 
-#             import pandas as pd
+import pandas as pd
 
-# # Read the data
-# df = pd.read_csv('./bodmas_metadata.csv')
+# Read the data
+df = pd.read_csv('/media/sbettaieb/My Passport/mal_dataset/BODMAS-20230930T221514Z-002/BODMAS/bodmas_metadata.csv')
 
-# # print(df)
+# print(df)
 
-# cleaned_df = df.rename(columns={"sha                                                              ": "sha"})
+cleaned_df = df.rename(columns={"sha                                                              ": "sha"})
 
-# cleaned_df = cleaned_df.dropna(subset=['family'])
-# sorted_df = cleaned_df.sort_values(by=['family'])
+cleaned_df = cleaned_df.dropna(subset=['family'])
+sorted_df = cleaned_df.sort_values(by=['family'])
 
-# # print(cleaned_df)
-# # print(sorted_df)
+# print(cleaned_df)
+# print(sorted_df)
 
-# # Get the families with most samples
-# families = sorted_df['family'].value_counts()
-# print(families[:15])
+# Get the families with most samples
+families = sorted_df['family'].value_counts()
+print(families[:50])
 
 # # New dataframe for malware categories
 # df_cate = pd.read_csv('../../BODMAS-open/BODMAS/bodmas_malware_category.csv')
