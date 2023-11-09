@@ -1,6 +1,6 @@
 build-toolchain:
 	docker network inspect my_local_network >/dev/null 2>&1 || docker network create --driver bridge my_local_network
-	docker-compose -f SemaWebApp/docker-compose.deploy.yml build
+	DOCKER_BUILDKIT=0 docker-compose -f SemaWebApp/docker-compose.deploy.yml build
 
 build-web-app:
 	docker build --rm -t sema-web-app  -f SemaWebApp/Dockerfile .
