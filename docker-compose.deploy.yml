@@ -12,6 +12,7 @@ services:
     image: sema-web-app:latest
     build:
       context: .
+      dockerfile: ./SemaWebApp/Dockerfile
     ports:
     - "5000:5000"
     restart: always
@@ -20,7 +21,7 @@ services:
     container_name: sema-scdg
     image: sema-scdg:latest
     build:
-      context: ..
+      context: .
       dockerfile: ./SemaSCDG/Dockerfile
     ports:
     - "5001:5001"
