@@ -70,11 +70,8 @@ RUN /etc/init.d/guacd start
 COPY ./SemaSCDG/requirements.txt /sema-scdg/requirements.txt
 RUN pip3 install -r /sema-scdg/requirements.txt
 
-COPY ../submodules/angr-utils /sema-scdg/application/submodules/angr-utils
-COPY ../submodules/bingraphvis /sema-scdg/application/submodules/bingraphvis
-
 # Angr-utils for cfg
-RUN cd /sema-scdg/application/submodules/bingraphvis; pip install .
-RUN cd /sema-scdg/application/submodules/angr-utils;  pip install .
+# RUN cd /sema-scdg/application/submodules/bingraphvis; pip install .
+# RUN cd /sema-scdg/application/submodules/angr-utils;  pip install .
 
 WORKDIR /sema-scdg/application/
