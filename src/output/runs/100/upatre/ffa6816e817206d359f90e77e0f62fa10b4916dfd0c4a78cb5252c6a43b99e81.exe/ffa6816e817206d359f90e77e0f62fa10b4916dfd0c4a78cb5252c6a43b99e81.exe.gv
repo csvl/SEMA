@@ -1,0 +1,23 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4202463.main
+ffa6816e817206d359f90e77e0f62fa10b4916dfd0c4a78cb5252c6a43b99e81.exe"]
+	1 [label="0x401fe6.GetCommandLineA
+"]
+	2 [label="0x402024.GetStartupInfoA
+2147417524"]
+	3 [label="0x4020cc.GetProcessHeap
+"]
+	1 -> 3 [label="(0-->0)"]
+	4 [label="0x4020d3.HeapAlloc
+1
+8
+128"]
+	5 [label="0x402055.GetModuleHandleA
+0"]
+	6 [label="0x401436.GetSystemTime
+2147417404"]
+	2 -> 6 [label="(0-->0)"]
+	7 [label="0x40148b.RegisterClassExW
+2147417420"]
+}
