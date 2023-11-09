@@ -878,8 +878,8 @@ class SemaSCDG:
             # if hex(state.addr) == "0x404bab":
             #     print("***** PRINT ESI *****")
             #     print(state.regs.esi)
-            if True:
-            # if False:
+            # if True:
+            if False:
                 print(hex(state.addr))
                     
         instr_dict = {}

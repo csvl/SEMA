@@ -96,23 +96,24 @@ import subprocess
 
 # our_families = ["sfone","wacatac","upatre","wabot","small","ganelp","dinwod","mira","berbew","sillyp2p","ceeinject","gepys","benjamin","musecador"]
 
-our_families = ["sfone","wacatac","upatre","wabot","berbew","sillyp2p","benjamin","small","mira"]
+our_families = ["upatre","wabot","berbew","sillyp2p","benjamin","small","mira"]
 
 
 # list the files inside the families diectories
-path = "/media/sbettaieb/My Passport/mal_dataset/BODMAS-20230930T221514Z-002/BODMAS"
+path = "/root"
 fam_files = {}
 for family in our_families:
     print(family)
     fam_files[family] = []
-    for file in os.listdir(f'{path}/families0/{family}'):
+    for file in os.listdir(f'{path}/armed_fam0/{family}'):
         fam_files[family].append(file)
+# print(fam_files)
 
-for j in range(0, 500, 10):
+for j in range(0, 500, 5):
     for family in our_families:
-        batch = fam_files[family][j:j+10]
+        batch = fam_files[family][j:j+5]
         for sample in batch:
             sample = sample.strip()
-            cmd = f"python3 SemaSCDG/SemaSCDG.py --CDFS '{path}/armed_fam0/{family}/{sample}' --familly={family} --exp_dir=output/runs/100/ --dir=output/runs/100/ --json"
+            cmd = f"python3 SemaSCDG/SemaSCDG.py --WSELECT3 '{path}/armed_fam0/{family}/{sample}' --familly={family} --exp_dir=output/runs/101_wselect3/ --dir=output/runs/101_wselect3/ --json"
             subprocess.run(cmd, shell=True)
             print(sample + ' scdg created')
