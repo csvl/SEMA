@@ -1,0 +1,34 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4227073.main
+69a8209fb6872fa2350c6971376416b11ef8a46cf5633b584a70679b36c83282.exe"]
+	1 [label="0x40803c.GetModuleHandleA
+kernel32.dll"]
+	2 [label="0x40804f.GetProcAddress
+6295592
+VirtualAlloc"]
+	1 -> 2 [label="(0-->1)"]
+	3 [label="0x40804f.GetProcAddress
+6295592
+VirtualFree"]
+	1 -> 3 [label="(0-->1)"]
+	2 -> 3 [label="(1-->1)"]
+	4 [label="0x40804f.GetProcAddress
+6295592
+VirtualProtect"]
+	1 -> 4 [label="(0-->1)"]
+	2 -> 4 [label="(1-->1)"]
+	3 -> 4 [label="(1-->1)"]
+	5 [label="0x4080ca.VirtualAlloc
+0
+6144
+4096
+4"]
+	6 [label="0x4080eb.VirtualAlloc
+0
+6926
+4096
+4"]
+	5 -> 6 [label="(3-->3)"]
+	5 -> 6 [label="(4-->4)"]
+}
