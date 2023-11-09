@@ -148,8 +148,8 @@ class SemaExplorerWSELECT3(SemaExplorer):
                     return states
 
                 for s in states:
-                    if s.globals["id"] not in self.affinity:
-                        self.affinity[s.globals["id"]] = count_syscall(s)
+                    # if s.globals["id"] not in self.affinity:
+                    self.affinity[s.globals["id"]] = count_syscall(s)
                 weights = []
                 population = []
                 for _, e in enumerate(states):
