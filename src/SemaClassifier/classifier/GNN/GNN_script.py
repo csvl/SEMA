@@ -28,6 +28,8 @@ from collections import OrderedDict
 from typing import List, Tuple
 import progressbar
 
+import argparse
+
 
 # from ..Classifier import Classifier
 # from .GINClassifier import GIN
@@ -47,17 +49,32 @@ from SVM.SVMWLClassifier import SVMWLClassifier
 from utils import gen_graph_data, read_gs_4_gnn, read_json_4_gnn, read_json_4_wl, read_mapping, read_mapping_inverse
 import copy
 
+
 DEVICE = torch.device("cpu")  # Try "cuda" to train on GPU
+
+colours = ['\033[32m', '\033[33m', '\033[34m', '\033[35m','\033[36m', '\033[37m', '\033[90m', '\033[91m', '\033[92m', '\033[93m', '\033[94m', '\033[95m', '\033[96m']
+reset = '\033[0m'
+bold = '\033[01m'
+disable = '\033[02m'
+underline = '\033[04m'
+reverse = '\033[07m'
+strikethrough = '\033[09m'
+invisible = '\033[08m'
+default='\033[00m'
 # print(
 #     f"Training on {DEVICE} using PyTorch {torch.__version__} and Flower {fl.__version__}"
 # )
 
+def cprint(text,id):
+    
+    print(f'{colours[id%13]} {text}{default}')
+    
 
 def init_dataset(path, families, mapping, fam_idx, fam_dict, BINARY_CLASS):
     if path[-1] != "/":
         path += "/"
     print("Path: " + path)
-    bar = progressbar.ProgressBar(max_value=len(families))
+    bar = progressbar.ProgressBar() #progressbar.ProgressBar(max_value=len(families))
     bar.start()
     original_path = path
     dataset = []
@@ -110,6 +127,42 @@ def split_dataset_indexes(dataset, label):
         val_index = test
     return train_index, val_index
 
+def load_partition(n_clients,id,train_idx,test_idx,dataset,client=True,wl=False,label=None):
+    """Load 1/(clients+1) of the training and test data."""
+
+    server=False
+    if not client and not wl:
+        server = True
+    
+    if client:
+        assert id in range(n_clients)
+    else:
+        assert id in range(n_clients+1)
+    if wl:
+        assert label is not None
+
+    n_train = int(len(train_idx) / (n_clients+1))
+    n_test = int(len(test_idx) / (n_clients+1))
+
+    train_partition = train_idx[id * n_train: (id + 1) * n_train]
+    test_partition = test_idx[id * n_test: (id + 1) * n_test]    
+    full_train_dataset, y_full_train, test_dataset, y_test = [], [], [], []
+    for i in train_partition:
+        full_train_dataset.append(dataset[i])
+        if wl:
+            y_full_train.append(label[i])
+        else:
+            y_full_train.append(dataset[i].y)
+    for i in test_partition:
+        test_dataset.append(dataset[i])
+        if wl:
+            y_test.append(label[i])
+        else:
+            y_test.append(dataset[i].y)
+    cprint(f"client {id} : n_train {n_train}, start {id*n_train}, end {(id+1)*n_train}, client {client}, wl {wl}",id)
+    cprint(f"client {id} : n_test {n_test}, start {id*n_test}, end {(id+1)*n_test}, client {client}, wl {wl}",id)
+    return full_train_dataset,y_full_train, test_dataset,y_test
+
 def one_epoch_train(model, train_loader, device, optimizer, criterion):
     model.train()
     loss_all = 0
@@ -123,7 +176,7 @@ def one_epoch_train(model, train_loader, device, optimizer, criterion):
         optimizer.step()
     return loss_all / len(train_loader.dataset)
 
-def train(model, train_dataset, batch_size, epochs, device):
+def train(model, train_dataset, batch_size, epochs, device, id):
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
     # scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=10, verbose=True)
@@ -134,12 +187,12 @@ def train(model, train_dataset, batch_size, epochs, device):
     for epoch in range(epochs):
         loss = one_epoch_train(model, train_loader, device, optimizer, criterion)
         scheduler.step()
-        print(f"Epoch {epoch}, Loss: {loss}")
-    print('--------------------FIT OK----------------')
+        cprint(f"Epoch {epoch}, Loss: {loss}",id)
+    cprint('--------------------FIT OK----------------',id)
     
     return model, {'loss': loss}
 
-def test(model, test_dataset, batch_size, device):
+def test(model, test_dataset, batch_size, device,id):
     model.eval()
     correct, loss_all = 0, 0.0
     criterion = torch.nn.CrossEntropyLoss()
@@ -155,10 +208,11 @@ def test(model, test_dataset, batch_size, device):
             correct += pred.eq(data.y).sum().item()
             for p in pred:
                 y_pred.append(p.item())
-    print('--------------------TEST OK----------------')
+    cprint('--------------------TEST OK----------------',id)
     return correct / len(test_loader.dataset), loss_all/len(test_loader.dataset), y_pred
 
-if __name__ == "__main__":
+
+def main(n_clients):
     # Load
     # Load the dataset
     # families = ['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','sytro','wabot','RemcosRAT']
@@ -169,6 +223,7 @@ if __name__ == "__main__":
     num_layers = 5
     drop_ratio = 0.5
     residual = False
+    id = n_clients
 
     # dataset, label, fam_idx, fam_dict = init_dataset("./databases/examples_samy/big_dataset/merged/traindata/CDFS", families, "./mapping.txt", [], {}, False)
     mapping = read_mapping("./mapping.txt")
@@ -176,53 +231,14 @@ if __name__ == "__main__":
     dataset, label, fam_idx, fam_dict, dataset_wl = init_dataset("./databases/examples_samy/BODMAS/01", families, reversed_mapping, [], {}, False)
 
     # Print datasets lengths:
-    print(f"GNN Dataset length: {len(dataset)}")
-    print(f"WL Dataset length: {len(dataset_wl)}")
+    #print(f"GNN Dataset length: {len(dataset)}")
+    #print(f"WL Dataset length: {len(dataset_wl)}")
 
     # Training and evaluation for k folds
 
-    full_train_dataset, y_full_train, test_dataset, y_test = [], [], [], []
-    wl_full_train_dataset, wl_y_full_train, wl_test_dataset, wl_y_test = [], [], [], []
     train_idx, test_idx = split_dataset_indexes(dataset, label)
-    for i in train_idx:
-        full_train_dataset.append(dataset[i])
-        y_full_train.append(dataset[i].y)
-        wl_full_train_dataset.append(dataset_wl[i])
-        wl_y_full_train.append(label[i])
-    for i in test_idx:
-        test_dataset.append(dataset[i])
-        y_test.append(dataset[i].y) 
-        wl_test_dataset.append(dataset_wl[i])
-        wl_y_test.append(label[i])
-
-    # full_train_loader = DataLoader(full_train_dataset, batch_size=batch_size, shuffle=True)
-    # test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
-
-    # split full_train into train and validation
-    # train_dataset, y_train, val_dataset, y_val = split_dataset_indexes(full_train_dataset, y_full_train)
-    # train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-    # val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False) 
-
-    model = GINJKFlag(full_train_dataset[0].num_node_features, hidden, num_classes, num_layers, drop_ratio=drop_ratio, residual=residual)
-
-    # import pdb; pdb.set_trace()
-
-    # Train
-    model = train(model, full_train_dataset, 1, 200, DEVICE)
-
-    # Test
-    test_acc, test_loss, y_pred = test(model, test_dataset, 8, DEVICE)
-
-    test_prec = precision_score(y_test, y_pred, average=None)
-    test_rec = recall_score(y_test, y_pred, average=None)
-    test_f1 = f1_score(y_test, y_pred, average=None)
-    test_bal_acc = balanced_accuracy_score(y_test, y_pred)
-
-    print(f"Test accuracy: {test_acc}")
-    print(f"Test precision: {list(test_prec)}")
-    print(f"Test recall: {list(test_rec)}")
-    print(f"Test f1: {list(test_f1)}")
-    print(f"Test balanced accuracy: {test_bal_acc}")
+    wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = load_partition(n_clients=n_clients,id=id,train_idx=train_idx,test_idx=test_idx,dataset=dataset_wl,client=False,wl=True,label=label)
+    cprint(f"Client {id} : datasets length  {len(wl_full_train_dataset)} {len(wl_test_dataset)}",id)    
 
     # graph kernel
     wl_model = SVMWLClassifier("./databases/examples_samy/BODMAS/01", 0.45, families)
@@ -235,19 +251,31 @@ if __name__ == "__main__":
     wl_f1 = f1_score(wl_y_test, wl_y_pred, average=None)
     wl_bal_acc = balanced_accuracy_score(wl_y_test, wl_y_pred)
 
-    print(f"Test accuracy: {wl_acc}")
-    print(f"Test precision: {list(wl_prec)}")
-    print(f"Test recall: {list(wl_rec)}")
-    print(f"Test f1: {list(wl_f1)}")
-    print(f"Test balanced accuracy: {wl_bal_acc}")
 
     print()
-    print("--------------------------------------------------")
-    # side by side results:
-    print(f"Test accuracy: {test_acc} vs {wl_acc}")
-    print(f"Test precision: {list(test_prec)} vs {list(wl_prec)}")
-    print(f"Test recall: {list(test_rec)} vs {list(wl_rec)}")
-    print(f"Test f1: {list(test_f1)} vs {list(wl_f1)}")
-    print(f"Test balanced accuracy: {test_bal_acc} vs {wl_bal_acc}")
+    cprint("--------------------------------------------------",id)
 
-    # import pdb; pdb.set_trace()
+    cprint(f"WL kernel Test accuracy: {wl_acc}",id)
+    cprint(f"WL kernel Test precision: {list(wl_prec)}",id)
+    cprint(f"WL kernel Test recall: {list(wl_rec)}",id)
+    cprint(f"WL kernel Test f1: {list(wl_f1)}",id)
+    cprint(f"WL kernel Test balanced accuracy: {wl_bal_acc}",id)
+
+    print()
+    cprint("--------------------------------------------------",id)
+
+if __name__=="__main__":
+    #Parse command line argument `nclients`
+    parser = argparse.ArgumentParser(description="Flower")    
+    parser.add_argument(
+        "--nclients",
+        type=int,
+        default=1,
+        choices=range(1, 10),
+        required=False,
+        help="Specifies the number of clients. \
+        Picks partition 1 by default",
+    )
+    args = parser.parse_args()
+    n_clients = args.nclients
+    main(n_clients=n_clients)
