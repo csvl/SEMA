@@ -2,6 +2,8 @@ import logging
 import sys
 import angr
 
+from procedures.WindowsSimProcedure import WindowsSimProcedure
+
 lw = logging.getLogger("CustomSimProcedureWindows")
 
 
@@ -13,13 +15,7 @@ class GetModuleHandleExW(angr.SimProcedure):
         return lib
 
     def run(self, flag, lib_ptr, module_ptr):
-        call_sim = None
-        try:
-            from procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],False)
-        except Exception as e:
-            from ....procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],True, True) # TODO fix
+        call_sim = WindowsSimProcedure()
          
         if self.state.solver.is_true(lib_ptr == 0):
             # import pdb; pdb.set_trace()

@@ -2,39 +2,24 @@
 import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from SemaExplorer import SemaExplorer
+import sys
 
 
 class SemaExplorerBFS(SemaExplorer):
     def __init__(
         self,
         simgr,
-        max_length,
         exp_dir,
         nameFileShort,
-        worker,
+        scdg_graph,
+        call_sim
     ):
         super(SemaExplorerBFS, self).__init__(
             simgr,
-            max_length,
             exp_dir,
             nameFileShort,
-            worker.scdg,
-            worker.call_sim,
-            #worker.eval_time,
-            #worker.timeout,
-            #worker.max_end_state,
-            #worker.max_step,
-            #worker.timeout_tab,
-            #worker.jump_it,
-            #worker.loop_counter_concrete,
-            worker.jump_dict,
-            worker.jump_concrete_dict,
-            #worker.max_simul_state,
-            #worker.max_in_pause_stach,
-            #worker.verbose,
-            #worker.print_sm_step,
-            #worker.print_syscall,
-            #worker.debug_error,
+            scdg_graph,
+            call_sim
         )
         self.log = logging.getLogger("SemaExplorerBFS")
         self.log.setLevel("INFO")
@@ -51,35 +36,18 @@ class SemaExplorerBFS(SemaExplorer):
             self.log.warning(exc_type, exc_obj)
             exit(-1)
 
-        super().build_snapshot(simgr)
+        self.build_snapshot(simgr)
 
-        if self.print_sm_step and (
-            len(self.fork_stack) > 0 or len(simgr.deadended) > self.deadended
-        ):
-            self.log.info(
-                "A new block of execution have been executed with changes in sim_manager.\n"
-            )
+        if self.verbose and (len(self.fork_stack) > 0 or len(simgr.deadended) > self.deadended):
+            self.log.info("A new block of execution have been executed with changes in sim_manager.\n")
             self.log.info("Currently, simulation manager is :\n" + str(simgr))
             self.log.info("pause stash len :" + str(len(simgr.stashes["pause"])))
 
-        if self.print_sm_step and len(self.fork_stack) > 0:
+        if self.verbose and len(self.fork_stack) > 0:
             self.log.info("fork_stack : " + str(len(self.fork_stack)))
 
-        # if self.print_sm_step:
-        #    self.log.info("len(self.loopBreak_stack) : " + str(len(self.loopBreak_stack)))
-        #    self.log.info("state.globals['n_steps'] : " + str(state.globals['n_steps']))
-
         # We detect fork for a state
-        super().manage_fork(simgr)
-
-        # Remove state which performed more jump than the limit allowed
-        super().remove_exceeded_jump(simgr)
-
-        # Manage ended state
-        super().manage_deadended(simgr)
-
-        super().mv_bad_active(simgr)
-        # import pdb; pdb.set_trace()
+        self.manage_fork(simgr)
 
         while simgr.active:
             simgr.stashes["pause"].append(simgr.active.pop())
@@ -91,27 +59,17 @@ class SemaExplorerBFS(SemaExplorer):
                 len(simgr.stashes["pause"]),
             )
             for m in range(moves):
-                super().take_smallest(simgr, "pause")
-
-        super().manage_pause(simgr)
-
-        super().drop_excessed_loop(simgr)
+                self.take_smallest(simgr, "pause")
 
         # If states end with errors, it is often worth investigating. Set DEBUG_ERROR to live debug
         # TODO : add a log file if debug error is not activated
-        super().manage_error(simgr)
-
-        super().manage_unconstrained(simgr)
+        self.manage_error(simgr)
 
         for vis in simgr.active:
-            self.dict_addr_vis[
-                str(super().check_constraint(vis, vis.history.jump_target))
-            ] = 1
+            self.dict_addr_vis.add(str(self.check_constraint(vis, vis.history.jump_target)))
 
-        super().excessed_step_to_active(simgr)
+        self.manage_stashes(simgr)
 
-        super().excessed_loop_to_active(simgr)
-
-        super().time_evaluation(simgr)
+        self.time_evaluation(simgr)
 
         return simgr

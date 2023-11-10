@@ -3,19 +3,11 @@ import sys
 import angr
 
 lw = logging.getLogger("CustomSimProcedureWindows")
-
+from procedures.WindowsSimProcedure import WindowsSimProcedure
 
 class LoadLibraryExA(angr.SimProcedure):
     def run(self, lib_ptr, flag1, flag2):        
-        call_sim = None
-        try:
-            from procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],False)
-        except Exception as e:
-            from ....procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],True, True)
-
-        call_sim = CustomSimProcedure([], [])
+        call_sim = WindowsSimProcedure()
         proj = self.state.project
         try:
             lib = self.state.mem[lib_ptr].string.concrete

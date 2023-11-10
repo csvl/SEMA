@@ -3,17 +3,12 @@ import sys
 
 lw = logging.getLogger("CustomSimProcedureWindows")
 from .LoadLibraryA import LoadLibraryA
+from procedures.WindowsSimProcedure import WindowsSimProcedure
 
 
 class LoadLibraryExW(LoadLibraryA):
     def run(self, lib_ptr, flag1, flag2):
-        call_sim = None
-        try:
-            from procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],False,False)
-        except Exception as e:
-            from ....procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],True, True)
+        call_sim = WindowsSimProcedure()
         proj = self.state.project
         lib = self.state.mem[lib_ptr].wstring.concrete
 

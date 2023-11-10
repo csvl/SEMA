@@ -6,19 +6,15 @@ import angr
 from angr.calling_conventions import SimCCStdcall, SimCCMicrosoftAMD64
 from angr.procedures import SIM_LIBRARIES
 
+from procedures.WindowsSimProcedure import WindowsSimProcedure
+
 # from ...CustomSimProcedure import *
 lw = logging.getLogger("CustomSimProcedureWindows")
 
 
 class GetProcAddress(angr.SimProcedure):
     def run(self, lib_handle, name_addr):
-        call_sim = None
-        try:
-            from procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],False,False)
-        except Exception as e:
-            from ....procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],True, True)
+        call_sim = WindowsSimProcedure()
         if self.state.solver.eval(name_addr) in self.state.plugin_widechar.widechar_address:
             name = self.state.mem[name_addr].wstring.concrete
         else:
@@ -78,34 +74,12 @@ class GetProcAddress(angr.SimProcedure):
             lw.info("GetProcAddress: Symbol not found")
             extern = proj.loader.extern_object
             addr = extern.get_pseudo_addr(name)
-            if name in call_sim.custom_simproc_windows["custom_package"]:
-                # if "CreateThread" in str(name):
-                #     call_sim.create_thread.append(addr)
-                if proj.arch.name == "AMD64":
-                    proj.hook(
-                        addr,
-                        call_sim.custom_simproc_windows["custom_package"][name](
-                            cc=SimCCMicrosoftAMD64(proj.arch)
-                        ),
-                    )
-                else:
-                    proj.hook(
-                        addr,
-                        call_sim.custom_simproc_windows["custom_package"][name](
-                            cc=SimCCStdcall(proj.arch)
-                        ),
-                    )
-            elif name in call_sim.custom_simproc_windows:
-                if proj.arch.name == "AMD64":
-                    proj.hook_symbol(
-                        name,
-                        call_sim.custom_simproc_windows[name](cc=SimCCMicrosoftAMD64(proj.arch)),
-                    )
-                else:
-                    proj.hook_symbol(
-                        name,
-                        call_sim.custom_simproc_windows[name](cc=SimCCStdcall(proj.arch)),
-                    )
+            if name in call_sim.sim_proc["custom_package"]:
+                if not call_sim.amd64_sim_proc_hook(proj, addr, call_sim.sim_proc["custom_package"][name]):
+                    call_sim.std_sim_proc_hook(proj, addr, call_sim.sim_proc["custom_package"][name])
+            elif name in call_sim.sim_proc:
+                if not call_sim.amd64_sim_proc_hook(proj, addr, call_sim.sim_proc[name]):
+                    call_sim.std_sim_proc_hook(proj, addr, call_sim.sim_proc[name])
             elif lib in SIM_LIBRARIES:
                 # import pdb; pdb.set_trace()
                 proj.hook_symbol(name, SIM_LIBRARIES[lib].get(name, self.state.arch))

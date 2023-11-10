@@ -3,8 +3,9 @@ import datetime
 import json
 
 class DataManager():
-    def __init__(self, logger):
+    def __init__(self, logger, verbose):
         self.log = logger
+        self.verbose = verbose
         self.dataframe = None
         self.data = dict()
         self.data["instr_dict"] = set()
@@ -98,8 +99,8 @@ class DataManager():
         self.data["nbinstr"] = nbinstr
     
     #Print state address if verbose set to True
-    def print_state_address(self, state, verbose = False):
-        if verbose:
+    def print_state_address(self, state):
+        if self.verbose:
             self.log.info(hex(state.addr))
                 
     # Add the instruction into the instructions set

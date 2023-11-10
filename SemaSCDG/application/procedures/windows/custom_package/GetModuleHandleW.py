@@ -1,5 +1,9 @@
 import logging
 import angr
+
+from procedures.WindowsSimProcedure import WindowsSimProcedure
+from procedures.CustomSimProcedure import CustomSimProcedure
+
 lw = logging.getLogger("CustomSimProcedureWindows")
 
 
@@ -11,13 +15,7 @@ class GetModuleHandleW(angr.SimProcedure):
         return lib
 
     def run(self, lib_ptr):
-        call_sim = None
-        try:
-            from procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],False,False)
-        except Exception as e:
-            from ....procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],True, True)
+        call_sim = WindowsSimProcedure()
             
         if lib_ptr.symbolic:
             lw.info("Symbolic lib")

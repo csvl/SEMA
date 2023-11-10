@@ -5,17 +5,11 @@ import angr
 lw = logging.getLogger("CustomSimProcedureWindows")
 # if you subclass LoadLibraryA to provide register, you can implement LoadLibraryExW by making an empty class that just
 # subclasses your special procedure and LoadLibraryExW
-
+from procedures.WindowsSimProcedure import WindowsSimProcedure
 
 class LoadLibraryA(angr.SimProcedure):
     def run(self, lib_ptr):
-        call_sim = None
-        try:
-            from procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],False,False)
-        except Exception as e:
-            from ....procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],True, True)
+        call_sim = WindowsSimProcedure()
         proj = self.state.project
         try:
             lib = self.state.mem[lib_ptr].string.concrete
