@@ -22,7 +22,10 @@ import progressbar
 import configparser
 
 from SCDGHelper.GraphBuilder import *
+from SCDGHelper.SyscallToSCDG import SyscallToSCDGBuilder
 from procedures.CustomSimProcedure import *
+from procedures.LinuxSimProcedure import LinuxSimProcedure
+from procedures.WindowsSimProcedure import WindowsSimProcedure
 from plugin.PluginEnvVar import *
 from plugin.PluginThread import *
 from plugin.PluginLocaleInfo import *
@@ -41,7 +44,6 @@ from explorer.SemaExplorerCBFS import SemaExplorerCBFS
 from explorer.SemaExplorerSDFS import SemaExplorerSDFS
 from explorer.SemaExplorerDBFS import SemaExplorerDBFS
 from explorer.SemaExplorerAnotherCDFS import SemaExplorerAnotherCDFS
-from explorer.SemaExploreDFS_Modif import SemaExplorerDFS_Modif
 from explorer.SemaThreadCDFS import SemaThreadCDFS
 from clogging.CustomFormatter import CustomFormatter
 from clogging.LogBookFormatter import * # TODO
@@ -57,7 +59,6 @@ from unipacker.utils import RepeatedTimer, InvalidPEFile
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# (2) TODO manon: Use python code convention for module, classes, etc
 class SemaSCDG():
     """
     TODO
@@ -100,18 +101,12 @@ class SemaSCDG():
         self.scdg_graph = []
         self.scdg_fin = []
         self.new = {}
-
-        self.call_sim = CustomSimProcedure(
-            self.scdg_graph, self.scdg_fin, 
-            string_resolv=self.string_resolve, verbose=self.verbose, 
-            print_syscall=self.print_syscall
-        )
         
         self.hooks = PluginHooks()
         self.commands = PluginCommands()
         self.ioc = PluginIoC()
-        self.data_manager = DataManager(logger=self.log)
-        
+        self.data_manager = DataManager(logger=self.log, verbose=config['SCDG_arg'].getboolean('print_address'))
+
         self.families = []
         
         self.nb_exps = 0
@@ -166,7 +161,7 @@ class SemaSCDG():
         return options
     
     # Load and setup plugins set to true in config file
-    def load_plugin(self, state, proj, nameFileShort, options):
+    def load_plugin(self, state, proj, nameFileShort, options, exp_dir):
         plugin_available = self.config["Plugins_to_load"]
         for plugin in plugin_available:
             if self.config["Plugins_to_load"].getboolean(plugin):
@@ -187,14 +182,14 @@ class SemaSCDG():
                 elif plugin == "plugin_atom" :
                     state.register_plugin(plugin, PluginAtom())
                 elif plugin == "plugin_thread" :
-                    state.register_plugin("plugin_thread", PluginThread(self, self.exp_dir, proj, nameFileShort, options))
+                    state.register_plugin("plugin_thread", PluginThread(self, exp_dir, proj, nameFileShort, options))
 
     # Set improved "Break point"
     def set_breakpoints(self, state):      
-        state.inspect.b("simprocedure", when=angr.BP_AFTER, action=self.call_sim.add_call)
-        state.inspect.b("simprocedure", when=angr.BP_BEFORE, action=self.call_sim.add_call_debug)
-        state.inspect.b("call", when=angr.BP_BEFORE, action=self.call_sim.add_addr_call)
-        state.inspect.b("call", when=angr.BP_AFTER, action=self.call_sim.rm_addr_call)
+        state.inspect.b("simprocedure", when=angr.BP_AFTER, action=self.syscall_to_scdg_builder.add_call)
+        state.inspect.b("simprocedure", when=angr.BP_BEFORE, action=self.syscall_to_scdg_builder.add_call_debug)
+        state.inspect.b("call", when=angr.BP_BEFORE, action=self.syscall_to_scdg_builder.add_addr_call)
+        state.inspect.b("call", when=angr.BP_AFTER, action=self.syscall_to_scdg_builder.rm_addr_call)
         
         if self.count_block_enable:
             state.inspect.b("instruction",when=angr.BP_BEFORE, action=self.data_manager.print_state_address)
@@ -202,12 +197,12 @@ class SemaSCDG():
             state.inspect.b("irsb",when=angr.BP_BEFORE, action=self.data_manager.add_block_addr)
 
     #Setup angr project, runs it and build the SCDG graph
-    def run(self):
+    def run(self, exp_dir):
         # Create directory to store SCDG if it doesn't exist
         self.scdg_graph.clear()
         self.scdg_fin.clear()
-        self.call_sim.syscall_found.clear()
-        self.call_sim.system_call_table.clear()
+        # self.call_sim.syscall_found.clear()
+        # self.call_sim.system_call_table.clear()
         
         # TODO check if PE file get /GUARD option (VS code) with leaf
         
@@ -215,18 +210,17 @@ class SemaSCDG():
 
         # Create a Dataframe for future data if a csv file is specified
         if self.store_data:
-            self.data_manager.setup_csv(self.exp_dir + self.csv_file)
+            self.data_manager.setup_csv(exp_dir + self.csv_file)
         
         # Setup the output directory
-        self.exp_dir = "database/SCDG/runs/" + self.exp_dir + "/"
-        self.log.info("Results wil be saved into : " + self.exp_dir)
+        self.log.info("Results wil be saved into : " + exp_dir)
         try:
-            os.makedirs(self.exp_dir)
+            os.makedirs(exp_dir)
         except:
             pass
             
         # Save the configuration used
-        self.save_conf(self.exp_dir)
+        self.save_conf(exp_dir)
 
         # Take name of the sample without full path
         if "/" in self.binary_path:
@@ -235,10 +229,10 @@ class SemaSCDG():
             nameFileShort = self.binary_path
         self.data_manager.data["nameFileShort"] = nameFileShort
         try:
-            os.stat(self.exp_dir + nameFileShort)
+            os.stat(exp_dir + nameFileShort)
         except:
-            os.makedirs(self.exp_dir + nameFileShort)
-        fileHandler = logging.FileHandler(self.exp_dir + nameFileShort + "/" + "scdg.ans")
+            os.makedirs(exp_dir + nameFileShort)
+        fileHandler = logging.FileHandler(exp_dir + nameFileShort + "/" + "scdg.ans")
         fileHandler.setFormatter(CustomFormatter())
         #logging.getLogger().handlers.clear()
         try:
@@ -249,7 +243,7 @@ class SemaSCDG():
         
         logging.getLogger().addHandler(fileHandler)
 
-        self.exp_dir = self.exp_dir + nameFileShort + "/"
+        exp_dir = exp_dir + nameFileShort + "/"
         
         title = "--- Building SCDG of " + self.family  +"/" + nameFileShort  + " ---"
         self.log.info("\n" + "-" * len(title) + "\n" + title + "\n" + "-" * len(title))
@@ -377,7 +371,7 @@ class SemaSCDG():
                 proj = self.init_angr_project(nameFile, auto_load_libs=True, support_selfmodifying_code=True)
             except InvalidPEFile as e:
                 self.packing_type = "symbion"
-                self.run()
+                self.run("database/SCDG/runs/" + self.exp_dir + "/")
                 return
         else:  
             #TODO : replace by a function
@@ -457,12 +451,19 @@ class SemaSCDG():
         if self.verbose:
             self.print_program_info(proj=proj, main_obj = main_obj, os_obj = os_obj)
 
+
         # Load pre-defined syscall table
         if os_obj == "windows":
+            #Create window custom sim proc
+            self.call_sim = WindowsSimProcedure()
             self.call_sim.system_call_table = self.call_sim.ddl_loader.load(proj,True if (self.is_packed and False) else False,dll)
         else:
-           self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(proj)
+            #Create linux custom sim proc
+            self.call_sim = LinuxSimProcedure()
+            self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(proj)
            
+        self.syscall_to_scdg_builder = SyscallToSCDGBuilder(self.call_sim, self.scdg_graph, self.string_resolve, self.print_syscall, self.verbose)
+            
         self.log.info("System call table loaded")
         self.log.info("System call table size : " + str(len(self.call_sim.system_call_table)))
         
@@ -514,7 +515,7 @@ class SemaSCDG():
         
         # Enable plugins set to true in config file
         if self.plugin_enable:
-            self.load_plugin(state, proj, nameFileShort, options)
+            self.load_plugin(state, proj, nameFileShort, options, exp_dir)
 
         # Create ProcessHeap struct and set heapflages to 0
         tib_addr = state.regs.fs.concat(state.solver.BVV(0, 16))
@@ -556,7 +557,7 @@ class SemaSCDG():
         # code at that address.
         
         if os_obj == "windows":
-            self.call_sim.loadlibs(proj) #TODO mbs=symbs,dll=dll)
+            self.call_sim.loadlibs_proc(self.call_sim.system_call_table, proj) #TODO mbs=symbs,dll=dll)
         
         self.call_sim.custom_hook_static(proj)
 
@@ -572,8 +573,7 @@ class SemaSCDG():
                 
         # Creation of simulation managerinline_call, primary interface in angr for performing execution
         
-        nthread = None #if args.sthread <= 1 else args.sthread # TODO not working -> implement state_step
-        simgr = proj.factory.simulation_manager(state,threads=nthread)
+        simgr = proj.factory.simulation_manager(state)
         
         dump_file = {}
         self.print_memory_info(main_obj, dump_file)    
@@ -608,12 +608,14 @@ class SemaSCDG():
             ]
         )
 
-        exploration_tech = self.get_exploration_tech(nameFileShort, simgr)
+        exploration_tech = self.get_exploration_tech(nameFileShort, simgr, exp_dir)
+        #exploration_tech_2 = Threading()
         
         self.log.info(proj.loader.all_pe_objects)
         self.log.info(proj.loader.extern_object)
         self.log.info(proj.loader.symbols)
         
+        #simgr.use_technique(DFS())
         simgr.use_technique(exploration_tech)
         
         self.log.info(
@@ -653,12 +655,12 @@ class SemaSCDG():
                 self.data_manager.get_plugin_data(state, simgr, to_store=False, verbose=True)
         
         if self.track_command:
-            self.commands.track(simgr, self.scdg_graph, self.exp_dir)
+            self.commands.track(simgr, self.scdg_graph, exp_dir)
         if self.ioc_report:
-            self.ioc.build_ioc(self.scdg_graph, self.exp_dir)
+            self.ioc.build_ioc(self.scdg_graph, exp_dir)
 
         # Build SCDG
-        self.build_scdg(main_obj, state, simgr)
+        self.build_scdg(main_obj, state, simgr, exp_dir)
         
         g = GraphBuilder(
             name=nameFileShort,
@@ -668,58 +670,54 @@ class SemaSCDG():
             min_size=int(self.config['build_graph_arg']['min_size']),
             ignore_zero=(not self.config['build_graph_arg'].getboolean('not_ignore_zero')),
             three_edges=self.config['build_graph_arg'].getboolean('three_edges'),
-            odir=self.exp_dir,
+            odir=exp_dir,
             verbose=self.verbose,
             family=self.family
         )
         g.build_graph(self.scdg_fin, graph_output=self.config['build_graph_arg']['graph_output'])
         
         if self.store_data:
-            self.data_manager.save_to_csv(proj, self.family, self.call_sim, csv_file_path=self.exp_dir + self.csv_file)
+            self.data_manager.save_to_csv(proj, self.family, self.call_sim, csv_file_path=exp_dir + self.csv_file)
 
         logging.getLogger().removeHandler(fileHandler)
 
-    def get_exploration_tech(self, nameFileShort, simgr):
-        # exploration_tech = SemaExplorerDFS(
-        #     simgr, 0, self.exp_dir, nameFileShort, self
-        # )
-        # if self.expl_method == "CDFS":
-        #     exploration_tech = SemaExplorerCDFS(
-        #         simgr, 0, self.exp_dir, nameFileShort, self
-        #     )
+    def get_exploration_tech(self, nameFileShort, simgr, exp_dir):
+        exploration_tech = SemaExplorerDFS(
+            simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
+        )
+        if self.expl_method == "CDFS":
+            exploration_tech = SemaExplorerCDFS(
+                 simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
+            )
         # elif self.expl_method == "CBFS":
         #     exploration_tech = SemaExplorerCBFS(
-        #         simgr, 0, self.exp_dir, nameFileShort, self
+        #         simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
         #     )
         # elif self.expl_method == "BFS":
         #     exploration_tech = SemaExplorerBFS(
-        #         simgr, 0, self.exp_dir, nameFileShort, self
+        #         simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
         #     )
         # elif self.expl_method == "SCDFS":
         #     exploration_tech = SemaExplorerAnotherCDFS(
-        #         simgr, 0, self.exp_dir, nameFileShort, self
+        #         simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
         #     )
         # elif self.expl_method == "DBFS":
         #     exploration_tech = SemaExplorerDBFS(
-        #         simgr, 0, self.exp_dir, nameFileShort, self
+        #         simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
         #     )
         # elif self.expl_method == "SDFS":
         #     exploration_tech = SemaExplorerSDFS(
-        #         simgr, 0, self.exp_dir, nameFileShort, self
+        #         simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
         #     )
         # elif self.expl_method == "ThreadCDFS":
         #     exploration_tech = SemaThreadCDFS(
-        #         simgr, 0, self.exp_dir, nameFileShort, self
+        #         simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
         #     )
-
-        exploration_tech = SemaExplorerDFS_Modif(
-            simgr, self.exp_dir, nameFileShort, self.scdg_graph, self.call_sim
-        )
             
         return exploration_tech
 
     #Construct the SCDG with the stashes content
-    def build_scdg(self, main_obj, state, simgr):
+    def build_scdg(self, main_obj, state, simgr, exp_dir):
         dump_file = {}
         dump_id = 0
         dic_hash_SCDG = {}
@@ -754,7 +752,7 @@ class SemaSCDG():
         self.print_memory_info(main_obj, dump_file)
         
         if self.keep_inter_scdg:
-            ofilename = self.exp_dir  + "inter_SCDG.json"
+            ofilename = exp_dir  + "inter_SCDG.json"
             self.log.info(ofilename)
             list_obj = []
             # Check if file exists
@@ -792,7 +790,7 @@ class SemaSCDG():
         
         # (3) TODO manon: make this configurable, different level of logging
         if self.verbose:
-            logging.getLogger("SemaSCDG").handlers.clear()
+            #logging.getLogger("SemaSCDG").handlers.clear()
             ch = logging.StreamHandler()
             ch.setLevel(logging.INFO)
             ch.setFormatter(CustomFormatter())
@@ -817,7 +815,7 @@ class SemaSCDG():
             self.nb_exps = 1
             self.log.info("You decide to analyse a single binary: "+ self.binary_path)
             # *|CURSOR_MARCADOR|*
-            self.run()
+            self.run( "database/SCDG/runs/" + self.exp_dir + "/")
             self.current_exps = 1
         else:
             last_family = "Unknown"
@@ -834,6 +832,7 @@ class SemaSCDG():
                 bar_f.start()
                 ffc = 0
                 for folder in subfolder:
+                    gc.collect()
                     self.log.info("You are currently building SCDG for " + folder)
                     files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and not f.endswith(".zip")]
                     bar = progressbar.ProgressBar(max_value=len(files))
@@ -844,7 +843,7 @@ class SemaSCDG():
                     for file in files:
                         self.binary_path = file
                         self.family = current_family
-                        self.run()
+                        self.run( "database/SCDG/runs/" + self.exp_dir + "/")
                         fc+=1
                         self.current_exps += 1
                         bar.update(fc)

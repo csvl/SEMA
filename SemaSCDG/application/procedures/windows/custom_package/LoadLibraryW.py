@@ -2,18 +2,14 @@ import logging
 import sys
 import angr
 
+from procedures.WindowsSimProcedure import WindowsSimProcedure
+
 lw = logging.getLogger("CustomSimProcedureWindows")
 
 
 class LoadLibraryW(angr.SimProcedure):
     def run(self, lib_ptr):
-        call_sim = None
-        try:
-            from procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],False,False)
-        except Exception as e:
-            from ....procedures.CustomSimProcedure import CustomSimProcedure  # TODO fix  # TODO fix
-            call_sim = CustomSimProcedure([], [],True, True)
+        call_sim = WindowsSimProcedure()
         proj = self.state.project
         lib = self.state.mem[lib_ptr].wstring.concrete
         if hasattr(lib, "decode"):

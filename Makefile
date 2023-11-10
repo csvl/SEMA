@@ -1,6 +1,6 @@
 build-toolchain:
 	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
-	DOCKER_BUILDKIT=0 docker-compose -f docker-compose.deploy.yml build
+	DOCKER_BUILDKIT=0 docker compose -f docker-compose.deploy.yml build
 
 build-web-app:
 	docker build --rm --cache-from sema-web-app:latest -t sema-web-app  -f SemaWebApp/Dockerfile .
