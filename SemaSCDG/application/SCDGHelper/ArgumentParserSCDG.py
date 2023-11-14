@@ -292,7 +292,7 @@ class ArgumentParserSCDG:
             default="Unknown",
             
         )
-        self.group.add_argument("binary", 
+        self.group.add_argument("binary_path", 
                 help="Name of the binary to analyze",
                 )
 

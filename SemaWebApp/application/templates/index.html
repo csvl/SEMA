@@ -338,7 +338,7 @@
                                                       </div>
                                                       <input class="form-control"  name="{{ args["name"] }}" value="{{ args["default"] }}" type="text" id="{{ args["name"] }}">
                                                    </div>
-                                                {% elif  args["name"] == "binary" %}
+                                                {% elif  args["name"] == "binary_path" %}
                                                    <div class="mb-3">
                                                       <label for="{{ args["name"] }}" class="form-label">{{ args["name"] }}</label>
                                                       <input class="form-control" aria-describedby="{{ args["name"] }}Help" name="{{ args["name"] }}" type="file" id="{{ args["name"] }}" multiple>
@@ -444,7 +444,7 @@
                                                       </div>
                                                       <input class="form-control"  name="{{ args["name"] }}" value="{{ args["default"] }}" type="text" id="{{ args["name"] }}">
                                                    </div>
-                                                {% elif  args["name"] == "binary" %}
+                                                {% elif  args["name"] == "binary_path" %}
                                                    <div class="mb-3">
                                                       <label for="{{ args["name"] }}" class="form-label">{{ args["name"] }}</label>
                                                       <input class="form-control" aria-describedby="{{ args["name"] }}Help" name="{{ args["name"] }}" value="" type="file" id="{{ args["name"] }}" multiple>
