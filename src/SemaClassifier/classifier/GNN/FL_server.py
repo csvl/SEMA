@@ -103,7 +103,7 @@ if __name__ == "__main__":
     num_layers = 5
     drop_ratio = 0.5
     residual = False
-    model = GINJKFlag(full_train_dataset[0].num_node_features, hidden, num_classes, num_layers, drop_ratio=drop_ratio, residual=residual).to(DEVICE)
+    model = GINJKFlag(test_dataset[0].num_node_features, hidden, num_classes, num_layers, drop_ratio=drop_ratio, residual=residual).to(DEVICE)
     model_parameters = [val.cpu().numpy() for _, val in model.state_dict().items()]
 
     

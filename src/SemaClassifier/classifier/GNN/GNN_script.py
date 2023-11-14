@@ -141,10 +141,13 @@ def load_partition(n_clients,id,train_idx,test_idx,dataset,client=True,wl=False,
     # if wl:
     #     assert label is not None
 
-    n_train = int(len(train_idx) / (n_clients+1))
+    n_train = int(len(train_idx) / (n_clients))
     n_test = int(len(test_idx) / (n_clients+1))
 
-    train_partition = train_idx[id * n_train: (id + 1) * n_train]
+    if wl:
+        train_partition = train_idx[(id-1)*n_train: id*n_train]
+    else:
+        train_partition = train_idx[id * n_train: (id + 1) * n_train]
     test_partition = test_idx[id * n_test: (id + 1) * n_test]    
     full_train_dataset, y_full_train, test_dataset, y_test = [], [], [], []
     for i in train_partition:
