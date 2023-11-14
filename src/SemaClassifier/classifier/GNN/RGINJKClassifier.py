@@ -1,7 +1,7 @@
 import torch
 import torch.nn.functional as F
 from torch_geometric.nn import global_mean_pool, global_add_pool, MessagePassing
-from .utils import get_graph_info, build_graph
+from utils import get_graph_info, build_graph
 
 ### GIN convolution along the graph structure
 class GINConv(MessagePassing):
@@ -231,6 +231,7 @@ class RanGINJK(torch.nn.Module):
         super(RanGINJK, self).__init__()
         self.num_layers = num_layers
         self.emb_dim = hidden
+        self.hidden = hidden
         self.num_tasks = num_classes
         self.num_features = num_features
         print(f"Hidden={hidden}, num_classes={num_classes}, self.num_layers={self.num_layers},\

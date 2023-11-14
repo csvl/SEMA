@@ -134,12 +134,12 @@ def load_partition(n_clients,id,train_idx,test_idx,dataset,client=True,wl=False,
     if not client and not wl:
         server = True
     
-    if client:
-        assert id in range(n_clients)
-    else:
-        assert id in range(n_clients+1)
-    if wl:
-        assert label is not None
+    # if client:
+    #     assert id in range(n_clients)
+    # else:
+    #     assert id in range(n_clients+1)
+    # if wl:
+    #     assert label is not None
 
     n_train = int(len(train_idx) / (n_clients+1))
     n_test = int(len(test_idx) / (n_clients+1))
@@ -198,6 +198,7 @@ def test(model, test_dataset, batch_size, device,id):
     criterion = torch.nn.CrossEntropyLoss()
     y_pred = []
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+    import pdb; pdb.set_trace()
     with torch.no_grad():
         for data in test_loader:
             data = data.to(device)
@@ -264,6 +265,29 @@ def main(n_clients):
     print()
     cprint("--------------------------------------------------",id)
 
+
+    #Dataset Loading
+    families = ["berbew","sillyp2p","benjamin","small","mira","upatre","wabot"]
+    mapping = read_mapping("./mapping.txt")
+    reversed_mapping = read_mapping_inverse("./mapping.txt")
+    dataset, label, fam_idx, fam_dict, dataset_wl = init_dataset("./databases/examples_samy/BODMAS/01", families, reversed_mapping, [], {}, False)
+    train_idx, test_idx = split_dataset_indexes(dataset, label)
+    full_train_dataset,y_full_train, test_dataset,y_test = load_partition(n_clients=n_clients,id=id,train_idx=train_idx,test_idx=test_idx,dataset=dataset)
+    cprint(f"Client {id} : datasets length, {len(full_train_dataset)}, {len(test_dataset)}",id)
+
+    #Model
+    batch_size = 32
+    hidden = 64
+    num_classes = len(families)
+    num_layers = 5
+    drop_ratio = 0.5
+    residual = False
+    model = GINJKFlag(full_train_dataset[0].num_node_features, hidden, num_classes, num_layers, drop_ratio=drop_ratio, residual=residual).to(DEVICE)
+
+    # Test model
+    accuracy, loss, y_pred = test(model, test_dataset, batch_size, DEVICE,id)
+    cprint(f"GNN {id}: Evaluation accuracy & loss, {accuracy}, {loss}",id)
+
 if __name__=="__main__":
     #Parse command line argument `nclients`
     parser = argparse.ArgumentParser(description="Flower")    
@@ -279,3 +303,5 @@ if __name__=="__main__":
     args = parser.parse_args()
     n_clients = args.nclients
     main(n_clients=n_clients)
+
+    

@@ -40,6 +40,7 @@ class GINJKFlag_node(torch.nn.Module):
         super(GINJKFlag_node, self).__init__()
         self.num_layers = num_layers
         self.emb_dim = hidden
+        self.hidden = hidden
         self.num_tasks = num_classes
         self.num_features = num_features
         self.drop_ratio = drop_ratio
@@ -70,6 +71,7 @@ class GINJKFlag(torch.nn.Module):
         super(GINJKFlag, self).__init__()
         self.num_layers = num_layers
         self.emb_dim = hidden
+        self.hidden = hidden
         self.num_tasks = num_classes
         self.num_features = num_features
 
