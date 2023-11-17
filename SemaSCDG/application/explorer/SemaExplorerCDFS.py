@@ -31,7 +31,6 @@ class SemaExplorerCDFS(SemaExplorer):
         super().setup(simgr)
         self.pause_stash = deque()
         # The stash where states leading to new instruction addresses (not yet explored) of the binary are kept. 
-        # If CDFS or CBFS are not used, this stash merges with the pause stash.
         if self.new_addr_stash not in simgr.stashes:
             simgr.stashes[self.new_addr_stash] = []
 
@@ -50,6 +49,18 @@ class SemaExplorerCDFS(SemaExplorer):
 
     def manage_stashes(self, simgr):
         # Put new addr state in active stash to treat them first
+        for s in simgr.active:
+            vis_addr = str(self.check_constraint(s, s.history.jump_target))
+            id_to_stash = []
+            if vis_addr not in self.dict_addr_vis:
+                self.dict_addr_vis.add(vis_addr)
+                id_to_stash.append(s.globals["id"])
+            simgr.move(
+                from_stash="active",
+                to_stash="new_addr",
+                filter_func=lambda s: s.globals["id"] in id_to_stash,
+            )
+            
         self.new_addr_priority(simgr)
         
         # If limit of simultaneous state is not reached and we have some states available in pause stash
@@ -105,17 +116,6 @@ class SemaExplorerCDFS(SemaExplorer):
         
         # We detect fork for a state
         self.manage_fork(simgr)  
-
-        for s in simgr.active:
-            vis_addr = str(self.check_constraint(s, s.history.jump_target))
-            id_to_stash = []
-            if vis_addr not in self.dict_addr_vis:
-                id_to_stash.append(s.globals["id"])
-            simgr.move(
-                from_stash="active",
-                to_stash="new_addr",
-                filter_func=lambda s: s.globals["id"] in id_to_stash,
-            )
 
         self.manage_stashes(simgr)
 

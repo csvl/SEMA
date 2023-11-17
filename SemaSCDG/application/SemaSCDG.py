@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
-import datetime
 import os
 import sys
 
 import json as json_dumper
 from builtins import open as open_file
-import threading
 import time
 
 import claripy
@@ -16,7 +14,6 @@ from capstone import *
 import angr
 
 import gc
-import pandas as pd
 import logging
 import progressbar
 import configparser
@@ -27,7 +24,6 @@ from procedures.CustomSimProcedure import *
 from procedures.LinuxSimProcedure import LinuxSimProcedure
 from procedures.WindowsSimProcedure import WindowsSimProcedure
 from plugin.PluginEnvVar import *
-from plugin.PluginThread import *
 from plugin.PluginLocaleInfo import *
 from plugin.PluginRegistery import *
 from plugin.PluginHooks import *
@@ -37,6 +33,7 @@ from plugin.PluginEvasion import *
 from plugin.PluginCommands import *
 from plugin.PluginIoC import *
 from plugin.PluginAtom import *
+from plugin.PluginPacking import *
 from explorer.SemaExplorerDFS import SemaExplorerDFS
 from explorer.SemaExplorerCDFS import SemaExplorerCDFS
 from explorer.SemaExplorerBFS import SemaExplorerBFS
@@ -44,12 +41,9 @@ from explorer.SemaExplorerCBFS import SemaExplorerCBFS
 from explorer.SemaExplorerSDFS import SemaExplorerSDFS
 from explorer.SemaExplorerDBFS import SemaExplorerDBFS
 from explorer.SemaExplorerAnotherCDFS import SemaExplorerAnotherCDFS
-from explorer.SemaThreadCDFS import SemaThreadCDFS
 from clogging.CustomFormatter import CustomFormatter
 from clogging.LogBookFormatter import * # TODO
 from clogging.DataManager import DataManager
-#from SCDGHelper.ArgumentParserSCDG import ArgumentParserSCDG
-from sandboxes.CuckooInterface import CuckooInterface
 
 import avatar2 as avatar2
 
@@ -78,8 +72,6 @@ class SemaSCDG():
         self.is_packed = config['SCDG_arg'].getboolean('is_packed')
         self.unpack_mode = config['SCDG_arg']['packing_type']
         self.keep_inter_scdg = config['SCDG_arg'].getboolean('keep_inter_scdg')
-        self.pre_run_thread = config['SCDG_arg'].getboolean('pre_run_thread')
-        self.post_run_thread = config['SCDG_arg'].getboolean('post_run_thread')
         self.approximate = config['SCDG_arg'].getboolean('approximate')
         self.track_command = config['SCDG_arg'].getboolean('track_command')
         self.ioc_report = config['SCDG_arg'].getboolean('ioc_report')
@@ -181,8 +173,6 @@ class SemaSCDG():
                     state.plugin_registery.setup_plugin()
                 elif plugin == "plugin_atom" :
                     state.register_plugin(plugin, PluginAtom())
-                elif plugin == "plugin_thread" :
-                    state.register_plugin("plugin_thread", PluginThread(self, exp_dir, proj, nameFileShort, options))
 
     # Set improved "Break point"
     def set_breakpoints(self, state):      
@@ -198,11 +188,8 @@ class SemaSCDG():
 
     #Setup angr project, runs it and build the SCDG graph
     def run(self, exp_dir):
-        # Create directory to store SCDG if it doesn't exist
         self.scdg_graph.clear()
         self.scdg_fin.clear()
-        # self.call_sim.syscall_found.clear()
-        # self.call_sim.system_call_table.clear()
         
         # TODO check if PE file get /GUARD option (VS code) with leaf
         
@@ -234,7 +221,6 @@ class SemaSCDG():
             os.makedirs(exp_dir + nameFileShort)
         fileHandler = logging.FileHandler(exp_dir + nameFileShort + "/" + "scdg.ans")
         fileHandler.setFormatter(CustomFormatter())
-        #logging.getLogger().handlers.clear()
         try:
             logging.getLogger().removeHandler(fileHandler)
         except:
@@ -257,199 +243,36 @@ class SemaSCDG():
 
         # Load a binary into a project = control base
         proj = None
-        cuckoo = None
         dll=None
-        if self.is_packed and self.packing_type == "symbion":
-            # nameFile = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-            #                               os.path.join('..', 'binaries',
-            #                               'tests','x86_64',
-            #                               'packed_elf64'))
-                        
-            #nameFile = "/home/crochetch/Documents/toolchain_malware_analysis/src/submodules/binaries/tests/x86_64/packed_elf64"
-            #st = os.stat(nameFile)
-            #os.chmod(nameFile, st.st_mode | stat.S_IEXEC)
-            print(nameFile)
-            analysis = nameFile
 
-            proj = self.init_angr_project(nameFile, auto_load_libs=True, support_selfmodifying_code=True)
+        # Deals with packing
+        if self.is_packed :
+            if self.packing_type == "symbion":
+                proj_init = self.init_angr_project(self.binary_path, auto_load_libs=True, support_selfmodifying_code=True)
+                preload, avatar_gdb = setup_symbion(self.binary_path, proj_init, self.concrete_target_is_local, self.call_sim, self.log)
+                proj = self.init_angr_project(self.binary_path, auto_load_libs=False, load_debug_info=True, preload_libs=preload, support_selfmodifying_code=True, concrete_target=avatar_gdb)
 
-            # Getting from a binary file to its representation in a virtual address space
-            main_obj = proj.loader.main_object
-            os_obj = main_obj.os
+                for lib in self.call_sim.system_call_table:
+                    print(proj.loader.find_all_symbols(lib))
 
-            self.log.info("OS recognized as : " + str(os_obj))
-            self.log.info("CPU architecture recognized as : " + str(proj.arch))
-
-            # First set everything up
-            GDB_SERVER_IP = '127.0.0.1'
-            GDB_SERVER_PORT = 9876
-
-            if not self.concrete_target_is_local:
-                filename = "cuckoo_ubuntu18.04"
-                gos = "linux"
-                if "win" in os_obj:
-                    if False:
-                        filename = "win7_x64_cuckoo"
-                    else:
-                        filename = "win10"
-                    gos = "windows"
-
-                cuckoo = CuckooInterface(name=filename, ossys="linux", guestos=gos, create_vm=False)
-                GDB_SERVER_IP = cuckoo.start_sandbox(GDB_SERVER_PORT)
-                cuckoo.load_analysis(analysis)
-                remote_binary=cuckoo.start_analysis(analysis)       
-                print(GDB_SERVER_IP)     
-            else:
-                # TODO use the one in sandbox
-                print("gdbserver %s:%s %s" % (GDB_SERVER_IP,GDB_SERVER_PORT,nameFile))
-                subprocess.Popen("gdbserver %s:%s %s" % (GDB_SERVER_IP,GDB_SERVER_PORT,nameFile),
-                                        stdout=subprocess.PIPE,
-                                        stderr=subprocess.PIPE,
-                                        shell=True)
-            avatar_gdb = None
-            local_ddl_path = self.call_sim.ddl_loader.calls_dir.replace("calls","windows7_ddls")
-            try:
-                self.log.info("AvatarGDBConcreteTarget("+ GDB_SERVER_IP+","+ str(GDB_SERVER_PORT) +")")
-                avatar_gdb = AvatarGDBConcreteTarget(avatar2.archs.x86.X86,
-                                                    GDB_SERVER_IP, GDB_SERVER_PORT,remote_binary,local_ddl_path)  # TODO modify to send file and update gdbserver conf
-            except Exception as e:
-                time.sleep(5)
-                self.log.info("AvatarGDBConcreteTarget failure")
-                try:
-                    avatar_gdb = AvatarGDBConcreteTarget(avatar2.archs.x86.X86, # TODO 
-                                                    GDB_SERVER_IP, GDB_SERVER_PORT,remote_binary,local_ddl_path) 
-                except Exception as ee:
-                    exit(-1)
-            print(nameFile)   
-            print(avatar_gdb) 
-            
-            self.call_sim.system_call_table = self.call_sim.ddl_loader.load(proj,True if (self.is_packed and False) else False)
-            
-            preload = []
-            for lib in self.call_sim.system_call_table:
-                #for key in self.call_sim.system_call_table[lib]: 
-                print(lib)
-                    #preload.append(lib)
-            print(proj.loader.shared_objects)
-            
-            proj = self.init_angr_project(nameFile, preload_libs=preload, auto_load_libs=True, load_debug_info=True, support_selfmodifying_code=True, concrete_target=avatar_gdb)
-
-            #self.call_sim.system_call_table.clear()
-            #print(proj.concrete_target.avatar.get_info_sharelib_targets(local_ddl_path))
-            
-            for lib in proj.concrete_target.avatar.get_info_sharelib_targets(local_ddl_path)[0]:
-                print(lib["id"]) # TODO lowercase folder
-                if lib["target-name"] == lib["host-name"] :
-                    print("Changed")
-                #if "kernel" not in lib["target-name"].lower():
-                #preload.append(lib["id"].replace("C:\\",self.call_sim.ddl_loader.calls_dir.replace("calls","windows7_ddls/C:/")).replace("\\","/").replace("system","System")) # 
-            #exit()
-            proj = self.init_angr_project(nameFile, auto_load_libs=False, load_debug_info=True, preload_libs=preload, support_selfmodifying_code=True, concrete_target=avatar_gdb)
-
-            for lib in self.call_sim.system_call_table:
-                print(proj.loader.find_all_symbols(lib))
-            #for obj in proj.loader.all_objects:
-            #    print(obj)
-            #exit()
-        elif self.is_packed and self.packing_type == "unipacker":
-            try:
-                #TODO : replace by a function
-                unpacker_heartbeat = RepeatedTimer(120, print, "- still running -", file=sys.stderr)
-                event = threading.Event()
-                client = SimpleClient(event)
-                sample = Sample(nameFile)
-                unpacked_file_path = nameFile.replace(nameFileShort,"unpacked_"+nameFileShort)
-                engine = UnpackerEngine(sample, unpacked_file_path)
-                self.log.info("Unpacking process with unipacker")
-                engine.register_client(client)
-                unpacker_heartbeat.start()
-                threading.Thread(target=engine.emu).start()
-                event.wait()
-                unpacker_heartbeat.stop()
-                engine.stop()
-                nameFile = unpacked_file_path
-                proj = self.init_angr_project(nameFile, auto_load_libs=True, support_selfmodifying_code=True)
-            except InvalidPEFile as e:
-                self.packing_type = "symbion"
-                self.run("database/SCDG/runs/" + self.exp_dir + "/")
-                return
+            elif self.packing_type == "unipacker":
+                nameFile_unpacked = setup_unipacker(self.binary_path, nameFileShort, self.log)
+                proj = self.init_angr_project(nameFile_unpacked, auto_load_libs=True, support_selfmodifying_code=True)
         else:  
-            #TODO : replace by a function
-            # if nameFile.endswith(".bin") or nameFile.endswith(".dmp"):
-            #     main_opt = {'backend': 'blob', "arch":"x86","simos":"windows"}#cle.Blob(nameFile,arch=avatar2.archs.x86.X86,binary_stream=True)
-            #     #nameFile = loader
-            #     main_opt = {} #0x0005f227 0x400000 0x001191f7
-            #     proj = angr.Project(
-            #         nameFile,
-            #         use_sim_procedures=True,
-            #         load_options={
-            #             "auto_load_libs": True
-            #         },  # ,load_options={"auto_load_libs":False}
-            #         support_selfmodifying_code=True if not nameFile.endswith(".dmp") else False,
-            #         main_opts=main_opt,
-            #         #simos = "windows"if nameFile.endswith(".bin") or nameFile.endswith(".dmp") else None
-            #         # arch="",
-            #     )
-            #     main_obj = proj.loader.main_object
-            #     first_sec = False
-            #     libs = []
-            #     dll = []
-            #     for sec in main_obj.sections:
-            #         name = sec.name.replace("\x00", "")
-            #         if not first_sec:
-            #             first_sec = True
-            #         else:
-            #             if "KERNELBASE.dll" in name:
-            #                 name = name.replace("KERNELBASE.dll","KernelBase.dll")
-            #             dll.append(name.split("\\")[-1])
-            #             print(dll)
-            #             libs.append(name.replace("C:\\",self.call_sim.ddl_loader.calls_dir.replace("calls","windows10_ddls/C:/")).replace("\\","/")) # .replace("system","System") 
-            #             self.log.info(name)
-            #             #self.log.info(dump_file["sections"][name])
-            #     t_0x0548 = proj.loader.main_object.get_thread_registers_by_id() # 0x1b30 0x0548 0x13c4 0x1ecc 0x760
-            #     print(t_0x0548)
-            #     print(hex(t_0x0548["eip"]) )
-            #     # print(proj.loader.memory[t_0x0548["esp"]])
-            #     main_opt = {"entry_point":t_0x0548["eip"]} # "entry_point":t_0x0548["eip"]
-            #     print(main_opt)
-            #     #exit()
-            #     proj = angr.Project(
-            #         nameFile,
-            #         use_sim_procedures=True, # if not nameFile.endswith(".dmp") else False,
-            #         load_options={
-            #             "auto_load_libs": True,
-            #             "load_debug_info": True,
-            #             #"preload_libs": libs,
-            #         },  # ,load_options={"auto_load_libs":False}
-            #         support_selfmodifying_code=True, #if not nameFile.endswith(".dmp") else False,
-            #         main_opts=main_opt,
-            #         #simos = "windows"if nameFile.endswith(".bin") or nameFile.endswith(".dmp") else None
-            #         # arch="",
-            #     )
-            #     symbs = proj.loader.symbols
-            #     for symb in symbs:
-            #         print(symb)
-            #     print(symbs)
-            #     print(proj.loader.shared_objects)
-            #     print(proj.loader.all_objects)
-            #     print(proj.loader.requested_names)
-            #     print(proj.loader.initial_load_objects)
-            #     for register in t_0x0548:
-            #         print(register,hex(t_0x0548[register]))
-            #     #exit()
-                
-            # else:
-
-            #simos = "windows"if nameFile.endswith(".bin") or nameFile.endswith(".dmp") else None
-            proj = self.init_angr_project(self.binary_path, support_selfmodifying_code=True, auto_load_libs=True, load_debug_info=True, simos=None)
+            if self.binary_path.endswith(".bin") or self.binary_path.endswith(".dmp"):
+                # TODO : implement function -> see PluginPacking.py
+                setup_bin_dmp()
+            else:
+                # default behaviour
+                proj = self.init_angr_project(self.binary_path, support_selfmodifying_code=True, auto_load_libs=True, load_debug_info=True, simos=None)
 
         main_obj = proj.loader.main_object
         os_obj = main_obj.os
         if self.count_block_enable:
-            self.data_manager.count_block(proj=proj, main_obj= main_obj)
+            self.data_manager.count_block(proj = proj, main_obj = main_obj)
             
         if self.verbose:
-            self.print_program_info(proj=proj, main_obj = main_obj, os_obj = os_obj)
+            self.print_program_info(proj = proj, main_obj = main_obj, os_obj = os_obj)
 
 
         # Load pre-defined syscall table
@@ -503,9 +326,7 @@ class SemaSCDG():
         
         options = self.get_angr_state_options()
 
-        state = proj.factory.entry_state(
-            addr=addr, args=args_binary, add_options=options
-        )
+        state = proj.factory.entry_state(addr=addr, args=args_binary, add_options=options)
 
         cont = ""
         if self.sim_file:
@@ -522,8 +343,6 @@ class SemaSCDG():
                 "heap", 
                 angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc(heap_size=0x10000000)
             )
-            #state.libc.max_variable_size = 0x20000000*2 + 0x18000000
-            #state.libc.max_memcpy_size   = 0x20000000*2
         
         # Enable plugins set to true in config file
         if self.plugin_enable:
@@ -550,17 +369,6 @@ class SemaSCDG():
                # state.add_constraints(byte != '\x00') # null
                state.add_constraints(byte >= " ")  # '\x20'
                state.add_constraints(byte <= "~")  # '\x7e'
-
-        # Creation of file with concrete content for cleanware
-        # TODO WORK in Progress, need to think about automation of the process (like an argument with file name to create)
-        if False:
-            clean_files = ["share/file/magic.mgc"]
-            for n in clean_files:
-                f = open_file("malware-inputs/clean/" + n, "rb")
-                cont = f.read()
-                simfile = angr.SimFile(n, content=cont)
-                f.close()
-                simfile.set_state(state)
 
         #### Custom Hooking ####
         # Mechanism by which angr replaces library code with a python summary
@@ -594,9 +402,6 @@ class SemaSCDG():
         ##########         Exploration           ############
         #####################################################
 
-        if self.pre_run_thread:
-            state.plugin_thread.pre_run_thread(cont, self.binary_path)
-
         self.set_breakpoints(state)
 
         # TODO : make plugins out of these globals values
@@ -620,14 +425,12 @@ class SemaSCDG():
             ]
         )
 
-        exploration_tech = self.get_exploration_tech(nameFileShort, simgr, exp_dir)
-        #exploration_tech_2 = Threading()
+        exploration_tech = self.get_exploration_tech(nameFileShort, simgr, exp_dir, proj)
         
         self.log.info(proj.loader.all_pe_objects)
         self.log.info(proj.loader.extern_object)
         self.log.info(proj.loader.symbols)
         
-        #simgr.use_technique(DFS())
         simgr.use_technique(exploration_tech)
         
         self.log.info(
@@ -643,9 +446,6 @@ class SemaSCDG():
             + str(simgr)
             + "\n------------------------------"
         )
-        
-        if self.post_run_thread:
-            state.plugin_thread.post_run_thread(simgr)
         
         elapsed_time = time.time() - self.start_time
         self.data_manager.data["elapsed_time"] = elapsed_time
@@ -676,7 +476,7 @@ class SemaSCDG():
         
         g = GraphBuilder(
             name=nameFileShort,
-            mapping="mapping.txt", # (2) TODO manon: make this configurable, i propose a mapping file with the name of the binary and the absolute path to avoid errors
+            mapping=exp_dir + "mapping_" + nameFileShort + ".txt",
             merge_call=(not self.config['build_graph_arg'].getboolean('disjoint_union')),
             comp_args=(not self.config['build_graph_arg'].getboolean('not_comp_args')),
             min_size=int(self.config['build_graph_arg']['min_size']),
@@ -693,38 +493,34 @@ class SemaSCDG():
 
         logging.getLogger().removeHandler(fileHandler)
 
-    def get_exploration_tech(self, nameFileShort, simgr, exp_dir):
+    def get_exploration_tech(self, nameFileShort, simgr, exp_dir, proj):
         exploration_tech = SemaExplorerDFS(
             simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
         )
         if self.expl_method == "CDFS":
             exploration_tech = SemaExplorerCDFS(
-                 simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
+                simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
             )
-        # elif self.expl_method == "CBFS":
-        #     exploration_tech = SemaExplorerCBFS(
-        #         simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
-        #     )
-        # elif self.expl_method == "BFS":
-        #     exploration_tech = SemaExplorerBFS(
-        #         simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
-        #     )
-        # elif self.expl_method == "SCDFS":
-        #     exploration_tech = SemaExplorerAnotherCDFS(
-        #         simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
-        #     )
-        # elif self.expl_method == "DBFS":
-        #     exploration_tech = SemaExplorerDBFS(
-        #         simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
-        #     )
-        # elif self.expl_method == "SDFS":
-        #     exploration_tech = SemaExplorerSDFS(
-        #         simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
-        #     )
-        # elif self.expl_method == "ThreadCDFS":
-        #     exploration_tech = SemaThreadCDFS(
-        #         simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
-        #     )
+        elif self.expl_method == "CBFS":
+            exploration_tech = SemaExplorerCBFS(
+                simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
+            )
+        elif self.expl_method == "BFS":
+            exploration_tech = SemaExplorerBFS(
+                simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
+            )
+        elif self.expl_method == "SCDFS":
+            exploration_tech = SemaExplorerAnotherCDFS(
+                simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
+            )
+        elif self.expl_method == "DBFS":
+            exploration_tech = SemaExplorerDBFS(
+                simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
+            )
+        elif self.expl_method == "SDFS":
+            exploration_tech = SemaExplorerSDFS(
+                simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim, proj
+            )
             
         return exploration_tech
 

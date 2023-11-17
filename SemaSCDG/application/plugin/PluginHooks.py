@@ -1,23 +1,6 @@
 #!/usr/bin/env python3
-import os
-import sys
-
-import claripy
-import monkeyhex
-import logging
-
-import subprocess
-import nose
 import avatar2 as avatar2
-
-import angr
-import claripy
-
-import zlib 
-import binascii
-import mmh3
 import re
-import time
 
     
 class PluginHooks: # TODO replace with classses
