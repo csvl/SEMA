@@ -12,7 +12,6 @@ import logging
 from capstone import *
 
 import angr
-
 import gc
 import logging
 import progressbar
@@ -20,36 +19,13 @@ import configparser
 
 from SCDGHelper.GraphBuilder import *
 from SCDGHelper.SyscallToSCDG import SyscallToSCDGBuilder
-from procedures.CustomSimProcedure import *
+from plugin.PluginManager import PluginManager
 from procedures.LinuxSimProcedure import LinuxSimProcedure
 from procedures.WindowsSimProcedure import WindowsSimProcedure
-from plugin.PluginEnvVar import *
-from plugin.PluginLocaleInfo import *
-from plugin.PluginRegistery import *
-from plugin.PluginHooks import *
-from plugin.PluginWideChar import *
-from plugin.PluginResources import *
-from plugin.PluginEvasion import *
-from plugin.PluginCommands import *
-from plugin.PluginIoC import *
-from plugin.PluginAtom import *
-from plugin.PluginPacking import *
-from explorer.SemaExplorerDFS import SemaExplorerDFS
-from explorer.SemaExplorerCDFS import SemaExplorerCDFS
-from explorer.SemaExplorerBFS import SemaExplorerBFS
-from explorer.SemaExplorerCBFS import SemaExplorerCBFS
-from explorer.SemaExplorerSDFS import SemaExplorerSDFS
-from explorer.SemaExplorerDBFS import SemaExplorerDBFS
-from explorer.SemaExplorerAnotherCDFS import SemaExplorerAnotherCDFS
+from explorer.SemaExplorerManager import SemaExplorerManager
 from clogging.CustomFormatter import CustomFormatter
 from clogging.LogBookFormatter import * # TODO
 from clogging.DataManager import DataManager
-
-import avatar2 as avatar2
-
-from unipacker.core import Sample, SimpleClient, UnpackerEngine
-from unipacker.utils import RepeatedTimer, InvalidPEFile
-#from angr_targets import AvatarGDBConcreteTarget # TODO FIX in submodule
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -58,10 +34,37 @@ class SemaSCDG():
     TODO
     """
     def __init__(self):
-        config = configparser.ConfigParser()
-        config.read('config.ini')
         self.start_time = time.time()
 
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+        self.config = config
+        self.get_config_param(self.config)
+
+        self.log = logging.getLogger("SemaSCDG")
+        self.store_data = self.csv_file != ""
+
+        self.scdg_graph = []
+        self.scdg_fin = []
+        self.new = {}
+
+        self.plugins = PluginManager()
+        self.hooks = self.plugins.get_plugin_hooks()
+        self.commands = self.plugins.get_plugin_commands()
+        self.ioc = self.plugins.get_plugin_ioc()
+        self.packing_manager = self.plugins.get_plugin_packing()
+
+        self.data_manager = DataManager(logger=self.log, verbose=config['SCDG_arg'].getboolean('print_address'))
+
+        self.explorer_manager = SemaExplorerManager()
+
+        self.families = []
+        self.nb_exps = 0
+        self.current_exps = 0
+        self.current_exp_dir = 0
+
+    #Get the parameters from config file
+    def get_config_param(self, config):
         # TODO : not proposed in the web app -> add if useful
         self.fast_main = config['SCDG_arg'].getboolean('fast_main')
 
@@ -85,25 +88,6 @@ class SemaSCDG():
         self.binary_path = config['SCDG_arg']['binary_path']
         self.n_args = int(config['SCDG_arg']['n_args'])
         self.csv_file = config['SCDG_arg']['csv_file']
-
-        self.config = config
-        self.log = logging.getLogger("SemaSCDG")
-        self.store_data = self.csv_file != ""
-
-        self.scdg_graph = []
-        self.scdg_fin = []
-        self.new = {}
-        
-        self.hooks = PluginHooks()
-        self.commands = PluginCommands()
-        self.ioc = PluginIoC()
-        self.data_manager = DataManager(logger=self.log, verbose=config['SCDG_arg'].getboolean('print_address'))
-
-        self.families = []
-        
-        self.nb_exps = 0
-        self.current_exps = 0
-        self.current_exp_dir = 0
 
     #Save the configuration of the experiment in a json file
     def save_conf(self, path):
@@ -151,28 +135,6 @@ class SemaSCDG():
             if self.config["ANGR_State_options_to_add"].getboolean(option):
                 options.add(str.upper(option))
         return options
-    
-    # Load and setup plugins set to true in config file
-    def load_plugin(self, state, proj, nameFileShort, options, exp_dir):
-        plugin_available = self.config["Plugins_to_load"]
-        for plugin in plugin_available:
-            if self.config["Plugins_to_load"].getboolean(plugin):
-                if plugin == "plugin_env_var" :
-                    state.register_plugin(plugin, PluginEnvVar(self.expl_method))
-                    state.plugin_env_var.setup_plugin() 
-                elif plugin == "plugin_locale_info" :
-                    state.register_plugin(plugin, PluginLocaleInfo()) 
-                    state.plugin_locale_info.setup_plugin()
-                elif plugin == "plugin_resources" :
-                    state.register_plugin(plugin, PluginResources())
-                    state.plugin_resources.setup_plugin()
-                elif plugin == "plugin_widechar" : 
-                    state.register_plugin(plugin, PluginWideChar())
-                elif plugin == "plugin_registery" :
-                    state.register_plugin(plugin, PluginRegistery())
-                    state.plugin_registery.setup_plugin()
-                elif plugin == "plugin_atom" :
-                    state.register_plugin(plugin, PluginAtom())
 
     # Set improved "Break point"
     def set_breakpoints(self, state):      
@@ -249,19 +211,19 @@ class SemaSCDG():
         if self.is_packed :
             if self.packing_type == "symbion":
                 proj_init = self.init_angr_project(self.binary_path, auto_load_libs=True, support_selfmodifying_code=True)
-                preload, avatar_gdb = setup_symbion(self.binary_path, proj_init, self.concrete_target_is_local, self.call_sim, self.log)
+                preload, avatar_gdb = self.packing_manager.setup_symbion(self.binary_path, proj_init, self.concrete_target_is_local, self.call_sim, self.log)
                 proj = self.init_angr_project(self.binary_path, auto_load_libs=False, load_debug_info=True, preload_libs=preload, support_selfmodifying_code=True, concrete_target=avatar_gdb)
 
                 for lib in self.call_sim.system_call_table:
                     print(proj.loader.find_all_symbols(lib))
 
             elif self.packing_type == "unipacker":
-                nameFile_unpacked = setup_unipacker(self.binary_path, nameFileShort, self.log)
+                nameFile_unpacked = self.packing_manager.setup_unipacker(self.binary_path, nameFileShort, self.log)
                 proj = self.init_angr_project(nameFile_unpacked, auto_load_libs=True, support_selfmodifying_code=True)
         else:  
             if self.binary_path.endswith(".bin") or self.binary_path.endswith(".dmp"):
                 # TODO : implement function -> see PluginPacking.py
-                setup_bin_dmp()
+                self.packing_manager.setup_bin_dmp()
             else:
                 # default behaviour
                 proj = self.init_angr_project(self.binary_path, support_selfmodifying_code=True, auto_load_libs=True, load_debug_info=True, simos=None)
@@ -346,7 +308,7 @@ class SemaSCDG():
         
         # Enable plugins set to true in config file
         if self.plugin_enable:
-            self.load_plugin(state, proj, nameFileShort, options, exp_dir)
+            self.plugins.load_plugin(state, self.config)
 
         # Create ProcessHeap struct and set heapflages to 0
         tib_addr = state.regs.fs.concat(state.solver.BVV(0, 16))
@@ -425,7 +387,7 @@ class SemaSCDG():
             ]
         )
 
-        exploration_tech = self.get_exploration_tech(nameFileShort, simgr, exp_dir, proj)
+        exploration_tech = self.explorer_manager.get_exploration_tech(nameFileShort, simgr, exp_dir, proj, self.expl_method, self.scdg_graph, self.call_sim)
         
         self.log.info(proj.loader.all_pe_objects)
         self.log.info(proj.loader.extern_object)
@@ -492,37 +454,6 @@ class SemaSCDG():
             self.data_manager.save_to_csv(proj, self.family, self.call_sim, csv_file_path=exp_dir + self.csv_file)
 
         logging.getLogger().removeHandler(fileHandler)
-
-    def get_exploration_tech(self, nameFileShort, simgr, exp_dir, proj):
-        exploration_tech = SemaExplorerDFS(
-            simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
-        )
-        if self.expl_method == "CDFS":
-            exploration_tech = SemaExplorerCDFS(
-                simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
-            )
-        elif self.expl_method == "CBFS":
-            exploration_tech = SemaExplorerCBFS(
-                simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
-            )
-        elif self.expl_method == "BFS":
-            exploration_tech = SemaExplorerBFS(
-                simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
-            )
-        elif self.expl_method == "SCDFS":
-            exploration_tech = SemaExplorerAnotherCDFS(
-                simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
-            )
-        elif self.expl_method == "DBFS":
-            exploration_tech = SemaExplorerDBFS(
-                simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim
-            )
-        elif self.expl_method == "SDFS":
-            exploration_tech = SemaExplorerSDFS(
-                simgr, exp_dir, nameFileShort, self.scdg_graph, self.call_sim, proj
-            )
-            
-        return exploration_tech
 
     #Construct the SCDG with the stashes content
     def build_scdg(self, main_obj, state, simgr, exp_dir):
@@ -609,16 +540,7 @@ class SemaSCDG():
             self.log.setLevel(logging.INFO)
         else :
             self.log.setLevel(logging.ERROR)
-        # import resource
 
-        # rsrc = resource.RLIMIT_DATA
-        # soft, hard = resource.getrlimit(rsrc)
-        # self.log.info('Soft limit starts as  :', soft)
-
-        # resource.setrlimit(rsrc, (1024*1024*1024*10, hard)) #limit to 10 gigabyte
-
-        # soft, hard = resource.getrlimit(rsrc)
-        # self.log.info('Soft limit changed to :', soft)
         if os.path.isfile(self.binary_path):
             self.nb_exps = 1
             self.log.info("You decide to analyse a single binary: "+ self.binary_path)

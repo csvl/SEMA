@@ -2,7 +2,7 @@ import angr
 
 
 class PluginEnvVar(angr.SimStatePlugin):
-    def __init__(self, expl_meth):
+    def __init__(self):
         super(PluginEnvVar, self).__init__()
         self.last_error = 0
         self.env_block = 0
@@ -13,7 +13,6 @@ class PluginEnvVar(angr.SimStatePlugin):
         self.wenv_var_requested = {}
         self.stop_flag = False
         self.dict_calls = {}
-        self.expl_method = expl_meth
         
         self.windows_env_vars = {
             "ALLUSERSPROFILE": "C:\\ProgramData\\",
@@ -124,7 +123,7 @@ class PluginEnvVar(angr.SimStatePlugin):
     
     @angr.SimStatePlugin.memo
     def copy(self, memo):
-        p = PluginEnvVar(self.expl_method)
+        p = PluginEnvVar()
         p.last_error = self.last_error
         p.env_block = self.env_block
         p.env_blockw = self.env_blockw

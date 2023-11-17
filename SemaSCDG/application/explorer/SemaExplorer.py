@@ -34,6 +34,8 @@ class SemaExplorer(ExplorationTechnique):
     ):
         super(SemaExplorer, self).__init__()
 
+        self.start_time = timer.time()
+
         self.memory_limit = config['explorer_arg'].getboolean('memory_limit')
         self.verbose = config['explorer_arg'].getboolean('verbose')
         self.eval_time = config['explorer_arg'].getboolean('eval_time')
@@ -46,7 +48,7 @@ class SemaExplorer(ExplorationTechnique):
         self.max_simul_state = int(config['explorer_arg']['max_simul_state'])
         self.max_in_pause_stach = int(config['explorer_arg']['max_in_pause_stach'])
         self.timeout_tab = config['explorer_arg']['timeout_tab']
-        self.start_time = timer.time()
+        
         self.log = logging.getLogger("SemaExplorer")
         self.log.setLevel("INFO")
 

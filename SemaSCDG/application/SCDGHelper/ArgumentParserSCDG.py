@@ -29,12 +29,6 @@ class ArgumentParserSCDG:
             
         )
         self.group_expl.add_argument(
-            "--ThreadCDFS",
-            help="TODO",
-            action="store_true",
-            
-        )
-        self.group_expl.add_argument(
             "--CBFS",
             help="TODO",
             action="store_true",
@@ -224,23 +218,6 @@ class ArgumentParserSCDG:
             action="store_true",
             
         )
-        
-        self.groupt = self.parser.add_argument_group('Thread parameter')
-        self.groupt.add_argument(
-            "--pre_run_thread",
-            help="TODO (default : False)",
-            action="store_true",
-        )   
-        self.groupt.add_argument(
-            "--runtime_run_thread",
-            help="TODO (default : False)",
-            action="store_true",
-        )   
-        self.groupt.add_argument(
-            "--post_run_thread",
-            help="TODO (default : False)",
-            action="store_true",
-        )   
         
         self.group = self.parser.add_argument_group('Global parameter')
         self.group.add_argument(
