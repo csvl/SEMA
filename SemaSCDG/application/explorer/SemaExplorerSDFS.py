@@ -2,45 +2,30 @@
 import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 import sys
+import angr
 from SemaExplorer import SemaExplorer
 
 class SemaExplorerSDFS(SemaExplorer):
     def __init__(
         self,
         simgr,
-        max_length,
         exp_dir,
         nameFileShort,
-        worker,
+        scdg_graph,
+        call_sim,
         proj,
         find = 0
     ):
         super(SemaExplorerSDFS, self).__init__(
             simgr,
-            max_length,
             exp_dir,
             nameFileShort,
-            worker.scdg,
-            worker.call_sim,
-            worker.eval_time,
-            worker.timeout,
-            worker.max_end_state,
-            worker.max_step,
-            worker.timeout_tab,
-            worker.jump_it,
-            worker.loop_counter_concrete,
-            worker.jump_dict,
-            worker.jump_concrete_dict,
-            worker.max_simul_state,
-            worker.max_in_pause_stach,
-            worker.verbose,
-            worker.print_sm_step,
-            worker.print_syscall,
-            worker.debug_error,
+            scdg_graph,
+            call_sim
         )
         self.proj = proj
         self.find = find
-        self.log = logging.getLogger("ToolChainExplorerSDFS")
+        self.log = logging.getLogger("SemaExplorerSDFS")
         self.log.setLevel("INFO")
         
     def execute_concretely(self, simgr, proj, sdfs):
@@ -89,33 +74,24 @@ class SemaExplorerSDFS(SemaExplorer):
             exit(-1)
         super().build_snapshot(simgr)
 
-        if self.print_sm_step and (
+        if self.verbose and (
             len(self.fork_stack) > 0 or len(simgr.deadended) > self.deadended
         ):
             self.log.info(
                 "A new block of execution have been executed with changes in sim_manager."
             )
             self.log.info("Currently, simulation manager is :\n" + str(simgr))
-            self.log.info("pause stash len :" + str(len(self.pause_stash)))
+            self.log.info("pause stash len :" + str(len(simgr.pause)))
 
-        if self.print_sm_step and len(self.fork_stack) > 0:
+        if self.verbose and len(self.fork_stack) > 0:
             self.log.info("fork_stack : " + str(len(self.fork_stack)) + " " + hex(simgr.active[0].addr) + " " + hex(simgr.active[1].addr))
         
         simgr.move("active", "found", lambda s: s.addr == self.find)
 
         # We detect fork for a state
         super().manage_fork(simgr)
-
-        # Remove state which performed more jump than the limit allowed
-        super().remove_exceeded_jump(simgr)
-
-        # Manage ended state
-        super().manage_deadended(simgr)
-        
-        #super().mv_bad_active(simgr)
         
         #super().execute_concretely(simgr, self.proj, self)
-
             
         # If limit of simultaneous state is not reached and we have some states available in pause stash
         if len(simgr.stashes["pause"]) > 0 and len(simgr.active) < self.max_simul_state:
@@ -126,24 +102,16 @@ class SemaExplorerSDFS(SemaExplorer):
             for m in range(moves):
                 super().take_longuest(simgr, "pause")
                     
-        super().manage_pause(simgr)
-        
-        super().drop_excessed_loop(simgr)
 
         # If states end with errors, it is often worth investigating. Set DEBUG_ERROR to live debug
         # TODO : add a log file if debug error is not activated
         super().manage_error(simgr)
 
-        super().manage_unconstrained(simgr)
+        super().manage_stashes(simgr)
 
         for vis in simgr.active:
-            self.dict_addr_vis[
-                str(super().check_constraint(vis, vis.history.jump_target))
-            ] = 1
+            self.dict_addr_vis.add(str(super().check_constraint(vis, vis.history.jump_target)))
 
-        super().excessed_step_to_active(simgr)
-
-        super().excessed_loop_to_active(simgr)
 
         super().time_evaluation(simgr)
         

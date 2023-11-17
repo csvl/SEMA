@@ -1,5 +1,5 @@
 # docker-compose.deploy.yml
-version: '2'
+version: '0.1'
 
 networks:
   micro_network:
@@ -10,19 +10,45 @@ services:
   web-app:
     container_name: web-app
     image: sema-web-app:latest
+    command: python3 application/SemaServer.py 
     build:
       context: .
       dockerfile: ./SemaWebApp/Dockerfile
     ports:
     - "5000:5000"
     restart: always
+    volumes:
+      - ${PWD}/SemaWebApp/:/sema-web-app
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=unix$DISPLAY
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+      - FLASK_RUN_HOST=
+    networks:
+      - micro_network # TODO set fix IPv4 ?
   
   sema-scdg:
     container_name: sema-scdg
     image: sema-scdg:latest
+    command: python3 SCDGApp.py
     build:
       context: .
       dockerfile: ./SemaSCDG/Dockerfile
     ports:
     - "5001:5001"
     restart: always
+    volumes:
+      - ${PWD}/SemaSCDG/:/sema-scdg 
+      - ${PWD}/submodules/angr-utils:/sema-scdg/application/submodules/angr-utils 
+      - ${PWD}/submodules/bingraphvis:/sema-scdg/application/submodules/bingraphvis 
+      - ${PWD}/penv-fix/:/sema-scdg/application/penv-fix 
+      - ${PWD}/database/:/sema-scdg/application/database
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=unix$DISPLAY
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+      - FLASK_RUN_HOST=
+    networks:
+      - micro_network # TODO set fix IPv4 ?

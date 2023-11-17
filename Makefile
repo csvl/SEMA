@@ -49,6 +49,9 @@ run-scdg-test:
 		--name="sema-scdg" \
 		sema-scdg python3 SCDGApp.py
 
+run-toolchain-compose:
+	DOCKER_BUILDKIT=0 docker compose -f docker-compose.deploy.yml up
+
 run-toolchain:
 	docker run \
 		--rm -d -i\

@@ -37,7 +37,6 @@ class SemaExplorer(ExplorationTechnique):
         self.memory_limit = config['explorer_arg'].getboolean('memory_limit')
         self.verbose = config['explorer_arg'].getboolean('verbose')
         self.eval_time = config['explorer_arg'].getboolean('eval_time')
-        self.runtime_run_thread = config['explorer_arg'].getboolean('runtime_run_thread')
         #self._max_length = int(config['explorer_arg']['max_length'])
         self.timeout = int(config['explorer_arg']['timeout'])
         self.max_end_state = int(config['explorer_arg']['max_end_state'])
@@ -106,10 +105,6 @@ class SemaExplorer(ExplorationTechnique):
         simgr.active[0].globals["addr_call"] = []
         simgr.active[0].globals["loop"] = 0
         simgr.active[0].globals["files"] = {}
-        # simgr.active[0].globals["n_forks"] = 0
-        # simgr.active[0].globals["last_instr"] = 0
-        # simgr.active[0].globals["counter_instr"] = 0
-        # simgr.active[0].globals["JumpTable"] = {}
         # simgr.active[0].globals["crypt_algo"] = 0
         # simgr.active[0].globals["crypt_result"] = 0
         # simgr.active[0].globals["n_buffer"] = 0
@@ -122,20 +117,15 @@ class SemaExplorer(ExplorationTechnique):
         # simgr.active[0].globals["n_calls_send"] = 0
         # simgr.active[0].globals["n_buffer_send"] = 0
         # simgr.active[0].globals["buffer_send"] = []
-        # simgr.active[0].globals["FindFirstFile"] = 0
+        simgr.active[0].globals["FindFirstFile"] = 0
         # simgr.active[0].globals["FindNextFile"] = 0
         # simgr.active[0].globals["GetMessageA"] = 0
         # simgr.active[0].globals["GetLastError"] = claripy.BVS("last_error", 32)
         # simgr.active[0].globals["HeapSize"] = {}
-        # simgr.active[0].globals["CreateThread"] = 0
-        # simgr.active[0].globals["CreateRemoteThread"] = 0
-        # simgr.active[0].globals["condition"] = ""
         # simgr.active[0].globals["files_fd"] = {}
         # simgr.active[0].globals["create_thread_address"] = []
         # simgr.active[0].globals["is_thread"] = False
         # simgr.active[0].globals["allow_web_interaction"] = False
-        # if self.runtime_run_thread:
-        #     simgr.active[0].globals["is_thread"] = True
 
     def check_constraint(self, state, value):
         try:
@@ -308,6 +298,7 @@ class SemaExplorer(ExplorationTechnique):
                 state.globals["JumpExcedeed"] = False
                 self.jump_dict[self.id].clear()
                 self.jump_concrete_dict[self.id].clear()
+                self.loopBreak_stack.remove(state)
             simgr.move(
                 from_stash="ExcessLoop",
                 to_stash="active",

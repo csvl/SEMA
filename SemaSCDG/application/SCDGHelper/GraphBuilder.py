@@ -28,7 +28,7 @@ class GraphBuilder:
         self.TAKE = {}
         self.lw = logging.getLogger("GraphBuilder")
         self.lw.setLevel("INFO")
-        self.mapping = mapping
+        self.mapping_dir = mapping
         self.id = 0
         self.graph_file = None
         self.existing_nodes = {}
@@ -371,7 +371,7 @@ class GraphBuilder:
         # dot.render('output/test-output/disjoint_union.gv', view=False) # really heavy could crash
 
         if self.on_flight:
-            out_map = open("mapping.txt", "w")
+            out_map = open(self.mapping_dir, "w")
             for key in self.mapping:
                 out_map.write(str(self.mapping[key]) + " " + str(key) + "\n")
             out_map.close()
