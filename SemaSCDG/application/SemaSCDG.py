@@ -47,6 +47,8 @@ class SemaSCDG():
         self.scdg_graph = []
         self.scdg_fin = []
         self.new = {}
+        self.nameFileShort = ""
+        self.content = ""
 
         self.plugins = PluginManager()
         self.hooks = self.plugins.get_plugin_hooks()
@@ -148,8 +150,128 @@ class SemaSCDG():
             state.inspect.b("instruction",when=angr.BP_AFTER, action=self.data_manager.add_instr_addr)
             state.inspect.b("irsb",when=angr.BP_BEFORE, action=self.data_manager.add_block_addr)
 
-    #Setup angr project, runs it and build the SCDG graph
-    def run(self, exp_dir):
+    # Return an angr project depending on the packing method (if any)
+    def deal_with_packing(self):
+        if self.is_packed :
+            if self.packing_type == "symbion":
+                proj_init = self.init_angr_project(self.binary_path, auto_load_libs=True, support_selfmodifying_code=True)
+                preload, avatar_gdb = self.packing_manager.setup_symbion(self.binary_path, proj_init, self.concrete_target_is_local, self.call_sim, self.log)
+                proj = self.init_angr_project(self.binary_path, auto_load_libs=False, load_debug_info=True, preload_libs=preload, support_selfmodifying_code=True, concrete_target=avatar_gdb)
+
+                for lib in self.call_sim.system_call_table:
+                    print(proj.loader.find_all_symbols(lib))
+
+            elif self.packing_type == "unipacker":
+                nameFile_unpacked = self.packing_manager.setup_unipacker(self.binary_path, self.nameFileShort, self.log)
+                proj = self.init_angr_project(nameFile_unpacked, auto_load_libs=True, support_selfmodifying_code=True)
+        else:  
+            if self.binary_path.endswith(".bin") or self.binary_path.endswith(".dmp"):
+                # TODO : implement function -> see PluginPacking.py
+                self.packing_manager.setup_bin_dmp()
+            else:
+                # default behaviour
+                proj = self.init_angr_project(self.binary_path, support_selfmodifying_code=True, auto_load_libs=True, load_debug_info=True, simos=None)
+        return proj
+
+    def setup_simproc_scdg_builder(self, proj, os_obj):
+        # Load pre-defined syscall table
+        if os_obj == "windows":
+            self.call_sim = WindowsSimProcedure()
+            self.call_sim.system_call_table = self.call_sim.ddl_loader.load(proj, False , None)
+        else:
+            self.call_sim = LinuxSimProcedure()
+            self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(proj)
+           
+        self.syscall_to_scdg_builder = SyscallToSCDGBuilder(self.call_sim, self.scdg_graph, self.string_resolve, self.print_syscall, self.verbose)
+            
+        self.log.info("System call table loaded")
+        self.log.info("System call table size : " + str(len(self.call_sim.system_call_table)))
+
+    def get_entry_addr(self, proj):
+        # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows)
+        addr_main = proj.loader.find_symbol("main")
+        if addr_main and self.fast_main:
+            addr = addr_main.rebased_addr
+        else:
+            # Take the entry point specify in config file
+            addr = self.config["SCDG_arg"]["entry_addr"]
+            if addr != "None":
+                #Convert string into hexadecimal
+                addr = hex(int(addr, 16))
+            else:
+                addr = None
+        self.log.info("Entry_state address = " + str(addr))
+        return addr
+    
+    # Defining arguments given to the program (minimum is filename)
+    def get_binary_args(self):
+        args_binary = [self.nameFileShort] 
+        if self.n_args:
+            for i in range(self.n_args):
+                args_binary.append(claripy.BVS("arg" + str(i), 8 * 16))
+        return args_binary
+
+    def handle_simfile(self, state):
+        if self.sim_file:
+            with open_file(self.binary_path, "rb") as f:
+                self.content = f.read()
+            simfile = angr.SimFile(self.nameFileShort, content=self.content)
+            state.fs.insert(self.nameFileShort, simfile)
+            pagefile = angr.SimFile("pagefile.sys", content=self.content)
+            state.fs.insert("pagefile.sys", pagefile)
+
+    # Create ProcessHeap struct and set heapflages to 0
+    def setup_heap(self, state, proj):
+        tib_addr = state.regs.fs.concat(state.solver.BVV(0, 16))
+        if proj.arch.name == "AMD64":
+            peb_addr = state.mem[tib_addr + 0x60].qword.resolved
+            ProcessHeap = peb_addr + 0x500 #0x18
+            state.mem[peb_addr + 0x10].qword = ProcessHeap
+            state.mem[ProcessHeap + 0x18].dword = 0x0 # heapflags windowsvistaorgreater
+            state.mem[ProcessHeap + 0x70].dword = 0x0 # heapflags else
+        else:
+            peb_addr = state.mem[tib_addr + 0x30].dword.resolved
+            ProcessHeap = peb_addr + 0x500
+            state.mem[peb_addr + 0x18].dword = ProcessHeap
+            state.mem[ProcessHeap+0xc].dword = 0x0 #heapflags windowsvistaorgreater
+            state.mem[ProcessHeap+0x40].dword = 0x0 #heapflags else
+
+    # Create initial state of the binary
+    def create_binary_init_state(self, proj):
+        args_binary = self.get_binary_args()
+
+        entry_addr = self.get_entry_addr(proj)
+        
+        options = self.get_angr_state_options()
+
+        state = proj.factory.entry_state(addr=entry_addr, args=args_binary, add_options=options)
+
+        self.handle_simfile(state)
+        
+        state.options.discard("LAZY_SOLVES") 
+        if not (self.is_packed and self.packing_type == "symbion") or True:
+            state.register_plugin(
+                "heap", 
+                angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc(heap_size=0x10000000)
+            )
+        
+        # Enable plugins set to true in config file
+        if self.plugin_enable:
+            self.plugins.load_plugin(state, self.config)
+
+        self.setup_heap(state, proj)
+        
+        # Constraint arguments to ASCII
+        for i in range(1, len(args_binary)):
+           for byte in args_binary[i].chop(8):
+               # state.add_constraints(byte != '\x00') # null
+               state.add_constraints(byte >= " ")  # '\x20'
+               state.add_constraints(byte <= "~")  # '\x7e'
+            
+        return state, args_binary
+    
+    # Processing before run
+    def run_setup(self, exp_dir):
         self.scdg_graph.clear()
         self.scdg_fin.clear()
         
@@ -173,15 +295,17 @@ class SemaSCDG():
 
         # Take name of the sample without full path
         if "/" in self.binary_path:
-            nameFileShort = self.binary_path.split("/")[-1]
+            self.nameFileShort = self.binary_path.split("/")[-1]
         else:
-            nameFileShort = self.binary_path
-        self.data_manager.data["nameFileShort"] = nameFileShort
+            self.nameFileShort = self.binary_path
+        self.data_manager.data["nameFileShort"] = self.nameFileShort
         try:
-            os.stat(exp_dir + nameFileShort)
+            os.stat(exp_dir + self.nameFileShort)
         except:
-            os.makedirs(exp_dir + nameFileShort)
-        fileHandler = logging.FileHandler(exp_dir + nameFileShort + "/" + "scdg.ans")
+            os.makedirs(exp_dir + self.nameFileShort)
+
+        #Set log handler
+        fileHandler = logging.FileHandler(exp_dir + self.nameFileShort + "/" + "scdg.ans")
         fileHandler.setFormatter(CustomFormatter())
         try:
             logging.getLogger().removeHandler(fileHandler)
@@ -191,141 +315,11 @@ class SemaSCDG():
         
         logging.getLogger().addHandler(fileHandler)
 
-        exp_dir = exp_dir + nameFileShort + "/"
-        
-        title = "--- Building SCDG of " + self.family  +"/" + nameFileShort  + " ---"
-        self.log.info("\n" + "-" * len(title) + "\n" + title + "\n" + "-" * len(title))
+        exp_dir = exp_dir + self.nameFileShort + "/"
 
-        #####################################################
-        ##########      Project creation         ############
-        #####################################################
-        """
-        TODO : Note for further works : support_selfmodifying_code should be investigated
-        """
-
-        # Load a binary into a project = control base
-        proj = None
-        dll=None
-
-        # Deals with packing
-        if self.is_packed :
-            if self.packing_type == "symbion":
-                proj_init = self.init_angr_project(self.binary_path, auto_load_libs=True, support_selfmodifying_code=True)
-                preload, avatar_gdb = self.packing_manager.setup_symbion(self.binary_path, proj_init, self.concrete_target_is_local, self.call_sim, self.log)
-                proj = self.init_angr_project(self.binary_path, auto_load_libs=False, load_debug_info=True, preload_libs=preload, support_selfmodifying_code=True, concrete_target=avatar_gdb)
-
-                for lib in self.call_sim.system_call_table:
-                    print(proj.loader.find_all_symbols(lib))
-
-            elif self.packing_type == "unipacker":
-                nameFile_unpacked = self.packing_manager.setup_unipacker(self.binary_path, nameFileShort, self.log)
-                proj = self.init_angr_project(nameFile_unpacked, auto_load_libs=True, support_selfmodifying_code=True)
-        else:  
-            if self.binary_path.endswith(".bin") or self.binary_path.endswith(".dmp"):
-                # TODO : implement function -> see PluginPacking.py
-                self.packing_manager.setup_bin_dmp()
-            else:
-                # default behaviour
-                proj = self.init_angr_project(self.binary_path, support_selfmodifying_code=True, auto_load_libs=True, load_debug_info=True, simos=None)
-
-        main_obj = proj.loader.main_object
-        os_obj = main_obj.os
-        if self.count_block_enable:
-            self.data_manager.count_block(proj = proj, main_obj = main_obj)
-            
-        if self.verbose:
-            self.print_program_info(proj = proj, main_obj = main_obj, os_obj = os_obj)
-
-
-        # Load pre-defined syscall table
-        if os_obj == "windows":
-            #Create window custom sim proc
-            self.call_sim = WindowsSimProcedure()
-            self.call_sim.system_call_table = self.call_sim.ddl_loader.load(proj,True if (self.is_packed and False) else False,dll)
-        else:
-            #Create linux custom sim proc
-            self.call_sim = LinuxSimProcedure()
-            self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(proj)
-           
-        self.syscall_to_scdg_builder = SyscallToSCDGBuilder(self.call_sim, self.scdg_graph, self.string_resolve, self.print_syscall, self.verbose)
-            
-        self.log.info("System call table loaded")
-        self.log.info("System call table size : " + str(len(self.call_sim.system_call_table)))
-        
-        # Create initial state of the binary
-
-        # Defining arguments given to the program (minimum is filename)
-        args_binary = [nameFileShort] 
-        if self.n_args:
-            for i in range(self.n_args):
-                args_binary.append(claripy.BVS("arg" + str(i), 8 * 16))
-
-        # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows)
-        addr_main = proj.loader.find_symbol("main")
-        if addr_main and self.fast_main:
-            addr = addr_main.rebased_addr
-        else:
-            # Take the entry point specify in config file
-            addr = self.config["SCDG_arg"]["entry_addr"]
-            if addr != "None":
-                #Convert string into hexadecimal
-                addr = hex(int(addr, 16))
-            else:
-                addr = None
-        self.log.info("Entry_state address = " + str(addr))
-        
-        options = self.get_angr_state_options()
-
-        state = proj.factory.entry_state(addr=addr, args=args_binary, add_options=options)
-
-        cont = ""
-        if self.sim_file:
-            with open_file(self.binary_path, "rb") as f:
-                cont = f.read()
-            simfile = angr.SimFile(nameFileShort, content=cont)
-            state.fs.insert(nameFileShort, simfile)
-            pagefile = angr.SimFile("pagefile.sys", content=cont)
-            state.fs.insert("pagefile.sys", pagefile)
-        
-        state.options.discard("LAZY_SOLVES") 
-        if not (self.is_packed and self.packing_type == "symbion") or True:
-            state.register_plugin(
-                "heap", 
-                angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc(heap_size=0x10000000)
-            )
-        
-        # Enable plugins set to true in config file
-        if self.plugin_enable:
-            self.plugins.load_plugin(state, self.config)
-
-        # Create ProcessHeap struct and set heapflages to 0
-        tib_addr = state.regs.fs.concat(state.solver.BVV(0, 16))
-        if proj.arch.name == "AMD64":
-            peb_addr = state.mem[tib_addr + 0x60].qword.resolved
-            ProcessHeap = peb_addr + 0x500 #0x18
-            state.mem[peb_addr + 0x10].qword = ProcessHeap
-            state.mem[ProcessHeap + 0x18].dword = 0x0 # heapflags windowsvistaorgreater
-            state.mem[ProcessHeap + 0x70].dword = 0x0 # heapflags else
-        else:
-            peb_addr = state.mem[tib_addr + 0x30].dword.resolved
-            ProcessHeap = peb_addr + 0x500
-            state.mem[peb_addr + 0x18].dword = ProcessHeap
-            state.mem[ProcessHeap+0xc].dword = 0x0 #heapflags windowsvistaorgreater
-            state.mem[ProcessHeap+0x40].dword = 0x0 #heapflags else
-        
-        # Constraint arguments to ASCII
-        for i in range(1, len(args_binary)):
-           for byte in args_binary[i].chop(8):
-               # state.add_constraints(byte != '\x00') # null
-               state.add_constraints(byte >= " ")  # '\x20'
-               state.add_constraints(byte <= "~")  # '\x7e'
-
-        #### Custom Hooking ####
-        # Mechanism by which angr replaces library code with a python summary
-        # When performing simulation, at every step angr checks if the current
-        # address has been hooked, and if so, runs the hook instead of the binary
-        # code at that address.
-        
+        return exp_dir, fileHandler
+    
+    def setup_hooks(self, proj, state, os_obj):
         if os_obj == "windows":
             self.call_sim.loadlibs_proc(self.call_sim.system_call_table, proj) #TODO mbs=symbs,dll=dll)
         
@@ -338,8 +332,45 @@ class SemaSCDG():
             self.call_sim.custom_hook_windows_symbols(proj)  #TODO ue if (self.is_packed and False) else False,symbs)
 
         if self.hooks_enable:
-            self.hooks.initialization(cont, is_64bits=True if proj.arch.name == "AMD64" else False)
+            self.hooks.initialization(self.content, is_64bits=True if proj.arch.name == "AMD64" else False)
             self.hooks.hook(state,proj,self.call_sim)
+
+    #Setup angr project, runs it and build the SCDG graph
+    def run(self, exp_dir):
+
+        exp_dir, fileHandler = self.run_setup(exp_dir)
+        
+        title = "--- Building SCDG of " + self.family  +"/" + self.nameFileShort  + " ---"
+        self.log.info("\n" + "-" * len(title) + "\n" + title + "\n" + "-" * len(title))
+
+        #####################################################
+        ##########      Project creation         ############
+        #####################################################
+        """
+        TODO : Note for further works : support_selfmodifying_code should be investigated
+        """
+
+        proj = self.deal_with_packing()
+
+        main_obj = proj.loader.main_object
+        os_obj = main_obj.os
+        if self.count_block_enable:
+            self.data_manager.count_block(proj, main_obj)
+            
+        if self.verbose:
+            self.print_program_info(proj, main_obj, os_obj)
+
+        self.setup_simproc_scdg_builder(proj, os_obj)
+        
+        state, args_binary = self.create_binary_init_state(proj)
+
+        #### Custom Hooking ####
+        # Mechanism by which angr replaces library code with a python summary
+        # When performing simulation, at every step angr checks if the current
+        # address has been hooked, and if so, runs the hook instead of the binary
+        # code at that address.
+
+        self.setup_hooks(proj, state, os_obj)
                 
         # Creation of simulation managerinline_call, primary interface in angr for performing execution
         
@@ -375,7 +406,7 @@ class SemaSCDG():
             ]
         )
 
-        exploration_tech = self.explorer_manager.get_exploration_tech(nameFileShort, simgr, exp_dir, proj, self.expl_method, self.scdg_graph, self.call_sim)
+        exploration_tech = self.explorer_manager.get_exploration_tech(self.nameFileShort, simgr, exp_dir, proj, self.expl_method, self.scdg_graph, self.call_sim)
         
         self.log.info(proj.loader.all_pe_objects)
         self.log.info(proj.loader.extern_object)
@@ -397,6 +428,10 @@ class SemaSCDG():
             + "\n------------------------------"
         )
         
+        #####################################################
+        ##########         Data collection       ############
+        #####################################################
+    
         elapsed_time = time.time() - self.start_time
         self.data_manager.data["elapsed_time"] = elapsed_time
         self.log.info("Total execution time: " + str(elapsed_time))
@@ -421,12 +456,15 @@ class SemaSCDG():
         if self.ioc_report:
             self.ioc.build_ioc(self.scdg_graph, exp_dir)
 
-        # Build SCDG
+        ####################################################
+        ##########         SCDG build           ############
+        ####################################################
+
         self.build_scdg(main_obj, state, simgr, exp_dir)
         
         g = GraphBuilder(
-            name=nameFileShort,
-            mapping=exp_dir + "mapping_" + nameFileShort + ".txt",
+            name=self.nameFileShort,
+            mapping=exp_dir + "mapping_" + self.nameFileShort + ".txt",
             merge_call=(not self.config['build_graph_arg'].getboolean('disjoint_union')),
             comp_args=(not self.config['build_graph_arg'].getboolean('not_comp_args')),
             min_size=int(self.config['build_graph_arg']['min_size']),
