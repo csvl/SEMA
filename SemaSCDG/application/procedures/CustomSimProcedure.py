@@ -323,15 +323,11 @@ class CustomSimProcedure(ABC):
                 
                 angrlib = self.set_calling_conventions(libname, dlls_functions)
 
-                procs = self.create_lib_procedures(
-                    dlls_functions[libname], libname, angrlib
-                )
+                procs = self.create_lib_procedures(dlls_functions[libname], libname, angrlib)
 
                 newprocs = {}
                 for name, simprocedure in procs.items():
-                    if (not angrlib.has_implementation(name) 
-                        and name not in self.sim_proc["custom_package"]
-                    ):
+                    if (not angrlib.has_implementation(name) and name not in self.sim_proc["custom_package"]):
                         newprocs[name] = simprocedure
                         if name in dic_symbols:
                             if project.arch.name == "AMD64":
@@ -470,8 +466,6 @@ class CustomSimProcedure(ABC):
                 self.log.info(lib_part)
                 self.log.info(ord_part)
                 # symb.name = self.system_call_table[lib_part][ord_part]['name']
-
-    #["win32", "win_user32", "ntdll", "msvcr", "advapi32"]  # TODO what is it ?
 
     def custom_hook_no_symbols(self, proj):
         """_summary_

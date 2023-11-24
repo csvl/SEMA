@@ -158,15 +158,17 @@ python3 restore_defaults.py
 ```
 The default parameters are stored in the file "default_config.ini"
 
+**The binary path has to be a relative path to a binary beeing into the *database* directory**
+
 ### Parameters description
 SCDG module arguments
 
+```
 expl_method:
   DFS                 TODO
   BFS                 TODO
   CDFS                TODO
   CBFS                TODO (default)
-  ThreadCDFS          TODO
   DBFS                TODO
   SDFS                TODO
   SCDFS               TODO
@@ -179,49 +181,48 @@ packing_type:
   symbion             Concolic unpacking method (linux | windows [in progress])
   unipacker           Emulation unpacking method (windows only)
 
-is_packed :                Is the binary packed ? (default : False)
-concrete_target_is_local : Use a local GDB server instead of using cuckoo (default : False)
-
 SCDG exploration techniques parameters:
-  jump_it  :           Number of iteration allowed for a symbolic loop (default : 3)
-  max_in_pause_stach : Number of states allowed in pause stash (default : 200)
-  max_step  :          Maximum number of steps allowed for a state (default : 50 000)
-  max_end_state :      Number of deadended state required to stop (default : 600)
-  max_simul_state :    Number of simultaneous states we explore with simulation manager (default : 5)
+  jump_it              Number of iteration allowed for a symbolic loop (default : 3)
+  max_in_pause_stach   Number of states allowed in pause stash (default : 200)
+  max_step             Maximum number of steps allowed for a state (default : 50 000)
+  max_end_state        Number of deadended state required to stop (default : 600)
+  max_simul_state      Number of simultaneous states we explore with simulation manager (default : 5)
 
 Binary parameters:
-  n_args :                Number of symbolic arguments given to the binary (default : 0)
-  loop_counter_concrete : TODO (default : 10240)
-  count_block_enable :    TODO
-  sim_file    :           TODO
-  track_command :         TODO
-  ioc_report    :         TODO
-  hooks  _enable :        TODO
+  n_args                  Number of symbolic arguments given to the binary (default : 0)
+  loop_counter_concrete   TODO (default : 10240)
+  count_block_enable      TODO
+  sim_file                TODO
+  track_command           TODO
+  ioc_report              TODO
+  hooks_enable            TODO
+  entry_addr              Entry address of the binary
 
 SCDG creation parameter:
-  min_size  :          Minimum size required for a trace to be used in SCDG (default : 3)
-  disjoint_union :     Do we merge traces or use disjoint union ? (default : merge)
-  not_comp_args :      Do we compare arguments to add new nodes when building graph ? (default : comparison enabled)
-  three_edges  :       Do we use the three-edges strategy ? (default : False)
-  not_ignore_zero :    Do we ignore zero when building graph ? (default : Discard zero)
-  keep_inter_SCDG  :   Keep intermediate SCDG in file (default : False)
-  eval_time :          TODO
-
-Thread parameters :
-  pre_run_thread   :   TODO
-  runtime_run_thread : TODO
-  post_run_thread   :  TDOD
+  min_size             Minimum size required for a trace to be used in SCDG (default : 3)
+  disjoint_union       Do we merge traces or use disjoint union ? (default : merge)
+  not_comp_args        Do we compare arguments to add new nodes when building graph ? (default : comparison enabled)
+  three_edges          Do we use the three-edges strategy ? (default : False)
+  not_ignore_zero      Do we ignore zero when building graph ? (default : Discard zero)
+  keep_inter_SCDG      Keep intermediate SCDG in file (default : False)
+  eval_time            TODO
 
 Global parameter:
-  approximate  :       TODO
-  timeout :            Timeout in seconds before ending extraction (default : 600)
-  string_resolve :     Do we try to resolv references of string (default : False)
-  memory_limit  :      Skip binary experiment when memory > 90% (default : False)
-  verbose :            Verbose output during calls extraction (default : False)
-  family  :            Family of the malware (default : Unknown)
-  exp_dir  :           Directory to save SCDG extracted (default : Default)
-  binary   :           Name of the binary to analyze
-
+  concrete_target_is_local      Use a local GDB server instead of using cuckoo (default : False)
+  print_syscall        print the syscall found
+  print_address        print the address
+  csv_file             save the stats into a csv file
+  plugin_enable        enable the plugins set to true in the config.ini file
+  approximate          TODO
+  is_packed            Is the binary packed ? (default : False)
+  timeout              Timeout in seconds before ending extraction (default : 600)
+  string_resolve       Do we try to resolv references of string (default : False)
+  memory_limit         Skip binary experiment when memory > 90% (default : False)
+  verbose              Verbose output during calls extraction (default : False)
+  family               Family of the malware (default : Unknown)
+  exp_dir              Directory to save SCDG extracted (default : Default)
+  binary_path          Name of the binary to analyze
+```
 
 Program will output a graph in `.gs` format that could be exploited by `gspan`.
 
