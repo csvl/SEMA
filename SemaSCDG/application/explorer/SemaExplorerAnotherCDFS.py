@@ -44,6 +44,14 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
         super().filter(simgr, state, **kwargs)
 
     def manage_stashes(self, simgr):
+        super().manage_pause(simgr)
+
+        super().drop_excessed_loop(simgr)
+
+        super().manage_error(simgr)
+
+        super().manage_unconstrained(simgr)
+
         if self.flag or len(simgr.active) == 0:
             while simgr.active:
                 simgr.stashes["pause"].append(simgr.active.pop(0))
@@ -56,7 +64,10 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
             self.log.info("Currently, simulation manager is :")
             self.log.info(str(simgr))
             self.flag = False
-        super().manage_stashes(simgr)
+
+        super().excessed_step_to_active(simgr)
+
+        super().excessed_loop_to_active(simgr)
     
     def step(self, simgr, stash="active", **kwargs):
         try:
@@ -94,8 +105,6 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
             simgr.active[0].globals["condition"] = l3
             l4 = [value for value in ll2 if value not in ll1]
             simgr.active[1].globals["condition"] = l4
-
-        self.manage_error(simgr)
 
         self.manage_stashes(simgr)
 

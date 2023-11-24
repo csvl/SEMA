@@ -4,41 +4,23 @@
 # TODO add logs
 # TODO https://www.mongodb.com/docs/manual/core/geospatial-indexes/
 
-import argparse
-#from cgitb import html
 import json
 import os
-import socket
-import threading
-import sys
-import time
 import requests
-# from tkinter import N
 from flask import Flask, flash, request, redirect, url_for, send_from_directory, Response, session, render_template, Markup
-#from werkzeug.utils import secure_filename
-#from base64 import b64encode
 from django.core.paginator import (
     Paginator,
     EmptyPage,
     PageNotAnInteger,
 )
-#import datetime
 from flask_cors import CORS
-#import pathlib
+
 import pandas as pd
 
-#from src.Sema import *
-#import yara
-
-#import dill
-#import pyzipper
-#import shutil
 from npf_web_extension.app import export
-import uuid
 
 class SemaServer:
     ROOTPATH = os.getcwd()
-    #SemaServer.log.info(ROOTPATH)
     
     app = Flask(__name__, static_folder='static')
     app.secret_key = 'super secret key' # TODO
@@ -47,19 +29,6 @@ class SemaServer:
     app.config['APPLICATION_ROOT'] = 'templates/'
     app.debug = True
     app.jinja_env.filters['json'] = lambda v: Markup(json.dumps(v)) # not safe
-    
-    # Use to filter valid binaries downloaded from VT
-    # rules_pe_x86 = yara.compile(filepaths={
-    #     "compilers" : ROOTPATH+'/yara/pe/x86/compilers.yara',
-    #     "installers": ROOTPATH+'/yara/pe/x86/installers.yara'
-    #     # "packers"  : ROOTPATH+'/yara/pe/x86/packers.yara'
-    # })
-    # rules_pe_x64 = yara.compile(filepaths={
-    #     "compilers" : ROOTPATH+'/yara/pe/x64/compilers.yara',
-    #     "installers": ROOTPATH+'/yara/pe/x64/installers.yara'
-    #     # "packers"  : ROOTPATH+'/yara/pe/x64/packers.yara' #yara.SyntaxError: /app/yara/pe/x86/packers.yara(151): invalid field name "number_of_user_strings"
-    # })
-    # rules_serena = yara.compile(filepath=ROOTPATH+'/yara/pe/serena.yara')
     
     
     # enable CORS

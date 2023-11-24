@@ -72,6 +72,14 @@ class SemaExplorerCDFS(SemaExplorer):
             for m in range(moves):
                 self.take_longuest(simgr, "pause")
 
+        self.manage_pause(simgr)
+        
+        self.drop_excessed_loop(simgr)
+
+        self.manage_error(simgr)
+
+        self.manage_unconstrained(simgr)
+
         for vis in simgr.active:
             self.dict_addr_vis.add(str(super().check_constraint(vis, vis.history.jump_target)))
 
@@ -90,7 +98,11 @@ class SemaExplorerCDFS(SemaExplorer):
             for i in range(moves):
                 self.pause_stash.append(simgr.stashes["temp"].pop())
 
-        super().manage_stashes(simgr)
+        # Take back state from ExcessStep stash if active stash is empty
+        self.excessed_step_to_active(simgr)
+
+        # Take back state from ExcessLoop stash if active stash is empty
+        self.excessed_loop_to_active(simgr)
     
     def step(self, simgr, stash="active", **kwargs):
         try:
@@ -118,10 +130,6 @@ class SemaExplorerCDFS(SemaExplorer):
         self.manage_fork(simgr)  
 
         self.manage_stashes(simgr)
-
-        # If states end with errors, it is often worth investigating. Set DEBUG_ERROR to live debug
-        # TODO : add a log file if debug error is not activated
-        self.manage_error(simgr)
 
         self.time_evaluation(simgr)
 

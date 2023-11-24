@@ -265,8 +265,8 @@ class SemaSCDG():
         for i in range(1, len(args_binary)):
            for byte in args_binary[i].chop(8):
                # state.add_constraints(byte != '\x00') # null
-               state.add_constraints(byte >= " ")  # '\x20'
-               state.add_constraints(byte <= "~")  # '\x7e'
+               state.add_constraints(byte >= " ".encode("utf8"))  # '\x20'
+               state.add_constraints(byte <= "~".encode("utf8"))  # '\x7e'
             
         return state, args_binary
     
@@ -364,6 +364,7 @@ class SemaSCDG():
         
         state, args_binary = self.create_binary_init_state(proj)
 
+        
         #### Custom Hooking ####
         # Mechanism by which angr replaces library code with a python summary
         # When performing simulation, at every step angr checks if the current

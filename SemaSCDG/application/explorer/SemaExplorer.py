@@ -1,23 +1,16 @@
 #!/usr/bin/env python3
 import time as timer
-import sys
 #import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from collections import deque
 import angr
 import psutil
-import claripy
 import configparser
 
 config = configparser.ConfigParser()
 config.read('config.ini')
 
-# import sim_procedure.dll_table as dll
-# from sim_procedure.SimProceduresLoader import SimProcedures
 from angr.exploration_techniques import ExplorationTechnique
-
-# from sim_procedure.simprocedures import *
-# from sim_procedure.CustomSimProcedureWindows import custom_simproc_windows
 
 class SemaExplorer(ExplorationTechnique):
     """
@@ -428,23 +421,6 @@ class SemaExplorer(ExplorationTechnique):
 
         else :
             return simgr.filter(state, **kwargs)
-            
-
-    def manage_stashes(self, simgr):
-        # If there is too much states in pause stash, discard some of them
-        self.manage_pause(simgr)
-
-        # If there is too much states in ExcessLoop stash, drop some of them
-        self.drop_excessed_loop(simgr)
-
-        # Log information about the unconstrained stash
-        self.manage_unconstrained(simgr)
-
-        # Take back state from ExcessStep stash if active stash is empty
-        self.excessed_step_to_active(simgr)
-
-        # Take back state from ExcessLoop stash if active stash is empty
-        self.excessed_loop_to_active(simgr)
 
 
     def complete(self, simgr):

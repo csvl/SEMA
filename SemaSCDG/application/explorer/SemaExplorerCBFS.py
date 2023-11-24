@@ -63,6 +63,25 @@ class SemaExplorerCBFS(SemaExplorer):
 
         self.new_addr_priority(simgr)
 
+        # If limit of simultaneous state is not reached and we have some states available in pause stash
+        if len(simgr.stashes["pause"]) > 0 and len(simgr.active) < self.max_simul_state:
+            moves = min(
+                self.max_simul_state - len(simgr.active),
+                len(simgr.stashes["pause"]),
+            )
+            for m in range(moves):
+                super().take_smallest(simgr, "pause")
+
+        super().manage_pause(simgr)
+
+        super().drop_excessed_loop(simgr)
+
+        # If states end with errors, it is often worth investigating. Set DEBUG_ERROR to live debug
+        # TODO : add a log file if debug error is not activated
+        super().manage_error(simgr)
+
+        super().manage_unconstrained(simgr)
+
         for vis in simgr.active:
             self.dict_addr_vis.add(str(super().check_constraint(vis, vis.history.jump_target)))
 
@@ -81,15 +100,9 @@ class SemaExplorerCBFS(SemaExplorer):
             for i in range(moves):
                 self.pause_stash.append(simgr.stashes["temp"].pop())
 
-        # If limit of simultaneous state is not reached and we have some states available in pause stash
-        if len(simgr.stashes["pause"]) > 0 and len(simgr.active) < self.max_simul_state:
-            moves = min(
-                self.max_simul_state - len(simgr.active),
-                len(simgr.stashes["pause"]),
-            )
-            for m in range(moves):
-                super().take_smallest(simgr, "pause")
-        super().manage_stashes(simgr)
+        super().excessed_step_to_active(simgr)
+
+        super().excessed_loop_to_active(simgr)
     
     def step(self, simgr, stash="active", **kwargs):
         try:
@@ -115,10 +128,6 @@ class SemaExplorerCBFS(SemaExplorer):
         super().manage_fork(simgr)
 
         self.manage_stashes(simgr)
-
-        # If states end with errors, it is often worth investigating. Set DEBUG_ERROR to live debug
-        # TODO : add a log file if debug error is not activated
-        super().manage_error(simgr)
 
         super().time_evaluation(simgr)
 

@@ -103,15 +103,22 @@ class SemaExplorerSDFS(SemaExplorer):
                 super().take_longuest(simgr, "pause")
                     
 
+        super().manage_pause(simgr)
+        
+        super().drop_excessed_loop(simgr)
+
         # If states end with errors, it is often worth investigating. Set DEBUG_ERROR to live debug
         # TODO : add a log file if debug error is not activated
         super().manage_error(simgr)
 
-        super().manage_stashes(simgr)
+        super().manage_unconstrained(simgr)
 
         for vis in simgr.active:
             self.dict_addr_vis.add(str(super().check_constraint(vis, vis.history.jump_target)))
+            
+        super().excessed_step_to_active(simgr)
 
+        super().excessed_loop_to_active(simgr)
 
         super().time_evaluation(simgr)
         
