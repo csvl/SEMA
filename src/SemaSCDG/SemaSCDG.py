@@ -65,6 +65,7 @@ try:
     from .clogging.LogBookFormatter import *
     from .helper.ArgumentParserSCDG import ArgumentParserSCDG
     from .sandboxes.CuckooInterface import CuckooInterface
+    # from .tests.sema_tests import SemaTests
 except:
     from helper.GraphBuilder import *
     from procedures.CustomSimProcedure import *
@@ -99,6 +100,7 @@ except:
     from clogging.LogBookFormatter import * # TODO
     from helper.ArgumentParserSCDG import ArgumentParserSCDG
     from sandboxes.CuckooInterface import CuckooInterface
+    # from tests.sema_tests import SemaTests
 
 import angr
 import claripy
@@ -187,6 +189,29 @@ class SemaSCDG:
         self.scdg = []
         self.scdg_fin = []
         
+        if True:
+            logging.getLogger("SemaSCDG").handlers.clear()
+            ch = logging.StreamHandler()
+            ch.setLevel(logging.INFO)
+            ch.setFormatter(CustomFormatter())
+            self.log = logging.getLogger("SemaSCDG")
+            self.log.addHandler(ch)
+            self.log.propagate = False
+            logging.getLogger("angr").setLevel("INFO")
+            logging.getLogger('claripy').setLevel('INFO')
+            self.log.setLevel(logging.INFO)
+        else:
+            # logging.getLogger('claripy').disabled = True
+            pass
+            ch = logging.StreamHandler()
+            ch.setLevel(logging.INFO)
+            ch.setFormatter(CustomFormatter())
+            self.log = logging.getLogger("SemaSCDG")
+            self.log.addHandler(ch)
+            self.log.propagate = False
+            self.log.setLevel(logging.INFO)
+        
+        
         self.new = {}
 
         # Option for exploration evalutation
@@ -222,9 +247,12 @@ class SemaSCDG:
         self.is_packed = is_packed
         self.concrete_target_is_local = concrete_target_is_local
         
+        self.launch_test = True # TODO add args
+        
     def save_conf(self, args, path):
-        with open(os.path.join(path, "scdg_conf.json"), "w") as f:
-            json.dump(args, f, indent=4)
+        pass
+        # with open(os.path.join(path, "scdg_conf.json"), "w") as f:
+        #     json.dump(args, f, indent=4)
 
     def new_instr(self, state):
         self.instr_count[state.addr] = 1
@@ -293,15 +321,18 @@ class SemaSCDG:
             verbose = args["verbose_scdg"]
             format_out_json = args["json"]
             self.discard_scdg = args["discard_SCDG"]
+        
+        self.log.info(args)
+        
         try:
             os.stat(args.exp_dir)
         except:
             os.makedirs(exp_dir)
             
-        self.log.info(args)
+        
 
-        if exp_dir != "output/runs/"+ str(self.current_exp_dir) + "/":
-            setup = open_file("src/output/runs/"+ str(self.current_exp_dir) + "/" + "setup.txt", "w")
+        if exp_dir != "/app/src/output/runs/"+ str(self.current_exp_dir) + "/":
+            setup = open_file("/app/src/output/runs/"+ str(self.current_exp_dir) + "/" + "setup.txt", "w")
             setup.write(str(self.jump_it) + "\n")
             setup.write(str(self.loop_counter_concrete) + "\n")
             setup.write(str(self.max_simul_state) + "\n")
@@ -322,14 +353,16 @@ class SemaSCDG:
         
         fileHandler = logging.FileHandler(exp_dir + "/" + nameFileShort + "/" + "scdg.log")
         fileHandler.setFormatter(CustomFormatter())
-        #logging.getLogger().handlers.clear()
-        try:
-            logging.getLogger().removeHandler(fileHandler)
-        except:
-            self.log.info("Exeption remove filehandle")
-            pass
         
-        logging.getLogger().addHandler(fileHandler)
+        for logger_name in logging.Logger.manager.loggerDict:
+            # logging.getLogger().handlers.clear()
+            try:
+                logging.getLogger(logger_name).removeHandler(fileHandler)
+            except:
+                self.log.info("Exeption remove filehandle")
+                pass
+            
+            logging.getLogger(logger_name).addHandler(fileHandler)
         self.log.info(csv_file)
 
 
@@ -427,12 +460,12 @@ class SemaSCDG:
             
             self.call_sim.system_call_table = self.call_sim.ddl_loader.load(proj,True if (self.is_packed and False) else False)
             
-            preload = []
-            for lib in self.call_sim.system_call_table:
-                #for key in self.call_sim.system_call_table[lib]: 
-                print(lib)
-                    #preload.append(lib)
-            print(proj.loader.shared_objects)
+            # preload = []
+            # for lib in self.call_sim.system_call_table:
+            #     #for key in self.call_sim.system_call_table[lib]: 
+            #     print(lib)
+            #         #preload.append(lib)
+            # print(proj.loader.shared_objects)
             
             proj = angr.Project(
                 nameFile,
@@ -466,9 +499,9 @@ class SemaSCDG:
                 support_selfmodifying_code=True,
                 concrete_target=avatar_gdb
             )
-            for lib in self.call_sim.system_call_table:
-                print(proj.loader.find_all_symbols(lib))
-            print("biatch")
+            # for lib in self.call_sim.system_call_table:
+            #     print(proj.loader.find_all_symbols(lib))
+            # print("biatch")
             #for obj in proj.loader.all_objects:
             #    print(obj)
             #exit()
@@ -586,13 +619,13 @@ class SemaSCDG:
                     default_analysis_mode="symbolic" if not args.approximate else "symbolic_approximating",
             )
             symbs = proj.loader.symbols
-            for symb in symbs:
-                print(symb)
-            print(symbs)
-            print(proj.loader.shared_objects)
-            print(proj.loader.all_objects)
-            print(proj.loader.requested_names)
-            print(proj.loader.initial_load_objects)
+            # for symb in symbs:
+            #     print(symb)
+            # print(symbs)
+            # print(proj.loader.shared_objects)
+            # print(proj.loader.all_objects)
+            # print(proj.loader.requested_names)
+            # print(proj.loader.initial_load_objects)
             #exit()
             # for register in t_0x0548:
             #     print(register,hex(t_0x0548[register]))
@@ -1601,27 +1634,6 @@ class SemaSCDG:
         self.nb_exps = 0
         self.current_exps = 0
         
-        if args.verbose_scdg:
-            logging.getLogger("SemaSCDG").handlers.clear()
-            ch = logging.StreamHandler()
-            ch.setLevel(logging.INFO)
-            ch.setFormatter(CustomFormatter())
-            self.log = logging.getLogger("SemaSCDG")
-            self.log.addHandler(ch)
-            self.log.propagate = False
-            logging.getLogger("angr").setLevel("INFO")
-            logging.getLogger('claripy').setLevel('INFO')
-            self.log.setLevel(logging.INFO)
-        else:
-            # logging.getLogger('claripy').disabled = True
-            pass
-            ch = logging.StreamHandler()
-            ch.setLevel(logging.INFO)
-            ch.setFormatter(CustomFormatter())
-            self.log = logging.getLogger("SemaSCDG")
-            self.log.addHandler(ch)
-            self.log.propagate = False
-            self.log.setLevel(logging.INFO)
         
         # import resource
 
@@ -1633,66 +1645,85 @@ class SemaSCDG:
 
         # soft, hard = resource.getrlimit(rsrc)
         # self.log.info('Soft limit changed to :', soft)
-
-        self.log.info(self.inputs)
-        if os.path.isfile(self.inputs):
-            self.nb_exps = 1
-            # TODO update familly
-            self.log.info("You decide to analyse a single binary: "+ self.inputs)
-            # *|CURSOR_MARCADOR|*
+        
+        if False: # self.launch_test:
+            self.log.info("Starting testings of the app:")
+            self.log.info("chdir in " + os.getcwd() + "/src/SemaSCDG/tests")
+            root_dir = os.getcwd()
+            os.chdir(os.getcwd()+"/src/SemaSCDG/tests")
+            os.system("make all")
+            os.chdir(root_dir)
+            self.inputs = os.getcwd() + "/src/SemaSCDG/tests/compiled_binaries/"
+            self.log.info("You decide to analyse all binaries in " + self.inputs)
             try:
-                self.build_scdg(args,is_fl=is_fl,csv_file=csv_file)
+                sema_tests = SemaTests(self,args)
+                sema_tests.start_tests()
             except Exception as e:
-                self.log.info(e)
-                self.log.info("Error: "+self.inputs+" is not a valid binary")
-            self.current_exps = 1
+                print(e)
+            # TODO use all exploration techniques
+            os.chdir(os.getcwd()+"/src/SemaSCDG/tests")
+            os.system("make clean")
+            os.chdir(os.getcwd())
         else:
-            import progressbar
-            last_familiy = "unknown"
             self.log.info(self.inputs)
-            if os.path.isdir(self.inputs):
-                subfolder = [os.path.join(self.inputs, f) for f in os.listdir(self.inputs) if os.path.isdir(os.path.join(self.inputs, f))]
-               
-                for folder in subfolder:
-                    files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and not f.endswith(".zip")]
-                    self.nb_exps += len(files)
-                    
-                self.log.info(self.nb_exps)
-               
-                bar_f = progressbar.ProgressBar(max_value=len(subfolder))
-                bar_f.start()
-                ffc = 0
-                for folder in subfolder:
-                    self.log.info("You are currently building SCDG for " + folder)
-                    files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and not f.endswith(".zip")]
-                    bar = progressbar.ProgressBar(max_value=len(files))
-                    bar.start()
-                    fc = 0
-                    current_family = folder.split("/")[-1]
-                    if not is_fl:
-                        args.exp_dir = args.exp_dir.replace(last_familiy,current_family) 
-                    else:
-                        args["exp_dir"] = args["exp_dir"].replace(last_familiy,current_family) 
-                    for file in files:
-                        self.inputs = file
-                        self.familly = current_family
-                        #try:
-                        self.build_scdg(args, is_fl, csv_file=csv_file)
-                        # except Exception as e:
-                        #     self.log.info(e)
-                        #     self.log.info("Error: "+file+" is not a valid binary")
-                        fc+=1
-                        self.current_exps += 1
-                        bar.update(fc)
-                    self.families += current_family
-                    last_familiy = current_family
-                    bar.finish()
-                    ffc+=1
-                    bar_f.update(ffc)
-                bar_f.finish()
+            if os.path.isfile(self.inputs):
+                self.nb_exps = 1
+                # TODO update familly
+                self.log.info("You decide to analyse a single binary: "+ self.inputs)
+                # *|CURSOR_MARCADOR|*
+                try:
+                    self.build_scdg(args,is_fl=is_fl,csv_file=csv_file)
+                except Exception as e:
+                    self.log.info(e)
+                    self.log.info("Error: "+self.inputs+" is not a valid binary")
+                self.current_exps = 1
             else:
-                self.log.info("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/malware-inputs/Sample_paper")
-                # exit(-1)
+                import progressbar
+                last_familiy = "unknown"
+                self.log.info(self.inputs)
+                if os.path.isdir(self.inputs):
+                    subfolder = [os.path.join(self.inputs, f) for f in os.listdir(self.inputs) if os.path.isdir(os.path.join(self.inputs, f))]
+                
+                    for folder in subfolder:
+                        files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and not f.endswith(".zip")]
+                        self.nb_exps += len(files)
+                        
+                    self.log.info(self.nb_exps)
+                
+                    bar_f = progressbar.ProgressBar(max_value=len(subfolder))
+                    bar_f.start()
+                    ffc = 0
+                    for folder in subfolder:
+                        self.log.info("You are currently building SCDG for " + folder)
+                        files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and not f.endswith(".zip")]
+                        bar = progressbar.ProgressBar(max_value=len(files))
+                        bar.start()
+                        fc = 0
+                        current_family = folder.split("/")[-1]
+                        if not is_fl:
+                            args.exp_dir = args.exp_dir.replace(last_familiy,current_family) 
+                        else:
+                            args["exp_dir"] = args["exp_dir"].replace(last_familiy,current_family) 
+                        for file in files:
+                            self.inputs = file
+                            self.familly = current_family
+                            #try:
+                            self.build_scdg(args, is_fl, csv_file=csv_file)
+                            # except Exception as e:
+                            #     self.log.info(e)
+                            #     self.log.info("Error: "+file+" is not a valid binary")
+                            fc+=1
+                            self.current_exps += 1
+                            bar.update(fc)
+                        self.families += current_family
+                        last_familiy = current_family
+                        bar.finish()
+                        ffc+=1
+                        bar_f.update(ffc)
+                    bar_f.finish()
+                else:
+                    self.log.info("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/malware-inputs/Sample_paper")
+                    # exit(-1)
 
 
 def main():

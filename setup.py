@@ -68,6 +68,8 @@ setup(name='sema-tc',
           'kvm',
           'libvirt-python',
           'unipacker',
-          "minidump==0.0.10"
+          "minidump==0.0.10",
+          "parameterized",
+          "networkx"
       ],
       zip_safe=False)

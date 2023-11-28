@@ -1,0 +1,1 @@
+# todo check string resolv & string non resolv

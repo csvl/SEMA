@@ -46,6 +46,21 @@ run-web:
 			   --network="bridge" \
 			   -it sema-web bash run_server.sh
 
+run-test:
+	#bash update_etc_hosts.sh
+	docker run  \
+			   --rm \
+			   -v $(PWD)/src/:/app/src/ \
+			   -v $(PWD)/setup.py:/app/setup.py \
+			   -v $(PWD)/run_test.sh:/app/run_test.sh \
+			   -v /app/src/submodules/ \
+			   -v $(PWD)/SemaWebApp/:/app/SemaWebApp/ \
+			   -v /tmp/.X11-unix:/tmp/.X11-unix \
+			   -v $(PWD)/penv-fix/:/penv-fix/ \
+    		   -e DISPLAY=$(DISPLAY) \
+			   --network="bridge" \
+			   -it sema-web bash run_test.sh
+
 run-sh:
 	docker run \
 			   --rm \
