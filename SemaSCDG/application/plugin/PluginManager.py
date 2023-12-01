@@ -9,6 +9,7 @@ from plugin.PluginCommands import PluginCommands
 from plugin.PluginIoC import PluginIoC
 from plugin.PluginAtom import PluginAtom
 from plugin.PluginPacking import PluginPacking
+from plugin.PluginThread import PluginThread
 
 
 class PluginManager():
@@ -40,6 +41,9 @@ class PluginManager():
                     state.plugin_registery.setup_plugin()
                 elif plugin == "plugin_atom" :
                     state.register_plugin(plugin, PluginAtom())
+                #TODO Christophe : Check if plugin thread does the right thing (handles thread in the binary and not try to multithread angr execution)
+                # elif plugin == "plugin_thread" : 
+                #     state.register_plugin("plugin_thread", PluginThread(self, exp_dir, proj, nameFileShort, options))
 
     def get_plugin_hooks(self):
         return self.hooks

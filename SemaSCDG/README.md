@@ -37,6 +37,7 @@ expl_method:
 graph_output:
   gs                  .GS format
   json                .JSON format
+  EMPTY               if left empty then build on all available format
 
 packing_type:
   symbion             Concolic unpacking method (linux | windows [in progress])
@@ -83,6 +84,7 @@ Global parameter:
   family               Family of the malware (default : Unknown)
   exp_dir              Directory to save SCDG extracted (default : Default)
   binary_path          Name of the binary to analyze
+  fast_main            Jump directly into the main function 
 ```
 
 Program will output a graph in `.gs` format that could be exploited by `gspan`.

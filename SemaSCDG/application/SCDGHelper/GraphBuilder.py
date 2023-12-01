@@ -250,7 +250,7 @@ class GraphBuilder:
                     "e " + str(i[0]) + " " + str(node1[0]) + " " + label + "\n"
                 )
 
-    def build_graph(self, SCDG, graph_output="gs"):
+    def build_graph(self, SCDG, graph_output="gs", gv = True):
         json_content = {}
         if graph_output == "gs":
             self.graph_file = open(self.odir + "/final_SCDG.gs", "w")
@@ -313,7 +313,8 @@ class GraphBuilder:
                     self.graph_file.write(l)
 
             # dot.render(self.odir+'/SCDG_'+self.name+'.dot', view=False,nslimit=2)
-            dot.save(self.odir + "/final_SCDG.gv")
+            if gv:
+                dot.save(self.odir + "/final_SCDG.gv")
             if graph_output == "json":
                 json.dump(json_content, self.graph_file)
         else:

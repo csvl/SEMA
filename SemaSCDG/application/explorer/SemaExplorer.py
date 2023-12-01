@@ -100,6 +100,7 @@ class SemaExplorer(ExplorationTechnique):
         simgr.active[0].globals["addr_call"] = []
         simgr.active[0].globals["loop"] = 0
         simgr.active[0].globals["files"] = {}
+        simgr.active[0].globals["is_thread"] = False
         # simgr.active[0].globals["crypt_algo"] = 0
         # simgr.active[0].globals["crypt_result"] = 0
         # simgr.active[0].globals["n_buffer"] = 0
