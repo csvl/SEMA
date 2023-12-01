@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND="noninteractive"
 ENV SNAPCRAFT_SETUP_CORE=1
 
 RUN  apt-get update
-RUN  apt-get --fix-missing install apt-utils
+RUN  apt-get --fix-missing install -y apt-utils
 RUN  apt-get update
 RUN  apt update; apt-get --fix-missing -y install \ 
                 python3.8 \
@@ -69,9 +69,5 @@ RUN /etc/init.d/guacd start
 
 COPY ./SemaSCDG/requirements.txt /sema-scdg/requirements.txt
 RUN pip3 install -r /sema-scdg/requirements.txt
-
-# Angr-utils for cfg
-# RUN cd /sema-scdg/application/submodules/bingraphvis; pip install .
-# RUN cd /sema-scdg/application/submodules/angr-utils;  pip install .
 
 WORKDIR /sema-scdg/application/

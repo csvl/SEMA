@@ -67,9 +67,7 @@ class SemaSCDG():
 
     #Get the parameters from config file
     def get_config_param(self, config):
-        # TODO : not proposed in the web app -> add if useful
         self.fast_main = config['SCDG_arg'].getboolean('fast_main')
-
         self.verbose = config['SCDG_arg'].getboolean('verbose')
         self.print_syscall = config['SCDG_arg'].getboolean('print_syscall')
         self.string_resolve = config['SCDG_arg'].getboolean('string_resolve')
@@ -86,10 +84,16 @@ class SemaSCDG():
         self.plugin_enable = config['SCDG_arg'].getboolean('plugin_enable')
         self.expl_method = config['SCDG_arg']["expl_method"]
         self.family = config['SCDG_arg']['family']
-        self.exp_dir = config['SCDG_arg']['exp_dir'] + "/" + self.family
+        self.exp_dir_name = config['SCDG_arg']['exp_dir']
+        self.exp_dir = self.exp_dir_name + "/" + self.family
+        self.mapping_dir = self.exp_dir_name + "/"
         self.binary_path = config['SCDG_arg']['binary_path']
         self.n_args = int(config['SCDG_arg']['n_args'])
         self.csv_file = config['SCDG_arg']['csv_file']
+
+        self.pre_run_thread = config['SCDG_arg'].getboolean('pre_run_thread')
+        self.runtime_run_thread = config['SCDG_arg'].getboolean('runtime_run_thread')
+        self.post_run_thread = config['SCDG_arg'].getboolean('post_run_thread')
 
     #Save the configuration of the experiment in a json file
     def save_conf(self, path):
@@ -384,10 +388,10 @@ class SemaSCDG():
         ##########         Exploration           ############
         #####################################################
 
-        self.set_breakpoints(state)
+        if self.pre_run_thread:
+            state.plugin_thread.pre_run_thread(self.content, self.inputs)
 
-        # TODO : make plugins out of these globals values
-        # Globals is a simple dict already managed by Angr which is deeply copied from states to states
+        self.set_breakpoints(state)
         
         # (3) TODO manon: move that but as serena purposes car je ne sais pas ahah
         for sec in main_obj.sections:
@@ -409,6 +413,9 @@ class SemaSCDG():
 
         exploration_tech = self.explorer_manager.get_exploration_tech(self.nameFileShort, simgr, exp_dir, proj, self.expl_method, self.scdg_graph, self.call_sim)
         
+        if self.runtime_run_thread:
+            simgr.active[0].globals["is_thread"] = True
+
         self.log.info(proj.loader.all_pe_objects)
         self.log.info(proj.loader.extern_object)
         self.log.info(proj.loader.symbols)
@@ -432,6 +439,9 @@ class SemaSCDG():
         #####################################################
         ##########         Data collection       ############
         #####################################################
+
+        if self.post_run_thread:
+            state.plugin_thread.post_run_thread(simgr)
     
         elapsed_time = time.time() - self.start_time
         self.data_manager.data["elapsed_time"] = elapsed_time
@@ -465,7 +475,7 @@ class SemaSCDG():
         
         g = GraphBuilder(
             name=self.nameFileShort,
-            mapping=exp_dir + "mapping_" + self.nameFileShort + ".txt",
+            mapping= "database/SCDG/runs/" + self.mapping_dir + "mapping_" + self.exp_dir_name + ".txt",
             merge_call=(not self.config['build_graph_arg'].getboolean('disjoint_union')),
             comp_args=(not self.config['build_graph_arg'].getboolean('not_comp_args')),
             min_size=int(self.config['build_graph_arg']['min_size']),
@@ -475,8 +485,13 @@ class SemaSCDG():
             verbose=self.verbose,
             family=self.family
         )
-        g.build_graph(self.scdg_fin, graph_output=self.config['build_graph_arg']['graph_output'])
-        
+        graph_output = self.config['build_graph_arg']['graph_output']
+        if graph_output == "":
+            g.build_graph(self.scdg_fin, graph_output="gs")
+            g.build_graph(self.scdg_fin, graph_output="json", gv = False)
+        else :
+            g.build_graph(self.scdg_fin, graph_output=graph_output)
+
         if self.store_data:
             self.data_manager.save_to_csv(proj, self.family, self.call_sim, csv_file_path=exp_dir + self.csv_file)
 
