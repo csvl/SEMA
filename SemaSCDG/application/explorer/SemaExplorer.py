@@ -117,10 +117,9 @@ class SemaExplorer(ExplorationTechnique):
         # simgr.active[0].globals["FindNextFile"] = 0
         # simgr.active[0].globals["GetMessageA"] = 0
         # simgr.active[0].globals["GetLastError"] = claripy.BVS("last_error", 32)
-        # simgr.active[0].globals["HeapSize"] = {}
+        simgr.active[0].globals["HeapSize"] = {}
         # simgr.active[0].globals["files_fd"] = {}
         # simgr.active[0].globals["create_thread_address"] = []
-        # simgr.active[0].globals["is_thread"] = False
         # simgr.active[0].globals["allow_web_interaction"] = False
 
     def check_constraint(self, state, value):
