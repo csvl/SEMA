@@ -6,7 +6,10 @@ build-web-app:
 	docker build --rm --cache-from sema-web-app:latest -t sema-web-app  -f SemaWebApp/Dockerfile .
 
 build-scdg:
-	docker build --rm --cache-from sema-scdg:latest -t sema-scdg -f SemaSCDG/Dockerfile .			   
+	docker build --rm --cache-from sema-scdg:latest -t sema-scdg -f SemaSCDG/Dockerfile .		
+
+build-scdg-pypy:
+	docker build --rm --cache-from sema-scdg-pypy:latest -t sema-scdg-pypy -f SemaSCDG/Dockerfile-pypy .   
 
 run-web-app-service:
 	docker run \
@@ -32,7 +35,7 @@ run-scdg-service:
 		-p 5001:5001 \
 		--net=micro_network \
 		--name="sema-scdg" \
-		-it sema-scdg bash
+		-it sema-scdg-pypy bash
 
 run-scdg-test:	
 	docker run \
@@ -95,8 +98,3 @@ clean-scdg-empty-directory:
 	sudo rm -r -f SemaSCDG/application/penv-fix
 	sudo rm -r -f SemaSCDG/application/database
 	sudo rm -r -f SemaSCDG/application/logs
-
-clean-docker:
-	docker image prune
-	docker image prune -a
-	docker rmi $(docker images -a -q) 
