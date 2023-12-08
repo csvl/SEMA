@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from clogging.CustomFormatter import CustomFormatter
 import claripy
 from graphviz import Digraph
 import os
@@ -18,7 +19,7 @@ class GraphBuilder:
         three_edges = False,
         odir=None,
         get_info=False,
-        verbose=False,
+        log_level="DEBUG",
         family="unknown"
     ):
         self.DISCARD = {
@@ -26,8 +27,6 @@ class GraphBuilder:
             "Dummy_call",
         }  # Nodes used for debug purpose but not real syscall
         self.TAKE = {}
-        self.lw = logging.getLogger("GraphBuilder")
-        self.lw.setLevel("INFO")
         self.mapping_dir = mapping
         self.id = 0
         self.graph_file = None
@@ -57,7 +56,8 @@ class GraphBuilder:
 
         self.get_info = get_info
 
-        self.verbose = verbose
+        self.log_level = log_level
+        self.config_logger()
 
         self.create_mapping(mapping)
 
@@ -72,7 +72,18 @@ class GraphBuilder:
                 os.makedirs(self.odir)
         else:
             self.odir = "database/SCDG/runs/" + family # ROOT_DIR +
-        self.lw.info("Output dir :" + self.odir)
+        self.log.info("Output dir :" + self.odir)
+
+    #Setup the logger
+    def config_logger(self):
+        self.log = logging.getLogger("GraphBuilder")
+        self.log.setLevel(self.log_level)
+        ch = logging.StreamHandler()
+        ch.setLevel(self.log_level)
+        ch.setFormatter(CustomFormatter())
+        self.log.addHandler(ch)
+        self.log.propagate = False
+        self.log.setLevel(self.log_level)
 
     # Create a mapping for the different syscall name and an unique identifier.
     # args : mapping = name of the file for the mapping to use (format : id syscallname\n)
@@ -88,7 +99,7 @@ class GraphBuilder:
         
 
     def build_links(self, trace, graph, dico={}):
-        # self.lw.info("Building links between calls")
+        # self.log.info("Building links between calls")
         # Dictionnary used to build link between args
         # Variable to check if this trace has added some content to the graph
         contribution = False
@@ -168,7 +179,7 @@ class GraphBuilder:
                         arg_id = arg_id + 1
 
                 if "ref_str" in call and False:
-                    self.lw.info("ref_str")
+                    self.log.info("ref_str")
                     for j in call["ref_str"]:
                         ref = call["ref_str"][j]
                         if str(ref) in dico:
@@ -266,21 +277,19 @@ class GraphBuilder:
             dot = Digraph(comment="Global SCDG with merge call", format="dot")
 
             for i in range(len(SCDG)):
-                if self.verbose:
-                    self.lw.info("Using SCDG " + str(i + 1) + " over " + str(len(SCDG)))
+                self.log.info("Using SCDG " + str(i + 1) + " over " + str(len(SCDG)))
 
                 if len(SCDG[i]) >= self.MIN_SIZE:
                     # import pdb; pdb.set_trace()
                     self.build_links(SCDG[i], dot, dico)
                 else:
-                    if self.verbose:
-                        self.lw.info(
-                            "The SCDG "
-                            + str(i)
-                            + " was too small, smaller than "
-                            + str(self.MIN_SIZE)
-                            + " calls."
-                        )
+                    self.log.info(
+                        "The SCDG "
+                        + str(i)
+                        + " was too small, smaller than "
+                        + str(self.MIN_SIZE)
+                        + " calls."
+                    )
                 self.current_trace_nodes.clear()
 
             # Save data parts

@@ -14,6 +14,7 @@ class SemaExplorerSDFS(SemaExplorer):
         scdg_graph,
         call_sim,
         proj,
+        log_level,
         find = 0
     ):
         super(SemaExplorerSDFS, self).__init__(
@@ -25,8 +26,12 @@ class SemaExplorerSDFS(SemaExplorer):
         )
         self.proj = proj
         self.find = find
+        self.log_level = log_level
+        self.config_logger()
+
+    def config_logger(self):
         self.log = logging.getLogger("SemaExplorerSDFS")
-        self.log.setLevel("INFO")
+        self.log.setLevel(self.log_level)
         
     def execute_concretely(self, simgr, proj, sdfs):
         if len(simgr.stashes["ExcessLoop"]) > 0:

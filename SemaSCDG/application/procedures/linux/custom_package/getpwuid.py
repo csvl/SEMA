@@ -1,13 +1,16 @@
+import configparser
 import angr
 import logging
 
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureLinux")
-logging.getLogger("CustomSimProcedureLinux").setLevel("INFO")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 class getpwuid(angr.SimProcedure):
     # pylint: disable=arguments-differ
     def run(self,uid):
-        lw.info(self.cc)
+        lw.debug(self.cc)
         """_summary_
         struct passwd {
             char *pw_name;

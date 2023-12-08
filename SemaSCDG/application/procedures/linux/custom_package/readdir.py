@@ -7,5 +7,5 @@ logging.getLogger("CustomSimProcedureLinux").setLevel("INFO")
 class readdir(angr.SimProcedure):
     # pylint: disable=arguments-differ
     def run(self,dirp):
-        lw.info(self.cc)
+        lw.debug(self.cc)
         return 0

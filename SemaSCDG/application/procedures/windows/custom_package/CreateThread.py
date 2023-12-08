@@ -1,7 +1,12 @@
 import logging
 import angr
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 
 class CreateThread(angr.SimProcedure):
@@ -17,8 +22,8 @@ class CreateThread(angr.SimProcedure):
     ):
         if not self.state.globals["is_thread"]:
             # code_addr = self.state.solver.eval(lpStartAddress)
-            lw.info("IS THREAD")
-            lw.info(self.state.solver.eval(lpStartAddress))
+            lw.debug("IS THREAD")
+            lw.debug(self.state.solver.eval(lpStartAddress))
             #self.state.regs.esp += 4 * 6
             new_state = self.state.copy()
             _ = new_state.stack_pop()
@@ -38,8 +43,8 @@ class CreateThread(angr.SimProcedure):
             # self.state.regs.esp -= 4 * 6
             return self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)
         else:
-            lw.info("IS NOT THREAD")
-            lw.info(self.state.solver.eval(lpStartAddress))
+            lw.debug("IS NOT THREAD")
+            lw.debug(self.state.solver.eval(lpStartAddress))
             code_addr = self.state.solver.eval(lpStartAddress)
             ret_addr = self.state.stack_pop()
             self.state.regs.esp += 4 * 6

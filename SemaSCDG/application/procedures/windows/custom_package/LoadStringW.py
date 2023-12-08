@@ -3,7 +3,12 @@ import sys
 import angr
 import archinfo
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 class LoadStringW(angr.SimProcedure):
     def run(self, hInstance, uID, lpBuffer, cchBufferMax):
@@ -30,7 +35,7 @@ class LoadStringW(angr.SimProcedure):
         y += bytes([0])
         y += bytes([0])
         string = y.decode('utf-16le')
-        lw.info(string)
+        lw.debug(string)
         ptr = self.state.solver.BVV(string)
         self.state.memory.store(lpBuffer,ptr)
         return stringsize

@@ -4,19 +4,24 @@ import logging
 
 # 06 08 02 07 0d 0c 05 0a 0f 06 06 01 0f 0b 0b 04 0b 0f 06 04 0b 0c 06 02 05 0c 07 08 02 08 03 0e 0f 08 03 06 0c 06 09 08 05 0b 0b 02 0b 0f 0b 08 03 06 0b 0d 00 0c 08 0d 05 03 09 07 03 03 02 0. 0e 0x 0e 0 0 0
 
-l = logging.getLogger("CustomSimProcedureWindows")
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 class MapViewOfFile(angr.SimProcedure):
     def run(self, hFileMappingObject, dwDesiredAccess, dwFileOffsetHigh, dwFileOffsetLow, dwNumberOfBytesToMap):
         # Get the handle to the file mapping object
-        l.info(self.state.globals["files_fd"])
+        lw.debug(self.state.globals["files_fd"])
         if hFileMappingObject in  self.state.globals["files_fd"]:
             simfd =  self.state.posix.get_fd(self.state.globals["files_fd"][hFileMappingObject]) #self.state.posix.get_fd(hFile)
         else:
             simfd = None
         
         size = self.state.solver.eval(dwNumberOfBytesToMap) #simfd.size()
-        l.info(size)
+        lw.debug(size)
         
         addr = self.allocate_memory(size)
         
@@ -41,7 +46,7 @@ class MapViewOfFile(angr.SimProcedure):
         simfd.seek(self.state.solver.eval(file_offset), whence="start")
         data, _ = simfd.read_data(size)
         simfd.seek(saved_pos, whence="start")
-        l.info(data)
+        lw.debug(data)
         self.state.memory.store(addr, data)
         
         return addr

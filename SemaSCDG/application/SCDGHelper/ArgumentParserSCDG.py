@@ -219,6 +219,33 @@ class ArgumentParserSCDG:
             
         )
 
+        self.group_logs = self.parser.add_mutually_exclusive_group() # required=True
+        self.group_logs.title = 'log_level'
+        self.group_output.add_argument(
+            "--INFO",
+            help="Info, warning and error logs",
+            action="store_true",
+            
+        )
+        self.group_output.add_argument(
+            "--DEBUG",
+            help="All logs and debug logs",
+            action="store_true",
+            
+        )
+        self.group_output.add_argument(
+            "--WARNING",
+            help="Only Warning and error logs",
+            action="store_true",
+            
+        )
+        self.group_output.add_argument(
+            "--ERROR",
+            help="no log",
+            action="store_true",
+            
+        )
+
         self.groupt = self.parser.add_argument_group('Thread parameter')
         self.groupt.add_argument(
             "--pre_run_thread",
@@ -271,6 +298,7 @@ class ArgumentParserSCDG:
             action="store_true",
             
         )
+
         self.group.add_argument(
             "--verbose",
             help="Verbose output during calls extraction  (default : False)",

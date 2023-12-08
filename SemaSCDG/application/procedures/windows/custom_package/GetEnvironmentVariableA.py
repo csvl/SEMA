@@ -1,7 +1,12 @@
 import logging
 import angr
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 
 class GetEnvironmentVariableA(angr.SimProcedure):
@@ -13,11 +18,10 @@ class GetEnvironmentVariableA(angr.SimProcedure):
         if hasattr(name, "decode"):
             name = name.decode("utf-8")
         name = name.upper()
-        lw.info(name)
+        lw.debug(name)
         if name in self.state.plugin_env_var.env_var:
-            lw.info("Swag")
             ret = self.state.plugin_env_var.env_var[name][:size]
-            lw.info(ret)
+            lw.debug(ret)
             # lw.warning(name + " " + str(size) + " " + ret)
             try:  # TODO investigate why needed with explorer
                 if ret[-1] != "\0":
@@ -30,7 +34,7 @@ class GetEnvironmentVariableA(angr.SimProcedure):
         else:
             ret = None
             self.state.plugin_env_var.env_var[name] = None
-        lw.info(ret)
+        lw.debug(ret)
         self.state.plugin_env_var.env_var_requested[name] = ret
         return ret
 
@@ -41,12 +45,11 @@ class GetEnvironmentVariableA(angr.SimProcedure):
             )
         try:
             name = self.state.mem[lpName].string.concrete
-            print(name)
             if name == b'COMSPEC':
                 self.state.memory.store(lpBuffer, self.state.solver.BVV(b'C:\Windows\system32\cmd.exe'))
                 return 27
         except:
-            print(self.state.memory.load(lpName,0x20))
+            lw.debug(self.state.memory.load(lpName,0x20))
         #size = self.state.mem[nSize].int.concrete
         size = self.state.solver.eval(nSize)
         ret_len = size

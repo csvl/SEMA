@@ -3,12 +3,16 @@ import logging
 import claripy
 import struct
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 # class __getmainargs(angr.SimProcedure):
 #     def run(self, argc, argv, env, do_wildcard, start_info):
 #         # Obtain a handle to the current process
-#         lw.info("kaka")
 #         # # malloc memory for argc and store the argument count in it
 #         # argc_mem = self.state.heap.malloc(4) 
 #         # #self.state.solver.add(argc == 5)
@@ -51,12 +55,12 @@ class __getmainargs(angr.SimProcedure):
         if any(map(self.state.solver.symbolic, [argc_p, argv_ppp, env_ppp])):
             raise angr.errors.SimProcedureError("__getmainargs cannot handle symbolic pointers")
         
-        lw.info("argc_p: " + str(argc_p))
-        lw.info("argv_ppp: " + str(argv_ppp))
-        lw.info("env_ppp: " + str(env_ppp))
-        lw.info("self.state.posix.argc: " + str(self.state.posix.argc))
-        lw.info("self.state.posix.argv: " + str(self.state.posix.argv))
-        lw.info("self.state.posix.environ: " + str(self.state.posix.environ))
+        lw.debug("argc_p: " + str(argc_p))
+        lw.debug("argv_ppp: " + str(argv_ppp))
+        lw.debug("env_ppp: " + str(env_ppp))
+        lw.debug("self.state.posix.argc: " + str(self.state.posix.argc))
+        lw.debug("self.state.posix.argv: " + str(self.state.posix.argv))
+        lw.debug("self.state.posix.environ: " + str(self.state.posix.environ))
 
         self.state.memory.store(argc_p, self.state.posix.argc, endness=self.state.arch.memory_endness)
         self.state.memory.store(argv_ppp, self.state.posix.argv, endness=self.state.arch.memory_endness)

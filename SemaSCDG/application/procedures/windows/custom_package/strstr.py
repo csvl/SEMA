@@ -2,7 +2,12 @@ import logging
 import angr
 from angr.sim_options import MEMORY_CHUNK_INDIVIDUAL_READS
 from angr.storage.memory_mixins.regioned_memory.abstract_address_descriptor import AbstractAddressDescriptor
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 # class strstr(angr.SimProcedure):
 #     def strlen(self, s, wchar=False, maxlen=None):
@@ -150,7 +155,7 @@ lw = logging.getLogger("CustomSimProcedureWindows")
 
     #     r, c, i = self.state.memory.find(mainstring, sub_str, 16, max_symbolic_bytes=self.state.libc.max_symbolic_strstr, default=0, chunk_size=chunk_size)
     #     self.state.add_constraints(*c)
-    #     lw.info("... returning %s", r)
+    #     lw.debug("... returning %s", r)
     #     return r   
         
         
@@ -277,14 +282,14 @@ class strstr(angr.SimProcedure):
         # needle_maxlen = needle_max_null_index
         _, haystack_max_null_index = self.strlen(haystack_addr)
         needle_strlen_ret_expr, needle_max_null_index = self.strlen(needle_addr)
-        lw.info("strstr: " + str(self.arguments))
-        lw.info("strstr with size %d haystack and size %d needle...", haystack_max_null_index, needle_max_null_index)
+        lw.debug("strstr: " + str(self.arguments))
+        lw.debug("strstr with size %d haystack and size %d needle...", haystack_max_null_index, needle_max_null_index)
 
         if needle_max_null_index == 0:
-            lw.info("... zero-length needle.")
+            lw.debug("... zero-length needle.")
             return haystack_addr
         elif haystack_max_null_index == 0:
-            lw.info("... zero-length haystack.")
+            lw.debug("... zero-length haystack.")
             return self.state.solver.BVV(0, self.state.arch.bits)
 
         if self.state.solver.symbolic(needle_strlen_ret_expr):
@@ -292,7 +297,7 @@ class strstr(angr.SimProcedure):
             exclusions = [ needle_strlen_ret_expr != 0 ]
             remaining_symbolic = self.state.libc.max_symbolic_strstr
             for i in range(haystack_max_null_index):
-                lw.info("... case %d (%d symbolic checks remaining)", i, remaining_symbolic)
+                lw.debug("... case %d (%d symbolic checks remaining)", i, remaining_symbolic)
 
                 # big hack!
                 cmp_res = self.inline_call(strncmp, haystack_addr + i, needle_addr, needle_strlen_ret_expr, a_len=haystack_strlen, b_len=needle_strlen)
@@ -307,18 +312,18 @@ class strstr(angr.SimProcedure):
                 haystack_strlen.ret_expr = haystack_strlen.ret_expr - 1
 
                 if remaining_symbolic == 0:
-                    lw.info("... exhausted remaining symbolic checks.")
+                    lw.debug("... exhausted remaining symbolic checks.")
                     break
 
             cases.append([ self.state.solver.And(*exclusions), self.state.solver.BVV(0, self.state.arch.bits) ])
-            lw.info("... created %d cases", len(cases))
+            lw.debug("... created %d cases", len(cases))
             r = self.state.solver.ite_cases(cases, 0)
             c = [ self.state.solver.Or(*[c for c,_ in cases]) ]
         else:
             needle_length = self.state.solver.eval(needle_strlen_ret_expr)
             needle_str = self.state.memory.load(needle_addr, needle_length)
-            lw.info("... concrete needle of length %d.", needle_length)
-            lw.info("... needle: %s", needle_str)
+            lw.debug("... concrete needle of length %d.", needle_length)
+            lw.debug("... needle: %s", needle_str)
             chunk_size = None
             if MEMORY_CHUNK_INDIVIDUAL_READS in self.state.options:
                 chunk_size = 1
@@ -326,7 +331,7 @@ class strstr(angr.SimProcedure):
             r, c, i = self.state.memory.find(haystack_addr, needle_str, haystack_max_null_index, max_symbolic_bytes=self.state.libc.max_symbolic_strstr, default=0, chunk_size=chunk_size)
 
         self.state.add_constraints(*c)
-        lw.info("... returning %s", r+needle_length)
+        lw.debug("... returning %s", r+needle_length)
         return r+needle_length
     
     

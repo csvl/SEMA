@@ -4,7 +4,13 @@ import angr
 
 from procedures.WindowsSimProcedure import WindowsSimProcedure
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+log_level = config['SCDG_arg'].get('log_level')
+lw.setLevel(log_level)
 
 
 class GetModuleHandleExW(angr.SimProcedure):
@@ -15,7 +21,7 @@ class GetModuleHandleExW(angr.SimProcedure):
         return lib
 
     def run(self, flag, lib_ptr, module_ptr):
-        call_sim = WindowsSimProcedure()
+        call_sim = WindowsSimProcedure(log_level)
          
         if self.state.solver.is_true(lib_ptr == 0):
             # import pdb; pdb.set_trace()
@@ -24,7 +30,7 @@ class GetModuleHandleExW(angr.SimProcedure):
         proj = self.state.project
         lib = self.decodeString(lib_ptr)
         lib = str(lib).lower()
-        lw.info(
+        lw.debug(
             "GetModuleHandleExW: {}  asks for handle to {}".format(
                 self.display_name, lib
             )
@@ -41,7 +47,7 @@ class GetModuleHandleExW(angr.SimProcedure):
             )  # ,endness=self.arch.memory_endness)
             return symb.rebased_addr
         else:
-            # lw.info('GetModuleHandleExW: Symbol not found')
+            # lw.debug('GetModuleHandleExW: Symbol not found')
             extern = proj.loader.extern_object
             addr = extern.get_pseudo_addr(lib)
             self.state.globals["loaded_libs"][addr] = lib
@@ -61,7 +67,7 @@ class GetModuleHandleExW(angr.SimProcedure):
                 exc_type, exc_obj, exc_tb = sys.exc_info()
                 # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
                 lw.warning(exc_type, exc_obj)
-                lw.info("GetModuleHandleExW: Fail to load dynamically lib " + str(lib))
+                lw.debug("GetModuleHandleExW: Fail to load dynamically lib " + str(lib))
                 exit(-1)
 
             # import pdb; pdb.set_trace()

@@ -1,7 +1,12 @@
 import logging
 import angr
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 
 class WideCharToMultiByte(angr.SimProcedure):
@@ -23,7 +28,7 @@ class WideCharToMultiByte(angr.SimProcedure):
         try:
             string = self.state.mem[lpWideCharStr].wstring.concrete
         except:
-            lw.info("Cannot resolve lpWideCharStr")
+            lw.warning("Cannot resolve lpWideCharStr")
             return 0
             
         length = len(string)+1

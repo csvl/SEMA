@@ -1,7 +1,12 @@
 import angr
 import logging
 
-l = logging.getLogger("CustomSimProcedureWindows")
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 def convert_prot(prot):
     """
@@ -46,7 +51,7 @@ class VirtualAlloc(angr.SimProcedure):
 
         size = self.state.solver.max_int(dwSize)
         if dwSize.symbolic and size > self.state.libc.max_variable_size:
-            l.warning('symbolic VirtualAlloc dwSize %s has maximum %#x, greater than state.libc.max_variable_size %#x',
+            lw.warning('symbolic VirtualAlloc dwSize %s has maximum %#x, greater than state.libc.max_variable_size %#x',
                       dwSize, size, self.state.libc.max_variable_size)
             size = self.state.libc.max_variable_size
             #raise Exception("Symbolic VirtualAlloc dwSize is too big")
@@ -63,7 +68,7 @@ class VirtualAlloc(angr.SimProcedure):
         angr_prot = convert_prot(prot)
 
         if flags & 0x00080000 or flags & 0x1000000:
-            l.warning("VirtualAlloc with MEM_RESET and MEM_RESET_UNDO are not supported")
+            lw.warning("VirtualAlloc with MEM_RESET and MEM_RESET_UNDO are not supported")
             return addr
         
         ft = True if flags & 0x00100000 else False
@@ -85,7 +90,7 @@ class VirtualAlloc(angr.SimProcedure):
                 try:
                     self.state.memory.map_region(addr, size, angr_prot, init_zero=True)
                 except angr.errors.SimMemoryError:
-                    l.info("...failed, bad address")
+                    lw.warning("...failed, bad address")
                     return 0
 
         if flags & 0x00001000: # MEM_COMMIT
@@ -93,7 +98,7 @@ class VirtualAlloc(angr.SimProcedure):
             try:
                 self.state.memory.permissions(addr)
             except angr.errors.SimMemoryError:
-                l.info("...not reserved")
+                lw.warning("...not reserved")
                 return 0
 
         # if we got all the way to the end, nothing failed! success!

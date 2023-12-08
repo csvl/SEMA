@@ -11,7 +11,8 @@ class SemaExplorerDBFS(SemaExplorer):
         exp_dir,
         nameFileShort,
         scdg_graph,
-        call_sim
+        call_sim,
+        log_level
     ):
         super(SemaExplorerDBFS, self).__init__(
             simgr,
@@ -20,9 +21,13 @@ class SemaExplorerDBFS(SemaExplorer):
             scdg_graph,
             call_sim
         )
-        self.log = logging.getLogger("SemaExplorerDBFS")
-        self.log.setLevel("INFO")
+        self.log_level = log_level
         self.flag = False
+        self.config_logger()
+
+    def config_logger(self):
+        self.log = logging.getLogger("SemaExplorerDBFS")
+        self.log.setLevel(self.log_level)
         
     def manage_stashes(self, simgr):
         if self.flag:

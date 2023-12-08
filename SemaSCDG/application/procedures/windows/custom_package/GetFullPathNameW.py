@@ -1,18 +1,23 @@
 import logging
 import angr
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 
 class GetFullPathNameW(angr.SimProcedure):
     def run(self, lpFileName, nBufferLength, lpBuffer, lpFilePart):
         try:
             f = self.state.mem[lpFileName].wstring.concrete
-            lw.info(f)
+            lw.debug(f)
             if f[-1] == "\\": # is folder
                 pathpath_bytes = f.encode("utf-16-le") 
                 lenpath = len(pathpath_bytes) 
-                lw.info(lenpath)
-                lw.info(pathpath_bytes.decode("utf-16-le"))
+                lw.debug(lenpath)
+                lw.debug(pathpath_bytes.decode("utf-16-le"))
                 self.state.memory.store(lpBuffer, pathpath_bytes)   # , size=len(longname)
                 
                 self.state.memory.store(lpFilePart, 0) # , size=len(longname) 
@@ -20,8 +25,8 @@ class GetFullPathNameW(angr.SimProcedure):
                 lenpath = len(f)
                 pathpath_bytes = f.encode("utf-16-le") 
                 #lenpath = len(pathpath_bytes) 
-                lw.info(lenpath)
-                lw.info(pathpath_bytes.decode("utf-16-le"))
+                lw.debug(lenpath)
+                lw.debug(pathpath_bytes.decode("utf-16-le"))
                 self.state.memory.store(lpBuffer, pathpath_bytes)   # , size=len(longname)
                 
                 if "C:" not in f: #only file
@@ -33,16 +38,16 @@ class GetFullPathNameW(angr.SimProcedure):
                     filepart_bytes = filepart.encode("utf-16-le")
                     filepart_offset = len(pathpath_bytes) - len(filepart_bytes) - 2
                 lenfile = len(filepart_bytes) 
-                lw.info(filepart_offset)
-                lw.info(filepart_bytes.decode("utf-16-le"))
+                lw.debug(filepart_offset)
+                lw.debug(filepart_bytes.decode("utf-16-le"))
                 self.state.memory.store(lpFilePart, lpBuffer+filepart_offset) # , size=len(longname) 
                 
             return lenpath
         except Exception as e:
-            lw.info(e)
+            lw.warning(e)
             # longname = "C:\Windows\System32\\".encode("utf-16-le")
             # longname =+ self.state.memory.load(lpFileName, nBufferLength)
-            # # lw.info(self.state.memory.load(lpBuffer,nBufferLength))
-            # lw.info(longname)
+            # # lw.debug(self.state.memory.load(lpBuffer,nBufferLength))
+            # lw.debug(longname)
             # self.state.memory.store(lpBuffer,longname)
             return self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)

@@ -1,14 +1,20 @@
 import logging
 import sys
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+log_level = config['SCDG_arg'].get('log_level')
+lw.setLevel(log_level)
 from .LoadLibraryA import LoadLibraryA
 from procedures.WindowsSimProcedure import WindowsSimProcedure
 
 
 class LoadLibraryExW(LoadLibraryA):
     def run(self, lib_ptr, flag1, flag2):
-        call_sim = WindowsSimProcedure()
+        call_sim = WindowsSimProcedure(log_level)
         proj = self.state.project
         lib = self.state.mem[lib_ptr].wstring.concrete
 
@@ -25,7 +31,7 @@ class LoadLibraryExW(LoadLibraryA):
             self.state.globals["loaded_libs"][symb.rebased_addr] = lib
             return symb.rebased_addr
         else:
-            lw.info("LoadLibraryExW: Symbol not found")
+            lw.debug("LoadLibraryExW: Symbol not found")
             extern = proj.loader.extern_object
             addr = extern.get_pseudo_addr(lib)
             self.state.globals["loaded_libs"][addr] = lib
@@ -45,11 +51,11 @@ class LoadLibraryExW(LoadLibraryA):
                 exc_type, exc_obj, exc_tb = sys.exc_info()
                 # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
                 lw.warning(exc_type, exc_obj)
-                lw.info("LoadLibraryExW: Fail to load dynamically lib " + str(lib))
+                lw.debug("LoadLibraryExW: Fail to load dynamically lib " + str(lib))
                 exit(-1)
 
             # import pdb; pdb.set_trace()
             return addr
-        lw.info(lib)
+        lw.debug(lib)
         return lib_ptr
         return self.load(lib)

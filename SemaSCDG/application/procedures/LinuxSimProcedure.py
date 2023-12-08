@@ -14,9 +14,20 @@ logger.setLevel(logging.INFO)
 
 class LinuxSimProcedure(CustomSimProcedure):
 
-    def __init__(self):
+    def __init__(self, log_level):
         super().__init__()
+        self.log_level = log_level
         self.init_sim_proc("linux")
+        self.config_logger()
+
+    def config_logger(self):
+        self.log = logging.getLogger("LinuxSimProcedure")
+        ch = logging.StreamHandler()
+        ch.setLevel(self.log_level)
+        ch.setFormatter(CustomFormatter())
+        self.log.addHandler(ch)
+        self.log.propagate = False
+        self.log.setLevel(self.log_level)
 
     def deal_with_alt_names(self, pkg_name, proc):
         for altname in proc.ALT_NAMES:

@@ -1,6 +1,11 @@
 import logging
 import angr
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 
 class lstrlenA(angr.SimProcedure):
@@ -12,10 +17,10 @@ class lstrlenA(angr.SimProcedure):
             string = self.state.mem[s].string.concrete
             return len(string)
         except:
-            lw.info("s not resolvable")
+            lw.debug("s not resolvable")
             for i in range(0x100):
                 if self.state.solver.eval(self.state.memory.load(s+i,1)) == 0x0:
                     return i
-            lw.info("can't find length")
+            lw.debug("can't find length")
             return self.state.solver.BVS("retval_{}".format(self.display_name), 32)
 

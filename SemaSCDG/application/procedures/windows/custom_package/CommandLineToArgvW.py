@@ -9,9 +9,9 @@ class CommandLineToArgvW(angr.SimProcedure):
         # Get the size of the command line
         # size = self.state.libc.strlen(cmdline_ptr) + 1
         cmd_str = self.state.mem[cmdline_ptr].wstring.concrete
-        lw.info(cmd_str)
+        lw.debug(cmd_str)
         cmd_bytes = cmd_str.encode('utf-16le')
-        lw.info(cmd_bytes)
+        lw.debug(cmd_bytes)
         size = len(cmd_bytes)
 
         # Allocate memory to store the command line
@@ -42,7 +42,7 @@ class CommandLineToArgvW(angr.SimProcedure):
         for i, arg in enumerate(args):
             arg_val = claripy.BVV(arg, self.state.arch.bits)
             #self.state.mem[argv_ptr + i * self.state.arch.bytes].int32_t = arg_val
-            lw.info(arg_val)
+            lw.debug(arg_val)
             self.state.memory.store(argv_ptr + i * self.state.arch.bytes, arg_val)
 
         # Return argv

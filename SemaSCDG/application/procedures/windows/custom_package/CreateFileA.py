@@ -1,7 +1,12 @@
 import logging
 import angr
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 class CreateFileA(angr.SimProcedure):
     def decodeString(self, ptr):
@@ -31,7 +36,7 @@ class CreateFileA(angr.SimProcedure):
                 "retval_{}".format(self.display_name), self.arch.bits
             )
         name = self.decodeString(lpFilename)
-        lw.info(
+        lw.debug(
             "CreateFileA: {}  asks to create file {}".format(self.display_name, name)
         )
         access = self.state.solver.eval(dwDesiredAccess)
@@ -43,7 +48,7 @@ class CreateFileA(angr.SimProcedure):
         fd = self.state.posix.open(name, self.state.solver.BVV(2, self.arch.bits))
         # import pdb; pdb.set_trace()
         if fd is None:
-            lw.info("fd is none")
+            lw.debug("fd is none")
             return self.state.solver.BVS(
                 "retval_{}".format(self.display_name), self.arch.bits
             )

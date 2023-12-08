@@ -13,7 +13,8 @@ class SemaExplorerCBFS(SemaExplorer):
         exp_dir,
         nameFileShort,
         scdg_graph,
-        call_sim
+        call_sim,
+        log_level
     ):
         super(SemaExplorerCBFS, self).__init__(
             simgr,
@@ -22,10 +23,14 @@ class SemaExplorerCBFS(SemaExplorer):
             scdg_graph,
             call_sim
         )
-        self.log = logging.getLogger("SemaExplorerCBFS")
-        self.log.setLevel("INFO")
 
+        self.log_level = log_level
         self.new_addr_stash = "new_addr"
+        self.config_logger()
+
+    def config_logger(self):
+        self.log = logging.getLogger("SemaExplorerCBFS")
+        self.log.setLevel(self.log_level)
 
     def setup(self, simgr):
         super().setup(simgr)

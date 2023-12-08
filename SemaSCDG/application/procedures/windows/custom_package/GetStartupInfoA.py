@@ -3,7 +3,12 @@ import claripy
 from angr.sim_type import SimType
 import logging
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 # typedef struct _STARTUPINFOA {
 #   DWORD  cb;
@@ -107,8 +112,8 @@ class GetStartupInfoA(angr.SimProcedure):
                 sz = int(bits/8)
             elif startupinfo[key][1] == "HANDLE":
                 sz = int(bits/8)
-            lw.info(sz)
-            lw.info(startupinfo[key])
+            lw.debug(sz)
+            lw.debug(startupinfo[key])
             #if not startupinfo[key][1] == "LPSTR":
             self.state.memory.store(lpStartupInfo + offset, startupinfo[key][0], size=sz)
             offset += sz

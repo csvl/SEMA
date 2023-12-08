@@ -2,7 +2,12 @@ import angr
 import logging
 import claripy
 
-l = logging.getLogger("CustomSimProcedureWindows")
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 class memmove(angr.SimProcedure):
     #pylint:disable=arguments-differ
@@ -14,35 +19,35 @@ class memmove(angr.SimProcedure):
                 
         if not self.state.solver.symbolic(size):
             # not symbolic so we just take the value
-            l.info("not symb")
+            lw.debug("not symb")
             true_size = self.state.solver.eval(size)
         else:
-            l.info("symb")
+            lw.debug("symb")
             # constraints on the limit are added during the store
             max_memcpy_size = self.state.libc.max_memcpy_size
             max_limit = self.state.solver.max_int(size)
             min_limit = self.state.solver.min_int(size)
             true_size = min(max_memcpy_size, max(min_limit, max_limit))
             if max_limit > max_memcpy_size and true_size < max_limit:
-                l.info("memmove upper bound of %#x outside limit, limiting to %#x instead",
+                lw.debug("memmove upper bound of %#x outside limit, limiting to %#x instead",
                           max_limit, true_size)
 
-        l.info("memmove running with conditional_size %#x", true_size)
+        lw.debug("memmove running with conditional_size %#x", true_size)
         
-        l.info("memmove(%#x, %#x, %#x)", dst_addr, src_addr, true_size)
+        lw.debug("memmove(%#x, %#x, %#x)", dst_addr, src_addr, true_size)
         
        
-        l.info("memmove(%#x, %#x, %#x)", dst_addr, src_addr, true_size)
+        lw.debug("memmove(%#x, %#x, %#x)", dst_addr, src_addr, true_size)
         # Create a symbolic bitvector for the destination memory
         #dst_mem = claripy.BVS("mem", size * 8)
 
         # Check for overlapping memory regions
         overlap = dst_addr <= src_addr < dst_addr + true_size or src_addr <= dst_addr < src_addr + true_size
-        l.info("memmove(%#x, %#x, %#x)", dst_addr, src_addr, true_size)
+        lw.debug("memmove(%#x, %#x, %#x)", dst_addr, src_addr, true_size)
         
         if true_size > 0:
             if overlap:
-                l.info("memmoveA(%#x, %#x, %#x)", dst_addr, src_addr, true_size)
+                lw.debug("memmoveA(%#x, %#x, %#x)", dst_addr, src_addr, true_size)
                 # If the memory regions overlap, split the destination memory into two parts:
                 # the part that does not overlap with the source memory and the part that does.
                 
@@ -88,7 +93,7 @@ class memmove(angr.SimProcedure):
                 # Read source memory
                 src_mem = self.state.memory.load(src_addr, size, endness='Iend_BE')
 
-                l.info("memmoveB(%#x, %#x, %#x)", dst_addr, src_addr, true_size)
+                lw.debug("memmoveB(%#x, %#x, %#x)", dst_addr, src_addr, true_size)
                 # If the memory regions do not overlap, copy the source memory to the destination memory
                 self.state.memory.store(dst_addr, src_mem, endness='Iend_BE')
             #self.state.memory.erase(src_addr, size=true_size)
