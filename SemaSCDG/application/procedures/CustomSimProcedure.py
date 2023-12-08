@@ -312,7 +312,7 @@ class CustomSimProcedure(ABC):
         """
         symbols = project.loader.symbols
         dic_symbols = {symb.name: symb.rebased_addr for symb in symbols}
-        self.log.info(dic_symbols)
+        self.log.debug(dic_symbols)
 
         for dllname in project.loader.requested_names:
             libname = dllname
