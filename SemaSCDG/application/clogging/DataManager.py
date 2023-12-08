@@ -11,8 +11,8 @@ class DataManager():
         self.config_logger()
         self.dataframe = None
         self.data = dict()
-        self.data["instr_dict"] = set()
-        self.data["block_dict"] = set()
+        self.data["instr_dict"] = {}
+        self.data["block_dict"] = {}
 
     #Set up the logger
     def config_logger(self):
@@ -77,10 +77,12 @@ class DataManager():
                     "Min/Max addresses": str(proj.loader.main_object.mapped_base) + "/" + str(proj.loader.main_object.max_addr),
                     "Stack executable": proj.loader.main_object.execstack,
                     "Binary position-independent:": proj.loader.main_object.pic,
-                    "Total number of blocks": self.data.get("nbblocks", -1),
-                    "Total number of instr": self.data.get("nbinstr", -1),
-                    "Number of blocks visited": len(self.data.get("block_dict", {})),
-                    "Number of instr visited": len(self.data.get("instr_dict", {})),
+                    "Total number of different blocks": self.data.get("nbblocks", -1),
+                    "Total number of different instr": self.data.get("nbinstr", -1),
+                    "Number of different block visited": len(self.data.get("block_dict", {})),
+                    "Number of different instruction visited": len(self.data.get("instr_dict", {})),
+                    "Number of blocks visited": sum(self.data.get("block_dict", {}).values()),
+                    "Number of instr visited": sum(self.data.get("instr_dict", {}).values()),
                 }, index=[1])
         df = pd.concat([self.dataframe, to_append], ignore_index=True)
         df.to_csv(csv_file_path, index=False,sep=";")
@@ -117,11 +119,11 @@ class DataManager():
                 
     # Add the instruction into the instructions set
     def add_instr_addr(self, state):
-        self.data["instr_dict"].add(state.addr)
+        self.data["instr_dict"][state.addr] = self.data["instr_dict"].get(state.addr,0) + 1
             
     # Add the block address into the block address set
     def add_block_addr(self, state):
-        self.data["block_dict"].add(state.inspect.address)
+        self.data["block_dict"][state.inspect.address] = self.data["block_dict"].get(state.inspect.address,0) + 1
 
     # Add information from plugin into the stats Dataframe and print info if verbose
     def get_plugin_data(self, state, simgr, to_store=False):
@@ -150,5 +152,5 @@ class DataManager():
     def print_block_info(self):
         self.log.info("Total number of blocks: " + str(self.data["nbblocks"]))
         self.log.info("Total number of instr: " + str(self.data["nbinstr"]))
-        self.log.info("Number of blocks visited: " + str(len(self.data["block_dict"])))
-        self.log.info("Number of instr visited: " + str(len(self.data["instr_dict"])))
+        self.log.info("Number of blocks visited: " + str(sum(self.data["block_dict"].values())))
+        self.log.info("Number of instr visited: " + str(sum(self.data["instr_dict"].values())))
