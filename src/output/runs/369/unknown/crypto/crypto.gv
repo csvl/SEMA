@@ -1,0 +1,80 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="134519856.main
+crypto"]
+	1 [label="0x8049c61.__libc_start_main
+134522673
+1
+2147418032
+134554544
+134554720"]
+	2 [label="0x804bce6.getenv
+134988327"]
+	3 [label="0x80497a6.__libc_start_main
+134522673
+1
+2147418032
+134554544
+134554720"]
+	1 -> 3 [label="(1-->1)"]
+	1 -> 3 [label="(2-->2)"]
+	1 -> 3 [label="(3-->3)"]
+	1 -> 3 [label="(4-->4)"]
+	1 -> 3 [label="(5-->5)"]
+	1 -> 3 [label="(0-->0)"]
+	4 [label="0x8080062._vsyscall
+"]
+	5 [label="0x804a719.puts
+Sorry, this program cannot be run under a debugger."]
+	6 [label="0x804a726.exit
+1"]
+	1 -> 6 [label="(2-->1)"]
+	3 -> 6 [label="(2-->1)"]
+	1 -> 6 [label="(0-->0)"]
+	3 -> 6 [label="(0-->0)"]
+	7 [label="0x804a855.malloc
+14"]
+	8 [label="0x804ab82.printf
+Enter the password to reveal the flag: "]
+	9 [label="0x804ab9f.fgets
+2147413836
+25
+135193504"]
+	10 [label="0x804abd2.puts
+Waiting for something to happen... :O"]
+	11 [label="0x804abe4.sleep
+0"]
+	12 [label="0x804abf1.malloc
+4"]
+	13 [label="0x8049f7a.malloc
+8"]
+	14 [label="0x804a412.strlen
+passphrase"]
+	15 [label="0x804a4c8.strlen
+passphrase"]
+	14 -> 15 [label="(1-->1)"]
+	14 -> 15 [label="(0-->0)"]
+	16 [label="0x804ac6e.puts
+Waiting for something to happen... :O"]
+	10 -> 16 [label="(1-->1)"]
+	10 -> 16 [label="(0-->0)"]
+	17 [label="0x804ac80.puts
+Waiting for your like on our github repository: SEMA-Toolchain & QUIC-FormalVerification ..."]
+	18 [label="0x804ac92.sleep
+0"]
+	19 [label="0x804acac.strncmp
+3221360552
+135192780
+25"]
+	13 -> 19 [label="(0-->1)"]
+	9 -> 19 [label="(2-->3)"]
+	1 -> 19 [label="(2-->0)"]
+	3 -> 19 [label="(2-->0)"]
+	20 [label="0x804b05e.puts
+Incorrect password. Exiting..."]
+	21 [label="0x804b06f.free
+3221360512"]
+	7 -> 21 [label="(0-->1)"]
+	1 -> 21 [label="(0-->0)"]
+	3 -> 21 [label="(0-->0)"]
+}

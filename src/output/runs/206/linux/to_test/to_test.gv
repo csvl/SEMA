@@ -1,0 +1,29 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="134519824.main
+to_test"]
+	1 [label="0x8049c41.__libc_start_main
+134520535
+1
+2147418032
+134525248
+134525424"]
+	2 [label="0x8049786.__libc_start_main
+134520535
+1
+2147418032
+134525248
+134525424"]
+	1 -> 2 [label="(1-->1)"]
+	1 -> 2 [label="(2-->2)"]
+	1 -> 2 [label="(3-->3)"]
+	1 -> 2 [label="(4-->4)"]
+	1 -> 2 [label="(5-->5)"]
+	1 -> 2 [label="(0-->0)"]
+	3 [label="0x8049f0d.printf
+Enter a positive integer: "]
+	4 [label="0x8049f23.__isoc99_scanf
+135065758"]
+	1 -> 4 [label="(2-->0)"]
+	2 -> 4 [label="(2-->0)"]
+}

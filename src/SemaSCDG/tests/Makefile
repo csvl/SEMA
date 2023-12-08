@@ -21,7 +21,7 @@ all: $(BUILD_DIR) $(BINS)
 
 # Rule to build binary files from source files
 $(BUILD_DIR)/%: $(SRC_DIR)/%.c | $(BUILD_DIR)
-	$(CC) $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) $< -o $@ -lssl -lcrypto
 
 # Create the build directory if it doesn't exist
 $(BUILD_DIR):

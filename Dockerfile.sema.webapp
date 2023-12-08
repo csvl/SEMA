@@ -6,5 +6,7 @@ ADD SemaWebApp/ /app/SemaWebApp/
 RUN cd /app/SemaWebApp/; pip3 install .;
 ADD run_server.sh /app/run_server.sh
 ADD .dockerignore /app/.dockerignore
+RUN dpkg --add-architecture i386; apt-get update
+RUN apt install -y libcanberra-gtk-module libcanberra-gtk3-module libssl-dev:i386
 
 RUN apt-get install graphviz gcc-multilib -y

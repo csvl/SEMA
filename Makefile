@@ -23,12 +23,12 @@ build-web-sema-pypy:
 	docker build  --rm -t sema-web -f Dockerfile.sema.webapp --build-arg image=sema .
 
 build-web-sema:
-	docker build  --rm -t sema-init -f Dockerfile.sema .
-	#docker build  --rm  -t sema-pypy -f Dockerfile.sema.pypy .
-	#docker build  --rm -t sema -f Dockerfile.sema.cuda --build-arg image=sema-pypy . # -pypy-cuda
-	docker build  --rm -t sema -f Dockerfile.sema.fl --build-arg image=sema-init .
-	docker build  --rm -t sema-web-nf -f Dockerfile.sema.webapp --build-arg image=sema .
-	docker build  --rm -t sema-web -f Dockerfile.sema.fix --build-arg image=sema-web-nf .
+	docker build  --rm --network=host -t sema-init -f Dockerfile.sema .
+	#docker build  --rm --network=host  -t sema-pypy -f Dockerfile.sema.pypy .
+	#docker build  --rm --network=host -t sema -f Dockerfile.sema.cuda --build-arg image=sema-pypy . # -pypy-cuda
+	docker build  --rm --network=host -t sema -f Dockerfile.sema.fl --build-arg image=sema-init .
+	docker build  --rm --network=host -t sema-web-nf -f Dockerfile.sema.webapp --build-arg image=sema .
+	docker build  --rm --network=host -t sema-web -f Dockerfile.sema.fix --build-arg image=sema-web-nf .
 
 run-web:
 	#bash update_etc_hosts.sh

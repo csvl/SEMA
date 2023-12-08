@@ -1,0 +1,51 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="134519856.main
+crypto"]
+	1 [label="0x8049c61.__libc_start_main
+134522673
+1
+2147418032
+134554544
+134554720"]
+	2 [label="0x804bce6.getenv
+134988327"]
+	3 [label="0x80497a6.__libc_start_main
+134522673
+1
+2147418032
+134554544
+134554720"]
+	1 -> 3 [label="(1-->1)"]
+	1 -> 3 [label="(2-->2)"]
+	1 -> 3 [label="(3-->3)"]
+	1 -> 3 [label="(4-->4)"]
+	1 -> 3 [label="(5-->5)"]
+	1 -> 3 [label="(0-->0)"]
+	4 [label="0x8080062._vsyscall
+"]
+	5 [label="0x804a719.puts
+Sorry, this program cannot be run under a debugger."]
+	6 [label="0x804a726.exit
+1"]
+	1 -> 6 [label="(2-->1)"]
+	3 -> 6 [label="(2-->1)"]
+	1 -> 6 [label="(0-->0)"]
+	3 -> 6 [label="(0-->0)"]
+	7 [label="0x804a855.malloc
+14"]
+	8 [label="0x804ab82.printf
+Enter the password to reveal the flag: "]
+	9 [label="0x804ab9f.fgets
+2147413836
+25
+135193504"]
+	10 [label="0x804abd2.puts
+Waiting for something to happen... :O"]
+	11 [label="0x804abe4.sleep
+0"]
+	12 [label="0x804abf1.malloc
+4"]
+	13 [label="0x8049f7a.malloc
+8"]
+}

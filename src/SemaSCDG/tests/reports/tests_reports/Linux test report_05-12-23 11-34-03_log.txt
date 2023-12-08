@@ -1,0 +1,2112 @@
+2023-12-05 11:34:03.503190 : [1;32;40mINFO - 2023-12-05 11:34:03,503 - SemaSCDG - /app/src/SemaSCDG/tests/compiled_binaries/linux/crypto[0m
+                             
+2023-12-05 11:34:03.503334 : [1;32;40mINFO - 2023-12-05 11:34:03,503 - SemaSCDG - You decide to analyse a single binary: /app/src/SemaSCDG/tests/compiled_binaries/linux/crypto[0m
+                             
+2023-12-05 11:34:03.503498 : [1;32;40mINFO - 2023-12-05 11:34:03,503 - SemaSCDG - Namespace(BFS=False, CBFS=False, CDFS=False, CSTOCH1=False, CSTOCH2=False, CSTOCH3=False, DBFS=False, DFS=False, SCDFS=False, SDFS=False, STOCH=False, ThreadCDFS=False, WSELECT1=False, WSELECT2=False, WSELECT3=False, approximate=False, binaries='/app/src/output/runs/266/unknown/', binary='/app/src/SemaSCDG/tests/compiled_binaries/', conc_loop=10240, concrete_target_is_local=False, count_block=True, debug_error=False, dir='/app/src/output/runs/266/', discard_SCDG=True, disjoint_union=False, eval_time=False, exp_dir='/app/src/output/runs/266/unknown/', familly=None, gs=False, hooks=False, ioc_report=True, json=True, limit_pause=200, max_deadend=600, max_step=50000, memory_limit=False, min_size=3, n_args=0, not_comp_args=False, not_ignore_zero=False, not_resolv_string=False, packed=False, post_run_thread=False, pre_run_thread=False, runtime_run_thread=False, sim_file=False, simul_state=5, sthread=1, symb_loop=3, symbion=False, three_edges=False, timeout=1000, track_command=True, unipacker=False, verbose_scdg=False)[0m
+                             
+2023-12-05 11:34:03.508304 : [1;32;40mINFO - 2023-12-05 11:34:03,508 - SemaSCDG - None[0m
+                             
+2023-12-05 11:34:03.508384 : [1;32;40mINFO - 2023-12-05 11:34:03,508 - SemaSCDG - /app/src/output/runs/266/unknown//crypto/[0m
+                             
+2023-12-05 11:34:03.508433 : [1;32;40mINFO - 2023-12-05 11:34:03,508 - SemaSCDG - 
+                             ---------------------------------------
+                             --- Building SCDG of unknown/crypto ---
+                             ---------------------------------------[0m
+                             
+2023-12-05 11:34:14.530719 : [1;32;40mINFO - 2023-12-05 11:34:14,530 - SemaSCDG - Libraries used are :
+                             set()[0m
+                             
+2023-12-05 11:34:14.530831 : [1;32;40mINFO - 2023-12-05 11:34:14,530 - SemaSCDG - OS recognized as : UNIX - Linux[0m
+                             
+2023-12-05 11:34:14.530884 : [1;32;40mINFO - 2023-12-05 11:34:14,530 - SemaSCDG - CPU architecture recognized as : <Arch X86 (LE)>[0m
+                             
+2023-12-05 11:34:14.530928 : [1;32;40mINFO - 2023-12-05 11:34:14,530 - SemaSCDG - Entry point of the binary recognized as : 0x8049c30[0m
+                             
+2023-12-05 11:34:14.530989 : [1;32;40mINFO - 2023-12-05 11:34:14,530 - SemaSCDG - Min/Max addresses of the binary recognized as : <Loaded crypto, maps [0x8048000:0x8307fff]>[0m
+                             
+2023-12-05 11:34:14.531045 : [1;32;40mINFO - 2023-12-05 11:34:14,531 - SemaSCDG - Stack executable ?  False[0m
+                             
+2023-12-05 11:34:14.531086 : [1;32;40mINFO - 2023-12-05 11:34:14,531 - SemaSCDG - Binary position-independent ?  False[0m
+                             
+2023-12-05 11:34:14.531127 : [1;32;40mINFO - 2023-12-05 11:34:14,531 - SemaSCDG - Exploration method:  CDFS[0m
+                             
+2023-12-05 11:34:14.605969 : [1;32;40mINFO - 2023-12-05 11:34:14,605 - SemaSCDG - Entry_state address = None[0m
+                             
+2023-12-05 11:34:30.293115 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - [0m
+                             
+2023-12-05 11:34:30.293200 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - {'vaddr': 0, 'memsize': 0, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.293253 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - .note.gnu.build-id[0m
+                             
+2023-12-05 11:34:30.293296 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - {'vaddr': 134512948, 'memsize': 36, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.293340 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - .note.ABI-tag[0m
+                             
+2023-12-05 11:34:30.293382 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - {'vaddr': 134512984, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.293427 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - .rel.plt[0m
+                             
+2023-12-05 11:34:30.293468 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - {'vaddr': 134513016, 'memsize': 120, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.293510 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - .init[0m
+                             
+2023-12-05 11:34:30.293556 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - {'vaddr': 134516736, 'memsize': 55, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 11:34:30.293600 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - .plt[0m
+                             
+2023-12-05 11:34:30.293642 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - {'vaddr': 134516792, 'memsize': 120, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 11:34:30.293685 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - .text[0m
+                             
+2023-12-05 11:34:30.293726 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - {'vaddr': 134516928, 'memsize': 465537, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 11:34:30.293769 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - __libc_freeres_fn[0m
+                             
+2023-12-05 11:34:30.293815 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - {'vaddr': 134982480, 'memsize': 2959, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 11:34:30.293863 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - .fini[0m
+                             
+2023-12-05 11:34:30.293904 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - {'vaddr': 134985440, 'memsize': 24, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 11:34:30.293948 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - .rodata[0m
+                             
+2023-12-05 11:34:30.293997 : [1;32;40mINFO - 2023-12-05 11:34:30,293 - SemaSCDG - {'vaddr': 134987776, 'memsize': 112228, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.294044 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - .eh_frame[0m
+                             
+2023-12-05 11:34:30.294088 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - {'vaddr': 135100004, 'memsize': 79916, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.294132 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - .gcc_except_table[0m
+                             
+2023-12-05 11:34:30.294174 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - {'vaddr': 135179920, 'memsize': 233, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.294218 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - .tdata[0m
+                             
+2023-12-05 11:34:30.294261 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - {'vaddr': 135186080, 'memsize': 16, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.294304 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - .tbss[0m
+                             
+2023-12-05 11:34:30.294346 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - {'vaddr': 135186096, 'memsize': 32, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.294390 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - .init_array[0m
+                             
+2023-12-05 11:34:30.294431 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - {'vaddr': 135186096, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.294473 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - .fini_array[0m
+                             
+2023-12-05 11:34:30.294514 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - {'vaddr': 135186104, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.294557 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - .data.rel.ro[0m
+                             
+2023-12-05 11:34:30.294598 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - {'vaddr': 135186112, 'memsize': 6420, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.294641 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - .got[0m
+                             
+2023-12-05 11:34:30.294681 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - {'vaddr': 135192532, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.294731 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - .got.plt[0m
+                             
+2023-12-05 11:34:30.294772 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - {'vaddr': 135192576, 'memsize': 72, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.294814 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - .data[0m
+                             
+2023-12-05 11:34:30.294853 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - {'vaddr': 135192672, 'memsize': 3936, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.294895 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - __libc_subfreeres[0m
+                             
+2023-12-05 11:34:30.294936 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - {'vaddr': 135196608, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.294980 : [1;32;40mINFO - 2023-12-05 11:34:30,294 - SemaSCDG - __libc_IO_vtables[0m
+                             
+2023-12-05 11:34:30.295023 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - {'vaddr': 135196672, 'memsize': 852, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.295065 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - __libc_atexit[0m
+                             
+2023-12-05 11:34:30.295104 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - {'vaddr': 135197524, 'memsize': 4, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.295149 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - .bss[0m
+                             
+2023-12-05 11:34:30.295189 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - {'vaddr': 135197536, 'memsize': 3484, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.295231 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - __libc_freeres_ptrs[0m
+                             
+2023-12-05 11:34:30.295272 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - {'vaddr': 135201020, 'memsize': 20, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.295314 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - .comment[0m
+                             
+2023-12-05 11:34:30.295354 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - {'vaddr': 0, 'memsize': 43, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.295395 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - .debug_aranges[0m
+                             
+2023-12-05 11:34:30.295435 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - {'vaddr': 0, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.295477 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - .debug_info[0m
+                             
+2023-12-05 11:34:30.295516 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - {'vaddr': 0, 'memsize': 3457, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.295557 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - .debug_abbrev[0m
+                             
+2023-12-05 11:34:30.295596 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - {'vaddr': 0, 'memsize': 595, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.295640 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - .debug_line[0m
+                             
+2023-12-05 11:34:30.295679 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - {'vaddr': 0, 'memsize': 2386, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.295721 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - .debug_str[0m
+                             
+2023-12-05 11:34:30.295761 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - {'vaddr': 0, 'memsize': 2367, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.295802 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - .symtab[0m
+                             
+2023-12-05 11:34:30.295841 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - {'vaddr': 0, 'memsize': 36928, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.295882 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - .strtab[0m
+                             
+2023-12-05 11:34:30.295921 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - {'vaddr': 0, 'memsize': 29319, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.295963 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - .shstrtab[0m
+                             
+2023-12-05 11:34:30.296003 : [1;32;40mINFO - 2023-12-05 11:34:30,295 - SemaSCDG - {'vaddr': 0, 'memsize': 359, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:34:30.297426 : [1;32;40mINFO - 2023-12-05 11:34:30,297 - SemaSCDG - [][0m
+                             
+2023-12-05 11:34:30.297503 : [1;32;40mINFO - 2023-12-05 11:34:30,297 - SemaSCDG - <ExternObject Object cle##externs, maps [0x8100000:0x8107fff]>[0m
+                             
+2023-12-05 11:34:30.297557 : [1;32;40mINFO - 2023-12-05 11:34:30,297 - SemaSCDG - <generator object Loader.symbols at 0x7fef0df72200>[0m
+                             
+2023-12-05 11:34:30.297636 : [1;32;40mINFO - 2023-12-05 11:34:30,297 - SemaSCDG - 
+                             ------------------------------
+                             Start -State of simulation manager :
+                              <SimulationManager with 1 active>
+                             ------------------------------[0m
+                             
+2023-12-05 11:58:38.691147 : [1;32;40mINFO - 2023-12-05 11:58:38,691 - SemaSCDG - 
+                             ------------------------------
+                             End - State of simulation manager :
+                              <SimulationManager with 1 active>
+                             ------------------------------[0m
+                             
+2023-12-05 11:58:38.691219 : [1;32;40mINFO - 2023-12-05 11:58:38,691 - SemaSCDG - Total number of blocks: 24422[0m
+                             
+2023-12-05 11:58:38.691268 : [1;32;40mINFO - 2023-12-05 11:58:38,691 - SemaSCDG - Total number of instr: 133370[0m
+                             
+2023-12-05 11:58:38.691313 : [1;32;40mINFO - 2023-12-05 11:58:38,691 - SemaSCDG - Number of blocks visited: 19[0m
+                             
+2023-12-05 11:58:38.691356 : [1;32;40mINFO - 2023-12-05 11:58:38,691 - SemaSCDG - Number of instr visited: 112[0m
+                             
+2023-12-05 11:58:38.691404 : [1;32;40mINFO - 2023-12-05 11:58:38,691 - SemaSCDG - Syscalls Found:{'malloc': 7, '__libc_start_main': 1, 'strlen': 4, 'getenv': 1}[0m
+                             
+2023-12-05 11:58:38.691464 : [1;32;40mINFO - 2023-12-05 11:58:38,691 - SemaSCDG - Loaded libraries:set()[0m
+                             
+2023-12-05 11:58:38.691536 : [1;32;40mINFO - 2023-12-05 11:58:38,691 - SemaSCDG - Environment variables:{}[0m
+                             
+2023-12-05 11:58:38.691581 : [1;32;40mINFO - 2023-12-05 11:58:38,691 - SemaSCDG - Registery variables:{}[0m
+                             
+2023-12-05 11:58:38.691623 : [1;32;40mINFO - 2023-12-05 11:58:38,691 - SemaSCDG - Locale informations variables:{}[0m
+                             
+2023-12-05 11:58:38.691665 : [1;32;40mINFO - 2023-12-05 11:58:38,691 - SemaSCDG - Resources variables:{}[0m
+                             
+2023-12-05 11:58:38.691712 : [1;32;40mINFO - 2023-12-05 11:58:38,691 - SemaSCDG - Total execution time: 1475.1883261203766[0m
+                             
+2023-12-05 11:58:38.691998 : [1;32;40mINFO - 2023-12-05 11:58:38,691 - SemaSCDG - [0m
+                             
+2023-12-05 11:58:38.692060 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - {'vaddr': 0, 'memsize': 0, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.692115 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - .note.gnu.build-id[0m
+                             
+2023-12-05 11:58:38.692161 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - {'vaddr': 134512948, 'memsize': 36, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.692209 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - .note.ABI-tag[0m
+                             
+2023-12-05 11:58:38.692253 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - {'vaddr': 134512984, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.692299 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - .rel.plt[0m
+                             
+2023-12-05 11:58:38.692349 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - {'vaddr': 134513016, 'memsize': 120, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.692397 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - .init[0m
+                             
+2023-12-05 11:58:38.692440 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - {'vaddr': 134516736, 'memsize': 55, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 11:58:38.692487 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - .plt[0m
+                             
+2023-12-05 11:58:38.692531 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - {'vaddr': 134516792, 'memsize': 120, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 11:58:38.692576 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - .text[0m
+                             
+2023-12-05 11:58:38.692619 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - {'vaddr': 134516928, 'memsize': 465537, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 11:58:38.692665 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - __libc_freeres_fn[0m
+                             
+2023-12-05 11:58:38.692709 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - {'vaddr': 134982480, 'memsize': 2959, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 11:58:38.692755 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - .fini[0m
+                             
+2023-12-05 11:58:38.692798 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - {'vaddr': 134985440, 'memsize': 24, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 11:58:38.692844 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - .rodata[0m
+                             
+2023-12-05 11:58:38.692886 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - {'vaddr': 134987776, 'memsize': 112228, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.692932 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - .eh_frame[0m
+                             
+2023-12-05 11:58:38.692975 : [1;32;40mINFO - 2023-12-05 11:58:38,692 - SemaSCDG - {'vaddr': 135100004, 'memsize': 79916, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.693018 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - .gcc_except_table[0m
+                             
+2023-12-05 11:58:38.693059 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - {'vaddr': 135179920, 'memsize': 233, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.693103 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - .tdata[0m
+                             
+2023-12-05 11:58:38.693144 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - {'vaddr': 135186080, 'memsize': 16, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.693189 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - .tbss[0m
+                             
+2023-12-05 11:58:38.693229 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - {'vaddr': 135186096, 'memsize': 32, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.693273 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - .init_array[0m
+                             
+2023-12-05 11:58:38.693315 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - {'vaddr': 135186096, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.693364 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - .fini_array[0m
+                             
+2023-12-05 11:58:38.693406 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - {'vaddr': 135186104, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.693450 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - .data.rel.ro[0m
+                             
+2023-12-05 11:58:38.693491 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - {'vaddr': 135186112, 'memsize': 6420, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.693534 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - .got[0m
+                             
+2023-12-05 11:58:38.693576 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - {'vaddr': 135192532, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.693619 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - .got.plt[0m
+                             
+2023-12-05 11:58:38.693662 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - {'vaddr': 135192576, 'memsize': 72, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.693705 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - .data[0m
+                             
+2023-12-05 11:58:38.693748 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - {'vaddr': 135192672, 'memsize': 3936, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.693790 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - __libc_subfreeres[0m
+                             
+2023-12-05 11:58:38.693831 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - {'vaddr': 135196608, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.693874 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - __libc_IO_vtables[0m
+                             
+2023-12-05 11:58:38.693918 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - {'vaddr': 135196672, 'memsize': 852, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.693960 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - __libc_atexit[0m
+                             
+2023-12-05 11:58:38.694001 : [1;32;40mINFO - 2023-12-05 11:58:38,693 - SemaSCDG - {'vaddr': 135197524, 'memsize': 4, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.694042 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - .bss[0m
+                             
+2023-12-05 11:58:38.694081 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - {'vaddr': 135197536, 'memsize': 3484, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.694123 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - __libc_freeres_ptrs[0m
+                             
+2023-12-05 11:58:38.694162 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - {'vaddr': 135201020, 'memsize': 20, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.694205 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - .comment[0m
+                             
+2023-12-05 11:58:38.694245 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - {'vaddr': 0, 'memsize': 43, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.694288 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - .debug_aranges[0m
+                             
+2023-12-05 11:58:38.694329 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - {'vaddr': 0, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.694373 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - .debug_info[0m
+                             
+2023-12-05 11:58:38.694413 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - {'vaddr': 0, 'memsize': 3457, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.694455 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - .debug_abbrev[0m
+                             
+2023-12-05 11:58:38.694497 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - {'vaddr': 0, 'memsize': 595, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.694542 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - .debug_line[0m
+                             
+2023-12-05 11:58:38.694583 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - {'vaddr': 0, 'memsize': 2386, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.694626 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - .debug_str[0m
+                             
+2023-12-05 11:58:38.694666 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - {'vaddr': 0, 'memsize': 2367, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.694708 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - .symtab[0m
+                             
+2023-12-05 11:58:38.694748 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - {'vaddr': 0, 'memsize': 36928, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.694790 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - .strtab[0m
+                             
+2023-12-05 11:58:38.694831 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - {'vaddr': 0, 'memsize': 29319, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.694873 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - .shstrtab[0m
+                             
+2023-12-05 11:58:38.694915 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - {'vaddr': 0, 'memsize': 359, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:58:38.694959 : [1;32;40mINFO - 2023-12-05 11:58:38,694 - SemaSCDG - /app/src/output/runs/266/unknown//crypto/inter_SCDG.json[0m
+                             
+2023-12-05 11:58:39.916111 : [1;32;40mINFO - 2023-12-05 11:58:39,915 - SemaSCDG - /app/src/SemaSCDG/tests/compiled_binaries/linux/crypto[0m
+                             
+2023-12-05 11:58:39.916210 : [1;32;40mINFO - 2023-12-05 11:58:39,916 - SemaSCDG - You decide to analyse a single binary: /app/src/SemaSCDG/tests/compiled_binaries/linux/crypto[0m
+                             
+2023-12-05 11:58:39.916329 : [1;32;40mINFO - 2023-12-05 11:58:39,916 - SemaSCDG - Namespace(BFS=False, CBFS=False, CDFS=False, CSTOCH1=False, CSTOCH2=False, CSTOCH3=False, DBFS=False, DFS=False, SCDFS=False, SDFS=False, STOCH=False, ThreadCDFS=False, WSELECT1=False, WSELECT2=False, WSELECT3=False, approximate=False, binaries='/app/src/output/runs/267/unknown/', binary='/app/src/SemaSCDG/tests/compiled_binaries/', conc_loop=10240, concrete_target_is_local=False, count_block=True, debug_error=False, dir='/app/src/output/runs/267/', discard_SCDG=True, disjoint_union=False, eval_time=False, exp_dir='/app/src/output/runs/267/unknown/', familly=None, gs=False, hooks=False, ioc_report=True, json=True, limit_pause=200, max_deadend=600, max_step=50000, memory_limit=False, min_size=3, n_args=0, not_comp_args=False, not_ignore_zero=False, not_resolv_string=False, packed=False, post_run_thread=False, pre_run_thread=False, runtime_run_thread=False, sim_file=False, simul_state=5, sthread=1, symb_loop=3, symbion=False, three_edges=False, timeout=1000, track_command=True, unipacker=False, verbose_scdg=False)[0m
+                             
+2023-12-05 11:58:39.919068 : [1;32;40mINFO - 2023-12-05 11:58:39,919 - SemaSCDG - None[0m
+                             
+2023-12-05 11:58:39.919144 : [1;32;40mINFO - 2023-12-05 11:58:39,919 - SemaSCDG - /app/src/output/runs/267/unknown//crypto/[0m
+                             
+2023-12-05 11:58:39.919194 : [1;32;40mINFO - 2023-12-05 11:58:39,919 - SemaSCDG - 
+                             ---------------------------------------
+                             --- Building SCDG of unknown/crypto ---
+                             ---------------------------------------[0m
+                             
+2023-12-05 11:58:53.558740 : [1;32;40mINFO - 2023-12-05 11:58:53,558 - SemaSCDG - Libraries used are :
+                             set()[0m
+                             
+2023-12-05 11:58:53.559108 : [1;32;40mINFO - 2023-12-05 11:58:53,559 - SemaSCDG - OS recognized as : UNIX - Linux[0m
+                             
+2023-12-05 11:58:53.559185 : [1;32;40mINFO - 2023-12-05 11:58:53,559 - SemaSCDG - CPU architecture recognized as : <Arch X86 (LE)>[0m
+                             
+2023-12-05 11:58:53.559252 : [1;32;40mINFO - 2023-12-05 11:58:53,559 - SemaSCDG - Entry point of the binary recognized as : 0x8049c30[0m
+                             
+2023-12-05 11:58:53.559355 : [1;32;40mINFO - 2023-12-05 11:58:53,559 - SemaSCDG - Min/Max addresses of the binary recognized as : <Loaded crypto, maps [0x8048000:0x8307fff]>[0m
+                             
+2023-12-05 11:58:53.559406 : [1;32;40mINFO - 2023-12-05 11:58:53,559 - SemaSCDG - Stack executable ?  False[0m
+                             
+2023-12-05 11:58:53.559474 : [1;32;40mINFO - 2023-12-05 11:58:53,559 - SemaSCDG - Binary position-independent ?  False[0m
+                             
+2023-12-05 11:58:53.559523 : [1;32;40mINFO - 2023-12-05 11:58:53,559 - SemaSCDG - Exploration method:  CDFS[0m
+                             
+2023-12-05 11:58:53.690278 : [1;32;40mINFO - 2023-12-05 11:58:53,690 - SemaSCDG - Entry_state address = None[0m
+                             
+2023-12-05 11:59:11.070410 : [1;32;40mINFO - 2023-12-05 11:59:11,070 - SemaSCDG - [0m
+                             
+2023-12-05 11:59:11.070504 : [1;32;40mINFO - 2023-12-05 11:59:11,070 - SemaSCDG - {'vaddr': 0, 'memsize': 0, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.070566 : [1;32;40mINFO - 2023-12-05 11:59:11,070 - SemaSCDG - .note.gnu.build-id[0m
+                             
+2023-12-05 11:59:11.070609 : [1;32;40mINFO - 2023-12-05 11:59:11,070 - SemaSCDG - {'vaddr': 134512948, 'memsize': 36, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.070653 : [1;32;40mINFO - 2023-12-05 11:59:11,070 - SemaSCDG - .note.ABI-tag[0m
+                             
+2023-12-05 11:59:11.070693 : [1;32;40mINFO - 2023-12-05 11:59:11,070 - SemaSCDG - {'vaddr': 134512984, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.070735 : [1;32;40mINFO - 2023-12-05 11:59:11,070 - SemaSCDG - .rel.plt[0m
+                             
+2023-12-05 11:59:11.070775 : [1;32;40mINFO - 2023-12-05 11:59:11,070 - SemaSCDG - {'vaddr': 134513016, 'memsize': 120, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.070827 : [1;32;40mINFO - 2023-12-05 11:59:11,070 - SemaSCDG - .init[0m
+                             
+2023-12-05 11:59:11.070867 : [1;32;40mINFO - 2023-12-05 11:59:11,070 - SemaSCDG - {'vaddr': 134516736, 'memsize': 55, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 11:59:11.070910 : [1;32;40mINFO - 2023-12-05 11:59:11,070 - SemaSCDG - .plt[0m
+                             
+2023-12-05 11:59:11.070948 : [1;32;40mINFO - 2023-12-05 11:59:11,070 - SemaSCDG - {'vaddr': 134516792, 'memsize': 120, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 11:59:11.070990 : [1;32;40mINFO - 2023-12-05 11:59:11,070 - SemaSCDG - .text[0m
+                             
+2023-12-05 11:59:11.071030 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - {'vaddr': 134516928, 'memsize': 465537, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 11:59:11.071073 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - __libc_freeres_fn[0m
+                             
+2023-12-05 11:59:11.071113 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - {'vaddr': 134982480, 'memsize': 2959, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 11:59:11.071156 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - .fini[0m
+                             
+2023-12-05 11:59:11.071200 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - {'vaddr': 134985440, 'memsize': 24, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 11:59:11.071243 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - .rodata[0m
+                             
+2023-12-05 11:59:11.071284 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - {'vaddr': 134987776, 'memsize': 112228, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.071329 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - .eh_frame[0m
+                             
+2023-12-05 11:59:11.071369 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - {'vaddr': 135100004, 'memsize': 79916, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.071410 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - .gcc_except_table[0m
+                             
+2023-12-05 11:59:11.071467 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - {'vaddr': 135179920, 'memsize': 233, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.071513 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - .tdata[0m
+                             
+2023-12-05 11:59:11.071556 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - {'vaddr': 135186080, 'memsize': 16, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.071600 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - .tbss[0m
+                             
+2023-12-05 11:59:11.071642 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - {'vaddr': 135186096, 'memsize': 32, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.071686 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - .init_array[0m
+                             
+2023-12-05 11:59:11.071731 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - {'vaddr': 135186096, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.071775 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - .fini_array[0m
+                             
+2023-12-05 11:59:11.071816 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - {'vaddr': 135186104, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.071861 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - .data.rel.ro[0m
+                             
+2023-12-05 11:59:11.071902 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - {'vaddr': 135186112, 'memsize': 6420, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.071947 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - .got[0m
+                             
+2023-12-05 11:59:11.071988 : [1;32;40mINFO - 2023-12-05 11:59:11,071 - SemaSCDG - {'vaddr': 135192532, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.072032 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - .got.plt[0m
+                             
+2023-12-05 11:59:11.072074 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - {'vaddr': 135192576, 'memsize': 72, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.072119 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - .data[0m
+                             
+2023-12-05 11:59:11.072161 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - {'vaddr': 135192672, 'memsize': 3936, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.072205 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - __libc_subfreeres[0m
+                             
+2023-12-05 11:59:11.072247 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - {'vaddr': 135196608, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.072292 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - __libc_IO_vtables[0m
+                             
+2023-12-05 11:59:11.072338 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - {'vaddr': 135196672, 'memsize': 852, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.072383 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - __libc_atexit[0m
+                             
+2023-12-05 11:59:11.072426 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - {'vaddr': 135197524, 'memsize': 4, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.072470 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - .bss[0m
+                             
+2023-12-05 11:59:11.072513 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - {'vaddr': 135197536, 'memsize': 3484, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.072558 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - __libc_freeres_ptrs[0m
+                             
+2023-12-05 11:59:11.072600 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - {'vaddr': 135201020, 'memsize': 20, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.072644 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - .comment[0m
+                             
+2023-12-05 11:59:11.072685 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - {'vaddr': 0, 'memsize': 43, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.072729 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - .debug_aranges[0m
+                             
+2023-12-05 11:59:11.072769 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - {'vaddr': 0, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.072812 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - .debug_info[0m
+                             
+2023-12-05 11:59:11.072854 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - {'vaddr': 0, 'memsize': 3457, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.072897 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - .debug_abbrev[0m
+                             
+2023-12-05 11:59:11.072938 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - {'vaddr': 0, 'memsize': 595, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.072982 : [1;32;40mINFO - 2023-12-05 11:59:11,072 - SemaSCDG - .debug_line[0m
+                             
+2023-12-05 11:59:11.073023 : [1;32;40mINFO - 2023-12-05 11:59:11,073 - SemaSCDG - {'vaddr': 0, 'memsize': 2386, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.073066 : [1;32;40mINFO - 2023-12-05 11:59:11,073 - SemaSCDG - .debug_str[0m
+                             
+2023-12-05 11:59:11.073107 : [1;32;40mINFO - 2023-12-05 11:59:11,073 - SemaSCDG - {'vaddr': 0, 'memsize': 2367, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.073150 : [1;32;40mINFO - 2023-12-05 11:59:11,073 - SemaSCDG - .symtab[0m
+                             
+2023-12-05 11:59:11.073191 : [1;32;40mINFO - 2023-12-05 11:59:11,073 - SemaSCDG - {'vaddr': 0, 'memsize': 36928, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.073235 : [1;32;40mINFO - 2023-12-05 11:59:11,073 - SemaSCDG - .strtab[0m
+                             
+2023-12-05 11:59:11.073276 : [1;32;40mINFO - 2023-12-05 11:59:11,073 - SemaSCDG - {'vaddr': 0, 'memsize': 29319, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.073318 : [1;32;40mINFO - 2023-12-05 11:59:11,073 - SemaSCDG - .shstrtab[0m
+                             
+2023-12-05 11:59:11.073358 : [1;32;40mINFO - 2023-12-05 11:59:11,073 - SemaSCDG - {'vaddr': 0, 'memsize': 359, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 11:59:11.075030 : [1;32;40mINFO - 2023-12-05 11:59:11,074 - SemaSCDG - [][0m
+                             
+2023-12-05 11:59:11.075247 : [1;32;40mINFO - 2023-12-05 11:59:11,075 - SemaSCDG - <ExternObject Object cle##externs, maps [0x8100000:0x8107fff]>[0m
+                             
+2023-12-05 11:59:11.075308 : [1;32;40mINFO - 2023-12-05 11:59:11,075 - SemaSCDG - <generator object Loader.symbols at 0x7fef03482dd0>[0m
+                             
+2023-12-05 11:59:11.075433 : [1;32;40mINFO - 2023-12-05 11:59:11,075 - SemaSCDG - 
+                             ------------------------------
+                             Start -State of simulation manager :
+                              <SimulationManager with 1 active>
+                             ------------------------------[0m
+                             
+2023-12-05 12:04:12.854159 : [1;32;40mINFO - 2023-12-05 12:04:12,854 - SemaSCDG - 
+                             ------------------------------
+                             End - State of simulation manager :
+                              <SimulationManager with 5 active, 2 deadended>
+                             ------------------------------[0m
+                             
+2023-12-05 12:04:12.854235 : [1;32;40mINFO - 2023-12-05 12:04:12,854 - SemaSCDG - Total number of blocks: 24422[0m
+                             
+2023-12-05 12:04:12.854280 : [1;32;40mINFO - 2023-12-05 12:04:12,854 - SemaSCDG - Total number of instr: 133370[0m
+                             
+2023-12-05 12:04:12.854321 : [1;32;40mINFO - 2023-12-05 12:04:12,854 - SemaSCDG - Number of blocks visited: 166[0m
+                             
+2023-12-05 12:04:12.854363 : [1;32;40mINFO - 2023-12-05 12:04:12,854 - SemaSCDG - Number of instr visited: 913[0m
+                             
+2023-12-05 12:04:12.854414 : [1;32;40mINFO - 2023-12-05 12:04:12,854 - SemaSCDG - Syscalls Found:{'malloc': 18, '__libc_start_main': 2, 'strlen': 16, 'getenv': 1, '_vsyscall': 1, 'ptrace': 1, 'puts': 11, 'exit': 2, 'printf': 1, 'fgets': 1, 'sleep': 6}[0m
+                             
+2023-12-05 12:04:12.854461 : [1;32;40mINFO - 2023-12-05 12:04:12,854 - SemaSCDG - Loaded libraries:set()[0m
+                             
+2023-12-05 12:04:12.854568 : [1;32;40mINFO - 2023-12-05 12:04:12,854 - SemaSCDG - Environment variables:{}[0m
+                             
+2023-12-05 12:04:12.854618 : [1;32;40mINFO - 2023-12-05 12:04:12,854 - SemaSCDG - Registery variables:{}[0m
+                             
+2023-12-05 12:04:12.854665 : [1;32;40mINFO - 2023-12-05 12:04:12,854 - SemaSCDG - Locale informations variables:{}[0m
+                             
+2023-12-05 12:04:12.854712 : [1;32;40mINFO - 2023-12-05 12:04:12,854 - SemaSCDG - Resources variables:{}[0m
+                             
+2023-12-05 12:04:12.854765 : [1;32;40mINFO - 2023-12-05 12:04:12,854 - SemaSCDG - Total execution time: 332.9385070800781[0m
+                             
+2023-12-05 12:04:12.856777 : [1;32;40mINFO - 2023-12-05 12:04:12,856 - SemaSCDG - [0m
+                             
+2023-12-05 12:04:12.856835 : [1;32;40mINFO - 2023-12-05 12:04:12,856 - SemaSCDG - {'vaddr': 0, 'memsize': 0, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.856885 : [1;32;40mINFO - 2023-12-05 12:04:12,856 - SemaSCDG - .note.gnu.build-id[0m
+                             
+2023-12-05 12:04:12.856930 : [1;32;40mINFO - 2023-12-05 12:04:12,856 - SemaSCDG - {'vaddr': 134512948, 'memsize': 36, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.856975 : [1;32;40mINFO - 2023-12-05 12:04:12,856 - SemaSCDG - .note.ABI-tag[0m
+                             
+2023-12-05 12:04:12.857018 : [1;32;40mINFO - 2023-12-05 12:04:12,856 - SemaSCDG - {'vaddr': 134512984, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.857062 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - .rel.plt[0m
+                             
+2023-12-05 12:04:12.857105 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - {'vaddr': 134513016, 'memsize': 120, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.857150 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - .init[0m
+                             
+2023-12-05 12:04:12.857192 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - {'vaddr': 134516736, 'memsize': 55, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:04:12.857243 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - .plt[0m
+                             
+2023-12-05 12:04:12.857285 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - {'vaddr': 134516792, 'memsize': 120, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:04:12.857330 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - .text[0m
+                             
+2023-12-05 12:04:12.857373 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - {'vaddr': 134516928, 'memsize': 465537, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:04:12.857418 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - __libc_freeres_fn[0m
+                             
+2023-12-05 12:04:12.857460 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - {'vaddr': 134982480, 'memsize': 2959, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:04:12.857506 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - .fini[0m
+                             
+2023-12-05 12:04:12.857550 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - {'vaddr': 134985440, 'memsize': 24, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:04:12.857595 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - .rodata[0m
+                             
+2023-12-05 12:04:12.857638 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - {'vaddr': 134987776, 'memsize': 112228, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.857686 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - .eh_frame[0m
+                             
+2023-12-05 12:04:12.857730 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - {'vaddr': 135100004, 'memsize': 79916, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.857774 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - .gcc_except_table[0m
+                             
+2023-12-05 12:04:12.857818 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - {'vaddr': 135179920, 'memsize': 233, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.857864 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - .tdata[0m
+                             
+2023-12-05 12:04:12.857906 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - {'vaddr': 135186080, 'memsize': 16, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.857952 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - .tbss[0m
+                             
+2023-12-05 12:04:12.857995 : [1;32;40mINFO - 2023-12-05 12:04:12,857 - SemaSCDG - {'vaddr': 135186096, 'memsize': 32, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.858040 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - .init_array[0m
+                             
+2023-12-05 12:04:12.858082 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - {'vaddr': 135186096, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.858128 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - .fini_array[0m
+                             
+2023-12-05 12:04:12.858170 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - {'vaddr': 135186104, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.858215 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - .data.rel.ro[0m
+                             
+2023-12-05 12:04:12.858259 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - {'vaddr': 135186112, 'memsize': 6420, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.858305 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - .got[0m
+                             
+2023-12-05 12:04:12.858348 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - {'vaddr': 135192532, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.858394 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - .got.plt[0m
+                             
+2023-12-05 12:04:12.858437 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - {'vaddr': 135192576, 'memsize': 72, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.858482 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - .data[0m
+                             
+2023-12-05 12:04:12.858524 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - {'vaddr': 135192672, 'memsize': 3936, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.858569 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - __libc_subfreeres[0m
+                             
+2023-12-05 12:04:12.858610 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - {'vaddr': 135196608, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.858655 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - __libc_IO_vtables[0m
+                             
+2023-12-05 12:04:12.858698 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - {'vaddr': 135196672, 'memsize': 852, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.858743 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - __libc_atexit[0m
+                             
+2023-12-05 12:04:12.858784 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - {'vaddr': 135197524, 'memsize': 4, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.858831 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - .bss[0m
+                             
+2023-12-05 12:04:12.858872 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - {'vaddr': 135197536, 'memsize': 3484, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.858916 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - __libc_freeres_ptrs[0m
+                             
+2023-12-05 12:04:12.858958 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - {'vaddr': 135201020, 'memsize': 20, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.859002 : [1;32;40mINFO - 2023-12-05 12:04:12,858 - SemaSCDG - .comment[0m
+                             
+2023-12-05 12:04:12.859044 : [1;32;40mINFO - 2023-12-05 12:04:12,859 - SemaSCDG - {'vaddr': 0, 'memsize': 43, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.859088 : [1;32;40mINFO - 2023-12-05 12:04:12,859 - SemaSCDG - .debug_aranges[0m
+                             
+2023-12-05 12:04:12.859130 : [1;32;40mINFO - 2023-12-05 12:04:12,859 - SemaSCDG - {'vaddr': 0, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.859175 : [1;32;40mINFO - 2023-12-05 12:04:12,859 - SemaSCDG - .debug_info[0m
+                             
+2023-12-05 12:04:12.859217 : [1;32;40mINFO - 2023-12-05 12:04:12,859 - SemaSCDG - {'vaddr': 0, 'memsize': 3457, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.859267 : [1;32;40mINFO - 2023-12-05 12:04:12,859 - SemaSCDG - .debug_abbrev[0m
+                             
+2023-12-05 12:04:12.859310 : [1;32;40mINFO - 2023-12-05 12:04:12,859 - SemaSCDG - {'vaddr': 0, 'memsize': 595, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.859354 : [1;32;40mINFO - 2023-12-05 12:04:12,859 - SemaSCDG - .debug_line[0m
+                             
+2023-12-05 12:04:12.859396 : [1;32;40mINFO - 2023-12-05 12:04:12,859 - SemaSCDG - {'vaddr': 0, 'memsize': 2386, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.859455 : [1;32;40mINFO - 2023-12-05 12:04:12,859 - SemaSCDG - .debug_str[0m
+                             
+2023-12-05 12:04:12.859499 : [1;32;40mINFO - 2023-12-05 12:04:12,859 - SemaSCDG - {'vaddr': 0, 'memsize': 2367, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.859543 : [1;32;40mINFO - 2023-12-05 12:04:12,859 - SemaSCDG - .symtab[0m
+                             
+2023-12-05 12:04:12.859585 : [1;32;40mINFO - 2023-12-05 12:04:12,859 - SemaSCDG - {'vaddr': 0, 'memsize': 36928, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.859629 : [1;32;40mINFO - 2023-12-05 12:04:12,859 - SemaSCDG - .strtab[0m
+                             
+2023-12-05 12:04:12.859672 : [1;32;40mINFO - 2023-12-05 12:04:12,859 - SemaSCDG - {'vaddr': 0, 'memsize': 29319, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.859716 : [1;32;40mINFO - 2023-12-05 12:04:12,859 - SemaSCDG - .shstrtab[0m
+                             
+2023-12-05 12:04:12.859758 : [1;32;40mINFO - 2023-12-05 12:04:12,859 - SemaSCDG - {'vaddr': 0, 'memsize': 359, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:12.859803 : [1;32;40mINFO - 2023-12-05 12:04:12,859 - SemaSCDG - /app/src/output/runs/267/unknown//crypto/inter_SCDG.json[0m
+                             
+2023-12-05 12:04:16.088109 : [1;32;40mINFO - 2023-12-05 12:04:16,085 - SemaSCDG - /app/src/SemaSCDG/tests/compiled_binaries/linux/crypto[0m
+                             
+2023-12-05 12:04:16.088918 : [1;32;40mINFO - 2023-12-05 12:04:16,088 - SemaSCDG - You decide to analyse a single binary: /app/src/SemaSCDG/tests/compiled_binaries/linux/crypto[0m
+                             
+2023-12-05 12:04:16.090527 : [1;32;40mINFO - 2023-12-05 12:04:16,088 - SemaSCDG - Namespace(BFS=False, CBFS=False, CDFS=False, CSTOCH1=False, CSTOCH2=False, CSTOCH3=False, DBFS=False, DFS=False, SCDFS=False, SDFS=False, STOCH=False, ThreadCDFS=False, WSELECT1=False, WSELECT2=False, WSELECT3=False, approximate=False, binaries='/app/src/output/runs/268/unknown/', binary='/app/src/SemaSCDG/tests/compiled_binaries/', conc_loop=10240, concrete_target_is_local=False, count_block=True, debug_error=False, dir='/app/src/output/runs/268/', discard_SCDG=True, disjoint_union=False, eval_time=False, exp_dir='/app/src/output/runs/268/unknown/', familly=None, gs=False, hooks=False, ioc_report=True, json=True, limit_pause=200, max_deadend=600, max_step=50000, memory_limit=False, min_size=3, n_args=0, not_comp_args=False, not_ignore_zero=False, not_resolv_string=False, packed=False, post_run_thread=False, pre_run_thread=False, runtime_run_thread=False, sim_file=False, simul_state=5, sthread=1, symb_loop=3, symbion=False, three_edges=False, timeout=1000, track_command=True, unipacker=False, verbose_scdg=False)[0m
+                             
+2023-12-05 12:04:16.093649 : [1;32;40mINFO - 2023-12-05 12:04:16,093 - SemaSCDG - None[0m
+                             
+2023-12-05 12:04:16.093818 : [1;32;40mINFO - 2023-12-05 12:04:16,093 - SemaSCDG - /app/src/output/runs/268/unknown//crypto/[0m
+                             
+2023-12-05 12:04:16.093873 : [1;32;40mINFO - 2023-12-05 12:04:16,093 - SemaSCDG - 
+                             ---------------------------------------
+                             --- Building SCDG of unknown/crypto ---
+                             ---------------------------------------[0m
+                             
+2023-12-05 12:04:29.800117 : [1;32;40mINFO - 2023-12-05 12:04:29,799 - SemaSCDG - Libraries used are :
+                             set()[0m
+                             
+2023-12-05 12:04:29.800253 : [1;32;40mINFO - 2023-12-05 12:04:29,800 - SemaSCDG - OS recognized as : UNIX - Linux[0m
+                             
+2023-12-05 12:04:29.800314 : [1;32;40mINFO - 2023-12-05 12:04:29,800 - SemaSCDG - CPU architecture recognized as : <Arch X86 (LE)>[0m
+                             
+2023-12-05 12:04:29.800357 : [1;32;40mINFO - 2023-12-05 12:04:29,800 - SemaSCDG - Entry point of the binary recognized as : 0x8049c30[0m
+                             
+2023-12-05 12:04:29.800426 : [1;32;40mINFO - 2023-12-05 12:04:29,800 - SemaSCDG - Min/Max addresses of the binary recognized as : <Loaded crypto, maps [0x8048000:0x8307fff]>[0m
+                             
+2023-12-05 12:04:29.800470 : [1;32;40mINFO - 2023-12-05 12:04:29,800 - SemaSCDG - Stack executable ?  False[0m
+                             
+2023-12-05 12:04:29.800510 : [1;32;40mINFO - 2023-12-05 12:04:29,800 - SemaSCDG - Binary position-independent ?  False[0m
+                             
+2023-12-05 12:04:29.800550 : [1;32;40mINFO - 2023-12-05 12:04:29,800 - SemaSCDG - Exploration method:  CBFS[0m
+                             
+2023-12-05 12:04:29.952649 : [1;32;40mINFO - 2023-12-05 12:04:29,952 - SemaSCDG - Entry_state address = None[0m
+                             
+2023-12-05 12:04:47.362696 : [1;32;40mINFO - 2023-12-05 12:04:47,362 - SemaSCDG - [0m
+                             
+2023-12-05 12:04:47.362819 : [1;32;40mINFO - 2023-12-05 12:04:47,362 - SemaSCDG - {'vaddr': 0, 'memsize': 0, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.362880 : [1;32;40mINFO - 2023-12-05 12:04:47,362 - SemaSCDG - .note.gnu.build-id[0m
+                             
+2023-12-05 12:04:47.362928 : [1;32;40mINFO - 2023-12-05 12:04:47,362 - SemaSCDG - {'vaddr': 134512948, 'memsize': 36, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.362973 : [1;32;40mINFO - 2023-12-05 12:04:47,362 - SemaSCDG - .note.ABI-tag[0m
+                             
+2023-12-05 12:04:47.363018 : [1;32;40mINFO - 2023-12-05 12:04:47,362 - SemaSCDG - {'vaddr': 134512984, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.363068 : [1;32;40mINFO - 2023-12-05 12:04:47,363 - SemaSCDG - .rel.plt[0m
+                             
+2023-12-05 12:04:47.363112 : [1;32;40mINFO - 2023-12-05 12:04:47,363 - SemaSCDG - {'vaddr': 134513016, 'memsize': 120, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.363198 : [1;32;40mINFO - 2023-12-05 12:04:47,363 - SemaSCDG - .init[0m
+                             
+2023-12-05 12:04:47.363243 : [1;32;40mINFO - 2023-12-05 12:04:47,363 - SemaSCDG - {'vaddr': 134516736, 'memsize': 55, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:04:47.363294 : [1;32;40mINFO - 2023-12-05 12:04:47,363 - SemaSCDG - .plt[0m
+                             
+2023-12-05 12:04:47.363339 : [1;32;40mINFO - 2023-12-05 12:04:47,363 - SemaSCDG - {'vaddr': 134516792, 'memsize': 120, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:04:47.363388 : [1;32;40mINFO - 2023-12-05 12:04:47,363 - SemaSCDG - .text[0m
+                             
+2023-12-05 12:04:47.363457 : [1;32;40mINFO - 2023-12-05 12:04:47,363 - SemaSCDG - {'vaddr': 134516928, 'memsize': 465537, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:04:47.363518 : [1;32;40mINFO - 2023-12-05 12:04:47,363 - SemaSCDG - __libc_freeres_fn[0m
+                             
+2023-12-05 12:04:47.363563 : [1;32;40mINFO - 2023-12-05 12:04:47,363 - SemaSCDG - {'vaddr': 134982480, 'memsize': 2959, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:04:47.363630 : [1;32;40mINFO - 2023-12-05 12:04:47,363 - SemaSCDG - .fini[0m
+                             
+2023-12-05 12:04:47.363674 : [1;32;40mINFO - 2023-12-05 12:04:47,363 - SemaSCDG - {'vaddr': 134985440, 'memsize': 24, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:04:47.363721 : [1;32;40mINFO - 2023-12-05 12:04:47,363 - SemaSCDG - .rodata[0m
+                             
+2023-12-05 12:04:47.363765 : [1;32;40mINFO - 2023-12-05 12:04:47,363 - SemaSCDG - {'vaddr': 134987776, 'memsize': 112228, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.363813 : [1;32;40mINFO - 2023-12-05 12:04:47,363 - SemaSCDG - .eh_frame[0m
+                             
+2023-12-05 12:04:47.363856 : [1;32;40mINFO - 2023-12-05 12:04:47,363 - SemaSCDG - {'vaddr': 135100004, 'memsize': 79916, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.363908 : [1;32;40mINFO - 2023-12-05 12:04:47,363 - SemaSCDG - .gcc_except_table[0m
+                             
+2023-12-05 12:04:47.363973 : [1;32;40mINFO - 2023-12-05 12:04:47,363 - SemaSCDG - {'vaddr': 135179920, 'memsize': 233, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.364037 : [1;32;40mINFO - 2023-12-05 12:04:47,364 - SemaSCDG - .tdata[0m
+                             
+2023-12-05 12:04:47.364092 : [1;32;40mINFO - 2023-12-05 12:04:47,364 - SemaSCDG - {'vaddr': 135186080, 'memsize': 16, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.364154 : [1;32;40mINFO - 2023-12-05 12:04:47,364 - SemaSCDG - .tbss[0m
+                             
+2023-12-05 12:04:47.364214 : [1;32;40mINFO - 2023-12-05 12:04:47,364 - SemaSCDG - {'vaddr': 135186096, 'memsize': 32, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.364283 : [1;32;40mINFO - 2023-12-05 12:04:47,364 - SemaSCDG - .init_array[0m
+                             
+2023-12-05 12:04:47.364342 : [1;32;40mINFO - 2023-12-05 12:04:47,364 - SemaSCDG - {'vaddr': 135186096, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.364405 : [1;32;40mINFO - 2023-12-05 12:04:47,364 - SemaSCDG - .fini_array[0m
+                             
+2023-12-05 12:04:47.364461 : [1;32;40mINFO - 2023-12-05 12:04:47,364 - SemaSCDG - {'vaddr': 135186104, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.364523 : [1;32;40mINFO - 2023-12-05 12:04:47,364 - SemaSCDG - .data.rel.ro[0m
+                             
+2023-12-05 12:04:47.364576 : [1;32;40mINFO - 2023-12-05 12:04:47,364 - SemaSCDG - {'vaddr': 135186112, 'memsize': 6420, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.364634 : [1;32;40mINFO - 2023-12-05 12:04:47,364 - SemaSCDG - .got[0m
+                             
+2023-12-05 12:04:47.364692 : [1;32;40mINFO - 2023-12-05 12:04:47,364 - SemaSCDG - {'vaddr': 135192532, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.364760 : [1;32;40mINFO - 2023-12-05 12:04:47,364 - SemaSCDG - .got.plt[0m
+                             
+2023-12-05 12:04:47.364818 : [1;32;40mINFO - 2023-12-05 12:04:47,364 - SemaSCDG - {'vaddr': 135192576, 'memsize': 72, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.364886 : [1;32;40mINFO - 2023-12-05 12:04:47,364 - SemaSCDG - .data[0m
+                             
+2023-12-05 12:04:47.364942 : [1;32;40mINFO - 2023-12-05 12:04:47,364 - SemaSCDG - {'vaddr': 135192672, 'memsize': 3936, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.365007 : [1;32;40mINFO - 2023-12-05 12:04:47,364 - SemaSCDG - __libc_subfreeres[0m
+                             
+2023-12-05 12:04:47.365063 : [1;32;40mINFO - 2023-12-05 12:04:47,365 - SemaSCDG - {'vaddr': 135196608, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.365128 : [1;32;40mINFO - 2023-12-05 12:04:47,365 - SemaSCDG - __libc_IO_vtables[0m
+                             
+2023-12-05 12:04:47.365198 : [1;32;40mINFO - 2023-12-05 12:04:47,365 - SemaSCDG - {'vaddr': 135196672, 'memsize': 852, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.365258 : [1;32;40mINFO - 2023-12-05 12:04:47,365 - SemaSCDG - __libc_atexit[0m
+                             
+2023-12-05 12:04:47.365315 : [1;32;40mINFO - 2023-12-05 12:04:47,365 - SemaSCDG - {'vaddr': 135197524, 'memsize': 4, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.365375 : [1;32;40mINFO - 2023-12-05 12:04:47,365 - SemaSCDG - .bss[0m
+                             
+2023-12-05 12:04:47.365432 : [1;32;40mINFO - 2023-12-05 12:04:47,365 - SemaSCDG - {'vaddr': 135197536, 'memsize': 3484, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.365488 : [1;32;40mINFO - 2023-12-05 12:04:47,365 - SemaSCDG - __libc_freeres_ptrs[0m
+                             
+2023-12-05 12:04:47.365541 : [1;32;40mINFO - 2023-12-05 12:04:47,365 - SemaSCDG - {'vaddr': 135201020, 'memsize': 20, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.365598 : [1;32;40mINFO - 2023-12-05 12:04:47,365 - SemaSCDG - .comment[0m
+                             
+2023-12-05 12:04:47.365650 : [1;32;40mINFO - 2023-12-05 12:04:47,365 - SemaSCDG - {'vaddr': 0, 'memsize': 43, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.365704 : [1;32;40mINFO - 2023-12-05 12:04:47,365 - SemaSCDG - .debug_aranges[0m
+                             
+2023-12-05 12:04:47.365757 : [1;32;40mINFO - 2023-12-05 12:04:47,365 - SemaSCDG - {'vaddr': 0, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.366007 : [1;32;40mINFO - 2023-12-05 12:04:47,365 - SemaSCDG - .debug_info[0m
+                             
+2023-12-05 12:04:47.366100 : [1;32;40mINFO - 2023-12-05 12:04:47,366 - SemaSCDG - {'vaddr': 0, 'memsize': 3457, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.366163 : [1;32;40mINFO - 2023-12-05 12:04:47,366 - SemaSCDG - .debug_abbrev[0m
+                             
+2023-12-05 12:04:47.366224 : [1;32;40mINFO - 2023-12-05 12:04:47,366 - SemaSCDG - {'vaddr': 0, 'memsize': 595, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.366286 : [1;32;40mINFO - 2023-12-05 12:04:47,366 - SemaSCDG - .debug_line[0m
+                             
+2023-12-05 12:04:47.366341 : [1;32;40mINFO - 2023-12-05 12:04:47,366 - SemaSCDG - {'vaddr': 0, 'memsize': 2386, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.366400 : [1;32;40mINFO - 2023-12-05 12:04:47,366 - SemaSCDG - .debug_str[0m
+                             
+2023-12-05 12:04:47.366464 : [1;32;40mINFO - 2023-12-05 12:04:47,366 - SemaSCDG - {'vaddr': 0, 'memsize': 2367, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.366522 : [1;32;40mINFO - 2023-12-05 12:04:47,366 - SemaSCDG - .symtab[0m
+                             
+2023-12-05 12:04:47.366578 : [1;32;40mINFO - 2023-12-05 12:04:47,366 - SemaSCDG - {'vaddr': 0, 'memsize': 36928, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.366643 : [1;32;40mINFO - 2023-12-05 12:04:47,366 - SemaSCDG - .strtab[0m
+                             
+2023-12-05 12:04:47.366704 : [1;32;40mINFO - 2023-12-05 12:04:47,366 - SemaSCDG - {'vaddr': 0, 'memsize': 29319, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.366768 : [1;32;40mINFO - 2023-12-05 12:04:47,366 - SemaSCDG - .shstrtab[0m
+                             
+2023-12-05 12:04:47.366828 : [1;32;40mINFO - 2023-12-05 12:04:47,366 - SemaSCDG - {'vaddr': 0, 'memsize': 359, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:04:47.369285 : [1;32;40mINFO - 2023-12-05 12:04:47,369 - SemaSCDG - [][0m
+                             
+2023-12-05 12:04:47.369416 : [1;32;40mINFO - 2023-12-05 12:04:47,369 - SemaSCDG - <ExternObject Object cle##externs, maps [0x8100000:0x8107fff]>[0m
+                             
+2023-12-05 12:04:47.369498 : [1;32;40mINFO - 2023-12-05 12:04:47,369 - SemaSCDG - <generator object Loader.symbols at 0x7fef0df27f90>[0m
+                             
+2023-12-05 12:04:47.369615 : [1;32;40mINFO - 2023-12-05 12:04:47,369 - SemaSCDG - 
+                             ------------------------------
+                             Start -State of simulation manager :
+                              <SimulationManager with 1 active>
+                             ------------------------------[0m
+                             
+2023-12-05 12:05:37.602816 : [1;32;40mINFO - 2023-12-05 12:05:37,602 - SemaSCDG - 
+                             ------------------------------
+                             End - State of simulation manager :
+                              <SimulationManager with 1 active, 2 deadended>
+                             ------------------------------[0m
+                             
+2023-12-05 12:05:37.602901 : [1;32;40mINFO - 2023-12-05 12:05:37,602 - SemaSCDG - Total number of blocks: 24422[0m
+                             
+2023-12-05 12:05:37.602949 : [1;32;40mINFO - 2023-12-05 12:05:37,602 - SemaSCDG - Total number of instr: 133370[0m
+                             
+2023-12-05 12:05:37.602994 : [1;32;40mINFO - 2023-12-05 12:05:37,602 - SemaSCDG - Number of blocks visited: 100[0m
+                             
+2023-12-05 12:05:37.603038 : [1;32;40mINFO - 2023-12-05 12:05:37,603 - SemaSCDG - Number of instr visited: 522[0m
+                             
+2023-12-05 12:05:37.603090 : [1;32;40mINFO - 2023-12-05 12:05:37,603 - SemaSCDG - Syscalls Found:{'malloc': 8, '__libc_start_main': 2, 'strlen': 6, 'getenv': 1, '_vsyscall': 1, 'ptrace': 1, 'puts': 2, 'exit': 2}[0m
+                             
+2023-12-05 12:05:37.603138 : [1;32;40mINFO - 2023-12-05 12:05:37,603 - SemaSCDG - Loaded libraries:set()[0m
+                             
+2023-12-05 12:05:37.603222 : [1;32;40mINFO - 2023-12-05 12:05:37,603 - SemaSCDG - Environment variables:{}[0m
+                             
+2023-12-05 12:05:37.603268 : [1;32;40mINFO - 2023-12-05 12:05:37,603 - SemaSCDG - Registery variables:{}[0m
+                             
+2023-12-05 12:05:37.603312 : [1;32;40mINFO - 2023-12-05 12:05:37,603 - SemaSCDG - Locale informations variables:{}[0m
+                             
+2023-12-05 12:05:37.603355 : [1;32;40mINFO - 2023-12-05 12:05:37,603 - SemaSCDG - Resources variables:{}[0m
+                             
+2023-12-05 12:05:37.603406 : [1;32;40mINFO - 2023-12-05 12:05:37,603 - SemaSCDG - Total execution time: 81.51442265510559[0m
+                             
+2023-12-05 12:05:37.603906 : [1;32;40mINFO - 2023-12-05 12:05:37,603 - SemaSCDG - [0m
+                             
+2023-12-05 12:05:37.603966 : [1;32;40mINFO - 2023-12-05 12:05:37,603 - SemaSCDG - {'vaddr': 0, 'memsize': 0, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.604016 : [1;32;40mINFO - 2023-12-05 12:05:37,603 - SemaSCDG - .note.gnu.build-id[0m
+                             
+2023-12-05 12:05:37.604062 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - {'vaddr': 134512948, 'memsize': 36, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.604110 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - .note.ABI-tag[0m
+                             
+2023-12-05 12:05:37.604154 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - {'vaddr': 134512984, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.604200 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - .rel.plt[0m
+                             
+2023-12-05 12:05:37.604242 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - {'vaddr': 134513016, 'memsize': 120, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.604287 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - .init[0m
+                             
+2023-12-05 12:05:37.604330 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - {'vaddr': 134516736, 'memsize': 55, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:05:37.604378 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - .plt[0m
+                             
+2023-12-05 12:05:37.604432 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - {'vaddr': 134516792, 'memsize': 120, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:05:37.604480 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - .text[0m
+                             
+2023-12-05 12:05:37.604523 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - {'vaddr': 134516928, 'memsize': 465537, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:05:37.604569 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - __libc_freeres_fn[0m
+                             
+2023-12-05 12:05:37.604617 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - {'vaddr': 134982480, 'memsize': 2959, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:05:37.604663 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - .fini[0m
+                             
+2023-12-05 12:05:37.604711 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - {'vaddr': 134985440, 'memsize': 24, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:05:37.604757 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - .rodata[0m
+                             
+2023-12-05 12:05:37.604799 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - {'vaddr': 134987776, 'memsize': 112228, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.604846 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - .eh_frame[0m
+                             
+2023-12-05 12:05:37.604889 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - {'vaddr': 135100004, 'memsize': 79916, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.604934 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - .gcc_except_table[0m
+                             
+2023-12-05 12:05:37.604977 : [1;32;40mINFO - 2023-12-05 12:05:37,604 - SemaSCDG - {'vaddr': 135179920, 'memsize': 233, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.605023 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - .tdata[0m
+                             
+2023-12-05 12:05:37.605066 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - {'vaddr': 135186080, 'memsize': 16, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.605111 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - .tbss[0m
+                             
+2023-12-05 12:05:37.605154 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - {'vaddr': 135186096, 'memsize': 32, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.605210 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - .init_array[0m
+                             
+2023-12-05 12:05:37.605256 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - {'vaddr': 135186096, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.605302 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - .fini_array[0m
+                             
+2023-12-05 12:05:37.605344 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - {'vaddr': 135186104, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.605398 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - .data.rel.ro[0m
+                             
+2023-12-05 12:05:37.605439 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - {'vaddr': 135186112, 'memsize': 6420, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.605483 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - .got[0m
+                             
+2023-12-05 12:05:37.605525 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - {'vaddr': 135192532, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.605570 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - .got.plt[0m
+                             
+2023-12-05 12:05:37.605613 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - {'vaddr': 135192576, 'memsize': 72, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.605658 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - .data[0m
+                             
+2023-12-05 12:05:37.605702 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - {'vaddr': 135192672, 'memsize': 3936, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.605747 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - __libc_subfreeres[0m
+                             
+2023-12-05 12:05:37.605790 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - {'vaddr': 135196608, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.605838 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - __libc_IO_vtables[0m
+                             
+2023-12-05 12:05:37.605879 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - {'vaddr': 135196672, 'memsize': 852, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.605922 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - __libc_atexit[0m
+                             
+2023-12-05 12:05:37.605963 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - {'vaddr': 135197524, 'memsize': 4, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.606007 : [1;32;40mINFO - 2023-12-05 12:05:37,605 - SemaSCDG - .bss[0m
+                             
+2023-12-05 12:05:37.606049 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - {'vaddr': 135197536, 'memsize': 3484, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.606093 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - __libc_freeres_ptrs[0m
+                             
+2023-12-05 12:05:37.606134 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - {'vaddr': 135201020, 'memsize': 20, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.606189 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - .comment[0m
+                             
+2023-12-05 12:05:37.606231 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - {'vaddr': 0, 'memsize': 43, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.606275 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - .debug_aranges[0m
+                             
+2023-12-05 12:05:37.606316 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - {'vaddr': 0, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.606358 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - .debug_info[0m
+                             
+2023-12-05 12:05:37.606400 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - {'vaddr': 0, 'memsize': 3457, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.606443 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - .debug_abbrev[0m
+                             
+2023-12-05 12:05:37.606484 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - {'vaddr': 0, 'memsize': 595, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.606527 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - .debug_line[0m
+                             
+2023-12-05 12:05:37.606567 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - {'vaddr': 0, 'memsize': 2386, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.606610 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - .debug_str[0m
+                             
+2023-12-05 12:05:37.606651 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - {'vaddr': 0, 'memsize': 2367, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.606695 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - .symtab[0m
+                             
+2023-12-05 12:05:37.606737 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - {'vaddr': 0, 'memsize': 36928, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.606779 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - .strtab[0m
+                             
+2023-12-05 12:05:37.606829 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - {'vaddr': 0, 'memsize': 29319, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.606886 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - .shstrtab[0m
+                             
+2023-12-05 12:05:37.606938 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - {'vaddr': 0, 'memsize': 359, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:05:37.606995 : [1;32;40mINFO - 2023-12-05 12:05:37,606 - SemaSCDG - /app/src/output/runs/268/unknown//crypto/inter_SCDG.json[0m
+                             
+2023-12-05 12:05:39.492202 : [1;32;40mINFO - 2023-12-05 12:05:39,491 - SemaSCDG - /app/src/SemaSCDG/tests/compiled_binaries/linux/normal[0m
+                             
+2023-12-05 12:05:39.492386 : [1;32;40mINFO - 2023-12-05 12:05:39,492 - SemaSCDG - You decide to analyse a single binary: /app/src/SemaSCDG/tests/compiled_binaries/linux/normal[0m
+                             
+2023-12-05 12:05:39.492512 : [1;32;40mINFO - 2023-12-05 12:05:39,492 - SemaSCDG - Namespace(BFS=False, CBFS=False, CDFS=False, CSTOCH1=False, CSTOCH2=False, CSTOCH3=False, DBFS=False, DFS=False, SCDFS=False, SDFS=False, STOCH=False, ThreadCDFS=False, WSELECT1=False, WSELECT2=False, WSELECT3=False, approximate=False, binaries='/app/src/output/runs/269/unknown/', binary='/app/src/SemaSCDG/tests/compiled_binaries/', conc_loop=10240, concrete_target_is_local=False, count_block=True, debug_error=False, dir='/app/src/output/runs/269/', discard_SCDG=True, disjoint_union=False, eval_time=False, exp_dir='/app/src/output/runs/269/unknown/', familly=None, gs=False, hooks=False, ioc_report=True, json=True, limit_pause=200, max_deadend=600, max_step=50000, memory_limit=False, min_size=3, n_args=0, not_comp_args=False, not_ignore_zero=False, not_resolv_string=False, packed=False, post_run_thread=False, pre_run_thread=False, runtime_run_thread=False, sim_file=False, simul_state=5, sthread=1, symb_loop=3, symbion=False, three_edges=False, timeout=1000, track_command=True, unipacker=False, verbose_scdg=False)[0m
+                             
+2023-12-05 12:05:39.495752 : [1;32;40mINFO - 2023-12-05 12:05:39,495 - SemaSCDG - None[0m
+                             
+2023-12-05 12:05:39.495835 : [1;32;40mINFO - 2023-12-05 12:05:39,495 - SemaSCDG - /app/src/output/runs/269/unknown//normal/[0m
+                             
+2023-12-05 12:05:39.495884 : [1;32;40mINFO - 2023-12-05 12:05:39,495 - SemaSCDG - 
+                             ---------------------------------------
+                             --- Building SCDG of unknown/normal ---
+                             ---------------------------------------[0m
+                             
+2023-12-05 12:05:53.135920 : [1;32;40mINFO - 2023-12-05 12:05:53,135 - SemaSCDG - Libraries used are :
+                             set()[0m
+                             
+2023-12-05 12:05:53.136147 : [1;32;40mINFO - 2023-12-05 12:05:53,136 - SemaSCDG - OS recognized as : UNIX - Linux[0m
+                             
+2023-12-05 12:05:53.136206 : [1;32;40mINFO - 2023-12-05 12:05:53,136 - SemaSCDG - CPU architecture recognized as : <Arch X86 (LE)>[0m
+                             
+2023-12-05 12:05:53.136255 : [1;32;40mINFO - 2023-12-05 12:05:53,136 - SemaSCDG - Entry point of the binary recognized as : 0x8049c10[0m
+                             
+2023-12-05 12:05:53.136334 : [1;32;40mINFO - 2023-12-05 12:05:53,136 - SemaSCDG - Min/Max addresses of the binary recognized as : <Loaded normal, maps [0x8048000:0x8407fff]>[0m
+                             
+2023-12-05 12:05:53.136384 : [1;32;40mINFO - 2023-12-05 12:05:53,136 - SemaSCDG - Stack executable ?  False[0m
+                             
+2023-12-05 12:05:53.136428 : [1;32;40mINFO - 2023-12-05 12:05:53,136 - SemaSCDG - Binary position-independent ?  False[0m
+                             
+2023-12-05 12:05:53.136471 : [1;32;40mINFO - 2023-12-05 12:05:53,136 - SemaSCDG - Exploration method:  CDFS[0m
+                             
+2023-12-05 12:05:53.288872 : [1;32;40mINFO - 2023-12-05 12:05:53,288 - SemaSCDG - Entry_state address = None[0m
+                             
+2023-12-05 12:06:10.846157 : [1;32;40mINFO - 2023-12-05 12:06:10,846 - SemaSCDG - [0m
+                             
+2023-12-05 12:06:10.846262 : [1;32;40mINFO - 2023-12-05 12:06:10,846 - SemaSCDG - {'vaddr': 0, 'memsize': 0, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.846335 : [1;32;40mINFO - 2023-12-05 12:06:10,846 - SemaSCDG - .note.gnu.build-id[0m
+                             
+2023-12-05 12:06:10.846381 : [1;32;40mINFO - 2023-12-05 12:06:10,846 - SemaSCDG - {'vaddr': 134512980, 'memsize': 36, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.846427 : [1;32;40mINFO - 2023-12-05 12:06:10,846 - SemaSCDG - .note.gnu.property[0m
+                             
+2023-12-05 12:06:10.846469 : [1;32;40mINFO - 2023-12-05 12:06:10,846 - SemaSCDG - {'vaddr': 134513016, 'memsize': 28, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.846524 : [1;32;40mINFO - 2023-12-05 12:06:10,846 - SemaSCDG - .note.ABI-tag[0m
+                             
+2023-12-05 12:06:10.846566 : [1;32;40mINFO - 2023-12-05 12:06:10,846 - SemaSCDG - {'vaddr': 134513044, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.846610 : [1;32;40mINFO - 2023-12-05 12:06:10,846 - SemaSCDG - .rel.plt[0m
+                             
+2023-12-05 12:06:10.846652 : [1;32;40mINFO - 2023-12-05 12:06:10,846 - SemaSCDG - {'vaddr': 134513076, 'memsize': 120, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.846697 : [1;32;40mINFO - 2023-12-05 12:06:10,846 - SemaSCDG - .init[0m
+                             
+2023-12-05 12:06:10.846739 : [1;32;40mINFO - 2023-12-05 12:06:10,846 - SemaSCDG - {'vaddr': 134516736, 'memsize': 36, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:06:10.846789 : [1;32;40mINFO - 2023-12-05 12:06:10,846 - SemaSCDG - .plt[0m
+                             
+2023-12-05 12:06:10.846844 : [1;32;40mINFO - 2023-12-05 12:06:10,846 - SemaSCDG - {'vaddr': 134516784, 'memsize': 240, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:06:10.846902 : [1;32;40mINFO - 2023-12-05 12:06:10,846 - SemaSCDG - .text[0m
+                             
+2023-12-05 12:06:10.846948 : [1;32;40mINFO - 2023-12-05 12:06:10,846 - SemaSCDG - {'vaddr': 134517024, 'memsize': 544097, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:06:10.846994 : [1;32;40mINFO - 2023-12-05 12:06:10,846 - SemaSCDG - __libc_freeres_fn[0m
+                             
+2023-12-05 12:06:10.847035 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - {'vaddr': 135061136, 'memsize': 2959, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:06:10.847081 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - .fini[0m
+                             
+2023-12-05 12:06:10.847127 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - {'vaddr': 135064096, 'memsize': 24, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:06:10.847173 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - .rodata[0m
+                             
+2023-12-05 12:06:10.847217 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - {'vaddr': 135065600, 'memsize': 114916, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.847262 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - .eh_frame[0m
+                             
+2023-12-05 12:06:10.847304 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - {'vaddr': 135180516, 'memsize': 88220, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.847349 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - .gcc_except_table[0m
+                             
+2023-12-05 12:06:10.847391 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - {'vaddr': 135268736, 'memsize': 196, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.847444 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - .tdata[0m
+                             
+2023-12-05 12:06:10.847488 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - {'vaddr': 135276192, 'memsize': 16, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.847532 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - .tbss[0m
+                             
+2023-12-05 12:06:10.847574 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - {'vaddr': 135276208, 'memsize': 32, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.847619 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - .init_array[0m
+                             
+2023-12-05 12:06:10.847662 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - {'vaddr': 135276208, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.847754 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - .fini_array[0m
+                             
+2023-12-05 12:06:10.847812 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - {'vaddr': 135276216, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.847862 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - .data.rel.ro[0m
+                             
+2023-12-05 12:06:10.847905 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - {'vaddr': 135276224, 'memsize': 6420, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.847951 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - .got[0m
+                             
+2023-12-05 12:06:10.847995 : [1;32;40mINFO - 2023-12-05 12:06:10,847 - SemaSCDG - {'vaddr': 135282644, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.848042 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - .got.plt[0m
+                             
+2023-12-05 12:06:10.848083 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - {'vaddr': 135282688, 'memsize': 72, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.848130 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - .data[0m
+                             
+2023-12-05 12:06:10.848178 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - {'vaddr': 135282784, 'memsize': 3936, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.848246 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - __libc_subfreeres[0m
+                             
+2023-12-05 12:06:10.848288 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - {'vaddr': 135286720, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.848339 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - __libc_IO_vtables[0m
+                             
+2023-12-05 12:06:10.848381 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - {'vaddr': 135286784, 'memsize': 948, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.848426 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - __libc_atexit[0m
+                             
+2023-12-05 12:06:10.848468 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - {'vaddr': 135287732, 'memsize': 4, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.848511 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - .bss[0m
+                             
+2023-12-05 12:06:10.848551 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - {'vaddr': 135287744, 'memsize': 3388, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.848593 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - __libc_freeres_ptrs[0m
+                             
+2023-12-05 12:06:10.848635 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - {'vaddr': 135291132, 'memsize': 20, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.848679 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - .comment[0m
+                             
+2023-12-05 12:06:10.848719 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - {'vaddr': 0, 'memsize': 43, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.848762 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - .debug_aranges[0m
+                             
+2023-12-05 12:06:10.848802 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - {'vaddr': 0, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.848845 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - .debug_info[0m
+                             
+2023-12-05 12:06:10.848894 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - {'vaddr': 0, 'memsize': 1125, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.848941 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - .debug_abbrev[0m
+                             
+2023-12-05 12:06:10.848994 : [1;32;40mINFO - 2023-12-05 12:06:10,848 - SemaSCDG - {'vaddr': 0, 'memsize': 322, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.849056 : [1;32;40mINFO - 2023-12-05 12:06:10,849 - SemaSCDG - .debug_line[0m
+                             
+2023-12-05 12:06:10.849112 : [1;32;40mINFO - 2023-12-05 12:06:10,849 - SemaSCDG - {'vaddr': 0, 'memsize': 610, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.849187 : [1;32;40mINFO - 2023-12-05 12:06:10,849 - SemaSCDG - .debug_str[0m
+                             
+2023-12-05 12:06:10.849250 : [1;32;40mINFO - 2023-12-05 12:06:10,849 - SemaSCDG - {'vaddr': 0, 'memsize': 809, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.849320 : [1;32;40mINFO - 2023-12-05 12:06:10,849 - SemaSCDG - .symtab[0m
+                             
+2023-12-05 12:06:10.849378 : [1;32;40mINFO - 2023-12-05 12:06:10,849 - SemaSCDG - {'vaddr': 0, 'memsize': 38768, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.849425 : [1;32;40mINFO - 2023-12-05 12:06:10,849 - SemaSCDG - .strtab[0m
+                             
+2023-12-05 12:06:10.849467 : [1;32;40mINFO - 2023-12-05 12:06:10,849 - SemaSCDG - {'vaddr': 0, 'memsize': 30171, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.849513 : [1;32;40mINFO - 2023-12-05 12:06:10,849 - SemaSCDG - .shstrtab[0m
+                             
+2023-12-05 12:06:10.849556 : [1;32;40mINFO - 2023-12-05 12:06:10,849 - SemaSCDG - {'vaddr': 0, 'memsize': 378, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:06:10.853131 : [1;32;40mINFO - 2023-12-05 12:06:10,852 - SemaSCDG - [][0m
+                             
+2023-12-05 12:06:10.853302 : [1;32;40mINFO - 2023-12-05 12:06:10,853 - SemaSCDG - <ExternObject Object cle##externs, maps [0x8200000:0x8207fff]>[0m
+                             
+2023-12-05 12:06:10.853392 : [1;32;40mINFO - 2023-12-05 12:06:10,853 - SemaSCDG - <generator object Loader.symbols at 0x7fef034826d0>[0m
+                             
+2023-12-05 12:06:10.853520 : [1;32;40mINFO - 2023-12-05 12:06:10,853 - SemaSCDG - 
+                             ------------------------------
+                             Start -State of simulation manager :
+                              <SimulationManager with 1 active>
+                             ------------------------------[0m
+                             
+2023-12-05 12:07:01.213696 : [1;32;40mINFO - 2023-12-05 12:07:01,213 - SemaSCDG - 
+                             ------------------------------
+                             End - State of simulation manager :
+                              <SimulationManager with 1 active, 2 deadended>
+                             ------------------------------[0m
+                             
+2023-12-05 12:07:01.213774 : [1;32;40mINFO - 2023-12-05 12:07:01,213 - SemaSCDG - Total number of blocks: 27642[0m
+                             
+2023-12-05 12:07:01.213819 : [1;32;40mINFO - 2023-12-05 12:07:01,213 - SemaSCDG - Total number of instr: 150299[0m
+                             
+2023-12-05 12:07:01.213863 : [1;32;40mINFO - 2023-12-05 12:07:01,213 - SemaSCDG - Number of blocks visited: 91[0m
+                             
+2023-12-05 12:07:01.213905 : [1;32;40mINFO - 2023-12-05 12:07:01,213 - SemaSCDG - Number of instr visited: 449[0m
+                             
+2023-12-05 12:07:01.213955 : [1;32;40mINFO - 2023-12-05 12:07:01,213 - SemaSCDG - Syscalls Found:{'malloc': 9, '__libc_start_main': 4, 'strlen': 22, 'printf': 12, '__isoc99_scanf': 1, 'puts': 2, 'rand': 1, 'sprintf': 2}[0m
+                             
+2023-12-05 12:07:01.214001 : [1;32;40mINFO - 2023-12-05 12:07:01,213 - SemaSCDG - Loaded libraries:set()[0m
+                             
+2023-12-05 12:07:01.214078 : [1;32;40mINFO - 2023-12-05 12:07:01,214 - SemaSCDG - Environment variables:{}[0m
+                             
+2023-12-05 12:07:01.214123 : [1;32;40mINFO - 2023-12-05 12:07:01,214 - SemaSCDG - Registery variables:{}[0m
+                             
+2023-12-05 12:07:01.214164 : [1;32;40mINFO - 2023-12-05 12:07:01,214 - SemaSCDG - Locale informations variables:{}[0m
+                             
+2023-12-05 12:07:01.214205 : [1;32;40mINFO - 2023-12-05 12:07:01,214 - SemaSCDG - Resources variables:{}[0m
+                             
+2023-12-05 12:07:01.214250 : [1;32;40mINFO - 2023-12-05 12:07:01,214 - SemaSCDG - Total execution time: 81.72181701660156[0m
+                             
+2023-12-05 12:07:01.214784 : [1;32;40mINFO - 2023-12-05 12:07:01,214 - SemaSCDG - [0m
+                             
+2023-12-05 12:07:01.214842 : [1;32;40mINFO - 2023-12-05 12:07:01,214 - SemaSCDG - {'vaddr': 0, 'memsize': 0, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.214892 : [1;32;40mINFO - 2023-12-05 12:07:01,214 - SemaSCDG - .note.gnu.build-id[0m
+                             
+2023-12-05 12:07:01.214936 : [1;32;40mINFO - 2023-12-05 12:07:01,214 - SemaSCDG - {'vaddr': 134512980, 'memsize': 36, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.214982 : [1;32;40mINFO - 2023-12-05 12:07:01,214 - SemaSCDG - .note.gnu.property[0m
+                             
+2023-12-05 12:07:01.215025 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - {'vaddr': 134513016, 'memsize': 28, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.215071 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - .note.ABI-tag[0m
+                             
+2023-12-05 12:07:01.215115 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - {'vaddr': 134513044, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.215164 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - .rel.plt[0m
+                             
+2023-12-05 12:07:01.215206 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - {'vaddr': 134513076, 'memsize': 120, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.215267 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - .init[0m
+                             
+2023-12-05 12:07:01.215310 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - {'vaddr': 134516736, 'memsize': 36, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:07:01.215357 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - .plt[0m
+                             
+2023-12-05 12:07:01.215399 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - {'vaddr': 134516784, 'memsize': 240, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:07:01.215509 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - .text[0m
+                             
+2023-12-05 12:07:01.215557 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - {'vaddr': 134517024, 'memsize': 544097, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:07:01.215607 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - __libc_freeres_fn[0m
+                             
+2023-12-05 12:07:01.215654 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - {'vaddr': 135061136, 'memsize': 2959, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:07:01.215713 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - .fini[0m
+                             
+2023-12-05 12:07:01.215759 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - {'vaddr': 135064096, 'memsize': 24, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:07:01.215817 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - .rodata[0m
+                             
+2023-12-05 12:07:01.215863 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - {'vaddr': 135065600, 'memsize': 114916, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.215920 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - .eh_frame[0m
+                             
+2023-12-05 12:07:01.215964 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - {'vaddr': 135180516, 'memsize': 88220, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.216010 : [1;32;40mINFO - 2023-12-05 12:07:01,215 - SemaSCDG - .gcc_except_table[0m
+                             
+2023-12-05 12:07:01.216053 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - {'vaddr': 135268736, 'memsize': 196, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.216101 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - .tdata[0m
+                             
+2023-12-05 12:07:01.216145 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - {'vaddr': 135276192, 'memsize': 16, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.216195 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - .tbss[0m
+                             
+2023-12-05 12:07:01.216258 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - {'vaddr': 135276208, 'memsize': 32, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.216344 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - .init_array[0m
+                             
+2023-12-05 12:07:01.216391 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - {'vaddr': 135276208, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.216439 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - .fini_array[0m
+                             
+2023-12-05 12:07:01.216484 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - {'vaddr': 135276216, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.216531 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - .data.rel.ro[0m
+                             
+2023-12-05 12:07:01.216575 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - {'vaddr': 135276224, 'memsize': 6420, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.216623 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - .got[0m
+                             
+2023-12-05 12:07:01.216667 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - {'vaddr': 135282644, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.216713 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - .got.plt[0m
+                             
+2023-12-05 12:07:01.216756 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - {'vaddr': 135282688, 'memsize': 72, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.216805 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - .data[0m
+                             
+2023-12-05 12:07:01.216849 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - {'vaddr': 135282784, 'memsize': 3936, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.216905 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - __libc_subfreeres[0m
+                             
+2023-12-05 12:07:01.216951 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - {'vaddr': 135286720, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.217000 : [1;32;40mINFO - 2023-12-05 12:07:01,216 - SemaSCDG - __libc_IO_vtables[0m
+                             
+2023-12-05 12:07:01.217072 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - {'vaddr': 135286784, 'memsize': 948, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.217123 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - __libc_atexit[0m
+                             
+2023-12-05 12:07:01.217168 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - {'vaddr': 135287732, 'memsize': 4, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.217234 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - .bss[0m
+                             
+2023-12-05 12:07:01.217284 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - {'vaddr': 135287744, 'memsize': 3388, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.217330 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - __libc_freeres_ptrs[0m
+                             
+2023-12-05 12:07:01.217375 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - {'vaddr': 135291132, 'memsize': 20, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.217421 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - .comment[0m
+                             
+2023-12-05 12:07:01.217465 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - {'vaddr': 0, 'memsize': 43, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.217511 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - .debug_aranges[0m
+                             
+2023-12-05 12:07:01.217555 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - {'vaddr': 0, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.217601 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - .debug_info[0m
+                             
+2023-12-05 12:07:01.217646 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - {'vaddr': 0, 'memsize': 1125, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.217693 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - .debug_abbrev[0m
+                             
+2023-12-05 12:07:01.217741 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - {'vaddr': 0, 'memsize': 322, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.217785 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - .debug_line[0m
+                             
+2023-12-05 12:07:01.217827 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - {'vaddr': 0, 'memsize': 610, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.217870 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - .debug_str[0m
+                             
+2023-12-05 12:07:01.217910 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - {'vaddr': 0, 'memsize': 809, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.217953 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - .symtab[0m
+                             
+2023-12-05 12:07:01.217994 : [1;32;40mINFO - 2023-12-05 12:07:01,217 - SemaSCDG - {'vaddr': 0, 'memsize': 38768, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.218036 : [1;32;40mINFO - 2023-12-05 12:07:01,218 - SemaSCDG - .strtab[0m
+                             
+2023-12-05 12:07:01.218076 : [1;32;40mINFO - 2023-12-05 12:07:01,218 - SemaSCDG - {'vaddr': 0, 'memsize': 30171, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.218369 : [1;32;40mINFO - 2023-12-05 12:07:01,218 - SemaSCDG - .shstrtab[0m
+                             
+2023-12-05 12:07:01.218425 : [1;32;40mINFO - 2023-12-05 12:07:01,218 - SemaSCDG - {'vaddr': 0, 'memsize': 378, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:01.218494 : [1;32;40mINFO - 2023-12-05 12:07:01,218 - SemaSCDG - /app/src/output/runs/269/unknown//normal/inter_SCDG.json[0m
+                             
+2023-12-05 12:07:03.678159 : [1;32;40mINFO - 2023-12-05 12:07:03,676 - SemaSCDG - /app/src/SemaSCDG/tests/compiled_binaries/linux/normal[0m
+                             
+2023-12-05 12:07:03.678755 : [1;32;40mINFO - 2023-12-05 12:07:03,678 - SemaSCDG - You decide to analyse a single binary: /app/src/SemaSCDG/tests/compiled_binaries/linux/normal[0m
+                             
+2023-12-05 12:07:03.678935 : [1;32;40mINFO - 2023-12-05 12:07:03,678 - SemaSCDG - Namespace(BFS=False, CBFS=False, CDFS=False, CSTOCH1=False, CSTOCH2=False, CSTOCH3=False, DBFS=False, DFS=False, SCDFS=False, SDFS=False, STOCH=False, ThreadCDFS=False, WSELECT1=False, WSELECT2=False, WSELECT3=False, approximate=False, binaries='/app/src/output/runs/270/unknown/', binary='/app/src/SemaSCDG/tests/compiled_binaries/', conc_loop=10240, concrete_target_is_local=False, count_block=True, debug_error=False, dir='/app/src/output/runs/270/', discard_SCDG=True, disjoint_union=False, eval_time=False, exp_dir='/app/src/output/runs/270/unknown/', familly=None, gs=False, hooks=False, ioc_report=True, json=True, limit_pause=200, max_deadend=600, max_step=50000, memory_limit=False, min_size=3, n_args=0, not_comp_args=False, not_ignore_zero=False, not_resolv_string=False, packed=False, post_run_thread=False, pre_run_thread=False, runtime_run_thread=False, sim_file=False, simul_state=5, sthread=1, symb_loop=3, symbion=False, three_edges=False, timeout=1000, track_command=True, unipacker=False, verbose_scdg=False)[0m
+                             
+2023-12-05 12:07:03.682585 : [1;32;40mINFO - 2023-12-05 12:07:03,682 - SemaSCDG - None[0m
+                             
+2023-12-05 12:07:03.682722 : [1;32;40mINFO - 2023-12-05 12:07:03,682 - SemaSCDG - /app/src/output/runs/270/unknown//normal/[0m
+                             
+2023-12-05 12:07:03.682772 : [1;32;40mINFO - 2023-12-05 12:07:03,682 - SemaSCDG - 
+                             ---------------------------------------
+                             --- Building SCDG of unknown/normal ---
+                             ---------------------------------------[0m
+                             
+2023-12-05 12:07:18.510469 : [1;32;40mINFO - 2023-12-05 12:07:18,510 - SemaSCDG - Libraries used are :
+                             set()[0m
+                             
+2023-12-05 12:07:18.510591 : [1;32;40mINFO - 2023-12-05 12:07:18,510 - SemaSCDG - OS recognized as : UNIX - Linux[0m
+                             
+2023-12-05 12:07:18.510644 : [1;32;40mINFO - 2023-12-05 12:07:18,510 - SemaSCDG - CPU architecture recognized as : <Arch X86 (LE)>[0m
+                             
+2023-12-05 12:07:18.510689 : [1;32;40mINFO - 2023-12-05 12:07:18,510 - SemaSCDG - Entry point of the binary recognized as : 0x8049c10[0m
+                             
+2023-12-05 12:07:18.510759 : [1;32;40mINFO - 2023-12-05 12:07:18,510 - SemaSCDG - Min/Max addresses of the binary recognized as : <Loaded normal, maps [0x8048000:0x8407fff]>[0m
+                             
+2023-12-05 12:07:18.510804 : [1;32;40mINFO - 2023-12-05 12:07:18,510 - SemaSCDG - Stack executable ?  False[0m
+                             
+2023-12-05 12:07:18.510846 : [1;32;40mINFO - 2023-12-05 12:07:18,510 - SemaSCDG - Binary position-independent ?  False[0m
+                             
+2023-12-05 12:07:18.510916 : [1;32;40mINFO - 2023-12-05 12:07:18,510 - SemaSCDG - Exploration method:  CDFS[0m
+                             
+2023-12-05 12:07:18.678278 : [1;32;40mINFO - 2023-12-05 12:07:18,677 - SemaSCDG - Entry_state address = None[0m
+                             
+2023-12-05 12:07:38.571787 : [1;32;40mINFO - 2023-12-05 12:07:38,571 - SemaSCDG - [0m
+                             
+2023-12-05 12:07:38.571890 : [1;32;40mINFO - 2023-12-05 12:07:38,571 - SemaSCDG - {'vaddr': 0, 'memsize': 0, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.571945 : [1;32;40mINFO - 2023-12-05 12:07:38,571 - SemaSCDG - .note.gnu.build-id[0m
+                             
+2023-12-05 12:07:38.571994 : [1;32;40mINFO - 2023-12-05 12:07:38,571 - SemaSCDG - {'vaddr': 134512980, 'memsize': 36, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.572044 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - .note.gnu.property[0m
+                             
+2023-12-05 12:07:38.572091 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - {'vaddr': 134513016, 'memsize': 28, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.572150 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - .note.ABI-tag[0m
+                             
+2023-12-05 12:07:38.572197 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - {'vaddr': 134513044, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.572270 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - .rel.plt[0m
+                             
+2023-12-05 12:07:38.572329 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - {'vaddr': 134513076, 'memsize': 120, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.572385 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - .init[0m
+                             
+2023-12-05 12:07:38.572434 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - {'vaddr': 134516736, 'memsize': 36, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:07:38.572485 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - .plt[0m
+                             
+2023-12-05 12:07:38.572533 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - {'vaddr': 134516784, 'memsize': 240, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:07:38.572582 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - .text[0m
+                             
+2023-12-05 12:07:38.572630 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - {'vaddr': 134517024, 'memsize': 544097, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:07:38.572680 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - __libc_freeres_fn[0m
+                             
+2023-12-05 12:07:38.572728 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - {'vaddr': 135061136, 'memsize': 2959, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:07:38.572776 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - .fini[0m
+                             
+2023-12-05 12:07:38.572821 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - {'vaddr': 135064096, 'memsize': 24, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:07:38.572870 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - .rodata[0m
+                             
+2023-12-05 12:07:38.572915 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - {'vaddr': 135065600, 'memsize': 114916, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.572963 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - .eh_frame[0m
+                             
+2023-12-05 12:07:38.573009 : [1;32;40mINFO - 2023-12-05 12:07:38,572 - SemaSCDG - {'vaddr': 135180516, 'memsize': 88220, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.573132 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - .gcc_except_table[0m
+                             
+2023-12-05 12:07:38.573178 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - {'vaddr': 135268736, 'memsize': 196, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.573228 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - .tdata[0m
+                             
+2023-12-05 12:07:38.573274 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - {'vaddr': 135276192, 'memsize': 16, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.573322 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - .tbss[0m
+                             
+2023-12-05 12:07:38.573365 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - {'vaddr': 135276208, 'memsize': 32, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.573408 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - .init_array[0m
+                             
+2023-12-05 12:07:38.573448 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - {'vaddr': 135276208, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.573491 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - .fini_array[0m
+                             
+2023-12-05 12:07:38.573531 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - {'vaddr': 135276216, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.573573 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - .data.rel.ro[0m
+                             
+2023-12-05 12:07:38.573613 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - {'vaddr': 135276224, 'memsize': 6420, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.573658 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - .got[0m
+                             
+2023-12-05 12:07:38.573710 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - {'vaddr': 135282644, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.573771 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - .got.plt[0m
+                             
+2023-12-05 12:07:38.573815 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - {'vaddr': 135282688, 'memsize': 72, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.573858 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - .data[0m
+                             
+2023-12-05 12:07:38.573899 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - {'vaddr': 135282784, 'memsize': 3936, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.573949 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - __libc_subfreeres[0m
+                             
+2023-12-05 12:07:38.573991 : [1;32;40mINFO - 2023-12-05 12:07:38,573 - SemaSCDG - {'vaddr': 135286720, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.574034 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - __libc_IO_vtables[0m
+                             
+2023-12-05 12:07:38.574076 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - {'vaddr': 135286784, 'memsize': 948, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.574118 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - __libc_atexit[0m
+                             
+2023-12-05 12:07:38.574159 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - {'vaddr': 135287732, 'memsize': 4, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.574202 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - .bss[0m
+                             
+2023-12-05 12:07:38.574243 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - {'vaddr': 135287744, 'memsize': 3388, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.574285 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - __libc_freeres_ptrs[0m
+                             
+2023-12-05 12:07:38.574325 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - {'vaddr': 135291132, 'memsize': 20, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.574370 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - .comment[0m
+                             
+2023-12-05 12:07:38.574411 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - {'vaddr': 0, 'memsize': 43, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.574453 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - .debug_aranges[0m
+                             
+2023-12-05 12:07:38.574494 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - {'vaddr': 0, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.574538 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - .debug_info[0m
+                             
+2023-12-05 12:07:38.574580 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - {'vaddr': 0, 'memsize': 1125, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.574625 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - .debug_abbrev[0m
+                             
+2023-12-05 12:07:38.574666 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - {'vaddr': 0, 'memsize': 322, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.574709 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - .debug_line[0m
+                             
+2023-12-05 12:07:38.574750 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - {'vaddr': 0, 'memsize': 610, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.574794 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - .debug_str[0m
+                             
+2023-12-05 12:07:38.574835 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - {'vaddr': 0, 'memsize': 809, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.574877 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - .symtab[0m
+                             
+2023-12-05 12:07:38.574922 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - {'vaddr': 0, 'memsize': 38768, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.574980 : [1;32;40mINFO - 2023-12-05 12:07:38,574 - SemaSCDG - .strtab[0m
+                             
+2023-12-05 12:07:38.575039 : [1;32;40mINFO - 2023-12-05 12:07:38,575 - SemaSCDG - {'vaddr': 0, 'memsize': 30171, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.575102 : [1;32;40mINFO - 2023-12-05 12:07:38,575 - SemaSCDG - .shstrtab[0m
+                             
+2023-12-05 12:07:38.575162 : [1;32;40mINFO - 2023-12-05 12:07:38,575 - SemaSCDG - {'vaddr': 0, 'memsize': 378, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:07:38.577225 : [1;32;40mINFO - 2023-12-05 12:07:38,577 - SemaSCDG - [][0m
+                             
+2023-12-05 12:07:38.577374 : [1;32;40mINFO - 2023-12-05 12:07:38,577 - SemaSCDG - <ExternObject Object cle##externs, maps [0x8200000:0x8207fff]>[0m
+                             
+2023-12-05 12:07:38.577463 : [1;32;40mINFO - 2023-12-05 12:07:38,577 - SemaSCDG - <generator object Loader.symbols at 0x7feed6a9de40>[0m
+                             
+2023-12-05 12:07:38.577599 : [1;32;40mINFO - 2023-12-05 12:07:38,577 - SemaSCDG - 
+                             ------------------------------
+                             Start -State of simulation manager :
+                              <SimulationManager with 1 active>
+                             ------------------------------[0m
+                             
+2023-12-05 12:08:28.621786 : [1;32;40mINFO - 2023-12-05 12:08:28,621 - SemaSCDG - 
+                             ------------------------------
+                             End - State of simulation manager :
+                              <SimulationManager with 1 active, 2 deadended>
+                             ------------------------------[0m
+                             
+2023-12-05 12:08:28.621854 : [1;32;40mINFO - 2023-12-05 12:08:28,621 - SemaSCDG - Total number of blocks: 27642[0m
+                             
+2023-12-05 12:08:28.621902 : [1;32;40mINFO - 2023-12-05 12:08:28,621 - SemaSCDG - Total number of instr: 150299[0m
+                             
+2023-12-05 12:08:28.621954 : [1;32;40mINFO - 2023-12-05 12:08:28,621 - SemaSCDG - Number of blocks visited: 91[0m
+                             
+2023-12-05 12:08:28.621998 : [1;32;40mINFO - 2023-12-05 12:08:28,621 - SemaSCDG - Number of instr visited: 449[0m
+                             
+2023-12-05 12:08:28.622048 : [1;32;40mINFO - 2023-12-05 12:08:28,622 - SemaSCDG - Syscalls Found:{'malloc': 9, '__libc_start_main': 4, 'strlen': 21, 'printf': 11, '__isoc99_scanf': 1, 'puts': 2, 'rand': 1, 'sprintf': 2}[0m
+                             
+2023-12-05 12:08:28.622094 : [1;32;40mINFO - 2023-12-05 12:08:28,622 - SemaSCDG - Loaded libraries:set()[0m
+                             
+2023-12-05 12:08:28.622169 : [1;32;40mINFO - 2023-12-05 12:08:28,622 - SemaSCDG - Environment variables:{}[0m
+                             
+2023-12-05 12:08:28.622214 : [1;32;40mINFO - 2023-12-05 12:08:28,622 - SemaSCDG - Registery variables:{}[0m
+                             
+2023-12-05 12:08:28.622274 : [1;32;40mINFO - 2023-12-05 12:08:28,622 - SemaSCDG - Locale informations variables:{}[0m
+                             
+2023-12-05 12:08:28.622316 : [1;32;40mINFO - 2023-12-05 12:08:28,622 - SemaSCDG - Resources variables:{}[0m
+                             
+2023-12-05 12:08:28.622363 : [1;32;40mINFO - 2023-12-05 12:08:28,622 - SemaSCDG - Total execution time: 84.94355130195618[0m
+                             
+2023-12-05 12:08:28.622873 : [1;32;40mINFO - 2023-12-05 12:08:28,622 - SemaSCDG - [0m
+                             
+2023-12-05 12:08:28.622936 : [1;32;40mINFO - 2023-12-05 12:08:28,622 - SemaSCDG - {'vaddr': 0, 'memsize': 0, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.622985 : [1;32;40mINFO - 2023-12-05 12:08:28,622 - SemaSCDG - .note.gnu.build-id[0m
+                             
+2023-12-05 12:08:28.623029 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - {'vaddr': 134512980, 'memsize': 36, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.623075 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - .note.gnu.property[0m
+                             
+2023-12-05 12:08:28.623117 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - {'vaddr': 134513016, 'memsize': 28, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.623162 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - .note.ABI-tag[0m
+                             
+2023-12-05 12:08:28.623203 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - {'vaddr': 134513044, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.623247 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - .rel.plt[0m
+                             
+2023-12-05 12:08:28.623288 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - {'vaddr': 134513076, 'memsize': 120, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.623334 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - .init[0m
+                             
+2023-12-05 12:08:28.623376 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - {'vaddr': 134516736, 'memsize': 36, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:08:28.623432 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - .plt[0m
+                             
+2023-12-05 12:08:28.623478 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - {'vaddr': 134516784, 'memsize': 240, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:08:28.623523 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - .text[0m
+                             
+2023-12-05 12:08:28.623566 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - {'vaddr': 134517024, 'memsize': 544097, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:08:28.623612 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - __libc_freeres_fn[0m
+                             
+2023-12-05 12:08:28.623655 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - {'vaddr': 135061136, 'memsize': 2959, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:08:28.623700 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - .fini[0m
+                             
+2023-12-05 12:08:28.623742 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - {'vaddr': 135064096, 'memsize': 24, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:08:28.623788 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - .rodata[0m
+                             
+2023-12-05 12:08:28.623830 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - {'vaddr': 135065600, 'memsize': 114916, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.623874 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - .eh_frame[0m
+                             
+2023-12-05 12:08:28.623917 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - {'vaddr': 135180516, 'memsize': 88220, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.623961 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - .gcc_except_table[0m
+                             
+2023-12-05 12:08:28.624003 : [1;32;40mINFO - 2023-12-05 12:08:28,623 - SemaSCDG - {'vaddr': 135268736, 'memsize': 196, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.624048 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - .tdata[0m
+                             
+2023-12-05 12:08:28.624089 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - {'vaddr': 135276192, 'memsize': 16, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.624138 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - .tbss[0m
+                             
+2023-12-05 12:08:28.624181 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - {'vaddr': 135276208, 'memsize': 32, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.624227 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - .init_array[0m
+                             
+2023-12-05 12:08:28.624267 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - {'vaddr': 135276208, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.624310 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - .fini_array[0m
+                             
+2023-12-05 12:08:28.624353 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - {'vaddr': 135276216, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.624419 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - .data.rel.ro[0m
+                             
+2023-12-05 12:08:28.624460 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - {'vaddr': 135276224, 'memsize': 6420, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.624503 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - .got[0m
+                             
+2023-12-05 12:08:28.624544 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - {'vaddr': 135282644, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.624587 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - .got.plt[0m
+                             
+2023-12-05 12:08:28.624627 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - {'vaddr': 135282688, 'memsize': 72, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.624671 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - .data[0m
+                             
+2023-12-05 12:08:28.624712 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - {'vaddr': 135282784, 'memsize': 3936, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.624756 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - __libc_subfreeres[0m
+                             
+2023-12-05 12:08:28.624797 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - {'vaddr': 135286720, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.624840 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - __libc_IO_vtables[0m
+                             
+2023-12-05 12:08:28.624881 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - {'vaddr': 135286784, 'memsize': 948, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.624923 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - __libc_atexit[0m
+                             
+2023-12-05 12:08:28.624962 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - {'vaddr': 135287732, 'memsize': 4, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.625004 : [1;32;40mINFO - 2023-12-05 12:08:28,624 - SemaSCDG - .bss[0m
+                             
+2023-12-05 12:08:28.625044 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - {'vaddr': 135287744, 'memsize': 3388, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.625086 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - __libc_freeres_ptrs[0m
+                             
+2023-12-05 12:08:28.625127 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - {'vaddr': 135291132, 'memsize': 20, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.625170 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - .comment[0m
+                             
+2023-12-05 12:08:28.625211 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - {'vaddr': 0, 'memsize': 43, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.625254 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - .debug_aranges[0m
+                             
+2023-12-05 12:08:28.625295 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - {'vaddr': 0, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.625339 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - .debug_info[0m
+                             
+2023-12-05 12:08:28.625380 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - {'vaddr': 0, 'memsize': 1125, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.625424 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - .debug_abbrev[0m
+                             
+2023-12-05 12:08:28.625465 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - {'vaddr': 0, 'memsize': 322, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.625508 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - .debug_line[0m
+                             
+2023-12-05 12:08:28.625549 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - {'vaddr': 0, 'memsize': 610, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.625592 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - .debug_str[0m
+                             
+2023-12-05 12:08:28.625632 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - {'vaddr': 0, 'memsize': 809, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.625680 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - .symtab[0m
+                             
+2023-12-05 12:08:28.625728 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - {'vaddr': 0, 'memsize': 38768, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.625775 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - .strtab[0m
+                             
+2023-12-05 12:08:28.625816 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - {'vaddr': 0, 'memsize': 30171, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.625858 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - .shstrtab[0m
+                             
+2023-12-05 12:08:28.625898 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - {'vaddr': 0, 'memsize': 378, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:08:28.625953 : [1;32;40mINFO - 2023-12-05 12:08:28,625 - SemaSCDG - /app/src/output/runs/270/unknown//normal/inter_SCDG.json[0m
+                             
+2023-12-05 12:08:30.293370 : [1;32;40mINFO - 2023-12-05 12:08:30,293 - SemaSCDG - /app/src/SemaSCDG/tests/compiled_binaries/linux/normal[0m
+                             
+2023-12-05 12:08:30.294218 : [1;32;40mINFO - 2023-12-05 12:08:30,293 - SemaSCDG - You decide to analyse a single binary: /app/src/SemaSCDG/tests/compiled_binaries/linux/normal[0m
+                             
+2023-12-05 12:08:30.294735 : [1;32;40mINFO - 2023-12-05 12:08:30,294 - SemaSCDG - Namespace(BFS=False, CBFS=False, CDFS=False, CSTOCH1=False, CSTOCH2=False, CSTOCH3=False, DBFS=False, DFS=False, SCDFS=False, SDFS=False, STOCH=False, ThreadCDFS=False, WSELECT1=False, WSELECT2=False, WSELECT3=False, approximate=False, binaries='/app/src/output/runs/271/unknown/', binary='/app/src/SemaSCDG/tests/compiled_binaries/', conc_loop=10240, concrete_target_is_local=False, count_block=True, debug_error=False, dir='/app/src/output/runs/271/', discard_SCDG=True, disjoint_union=False, eval_time=False, exp_dir='/app/src/output/runs/271/unknown/', familly=None, gs=False, hooks=False, ioc_report=True, json=True, limit_pause=200, max_deadend=600, max_step=50000, memory_limit=False, min_size=3, n_args=0, not_comp_args=False, not_ignore_zero=False, not_resolv_string=False, packed=False, post_run_thread=False, pre_run_thread=False, runtime_run_thread=False, sim_file=False, simul_state=5, sthread=1, symb_loop=3, symbion=False, three_edges=False, timeout=1000, track_command=True, unipacker=False, verbose_scdg=False)[0m
+                             
+2023-12-05 12:08:30.299077 : [1;32;40mINFO - 2023-12-05 12:08:30,298 - SemaSCDG - None[0m
+                             
+2023-12-05 12:08:30.299272 : [1;32;40mINFO - 2023-12-05 12:08:30,299 - SemaSCDG - /app/src/output/runs/271/unknown//normal/[0m
+                             
+2023-12-05 12:08:30.299335 : [1;32;40mINFO - 2023-12-05 12:08:30,299 - SemaSCDG - 
+                             ---------------------------------------
+                             --- Building SCDG of unknown/normal ---
+                             ---------------------------------------[0m
+                             
+2023-12-05 12:08:44.363221 : [1;32;40mINFO - 2023-12-05 12:08:44,363 - SemaSCDG - Libraries used are :
+                             set()[0m
+                             
+2023-12-05 12:08:44.363340 : [1;32;40mINFO - 2023-12-05 12:08:44,363 - SemaSCDG - OS recognized as : UNIX - Linux[0m
+                             
+2023-12-05 12:08:44.363393 : [1;32;40mINFO - 2023-12-05 12:08:44,363 - SemaSCDG - CPU architecture recognized as : <Arch X86 (LE)>[0m
+                             
+2023-12-05 12:08:44.363445 : [1;32;40mINFO - 2023-12-05 12:08:44,363 - SemaSCDG - Entry point of the binary recognized as : 0x8049c10[0m
+                             
+2023-12-05 12:08:44.363516 : [1;32;40mINFO - 2023-12-05 12:08:44,363 - SemaSCDG - Min/Max addresses of the binary recognized as : <Loaded normal, maps [0x8048000:0x8407fff]>[0m
+                             
+2023-12-05 12:08:44.363561 : [1;32;40mINFO - 2023-12-05 12:08:44,363 - SemaSCDG - Stack executable ?  False[0m
+                             
+2023-12-05 12:08:44.363608 : [1;32;40mINFO - 2023-12-05 12:08:44,363 - SemaSCDG - Binary position-independent ?  False[0m
+                             
+2023-12-05 12:08:44.363658 : [1;32;40mINFO - 2023-12-05 12:08:44,363 - SemaSCDG - Exploration method:  CBFS[0m
+                             
+2023-12-05 12:08:44.534872 : [1;32;40mINFO - 2023-12-05 12:08:44,534 - SemaSCDG - Entry_state address = None[0m
+                             
+2023-12-05 12:09:02.633718 : [1;32;40mINFO - 2023-12-05 12:09:02,633 - SemaSCDG - [0m
+                             
+2023-12-05 12:09:02.633812 : [1;32;40mINFO - 2023-12-05 12:09:02,633 - SemaSCDG - {'vaddr': 0, 'memsize': 0, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.633870 : [1;32;40mINFO - 2023-12-05 12:09:02,633 - SemaSCDG - .note.gnu.build-id[0m
+                             
+2023-12-05 12:09:02.633914 : [1;32;40mINFO - 2023-12-05 12:09:02,633 - SemaSCDG - {'vaddr': 134512980, 'memsize': 36, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.633959 : [1;32;40mINFO - 2023-12-05 12:09:02,633 - SemaSCDG - .note.gnu.property[0m
+                             
+2023-12-05 12:09:02.634000 : [1;32;40mINFO - 2023-12-05 12:09:02,633 - SemaSCDG - {'vaddr': 134513016, 'memsize': 28, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.634054 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - .note.ABI-tag[0m
+                             
+2023-12-05 12:09:02.634095 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - {'vaddr': 134513044, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.634139 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - .rel.plt[0m
+                             
+2023-12-05 12:09:02.634181 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - {'vaddr': 134513076, 'memsize': 120, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.634225 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - .init[0m
+                             
+2023-12-05 12:09:02.634266 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - {'vaddr': 134516736, 'memsize': 36, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:09:02.634310 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - .plt[0m
+                             
+2023-12-05 12:09:02.634351 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - {'vaddr': 134516784, 'memsize': 240, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:09:02.634398 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - .text[0m
+                             
+2023-12-05 12:09:02.634442 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - {'vaddr': 134517024, 'memsize': 544097, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:09:02.634487 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - __libc_freeres_fn[0m
+                             
+2023-12-05 12:09:02.634529 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - {'vaddr': 135061136, 'memsize': 2959, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:09:02.634573 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - .fini[0m
+                             
+2023-12-05 12:09:02.634616 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - {'vaddr': 135064096, 'memsize': 24, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:09:02.634661 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - .rodata[0m
+                             
+2023-12-05 12:09:02.634703 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - {'vaddr': 135065600, 'memsize': 114916, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.634748 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - .eh_frame[0m
+                             
+2023-12-05 12:09:02.634790 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - {'vaddr': 135180516, 'memsize': 88220, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.634838 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - .gcc_except_table[0m
+                             
+2023-12-05 12:09:02.634880 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - {'vaddr': 135268736, 'memsize': 196, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.634925 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - .tdata[0m
+                             
+2023-12-05 12:09:02.634967 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - {'vaddr': 135276192, 'memsize': 16, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.635012 : [1;32;40mINFO - 2023-12-05 12:09:02,634 - SemaSCDG - .tbss[0m
+                             
+2023-12-05 12:09:02.635053 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - {'vaddr': 135276208, 'memsize': 32, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.635099 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - .init_array[0m
+                             
+2023-12-05 12:09:02.635140 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - {'vaddr': 135276208, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.635185 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - .fini_array[0m
+                             
+2023-12-05 12:09:02.635228 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - {'vaddr': 135276216, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.635272 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - .data.rel.ro[0m
+                             
+2023-12-05 12:09:02.635314 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - {'vaddr': 135276224, 'memsize': 6420, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.635357 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - .got[0m
+                             
+2023-12-05 12:09:02.635403 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - {'vaddr': 135282644, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.635455 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - .got.plt[0m
+                             
+2023-12-05 12:09:02.635498 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - {'vaddr': 135282688, 'memsize': 72, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.635547 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - .data[0m
+                             
+2023-12-05 12:09:02.635588 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - {'vaddr': 135282784, 'memsize': 3936, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.635634 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - __libc_subfreeres[0m
+                             
+2023-12-05 12:09:02.635674 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - {'vaddr': 135286720, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.635717 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - __libc_IO_vtables[0m
+                             
+2023-12-05 12:09:02.635757 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - {'vaddr': 135286784, 'memsize': 948, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.635800 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - __libc_atexit[0m
+                             
+2023-12-05 12:09:02.635840 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - {'vaddr': 135287732, 'memsize': 4, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.635883 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - .bss[0m
+                             
+2023-12-05 12:09:02.635924 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - {'vaddr': 135287744, 'memsize': 3388, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.635970 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - __libc_freeres_ptrs[0m
+                             
+2023-12-05 12:09:02.636010 : [1;32;40mINFO - 2023-12-05 12:09:02,635 - SemaSCDG - {'vaddr': 135291132, 'memsize': 20, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.636053 : [1;32;40mINFO - 2023-12-05 12:09:02,636 - SemaSCDG - .comment[0m
+                             
+2023-12-05 12:09:02.636097 : [1;32;40mINFO - 2023-12-05 12:09:02,636 - SemaSCDG - {'vaddr': 0, 'memsize': 43, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.636140 : [1;32;40mINFO - 2023-12-05 12:09:02,636 - SemaSCDG - .debug_aranges[0m
+                             
+2023-12-05 12:09:02.636180 : [1;32;40mINFO - 2023-12-05 12:09:02,636 - SemaSCDG - {'vaddr': 0, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.636223 : [1;32;40mINFO - 2023-12-05 12:09:02,636 - SemaSCDG - .debug_info[0m
+                             
+2023-12-05 12:09:02.636263 : [1;32;40mINFO - 2023-12-05 12:09:02,636 - SemaSCDG - {'vaddr': 0, 'memsize': 1125, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.636305 : [1;32;40mINFO - 2023-12-05 12:09:02,636 - SemaSCDG - .debug_abbrev[0m
+                             
+2023-12-05 12:09:02.636346 : [1;32;40mINFO - 2023-12-05 12:09:02,636 - SemaSCDG - {'vaddr': 0, 'memsize': 322, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.636389 : [1;32;40mINFO - 2023-12-05 12:09:02,636 - SemaSCDG - .debug_line[0m
+                             
+2023-12-05 12:09:02.636429 : [1;32;40mINFO - 2023-12-05 12:09:02,636 - SemaSCDG - {'vaddr': 0, 'memsize': 610, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.636473 : [1;32;40mINFO - 2023-12-05 12:09:02,636 - SemaSCDG - .debug_str[0m
+                             
+2023-12-05 12:09:02.636517 : [1;32;40mINFO - 2023-12-05 12:09:02,636 - SemaSCDG - {'vaddr': 0, 'memsize': 809, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.636560 : [1;32;40mINFO - 2023-12-05 12:09:02,636 - SemaSCDG - .symtab[0m
+                             
+2023-12-05 12:09:02.636601 : [1;32;40mINFO - 2023-12-05 12:09:02,636 - SemaSCDG - {'vaddr': 0, 'memsize': 38768, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.636645 : [1;32;40mINFO - 2023-12-05 12:09:02,636 - SemaSCDG - .strtab[0m
+                             
+2023-12-05 12:09:02.636686 : [1;32;40mINFO - 2023-12-05 12:09:02,636 - SemaSCDG - {'vaddr': 0, 'memsize': 30171, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.636728 : [1;32;40mINFO - 2023-12-05 12:09:02,636 - SemaSCDG - .shstrtab[0m
+                             
+2023-12-05 12:09:02.636769 : [1;32;40mINFO - 2023-12-05 12:09:02,636 - SemaSCDG - {'vaddr': 0, 'memsize': 378, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:02.638231 : [1;32;40mINFO - 2023-12-05 12:09:02,638 - SemaSCDG - [][0m
+                             
+2023-12-05 12:09:02.638314 : [1;32;40mINFO - 2023-12-05 12:09:02,638 - SemaSCDG - <ExternObject Object cle##externs, maps [0x8200000:0x8207fff]>[0m
+                             
+2023-12-05 12:09:02.638367 : [1;32;40mINFO - 2023-12-05 12:09:02,638 - SemaSCDG - <generator object Loader.symbols at 0x7fef0df720b0>[0m
+                             
+2023-12-05 12:09:02.638454 : [1;32;40mINFO - 2023-12-05 12:09:02,638 - SemaSCDG - 
+                             ------------------------------
+                             Start -State of simulation manager :
+                              <SimulationManager with 1 active>
+                             ------------------------------[0m
+                             
+2023-12-05 12:09:52.667651 : [1;32;40mINFO - 2023-12-05 12:09:52,667 - SemaSCDG - 
+                             ------------------------------
+                             End - State of simulation manager :
+                              <SimulationManager with 1 active, 1 deadended, 1 ExcessLoop>
+                             ------------------------------[0m
+                             
+2023-12-05 12:09:52.667726 : [1;32;40mINFO - 2023-12-05 12:09:52,667 - SemaSCDG - Total number of blocks: 27642[0m
+                             
+2023-12-05 12:09:52.667775 : [1;32;40mINFO - 2023-12-05 12:09:52,667 - SemaSCDG - Total number of instr: 150299[0m
+                             
+2023-12-05 12:09:52.667821 : [1;32;40mINFO - 2023-12-05 12:09:52,667 - SemaSCDG - Number of blocks visited: 89[0m
+                             
+2023-12-05 12:09:52.667865 : [1;32;40mINFO - 2023-12-05 12:09:52,667 - SemaSCDG - Number of instr visited: 438[0m
+                             
+2023-12-05 12:09:52.667921 : [1;32;40mINFO - 2023-12-05 12:09:52,667 - SemaSCDG - Syscalls Found:{'malloc': 9, '__libc_start_main': 3, 'strlen': 27, 'printf': 19, '__isoc99_scanf': 1, 'puts': 1, 'rand': 1, 'sprintf': 1}[0m
+                             
+2023-12-05 12:09:52.667969 : [1;32;40mINFO - 2023-12-05 12:09:52,667 - SemaSCDG - Loaded libraries:set()[0m
+                             
+2023-12-05 12:09:52.668048 : [1;32;40mINFO - 2023-12-05 12:09:52,668 - SemaSCDG - Environment variables:{}[0m
+                             
+2023-12-05 12:09:52.668095 : [1;32;40mINFO - 2023-12-05 12:09:52,668 - SemaSCDG - Registery variables:{}[0m
+                             
+2023-12-05 12:09:52.668138 : [1;32;40mINFO - 2023-12-05 12:09:52,668 - SemaSCDG - Locale informations variables:{}[0m
+                             
+2023-12-05 12:09:52.668182 : [1;32;40mINFO - 2023-12-05 12:09:52,668 - SemaSCDG - Resources variables:{}[0m
+                             
+2023-12-05 12:09:52.668230 : [1;32;40mINFO - 2023-12-05 12:09:52,668 - SemaSCDG - Total execution time: 82.37390160560608[0m
+                             
+2023-12-05 12:09:52.668855 : [1;32;40mINFO - 2023-12-05 12:09:52,668 - SemaSCDG - [0m
+                             
+2023-12-05 12:09:52.668913 : [1;32;40mINFO - 2023-12-05 12:09:52,668 - SemaSCDG - {'vaddr': 0, 'memsize': 0, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.668964 : [1;32;40mINFO - 2023-12-05 12:09:52,668 - SemaSCDG - .note.gnu.build-id[0m
+                             
+2023-12-05 12:09:52.669010 : [1;32;40mINFO - 2023-12-05 12:09:52,668 - SemaSCDG - {'vaddr': 134512980, 'memsize': 36, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.669056 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - .note.gnu.property[0m
+                             
+2023-12-05 12:09:52.669099 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - {'vaddr': 134513016, 'memsize': 28, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.669145 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - .note.ABI-tag[0m
+                             
+2023-12-05 12:09:52.669188 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - {'vaddr': 134513044, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.669234 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - .rel.plt[0m
+                             
+2023-12-05 12:09:52.669277 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - {'vaddr': 134513076, 'memsize': 120, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.669322 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - .init[0m
+                             
+2023-12-05 12:09:52.669364 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - {'vaddr': 134516736, 'memsize': 36, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:09:52.669410 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - .plt[0m
+                             
+2023-12-05 12:09:52.669458 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - {'vaddr': 134516784, 'memsize': 240, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:09:52.669505 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - .text[0m
+                             
+2023-12-05 12:09:52.669548 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - {'vaddr': 134517024, 'memsize': 544097, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:09:52.669593 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - __libc_freeres_fn[0m
+                             
+2023-12-05 12:09:52.669636 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - {'vaddr': 135061136, 'memsize': 2959, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:09:52.669681 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - .fini[0m
+                             
+2023-12-05 12:09:52.669723 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - {'vaddr': 135064096, 'memsize': 24, 'is_readable': True, 'is_writable': False, 'is_executable': True}[0m
+                             
+2023-12-05 12:09:52.669768 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - .rodata[0m
+                             
+2023-12-05 12:09:52.669811 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - {'vaddr': 135065600, 'memsize': 114916, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.669855 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - .eh_frame[0m
+                             
+2023-12-05 12:09:52.669897 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - {'vaddr': 135180516, 'memsize': 88220, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.669941 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - .gcc_except_table[0m
+                             
+2023-12-05 12:09:52.669982 : [1;32;40mINFO - 2023-12-05 12:09:52,669 - SemaSCDG - {'vaddr': 135268736, 'memsize': 196, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.670026 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - .tdata[0m
+                             
+2023-12-05 12:09:52.670068 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - {'vaddr': 135276192, 'memsize': 16, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.670112 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - .tbss[0m
+                             
+2023-12-05 12:09:52.670155 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - {'vaddr': 135276208, 'memsize': 32, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.670208 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - .init_array[0m
+                             
+2023-12-05 12:09:52.670251 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - {'vaddr': 135276208, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.670295 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - .fini_array[0m
+                             
+2023-12-05 12:09:52.670338 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - {'vaddr': 135276216, 'memsize': 8, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.670382 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - .data.rel.ro[0m
+                             
+2023-12-05 12:09:52.670427 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - {'vaddr': 135276224, 'memsize': 6420, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.670469 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - .got[0m
+                             
+2023-12-05 12:09:52.670510 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - {'vaddr': 135282644, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.670552 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - .got.plt[0m
+                             
+2023-12-05 12:09:52.670593 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - {'vaddr': 135282688, 'memsize': 72, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.670635 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - .data[0m
+                             
+2023-12-05 12:09:52.670676 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - {'vaddr': 135282784, 'memsize': 3936, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.670721 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - __libc_subfreeres[0m
+                             
+2023-12-05 12:09:52.670763 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - {'vaddr': 135286720, 'memsize': 36, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.670807 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - __libc_IO_vtables[0m
+                             
+2023-12-05 12:09:52.670847 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - {'vaddr': 135286784, 'memsize': 948, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.670898 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - __libc_atexit[0m
+                             
+2023-12-05 12:09:52.670940 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - {'vaddr': 135287732, 'memsize': 4, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.670990 : [1;32;40mINFO - 2023-12-05 12:09:52,670 - SemaSCDG - .bss[0m
+                             
+2023-12-05 12:09:52.671035 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - {'vaddr': 135287744, 'memsize': 3388, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.671079 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - __libc_freeres_ptrs[0m
+                             
+2023-12-05 12:09:52.671121 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - {'vaddr': 135291132, 'memsize': 20, 'is_readable': True, 'is_writable': True, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.671166 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - .comment[0m
+                             
+2023-12-05 12:09:52.671207 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - {'vaddr': 0, 'memsize': 43, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.671250 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - .debug_aranges[0m
+                             
+2023-12-05 12:09:52.671291 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - {'vaddr': 0, 'memsize': 32, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.671334 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - .debug_info[0m
+                             
+2023-12-05 12:09:52.671375 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - {'vaddr': 0, 'memsize': 1125, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.671418 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - .debug_abbrev[0m
+                             
+2023-12-05 12:09:52.671459 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - {'vaddr': 0, 'memsize': 322, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.671503 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - .debug_line[0m
+                             
+2023-12-05 12:09:52.671544 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - {'vaddr': 0, 'memsize': 610, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.671588 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - .debug_str[0m
+                             
+2023-12-05 12:09:52.671629 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - {'vaddr': 0, 'memsize': 809, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.671671 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - .symtab[0m
+                             
+2023-12-05 12:09:52.671711 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - {'vaddr': 0, 'memsize': 38768, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.671754 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - .strtab[0m
+                             
+2023-12-05 12:09:52.671795 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - {'vaddr': 0, 'memsize': 30171, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.671841 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - .shstrtab[0m
+                             
+2023-12-05 12:09:52.671881 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - {'vaddr': 0, 'memsize': 378, 'is_readable': True, 'is_writable': False, 'is_executable': False}[0m
+                             
+2023-12-05 12:09:52.671925 : [1;32;40mINFO - 2023-12-05 12:09:52,671 - SemaSCDG - /app/src/output/runs/271/unknown//normal/inter_SCDG.json[0m
+                             

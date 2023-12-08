@@ -1,0 +1,83 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="134519824.main
+normal"]
+	1 [label="0x8049c41.__libc_start_main
+134520535
+1
+2147418032
+134525248
+134525424"]
+	2 [label="0x8049786.__libc_start_main
+134520535
+1
+2147418032
+134525248
+134525424"]
+	1 -> 2 [label="(1-->1)"]
+	1 -> 2 [label="(2-->2)"]
+	1 -> 2 [label="(3-->3)"]
+	1 -> 2 [label="(4-->4)"]
+	1 -> 2 [label="(5-->5)"]
+	1 -> 2 [label="(0-->0)"]
+	3 [label="0x8049f0d.printf
+Enter a positive integer: "]
+	4 [label="0x8049f23.__isoc99_scanf
+135065758"]
+	1 -> 4 [label="(2-->0)"]
+	2 -> 4 [label="(2-->0)"]
+	5 [label="0x8049f3c.puts
+Please enter a positive integer."]
+	6 [label="0x8049f5c.printf
+Performing complex calculations based on %d...
+"]
+	7 [label="0x8049f81.printf
+loop %d"]
+	8 [label="0x8049fb7.printf
+i mod 2 != 0"]
+	9 [label="0x8049fff.printf
+Intermediate result after loop: %d
+"]
+	10 [label="0x8049df8.printf
+a * b"]
+	11 [label="0x804a039.printf
+Result of custom function with inputs %d and %d: %d
+"]
+	12 [label="0x8049e28.strlen
+Hello, World!"]
+	13 [label="0x8049e40.printf
+Length of string: %d
+"]
+	14 [label="0x8049e55.printf
+String before manipulation: %s
+"]
+	15 [label="0x8049ec9.printf
+String after manipulation: %s
+"]
+	16 [label="0x804a079.printf
+Manipulated string: %s
+"]
+	17 [label="0x804a081.rand
+"]
+	18 [label="0x804a08b.malloc
+50"]
+	19 [label="0x804a0f5.strlen
+This is a heap string."]
+	20 [label="0x804a127.sprintf
+This is a stack string.
+2147417924"]
+	21 [label="0x804a134.malloc
+50"]
+	18 -> 21 [label="(1-->1)"]
+	22 [label="0x804a1ba.puts
+Heap string 1 != Heap string 2"]
+	23 [label="0x804a1d2.sprintf
+This is a heap string too !
+3221360576"]
+	21 -> 23 [label="(0-->2)"]
+	24 [label="0x8049f9d.printf
+i mod 2 == 0"]
+	8 -> 24 [label="(0-->0)"]
+	25 [label="0x8049fdb.printf
+i > 5 && i < 10"]
+}

@@ -70,6 +70,9 @@ setup(name='sema-tc',
           'unipacker',
           "minidump==0.0.10",
           "parameterized",
-          "networkx"
+          "networkx",
+          "htmltestrunner-rv",
+          "coverage",
+          "pympler"
       ],
       zip_safe=False)

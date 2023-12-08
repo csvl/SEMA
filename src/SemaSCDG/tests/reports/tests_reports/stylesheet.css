@@ -1,0 +1,83 @@
+
+body        {
+font-family: verdana, arial, helvetica, sans-serif;
+font-size: 80%;
+background-color:#ffecb3;
+}
+table       { font-size: 100%; }
+pre         {margin:5px;}
+/* -- heading ---------------------------------------------------------------------- */
+h1 {
+	font-size: 16pt;
+}
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+    border-style:ridge;
+    color:white;
+    background-color:#999900;
+    font-weight:bold;
+}
+.heading .attribute {
+    margin-top: 1ex;
+    margin-bottom: 1ex;
+    margin-left:1ex;
+}
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+/* -- css div popup ------------------------------------------------------------------------ */
+a{
+text-decoration: none;
+color: white;
+font-weight: bold;
+}
+a:hover {
+    text-decoration:underline;
+}
+button{
+margin:3px;
+}
+.popup_window {
+    display: none;
+    background-color: white;
+    font-family: "Lucida Console", "Courier New", Courier, monospace;
+    text-align: left;
+    font-size: 8pt;
+    padding:10px;
+    margin:20px;
+}
+/* -- report ------------------------------------------------------------------------ */
+#show_detail_line {
+    margin-top: 3ex;
+    margin-bottom: 1ex;
+}
+#result_table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #777;
+}
+#header_row {
+    font-weight: bold;
+    color: white;
+    background-color: #777;
+}
+#result_table td {
+    border: 1px solid #777;
+    padding: 2px;
+    word-wrap: break-word;
+    max-width:150px;
+}
+#total_row  { font-weight: bold; color: white; background-color: #777; }
+.passClass  { background-color: #53c653; }
+.failClass  { background-color: #ffb380;  }
+.errorClass { background-color: #ff8080; }
+.passCase   { background-color: #53c653; }
+.failCase   { background-color: #ffb380;  }
+.errorCase  { background-color: #ff8080;  }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em;}
+/* -- ending ---------------------------------------------------------------------- */
+#ending {
+}
