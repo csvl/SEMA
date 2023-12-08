@@ -59,8 +59,8 @@ RUN apt update; apt-get install --fix-missing -y  --fix-missing \
             libpulse-dev
 
 RUN cd /tmp/guac-build; \
-        wget https://www.apache.org/dist/guacamole/1.5.2/source/guacamole-server-1.5.2.tar.gz; \
-        tar xvf guacamole-server-1.5.2.tar.gz && cd guacamole-server-1.5.2; \
+        wget https://www.apache.org/dist/guacamole/1.5.3/source/guacamole-server-1.5.3.tar.gz; \
+        tar xvf guacamole-server-1.5.3.tar.gz && cd guacamole-server-1.5.3; \
         ./configure --with-init-dir=/etc/init.d; \
         make && make install 
 RUN ldconfig
