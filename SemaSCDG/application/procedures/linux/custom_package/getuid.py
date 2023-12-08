@@ -7,5 +7,5 @@ logging.getLogger("CustomSimProcedureLinux").setLevel("INFO")
 class getuid(angr.SimProcedure):
     # pylint: disable=arguments-differ
     def run(self):
-        lw.info(self.cc)
+        lw.debug(self.cc)
         return 1000

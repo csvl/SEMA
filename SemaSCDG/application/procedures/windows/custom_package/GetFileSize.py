@@ -1,7 +1,12 @@
 import logging
 import angr
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 
 class GetFileSize(angr.SimProcedure):
@@ -13,9 +18,9 @@ class GetFileSize(angr.SimProcedure):
         simfd = self.state.posix.get_fd(hFile)
         # import pdb; pdb.set_trace()
         if simfd is None:
-            lw.info("GetFileSize: could not find fd")
+            lw.debug("GetFileSize: could not find fd")
             return self.state.solver.BVS("retval_{}".format(self.display_name),  self.arch.bits)
-        lw.info(
+        lw.debug(
             "GetFileSize: {}  asks file size of {}".format(self.display_name, hFile)
         )
         size = simfd.size()

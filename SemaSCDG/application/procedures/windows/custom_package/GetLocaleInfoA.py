@@ -1,7 +1,12 @@
 import angr
 import logging
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 class GetLocaleInfoA(angr.SimProcedure):
     def run(self, locale, lctype, lp_lc_data, cch_data):
@@ -69,7 +74,7 @@ class GetLocaleInfoA(angr.SimProcedure):
         }
         # TODO some error, shoud init with local directly in plugin
         if self.state.solver.eval(lctype) in response.keys():
-            lw.info("GetLocaleInfoW: %s", response[self.state.solver.eval(lctype)])
+            lw.debug("GetLocaleInfoW: %s", response[self.state.solver.eval(lctype)])
             # if self.state.solver.eval(lctype) == 0x00010000:
             #     return_int = response[self.state.solver.eval(lctype)] -> TO INT
             return_string = response[self.state.solver.eval(lctype)]
@@ -83,9 +88,9 @@ class GetLocaleInfoA(angr.SimProcedure):
             # Return the size of the string, in characters, excluding the null terminator
             return str_size - 1
         else:
-            lw.info("Not in response")
+            lw.debug("Not in response")
             locale_ev = self.state.solver.eval(locale)
-            lw.info(hex(locale_ev))
+            lw.debug(hex(locale_ev))
             if locale_ev in self.state.plugin_locale_info.locale_info:
                 infotype, lpdata, cchData = self.state.plugin_locale_info.locale_info[locale_ev]
                 info_ev = self.state.solver.eval(infotype)
@@ -93,7 +98,7 @@ class GetLocaleInfoA(angr.SimProcedure):
                 if info_ev == lctype_ev:
                     self.state.memory.store(lp_lc_data, lpdata, endness="little")
                     return cchData
-            lw.info("Not in locale_info")
+            lw.debug("Not in locale_info")
             self.state.plugin_locale_info.locale_info[locale_ev] = (self.state.solver.eval(lctype), self.state.solver.eval(lp_lc_data), self.state.solver.eval(cch_data))
             return 0
 

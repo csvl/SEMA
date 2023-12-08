@@ -1,7 +1,12 @@
 import logging
 import angr
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 class MultiByteToWideChar(angr.SimProcedure):
 
@@ -21,14 +26,14 @@ class MultiByteToWideChar(angr.SimProcedure):
             try:
                 string = self.state.mem[lpMultiByteStr].wstring.concrete
             except:
-                lw.info("Cannot resolve lpMultiByteStr")
+                lw.warning("Cannot resolve lpMultiByteStr")
                 return 0
         else:
             try:
                 string = self.state.mem[lpMultiByteStr].string.concrete
                 string = string.decode("utf-8")
             except:
-                lw.info("Cannot resolve lpMultiByteStr")
+                lw.warning("Cannot resolve lpMultiByteStr")
                 return 0
         
         length = len(string) + 1

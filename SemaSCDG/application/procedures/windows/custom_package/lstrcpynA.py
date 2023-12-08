@@ -1,7 +1,12 @@
 import logging
 import angr
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 
 class lstrcpynA(angr.SimProcedure):
@@ -14,13 +19,13 @@ class lstrcpynA(angr.SimProcedure):
         try:
             second_str = self.state.mem[lpstring2].string.concrete
         except:
-            lw.info("lpstring2 not resolvable")
+            lw.debug("lpstring2 not resolvable")
             second_str = ""
             
         try:
             second_str = second_str.decode("utf-8")
         except:
-            lw.info("string2 not decodable")
+            lw.debug("string2 not decodable")
             second_str = ""
             
         new_str = second_str[: nchar - 1] + "\0"

@@ -2,14 +2,20 @@ import logging
 import sys
 import angr
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+log_level = config['SCDG_arg'].get('log_level')
+lw.setLevel(log_level)
 # if you subclass LoadLibraryA to provide register, you can implement LoadLibraryExW by making an empty class that just
 # subclasses your special procedure and LoadLibraryExW
 from procedures.WindowsSimProcedure import WindowsSimProcedure
 
 class LoadLibraryA(angr.SimProcedure):
     def run(self, lib_ptr):
-        call_sim = WindowsSimProcedure()
+        call_sim = WindowsSimProcedure(log_level)
         proj = self.state.project
         try:
             lib = self.state.mem[lib_ptr].string.concrete
@@ -19,7 +25,7 @@ class LoadLibraryA(angr.SimProcedure):
             # import pdb; pdb.set_trace()
             pass
         lib = str(lib).lower()
-        lw.info("LoadLibraryA: " + str(lib))
+        lw.debug("LoadLibraryA: " + str(lib))
         # We will create a fake symbol to represent the handle to the library
         # Check first if we already did that before
         symb = proj.loader.find_symbol(lib)
@@ -28,7 +34,7 @@ class LoadLibraryA(angr.SimProcedure):
             self.state.globals["loaded_libs"][symb.rebased_addr] = lib
             return symb.rebased_addr
         else:
-            lw.info("LoadLibraryA: Symbol not found")
+            lw.debug("LoadLibraryA: Symbol not found")
             extern = proj.loader.extern_object
             addr = extern.get_pseudo_addr(lib)
             self.state.globals["loaded_libs"][addr] = lib
@@ -47,7 +53,7 @@ class LoadLibraryA(angr.SimProcedure):
                 exc_type, exc_obj, exc_tb = sys.exc_info()
                 # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
                 lw.warning(exc_type, exc_obj)
-                lw.info("LoadLibraryA: Fail to load dynamically lib " + str(lib))
+                lw.debug("LoadLibraryA: Fail to load dynamically lib " + str(lib))
                 exit(-1)
 
             # import pdb; pdb.set_trace()

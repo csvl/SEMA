@@ -219,7 +219,7 @@ Global parameter:
   timeout              Timeout in seconds before ending extraction (default : 600)
   string_resolve       Do we try to resolv references of string (default : False)
   memory_limit         Skip binary experiment when memory > 90% (default : False)
-  verbose              Verbose output during calls extraction (default : False)
+  log_level            Level of log, can be INFO, DEBUG, WARNING, NONE (default : INFO) 
   family               Family of the malware (default : Unknown)
   exp_dir              Directory to save SCDG extracted (default : Default)
   binary_path          Name of the binary to analyze

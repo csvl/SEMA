@@ -1,7 +1,12 @@
 import logging
 import angr
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 
 class sendcc(angr.SimProcedure):
@@ -16,7 +21,7 @@ class sendcc(angr.SimProcedure):
             return self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)           
         else:
             l = self.state.solver.eval(length)
-            lw.info("lenght: " + str(l))
+            lw.debug("lenght: " + str(l))
             # ptr=self.state.solver.BVS("buf",8*self.state.solver.eval(length),key=("buffer_send", hex(self.state.globals["n_buffer_send"])),eternal=True)
             # self.state.memory.store(buf,ptr)
             if len(self.state.globals["buffer_send"]) == 0:
@@ -24,7 +29,7 @@ class sendcc(angr.SimProcedure):
             else:
                 self.state.globals["buffer_send"].append((buf,l))
             self.state.globals["n_buffer_send"] = self.state.globals["n_buffer_send"] + 1
-            lw.info(hex(self.state.solver.eval(self.state.memory.load(buf,l))))
+            lw.debug(hex(self.state.solver.eval(self.state.memory.load(buf,l))))
             return l
             ptr=self.state.solver.BVS("buf",8*self.state.solver.eval(length),key=("buffer", hex(self.state.globals["n_buffer"])),eternal=True)
             self.state.memory.store(buf,ptr)

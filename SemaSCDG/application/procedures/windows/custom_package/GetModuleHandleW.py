@@ -4,7 +4,13 @@ import angr
 from procedures.WindowsSimProcedure import WindowsSimProcedure
 from procedures.CustomSimProcedure import CustomSimProcedure
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+log_level = config['SCDG_arg'].get('log_level')
+lw.setLevel(log_level)
 
 
 class GetModuleHandleW(angr.SimProcedure):
@@ -15,26 +21,26 @@ class GetModuleHandleW(angr.SimProcedure):
         return lib
 
     def run(self, lib_ptr):
-        call_sim = WindowsSimProcedure()
+        call_sim = WindowsSimProcedure(log_level)
             
         if lib_ptr.symbolic:
-            lw.info("Symbolic lib")
+            lw.debug("Symbolic lib")
             return self.state.solver.BVS(
                 "retval_{}".format(self.display_name), self.arch.bits
             )
 
         if self.state.solver.is_true(lib_ptr == 0):
-            lw.info("GetModuleHandleW: NULL")
+            lw.debug("GetModuleHandleW: NULL")
             return self.project.loader.main_object.mapped_base
 
         proj = self.state.project
         lib = self.decodeString(lib_ptr).lower()
         #lib = str(lib).lower()
-        lw.info(
+        lw.debug(
             "GetModuleHandleW: {}  asks for handle to {}".format(self.display_name, lib)
         )
         if(lib in CustomSimProcedure.EVASION_LIBS):
-            lw.info("Evasion library detected: {}".format(lib))
+            lw.debug("Evasion library detected: {}".format(lib))
             #self.state.plugin_evasion.libraries.append(lib)
             return 0
         # We will create a fake symbol to represent the handle to the library
@@ -45,7 +51,7 @@ class GetModuleHandleW(angr.SimProcedure):
             self.state.globals["loaded_libs"][symb.rebased_addr] = lib
             return symb.rebased_addr
         else:
-            # lw.info('GetModuleHandleW: Symbol not found')
+            # lw.debug('GetModuleHandleW: Symbol not found')
             extern = proj.loader.extern_object
             addr = extern.get_pseudo_addr(lib)
             self.state.globals["loaded_libs"][addr] = lib

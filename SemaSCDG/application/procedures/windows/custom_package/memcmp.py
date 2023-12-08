@@ -1,7 +1,12 @@
 import angr
 import logging
 
-l = logging.getLogger("CustomSimProcedureWindows")
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 class memcmp(angr.SimProcedure):
     #pylint:disable=arguments-differ
@@ -17,7 +22,7 @@ class memcmp(angr.SimProcedure):
         else:
             conditional_size = 0
 
-        l.info("Definite size %s and conditional size: %s", definite_size, conditional_size)
+        lw.debug("Definite size %s and conditional size: %s", definite_size, conditional_size)
 
         int_bits = self.arch.bits #self.arch.sizeof['int']
         if definite_size > 0:
@@ -28,9 +33,9 @@ class memcmp(angr.SimProcedure):
             constraint = self.state.solver.Or(*[c for c,_ in cases])
             self.state.add_constraints(constraint)
 
-            l.info("Created definite answer: %s", definite_answer)
-            l.info("Created constraint: %s", constraint)
-            l.info("... crom cases: %s", cases)
+            lw.debug("Created definite answer: %s", definite_answer)
+            lw.debug("Created constraint: %s", constraint)
+            lw.debug("... crom cases: %s", cases)
         else:
             definite_answer = self.state.solver.BVV(0, int_bits)
 

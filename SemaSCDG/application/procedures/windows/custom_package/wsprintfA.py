@@ -1,7 +1,12 @@
 import logging
 import angr
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 
 class wsprintfA(angr.SimProcedure):
@@ -13,7 +18,7 @@ class wsprintfA(angr.SimProcedure):
 
     def run(self, arg1, arg2):
 
-        lw.info("wsprintfA: " + str(self.arguments))
+        lw.debug("wsprintfA: " + str(self.arguments))
 
         if arg1.symbolic or arg2.symbolic:
             return self.state.solver.BVS(

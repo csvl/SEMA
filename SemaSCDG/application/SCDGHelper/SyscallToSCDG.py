@@ -3,12 +3,7 @@ from clogging.CustomFormatter import CustomFormatter
 import archinfo
 
 logger = logging.getLogger("SyscallToSCDGBuilder")
-ch = logging.StreamHandler()
-ch.setLevel(logging.INFO)
-ch.setFormatter(CustomFormatter())
-logger.addHandler(ch)
-logger.propagate = False
-logger.setLevel(logging.INFO)
+
 
 class SyscallToSCDGBuilder:
     FUNCTION_CHAR = {
@@ -124,13 +119,19 @@ class SyscallToSCDGBuilder:
         "getsockopt",
     }
 
-    def __init__(self, call_sim, scdg, string_resolv=True, print_syscall=True, verbose=False):
+    def __init__(self, call_sim, scdg, string_resolv=True, print_syscall=True, log_level=False):
         self.log = logger
         self.call_sim = call_sim
         self.scdg = scdg
         self.string_resolv = string_resolv
         self.print_syscall = print_syscall
-        self.verbose = verbose
+        self.log_level = log_level
+        ch = logging.StreamHandler()
+        ch.setLevel(self.log_level)
+        ch.setFormatter(CustomFormatter())
+        logger.addHandler(ch)
+        logger.propagate = False
+        logger.setLevel(self.log_level)
 
     def decode_string(self, string):
         if hasattr(string, "decode"):
@@ -196,8 +197,7 @@ class SyscallToSCDGBuilder:
                 self.call_sim.syscall_found[key_name] = 1
             else:
                 self.call_sim.syscall_found[key_name] = self.call_sim.syscall_found[key_name] + 1
-            if self.verbose :
-                self.log.info("Syscall found:  " + str(name) + str(args))
+            self.log.info("Syscall found:  " + str(name) + str(args))
                 
         if self.scdg[id][-1]["name"] == name and args:
             for i in range(len(args)):
@@ -391,8 +391,7 @@ class SyscallToSCDGBuilder:
 
         if syscall in self.FUNCTION_RETURNS:
             ret = self.FUNCTION_RETURNS[syscall](state)
-            if self.verbose:
-                self.log.info("return value of " + str(name) + " :" + str(ret))
+            self.log.info("return value of " + str(name) + " :" + str(ret))
             dic["ret"] = hex(ret)
         else:
             dic["ret"] = hex(0)

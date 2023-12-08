@@ -1,7 +1,12 @@
 import logging
 import angr
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 
 class ReadFile(angr.SimProcedure):
@@ -12,7 +17,7 @@ class ReadFile(angr.SimProcedure):
         self.state.project
         simfd = self.state.posix.get_fd(hFile)
         if simfd is None:
-            lw.info("ReadFile: could not find fd")
+            lw.warning("ReadFile: could not find fd")
             return 1
         bytes_read = simfd.read(
             lpBuffer, nNumberOfBytesToRead, endness=self.arch.memory_endness

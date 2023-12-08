@@ -35,6 +35,21 @@ run-scdg-service:
 		-p 5001:5001 \
 		--net=micro_network \
 		--name="sema-scdg" \
+		-it sema-scdg bash
+
+run-scdg-service-pypy:
+	docker run \
+		--rm \
+		-v $(PWD)/SemaSCDG/:/sema-scdg \
+		-v $(PWD)/submodules/angr-utils:/sema-scdg/application/submodules/angr-utils \
+		-v $(PWD)/submodules/bingraphvis:/sema-scdg/application/submodules/bingraphvis \
+		-v $(PWD)/penv-fix/:/sema-scdg/application/penv-fix \
+		-v $(PWD)/database/:/sema-scdg/application/database\
+		-e DISPLAY=$(DISPLAY) \
+		-v /tmp/.X11-unix:/tmp/.X11-unix \
+		-p 5001:5001 \
+		--net=micro_network \
+		--name="sema-scdg-pypy" \
 		-it sema-scdg-pypy bash
 
 run-scdg-test:	

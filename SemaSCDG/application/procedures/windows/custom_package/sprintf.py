@@ -1,7 +1,12 @@
 import logging
 import angr
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 # class sprintf(angr.SimProcedure):
 #     def run(self, buffer, format, args):
@@ -37,7 +42,7 @@ class sprintf(angr.SimProcedure):
     def run(self, arg1, arg2):
 
         # import pdb; pdb.set_trace()
-        lw.info("sprintf: " + str(self.arguments))
+        lw.debug("sprintf: " + str(self.arguments))
 
         if arg1.symbolic or arg2.symbolic:
             return self.state.solver.BVS(
@@ -118,8 +123,8 @@ class sprintf(angr.SimProcedure):
 #     def run(self, dst_ptr, fmt):  # pylint:disable=unused-argument , args1, args2
 #         # The format str is at index 1
 #         fmt_str = self._parse(fmt)
-#         lw.info("sprintf: " + str(self.arguments))
-#         lw.info("sprintf: " + str(fmt_str))
+#         lw.debug("sprintf: " + str(self.arguments))
+#         lw.debug("sprintf: " + str(fmt_str))
 #         out_str = fmt_str.replace(self.va_arg)
 #         self.state.memory.store(dst_ptr, out_str)
 

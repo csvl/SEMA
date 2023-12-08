@@ -1,7 +1,12 @@
 import logging
 import angr
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 
 class TlsGetValue(angr.SimProcedure):
@@ -25,7 +30,7 @@ class TlsGetValue(angr.SimProcedure):
                 "retval_{}".format(self.display_name), self.arch.bits
             )
 
-        lw.info(
+        lw.debug(
             "TlsGetValue - Stored value :"
             + str(self.state.globals[self.KEY][conc_index])
         )

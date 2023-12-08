@@ -1,10 +1,15 @@
 import logging
 import angr
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 
 class DecodePointer(angr.SimProcedure):
     def run(self, ptr):
-        lw.info("DecodePointer: Hello")
+        lw.debug("DecodePointer: Hello")
         return ptr

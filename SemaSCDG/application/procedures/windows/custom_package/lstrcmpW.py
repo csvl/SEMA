@@ -1,7 +1,12 @@
 import logging
 import angr
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 
 class lstrcmpW(angr.SimProcedure):
@@ -12,12 +17,12 @@ class lstrcmpW(angr.SimProcedure):
         try:
             first_str = self.state.mem[string1].wstring.concrete
         except:
-            lw.info("string1 not resolvable")
+            lw.debug("string1 not resolvable")
             first_str = ""
         try:
             second_str = self.state.mem[string2].wstring.concrete
         except:
-            lw.info("string2 not resolvable")
+            lw.debug("string2 not resolvable")
             second_str = ""
             
         if first_str == second_str:

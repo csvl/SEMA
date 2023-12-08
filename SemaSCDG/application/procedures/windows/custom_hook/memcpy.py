@@ -1,7 +1,12 @@
 import angr
 import logging
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 
 class memcpy(angr.SimProcedure):

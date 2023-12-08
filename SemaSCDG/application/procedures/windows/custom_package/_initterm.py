@@ -1,7 +1,12 @@
 import angr
 import logging
 
-l = logging.getLogger("CustomSimProcedureWindows")
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
+lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 class _initterm(angr.SimProcedure):
     local_vars = ('callbacks',)
@@ -10,7 +15,7 @@ class _initterm(angr.SimProcedure):
     #pylint:disable=arguments-differ
     def run(self, fp_a, fp_z):
         if self.state.solver.symbolic(fp_a) or self.state.solver.symbolic(fp_z):
-            l.warning("Symbolic argument to _initterm{_e} is not supported... returning")
+            lw.warning("Symbolic argument to _initterm{_e} is not supported... returning")
             self.ret(0) # might as well try to keep going
 
         self.callbacks = self.get_callbacks(fp_a, fp_z)
@@ -30,5 +35,5 @@ class _initterm(angr.SimProcedure):
             self.ret(0)  # probably best to assume each callback returned 0
         else:
             callback_addr = self.callbacks.pop(0)
-            l.debug("Calling %#x", callback_addr)
+            lw.debug("Calling %#x", callback_addr)
             self.call(callback_addr, [], continue_at='do_callbacks', prototype='void x()')

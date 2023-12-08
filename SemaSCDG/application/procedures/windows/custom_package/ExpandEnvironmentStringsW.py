@@ -6,7 +6,7 @@ class ExpandEnvironmentStringsW(angr.SimProcedure):
         try:
             src = self.state.mem[lpSrc].wstring.concrete
         except:
-            lw.info("lpSrc not resolvable")
+            lw.debug("lpSrc not resolvable")
             lpDst = lpSrc
             return nSize
             

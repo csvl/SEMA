@@ -2,7 +2,12 @@ import angr
 import logging
 import claripy
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 # class memset(angr.SimProcedure):
 #     #pylint:disable=arguments-differ
@@ -60,20 +65,20 @@ class memset(angr.SimProcedure):
             char = self.state.solver.Extract(self.state.arch.byte_width - 1, 0, char)
 
         if self.state.solver.symbolic(num):
-            lw.info("symbolic length")
+            lw.debug("symbolic length")
             max_size = self.state.solver.min_int(num) + self.state.libc.max_buffer_size
             write_bytes = self.state.solver.Concat(*([char] * max_size))
             self.state.memory.store(dst_addr, write_bytes, size=num)
         else:
             max_size = self.state.solver.eval(num)
-            lw.info("memset writing %d bytes", max_size)
+            lw.debug("memset writing %d bytes", max_size)
 
             offset = 0
             while offset < max_size:
                 chunksize = min(max_size - offset, 0x1000)
 
                 if self.state.solver.symbolic(char):
-                    lw.info("symbolic char")
+                    lw.debug("symbolic char")
                     write_bytes = self.state.solver.Concat(*([char] * chunksize))
                 else:
                     # Concatenating many bytes is slow, so some sort of optimization is required

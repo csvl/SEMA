@@ -1,7 +1,12 @@
 import angr
 import logging
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 class _getenv_s(angr.SimProcedure):
     def get_str(self, lpName):
@@ -9,11 +14,10 @@ class _getenv_s(angr.SimProcedure):
         if hasattr(name, "decode"):
             name = name.decode("utf-8")
         name = name.upper()
-        lw.info(name)
+        lw.debug(name)
         if name in self.state.plugin_env_var.env_var.keys() and self.state.plugin_env_var.env_var[name] != None:
-            lw.info("Swag")
             ret = self.state.plugin_env_var.env_var[name]
-            lw.info(ret)
+            lw.debug(ret)
             # lw.warning(name + " " + str(size) + " " + ret)
             try:  # TODO investigate why needed with explorer
                 if ret[-1] != "\0":
@@ -26,7 +30,7 @@ class _getenv_s(angr.SimProcedure):
         else:
             ret =  None #"None"
             self.state.plugin_env_var.env_var[name] = None
-        lw.info(ret)
+        lw.debug(ret)
         self.state.plugin_env_var.env_var_requested[name] = ret
         return ret
 

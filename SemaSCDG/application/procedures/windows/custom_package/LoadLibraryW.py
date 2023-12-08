@@ -4,12 +4,18 @@ import angr
 
 from procedures.WindowsSimProcedure import WindowsSimProcedure
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+log_level = config['SCDG_arg'].get('log_level')
+lw.setLevel(log_level)
 
 
 class LoadLibraryW(angr.SimProcedure):
     def run(self, lib_ptr):
-        call_sim = WindowsSimProcedure()
+        call_sim = WindowsSimProcedure(log_level)
         proj = self.state.project
         lib = self.state.mem[lib_ptr].wstring.concrete
         if hasattr(lib, "decode"):
@@ -24,7 +30,7 @@ class LoadLibraryW(angr.SimProcedure):
             self.state.globals["loaded_libs"][symb.rebased_addr] = lib
             return symb.rebased_addr
         else:
-            lw.info("LoadLibraryW: Symbol not found")
+            lw.debug("LoadLibraryW: Symbol not found")
             extern = proj.loader.extern_object
             addr = extern.get_pseudo_addr(lib)
             self.state.globals["loaded_libs"][addr] = lib
@@ -44,11 +50,11 @@ class LoadLibraryW(angr.SimProcedure):
                 exc_type, exc_obj, exc_tb = sys.exc_info()
                 # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
                 lw.warning(exc_type, exc_obj)
-                lw.info("LoadLibraryW: Fail to load dynamically lib " + str(lib))
+                lw.debug("LoadLibraryW: Fail to load dynamically lib " + str(lib))
                 exit(-1)
 
             # import pdb; pdb.set_trace()
             return addr
-        lw.info(lib)
+        lw.debug(lib)
         return lib_ptr
         return self.load(lib)

@@ -2,7 +2,12 @@ import logging
 import angr
 import struct
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 class GetSystemInfo(angr.SimProcedure):
     def run(self, lpSystemInfo):

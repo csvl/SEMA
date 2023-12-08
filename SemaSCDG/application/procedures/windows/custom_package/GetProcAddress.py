@@ -9,19 +9,25 @@ from angr.procedures import SIM_LIBRARIES
 from procedures.WindowsSimProcedure import WindowsSimProcedure
 
 # from ...CustomSimProcedure import *
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+log_level = config['SCDG_arg'].get('log_level')
+lw.setLevel(log_level)
 
 
 class GetProcAddress(angr.SimProcedure):
     def run(self, lib_handle, name_addr):
-        call_sim = WindowsSimProcedure()
+        call_sim = WindowsSimProcedure(log_level)
         if self.state.solver.eval(name_addr) in self.state.plugin_widechar.widechar_address:
             name = self.state.mem[name_addr].wstring.concrete
         else:
             name = self.state.mem[name_addr].string.concrete
             if not isinstance(name, str):
                 name = name.decode("utf-8") # TODO 
-        lw.info("GetProcAddress: " + str(name))
+        lw.debug("GetProcAddress: " + str(name))
         if(str(name) == "wine_get_unix_file_name"):
             return 0x0
         proj = self.project
@@ -62,16 +68,16 @@ class GetProcAddress(angr.SimProcedure):
                 exc_type, exc_obj, exc_tb = sys.exc_info()
                 # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
                 lw.warning(exc_type, exc_obj)
-                lw.info("GetProcAddress: Fail to load dynamically lib " + str(lib))
+                lw.debug("GetProcAddress: Fail to load dynamically lib " + str(lib))
                 exit(-1)
 
-        lw.info("GetProcAddress - Query to lib : " + str(lib))
+        lw.debug("GetProcAddress - Query to lib : " + str(lib))
 
         if symb:
             # Yeah ! Symbols exist and it is already hooked (normally)
             return symb.rebased_addr
         else:
-            lw.info("GetProcAddress: Symbol not found")
+            lw.debug("GetProcAddress: Symbol not found")
             extern = proj.loader.extern_object
             addr = extern.get_pseudo_addr(name)
             if name in call_sim.sim_proc["custom_package"]:

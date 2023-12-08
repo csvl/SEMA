@@ -1,7 +1,12 @@
 import logging
 import angr
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 
 class TlsSetValue(angr.SimProcedure):
@@ -19,12 +24,12 @@ class TlsSetValue(angr.SimProcedure):
 
     def run(self, index, value):
         conc_indexs = self.state.solver.eval_upto(index, 2)
-        lw.info("TlsSetValue - Index : " + str(conc_indexs))
-        lw.info("TlsSetValue - Value : " + str(value))
-        lw.info("TlsSetValue - Value eval : " + str(self.state.solver.eval(value)))
-        lw.info("TlsSetValue - index eval : " + str(self.state.solver.eval(index)))
+        lw.debug("TlsSetValue - Index : " + str(conc_indexs))
+        lw.debug("TlsSetValue - Value : " + str(value))
+        lw.debug("TlsSetValue - Value eval : " + str(self.state.solver.eval(value)))
+        lw.debug("TlsSetValue - index eval : " + str(self.state.solver.eval(index)))
         if len(conc_indexs) != 1:
-            lw.info(conc_indexs)
+            lw.debug(conc_indexs)
             raise angr.errors.SimValueError(
                 "Can't handle symbolic index in TlsSetValue/FlsSetValue"
             )

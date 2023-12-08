@@ -12,7 +12,8 @@ class SemaExplorerBFS(SemaExplorer):
         exp_dir,
         nameFileShort,
         scdg_graph,
-        call_sim
+        call_sim,
+        log_level
     ):
         super(SemaExplorerBFS, self).__init__(
             simgr,
@@ -21,8 +22,12 @@ class SemaExplorerBFS(SemaExplorer):
             scdg_graph,
             call_sim
         )
+        self.log_level = log_level
+        self.config_logger()
+
+    def config_logger(self):
         self.log = logging.getLogger("SemaExplorerBFS")
-        self.log.setLevel("INFO")
+        self.log.setLevel(self.log_level)
 
     def step(self, simgr, stash="active", **kwargs):
         try:

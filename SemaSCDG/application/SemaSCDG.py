@@ -41,9 +41,9 @@ class SemaSCDG():
         self.config = config
         self.get_config_param(self.config)
 
-        self.log = logging.getLogger("SemaSCDG")
-        self.store_data = self.csv_file != ""
+        self.config_logger()
 
+        self.store_data = self.csv_file != ""
         self.scdg_graph = []
         self.scdg_fin = []
         self.new = {}
@@ -55,9 +55,7 @@ class SemaSCDG():
         self.commands = self.plugins.get_plugin_commands()
         self.ioc = self.plugins.get_plugin_ioc()
         self.packing_manager = self.plugins.get_plugin_packing()
-
-        self.data_manager = DataManager(logger=self.log, verbose=config['SCDG_arg'].getboolean('print_address'))
-
+        self.data_manager = DataManager(log_level= "DEBUG" if self.print_address else self.log_level)
         self.explorer_manager = SemaExplorerManager()
 
         self.families = []
@@ -65,10 +63,23 @@ class SemaSCDG():
         self.current_exps = 0
         self.current_exp_dir = 0
 
-    #Get the parameters from config file
+    # Setup the logging system and set it to the level specified in the config file
+    def config_logger(self):
+        self.log_level = self.config['SCDG_arg'].get('log_level')
+        logger = logging.getLogger("SemaSCDG")
+        ch = logging.StreamHandler()
+        ch.setLevel(self.log_level)
+        ch.setFormatter(CustomFormatter())
+        logger.addHandler(ch)
+        logger.propagate = False
+        logging.getLogger("angr").setLevel(self.log_level)
+        logging.getLogger('claripy').setLevel(self.log_level)
+        logger.setLevel(self.log_level)
+        self.log = logger
+
+    # Get the parameters from config file
     def get_config_param(self, config):
         self.fast_main = config['SCDG_arg'].getboolean('fast_main')
-        self.verbose = config['SCDG_arg'].getboolean('verbose')
         self.print_syscall = config['SCDG_arg'].getboolean('print_syscall')
         self.string_resolve = config['SCDG_arg'].getboolean('string_resolve')
         self.concrete_target_is_local = config['SCDG_arg'].getboolean('concrete_target_is_local')
@@ -90,12 +101,12 @@ class SemaSCDG():
         self.binary_path = config['SCDG_arg']['binary_path']
         self.n_args = int(config['SCDG_arg']['n_args'])
         self.csv_file = config['SCDG_arg']['csv_file']
-
+        self.print_address = config['SCDG_arg'].getboolean('print_address')
         self.pre_run_thread = config['SCDG_arg'].getboolean('pre_run_thread')
         self.runtime_run_thread = config['SCDG_arg'].getboolean('runtime_run_thread')
         self.post_run_thread = config['SCDG_arg'].getboolean('post_run_thread')
 
-    #Save the configuration of the experiment in a json file
+    # Save the configuration of the experiment in a json file
     def save_conf(self, path):
         param = dict()
         sections = self.config.sections()
@@ -177,20 +188,22 @@ class SemaSCDG():
                 proj = self.init_angr_project(self.binary_path, support_selfmodifying_code=True, auto_load_libs=True, load_debug_info=True, simos=None)
         return proj
 
+    # Setup the correct simprocedure depending on the os as well as the object that will transform syscalls into an SCDG
     def setup_simproc_scdg_builder(self, proj, os_obj):
         # Load pre-defined syscall table
         if os_obj == "windows":
-            self.call_sim = WindowsSimProcedure()
+            self.call_sim = WindowsSimProcedure(self.log_level)
             self.call_sim.system_call_table = self.call_sim.ddl_loader.load(proj, False , None)
         else:
-            self.call_sim = LinuxSimProcedure()
+            self.call_sim = LinuxSimProcedure(self.log_level)
             self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(proj)
            
-        self.syscall_to_scdg_builder = SyscallToSCDGBuilder(self.call_sim, self.scdg_graph, self.string_resolve, self.print_syscall, self.verbose)
+        self.syscall_to_scdg_builder = SyscallToSCDGBuilder(self.call_sim, self.scdg_graph, self.string_resolve, self.print_syscall, self.log_level)
             
         self.log.info("System call table loaded")
-        self.log.info("System call table size : " + str(len(self.call_sim.system_call_table)))
+        self.log.debug("System call table size : " + str(len(self.call_sim.system_call_table)))
 
+    # Setup the entry address of the binary to analyze
     def get_entry_addr(self, proj):
         # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows)
         addr_main = proj.loader.find_symbol("main")
@@ -215,6 +228,7 @@ class SemaSCDG():
                 args_binary.append(claripy.BVS("arg" + str(i), 8 * 16))
         return args_binary
 
+    # Create a simfile if the option is set in the config file
     def handle_simfile(self, state):
         if self.sim_file:
             with open_file(self.binary_path, "rb") as f:
@@ -323,6 +337,7 @@ class SemaSCDG():
 
         return exp_dir, fileHandler
     
+    # Setup the hooks corresponding to the os of the binary
     def setup_hooks(self, proj, state, os_obj):
         if os_obj == "windows":
             self.call_sim.loadlibs_proc(self.call_sim.system_call_table, proj) #TODO mbs=symbs,dll=dll)
@@ -339,7 +354,7 @@ class SemaSCDG():
             self.hooks.initialization(self.content, is_64bits=True if proj.arch.name == "AMD64" else False)
             self.hooks.hook(state,proj,self.call_sim)
 
-    #Setup angr project, runs it and build the SCDG graph
+    # Setup angr project, runs it and build the SCDG graph
     def run(self, exp_dir):
 
         exp_dir, fileHandler = self.run_setup(exp_dir)
@@ -361,8 +376,7 @@ class SemaSCDG():
         if self.count_block_enable:
             self.data_manager.count_block(proj, main_obj)
             
-        if self.verbose:
-            self.print_program_info(proj, main_obj, os_obj)
+        self.print_program_info(proj, main_obj, os_obj)
 
         self.setup_simproc_scdg_builder(proj, os_obj)
         
@@ -411,7 +425,7 @@ class SemaSCDG():
             ]
         )
 
-        exploration_tech = self.explorer_manager.get_exploration_tech(self.nameFileShort, simgr, exp_dir, proj, self.expl_method, self.scdg_graph, self.call_sim)
+        exploration_tech = self.explorer_manager.get_exploration_tech(self.nameFileShort, simgr, exp_dir, proj, self.expl_method, self.scdg_graph, self.call_sim, self.log_level)
         
         if self.runtime_run_thread:
             simgr.active[0].globals["is_thread"] = True
@@ -447,20 +461,17 @@ class SemaSCDG():
         self.data_manager.data["elapsed_time"] = elapsed_time
         self.log.info("Total execution time: " + str(elapsed_time))
 
-        if self.count_block_enable and self.verbose:
+        if self.count_block_enable:
             self.data_manager.print_block_info()
         
-        self.log.info("Syscalls Found:" + str(self.call_sim.syscall_found))
-        self.log.info("Loaded libraries:" + str(proj.loader.requested_names))
+        self.log.debug("Syscalls Found:" + str(self.call_sim.syscall_found))
+        self.log.debug("Loaded libraries:" + str(proj.loader.requested_names))
         
         if self.plugin_enable :
             if self.store_data :
-                if self.verbose:
-                    self.data_manager.get_plugin_data(state, simgr, to_store=True, verbose=True)
-                else :
-                    self.data_manager.get_plugin_data(state, simgr, to_store=True)
-            elif self.verbose :
-                self.data_manager.get_plugin_data(state, simgr, to_store=False, verbose=True)
+                self.data_manager.get_plugin_data(state, simgr, to_store=True)
+            else:
+                self.data_manager.get_plugin_data(state, simgr, to_store=False)
         
         if self.track_command:
             self.commands.track(simgr, self.scdg_graph, exp_dir)
@@ -482,7 +493,7 @@ class SemaSCDG():
             ignore_zero=(not self.config['build_graph_arg'].getboolean('not_ignore_zero')),
             three_edges=self.config['build_graph_arg'].getboolean('three_edges'),
             odir=exp_dir,
-            verbose=self.verbose,
+            log_level=self.log_level,
             family=self.family
         )
         graph_output = self.config['build_graph_arg']['graph_output']
@@ -534,7 +545,7 @@ class SemaSCDG():
         
         if self.keep_inter_scdg:
             ofilename = exp_dir  + "inter_SCDG.json"
-            self.log.info(ofilename)
+            self.log.debug(ofilename)
             list_obj = []
             # Check if file exists
             if os.path.isfile(ofilename):
@@ -568,20 +579,6 @@ class SemaSCDG():
         self.binary_path = "".join(self.binary_path.rstrip())
         self.nb_exps = 0
         self.current_exps = 0
-        
-        # (3) TODO manon: make this configurable, different level of logging
-        if self.verbose:
-            #logging.getLogger("SemaSCDG").handlers.clear()
-            ch = logging.StreamHandler()
-            ch.setLevel(logging.INFO)
-            ch.setFormatter(CustomFormatter())
-            self.log.addHandler(ch)
-            self.log.propagate = False
-            logging.getLogger("angr").setLevel("INFO")
-            logging.getLogger('claripy').setLevel('INFO')
-            self.log.setLevel(logging.INFO)
-        else :
-            self.log.setLevel(logging.ERROR)
 
         if os.path.isfile(self.binary_path):
             self.nb_exps = 1
@@ -626,7 +623,7 @@ class SemaSCDG():
                     bar_f.update(ffc)
                 bar_f.finish()
             else:
-                self.log.info("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/Binaries/malware-win/small_train")
+                self.log.error("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/Binaries/malware-win/small_train")
                 exit(-1)
 
 def main():

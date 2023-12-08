@@ -1,15 +1,28 @@
 import pandas as pd
 import datetime
 import json
+import logging
+
+from clogging.CustomFormatter import CustomFormatter
 
 class DataManager():
-    def __init__(self, logger, verbose):
-        self.log = logger
-        self.verbose = verbose
+    def __init__(self, log_level):
+        self.log_level = log_level
+        self.config_logger()
         self.dataframe = None
         self.data = dict()
         self.data["instr_dict"] = set()
         self.data["block_dict"] = set()
+
+    #Set up the logger
+    def config_logger(self):
+        self.log = logging.getLogger("DataManager")
+        ch = logging.StreamHandler()
+        ch.setLevel(self.log_level)
+        ch.setFormatter(CustomFormatter())
+        self.log.addHandler(ch)
+        self.log.propagate = False
+        self.log.setLevel(self.log_level)
 
     #Check if the csv file exists, if not, create and return a Dataframe
     def setup_csv(self, csv_file_path):
@@ -56,7 +69,7 @@ class DataManager():
                     "Registry found": json.dumps(self.data.get("total_registery", -1)), 
                     
                     "Number Address found": 0, 
-                    "Number Syscall found": len(call_sim.syscall_found), 
+                    "Number Syscall found": sum(call_sim.syscall_found.values()), 
                     "Libraries":str(proj.loader.requested_names),
                     "OS": proj.loader.main_object.os,
                     "CPU architecture": proj.loader.main_object.arch.name,
@@ -100,8 +113,7 @@ class DataManager():
     
     #Print state address if verbose set to True
     def print_state_address(self, state):
-        if self.verbose:
-            self.log.info(hex(state.addr))
+        self.log.debug(hex(state.addr))
                 
     # Add the instruction into the instructions set
     def add_instr_addr(self, state):
@@ -112,31 +124,27 @@ class DataManager():
         self.data["block_dict"].add(state.inspect.address)
 
     # Add information from plugin into the stats Dataframe and print info if verbose
-    def get_plugin_data(self, state, simgr, to_store=False, verbose=False):
+    def get_plugin_data(self, state, simgr, to_store=False):
         if state.has_plugin("plugin_env_var"):
             total_env_var = state.plugin_env_var.ending_state(simgr)
             if to_store:
                 self.data["total_env_var"] = total_env_var
-            if verbose :
-                self.log.info("Environment variables:" + str(total_env_var))
+            self.log.info("Environment variables:" + str(total_env_var))
         if state.has_plugin("plugin_registery"):
             total_registery = state.plugin_registery.ending_state(simgr)
             if to_store:
                 self.data["total_registery"] = total_registery
-            if verbose:
-                self.log.info("Registery variables:" + str(total_registery))
+            self.log.info("Registery variables:" + str(total_registery))
         if state.has_plugin("plugin_locale_info"):
             total_locale = state.plugin_locale_info.ending_state(simgr)
             if to_store:
                 self.data["total_locale"] = total_locale
-            if verbose:
-                self.log.info("Locale informations variables:" + str(total_locale))
+            self.log.info("Locale informations variables:" + str(total_locale))
         if state.has_plugin("plugin_resources"): 
             total_res = state.plugin_resources.ending_state(simgr)
             if to_store:
                 self.data["total_res"] = total_res
-            if verbose:
-                self.log.info("Resources variables:" + str(total_res))
+            self.log.info("Resources variables:" + str(total_res))
 
     #Log information about instructions and blocks
     def print_block_info(self):

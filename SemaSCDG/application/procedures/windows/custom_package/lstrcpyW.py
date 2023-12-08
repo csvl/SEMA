@@ -1,7 +1,12 @@
 import logging
 import angr
 
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 
 class lstrcpyW(angr.SimProcedure):
@@ -12,7 +17,7 @@ class lstrcpyW(angr.SimProcedure):
         try:
             second_str = self.state.mem[lpstring2].wstring.concrete
         except:
-            lw.info("lpstring2 not resolvable")
+            lw.debug("lpstring2 not resolvable")
             second_str = ""
             
         new_str = second_str + "\0"

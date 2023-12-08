@@ -3,7 +3,12 @@ import angr
 
 # from ...CustomSimProcedure import *
 # from ...linux.CustomSimProcedureLinux import *
+import configparser
+
+config = configparser.ConfigParser()
+config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(config['SCDG_arg'].get('log_level'))
 
 
 class GetModuleFileNameExA(angr.SimProcedure):
@@ -27,7 +32,7 @@ class GetModuleFileNameExA(angr.SimProcedure):
         # We create a fake one
         if self.state.solver.is_true(hModule == 0):
             path_rough = self.getFakeName(size)
-            lw.info("GetModuleFileNameExA: " + str(path_rough))
+            lw.debug("GetModuleFileNameExA: " + str(path_rough))
             path = self.state.solver.BVV(path_rough)
             self.state.memory.store(
                 lpFilename, path
@@ -36,7 +41,7 @@ class GetModuleFileNameExA(angr.SimProcedure):
             return len(path_rough) - 1
         else:
             module_name = self.decodeString(hModule)
-            lw.info("GetModuleFileNameExA: " + str(module_name))
+            lw.debug("GetModuleFileNameExA: " + str(module_name))
             # import pdb; pdb.set_trace()
             path = self.state.solver.BVV(module_name)
             self.state.memory.store(
