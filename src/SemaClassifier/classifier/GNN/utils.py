@@ -116,7 +116,71 @@ def read_json_4_wl(path, mapping, lonely=True):
             # G = edges, nodes, vertices, edge_labels
             # import pdb; pdb.set_trace()
     # import pdb; pdb.set_trace()
-    return G    
+    return G
+
+def read_gs(path,mapping,lonely=True):
+    f = open(path,'r')
+    vertices = {}
+    nodes = {}
+    edges = {}
+    edge_labels = {}
+    c_edges = 1
+    for line in f:
+        if line.startswith("t"):
+            pass
+        if line.startswith("v"):
+            sp = line.split(" ")
+            v = int(sp[1])
+            vertices[v] = []
+            v_label = int(sp[2])
+            # nodes[v] = mapping[v_label] 
+            nodes[v] = v_label
+        if line.startswith("e"):
+            #self.log.info(line)
+            sp = line.split(" ")
+            v1 = int(sp[1])
+            v2 = int(sp[2])
+            edges[tuple((v1,v2))] = 1
+            edge_labels[tuple((v1,v2))] = sp[3].replace('\n','')
+            c_edges = c_edges + 1
+            vertices[v1].append(v2)
+            vertices[v2].append(v1)
+    
+    if not lonely:
+        #STUFF below to delete lonely nodes
+        de = []
+        count = 0
+        vertices_ok = {}
+        nodes_ok = {}
+        map_clean = {}
+        # find index of lonely node
+        for key in vertices:
+            if not vertices[key]:
+                de.append(key)
+            else:
+                map_clean[key] = count
+                count = count +1
+        #delete them
+        for key in de:
+            del vertices[key]
+
+        for key in vertices:
+            local_dic = {}
+            for v in vertices[key]:
+                local_dic[map_clean[v]] = 1.0
+            
+            #self.log.info(local_dic)
+            vertices_ok[map_clean[key]] = local_dic
+            nodes_ok[map_clean[key]] = nodes[key]
+
+        if len(vertices_ok) <= 1:
+            self.log.info(vertices_ok)
+        G = Graph(vertices_ok,node_labels=nodes_ok,edge_labels=edge_labels)
+    else:
+        
+        G = Graph(vertices,node_labels=nodes,edge_labels=edge_labels)
+    f.close()
+    return G
 
 def read_json_4_gnn(path, mapping, lonely=True):
     vertices = {}

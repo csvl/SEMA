@@ -6,11 +6,14 @@ import json
 import shutil
 
 
-path = "output/runs/100"
+# path = "output/runs/100"
+path = "output/runs/101_wselect3"
+# path = "output/runs/102_clean_cdfs"
 
 families = os.listdir(path)
 
 families = ["berbew","sillyp2p","benjamin","small","mira","upatre","wabot"]
+# families = ["cleanware"]
 
 # print(families)
 
@@ -38,16 +41,20 @@ for family in families:
         # print(scdg)
         if os.path.isfile(scdg):
             with open(scdg) as f:
-                data = json.load(f)
-                # import pdb; pdb.set_trace()
-                if len(data['nodes']) > 1 and len(data['links']) > 0:
-                    count += 1
-                    print(f"Valid graph: {scdg}")
-                    
-                    # # Copy file in ./database/examples_samy/BODMAS/01/<family>
-                    # dest = os.path.join("./databases/examples_samy/BODMAS/01", family)
-                    # os.makedirs(dest, exist_ok=True)
-                    # shutil.copy(scdg, dest)
+                print(f"Reading {scdg}")
+                try:
+                    data = json.load(f)
+                    # import pdb; pdb.set_trace()
+                    if len(data['nodes']) > 1 and len(data['links']) > 0:
+                        count += 1
+                        print(f"Valid graph: {scdg}")
+                        
+                        # # Copy file in ./database/examples_samy/BODMAS/01/<family>
+                        # dest = os.path.join("./databases/examples_samy/BODMAS/clean_cdfs_01", family)
+                        # os.makedirs(dest, exist_ok=True)
+                        # shutil.copy(scdg, dest)
+                except:
+                    print(f"Invalid graph: {scdg}")
     stats[family].append(count)
     # print(f"{family}: {count}")
 
