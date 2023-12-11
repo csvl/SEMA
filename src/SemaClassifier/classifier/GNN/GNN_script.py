@@ -46,7 +46,7 @@ sys.path.append("./SemaClassifier/classifier/")
 from SVM.SVMClassifier import SVMClassifier
 from SVM.SVMWLClassifier import SVMWLClassifier
 
-from utils import gen_graph_data, read_gs_4_gnn, read_json_4_gnn, read_json_4_wl, read_mapping, read_mapping_inverse
+from utils import gen_graph_data, read_gs_4_gnn, read_json_4_gnn, read_json_4_wl, read_mapping, read_mapping_inverse, read_gs
 import copy
 
 
@@ -94,11 +94,13 @@ def init_dataset(path, families, mapping, fam_idx, fam_dict, BINARY_CLASS):
                 fam_idx.append(family)
                 fam_dict[family] = len(fam_idx) - 1
             for file in filenames:
-                if file.endswith(".json"):
-                    # edges, nodes, vertices, edge_labels = read_gs_4_gnn(file, mapping)
-                    edges, nodes, vertices, edge_labels = read_json_4_gnn(file, mapping)
+                # if file.endswith(".json"):
+                if file.endswith(".gs"):
+                    edges, nodes, vertices, edge_labels = read_gs_4_gnn(file, mapping)
+                    # edges, nodes, vertices, edge_labels = read_json_4_gnn(file, mapping)
                     data = gen_graph_data(edges, nodes, vertices, edge_labels, fam_dict[family])
-                    wl_graph = read_json_4_wl(file, mapping)
+                    wl_graph = read_gs(file, mapping)
+                    # wl_graph = read_json_4_wl(file, mapping)
                     if len(edges) > 0:
                         if len(nodes) > 1:
                             dataset.append(data)
@@ -120,7 +122,7 @@ def split_dataset_indexes(dataset, label):
     y_train = []
     val_dataset = []
     y_val = []
-    sss = StratifiedShuffleSplit(n_splits=1, test_size=0.4, random_state=54)
+    sss = StratifiedShuffleSplit(n_splits=1, test_size=0.4, random_state=24)
     # import pdb; pdb.set_trace()
     for train, test in sss.split(dataset, label):
         train_index = train

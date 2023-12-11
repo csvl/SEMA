@@ -143,7 +143,7 @@ class SemaSCDG:
         loop_counter_concrete=10000000000000000000000000,
         jump_dict={},
         jump_concrete_dict={},
-        max_simul_state=1,
+        max_simul_state=5,
         max_in_pause_stach=500,
         fast_main=False,
         force_symbolique_return=False,
@@ -676,6 +676,7 @@ class SemaSCDG:
         else:
             addr = None
         
+        addr = 0x401460
         # Example paper code 1
         # addr = 0x401476
 
@@ -742,6 +743,7 @@ class SemaSCDG:
             state.fs.insert("pagefile.sys", pagefile)
         
         state.options.discard("LAZY_SOLVES") 
+        # state.options.add("LAZY_SOLVES") 
         if not (self.is_packed and self.unpack_mode == "symbion") or True:
             state.register_plugin(
                 "heap", 
@@ -1554,7 +1556,8 @@ class SemaSCDG:
                 }
                 dump_id = dump_id + 1
                 self.scdg_fin.append(self.scdg[state.globals["id"]])
-                
+        
+        # import pdb; pdb.set_trace()
         self.print_memory_info(main_obj, dump_file)
         
         if self.discard_scdg:
@@ -1569,6 +1572,7 @@ class SemaSCDG:
                     list_obj = json_dumper.load(fp)
             save_SCDG = open_file(ofilename, "w")
             list_obj.append(dump_file)
+            # import pdb; pdb.set_trace()
             json_dumper.dump(list_obj, save_SCDG)  # ,indent=4)
             save_SCDG.close()
     
