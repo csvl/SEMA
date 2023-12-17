@@ -1,24 +1,17 @@
 import logging
+import os
 
 from clogging.CustomFormatter import CustomFormatter
 from CustomSimProcedure import CustomSimProcedure
 from angr.calling_conventions import  SimCCSystemVAMD64
 
-logger = logging.getLogger("LinuxSimProcedure")
-ch = logging.StreamHandler()
-ch.setLevel(logging.INFO)
-ch.setFormatter(CustomFormatter())
-logger.addHandler(ch)
-logger.propagate = False
-logger.setLevel(logging.INFO)
-
 class LinuxSimProcedure(CustomSimProcedure):
 
-    def __init__(self, log_level):
+    def __init__(self):
         super().__init__()
-        self.log_level = log_level
-        self.init_sim_proc("linux")
+        self.log_level = os.environ["LOG_LEVEL"]
         self.config_logger()
+        self.init_sim_proc("linux")
 
     def config_logger(self):
         self.log = logging.getLogger("LinuxSimProcedure")

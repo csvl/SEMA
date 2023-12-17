@@ -2,12 +2,10 @@ import logging
 import angr
 from angr.sim_options import MEMORY_CHUNK_INDIVIDUAL_READS
 from angr.storage.memory_mixins.regioned_memory.abstract_address_descriptor import AbstractAddressDescriptor
-import configparser
+import os
 
-config = configparser.ConfigParser()
-config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
-lw.setLevel(config['SCDG_arg'].get('log_level'))
+lw.setLevel(os.environ["LOG_LEVEL"])
 
 class _strdup(angr.SimProcedure):
     def strncpy(self,  dst_addr, src_addr, limit, src_len=None):

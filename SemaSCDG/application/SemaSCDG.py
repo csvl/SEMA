@@ -55,7 +55,7 @@ class SemaSCDG():
         self.commands = self.plugins.get_plugin_commands()
         self.ioc = self.plugins.get_plugin_ioc()
         self.packing_manager = self.plugins.get_plugin_packing()
-        self.data_manager = DataManager(log_level= "DEBUG" if self.print_address else self.log_level)
+        self.data_manager = DataManager()
         self.explorer_manager = SemaExplorerManager()
 
         self.families = []
@@ -66,6 +66,7 @@ class SemaSCDG():
     # Setup the logging system and set it to the level specified in the config file
     def config_logger(self):
         self.log_level = self.config['SCDG_arg'].get('log_level')
+        os.environ["LOG_LEVEL"] = self.log_level
         logger = logging.getLogger("SemaSCDG")
         ch = logging.StreamHandler()
         ch.setLevel(self.log_level)
@@ -101,7 +102,6 @@ class SemaSCDG():
         self.binary_path = config['SCDG_arg']['binary_path']
         self.n_args = int(config['SCDG_arg']['n_args'])
         self.csv_file = config['SCDG_arg']['csv_file']
-        self.print_address = config['SCDG_arg'].getboolean('print_address')
         self.pre_run_thread = config['SCDG_arg'].getboolean('pre_run_thread')
         self.runtime_run_thread = config['SCDG_arg'].getboolean('runtime_run_thread')
         self.post_run_thread = config['SCDG_arg'].getboolean('post_run_thread')
@@ -192,13 +192,13 @@ class SemaSCDG():
     def setup_simproc_scdg_builder(self, proj, os_obj):
         # Load pre-defined syscall table
         if os_obj == "windows":
-            self.call_sim = WindowsSimProcedure(self.log_level)
+            self.call_sim = WindowsSimProcedure()
             self.call_sim.system_call_table = self.call_sim.ddl_loader.load(proj, False , None)
         else:
-            self.call_sim = LinuxSimProcedure(self.log_level)
+            self.call_sim = LinuxSimProcedure()
             self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(proj)
            
-        self.syscall_to_scdg_builder = SyscallToSCDGBuilder(self.call_sim, self.scdg_graph, self.string_resolve, self.print_syscall, self.log_level)
+        self.syscall_to_scdg_builder = SyscallToSCDGBuilder(self.call_sim, self.scdg_graph, self.string_resolve, self.print_syscall)
             
         self.log.info("System call table loaded")
         self.log.debug("System call table size : " + str(len(self.call_sim.system_call_table)))
@@ -270,7 +270,7 @@ class SemaSCDG():
         if not (self.is_packed and self.packing_type == "symbion") or True:
             state.register_plugin(
                 "heap", 
-                angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc(heap_size=0x10000000)
+                angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc()
             )
         
         # Enable plugins set to true in config file
@@ -425,7 +425,7 @@ class SemaSCDG():
             ]
         )
 
-        exploration_tech = self.explorer_manager.get_exploration_tech(self.nameFileShort, simgr, exp_dir, proj, self.expl_method, self.scdg_graph, self.call_sim, self.log_level)
+        exploration_tech = self.explorer_manager.get_exploration_tech(self.nameFileShort, simgr, exp_dir, proj, self.expl_method, self.scdg_graph, self.call_sim)
         
         if self.runtime_run_thread:
             simgr.active[0].globals["is_thread"] = True

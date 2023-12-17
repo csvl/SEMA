@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import monkeyhex  # this will format numerical results in hexadecimal
 import logging
-import sys
+import sys, os
 from SemaExplorer import SemaExplorer
 
 class SemaExplorerDBFS(SemaExplorer):
@@ -11,8 +11,7 @@ class SemaExplorerDBFS(SemaExplorer):
         exp_dir,
         nameFileShort,
         scdg_graph,
-        call_sim,
-        log_level
+        call_sim
     ):
         super(SemaExplorerDBFS, self).__init__(
             simgr,
@@ -21,11 +20,11 @@ class SemaExplorerDBFS(SemaExplorer):
             scdg_graph,
             call_sim
         )
-        self.log_level = log_level
         self.flag = False
         self.config_logger()
 
     def config_logger(self):
+        self.log_level = os.environ["LOG_LEVEL"]
         self.log = logging.getLogger("SemaExplorerDBFS")
         self.log.setLevel(self.log_level)
         

@@ -8,19 +8,15 @@ from angr.procedures import SIM_LIBRARIES
 
 from procedures.WindowsSimProcedure import WindowsSimProcedure
 
-# from ...CustomSimProcedure import *
-import configparser
+import os
 
-config = configparser.ConfigParser()
-config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
-log_level = config['SCDG_arg'].get('log_level')
-lw.setLevel(log_level)
+lw.setLevel(os.environ["LOG_LEVEL"])
 
 
 class GetProcAddress(angr.SimProcedure):
     def run(self, lib_handle, name_addr):
-        call_sim = WindowsSimProcedure(log_level)
+        call_sim = WindowsSimProcedure()
         if self.state.solver.eval(name_addr) in self.state.plugin_widechar.widechar_address:
             name = self.state.mem[name_addr].wstring.concrete
         else:

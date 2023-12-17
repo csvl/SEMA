@@ -2,12 +2,12 @@ import pandas as pd
 import datetime
 import json
 import logging
+import os
 
 from clogging.CustomFormatter import CustomFormatter
 
 class DataManager():
-    def __init__(self, log_level):
-        self.log_level = log_level
+    def __init__(self):
         self.config_logger()
         self.dataframe = None
         self.data = dict()
@@ -16,6 +16,7 @@ class DataManager():
 
     #Set up the logger
     def config_logger(self):
+        self.log_level = os.environ["LOG_LEVEL"]
         self.log = logging.getLogger("DataManager")
         ch = logging.StreamHandler()
         ch.setLevel(self.log_level)

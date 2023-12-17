@@ -1,21 +1,17 @@
 import logging
 import sys
+import os
 import angr
 
 from procedures.WindowsSimProcedure import WindowsSimProcedure
 
-import configparser
-
-config = configparser.ConfigParser()
-config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
-log_level = config['SCDG_arg'].get('log_level')
-lw.setLevel(log_level)
+lw.setLevel(os.environ["LOG_LEVEL"])
 
 
 class LoadLibraryW(angr.SimProcedure):
     def run(self, lib_ptr):
-        call_sim = WindowsSimProcedure(log_level)
+        call_sim = WindowsSimProcedure()
         proj = self.state.project
         lib = self.state.mem[lib_ptr].wstring.concrete
         if hasattr(lib, "decode"):

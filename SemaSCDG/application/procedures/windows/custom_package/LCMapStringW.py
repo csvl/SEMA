@@ -2,12 +2,10 @@ import logging
 import sys
 import angr
 
-import configparser
+import os
 
-config = configparser.ConfigParser()
-config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
-lw.setLevel(config['SCDG_arg'].get('log_level'))
+lw.setLevel(os.environ["LOG_LEVEL"])
 
 class LCMapStringW(angr.SimProcedure):
     def run(self, Locale, dwMapFlags, lpSrcStr, cchSrc, lpDestStr, cchDest):

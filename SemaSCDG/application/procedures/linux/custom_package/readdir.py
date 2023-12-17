@@ -1,8 +1,9 @@
 import angr
 import logging
+import os
 
 lw = logging.getLogger("CustomSimProcedureLinux")
-logging.getLogger("CustomSimProcedureLinux").setLevel("INFO")
+logging.getLogger("CustomSimProcedureLinux").setLevel(os.environ["LOG_LEVEL"])
 
 class readdir(angr.SimProcedure):
     # pylint: disable=arguments-differ
