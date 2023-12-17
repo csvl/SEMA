@@ -382,90 +382,14 @@ class CustomSimProcedure(ABC):
     def amd64_sim_proc_hook(self, project, name, sim_proc):
         pass
 
+    @abstractmethod
     def custom_hook_static(self, proj):
         """_summary_
         TODO CH pre-post + automatization
         Args:
             proj (_type_): _description_
         """
-        self.log.info("custom_hook_static")
-        proj.loader
-        symbols = proj.loader.symbols
-
-        custom_pack = self.sim_proc["custom_package"]
-
-        manual_link = {
-            "LoadLibraryA": custom_pack["LoadLibraryA"],
-            "LoadLibraryExA": custom_pack["LoadLibraryExA"],
-            "LoadLibraryW": custom_pack["LoadLibraryW"],
-            "LoadLibraryExW": custom_pack["LoadLibraryExW"],
-            "GetProcAddress": custom_pack["GetProcAddress"],
-            "GetModuleHandleExW": custom_pack["GetModuleHandleExW"],
-            "GetModuleHandleExA": custom_pack["GetModuleHandleExA"],
-            "GetModuleHandleW": custom_pack["GetModuleHandleW"],
-            "GetModuleHandleA": custom_pack["GetModuleHandleA"],
-            "GetModuleFileNameA": custom_pack["GetModuleFileNameA"],
-            "GetModuleFileNameW": custom_pack["GetModuleFileNameW"],
-            # "GetModuleFileNameExA": custom_pack["GetModuleFileNameExA"],
-            # "GetModuleFileNameExW": custom_pack["GetModuleFileNameExW"],
-        }
-
-        ignore_simproc = {"LoadLibraryA", "LoadLibraryW"}
-        simproc64 = {"fopen64": "fopen"}
-        angr_simproc_to_check = [
-            "glibc",
-            "libc",
-            "posix",
-            "linux_kernel",
-            "win32",
-            "win_user32",
-            "ntdll",
-            "msvcr"
-        ]
-        
-        for symb in symbols:
-            name = symb.name
-            if name in manual_link:
-                proj.unhook(symb.rebased_addr)
-                if proj.arch.name == "X86":
-                    self.std_sim_proc_hook(proj, symb.rebased_addr, manual_link[name])
-                else:
-                    proj.hook(symb.rebased_addr, manual_link[name](cc=SimCCMicrosoftAMD64(proj.arch)))
-            elif not name:
-                pass
-            elif name == "readlink":
-                if proj.arch.name == "X86":
-                    proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["posix"]["read"]())
-                else:
-                    self.amd64_sim_proc_hook(proj, symb.rebased_addr, angr.SIM_PROCEDURES["posix"]["read"])
-            elif name in ignore_simproc:
-                pass
-            boo = False
-            for simproc_to_check in angr_simproc_to_check:
-                if name in angr.SIM_PROCEDURES[simproc_to_check]:
-                    boo = True
-                    if proj.arch.name == "X86":
-                        if proj.simos.name == "windows":
-                            proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES[simproc_to_check][name]())
-                    else:
-                        self.amd64_sim_proc_hook(proj, symb.rebased_addr, angr.SIM_PROCEDURES[simproc_to_check][name])
-                    break
-            if boo : continue
-            if name in simproc64:
-                if proj.arch.name == "X86":
-                    if proj.simos.name == "windows":
-                        proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES["libc"][simproc64[name]]())
-                else:
-                    self.amd64_sim_proc_hook(proj, symb.rebased_addr, angr.SIM_PROCEDURES["libc"][simproc64[name]])
-            elif "ordinal" in name:
-                # ex : ordinal.680.b'shell32.dll'
-                # import pdb; pdb.set_trace()
-                part_names = name.split(".")
-                lib_part = part_names[2][2:] + ".dll"
-                ord_part = part_names[1]
-                self.log.info(lib_part)
-                self.log.info(ord_part)
-                # symb.name = self.system_call_table[lib_part][ord_part]['name']
+        pass
 
     def custom_hook_no_symbols(self, proj):
         """_summary_

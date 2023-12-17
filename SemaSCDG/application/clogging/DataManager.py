@@ -71,6 +71,7 @@ class DataManager():
                     
                     "Number Address found": 0, 
                     "Number Syscall found": sum(call_sim.syscall_found.values()), 
+                    "Number diff syscall found": len(call_sim.syscall_found),
                     "Libraries":str(proj.loader.requested_names),
                     "OS": proj.loader.main_object.os,
                     "CPU architecture": proj.loader.main_object.arch.name,
@@ -79,10 +80,10 @@ class DataManager():
                     "Stack executable": proj.loader.main_object.execstack,
                     "Binary position-independent:": proj.loader.main_object.pic,
                     "Total number of different blocks": self.data.get("nbblocks", -1),
-                    "Total number of different instr": self.data.get("nbinstr", -1),
                     "Number of different block visited": len(self.data.get("block_dict", {})),
-                    "Number of different instruction visited": len(self.data.get("instr_dict", {})),
                     "Number of blocks visited": sum(self.data.get("block_dict", {}).values()),
+                    "Total number of different instr": self.data.get("nbinstr", -1),
+                    "Number of different instruction visited": len(self.data.get("instr_dict", {})),
                     "Number of instr visited": sum(self.data.get("instr_dict", {}).values()),
                 }, index=[1])
         df = pd.concat([self.dataframe, to_append], ignore_index=True)
