@@ -1,5 +1,6 @@
 import angr
 import logging
+import os
 
 from clogging.CustomFormatter import CustomFormatter
 from CustomSimProcedure import CustomSimProcedure
@@ -10,9 +11,9 @@ from angr.calling_conventions import SimCCMicrosoftAMD64
 
 class WindowsSimProcedure(CustomSimProcedure):
 
-    def __init__(self, log_level):
+    def __init__(self):
         super().__init__()
-        self.log_level = log_level
+        self.log_level = os.environ["LOG_LEVEL"]
         self.config_logger()
         self.init_sim_proc("windows")
 

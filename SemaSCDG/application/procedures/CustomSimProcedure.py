@@ -446,9 +446,9 @@ class CustomSimProcedure(ABC):
                     boo = True
                     if proj.arch.name == "X86":
                         if proj.simos.name == "windows":
-                            proj.hook(symb.rebased_addr, simproc_to_check[name]())
+                            proj.hook(symb.rebased_addr, angr.SIM_PROCEDURES[simproc_to_check][name]())
                     else:
-                        self.amd64_sim_proc_hook(proj, symb.rebased_addr, simproc_to_check[name])
+                        self.amd64_sim_proc_hook(proj, symb.rebased_addr, angr.SIM_PROCEDURES[simproc_to_check][name])
                     break
             if boo : continue
             if name in simproc64:

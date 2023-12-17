@@ -4,13 +4,10 @@ import angr
 
 from procedures.WindowsSimProcedure import WindowsSimProcedure
 
-import configparser
+import os
 
-config = configparser.ConfigParser()
-config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
-log_level = config['SCDG_arg'].get('log_level')
-lw.setLevel(log_level)
+lw.setLevel(os.environ["LOG_LEVEL"])
 
 
 class GetModuleHandleExW(angr.SimProcedure):
@@ -21,7 +18,7 @@ class GetModuleHandleExW(angr.SimProcedure):
         return lib
 
     def run(self, flag, lib_ptr, module_ptr):
-        call_sim = WindowsSimProcedure(log_level)
+        call_sim = WindowsSimProcedure()
          
         if self.state.solver.is_true(lib_ptr == 0):
             # import pdb; pdb.set_trace()

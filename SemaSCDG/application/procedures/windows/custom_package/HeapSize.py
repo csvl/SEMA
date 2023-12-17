@@ -1,14 +1,15 @@
 import logging
 import angr
 
-import configparser
+import os
 
-config = configparser.ConfigParser()
-config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
-lw.setLevel(config['SCDG_arg'].get('log_level'))
+lw.setLevel(os.environ["LOG_LEVEL"])
 
 
 class HeapSize(angr.SimProcedure):
     def run(self, hHeap, dwFlags, lpMem):
-        return self.state.globals["HeapSize"][self.state.solver.eval(lpMem)]
+        #TODO fix (wrong key error with redlinestealer timeout 300)
+        return self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)
+    
+        # return self.state.globals["HeapSize"][self.state.solver.eval(lpMem)]

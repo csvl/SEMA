@@ -1,8 +1,7 @@
 import logging
+import os
 from clogging.CustomFormatter import CustomFormatter
 import archinfo
-
-logger = logging.getLogger("SyscallToSCDGBuilder")
 
 
 class SyscallToSCDGBuilder:
@@ -119,19 +118,23 @@ class SyscallToSCDGBuilder:
         "getsockopt",
     }
 
-    def __init__(self, call_sim, scdg, string_resolv=True, print_syscall=True, log_level=False):
-        self.log = logger
+    def __init__(self, call_sim, scdg, string_resolv=True, print_syscall=True):
         self.call_sim = call_sim
         self.scdg = scdg
         self.string_resolv = string_resolv
         self.print_syscall = print_syscall
-        self.log_level = log_level
+        self.config_logger()
+
+    def config_logger(self):
+        logger = logging.getLogger("SyscallToSCDGBuilder")
+        self.log_level = os.environ["LOG_LEVEL"]
         ch = logging.StreamHandler()
         ch.setLevel(self.log_level)
         ch.setFormatter(CustomFormatter())
         logger.addHandler(ch)
         logger.propagate = False
         logger.setLevel(self.log_level)
+        self.log = logger
 
     def decode_string(self, string):
         if hasattr(string, "decode"):

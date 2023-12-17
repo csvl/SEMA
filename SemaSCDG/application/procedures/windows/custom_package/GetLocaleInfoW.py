@@ -1,12 +1,10 @@
 import angr
 import logging
 
-import configparser
+import os
 
-config = configparser.ConfigParser()
-config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
-lw.setLevel(config['SCDG_arg'].get('log_level'))
+lw.setLevel(os.environ["LOG_LEVEL"])
 
 class GetLocaleInfoW(angr.SimProcedure):
     def run(self, locale, lctype, lp_lc_data, cch_data):

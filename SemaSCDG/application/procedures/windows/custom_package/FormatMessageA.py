@@ -2,12 +2,10 @@ import logging
 import angr
 from cle.backends.externs.simdata.io_file import io_file_data_for_arch
 
-import configparser
+import os
 
-config = configparser.ConfigParser()
-config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
-lw.setLevel(config['SCDG_arg'].get('log_level'))
+lw.setLevel(os.environ["LOG_LEVEL"])
 
 
 class FormatMessageA(angr.SimProcedure):

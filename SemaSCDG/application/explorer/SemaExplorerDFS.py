@@ -4,6 +4,7 @@ import logging
 import sys
 from SemaExplorer import SemaExplorer
 import configparser
+import os
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -15,8 +16,7 @@ class SemaExplorerDFS(SemaExplorer):
         exp_dir,
         nameFileShort,
         scdg_graph,
-        call_sim,
-        log_level
+        call_sim
     ):
         super(SemaExplorerDFS, self).__init__(
             simgr,
@@ -25,10 +25,10 @@ class SemaExplorerDFS(SemaExplorer):
             scdg_graph,
             call_sim
         )
-        self.log_level = log_level
         self.config_logger()
 
     def config_logger(self):
+        self.log_level = os.environ["LOG_LEVEL"]
         self.log = logging.getLogger("SemaExplorerDFS")
         self.log.setLevel(self.log_level)
         

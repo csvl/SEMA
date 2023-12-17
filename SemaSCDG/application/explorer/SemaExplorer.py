@@ -6,6 +6,7 @@ from collections import deque
 import angr
 import psutil
 import configparser
+import os
 
 config = configparser.ConfigParser()
 config.read('config.ini')
@@ -43,7 +44,7 @@ class SemaExplorer(ExplorationTechnique):
         self.timeout_tab = config['explorer_arg']['timeout_tab']
         
         self.log = logging.getLogger("SemaExplorer")
-        self.log.setLevel("INFO")
+        self.log.setLevel(os.environ["LOG_LEVEL"])
 
         self.errored = 0
         self.unconstrained = 0

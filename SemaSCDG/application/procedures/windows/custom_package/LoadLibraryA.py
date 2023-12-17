@@ -2,20 +2,17 @@ import logging
 import sys
 import angr
 
-import configparser
+import os
 
-config = configparser.ConfigParser()
-config.read('config.ini')
 lw = logging.getLogger("CustomSimProcedureWindows")
-log_level = config['SCDG_arg'].get('log_level')
-lw.setLevel(log_level)
+lw.setLevel(os.environ["LOG_LEVEL"])
 # if you subclass LoadLibraryA to provide register, you can implement LoadLibraryExW by making an empty class that just
 # subclasses your special procedure and LoadLibraryExW
 from procedures.WindowsSimProcedure import WindowsSimProcedure
 
 class LoadLibraryA(angr.SimProcedure):
     def run(self, lib_ptr):
-        call_sim = WindowsSimProcedure(log_level)
+        call_sim = WindowsSimProcedure()
         proj = self.state.project
         try:
             lib = self.state.mem[lib_ptr].string.concrete

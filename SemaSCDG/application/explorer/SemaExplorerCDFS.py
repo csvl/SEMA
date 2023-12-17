@@ -2,7 +2,7 @@
 import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from collections import deque
-import sys
+import sys, os
 from SemaExplorer import SemaExplorer
 
 
@@ -13,8 +13,7 @@ class SemaExplorerCDFS(SemaExplorer):
         exp_dir,
         nameFileShort,
         scdg_graph,
-        call_sim,
-        log_level
+        call_sim
     ):
         super(SemaExplorerCDFS, self).__init__(
             simgr,
@@ -23,11 +22,11 @@ class SemaExplorerCDFS(SemaExplorer):
             scdg_graph,
             call_sim
         )
-        self.log_level = log_level
         self.new_addr_stash = "new_addr"
         self.config_logger()
 
     def config_logger(self):
+        self.log_level = os.environ["LOG_LEVEL"]
         self.log = logging.getLogger("SemaExplorerCDFS")
         self.log.setLevel(self.log_level)
 

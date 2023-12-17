@@ -3,6 +3,7 @@ import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from SemaExplorer import SemaExplorer
 import sys
+import os
 
 
 class SemaExplorerBFS(SemaExplorer):
@@ -12,8 +13,7 @@ class SemaExplorerBFS(SemaExplorer):
         exp_dir,
         nameFileShort,
         scdg_graph,
-        call_sim,
-        log_level
+        call_sim
     ):
         super(SemaExplorerBFS, self).__init__(
             simgr,
@@ -22,10 +22,10 @@ class SemaExplorerBFS(SemaExplorer):
             scdg_graph,
             call_sim
         )
-        self.log_level = log_level
         self.config_logger()
 
     def config_logger(self):
+        self.log_level = os.environ["LOG_LEVEL"]
         self.log = logging.getLogger("SemaExplorerBFS")
         self.log.setLevel(self.log_level)
 
