@@ -301,7 +301,7 @@ class SemaSCDG:
         self.log.info(args)
 
         if exp_dir != "output/runs/"+ str(self.current_exp_dir) + "/":
-            setup = open_file("src/output/runs/"+ str(self.current_exp_dir) + "/" + "setup.txt", "w")
+            setup = open_file("output/runs/"+ str(self.current_exp_dir) + "/" + "setup.txt", "w")
             setup.write(str(self.jump_it) + "\n")
             setup.write(str(self.loop_counter_concrete) + "\n")
             setup.write(str(self.max_simul_state) + "\n")
