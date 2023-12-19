@@ -1,1 +1,0 @@
-# Homomorphic encryption algorithm for FL
