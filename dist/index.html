@@ -1,0 +1,709 @@
+
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>Read Me</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>
+            body {
+  font: 400 16px/1.5 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #111;
+  background-color: #fdfdfd;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-feature-settings: 'kern' 1;
+  -moz-font-feature-settings: 'kern' 1;
+  -o-font-feature-settings: 'kern' 1;
+  font-feature-settings: 'kern' 1;
+  font-kerning: normal;
+  padding: 30px;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    padding: 5px;
+  }
+
+  main {
+    padding: 0px 20px 20px 20px !important;
+  }
+}
+
+main {
+  margin: 0px;
+  max-width: 900px;
+  border: 1px solid #e1e4e8;
+  padding: 10px 40px;
+  padding-bottom: 20px;
+  border-radius: 2px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+hr {
+  color: #bbb;
+  background-color: #bbb;
+  height: 1px;
+  flex: 0 1 auto;
+  margin: 1em 0;
+  padding: 0;
+  border: none;
+}
+
+/**
+ * Links
+ */
+a {
+  color: #0366d6;
+  text-decoration: none;
+}
+a:visited {
+  color: #0366d6;
+}
+a:hover {
+  color: #0366d6;
+  text-decoration: underline;
+}
+
+pre {
+  background-color: #f6f8fa;
+  border-radius: 3px;
+  font-size: 85%;
+  line-height: 1.45;
+  overflow: auto;
+  padding: 16px;
+}
+
+/**
+  * Code blocks
+  */
+
+code {
+  background-color: rgba(27, 31, 35, 0.05);
+  border-radius: 3px;
+  font-size: 85%;
+  margin: 0;
+  word-wrap: break-word;
+  padding: 0.2em 0.4em;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
+    monospace;
+}
+
+pre > code {
+  background-color: transparent;
+  border: 0;
+  display: inline;
+  line-height: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 0;
+  word-wrap: normal;
+  font-size: 100%;
+}
+
+/**
+ * Blockquotes
+ */
+blockquote {
+  margin-left: 30px;
+  margin-top: 0px;
+  margin-bottom: 16px;
+  border-left-width: 3px;
+  padding: 0 1em;
+  color: #828282;
+  border-left: 4px solid #e8e8e8;
+  padding-left: 15px;
+  font-size: 18px;
+  letter-spacing: -1px;
+  font-style: italic;
+}
+blockquote * {
+  font-style: normal !important;
+  letter-spacing: 0;
+  color: #6a737d !important;
+}
+
+/**
+ * Tables
+ */
+table {
+  border-spacing: 2px;
+  display: block;
+  font-size: 14px;
+  overflow: auto;
+  width: 100%;
+  margin-bottom: 16px;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+th {
+  font-weight: 600;
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5;
+}
+
+tr {
+  background-color: #fff;
+  border-top: 1px solid #c6cbd1;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f6f8fa;
+}
+
+/**
+ * Others
+ */
+
+img {
+  max-width: 100%;
+}
+
+p {
+  line-height: 24px;
+  font-weight: 400;
+  font-size: 16px;
+  color: #24292e;
+}
+
+ul {
+  margin-top: 0;
+}
+
+li {
+  color: #24292e;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+li + li {
+  margin-top: 0.25em;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
+    sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  color: #24292e;
+}
+
+a:visited {
+  color: #0366d6;
+}
+
+h1,
+h2,
+h3 {
+  border-bottom: 1px solid #eaecef;
+  color: #111;
+  /* Darker */
+}
+
+            </style>
+            <style>
+            pre code.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 1em
+}
+code.hljs {
+  padding: 3px 5px
+}
+/*!
+  Theme: GitHub
+  Description: Light theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-light
+  Current colors taken from GitHub's CSS
+*/
+.hljs {
+  color: #24292e;
+  background: #ffffff
+}
+.hljs-doctag,
+.hljs-keyword,
+.hljs-meta .hljs-keyword,
+.hljs-template-tag,
+.hljs-template-variable,
+.hljs-type,
+.hljs-variable.language_ {
+  /* prettylights-syntax-keyword */
+  color: #d73a49
+}
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_ {
+  /* prettylights-syntax-entity */
+  color: #6f42c1
+}
+.hljs-attr,
+.hljs-attribute,
+.hljs-literal,
+.hljs-meta,
+.hljs-number,
+.hljs-operator,
+.hljs-variable,
+.hljs-selector-attr,
+.hljs-selector-class,
+.hljs-selector-id {
+  /* prettylights-syntax-constant */
+  color: #005cc5
+}
+.hljs-regexp,
+.hljs-string,
+.hljs-meta .hljs-string {
+  /* prettylights-syntax-string */
+  color: #032f62
+}
+.hljs-built_in,
+.hljs-symbol {
+  /* prettylights-syntax-variable */
+  color: #e36209
+}
+.hljs-comment,
+.hljs-code,
+.hljs-formula {
+  /* prettylights-syntax-comment */
+  color: #6a737d
+}
+.hljs-name,
+.hljs-quote,
+.hljs-selector-tag,
+.hljs-selector-pseudo {
+  /* prettylights-syntax-entity-tag */
+  color: #22863a
+}
+.hljs-subst {
+  /* prettylights-syntax-storage-modifier-import */
+  color: #24292e
+}
+.hljs-section {
+  /* prettylights-syntax-markup-heading */
+  color: #005cc5;
+  font-weight: bold
+}
+.hljs-bullet {
+  /* prettylights-syntax-markup-list */
+  color: #735c0f
+}
+.hljs-emphasis {
+  /* prettylights-syntax-markup-italic */
+  color: #24292e;
+  font-style: italic
+}
+.hljs-strong {
+  /* prettylights-syntax-markup-bold */
+  color: #24292e;
+  font-weight: bold
+}
+.hljs-addition {
+  /* prettylights-syntax-markup-inserted */
+  color: #22863a;
+  background-color: #f0fff4
+}
+.hljs-deletion {
+  /* prettylights-syntax-markup-deleted */
+  color: #b31d28;
+  background-color: #ffeef0
+}
+.hljs-char.escape_,
+.hljs-link,
+.hljs-params,
+.hljs-property,
+.hljs-punctuation,
+.hljs-tag {
+  /* purposely ignored */
+  
+}
+            </style>
+          </head>
+          <body>
+            <main>
+        <h1 id="skull_and_crossbones-sema-skull_and_crossbones---toolchain-using-symbolic-execution-for-malware-analysis">☠️ SEMA ☠️ - ToolChain using Symbolic Execution for Malware Analysis.</h1>
+<pre><code class="hljs">  ██████ ▓█████  ███▄ ▄███▓ ▄▄▄      
+▒██    ▒ ▓█   ▀ ▓██▒▀█▀ ██▒▒████▄    
+░ ▓██▄   ▒███   ▓██    ▓██░▒██  ▀█▄  
+  ▒   ██▒▒▓█  ▄ ▒██    ▒██ ░██▄▄▄▄██ 
+▒██████▒▒░▒████▒▒██▒   ░██▒ ▓█   ▓██▒
+▒ ▒▓▒ ▒ ░░░ ▒░ ░░ ▒░   ░  ░ ▒▒   ▓▒█░
+░ ░▒  ░ ░ ░ ░  ░░  ░      ░  ▒   ▒▒ ░
+░  ░  ░     ░   ░      ░     ░   ▒   
+      ░     ░  ░       ░         ░  ░</code></pre>
+<h1 id="books--documentation">📚  Documentation</h1>
+<ol>
+<li><p><a href="#arch"> Architecture </a></p>
+<ol>
+<li><a href="#arch_std"> Toolchain architecture </a></li>
+<li><a href="#arch_fl"> Federated learning architecture </a></li></ol></li>
+<li><p><a href="#install"> Installation </a></p></li>
+<li><p><a href="#tc"> SEMA </a></p>
+<ol>
+<li><a href="#tcscdg"> <code>SemaSCDG</code> </a></li>
+<li><a href="#tcc"> <code>SemaClassifier</code></a></li>
+<li><a href="#tcfl"> <code>SemaFL</code></a></li></ol></li>
+<li><p><a href="#">Quick Start Demos</a></p>
+<ol>
+<li><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/Tutorial/Notebook/SEMA-SCDG%20Demo.ipynb"> <code>Extract SCDGs from binaries</code> </a></li>
+<li><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/Tutorial/Notebook/SEMA-Classifier.ipynb"> <code>SVM and gSpan Classifiers</code></a></li>
+<li><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/Tutorial/Notebook/Deep%20Learning%20Model%20Demo.ipynb"> <code>Deep learning Classifier</code></a></li>
+<li><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/Tutorial/Notebook/SEMA%20Federated%20Learning%20.ipynb"> <code>Federated learning demo</code></a></li></ol></li>
+<li><p><a href="#credit"> Credentials </a></p></li>
+</ol>
+<h1 id="page_with_curl-architecture">📃 Architecture</h1>
+<p><a name="arch"></a></p>
+<h3 id="toolchain-architecture">Toolchain architecture</h3>
+<p><a name="arch_std"></a></p>
+<p><img src="/doc/SEMA_illustration.png" alt="GitHub Logo" /></p>
+<h3 id="federated-learning-architecture">Federated learning architecture</h3>
+<p><a name="arch_fl"></a></p>
+<p><img src="/doc/SEMA-FL.png" alt="GitHub Logo" /></p>
+<h5 id="main-depencies">Main depencies:</h5>
+<pre><code class="hljs"><span class="hljs-bullet">* </span>Python 3.8 (angr)
+
+<span class="hljs-bullet">* </span>KVM/QEMU
+
+<span class="hljs-bullet">* </span>Celery</code></pre>
+<h5 id="interesting-links">Interesting links</h5>
+<ul>
+<li><p><a href="https://angr.io/">https://angr.io/</a></p></li>
+<li><p><a href="https://bazaar.abuse.ch/">https://bazaar.abuse.ch/</a></p></li>
+</ul>
+<h1 id="page_with_curl-installation">📃 Installation</h1>
+<p><a name="install"></a></p>
+<p>Tested on Ubuntu 18 LTS. Checkout Makefile and install.sh for more details.</p>
+<p><strong>Recommanded installation:</strong></p>
+<pre><code class="hljs bash language-bash"><span class="hljs-comment"># WARNING: slow since one submodule contains preconfigure VMs</span>
+git <span class="hljs-built_in">clone</span> --recurse-submodules https://github.com/csvl/SEMA-ToolChain.git;
+<span class="hljs-comment"># Full installation (ubuntu)</span>
+make install-docker;
+<span class="hljs-comment"># TODO link with VM on host</span></code></pre>
+<p><strong>Classical installation:</strong></p>
+<pre><code class="hljs bash language-bash"><span class="hljs-comment"># WARNING: slow since one submodule contains preconfigure VMs</span>
+git <span class="hljs-built_in">clone</span> --recurse-submodules https://github.com/csvl/SEMA-ToolChain.git;
+<span class="hljs-comment"># Full installation (ubuntu)</span>
+<span class="hljs-built_in">cd</span> SEMA-ToolChain/; <span class="hljs-built_in">source</span> install.sh;
+ARGS=&lt;&gt; make install-baremetal;</code></pre>
+<p>Optionals arguments are available for <code>install.sh</code>:</p>
+<ul>
+<li><code>--no_malware_db</code> : Unzip malware's DB (default : True)</li>
+<li><code>--vms_dl</code> : Download preconfigured cuckoo VMs (default : False)</li>
+<li><code>--vms_install</code> : Unzip downloaded VMs for cuckoo, <code>vms_dl</code> must be true (default : False)</li>
+<li><code>--pypy</code> : Install also with <code>pypy3</code> compiler (default : False)</li>
+<li><code>--pytorch_cuda</code> : Install also CUDA core enable with <code>pytorch</code> (default : False)</li>
+</ul>
+<h2 id="installation-details-optional">Installation details (optional)</h2>
+<h4 id="pip">Pip</h4>
+<p>To run this SCDG extractor you first need to install pip.</p>
+<h5 id="debian-and-debian-based">Debian (and Debian-based)</h5>
+<p>To install pip on debian-based systems:</p>
+<pre><code class="hljs bash language-bash">sudo apt update;
+sudo apt-get install python3-pip xterm;</code></pre>
+<h5 id="arch-and-arch-based">Arch (and Arch-based)</h5>
+<p>To install pip on arch-based systems:</p>
+<pre><code class="hljs bash language-bash">sudo pacman -Sy python-pip xterm;</code></pre>
+<h4 id="python-virtual-environment">Python virtual environment</h4>
+<p>For <code>angr</code>, it is recommended to use the python virtual environment. </p>
+<pre><code class="hljs bash language-bash">python3 -m venv penv;</code></pre>
+<p>This create a virtual envirnment called <code>penv</code>. <br />
+Then, you can run your virtual environment with:</p>
+<pre><code class="hljs bash language-bash"><span class="hljs-built_in">source</span> penv/bin/activate;</code></pre>
+<h5 id="for-testing-hypothesis">For testing: <code>hypothesis</code></h5>
+<p>For the testing environment, we use <a href="https://hypothesis.readthedocs.io/en/latest/quickstart.html#installing"><code>hypothesis</code></a> framework <br />
+This can be done by using the command :</p>
+<pre><code class="hljs bash language-bash">pip3 install pytest hypothesis;</code></pre>
+<h6 id="usage">Usage</h6>
+<pre><code class="hljs bash language-bash">python3 -m pytest <span class="hljs-built_in">test</span>/HypothesisExamples.py;</code></pre>
+<h5 id="for-extracting-test-database">For extracting test database</h5>
+<pre><code class="hljs bash language-bash"><span class="hljs-built_in">cd</span> src/databases; bash extract_deploy_db.sh</code></pre>
+<h5 id="for-code-cleaning">For code cleaning</h5>
+<p>For dev (code cleaning):</p>
+<pre><code class="hljs bash language-bash"><span class="hljs-comment"># PEP 8 compliant opinionated formatter with its own style</span>
+pip3 install git+git://github.com/psf/black; 
+<span class="hljs-built_in">cd</span> src/
+black --exclude .submodules .;
+<span class="hljs-comment"># Removes unused imports and unused variables from Python code</span>
+pip3 install --upgrade autoflake; 
+autoflake --in-place --remove-unused-variables --remove-all-unused-imports  --recursive  --exclude submodules ToolChainWorker.py;</code></pre>
+<h4 id="pypy-interpreter">PyPy interpreter</h4>
+<p>In order to be faster, you should install <code>pypy</code> python interpreter. You can add <code>--pypy</code> to <code>install.sh</code> but some installation error are still possible. The following command are not enough to fully build the project with pypy3 that is why we recommend to use <code>install.sh --pypy</code>. Still some package problems.</p>
+<p>Note: <code>Pytorch</code> not working with <code>pypy</code>.</p>
+<p>PyPy3.7:</p>
+<ul>
+<li><p>Linux x86 64 bit: </p>
+<pre><code class="hljs bash language-bash">sudo apt-get update
+sudo apt-get install libc6 
+sudo add-apt-repository ppa:pypy/ppa
+sudo apt update
+sudo apt install pypy3 pypy3-dev
+sudo apt-get install libatlas-base-dev
+
+pypy3 -m ensurepip
+pypy3 -m pip install --upgrade pip testresources setuptools wheel
+pypy3 -m pip install numpy pybind11 avatar2 yara yara-python
+pypy3 -m pip install  . 
+
+<span class="hljs-comment"># TODO (hack)</span>
+<span class="hljs-built_in">cd</span> /tmp/ 
+pypy3 -m pip install yara yara-python -t .
+sudo <span class="hljs-built_in">mkdir</span> /usr/lib/pypy3/lib
+sudo <span class="hljs-built_in">cp</span> usr/lib/pypy3/lib/libyara.so /usr/lib/pypy3/lib/libyara.so</code></pre></li>
+</ul>
+<p>Then in order to used it, replace the <code>python3</code> command by <code>pypy3</code>command.</p>
+<h1 id="page_with_curl-sema---toolchain">📃 <code>SEMA - ToolChain</code></h1>
+<p><a name="tc"></a></p>
+<p>Our toolchain is represented in the next figure  and works as follow. A collection of labelled binaries of different malwares families is collected and used as the input of the toolchain. <strong>Angr</strong>, a framework for symbolic execution, is used to execute symbolically binaries and extract execution traces. For this purpose, different heuristics have been developped to optimize symbolic execution. Several execution traces (i.e : API calls used and their arguments) corresponding to one binary are extracted with Angr and gather together thanks to several graph heuristics to construct a SCDG. These resulting SCDGs are then used as input to graph mining to extract common graph between SCDG of the same family and create a signature. Finally when a new sample has to be classified, its SCDG is build and compared with SCDG of known families (thanks to a simple similarity metric).</p>
+<h3 id="how-to-use-">How to use ?</h3>
+<p>Just run the script : </p>
+<pre><code class="hljs bash language-bash">pypy3 Sema.py FOLDER_OF_BINARIES FOLDER_OF_SIGNATURE
+
+python3 Sema.py FOLDER_OF_BINARIES FOLDER_OF_SIGNATURE</code></pre>
+<ul>
+<li><code>FOLDER</code> : Folder containing binaries to classify, these binaries must be ordered by familly (default : <code>databases/malware-win/train</code>)</li>
+</ul>
+<h4 id="example">Example</h4>
+<pre><code class="hljs bash language-bash"><span class="hljs-comment"># For folder of malware </span>
+<span class="hljs-comment"># Deep learning not supported with pypy3 (--classifier dl)</span>
+pypy3 Sema.py  --memory_limit --CDFS --train --verbose_scdg --verbose_classifier databases/malware-win/train/ output/save-SCDG/
+
+<span class="hljs-comment"># (virtual env/penv)</span>
+python3 Sema.py --memory_limit --CDFS --train --verbose_scdg --verbose_classifier databases/malware-win/train/ output/save-SCDG/</code></pre>
+<h1 id="page_with_curl-system-call-dependency-graphs-extractor-semascdg">📃 System Call Dependency Graphs extractor (<code>SemaSCDG</code>)</h1>
+<p><a name="tcscdg"></a></p>
+<p>This repository contains a first version of a SCDG extractor.<br />
+During symbolic analysis of a binary, all system calls and their arguments found are recorded. After some stop conditions for symbolic analysis, a graph is build as follow : Nodes are systems Calls recorded, edges show that some arguments are shared between calls.</p>
+<h3 id="how-to-use--1">How to use ?</h3>
+<p>Just run the script : </p>
+<pre><code class="hljs bash language-bash">pypy3 SemaSCDG.py BINARY_NAME
+
+python3 SemaSCDG.py BINARY_NAME
+
+usage: update_readme_usage.py [--DFS | --BFS | --CDFS | --CBFS] [--gs | --json] [--symbion | --unipacker] [--packed] [--concrete_target_is_local] [--symb_loop SYMB_LOOP]
+                              [--limit_pause LIMIT_PAUSE] [--max_step MAX_STEP] [--max_deadend MAX_DEADEND] [--simul_state SIMUL_STATE] [--n_args N_ARGS] [--conc_loop CONC_LOOP]
+                              [--min_size MIN_SIZE] [--disjoint_union] [--not_comp_args] [--three_edges] [--not_ignore_zero] [--<span class="hljs-built_in">dir</span> DIR] [--discard_SCDG] [--eval_time]
+                              [--<span class="hljs-built_in">timeout</span> TIMEOUT] [--not_resolv_string] [--exp_dir EXP_DIR] [--memory_limit] [--verbose_scdg] [--debug_error] [--familly FAMILLY]
+                              binary
+
+SCDG module arguments
+
+optional arguments:
+  <span class="hljs-built_in">help</span>                  show this <span class="hljs-built_in">help</span> message and <span class="hljs-built_in">exit</span>
+  --DFS                 TODO
+  --BFS                 TODO
+  --CDFS                TODO
+  --CBFS                TODO
+  --gs                  .GS format
+  --json                .JSON format
+  --symbion             Concolic unpacking method (linux | windows [<span class="hljs-keyword">in</span> progress])
+  --unipacker           Emulation unpacking method (windows only)
+
+Packed malware:
+  --packed              Is the binary packed ? (default : False)
+  --concrete_target_is_local
+                        Use a <span class="hljs-built_in">local</span> GDB server instead of using cuckoo (default : False)
+
+SCDG exploration techniques parameters:
+  --symb_loop SYMB_LOOP
+                        Number of iteration allowed <span class="hljs-keyword">for</span> a symbolic loop (default : 3)
+  --limit_pause LIMIT_PAUSE
+                        Number of states allowed <span class="hljs-keyword">in</span> pause stash (default : 200)
+  --max_step MAX_STEP   Maximum number of steps allowed <span class="hljs-keyword">for</span> a state (default : 50 000)
+  --max_deadend MAX_DEADEND
+                        Number of deadended state required to stop (default : 600)
+  --simul_state SIMUL_STATE
+                        Number of simultaneous states we explore with simulation manager (default : 5)
+
+Binary parameters:
+  --n_args N_ARGS       Number of symbolic arguments given to the binary (default : 0)
+  --conc_loop CONC_LOOP
+                        Number of symbolic arguments given to the binary (default : 1024)
+
+SCDG creation parameter:
+  --min_size MIN_SIZE   Minimum size required <span class="hljs-keyword">for</span> a trace to be used <span class="hljs-keyword">in</span> SCDG (default : 3)
+  --disjoint_union      Do we merge traces or use disjoint union ? (default : merge)
+  --not_comp_args       Do we compare arguments to add new nodes when building graph ? (default : comparison enabled)
+  --three_edges         Do we use the three-edges strategy ? (default : False)
+  --not_ignore_zero     Do we ignore zero when building graph ? (default : Discard zero)
+  --<span class="hljs-built_in">dir</span> DIR             Directory to save outputs graph <span class="hljs-keyword">for</span> gspan (default : output/)
+  --discard_SCDG        Do not keep intermediate SCDG <span class="hljs-keyword">in</span> file (default : True)
+  --eval_time           Keep intermediate SCDG <span class="hljs-keyword">in</span> file (default : False)
+
+Global parameter:
+  --<span class="hljs-built_in">timeout</span> TIMEOUT     Timeout <span class="hljs-keyword">in</span> seconds before ending extraction (default : 600)
+  --not_resolv_string   Do we try to resolv references of string (default : False)
+  --exp_dir EXP_DIR     Directory to save SCDG extracted (default : output/save-SCDG/)
+  --memory_limit        Skip binary experiment when memory &gt; 90% (default : False)
+  --verbose_scdg        Verbose output during calls extraction (default : False)
+  --debug_error         Debug error states (default : False)
+  --familly FAMILLY     Familly of the malware (default : unknown)
+  binary                Name of the binary to analyze</code></pre>
+<p>Program will output a graph in <code>.gs</code> format that could be exploited by <code>gspan</code>.</p>
+<p>You also have a script <code>merge_gspan.py</code> which could merge all <code>.gs</code> from a directory into only one file.</p>
+<p>Password for Examples archive is "infected". Warning : it contains real samples of malwares.</p>
+<h4 id="example-1">Example</h4>
+<pre><code class="hljs bash language-bash"><span class="hljs-comment"># +- 447 sec &lt;SimulationManager with 61 deadended&gt;</span>
+pypy3 SemaSCDG/SemaSCDG.py --DFS --verbose_scdg databases/malware-win/train/nitol/00b2f45c7befbced2efaeb92a725bb3d  
+
+<span class="hljs-comment"># +- 512 sec &lt;SimulationManager with 61 deadended&gt;</span>
+<span class="hljs-comment"># (virtual env/penv)</span>
+python3 SemaSCDG/SemaSCDG.py --DFS --verbose_scdg databases/malware-win/train/nitol/00b2f45c7befbced2efaeb92a725bb3d </code></pre>
+<pre><code class="hljs bash language-bash"><span class="hljs-comment"># timeout (+- 607 sec) </span>
+<span class="hljs-comment"># &lt;SimulationManager with 6 active, 168 deadended, 61 pause, 100 ExcessLoop&gt; + 109 SCDG</span>
+pypy3 SemaSCDG/SemaSCDG.py --DFS --verbose_scdg databases/malware-win/train/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df 
+
+<span class="hljs-comment"># timeout (611 sec) </span>
+<span class="hljs-comment"># &lt;SimulationManager with 5 active, 69 deadended, 63 pause, 100 ExcessLoop&gt; + 53 SCDG</span>
+<span class="hljs-comment"># (virtual env/penv)</span>
+python3 SemaSCDG/SemaSCDG.py --DFS --verbose_scdg databases/malware-win/train/RedLineStealer/0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df </code></pre>
+<h1 id="page_with_curl-model--classification-extractor-semaclassifier">📃 Model &amp; Classification extractor (<code>SemaClassifier</code>)</h1>
+<p><a name="tcc"></a></p>
+<p>When a new sample has to be evaluated, its SCDG is first build as described previously. Then, <code>gspan</code> is applied to extract the biggest common subgraph and a similarity score is evaluated to decide if the graph is considered as part of the family or not.</p>
+<p>The similarity score <code>S</code> between graph <code>G'</code> and <code>G''</code> is computed as follow:</p>
+<p><img src="/doc/tex2img.png" alt="GitHub Logo" /></p>
+<p>Since <code>G''</code> is a subgraph of <code>G'</code>, this is calculating how much <code>G'</code> appears in <code>G''</code>.</p>
+<p>Another classifier we use is the Support Vector Machine (<code>SVM</code>) with INRIA graph kernel or the Weisfeiler-Lehman extension graph kernel.</p>
+<h3 id="how-to-use--2">How to use ?</h3>
+<p>Just run the script : </p>
+<pre><code class="hljs bash language-bash">python3 SemaClassifier.py FOLDER/FILE
+
+usage: update_readme_usage.py [-h] [--threshold THRESHOLD] [--biggest_subgraph BIGGEST_SUBGRAPH] [--support SUPPORT] [--ctimeout CTIMEOUT] [--epoch EPOCH] [--sepoch SEPOCH]
+                              [--data_scale DATA_SCALE] [--vector_size VECTOR_SIZE] [--batch_size BATCH_SIZE] (--classification | --detection) (--wl | --inria | --dl | --gspan)
+                              [--bancteian] [--delf] [--FeakerStealer] [--gandcrab] [--ircbot] [--lamer] [--nitol] [--RedLineStealer] [--sfone] [--sillyp2p] [--simbot]
+                              [--Sodinokibi] [--sytro] [--upatre] [--wabot] [--RemcosRAT] [--verbose_classifier] [--train] [--nthread NTHREAD]
+                              binaries
+
+Classification module arguments
+
+optional arguments:
+  -h, --<span class="hljs-built_in">help</span>            show this <span class="hljs-built_in">help</span> message and <span class="hljs-built_in">exit</span>
+  --classification      By malware family
+  --detection           Cleanware vs Malware
+  --wl                  TODO
+  --inria               TODO
+  --dl                  TODO
+  --gspan               TODOe
+
+Global classifiers parameters:
+  --threshold THRESHOLD
+                        Threshold used <span class="hljs-keyword">for</span> the classifier [0..1] (default : 0.45)
+
+Gspan options:
+  --biggest_subgraph BIGGEST_SUBGRAPH
+                        Biggest subgraph consider <span class="hljs-keyword">for</span> Gspan (default: 5)
+  --support SUPPORT     Support used <span class="hljs-keyword">for</span> the gpsan classifier [0..1] (default : 0.75)
+  --ctimeout CTIMEOUT   Timeout <span class="hljs-keyword">for</span> gspan classifier (default : 3sec)
+
+Deep Learning options:
+  --epoch EPOCH         Only <span class="hljs-keyword">for</span> deep learning model: number of epoch (default: 5) Always 1 <span class="hljs-keyword">for</span> FL model
+  --sepoch SEPOCH       Only <span class="hljs-keyword">for</span> deep learning model: starting epoch (default: 1)
+  --data_scale DATA_SCALE
+                        Only <span class="hljs-keyword">for</span> deep learning model: data scale value (default: 0.9)
+  --vector_size VECTOR_SIZE
+                        Only <span class="hljs-keyword">for</span> deep learning model: Size of the vector used (default: 4)
+  --batch_size BATCH_SIZE
+                        Only <span class="hljs-keyword">for</span> deep learning model: Batch size <span class="hljs-keyword">for</span> the model (default: 1)
+
+Malware familly:
+  --bancteian
+  --delf
+  --FeakerStealer
+  --gandcrab
+  --ircbot
+  --lamer
+  --nitol
+  --RedLineStealer
+  --sfone
+  --sillyp2p
+  --simbot
+  --Sodinokibi
+  --sytro
+  --upatre
+  --wabot
+  --RemcosRAT
+
+Global parameter:
+  --verbose_classifier  Verbose output during train/classification (default : False)
+  --train               Launch training process, <span class="hljs-keyword">else</span> classify/detect new sample with previously computed model
+  --nthread NTHREAD     Number of thread used (default: max)
+  binaries              Name of the folder containing binary<span class="hljs-string">&#x27;signatures to analyze (Default: output/save-SCDG/, only that for ToolChain)</span></code></pre>
+<h4 id="example-2">Example</h4>
+<p>This will train models for input dataset</p>
+<pre><code class="hljs bash language-bash"><span class="hljs-comment"># Note: Deep learning model not supported by pypy --classifier dl</span>
+pypy3 SemaClassifier/SemaClassifier.py --train output/save-SCDG/
+
+python3 SemaClassifier/SemaClassifier.py --train output/save-SCDG/</code></pre>
+<p>This will classify input dataset based on previously computed models</p>
+<pre><code class="hljs bash language-bash">pypy3 SemaClassifier/SemaClassifier.py output/test-set/
+
+python3 SemaClassifier/SemaClassifier.py  output/test-set/</code></pre>
+<h1 id="page_with_curl-federated-learning-for-collaborative-works-semafl">📃 Federated Learning for collaborative works (<code>SemaFL</code>)</h1>
+<p><a name="tcfl"></a></p>
+<p>Only support deep learning models for now.</p>
+<h3 id="how-to-use--3">How to use ?</h3>
+<p>On each client you should run:</p>
+<pre><code class="hljs bash language-bash">bash run_worker --hostname=&lt;name&gt;</code></pre>
+<p>Then run the script on the master node: </p>
+<pre><code class="hljs bash language-bash">pypy3 SemaFL.py --hostnames &lt;listname&gt; BINARY_NAME
+
+python3 SemaFL.py --hostnames &lt;listname&gt; BINARY_NAME</code></pre>
+<ul>
+<li><code>run_name</code> :  Name for the experiments (default : "")</li>
+<li><code>nrounds</code> :  Number of rounds for training (default : 5)</li>
+<li><code>demonstration</code> :  If set, use specific dataset for each client (up to 3) to simulate different dataset in clients, else use the same input folder dataset for all clients (default : False)</li>
+<li><code>no_scdg_create</code> :  Skip SCDGs create phase (default: False)</li>
+<li><code>hostnames</code> : Hostnames for celery clients</li>
+<li><code>smodel</code> : Only for deep learning model: Share model type, 1 partly aggregation (client do not have necessary the same family samples) and 0 fully aggregation (default: 0)</li>
+<li><code>classification</code> : Enable the pre-train classifier</li>
+</ul>
+<p>Experiments purpose arguments:</p>
+<ul>
+<li><code>sround</code> :  Restart from sround (default : 0)</li>
+<li><code>nparts</code> :  Number of partitions (default : 3)</li>
+</ul>
+<p>You can use any arguments of the toolchain in addition.</p>
+<h4 id="example-3">Example</h4>
+<p>On each client + master you should run:</p>
+<pre><code class="hljs bash language-bash">(screen) bash run_worker.sh --hostname=host1 <span class="hljs-comment"># client 1 = master node</span>
+(screen) bash run_worker.sh --hostname=host2 <span class="hljs-comment"># client 2</span>
+(screen) bash run_worker.sh --hostname=host2 <span class="hljs-comment"># client 3</span></code></pre>
+<p>Then on the master node:</p>
+<pre><code class="hljs bash language-bash">bash setup_network.sh
+(screen) python3 SemaFL.py --memory_limit --demonstration --<span class="hljs-built_in">timeout</span> 100 --method CDFS --classifier dl --smodel 1 --hostnames host1 host2 host3 --verbose_scdg databases/malware-win/small_train/ output/save-SCDG/
+
+
+(screen) python3 SemaFL.py --memory_limit --demonstration --<span class="hljs-built_in">timeout</span> 100 --method CDFS --classifier gspan --hostnames host1 host2 host3 --verbose_scdg databases/malware-win/small_train/ output/save-SCDG/</code></pre>
+<h4 id="managing-ssh-sessions">Managing SSH sessions</h4>
+<p><strong>Source</strong>: <a href="https://unix.stackexchange.com/questions/479/keep-processes-running-after-ssh-session-disconnects">https://unix.stackexchange.com/questions/479/keep-processes-running-after-ssh-session-disconnects</a></p>
+<pre><code class="hljs bash language-bash">sudo apt-get install screen</code></pre>
+<p>To list detached programs</p>
+<pre><code class="hljs bash language-bash">screen -list</code></pre>
+<p>To disconnect (but leave the session running) Hit <code>Ctrl + A</code> and then <code>Ctrl + D</code> in immediate succession. You will see the message [detached]</p>
+<p>To reconnect to an already running session</p>
+<pre><code class="hljs bash language-bash">screen -r</code></pre>
+<p>To reconnect to an existing session, or create a new one if none exists</p>
+<pre><code class="hljs bash language-bash">screen -D -r</code></pre>
+<p>To create a new window inside of a running screen session Hit <code>Ctrl + A</code> and then <code>C</code> in immediate succession. You will see a new prompt.</p>
+<p>To switch from one screen window to another Hit <code>Ctrl + A</code> and then <code>Ctrl + A</code> in immediate succession.</p>
+<p>To list open screen windows Hit <code>Ctrl + A</code> and then <code>W</code> in immediate succession</p>
+<h1 id="page_with_curl-credentials">📃 Credentials</h1>
+<p><a name="credit"></a></p>
+<p>Main authors of the projects:</p>
+<ul>
+<li><p><strong>Charles-Henry Bertrand Van Ouytsel</strong> (UCLouvain)</p></li>
+<li><p><strong>Christophe Crochet</strong> (UCLouvain)</p></li>
+<li><p><strong>Khanh Huu The Dam</strong> (UCLouvain)</p></li>
+</ul>
+<p>Under the supervision and with the support of <strong>Fabrizio Biondi</strong> (Avast) </p>
+<p>Under the supervision and with the support of our professor <strong>Axel Legay</strong> (UCLouvain) (❤️)</p>
+            </main>
+          </body>
+        </html>
