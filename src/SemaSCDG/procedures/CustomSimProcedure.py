@@ -149,7 +149,17 @@ class CustomSimProcedure:
         #"fputc": 0,
         #"send":
     }   # ,'RegCreateKeyW':1}
-
+'''
+        "strlen": 0,
+        "strcpy": 0,
+        "strcat": [0,1],
+        "strcmp": [0,1],
+        "strncmp": [0,1],
+        "strtok": [0,1],
+        "strchr": [0,1],
+        "strtok_r": [0,1],
+        "readdir": 0, # error in string resolution
+'''
     FUNCTION_WSTRING = {
         'RegCreateKeyW':1,
         "CreateFileW": 0,

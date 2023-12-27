@@ -47,6 +47,7 @@ try:
     from .plugin.PluginThread import *
     from .plugin.PluginIoC import *
     from .plugin.PluginAtom import *
+    from .plugin.PluginLinuxSystem import *
     from .explorer.SemaExplorerDFS import SemaExplorerDFS
     from .explorer.SemaExplorerChooseDFS import SemaExplorerChooseDFS
     from .explorer.SemaExplorerCDFS import SemaExplorerCDFS
@@ -74,6 +75,7 @@ except:
     from plugin.PluginCommands import *
     from plugin.PluginIoC import *
     from plugin.PluginAtom import *
+    from plugin.PluginLinuxSystem import *
     from explorer.SemaExplorerDFS import SemaExplorerDFS
     from explorer.SemaExplorerChooseDFS import SemaExplorerChooseDFS
     from explorer.SemaExplorerCDFS import SemaExplorerCDFS
@@ -336,6 +338,22 @@ class SemaSCDG:
         """
         TODO : Note for further works : support_selfmodifying_code should be investigated
         """
+        
+        # ---------------------------------------
+        # b = angr.Project('/bin/true')
+        # state = b.factory.blank_state()
+        
+        # if not (self.is_packed and self.unpack_mode == "symbion") or True:
+        #     state.register_plugin(
+        #         "heap",
+        #         angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc(
+        #             heap_size=0x10000000
+        #         ),
+        #     )
+        
+        # state.register_plugin("plugin_linux_fs", PluginLinuxSystem())
+        # state.plugin_linux_fs.setup_plugin()
+        # ---------------------------------------
 
         # Load a binary into a project = control base
         proj = None
@@ -666,9 +684,9 @@ class SemaSCDG:
 
         # Defining arguments given to the program (minimum is filename)
         args_binary = [nameFileShort]
-
-        for i in range(args.n_args):
-            args_binary.append(claripy.BVS("arg" + str(i), 8 * 16))
+        if args.n_args:
+            for i in range(args.n_args):
+                args_binary.append(claripy.BVS("arg" + str(i), 8 * 16))
 
         # Load pre-defined syscall table
         if os_obj == "windows":
@@ -721,14 +739,14 @@ class SemaSCDG:
             # options.add(angr.options.SIMPLIFY_MEMORY_READS)
             # options.add(angr.options.SIMPLIFY_MEMORY_WRITES)
             # options.add(angr.options.SIMPLIFY_CONSTRAINTS)
-            # options.add(angr.options.SYMBOLIC_INITIAL_VALUES)
+            options.add(angr.options.SYMBOLIC_INITIAL_VALUES)
             # options.add(angr.options.CPUID_SYMBOLIC)
             options.add(angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS)
             options.add(angr.options.ZERO_FILL_UNCONSTRAINED_MEMORY)
-            # options.add(angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS)
-            # options.add(angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY)
+            options.add(angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS)
+            options.add(angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY)
             # options.add(angr.options.MEMORY_CHUNK_INDIVIDUAL_READS)
-            # options.add(angr.options.SYMBOLIC_WRITE_ADDRESSES)
+            # options.add(angr.options.SYMBOLIC_WRITE_ADDRESSES) # not with ransomware ?
 
             # options.add(angr.options.UNICORN)
             # options.add(angr.options.UNICORN_SYM_REGS_SUPPORT)
@@ -756,6 +774,10 @@ class SemaSCDG:
         )
 
         state.options.discard("ALL_FILES_EXIST")
+        
+        state.libc.simple_strtok = False
+
+        # state.options.discard('ALL_FILES_EXIST') # TODO seem necessary for folders
 
         # import pdb
         # pdb.set_trace()
@@ -800,6 +822,9 @@ class SemaSCDG:
             PluginThread(self, exp_dir, proj, nameFileShort, options, args),
         )
 
+        state.register_plugin("plugin_linux_fs", PluginLinuxSystem())
+        state.plugin_linux_fs.setup_plugin()
+
         # Create ProcessHeap struct and set heapflages to 0
         if proj.arch.name == "AMD64":
             tib_addr = state.regs.fs.concat(state.solver.BVV(0, 16))
@@ -816,13 +841,13 @@ class SemaSCDG:
             state.mem[ProcessHeap + 0xC].dword = 0x0  # heapflags windowsvistaorgreater
             state.mem[ProcessHeap + 0x40].dword = 0x0  # heapflags else
 
-        # Constraint arguments to ASCII -- commenting to pass concrete arguments
-        
-        # for i in range(1, len(args_binary)):
-        #     for byte in args_binary[i].chop(8):
-        #         # state.add_constraints(byte != '\x00') # null
-        #         state.add_constraints(byte >= " ")  # '\x20'
-        #         state.add_constraints(byte <= "~")  # '\x7e'
+
+        # Constraint arguments to ASCII
+        for i in range(1, len(args_binary)):
+            for byte in args_binary[i].chop(8):
+                # state.add_constraints(byte != '\x00') # null
+                state.add_constraints(byte >= " ")  # '\x20'
+                state.add_constraints(byte <= "~")  # '\x7e'
 
         # Creation of file with concrete content for cleanware
         # TODO WORK in Progress, need to think about automation of the process (like an argument with file name to create)
@@ -914,7 +939,23 @@ class SemaSCDG:
         sf.set_state(state)
         state.fs.insert(dir, sf)
         self.log.info("inserted ", dir, " simfile")
+        # Plugin
+        """
+        # from chris (which one to choose)
+        extensions = "doc docx xls xlsx ppt pptx pst ost msg eml vsd vsdx txt csv rtf wks wk1" # pdf dwg onetoc2 snt jpeg jpg docb docm dot dotm dotx xlsm xlsb xlw xlt xlm xlc xltx xltm pptm pot pps ppsm ppsx ppam potx potm edb hwp 602 sxi sti sldx sldm sldm vdi vmdk vmx gpg aes ARC PAQ bz2 tbk bak tar tgz gz 7z rar zip backup iso vcd bmp png gif raw cgm tif tiff nef psd ai svg djvu m4u m3u mid wma flv 3g2 mkv 3gp mp4 mov avi asf mpeg vob mpg wmv fla swf wav mp3 sh class jar java rb asp php jsp brd sch dch dip pl vb vbs ps1 bat cmd js asm h pas cpp c cs suo sln ldf mdf ibd myi myd frm odb dbf db mdb accdb sql sqlitedb sqlite3 asc lay6 lay mml sxm otg odg uop std sxd otp odp wb2 slk dif stc sxc ots ods 3dm max 3ds uot stw sxw ott odt pem p12 csr crt key pfx der"
+        folders = ["/home/user/.local/share/Trash/","/media/user/","/home/user/Desktop/"]
+        
+        for folder in folders:
+            for extension in extensions.split(" "):
+                simfile_name = folder + "file." + extension
+                # okay great it's reading this like i want it to
+                # how can i con
+                simfile = angr.SimFile(simfile_name, content='wtf why has this been so annoying')
+                simfile.set_state(state)
+                state.fs.insert(simfile_name, simfile)
+                self.log.info('inserted ' + simfile_name +' SimFile')
 
+        """
         #### Custom Hooking ####
         # Mechanism by which angr replaces library code with a python summary
         # When performing simulation, at every step angr checks if the current
@@ -1009,6 +1050,12 @@ class SemaSCDG:
         def nothing(state):
             if False:
                 print(hex(state.addr))
+            """   
+            if hex(state.addr) == "0x402450":
+                print("------- 00402450-----")
+                import pdb
+                pdb.set_trace()
+             """
 
         instr_dict = {}
 
@@ -1027,7 +1074,6 @@ class SemaSCDG:
         # state.inspect.b(
         #     'instruction',instruction=0x0040431a,when=angr.BP_BEFORE,action=angr.BP_IPYTHON,
         # )
-
         if args.pre_run_thread:
             state.plugin_thread.pre_run_thread(cont, self.inputs)
 
@@ -1039,9 +1085,10 @@ class SemaSCDG:
         )
         state.inspect.b("call", when=angr.BP_BEFORE, action=self.call_sim.add_addr_call)
         state.inspect.b("call", when=angr.BP_AFTER, action=self.call_sim.rm_addr_call)
+        
+        #state.inspect.b("instruction", when=angr.BP_BEFORE, action=nothing)
 
         if args.count_block:
-            state.inspect.b("instruction", when=angr.BP_BEFORE, action=nothing)
             state.inspect.b("instruction", when=angr.BP_AFTER, action=count)
             state.inspect.b("irsb", when=angr.BP_BEFORE, action=countblock)
 
@@ -1422,7 +1469,7 @@ class SemaSCDG:
         self.log.info("Syscalls Found:" + str(self.call_sim.syscall_found))
         self.log.info("Loaded libraries:" + str(proj.loader.requested_names))
 
-        # total_env_var = state.plugin_env_var.ending_state(simgr)
+        #total_env_var = state.plugin_env_var.ending_state(simgr)
 
         total_registery = state.plugin_registery.ending_state(simgr)
 
@@ -1430,7 +1477,7 @@ class SemaSCDG:
 
         total_res = state.plugin_resources.ending_state(simgr)
 
-        # self.log.info("Environment variables:" + str(total_env_var))
+        #self.log.info("Environment variables:" + str(total_env_var))
         self.log.info("Registery variables:" + str(total_registery))
         self.log.info("Locale informations variables:" + str(total_locale))
         self.log.info("Resources variables:" + str(total_res))
@@ -1533,6 +1580,8 @@ class SemaSCDG:
         tsimgr.active[0].globals["counter_instr"] = 0
         tsimgr.active[0].globals["loaded_libs"] = {}
         tsimgr.active[0].globals["addr_call"] = []
+        tsimgr.active[0].globals["strtok"] = []
+        tsimgr.active[0].globals["strtok_r"] = []
         tsimgr.active[0].globals["loop"] = 0
         tsimgr.active[0].globals["crypt_algo"] = 0
         tsimgr.active[0].globals["crypt_result"] = 0
@@ -1689,6 +1738,7 @@ class SemaSCDG:
                 f.write(f'files{s.fs._files.keys()}')
                 count += 1
 
+
         if self.discard_scdg:
             # self.log.info(dump_file)
             ofilename = exp_dir + "inter_SCDG.json"
@@ -1785,6 +1835,12 @@ class SemaSCDG:
                 self.build_scdg(args, is_fl=is_fl, csv_file=csv_file)
             except Exception as e:
                 self.log.info(e)
+
+                exc_type, exc_obj, exc_tb = sys.exc_info()
+                # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+                self.log.warning(exc_type)
+                self.log.warning(exc_obj)
+                self.log.warning(exc_type)
                 self.log.info("Error: " + self.inputs + " is not a valid binary")
             self.current_exps = 1
         else:

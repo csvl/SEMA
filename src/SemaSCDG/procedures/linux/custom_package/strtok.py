@@ -16,6 +16,9 @@ class strtok(angr.SimProcedure):
         lw.info('^'*100)
         lw.info('using strtok')
         strtok_arr = self.state.globals.get('strtok', self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits))
+"""
+strtok_r = self.state.globals.get('strtok', self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits))
+"""
         # Get the memory objects representing the strings
         # str_object = self.state.memory.load(str_ptr)
         # delim_object = self.state.memory.load(delim_ptr)
@@ -25,12 +28,13 @@ class strtok(angr.SimProcedure):
         delim_data = self.state.mem[delim_ptr].string.concrete # self.state.solver.eval(delim_object, cast_to=bytes).decode()
 
         if len(strtok_arr) == 0:
+
+          #if len(strtok_r) == 0:
             self.state.globals["strtok"] = [[False, elem] for elem in str_data.split(delim_data)]
         else:
             for elem in self.state.globals["strtok"]:
                 if not elem[0]:
                     lw.info(elem)
-
                     elem[0] = True
                     dest_ptr = str_ptr
                     token_data = elem[1].decode("utf-8") + "\x00"
@@ -47,6 +51,16 @@ class strtok(angr.SimProcedure):
             self.state.globals["strtok"] = []
             lw.info(strtok_arr)
             lw.info('^'*100)
+""""
+                    lw.info("token_data")
+                    lw.info(token_data)
+                    lw.info("token_size")
+                    lw.info(token_size)
+                    self.state.memory.store(dest_ptr, token_data)
+                    #self.state.memory.store(dest_ptr + token_size, self.state.solver.BVV(0, 8))  # Null terminator
+                    return dest_ptr
+                    #break
+"""
             return 0x0
                     
 # class strtok(angr.SimProcedure):
