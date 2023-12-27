@@ -135,6 +135,21 @@ class CustomSimProcedure:
         "SetDefaultDllDirectories": 0,
         "CreateProcessA": [0, 1],
         "URLDownloadToFileA": [1,2],
+        'strcmp':[0,1],
+        'strcpy':[0,1],
+        'strcat': [0,1],
+        'strtok':[0,1],
+        'strtok_r':[0,1],
+        'strchr':0,
+        'strlen':0,
+        'puts':0,
+        'strncmp': [0,1],
+        'printf': 0,
+        'fprintf': 1,
+        #"fputc": 0,
+        #"send":
+    }   # ,'RegCreateKeyW':1}
+'''
         "strlen": 0,
         "strcpy": 0,
         "strcat": [0,1],
@@ -144,11 +159,7 @@ class CustomSimProcedure:
         "strchr": [0,1],
         "strtok_r": [0,1],
         "readdir": 0, # error in string resolution
-        
-        #"fputc": 0,
-        #"send":
-    }   # ,'RegCreateKeyW':1}
-
+'''
     FUNCTION_WSTRING = {
         'RegCreateKeyW':1,
         "CreateFileW": 0,
@@ -1169,7 +1180,8 @@ class CustomSimProcedure:
                 try:
                     string = state.mem[args[index_str]].string.concrete
                     if hasattr(string, "decode"):
-                        args[index_str] = string.decode("utf-8")
+                        # args[index_str] = string.decode("utf-8")
+                        args[index_str] = string.decode()
                     else:
                         args[index_str] = string
                     #dic["ref_str"] = {(index_str + 1): arg_str}  # TODO

@@ -135,7 +135,7 @@ class SemaSCDG:
         jump_concrete_dict={},
         max_simul_state=1,
         max_in_pause_stach=500,
-        fast_main=False,
+        fast_main=True,
         force_symbolique_return=False,
         string_resolv=True,
         print_on=True,
@@ -746,7 +746,7 @@ class SemaSCDG:
             options.add(angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS)
             options.add(angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY)
             # options.add(angr.options.MEMORY_CHUNK_INDIVIDUAL_READS)
-            options.add(angr.options.SYMBOLIC_WRITE_ADDRESSES)
+            # options.add(angr.options.SYMBOLIC_WRITE_ADDRESSES) # not with ransomware ?
 
             # options.add(angr.options.UNICORN)
             # options.add(angr.options.UNICORN_SYM_REGS_SUPPORT)
@@ -758,11 +758,22 @@ class SemaSCDG:
             # options.add(angr.options.TRACK_CONSTRAINT_ACTIONS)
             # options.add(angr.options.TRACK_JMP_ACTIONS)
 
+        args_binary = [
+            './conti_binary',
+            '--path',
+            '/home/user',
+            '--prockiller'
+        ]
+
         self.log.info("Entry_state address = " + str(addr))
         # Contains a program's memory, registers, filesystem data... any "live data" that can be changed by execution has a home in the state
         state = proj.factory.entry_state(
-            addr=addr, args=args_binary, add_options=options,
+            addr=addr,
+            args=args_binary,
+            add_options=options,
         )
+
+        state.options.discard("ALL_FILES_EXIST")
         
         state.libc.simple_strtok = False
 
@@ -810,7 +821,7 @@ class SemaSCDG:
             "plugin_thread",
             PluginThread(self, exp_dir, proj, nameFileShort, options, args),
         )
-        
+
         state.register_plugin("plugin_linux_fs", PluginLinuxSystem())
         state.plugin_linux_fs.setup_plugin()
 
@@ -830,6 +841,7 @@ class SemaSCDG:
             state.mem[ProcessHeap + 0xC].dword = 0x0  # heapflags windowsvistaorgreater
             state.mem[ProcessHeap + 0x40].dword = 0x0  # heapflags else
 
+
         # Constraint arguments to ASCII
         for i in range(1, len(args_binary)):
             for byte in args_binary[i].chop(8):
@@ -848,8 +860,88 @@ class SemaSCDG:
                 f.close()
                 simfile.set_state(state)
 
+        extensions = "doc" # docx xls xlsx ppt pptx pst ost"# msg eml vsd vsdx txt csv rtf wks wk1 pdf dwg onetoc2 snt jpeg jpg docb docm dot dotm dotx xlsm xlsb xlw xlt xlm xlc xltx xltm pptm pot pps ppsm ppsx ppam potx potm edb hwp 602 sxi sti sldx sldm sldm vdi vmdk vmx gpg aes ARC PAQ bz2 tbk bak tar tgz gz 7z rar zip backup iso vcd bmp png gif raw cgm tif tiff nef psd ai svg djvu m4u m3u mid wma flv 3g2 mkv 3gp mp4 mov avi asf mpeg vob mpg wmv fla swf wav mp3 sh class jar java rb asp php jsp brd sch dch dip pl vb vbs ps1 bat cmd js asm h pas cpp c cs suo sln ldf mdf ibd myi myd frm odb dbf db mdb accdb sql sqlitedb sqlite3 asc lay6 lay mml sxm otg odg uop std sxd otp odp wb2 slk dif stc sxc ots ods 3dm max 3ds uot stw sxw ott odt pem p12 csr crt key pfx der"
+
+        # okay great it's reading this like i want it to
+        # how can i con
+
+        directories = [
+            "/home/user",
+            "/home/user/Desktop",
+            "/home/user/.local/share/Trash",
+            "/media/user",
+        ]
+        for dir in directories:
+            for ext in extensions.split():
+                sf = angr.SimFile(dir + "/afile." + ext, content="sigh")
+                sf.set_state(state)
+                state.fs.insert(dir + "/afile." + ext, sf)
+                self.log.info("inserted " + dir + "/afile." + ext + " SimFile")
+
+        # don't include full path? work on that later
+        for dir in directories:
+            # directory file dirent
+            d_ino = state.solver.BVV(0, 8 * 8)
+            d_off = state.solver.BVV(0, 8 * 8)
+            d_reclen = state.solver.BVV(0, 2 * 8)
+            d_type = state.solver.BVV(4, 1 * 8)
+
+            # syntax highlighting breaks on this next thing
+            dirname = f'{dir:\0<256}'
+            d_name = state.solver.BVV(dirname.encode(), 256 * 8)
+            content = claripy.Concat(d_ino, d_off, d_reclen, d_type, d_name)
+
+            for ext in extensions.split():
+                # add each file dirent
+                d_ino = state.solver.BVV(0, 8 * 8)
+                d_off = state.solver.BVV(0, 8 * 8)
+                d_reclen = state.solver.BVV(0, 2 * 8)
+                d_type = state.solver.BVV(8, 1 * 8)
+                tmp = 'afile.'+ext
+                fname = f'{tmp:\0<256}'
+                d_name = state.solver.BVV(fname.encode(), 256 * 8)
+
+                content = claripy.Concat(
+                    content, d_ino, d_off, d_reclen, d_type, d_name
+                )
+                self.log.info("wrote filename afile.", ext, " into directory file")
+
+            sf = angr.SimFile(dir, content=content)
+            sf.set_state(state)
+            state.fs.insert(dir, sf)
+            self.log.info("inserted ", dir, " simfile")
+
+        # create a proc directory
+        # directory file dirent
+        d_ino = state.solver.BVV(0, 8 * 8)
+        d_off = state.solver.BVV(0, 8 * 8)
+        d_reclen = state.solver.BVV(0, 2 * 8)
+        d_type = state.solver.BVV(4, 1 * 8)
+        dir='/proc'
+        dirname = f'{dir:\0<256}'
+        d_name = state.solver.BVV(dirname.encode(), 256 * 8)
+        content = claripy.Concat(d_ino, d_off, d_reclen, d_type, d_name)
+
+        # adding a directory dirent into the proc directory
+        d_ino = state.solver.BVV(0, 8 * 8)
+        d_off = state.solver.BVV(0, 8 * 8)
+        d_reclen = state.solver.BVV(0, 2 * 8)
+        d_type = state.solver.BVV(4, 1 * 8)
+        tmp = '1'
+        fname = f'{tmp:\0<256}'
+        d_name = state.solver.BVV(fname.encode(), 256 * 8)
+
+        content = claripy.Concat(
+            content, d_ino, d_off, d_reclen, d_type, d_name
+        )
+
+        sf = angr.SimFile(dir, content=content)
+        sf.set_state(state)
+        state.fs.insert(dir, sf)
+        self.log.info("inserted ", dir, " simfile")
         # Plugin
-        
+        """
+        # from chris (which one to choose)
         extensions = "doc docx xls xlsx ppt pptx pst ost msg eml vsd vsdx txt csv rtf wks wk1" # pdf dwg onetoc2 snt jpeg jpg docb docm dot dotm dotx xlsm xlsb xlw xlt xlm xlc xltx xltm pptm pot pps ppsm ppsx ppam potx potm edb hwp 602 sxi sti sldx sldm sldm vdi vmdk vmx gpg aes ARC PAQ bz2 tbk bak tar tgz gz 7z rar zip backup iso vcd bmp png gif raw cgm tif tiff nef psd ai svg djvu m4u m3u mid wma flv 3g2 mkv 3gp mp4 mov avi asf mpeg vob mpg wmv fla swf wav mp3 sh class jar java rb asp php jsp brd sch dch dip pl vb vbs ps1 bat cmd js asm h pas cpp c cs suo sln ldf mdf ibd myi myd frm odb dbf db mdb accdb sql sqlitedb sqlite3 asc lay6 lay mml sxm otg odg uop std sxd otp odp wb2 slk dif stc sxc ots ods 3dm max 3ds uot stw sxw ott odt pem p12 csr crt key pfx der"
         folders = ["/home/user/.local/share/Trash/","/media/user/","/home/user/Desktop/"]
         
@@ -863,8 +955,7 @@ class SemaSCDG:
                 state.fs.insert(simfile_name, simfile)
                 self.log.info('inserted ' + simfile_name +' SimFile')
 
-
-
+        """
         #### Custom Hooking ####
         # Mechanism by which angr replaces library code with a python summary
         # When performing simulation, at every step angr checks if the current
@@ -959,11 +1050,12 @@ class SemaSCDG:
         def nothing(state):
             if False:
                 print(hex(state.addr))
-                
+            """   
             if hex(state.addr) == "0x402450":
                 print("------- 00402450-----")
                 import pdb
                 pdb.set_trace()
+             """
 
         instr_dict = {}
 
@@ -979,6 +1071,9 @@ class SemaSCDG:
 
         # Improved "Break point"
 
+        # state.inspect.b(
+        #     'instruction',instruction=0x0040431a,when=angr.BP_BEFORE,action=angr.BP_IPYTHON,
+        # )
         if args.pre_run_thread:
             state.plugin_thread.pre_run_thread(cont, self.inputs)
 
@@ -994,7 +1089,6 @@ class SemaSCDG:
         #state.inspect.b("instruction", when=angr.BP_BEFORE, action=nothing)
 
         if args.count_block:
-            # state.inspect.b("instruction", when=angr.BP_BEFORE, action=nothing)
             state.inspect.b("instruction", when=angr.BP_AFTER, action=count)
             state.inspect.b("irsb", when=angr.BP_BEFORE, action=countblock)
 
@@ -1474,6 +1568,9 @@ class SemaSCDG:
         return exploration_tech
 
     def setup_stash(self, tsimgr):
+        tsimgr.active[0].globals["strtok"] = []
+        tsimgr.active[0].globals["strtok_r"] = []
+
         tsimgr.active[0].globals["id"] = 0
         tsimgr.active[0].globals["JumpExcedeed"] = False
         tsimgr.active[0].globals["JumpTable"] = {}
@@ -1631,6 +1728,17 @@ class SemaSCDG:
 
         self.print_memory_info(main_obj, dump_file)
 
+        count = -1
+        for s in simgr.deadended:
+            with open(exp_dir+f'filecontents{count}.txt','w') as f:
+                for fname in s.fs._files.keys():
+                    f.write(fname.decode()+':\n'+repr(s.posix.dump_file_by_path(fname)) +'\n\n')
+            
+                f.write(f'Total number of simfiles: {len(s.fs._files.keys())}\n\n')
+                f.write(f'files{s.fs._files.keys()}')
+                count += 1
+
+
         if self.discard_scdg:
             # self.log.info(dump_file)
             ofilename = exp_dir + "inter_SCDG.json"
@@ -1727,6 +1835,7 @@ class SemaSCDG:
                 self.build_scdg(args, is_fl=is_fl, csv_file=csv_file)
             except Exception as e:
                 self.log.info(e)
+
                 exc_type, exc_obj, exc_tb = sys.exc_info()
                 # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
                 self.log.warning(exc_type)

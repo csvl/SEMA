@@ -6,25 +6,29 @@ import logging
 lw = logging.getLogger("CustomSimProcedureLinux")
 logging.getLogger("CustomSimProcedureLinux").setLevel("INFO")
 
-# class opendir(angr.SimProcedure):
-#     def run(self, fname):
-#         lw.info(self.cc)
-#         p_open = self.inline_call(open, fname, 0o200000, 0)  # O_DIRECTORY
-#         # using the same hack we used to use for fopen etc... using the fd as a pointer
-#         print("Tried to open directory: " + fname + ". Returned file descriptor: " + str(p_open.ret_expr))
-#         return p_open.ret_expr
 
-# import angr
-import logging
+# should be safe bc gonnacry doesn't use fields of DIR *
+class opendir(angr.SimProcedure):
+    def run(self, fname):
+        lw.info(self.cc)
+        lw.info('='*250)
+        p_open = self.inline_call(open, fname, 0o200000, 0)  # O_DIRECTORY
+        # using the same hack we used to use for fopen etc... using the fd as a pointer
 
-lw = logging.getLogger("CustomSimProcedureLinux")
-# logging.getLogger("CustomSimProcedureLinux").setLevel("INFO")
+        # add check for DIR info
+        fname_str = self.state.memory.load(fname,32)
+        lw.info('trying to open directory: ' + str(self.state.solver.eval(fname_str, cast_to=bytes)))
+        lw.info('filepointer returned: ' + str(p_open.ret_expr))
+        lw.info('='*250)
+        return p_open.ret_expr
+
 
 from collections import namedtuple
 
 Dirent = namedtuple("dirent", ("d_ino", "d_off", "d_reclen", "d_type", "d_name"))
 
-
+# Chris version vs Micheal
+"""
 class opendir(angr.SimProcedure):
     struct = None
     condition = None
@@ -91,3 +95,4 @@ class opendir(angr.SimProcedure):
         storei(18, self.struct.d_type)
         stores(19, self.struct.d_name)
         stores(19 + 255, self.state.solver.BVV(0, 8))
+"""
