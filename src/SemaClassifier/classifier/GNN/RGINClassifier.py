@@ -45,6 +45,7 @@ class R_GINConv(MessagePassing):
         self.emb_dim = emb_dim
         self.mlp = torch.nn.Sequential(
             torch.nn.Linear(emb_dim, 2 * emb_dim),
+            # torch.nn.BatchNorm1d(2*emb_dim), 
             torch.nn.ReLU(),
             torch.nn.Linear(2 * emb_dim, emb_dim)
         )
@@ -53,9 +54,10 @@ class R_GINConv(MessagePassing):
         # edge_attr is 1 dimensional after augment_edge transformation
         self.edge_encoder = torch.nn.Linear(1, emb_dim)
         self.relation_mlp = torch.nn.Sequential(
-            torch.nn.Linear(emb_dim, 2 * emb_dim),
+            torch.nn.Linear(emb_dim, emb_dim),
+            # torch.nn.BatchNorm1d(2*emb_dim), 
             torch.nn.ReLU(),
-            torch.nn.Linear(2 * emb_dim, emb_dim)
+            torch.nn.Linear(emb_dim, emb_dim)
         )
 
     def forward(self, x, edge_index, edge_attr, edge_types=None):
@@ -81,6 +83,7 @@ class RGINConv(MessagePassing):
         self.emb_dim = emb_dim
         self.mlp = torch.nn.Sequential(
             torch.nn.Linear(emb_dim, 2 * emb_dim),
+            torch.nn.BatchNorm1d(2*emb_dim), 
             torch.nn.ReLU(),
             torch.nn.Linear(2 * emb_dim, emb_dim)
         )
@@ -121,6 +124,7 @@ class R_GINJK_node(torch.nn.Module):
         self.batch_norms = torch.nn.ModuleList()
         for layer in range(num_layers):
             # self.convs.append(GINConv(hidden))
+            # self.convs.append(R_GINConv(hidden))
             self.convs.append(RGINConv(hidden))
 
     def forward(self, x, edge_index, edge_attr, batch, perturb=None, edge_types=None):

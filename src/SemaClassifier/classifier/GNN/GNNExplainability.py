@@ -1,5 +1,5 @@
 from torch_geometric.data import Data
-from torch_geometric.explain import Explainer, PGExplainer, GNNExplainer
+from torch_geometric.explain import Explainer, PGExplainer, GNNExplainer, CaptumExplainer
 from torch_geometric.loader import DataLoader
 from torch_geometric.explain.metric import fidelity
 from torch_geometric.explain import unfaithfulness
@@ -10,6 +10,8 @@ from typing import Any, Optional
 
 import torch
 from torch import Tensor
+
+from captum.attr import DeepLift
 
 BACKENDS = {'graphviz', 'networkx'}
 
@@ -57,10 +59,10 @@ class GNNExplainability():
         for i in range(len(self.dataset)):
             data = self.dataset[i]
             print(data)
-            explanation = explainer(data.x, data.edge_index, batch=data.batch, target=data.y)
+            explanation = explainer(data.x, data.edge_index, edge_attr=data.edge_attr, batch=data.batch, target=data.y)
             print(explanation)
             # import pdb; pdb.set_trace()
-            pred = explainer.get_prediction(data.x, data.edge_index, data.batch).argmax(dim=1).item()
+            pred = explainer.get_prediction(data.x, data.edge_index, data.edge_attr, data.batch).argmax(dim=1).item()
             true_label = data.y.item()
             # unfaithfulness_score = unfaithfulness(explainer, explanation)
             # print(unfaithfulness_score)
@@ -71,7 +73,7 @@ class GNNExplainability():
                                 self.mapping,
                                 explanation.edge_index, 
                                 explanation.edge_mask,
-                                self.output_path+f'subgraph_{i}_{self.fam_idx[true_label]}_{self.fam_idx[pred]}.png', 
+                                self.output_path+f"subgraph_{i}_{self.fam_idx[true_label]}_{self.fam_idx[pred]}.png", 
                                 backend="graphviz")
                 # explanation.visualize_graph(self.output_path+f'subgraph_{i}_{true_label}_{pred}.png', backend="graphviz")
                 # explanation.visualize_feature_importance(self.output_path+f'feature_importance_{i}_{true_label}_{pred}.png', top_k=10)

@@ -13,6 +13,7 @@ from torch.utils.data import Dataset
 
 import networkx as nx
 import collections
+import dill
 
 class PyGDataset(Dataset):
     def __init__(self, data_list):
@@ -24,6 +25,15 @@ class PyGDataset(Dataset):
     def __getitem__(self, idx):
         return self.data_list[idx]
 
+def save_model(object, path):
+        with open(path, 'wb+') as output:
+            dill.dump(object, output)
+
+def load_model(path):
+    with open(path, 'rb') as inp:
+        print(path)
+        print(inp)
+        return dill.load(inp)
 
 # Process the graph data and convert to a PyG Data object.
 def gen_graph_data(edges, nodes, vertices, edge_labels, label):
@@ -31,7 +41,8 @@ def gen_graph_data(edges, nodes, vertices, edge_labels, label):
     edges = list(edges)
     x = torch.tensor([torch.tensor(nodes[v]) for v in vertices])
     x = x.unsqueeze(-1)
-    edge_attr = torch.tensor([edge_labels[e] for e in edges])
+    edge_attr = torch.tensor([int(str(edge_labels[e])[0]) for e in edges])
+    # import pdb; pdb.set_trace()
     # edge_attr = torch.tensor([0.0 for _ in edges])
     num_nodes = len(vertices)
     # edge_index=torch.tensor(edges).t().contiguous()
