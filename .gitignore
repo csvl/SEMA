@@ -32,7 +32,6 @@ simbot.zip
 sytro.zip
 wabot.zip
 wl_model.pkl
-*_model.pkl
 # find . -size +100M | cat >> .gitignore
 
 # Packages #
@@ -66,5 +65,7 @@ ttt.py
 src/databases/examples_samy/**
 src/database/**
 src/output/runs/10**
-src/SemaClassifier/classifer/explain_output/**/*
-src/SemaClassifier/classifer/saved_model/**/*
+src/output/runs/test
+src/output/runs/unknown
+src/SemaClassifier/classifier/explain_output/**/*
+src/SemaClassifier/classifier/saved_model/*.pkl
