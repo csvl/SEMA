@@ -24,12 +24,12 @@ from flwr.common import Metrics
 
 import numpy as np
 import logging
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 from typing import List, Tuple
 import progressbar
 
 import argparse
-
+import random
 
 # from ..Classifier import Classifier
 # from .GINClassifier import GIN
@@ -94,13 +94,14 @@ def init_dataset(path, families, mapping, fam_idx, fam_dict, BINARY_CLASS):
                 fam_idx.append(family)
                 fam_dict[family] = len(fam_idx) - 1
             for file in filenames:
-                # if file.endswith(".json"):
-                if file.endswith(".gs"):
-                    edges, nodes, vertices, edge_labels = read_gs_4_gnn(file, mapping)
-                    # edges, nodes, vertices, edge_labels = read_json_4_gnn(file, mapping)
+                # import pdb; pdb.set_trace()
+                if file.endswith(".json"):
+                # if file.endswith(".gs"):
+                    # edges, nodes, vertices, edge_labels = read_gs_4_gnn(file, mapping)
+                    edges, nodes, vertices, edge_labels = read_json_4_gnn(file, mapping)
                     data = gen_graph_data(edges, nodes, vertices, edge_labels, fam_dict[family])
-                    wl_graph = read_gs(file, mapping)
-                    # wl_graph = read_json_4_wl(file, mapping)
+                    # wl_graph = read_gs(file, mapping)
+                    wl_graph = read_json_4_wl(file, mapping)
                     if len(edges) > 0:
                         if len(nodes) > 1:
                             dataset.append(data)
@@ -116,6 +117,106 @@ def init_dataset(path, families, mapping, fam_idx, fam_dict, BINARY_CLASS):
     # import pdb; pdb.set_trace()
     bar.finish()
     return dataset, label, fam_idx, fam_dict, dataset_wl
+
+def temporal_init_dataset(path, families, mapping, fam_idx, fam_dict, BINARY_CLASS):
+    if path[-1] != "/":
+        path += "/"
+    print("Path: " + path)
+    bar = progressbar.ProgressBar() #progressbar.ProgressBar(max_value=len(families))
+    bar.start()
+    original_path = path
+    dataset = []
+    dataset_wl = []
+    label = []
+    dataset_dict = defaultdict(list)
+    dataset_dict_wl = defaultdict(list)
+    names_dict = defaultdict(list)
+    for family in families:
+        path = original_path + family + '/'
+        print("Subpath: " + f"{path}")
+        if not os.path.isdir(path) :
+            print("Dataset should be a folder containing malware classify by familly in subfolder")
+            print("Path with error: " + path)
+            exit(-1)
+        else:
+            fdf = pd.read_csv(f'./databases/examples_samy/ch_gk/fam_timestamps/{family}_timestamps.csv')
+            filenames_sorted = fdf["sha"].values
+            # filenames = [os.path.join(path, f"{sample}.gs") for sample in filenames_sorted if os.path.isfile(os.path.join(path, f"{sample}.gs"))]
+            filenames = [os.path.join(path, f"{sample}.json") for sample in filenames_sorted if os.path.isfile(os.path.join(path, f"{sample}.json"))]
+            # import pdb; pdb.set_trace()
+            if len(filenames) > 1 and family not in fam_idx :
+                fam_idx.append(family)
+                fam_dict[family] = len(fam_idx) - 1
+            for file in filenames:
+                # import pdb; pdb.set_trace()
+                if file.endswith(".json"):
+                # if file.endswith(".gs"):
+                    # edges, nodes, vertices, edge_labels = read_gs_4_gnn(file, mapping)
+                    edges, nodes, vertices, edge_labels = read_json_4_gnn(file, mapping)
+                    data = gen_graph_data(edges, nodes, vertices, edge_labels, fam_dict[family])
+                    # wl_graph = read_gs(file, mapping)
+                    wl_graph = read_json_4_wl(file, mapping)
+                    if len(edges) > 0:
+                        if len(nodes) > 1:
+                            dataset.append(data)
+                            dataset_wl.append(wl_graph)
+                            dataset_dict[family].append(data)
+                            dataset_dict_wl[family].append(wl_graph)
+                            names_dict[family].append(file)
+                        if BINARY_CLASS and len(nodes) > 1:
+                            if family == 'clean':
+                                label.append(family)
+                            else:
+                                label.append('malware')
+                        else:
+                            if len(nodes) > 1:
+                                label.append(family)
+    # import pdb; pdb.set_trace()
+    bar.finish()
+    return dataset_dict, dataset, label, fam_idx, fam_dict, dataset_wl, dataset_dict_wl
+
+def temporal_split_train_test(dataset_dict, ratio, names_dict=None):
+    train_dataset = []
+    test_dataset = []
+    y_train = []
+    y_test = []
+    train_names = []
+    test_names = []
+    for f in dataset_dict:
+        data = dataset_dict[f]
+        split_index = int(ratio * len(data))
+
+        train_dataset.extend(data[:split_index])
+        test_dataset.extend(data[split_index:])
+
+        # name = names_dict[f]
+        # train_names.extend(name[:split_index])
+        # test_names.extend(name[split_index:])
+
+    random.shuffle(train_dataset)
+    random.shuffle(test_dataset)
+    for e_tr in train_dataset:
+        y_train.append(e_tr.y.item())
+    for e_ts in test_dataset:
+        y_test.append(e_ts.y.item())
+    
+    return train_dataset, y_train, test_dataset, y_test
+
+def temporal_split_train_test_wl(dataset_dict, ratio, label):
+    train_dataset = []
+    test_dataset = []
+    y_train = []
+    y_test = []
+    for f in dataset_dict:
+        data = dataset_dict[f]
+        split_index = int(ratio * len(data))
+
+        train_dataset.extend(data[:split_index])
+        test_dataset.extend(data[split_index:])
+        y_train.extend([f for _ in data[:split_index]])
+        y_test.extend([f for _ in data[split_index:]])
+    
+    return train_dataset, y_train, test_dataset, y_test
 
 def split_dataset_indexes(dataset, label):
     train_dataset = []
