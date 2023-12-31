@@ -1,0 +1,82 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4203520.main
+da16232918a1140993feca4730512a3d7d9dfae1da297ab64a3253b822cbc52d.exe"]
+	1 [label="0x40254c.__set_app_type
+"]
+	2 [label="0x402561.__p__fmode
+"]
+	1 -> 2 [label="(0-->0)"]
+	3 [label="0x40256f.__p__commode
+"]
+	1 -> 3 [label="(0-->0)"]
+	2 -> 3 [label="(0-->0)"]
+	4 [label="0x402694._controlfp
+"]
+	1 -> 4 [label="(0-->0)"]
+	2 -> 4 [label="(0-->0)"]
+	3 -> 4 [label="(0-->0)"]
+	5 [label="0x4025b1._initterm
+4210696
+4210700"]
+	6 [label="0x4025d4.__getmainargs
+2147417492
+2147417476
+2147417488
+0
+2147417480"]
+	7 [label="0x4025e4._initterm
+4210688
+4210692"]
+	5 -> 7 [label="(0-->0)"]
+	8 [label="0x402623.GetStartupInfoA
+2147417496"]
+	5 -> 8 [label="(0-->0)"]
+	7 -> 8 [label="(0-->0)"]
+	9 [label="0x402647.GetModuleHandleA
+0"]
+	10 [label="0x40196c.RegisterClassA
+2147417428"]
+	11 [label="0x40199e.CreateWindowExA
+0
+solienty
+absent
+0
+2500
+1600
+690
+400
+0
+0
+4194304
+0"]
+	9 -> 11 [label="(0-->11)"]
+	12 [label="0x4019ac.ShowWindow
+retval_CreateWindowExA_131072_32
+0"]
+	13 [label="0x4019bb.GetMessageA
+2147417440
+0
+0
+0"]
+	14 [label="0x4019d5.TranslateMessage
+2147417440"]
+	13 -> 14 [label="(1-->1)"]
+	15 [label="0x4019db.DispatchMessageA
+2147417440"]
+	13 -> 15 [label="(1-->1)"]
+	14 -> 15 [label="(1-->1)"]
+	16 [label="0x4019e6.GetMessageA
+2147417440
+0
+0
+0"]
+	13 -> 16 [label="(1-->1)"]
+	14 -> 16 [label="(1-->1)"]
+	15 -> 16 [label="(1-->1)"]
+	17 [label="0x4016df.DefWindowProcA
+0
+0
+4210742
+2147417588"]
+}

@@ -1,0 +1,53 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4203216.main
+3a1a2d7bd2fe7ebe588017cd8c20b4bc90bfce8c391350017bd483fd86423c32.exe"]
+	1 [label="0x4022da.GetStartupInfoA
+2147417556"]
+	2 [label="0x4022e2.GetModuleHandleW
+0"]
+	3 [label="0x40231a.RegisterClassW
+2147417516"]
+	4 [label="0x402320.ordinal.17.comctl32.dll
+"]
+	5 [label="0x402353.CreateWindowExW
+0
+contents
+0
+0
+3300
+1400
+756
+500
+0
+0
+4194304
+0"]
+	2 -> 5 [label="(0-->11)"]
+	6 [label="0x402361.ShowWindow
+retval_CreateWindowExW_131071_32
+0"]
+	7 [label="0x40236d.UpdateWindow
+retval_CreateWindowExW_131071_32"]
+	6 -> 7 [label="(1-->1)"]
+	8 [label="0x40237c.GetMessageW
+2147417528
+0
+0
+0"]
+	9 [label="0x402396.DispatchMessageW
+2147417528"]
+	8 -> 9 [label="(1-->1)"]
+	10 [label="0x4023a1.GetMessageW
+2147417528
+0
+0
+0"]
+	8 -> 10 [label="(1-->1)"]
+	9 -> 10 [label="(1-->1)"]
+	11 [label="0x401023.DefWindowProcW
+0
+0
+4210736
+0"]
+}

@@ -1,0 +1,141 @@
+{
+    "nodes": [
+        {
+            "id": "0",
+            "name": "main",
+            "addr": "4199542",
+            "args": [
+                "Example_SEMA_code1.exe"
+            ]
+        },
+        {
+            "id": "1",
+            "name": "GetTickCount",
+            "addr": "0x401476",
+            "args": [
+                ""
+            ]
+        },
+        {
+            "id": "2",
+            "name": "Sleep",
+            "addr": "0x40148c",
+            "args": [
+                "5000"
+            ]
+        },
+        {
+            "id": "3",
+            "name": "GetTickCount",
+            "addr": "0x401494",
+            "args": [
+                ""
+            ]
+        },
+        {
+            "id": "4",
+            "name": "MessageBoxA",
+            "addr": "0x4014e8",
+            "args": [
+                "0",
+                "Hello"
+            ]
+        },
+        {
+            "id": "5",
+            "name": "exit",
+            "addr": "0x401596",
+            "args": [
+                "0"
+            ]
+        },
+        {
+            "id": "6",
+            "name": "IsDebuggerPresent",
+            "addr": "0x4014c0",
+            "args": [
+                ""
+            ]
+        },
+        {
+            "id": "7",
+            "name": "LoadLibraryA",
+            "addr": "0x40151f",
+            "args": [
+                "msvcrt.dll"
+            ]
+        },
+        {
+            "id": "8",
+            "name": "GetProcAddress",
+            "addr": "0x401538",
+            "args": [
+                "6295592",
+                "strcat"
+            ]
+        },
+        {
+            "id": "9",
+            "name": "strcat",
+            "addr": "0x401554",
+            "args": [
+                "",
+                "I'm"
+            ]
+        },
+        {
+            "id": "10",
+            "name": "strcat",
+            "addr": "0x401567",
+            "args": [
+                "I'm"
+            ]
+        },
+        {
+            "id": "11",
+            "name": "MessageBoxA",
+            "addr": "0x401587",
+            "args": [
+                "0",
+                "I'm"
+            ]
+        }
+    ],
+    "links": [
+        {
+            "id1": "1",
+            "id2": "3",
+            "label": "19090"
+        },
+        {
+            "id1": "2",
+            "id2": "5",
+            "label": "19090"
+        },
+        {
+            "id1": "1",
+            "id2": "6",
+            "label": "19090"
+        },
+        {
+            "id1": "3",
+            "id2": "6",
+            "label": "19090"
+        },
+        {
+            "id1": "7",
+            "id2": "8",
+            "label": "19091"
+        },
+        {
+            "id1": "9",
+            "id2": "10",
+            "label": "19291"
+        },
+        {
+            "id1": "9",
+            "id2": "10",
+            "label": "19090"
+        }
+    ]
+}

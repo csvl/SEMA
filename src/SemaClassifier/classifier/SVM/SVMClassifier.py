@@ -21,10 +21,10 @@ from sklearn.metrics import roc_curve, roc_auc_score
 
 try:
     from ..Classifier import Classifier
-    from clogging.CustomFormatter import CustomFormatter
+    # from clogging.CustomFormatter import CustomFormatter
 except:
-    from ..Classifier import Classifier
-    from ...clogging.CustomFormatter import CustomFormatter
+    from Classifier import Classifier
+    # from ...clogging.CustomFormatter import CustomFormatter
      
 
 CLASS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -90,29 +90,30 @@ class SVMClassifier(Classifier):
                 for file in filenames:      
                     if file.endswith(".gs"):
                         G = self.read_gs(file,self.mapping)
-                        if len(G.node_labels) > 1:
-                            self.dataset.append(G)
-                        if BINARY_CLASS and len(G.node_labels) > 1:
-                            if family == 'clean':
-                                self.label.append(family)
-                            else:
-                                self.label.append('malware')
-                        else:
+                        if len(G.edge_labels) > 0:
                             if len(G.node_labels) > 1:
-                                self.label.append(family)
+                                self.dataset.append(G)
+                            if BINARY_CLASS and len(G.node_labels) > 1:
+                                if family == 'clean':
+                                    self.label.append(family)
+                                else:
+                                    self.label.append('malware')
+                            else:
+                                if len(G.node_labels) > 1:
+                                    self.label.append(family)
         bar.finish()
     
-    def split_dataset(self):
+    def split_dataset(self, label):
         sss = StratifiedShuffleSplit(n_splits=1, test_size=0.4, random_state=24)
-        for train, test in sss.split(self.dataset, self.label):
+        for train, test in sss.split(self.dataset, label):
             self.train_index = train
             self.val_index = test
         for i in self.train_index:
             self.train_dataset.append(self.dataset[i])
-            self.y_train.append(self.label[i])  
+            self.y_train.append(label[i])  
         for i in self.val_index:
             self.val_dataset.append(self.dataset[i])
-            self.y_val.append(self.label[i])
+            self.y_val.append(label[i])
 
     def get_stat_classifier(self):
         logging.basicConfig(level=logging.INFO)
@@ -168,5 +169,5 @@ class SVMClassifier(Classifier):
         plt.xlabel('Predicted label')
         plt.show()
         #plt.savefig(self.original_path + "figure.png")
-        return f_score
+        return self.accuracy, self.balanced_accuracy, self.precision, self.recall, f_score
     

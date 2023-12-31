@@ -1,0 +1,34 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4245888.main
+6bc12c2914dcf0e349ed5c2df8ff0cdf3d362719ecd39a61bfe5abeebe857ffd.exe"]
+	1 [label="0x40cda7.FindAtomA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-LIBGCCW32-EH-2-SJLJ-GTHR-MINGW32"]
+	2 [label="0x40cdc8.malloc
+60"]
+	3 [label="0x40cecf.AddAtomA
+AAaaaaaaaaaaaaAaaaaaaaaaaaAaAaaa-LIBGCCW32-EH-2-SJLJ-GTHR-MINGW32"]
+	4 [label="0x40cc7f.GetAtomNameA
+atom_131069_32
+
+66"]
+	5 [label="0x40e1ed.fprintf
+5243124
+%s:%u: failed assertion `%s'
+"]
+	6 [label="0x40e1fd.fflush
+5243124"]
+	5 -> 6 [label="(1-->1)"]
+	7 [label="0x40e202.abort
+"]
+	8 [label="0x40cee8.free
+3221356584"]
+	2 -> 8 [label="(0-->1)"]
+	9 [label="0x40cef0.FindAtomA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-LIBGCCW32-EH-2-SJLJ-GTHR-MINGW32"]
+	1 -> 9 [label="(1-->1)"]
+	10 [label="0x40cc7f.GetAtomNameA
+0
+
+66"]
+}

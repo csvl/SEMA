@@ -1,0 +1,215 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4390912.main
+006096172cacc1d3ef59f03d0f481ac779a55e36b8ce7e6a9c943bffe8805cd8.exe"]
+	1 [label="0x401262.__GetMainArgs
+"]
+	2 [label="0x4088c9.GetCommandLineA
+"]
+	1 -> 2 [label="(0-->0)"]
+	3 [label="0x408915.GetModuleHandleA
+0"]
+	4 [label="0x407892.OpenMutexA
+2031617
+0
+KingKarton_10"]
+	5 [label="0x4078d2.GetVersionExA
+4300112"]
+	6 [label="0x4078e1.GetSystemDirectoryA
+C:\Windows\System32
+255"]
+	7 [label="0x4078e6.GetTickCount
+"]
+	1 -> 7 [label="(0-->0)"]
+	2 -> 7 [label="(0-->0)"]
+	8 [label="0x4078ec.srand
+retval_GetTickCount_131075_32"]
+	9 [label="0x407906.GetModuleFileNameA
+4194304
+006096172cacc1d3ef59f03d0f481ac779a55e36b8ce7e6a9c943bffe8805cd8.exe
+260"]
+	3 -> 9 [label="(0-->1)"]
+	0 -> 9 [label="(1-->2)"]
+	10 [label="0x407945.rand
+"]
+	1 -> 10 [label="(0-->0)"]
+	2 -> 10 [label="(0-->0)"]
+	7 -> 10 [label="(0-->0)"]
+	11 [label="0x407975.rand
+"]
+	1 -> 11 [label="(0-->0)"]
+	2 -> 11 [label="(0-->0)"]
+	7 -> 11 [label="(0-->0)"]
+	10 -> 11 [label="(0-->0)"]
+	12 [label="0x4079c2.rand
+"]
+	1 -> 12 [label="(0-->0)"]
+	2 -> 12 [label="(0-->0)"]
+	7 -> 12 [label="(0-->0)"]
+	10 -> 12 [label="(0-->0)"]
+	11 -> 12 [label="(0-->0)"]
+	13 [label="0x4079f4.sprintf
+2147412519
+4380876
+C:\Windows\System32
+0x7ffeeb2b"]
+	6 -> 13 [label="(1-->3)"]
+	14 [label="0x407a09.CopyFileA
+006096172cacc1d3ef59f03d0f481ac779a55e36b8ce7e6a9c943bffe8805cd8.exe
+C:\Windows\System32\0x7ffeeb2b.exe
+0"]
+	0 -> 14 [label="(1-->1)"]
+	9 -> 14 [label="(2-->1)"]
+	5 -> 14 [label="(0-->0)"]
+	15 [label="0x403f44.rand
+"]
+	1 -> 15 [label="(0-->0)"]
+	2 -> 15 [label="(0-->0)"]
+	7 -> 15 [label="(0-->0)"]
+	10 -> 15 [label="(0-->0)"]
+	11 -> 15 [label="(0-->0)"]
+	12 -> 15 [label="(0-->0)"]
+	16 [label="0x403843.CreateFileA
+C:\Windows\System32\0x7ffeeb2b.exe
+2147483648
+3
+0
+3
+128
+0"]
+	14 -> 16 [label="(2-->1)"]
+	17 [label="0x40386b.GetFileSize
+3
+0"]
+	16 -> 17 [label="(3-->1)"]
+	16 -> 17 [label="(5-->1)"]
+	16 -> 17 [label="(0-->1)"]
+	18 [label="0x403878.LocalAlloc
+64
+retval_GetFileSize_131101_32"]
+	19 [label="0x4038aa.ReadFile
+3
+3221356584
+retval_GetFileSize_131101_32
+2147412444
+0"]
+	16 -> 19 [label="(3-->1)"]
+	16 -> 19 [label="(5-->1)"]
+	16 -> 19 [label="(0-->1)"]
+	17 -> 19 [label="(1-->1)"]
+	18 -> 19 [label="(0-->2)"]
+	18 -> 19 [label="(2-->3)"]
+	5 -> 19 [label="(0-->0)"]
+	14 -> 19 [label="(0-->0)"]
+	20 [label="0x4038b0.CloseHandle
+3"]
+	16 -> 20 [label="(3-->1)"]
+	16 -> 20 [label="(5-->1)"]
+	16 -> 20 [label="(0-->1)"]
+	17 -> 20 [label="(1-->1)"]
+	19 -> 20 [label="(1-->1)"]
+	5 -> 20 [label="(0-->0)"]
+	14 -> 20 [label="(0-->0)"]
+	19 -> 20 [label="(0-->0)"]
+	21 [label="0x403fc1.memcpy
+3221407784
+rand_131096_31
+rand_131096_31"]
+	22 [label="0x403fd6.memset
+rand_131096_31
+0
+12"]
+	21 -> 22 [label="(2-->1)"]
+	21 -> 22 [label="(3-->1)"]
+	23 [label="0x4078a2.CloseHandle
+retval_OpenMutexA_131070_32"]
+	24 [label="0x4078a9.exit
+"]
+	1 -> 24 [label="(0-->0)"]
+	2 -> 24 [label="(0-->0)"]
+	25 [label="0x4078ec.srand
+retval_GetTickCount_131079_32"]
+	26 [label="0x403878.LocalAlloc
+64
+retval_GetFileSize_131108_32"]
+	27 [label="0x4038aa.ReadFile
+3
+3221356584
+retval_GetFileSize_131108_32
+2147412444
+0"]
+	16 -> 27 [label="(3-->1)"]
+	16 -> 27 [label="(5-->1)"]
+	16 -> 27 [label="(0-->1)"]
+	17 -> 27 [label="(1-->1)"]
+	26 -> 27 [label="(0-->2)"]
+	26 -> 27 [label="(2-->3)"]
+	5 -> 27 [label="(0-->0)"]
+	14 -> 27 [label="(0-->0)"]
+	23 -> 27 [label="(0-->0)"]
+	28 [label="0x403fc1.memcpy
+3221407784
+rand_131106_31
+rand_131106_31"]
+	29 [label="0x403fd6.memset
+rand_131106_31
+0
+12"]
+	28 -> 29 [label="(2-->1)"]
+	28 -> 29 [label="(3-->1)"]
+	30 [label="0x403878.LocalAlloc
+64
+retval_GetFileSize_131100_32"]
+	31 [label="0x4038aa.ReadFile
+3
+3221356584
+retval_GetFileSize_131100_32
+2147412444
+0"]
+	16 -> 31 [label="(3-->1)"]
+	16 -> 31 [label="(5-->1)"]
+	16 -> 31 [label="(0-->1)"]
+	17 -> 31 [label="(1-->1)"]
+	30 -> 31 [label="(0-->2)"]
+	30 -> 31 [label="(2-->3)"]
+	5 -> 31 [label="(0-->0)"]
+	14 -> 31 [label="(0-->0)"]
+	32 [label="0x403fc1.memcpy
+3221407784
+rand_131097_31
+rand_131097_31"]
+	33 [label="0x403fd6.memset
+rand_131097_31
+0
+12"]
+	32 -> 33 [label="(2-->1)"]
+	32 -> 33 [label="(3-->1)"]
+	34 [label="0x403878.LocalAlloc
+64
+retval_GetFileSize_131109_32"]
+	35 [label="0x4038aa.ReadFile
+3
+3221356584
+retval_GetFileSize_131109_32
+2147412444
+0"]
+	16 -> 35 [label="(3-->1)"]
+	16 -> 35 [label="(5-->1)"]
+	16 -> 35 [label="(0-->1)"]
+	17 -> 35 [label="(1-->1)"]
+	34 -> 35 [label="(0-->2)"]
+	34 -> 35 [label="(2-->3)"]
+	5 -> 35 [label="(0-->0)"]
+	14 -> 35 [label="(0-->0)"]
+	23 -> 35 [label="(0-->0)"]
+	36 [label="0x403fc1.memcpy
+3221407784
+rand_131107_31
+rand_131107_31"]
+	37 [label="0x403fd6.memset
+rand_131107_31
+0
+12"]
+	36 -> 37 [label="(2-->1)"]
+	36 -> 37 [label="(3-->1)"]
+}

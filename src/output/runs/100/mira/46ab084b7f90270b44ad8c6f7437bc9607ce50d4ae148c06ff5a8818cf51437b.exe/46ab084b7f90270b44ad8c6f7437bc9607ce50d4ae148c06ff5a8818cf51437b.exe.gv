@@ -1,0 +1,54 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4198976.main
+46ab084b7f90270b44ad8c6f7437bc9607ce50d4ae148c06ff5a8818cf51437b.exe"]
+	1 [label="0x40124d.__set_app_type
+"]
+	2 [label="0x401111.SetUnhandledExceptionFilter
+4198400"]
+	3 [label="0x40114a.__getmainargs
+4464644
+4464640
+2147417564
+4294967295
+2147417568"]
+	4 [label="0x4011b0.__p__fmode
+"]
+	1 -> 4 [label="(0-->0)"]
+	5 [label="0x4011c5.__p__environ
+"]
+	1 -> 5 [label="(0-->0)"]
+	4 -> 5 [label="(0-->0)"]
+	6 [label="0x40cda7.FindAtomA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-LIBGCCW32-EH-2-SJLJ-GTHR-MINGW32"]
+	7 [label="0x40cdc8.malloc
+60"]
+	8 [label="0x40cecf.AddAtomA
+AAaaaaaaaaaaaaAaaaaaaaaaaaAaAaaa-LIBGCCW32-EH-2-SJLJ-GTHR-MINGW32"]
+	9 [label="0x40cc7f.GetAtomNameA
+atom_131071_32
+
+66"]
+	10 [label="0x40e1ed.fprintf
+5243124
+%s:%u: failed assertion `%s'
+"]
+	11 [label="0x40e1fd.fflush
+5243124"]
+	10 -> 11 [label="(1-->1)"]
+	12 [label="0x40e202.abort
+"]
+	1 -> 12 [label="(0-->0)"]
+	4 -> 12 [label="(0-->0)"]
+	5 -> 12 [label="(0-->0)"]
+	13 [label="0x40cee8.free
+3221356584"]
+	7 -> 13 [label="(0-->1)"]
+	14 [label="0x40cef0.FindAtomA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-LIBGCCW32-EH-2-SJLJ-GTHR-MINGW32"]
+	6 -> 14 [label="(1-->1)"]
+	15 [label="0x40cc7f.GetAtomNameA
+0
+
+66"]
+}

@@ -1,0 +1,21 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4198400.main
+acaeb1f062286a9971bbef9fed9809152516cf706cb777e3c0630233d3e3c521.exe"]
+	1 [label="0x42f4b0.VirtualAlloc
+0
+167888
+12288
+64"]
+	2 [label="0x42f20c.RegOpenKeyA
+2147483650
+SYSTEM\CurrentControlSet\control\deviceclasses\{53f56307-b6bf-11d0-94f2-00a0c91efb8b}
+4383244"]
+	3 [label="0x42f224.RegOpenKeyA
+2147483650
+SYSTEM\CurrentControlSet\control\deviceclasses\{53f56307-b6bf-11d0-94f2-00a0c91efb8b}
+4383244"]
+	2 -> 3 [label="(1-->1)"]
+	2 -> 3 [label="(2-->2)"]
+	2 -> 3 [label="(3-->3)"]
+}

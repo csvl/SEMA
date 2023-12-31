@@ -1,0 +1,418 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="5289344.main
+683420b850b53cead8d36db0ec10436f4c4c7a1589a7050dc0419cbcbe18dbf2.exe"]
+	1 [label="0x50b69a.LoadLibraryA
+KERNEL32.DLL"]
+	2 [label="0x50b6af.GetProcAddress
+7344168
+GetLastError"]
+	1 -> 2 [label="(0-->1)"]
+	3 [label="0x50b6af.GetProcAddress
+7344168
+lstrcpyA"]
+	1 -> 3 [label="(0-->1)"]
+	2 -> 3 [label="(1-->1)"]
+	4 [label="0x50b6af.GetProcAddress
+7344168
+GetModuleHandleA"]
+	1 -> 4 [label="(0-->1)"]
+	2 -> 4 [label="(1-->1)"]
+	3 -> 4 [label="(1-->1)"]
+	5 [label="0x50b6af.GetProcAddress
+7344168
+GetCommandLineA"]
+	1 -> 5 [label="(0-->1)"]
+	2 -> 5 [label="(1-->1)"]
+	3 -> 5 [label="(1-->1)"]
+	4 -> 5 [label="(1-->1)"]
+	6 [label="0x50b6af.GetProcAddress
+7344168
+FindFirstFileA"]
+	1 -> 6 [label="(0-->1)"]
+	2 -> 6 [label="(1-->1)"]
+	3 -> 6 [label="(1-->1)"]
+	4 -> 6 [label="(1-->1)"]
+	5 -> 6 [label="(1-->1)"]
+	7 [label="0x50b6af.GetProcAddress
+7344168
+FormatMessageA"]
+	1 -> 7 [label="(0-->1)"]
+	2 -> 7 [label="(1-->1)"]
+	3 -> 7 [label="(1-->1)"]
+	4 -> 7 [label="(1-->1)"]
+	5 -> 7 [label="(1-->1)"]
+	6 -> 7 [label="(1-->1)"]
+	8 [label="0x50b6af.GetProcAddress
+7344168
+FindClose"]
+	1 -> 8 [label="(0-->1)"]
+	2 -> 8 [label="(1-->1)"]
+	3 -> 8 [label="(1-->1)"]
+	4 -> 8 [label="(1-->1)"]
+	5 -> 8 [label="(1-->1)"]
+	6 -> 8 [label="(1-->1)"]
+	7 -> 8 [label="(1-->1)"]
+	9 [label="0x50b6af.GetProcAddress
+7344168
+FindNextFileA"]
+	1 -> 9 [label="(0-->1)"]
+	2 -> 9 [label="(1-->1)"]
+	3 -> 9 [label="(1-->1)"]
+	4 -> 9 [label="(1-->1)"]
+	5 -> 9 [label="(1-->1)"]
+	6 -> 9 [label="(1-->1)"]
+	7 -> 9 [label="(1-->1)"]
+	8 -> 9 [label="(1-->1)"]
+	10 [label="0x50b6af.GetProcAddress
+7344168
+DeleteFileA"]
+	1 -> 10 [label="(0-->1)"]
+	2 -> 10 [label="(1-->1)"]
+	3 -> 10 [label="(1-->1)"]
+	4 -> 10 [label="(1-->1)"]
+	5 -> 10 [label="(1-->1)"]
+	6 -> 10 [label="(1-->1)"]
+	7 -> 10 [label="(1-->1)"]
+	8 -> 10 [label="(1-->1)"]
+	9 -> 10 [label="(1-->1)"]
+	11 [label="0x50b6af.GetProcAddress
+7344168
+CloseHandle"]
+	1 -> 11 [label="(0-->1)"]
+	2 -> 11 [label="(1-->1)"]
+	3 -> 11 [label="(1-->1)"]
+	4 -> 11 [label="(1-->1)"]
+	5 -> 11 [label="(1-->1)"]
+	6 -> 11 [label="(1-->1)"]
+	7 -> 11 [label="(1-->1)"]
+	8 -> 11 [label="(1-->1)"]
+	9 -> 11 [label="(1-->1)"]
+	10 -> 11 [label="(1-->1)"]
+	12 [label="0x50b6af.GetProcAddress
+7344168
+GetACP"]
+	1 -> 12 [label="(0-->1)"]
+	2 -> 12 [label="(1-->1)"]
+	3 -> 12 [label="(1-->1)"]
+	4 -> 12 [label="(1-->1)"]
+	5 -> 12 [label="(1-->1)"]
+	6 -> 12 [label="(1-->1)"]
+	7 -> 12 [label="(1-->1)"]
+	8 -> 12 [label="(1-->1)"]
+	9 -> 12 [label="(1-->1)"]
+	10 -> 12 [label="(1-->1)"]
+	11 -> 12 [label="(1-->1)"]
+	13 [label="0x50b6af.GetProcAddress
+7344168
+CreateFileA"]
+	1 -> 13 [label="(0-->1)"]
+	2 -> 13 [label="(1-->1)"]
+	3 -> 13 [label="(1-->1)"]
+	4 -> 13 [label="(1-->1)"]
+	5 -> 13 [label="(1-->1)"]
+	6 -> 13 [label="(1-->1)"]
+	7 -> 13 [label="(1-->1)"]
+	8 -> 13 [label="(1-->1)"]
+	9 -> 13 [label="(1-->1)"]
+	10 -> 13 [label="(1-->1)"]
+	11 -> 13 [label="(1-->1)"]
+	12 -> 13 [label="(1-->1)"]
+	14 [label="0x50b69a.LoadLibraryA
+gdi32.dll"]
+	15 [label="0x50b6af.GetProcAddress
+7344220
+CreateFontIndirectA"]
+	14 -> 15 [label="(0-->1)"]
+	16 [label="0x50b69a.LoadLibraryA
+user32.dll"]
+	17 [label="0x50b6af.GetProcAddress
+7344224
+PostQuitMessage"]
+	16 -> 17 [label="(0-->1)"]
+	18 [label="0x50b6af.GetProcAddress
+7344224
+GetMessageA"]
+	16 -> 18 [label="(0-->1)"]
+	17 -> 18 [label="(1-->1)"]
+	19 [label="0x50b6af.GetProcAddress
+7344224
+UpdateWindow"]
+	16 -> 19 [label="(0-->1)"]
+	17 -> 19 [label="(1-->1)"]
+	18 -> 19 [label="(1-->1)"]
+	20 [label="0x50b6af.GetProcAddress
+7344224
+EndPaint"]
+	16 -> 20 [label="(0-->1)"]
+	17 -> 20 [label="(1-->1)"]
+	18 -> 20 [label="(1-->1)"]
+	19 -> 20 [label="(1-->1)"]
+	21 [label="0x50b6af.GetProcAddress
+7344224
+DispatchMessageA"]
+	16 -> 21 [label="(0-->1)"]
+	17 -> 21 [label="(1-->1)"]
+	18 -> 21 [label="(1-->1)"]
+	19 -> 21 [label="(1-->1)"]
+	20 -> 21 [label="(1-->1)"]
+	22 [label="0x50b6af.GetProcAddress
+7344224
+BeginPaint"]
+	16 -> 22 [label="(0-->1)"]
+	17 -> 22 [label="(1-->1)"]
+	18 -> 22 [label="(1-->1)"]
+	19 -> 22 [label="(1-->1)"]
+	20 -> 22 [label="(1-->1)"]
+	21 -> 22 [label="(1-->1)"]
+	23 [label="0x50b6af.GetProcAddress
+7344224
+TranslateMessage"]
+	16 -> 23 [label="(0-->1)"]
+	17 -> 23 [label="(1-->1)"]
+	18 -> 23 [label="(1-->1)"]
+	19 -> 23 [label="(1-->1)"]
+	20 -> 23 [label="(1-->1)"]
+	21 -> 23 [label="(1-->1)"]
+	22 -> 23 [label="(1-->1)"]
+	24 [label="0x50b6af.GetProcAddress
+7344224
+MoveWindow"]
+	16 -> 24 [label="(0-->1)"]
+	17 -> 24 [label="(1-->1)"]
+	18 -> 24 [label="(1-->1)"]
+	19 -> 24 [label="(1-->1)"]
+	20 -> 24 [label="(1-->1)"]
+	21 -> 24 [label="(1-->1)"]
+	22 -> 24 [label="(1-->1)"]
+	23 -> 24 [label="(1-->1)"]
+	25 [label="0x50b6af.GetProcAddress
+7344224
+CreateWindowExA"]
+	16 -> 25 [label="(0-->1)"]
+	17 -> 25 [label="(1-->1)"]
+	18 -> 25 [label="(1-->1)"]
+	19 -> 25 [label="(1-->1)"]
+	20 -> 25 [label="(1-->1)"]
+	21 -> 25 [label="(1-->1)"]
+	22 -> 25 [label="(1-->1)"]
+	23 -> 25 [label="(1-->1)"]
+	24 -> 25 [label="(1-->1)"]
+	26 [label="0x50b6af.GetProcAddress
+7344224
+RegisterClassExA"]
+	16 -> 26 [label="(0-->1)"]
+	17 -> 26 [label="(1-->1)"]
+	18 -> 26 [label="(1-->1)"]
+	19 -> 26 [label="(1-->1)"]
+	20 -> 26 [label="(1-->1)"]
+	21 -> 26 [label="(1-->1)"]
+	22 -> 26 [label="(1-->1)"]
+	23 -> 26 [label="(1-->1)"]
+	24 -> 26 [label="(1-->1)"]
+	25 -> 26 [label="(1-->1)"]
+	27 [label="0x50b6af.GetProcAddress
+7344224
+DefWindowProcA"]
+	16 -> 27 [label="(0-->1)"]
+	17 -> 27 [label="(1-->1)"]
+	18 -> 27 [label="(1-->1)"]
+	19 -> 27 [label="(1-->1)"]
+	20 -> 27 [label="(1-->1)"]
+	21 -> 27 [label="(1-->1)"]
+	22 -> 27 [label="(1-->1)"]
+	23 -> 27 [label="(1-->1)"]
+	24 -> 27 [label="(1-->1)"]
+	25 -> 27 [label="(1-->1)"]
+	26 -> 27 [label="(1-->1)"]
+	28 [label="0x50b6af.GetProcAddress
+7344224
+MessageBoxA"]
+	16 -> 28 [label="(0-->1)"]
+	17 -> 28 [label="(1-->1)"]
+	18 -> 28 [label="(1-->1)"]
+	19 -> 28 [label="(1-->1)"]
+	20 -> 28 [label="(1-->1)"]
+	21 -> 28 [label="(1-->1)"]
+	22 -> 28 [label="(1-->1)"]
+	23 -> 28 [label="(1-->1)"]
+	24 -> 28 [label="(1-->1)"]
+	25 -> 28 [label="(1-->1)"]
+	26 -> 28 [label="(1-->1)"]
+	27 -> 28 [label="(1-->1)"]
+	29 [label="0x50b6af.GetProcAddress
+7344224
+SendMessageA"]
+	16 -> 29 [label="(0-->1)"]
+	17 -> 29 [label="(1-->1)"]
+	18 -> 29 [label="(1-->1)"]
+	19 -> 29 [label="(1-->1)"]
+	20 -> 29 [label="(1-->1)"]
+	21 -> 29 [label="(1-->1)"]
+	22 -> 29 [label="(1-->1)"]
+	23 -> 29 [label="(1-->1)"]
+	24 -> 29 [label="(1-->1)"]
+	25 -> 29 [label="(1-->1)"]
+	26 -> 29 [label="(1-->1)"]
+	27 -> 29 [label="(1-->1)"]
+	28 -> 29 [label="(1-->1)"]
+	30 [label="0x50b6af.GetProcAddress
+7344224
+DestroyWindow"]
+	16 -> 30 [label="(0-->1)"]
+	17 -> 30 [label="(1-->1)"]
+	18 -> 30 [label="(1-->1)"]
+	19 -> 30 [label="(1-->1)"]
+	20 -> 30 [label="(1-->1)"]
+	21 -> 30 [label="(1-->1)"]
+	22 -> 30 [label="(1-->1)"]
+	23 -> 30 [label="(1-->1)"]
+	24 -> 30 [label="(1-->1)"]
+	25 -> 30 [label="(1-->1)"]
+	26 -> 30 [label="(1-->1)"]
+	27 -> 30 [label="(1-->1)"]
+	28 -> 30 [label="(1-->1)"]
+	29 -> 30 [label="(1-->1)"]
+	31 [label="0x50b6af.GetProcAddress
+7344224
+LoadCursorA"]
+	16 -> 31 [label="(0-->1)"]
+	17 -> 31 [label="(1-->1)"]
+	18 -> 31 [label="(1-->1)"]
+	19 -> 31 [label="(1-->1)"]
+	20 -> 31 [label="(1-->1)"]
+	21 -> 31 [label="(1-->1)"]
+	22 -> 31 [label="(1-->1)"]
+	23 -> 31 [label="(1-->1)"]
+	24 -> 31 [label="(1-->1)"]
+	25 -> 31 [label="(1-->1)"]
+	26 -> 31 [label="(1-->1)"]
+	27 -> 31 [label="(1-->1)"]
+	28 -> 31 [label="(1-->1)"]
+	29 -> 31 [label="(1-->1)"]
+	30 -> 31 [label="(1-->1)"]
+	32 [label="0x50b6af.GetProcAddress
+7344224
+LoadIconA"]
+	16 -> 32 [label="(0-->1)"]
+	17 -> 32 [label="(1-->1)"]
+	18 -> 32 [label="(1-->1)"]
+	19 -> 32 [label="(1-->1)"]
+	20 -> 32 [label="(1-->1)"]
+	21 -> 32 [label="(1-->1)"]
+	22 -> 32 [label="(1-->1)"]
+	23 -> 32 [label="(1-->1)"]
+	24 -> 32 [label="(1-->1)"]
+	25 -> 32 [label="(1-->1)"]
+	26 -> 32 [label="(1-->1)"]
+	27 -> 32 [label="(1-->1)"]
+	28 -> 32 [label="(1-->1)"]
+	29 -> 32 [label="(1-->1)"]
+	30 -> 32 [label="(1-->1)"]
+	31 -> 32 [label="(1-->1)"]
+	33 [label="0x50b6af.GetProcAddress
+7344224
+ShowWindow"]
+	16 -> 33 [label="(0-->1)"]
+	17 -> 33 [label="(1-->1)"]
+	18 -> 33 [label="(1-->1)"]
+	19 -> 33 [label="(1-->1)"]
+	20 -> 33 [label="(1-->1)"]
+	21 -> 33 [label="(1-->1)"]
+	22 -> 33 [label="(1-->1)"]
+	23 -> 33 [label="(1-->1)"]
+	24 -> 33 [label="(1-->1)"]
+	25 -> 33 [label="(1-->1)"]
+	26 -> 33 [label="(1-->1)"]
+	27 -> 33 [label="(1-->1)"]
+	28 -> 33 [label="(1-->1)"]
+	29 -> 33 [label="(1-->1)"]
+	30 -> 33 [label="(1-->1)"]
+	31 -> 33 [label="(1-->1)"]
+	32 -> 33 [label="(1-->1)"]
+	34 [label="0x50b6af.GetProcAddress
+7344224
+GetWindowRect"]
+	16 -> 34 [label="(0-->1)"]
+	17 -> 34 [label="(1-->1)"]
+	18 -> 34 [label="(1-->1)"]
+	19 -> 34 [label="(1-->1)"]
+	20 -> 34 [label="(1-->1)"]
+	21 -> 34 [label="(1-->1)"]
+	22 -> 34 [label="(1-->1)"]
+	23 -> 34 [label="(1-->1)"]
+	24 -> 34 [label="(1-->1)"]
+	25 -> 34 [label="(1-->1)"]
+	26 -> 34 [label="(1-->1)"]
+	27 -> 34 [label="(1-->1)"]
+	28 -> 34 [label="(1-->1)"]
+	29 -> 34 [label="(1-->1)"]
+	30 -> 34 [label="(1-->1)"]
+	31 -> 34 [label="(1-->1)"]
+	32 -> 34 [label="(1-->1)"]
+	33 -> 34 [label="(1-->1)"]
+	35 [label="0x50b6dd.VirtualProtect
+5242880
+4096
+4
+2147417560"]
+	36 [label="0x50b6f2.VirtualProtect
+5242880
+4096
+0
+2147417560"]
+	35 -> 36 [label="(1-->1)"]
+	35 -> 36 [label="(2-->2)"]
+	35 -> 36 [label="(4-->4)"]
+	35 -> 36 [label="(0-->0)"]
+	37 [label="0x503b72.GetCommandLineA
+"]
+	38 [label="0x503bb7.GetModuleHandleA
+0"]
+	35 -> 38 [label="(1-->0)"]
+	36 -> 38 [label="(1-->0)"]
+	39 [label="0x503be2.LoadIconA
+0
+"]
+	40 [label="0x503bf9.LoadCursorA
+0
+"]
+	41 [label="0x503c09.RegisterClassExA
+5263896"]
+	42 [label="0x503c40.CreateWindowExA
+0
+aroka
+wait
+262144
+4294964616
+4294960426
+542
+485
+0
+0
+5242880
+0"]
+	35 -> 42 [label="(1-->11)"]
+	36 -> 42 [label="(1-->11)"]
+	38 -> 42 [label="(0-->11)"]
+	43 [label="0x503c53.ShowWindow
+retval_CreateWindowExA_131072_32
+5"]
+	44 [label="0x503c5f.UpdateWindow
+retval_CreateWindowExA_131072_32"]
+	43 -> 44 [label="(1-->1)"]
+	45 [label="0x503c75.GetMessageA
+5263944
+0
+0
+0"]
+	35 -> 45 [label="(0-->0)"]
+	36 -> 45 [label="(0-->0)"]
+	46 [label="0x503c84.TranslateMessage
+5263944"]
+	45 -> 46 [label="(1-->1)"]
+	47 [label="0x503c8f.DispatchMessageA
+5263944"]
+	45 -> 47 [label="(1-->1)"]
+	46 -> 47 [label="(1-->1)"]
+}
