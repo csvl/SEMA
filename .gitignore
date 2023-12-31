@@ -31,8 +31,7 @@ sillyp2p.zip
 simbot.zip
 sytro.zip
 wabot.zip
-# wl_model.pkl
-*_model.pkl
+wl_model.pkl
 # find . -size +100M | cat >> .gitignore
 
 # Packages #
@@ -51,3 +50,22 @@ wabot.zip
 # TODO dl link
 /home/crochetch/Documents/Projects/MalwareAnalysis/SEMA-ToolChain-packing/src/ToolChainSCDG/procedures/windows7_ddls
 /home/crochetch/Documents/Projects/MalwareAnalysis/SEMA-ToolChain-packing/src/ToolChainSCDG/procedures/windows10_ddls
+
+*/src/output/runs/100/upatre/*/scdg.log
+*/src/output/runs/100/upatre/*/inter_SCDG.log
+
+*.log
+src/output/runs/100/upatre/b1658fbd5f16d27ba3c019bbb9e1d9db02a26932523a0759571c413c70d13558.exe/inter_SCDG.json 
+src/output/runs/100/upatre/3a1a2d7bd2fe7ebe588017cd8c20b4bc90bfce8c391350017bd483fd86423c32.exe/inter_SCDG.json
+
+confusion_matrix*.png
+src/file_counter.py
+timestamps_data.py
+ttt.py
+src/databases/examples_samy/**
+src/database/**
+src/output/runs/10**
+src/output/runs/test
+src/output/runs/unknown
+src/SemaClassifier/classifier/explain_output/**/*
+src/SemaClassifier/classifier/saved_model/*.pkl
