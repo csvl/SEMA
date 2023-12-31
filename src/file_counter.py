@@ -7,13 +7,19 @@ import shutil
 
 
 # path = "output/runs/100"
-path = "output/runs/101_wselect3"
+# path = "output/runs/101_wselect3"
 # path = "output/runs/102_clean_cdfs"
+path = "output/runs/105_cdfs"
+# path = "output/runs/106_wselect3"
+# path = "./databases/examples_samy/ch_gk/three_edges_105_cdfs"
 
 families = os.listdir(path)
 
-families = ["berbew","sillyp2p","benjamin","small","mira","upatre","wabot"]
+# families = ["berbew","sillyp2p","benjamin","small","mira","upatre","wabot"]
 # families = ["cleanware"]
+# families = ['delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','sytro','wabot','RemcosRAT']
+families = ['delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','sytro','wabot','RemcosRAT','simbot','bancteian', 'Sodinokibi']
+
 
 # print(families)
 
@@ -50,7 +56,7 @@ for family in families:
                         print(f"Valid graph: {scdg}")
                         
                         # # Copy file in ./database/examples_samy/BODMAS/01/<family>
-                        # dest = os.path.join("./databases/examples_samy/BODMAS/clean_cdfs_01", family)
+                        # dest = os.path.join("./databases/examples_samy/ch_gk/105_cdfs", family)
                         # os.makedirs(dest, exist_ok=True)
                         # shutil.copy(scdg, dest)
                 except:
