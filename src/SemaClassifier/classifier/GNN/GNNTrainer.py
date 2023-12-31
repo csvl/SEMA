@@ -20,7 +20,7 @@ from ..Classifier import Classifier
 from .GINClassifier import GIN
 from .GINJKClassifier import GINJK
 from .GCNClassifier import GCN
-from .RGINClassifier import RanGIN
+from .RGINClassifier import R_GINJK
 from .RGINJKClassifier import RanGINJK
 from .GINJKFlagClassifier import GINJKFlag
 from .GNNExplainability import GNNExplainability
