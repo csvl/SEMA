@@ -56,23 +56,23 @@ def get_datasets(dataset, trn_idx, tst_idx):
 
 def get_folds(dataset, train_indexes, val_indexes):
     train_folds = []
-    val_folds = []
     y_train_folds = []
+    val_folds = []
     y_val_folds = []
-    for trn_idx in train_indexes:
+    for train_idx_list in train_indexes:
         split = []
         y_split = []
-        for i in trn_idx:
+        for i in train_idx_list:
             split.append(dataset[i])
             y_split.append(dataset[i].y.item())
         train_folds.append(split)
         y_train_folds.append(y_split)
-    for val_idx in val_indexes:
+    for val_idx_list in val_indexes:
         vsplit = []
         y_vsplit = []
-        for i in val_idx:
-            vsplit.append(dataset[i])
-            y_vsplit.append(dataset[i].y.item())
+        for j in val_idx_list:
+            vsplit.append(dataset[j])
+            y_vsplit.append(dataset[j].y.item())
         val_folds.append(vsplit)
         y_val_folds.append(y_vsplit)
     return train_folds, y_train_folds, val_folds, y_val_folds
@@ -186,7 +186,7 @@ def train(model, train_dataset, val_dataset, batch_size, device, epochs, step_si
                 count += 1
             GNN_script.cprint(f"Epoch {epoch+1}: Lr: {optimizer.param_groups[0]['lr']:.5} | Train acc: {train_acc:.4%} | Train loss: {train_loss:.4} | Val accuracy: {val_acc:.4%} | Val bal accuracy: {val_bal_acc:.4%} | Val loss: {val_loss:.4} | metric: {combined_metric:.4} | count: {count}", 1)
             if count > 20:
-                print(f"Early stop at epoch {epoch} because loss did not improve for {count} epochs.")
+                print(f"Early stop at epoch {epoch} because our metric did not improve for {count} epochs.")
                 break
         else:
             GNN_script.cprint(f"Epoch {epoch+1}: Train acc: {train_acc:.4%} | Train loss: {train_loss:.4}", 1)
@@ -553,7 +553,7 @@ def tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_da
                             trn_time = end - start
                             print(f"Training time: {trn_time}")
                             cv_curr_params["training_time"].append(trn_time)
-                            val_data_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
+                            val_data_loader = DataLoader(val_data, batch_size=32, shuffle=False)
                             start = time.time()
                             accuracy, loss, y_pred = test(model, val_data_loader, bs, DEVICE)
                             end = time.time()
@@ -567,6 +567,13 @@ def tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_da
                             cv_curr_params["rec"].append(rec)
                             cv_curr_params["f1"].append(f1)
                             cv_curr_params["bal_acc"].append(bal_acc)
+                            GNN_script.cprint("--------------------------------------------------",1)
+                            GNN_script.cprint(f"GNN: Test accuracy: {acc}",1)
+                            GNN_script.cprint(f"GNN: Test balanced accuracy: {bal_acc}",1)
+                            GNN_script.cprint(f"GNN: Test precision: {prec}",1)
+                            GNN_script.cprint(f"GNN: Test recall: {rec}",1)
+                            GNN_script.cprint(f"GNN: Test f1: {f1}",1)
+                            GNN_script.cprint("--------------------------------------------------",1)
                             
                             to_write = {"hidden": h, "layers": l, "lr": r, "batch_size": bs, "flag": fg, "step_size": -1, "m": -1, "acc": acc, "prec": prec, "rec": rec, "f1": f1, "bal_acc": bal_acc, "training_time": trn_time, "testing_time": tst_time, "loss": loss}
                             write_cross_val_stats_to_tmp_csv(to_write, "rgin", fold)
@@ -623,6 +630,13 @@ def tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_da
     accuracy, loss, y_pred = test(model, test_loader, best_params["batch_size"], DEVICE)
     end_test = time.time()
     final_acc, final_prec, final_rec, final_f1, final_bal_acc = computre_metrics(y_test, y_pred, fam_idx)
+    GNN_script.cprint("--------------------------------------------------",0)
+    GNN_script.cprint(f"GNN: Test accuracy: {final_acc}",0)
+    GNN_script.cprint(f"GNN: Test balanced accuracy: {final_bal_acc}",0)
+    GNN_script.cprint(f"GNN: Test precision: {final_prec}",0)
+    GNN_script.cprint(f"GNN: Test recall: {final_rec}",0)
+    GNN_script.cprint(f"GNN: Test f1: {final_f1}",0)
+    GNN_script.cprint("--------------------------------------------------",0)
     results = {}
     results["final_acc"] = final_acc
     results["final_prec"] = final_prec
