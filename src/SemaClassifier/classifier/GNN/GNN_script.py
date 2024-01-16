@@ -95,13 +95,13 @@ def init_dataset(path, families, mapping, fam_idx, fam_dict, BINARY_CLASS):
                 fam_dict[family] = len(fam_idx) - 1
             for file in filenames:
                 # import pdb; pdb.set_trace()
-                if file.endswith(".json"):
-                # if file.endswith(".gs"):
-                    # edges, nodes, vertices, edge_labels = read_gs_4_gnn(file, mapping)
-                    edges, nodes, vertices, edge_labels = read_json_4_gnn(file, mapping)
+                # if file.endswith(".json"):
+                if file.endswith(".gs"):
+                    edges, nodes, vertices, edge_labels = read_gs_4_gnn(file, mapping)
+                    # edges, nodes, vertices, edge_labels = read_json_4_gnn(file, mapping)
                     data = gen_graph_data(edges, nodes, vertices, edge_labels, fam_dict[family])
-                    # wl_graph = read_gs(file, mapping)
-                    wl_graph = read_json_4_wl(file, mapping)
+                    wl_graph = read_gs(file, mapping)
+                    # wl_graph = read_json_4_wl(file, mapping)
                     if len(edges) > 0:
                         if len(nodes) > 1:
                             dataset.append(data)
@@ -223,12 +223,27 @@ def split_dataset_indexes(dataset, label):
     y_train = []
     val_dataset = []
     y_val = []
-    sss = StratifiedShuffleSplit(n_splits=1, test_size=0.4, random_state=24)
+    sss = StratifiedShuffleSplit(n_splits=1, test_size=0.3, random_state=24)
     # import pdb; pdb.set_trace()
     for train, test in sss.split(dataset, label):
         train_index = train
         val_index = test
     return train_index, val_index
+
+def cross_val_split_dataset_indexes(dataset, label, k):
+    train_dataset = []
+    y_train = []
+    val_dataset = []
+    y_val = []
+    sss = StratifiedShuffleSplit(n_splits=k, test_size=0.3, random_state=24)
+    # import pdb; pdb.set_trace()
+    train_indexes = []
+    val_indexes = []
+    for train, test in sss.split(dataset, label):
+        train_indexes.append(train)
+        val_indexes.append(test)
+    # import pdb; pdb.set_trace()
+    return train_indexes, val_indexes
 
 def load_partition(n_clients,id,train_idx,test_idx,dataset,client=True,wl=False,label=None):
     """Load 1/(clients+1) of the training and test data."""

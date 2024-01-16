@@ -124,8 +124,8 @@ class R_GINJK_node(torch.nn.Module):
         self.batch_norms = torch.nn.ModuleList()
         for layer in range(num_layers):
             # self.convs.append(GINConv(hidden))
-            # self.convs.append(R_GINConv(hidden))
-            self.convs.append(RGINConv(hidden))
+            self.convs.append(R_GINConv(hidden))
+            # self.convs.append(RGINConv(hidden))
 
     def forward(self, x, edge_index, edge_attr, batch, perturb=None, edge_types=None):
         tmp = x + perturb if perturb is not None else x

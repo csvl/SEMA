@@ -54,6 +54,29 @@ def get_datasets(dataset, trn_idx, tst_idx):
         y_test.append(dataset[i].y.item())
     return train_dataset, y_train, test_dataset, y_test
 
+def get_folds(dataset, train_indexes, val_indexes):
+    train_folds = []
+    val_folds = []
+    y_train_folds = []
+    y_val_folds = []
+    for trn_idx in train_indexes:
+        split = []
+        y_split = []
+        for i in trn_idx:
+            split.append(dataset[i])
+            y_split.append(dataset[i].y.item())
+        train_folds.append(split)
+        y_train_folds.append(y_split)
+    for val_idx in val_indexes:
+        vsplit = []
+        y_vsplit = []
+        for i in val_idx:
+            vsplit.append(dataset[i])
+            y_vsplit.append(dataset[i].y.item())
+        val_folds.append(vsplit)
+        y_val_folds.append(y_vsplit)
+    return train_folds, y_train_folds, val_folds, y_val_folds
+
 def get_datasets_wl(dataset, trn_idx, tst_idx, label):
     train_dataset = []
     test_dataset = []
@@ -67,7 +90,7 @@ def get_datasets_wl(dataset, trn_idx, tst_idx, label):
         y_test.append(label[i])
     return train_dataset, y_train, test_dataset, y_test
 
-def one_epoch_train_vanilla(model, train_loader, val_loader, device, optimizer, criterion):
+def one_epoch_train_vanilla(model, train_loader, val_loader, device, optimizer, criterion, y_val=None, eval_mode=True):
     model.train()
     train_loss = 0
     train_correct = 0
@@ -84,8 +107,14 @@ def one_epoch_train_vanilla(model, train_loader, val_loader, device, optimizer, 
         train_correct += (output.argmax(1) == data.y).sum().item()
     train_loss /= train_total
     train_acc = train_correct / train_total
-    # val_acc, val_loss, _ = test(model, val_loader, BATCH_SIZE_TEST, device)
-    return model, train_acc, train_loss, 0, 0 #val_acc, val_loss
+    if eval_mode:
+        val_acc, val_loss, y_pred = test(model, val_loader, BATCH_SIZE_TEST, device)
+        val_bal_acc = 0
+        if y_val:
+            val_bal_acc = balanced_accuracy_score(y_val, y_pred)
+        return model, train_acc, train_loss, val_acc, val_loss, val_bal_acc
+    else:
+        return model, train_acc, train_loss, 0,0,0
 
 def one_epoch_train_flag(model, train_loader, val_loader, device, optimizer, criterion, step_size, m):
     model.train()
@@ -122,10 +151,10 @@ def one_epoch_train_flag(model, train_loader, val_loader, device, optimizer, cri
         train_correct += (output.argmax(1) == data.y).sum().item()
     train_loss /= train_total
     train_acc = train_correct / train_total
-    # val_acc, val_loss, _ = test(model, val_loader, BATCH_SIZE_TEST, device)
-    return model, train_acc, train_loss, 0, 0 #val_acc, val_loss
+    val_acc, val_loss, _ = test(model, val_loader, BATCH_SIZE_TEST, device)
+    return model, train_acc, train_loss, val_acc, val_loss
 
-def train(model, train_dataset, val_dataset, batch_size, device, epochs, step_size=8e-3, m=3, flag=False, lr=0.001):
+def train(model, train_dataset, val_dataset, batch_size, device, epochs, step_size=8e-3, m=3, flag=False, lr=0.001, y_val=None, eval_mode=True):
     print(f"Training with flag: {flag}, step_size: {step_size}, m: {m}, lr: {lr}")
     criterion = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
@@ -134,15 +163,35 @@ def train(model, train_dataset, val_dataset, batch_size, device, epochs, step_si
                             eta_min = 1e-4) # Minimum learning rate.
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
-
+    best_val_loss = float('inf')
+    count = 0
+    best_model_wts = copy.deepcopy(model.state_dict())
+    alpha = 0.5
+    beta = 0.5
+    best_combined_metric = float('inf')
+    val_bal_acc = 0
     for epoch in range(epochs):
         if flag:
             model, train_acc, train_loss, val_acc, val_loss = one_epoch_train_flag(model, train_loader, val_loader, device, optimizer, criterion, step_size, m)
         else:
-            model, train_acc, train_loss, val_acc, val_loss = one_epoch_train_vanilla(model, train_loader, val_loader, device, optimizer, criterion)
+            model, train_acc, train_loss, val_acc, val_loss, val_bal_acc = one_epoch_train_vanilla(model, train_loader, val_loader, device, optimizer, criterion, y_val=y_val, eval_mode=eval_mode)
         scheduler.step()
-        # GNN_script.cprint(f"Epoch {epoch+1}: Train acc: {train_acc:.4%} | Train loss: {train_loss:.4} | Test accuracy: {val_acc:.4%} | Test loss: {val_loss:.4}", 1)
-        GNN_script.cprint(f"Epoch {epoch+1}: Train acc: {train_acc:.4%} | Train loss: {train_loss:.4}", 1)
+        if eval_mode:
+            combined_metric = alpha * val_loss + beta * (1 - val_bal_acc)
+            if combined_metric < best_combined_metric:
+                best_model_wts = copy.deepcopy(model.state_dict())
+                count = 0
+                best_combined_metric = combined_metric
+            else:
+                count += 1
+            GNN_script.cprint(f"Epoch {epoch+1}: Lr: {optimizer.param_groups[0]['lr']:.5} | Train acc: {train_acc:.4%} | Train loss: {train_loss:.4} | Val accuracy: {val_acc:.4%} | Val bal accuracy: {val_bal_acc:.4%} | Val loss: {val_loss:.4} | metric: {combined_metric:.4} | count: {count}", 1)
+            if count > 20:
+                print(f"Early stop at epoch {epoch} because loss did not improve for {count} epochs.")
+                break
+        else:
+            GNN_script.cprint(f"Epoch {epoch+1}: Train acc: {train_acc:.4%} | Train loss: {train_loss:.4}", 1)
+    if eval_mode:
+        model.load_state_dict(best_model_wts)
     return model 
 
 def test(model, test_loader , batch_size, device):
@@ -410,22 +459,165 @@ def tune_parameters_fginjk(full_train_dataset, train_dataset, val_dataset, y_val
     results["training_time"] = end - start
     return results
 
+def tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_dataset, y_val, test_dataset, y_test, num_classes, fam_idx):
+    hidden = [128, 64]
+    num_layers = [4, 5, 6, 7]
+    lr = [0.001]
+    batch_sizes = [64, 32, 16]
+    flag = False
+    fg = flag
+    step_size = [8e-3, 5e-3, 1e-3]
+    m_steps = [3, 5, 7]
+    best_params = {}
+    test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
+    val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
+    best_bal_acc = 0
+    best_loss = float('inf')
+    best_fscore = 0
+
+    # train_indexes, val_indexes = GNN_script.cross_val_split_dataset_indexes(full_train_dataset, y_full_train, 4)
+    # train_folds, y_train_folds, val_folds, y_val_folds = get_folds(full_train_dataset,train_indexes, val_indexes)
+
+    
+    # for i in range(len(train_folds)):
+    #     train_data, y_train_data = train_folds[i], y_train_folds[i]
+    #     val_data, y_val_data = val_folds[i], y_val_folds[i]
+    #     bal_acc_lists = []
+
+    for h in hidden:
+        for l in num_layers:
+            for r in lr:
+                for bs in batch_sizes:
+                    if fg:
+                        for m in m_steps:
+                            for step in step_size:
+                                current_params = {}
+                                current_params["hidden"] = h
+                                current_params["layers"] = l
+                                current_params["lr"] = r
+                                current_params["batch_size"] = bs
+                                current_params["flag"] = fg
+                                current_params["step_size"] = step
+                                current_params["m"] = m
+                                print(f"Hidden: {h}, Layers: {l}, LR: {r}, FLAG: {fg}, M: {m}, Step: {step}")
+                                model = R_GINJK(train_dataset[0].num_node_features, h, num_classes, l, drop_ratio=drop_ratio, residual=residual).to(DEVICE)
+                                start = time.time()
+                                model = train(model, train_dataset, val_dataset, bs, DEVICE, epochs,  step_size=step, m=m, flag=fg, lr=r)
+                                end = time.time()
+                                trn_time = end - start
+                                print(f"Training time: {trn_time}")
+                                current_params["training_time"] = trn_time
+                                start = time.time()
+                                accuracy, loss, y_pred = test(model, val_loader, bs, DEVICE)
+                                end = time.time()
+                                print(f"Testing time: {end - start}")
+                                current_params["loss"] = loss
+                                current_params["acc"], current_params["prec"], current_params["rec"], current_params["f1"], current_params["bal_acc"] = computre_metrics(y_val, y_pred, fam_idx)
+                                if current_params["bal_acc"] > best_bal_acc:
+                                    best_bal_acc = current_params["bal_acc"]
+                                    best_loss = loss
+                                    best_fscore = current_params["f1"]
+                                    best_params["hidden"] = h
+                                    best_params["layers"] = l
+                                    best_params["lr"] = r
+                                    best_params["batch_size"] = bs
+                                    best_params["acc"] = current_params["acc"]
+                                    best_params["prec"] = current_params["prec"]
+                                    best_params["rec"] = current_params["rec"]
+                                    best_params["f1"] = current_params["f1"]
+                                    best_params["bal_acc"] = current_params["bal_acc"]
+                                    best_params["loss"] = loss
+                                    best_params["flag"] = fg
+                                    best_params["step_size"] = current_params["step_size"]
+                                    best_params["m"] = current_params["m"]
+                                print("Current:")
+                                print(current_params)
+                                print("Best:")
+                                print(best_params)
+                                write_stats_to_tmp_csv(current_params, "rgin")
+                    else:
+                        current_params = {}
+                        current_params["hidden"] = h
+                        current_params["layers"] = l
+                        current_params["lr"] = r
+                        current_params["batch_size"] = bs
+                        current_params["flag"] = fg
+                        current_params["step_size"] = -1
+                        current_params["m"] = -1
+                        print(f"Hidden: {h}, Layers: {l}, LR: {r}, FLAG: {fg}")
+                        model = R_GINJK(train_dataset[0].num_node_features, h, num_classes, l, drop_ratio=drop_ratio, residual=residual).to(DEVICE)
+                        start = time.time()
+                        model = train(model, train_dataset, val_dataset, bs, DEVICE, epochs, flag=fg, lr=r, y_val=y_val)
+                        end = time.time()
+                        trn_time = end - start
+                        print(f"Training time: {trn_time}")
+                        current_params["training_time"] = trn_time
+                        start = time.time()
+                        accuracy, loss, y_pred = test(model, val_loader, bs, DEVICE)
+                        end = time.time()
+                        print(f"Testing time: {end - start}")
+                        current_params["loss"] = loss
+                        current_params["acc"], current_params["prec"], current_params["rec"], current_params["f1"], current_params["bal_acc"] = computre_metrics(y_val, y_pred, fam_idx)
+                        if current_params["bal_acc"] > best_bal_acc:
+                            best_bal_acc = current_params["bal_acc"]
+                            best_loss = loss
+                            best_fscore = current_params["f1"]
+                            best_params["hidden"] = h
+                            best_params["layers"] = l
+                            best_params["lr"] = r
+                            best_params["batch_size"] = bs
+                            best_params["acc"] = current_params["acc"]
+                            best_params["prec"] = current_params["prec"]
+                            best_params["rec"] = current_params["rec"]
+                            best_params["f1"] = current_params["f1"]
+                            best_params["bal_acc"] = current_params["bal_acc"]
+                            best_params["loss"] = loss
+                            best_params["flag"] = fg
+                            best_params["step_size"] = -1
+                            best_params["m"] = -1
+                        print("Current:")
+                        print(current_params)
+                        print("Best:")
+                        print(best_params)
+                        write_stats_to_tmp_csv(current_params, "rgin")
+    # return best_params
+    # Evaluate best model
+    model = R_GINJK(full_train_dataset[0].num_node_features, best_params["hidden"], num_classes, best_params["layers"], drop_ratio=drop_ratio, residual=residual).to(DEVICE)
+    # tain and get training time:
+    start = time.time()
+    model = train(model, full_train_dataset, test_dataset, best_params["batch_size"], DEVICE, epochs, best_params["step_size"], best_params["m"], best_params["flag"], best_params["lr"], eval_mode=False)
+    end = time.time()
+    save_model(model, f"./SemaClassifier/classifier/saved_model/{clf_model}_flag_model.pkl") 
+    accuracy, loss, y_pred = test(model, test_loader, best_params["batch_size"], DEVICE)
+    final_acc, final_prec, final_rec, final_f1, final_bal_acc = computre_metrics(y_test, y_pred, fam_idx)
+    results = {}
+    results["final_acc"] = final_acc
+    results["final_prec"] = final_prec
+    results["final_rec"] = final_rec
+    results["final_f1"] = final_f1
+    results["final_bal_acc"] = final_bal_acc
+    results["final_loss"] = loss
+    results["best_params"] = best_params
+    results["training_time"] = end - start
+    return results
+
+
 def write_stats_to_csv(results, clf_model):
     # Write stats and params in csv file
-    if not os.path.isFile("stats.csv"):
-        with open("stats.csv", "w") as f:
+    if not os.path.isfile(f"stats_cv_{clf_model}.csv"):
+        with open(f"stats_cv_{clf_model}.csv", "w") as f:
             f.write("model,acc,prec,rec,f1,bal_acc,loss,hidden,layers,lr,batch_size,flag,step_size,m,time\n")
     
-    with open("stats.csv", "a") as f:
+    with open(f"stats_cv_{clf_model}.csv", "a") as f:
         f.write(f"{clf_model},{results['final_acc']},{results['final_prec']},{results['final_rec']},{results['final_f1']},{results['final_bal_acc']},{results['final_loss']},{results['best_params']['hidden']},{results['best_params']['layers']},{results['best_params']['lr']},{results['best_params']['batch_size']},{results['best_params']['flag']},{results['best_params']['step_size']},{results['best_params']['m']},{results['training_time']}\n")
 
 def write_stats_to_tmp_csv(results, clf_model):
     # Write stats and params in csv file
-    if not os.path.isFile("tmp_stats.csv"):
-        with open("tmp_stats.csv", "w") as f:
+    if not os.path.isfile(f"tmp_stats_cv_{clf_model}.csv"):
+        with open(f"tmp_stats_cv_{clf_model}.csv", "w") as f:
             f.write("model,acc,prec,rec,f1,bal_acc,loss,hidden,layers,lr,batch_size,flag,step_size,m,time\n")
     
-    with open("tmp_stats.csv", "a") as f:
+    with open(f"tmp_stats_cv_{clf_model}.csv", "a") as f:
         f.write(f"{clf_model},{results['acc']},{results['prec']},{results['rec']},{results['f1']},{results['bal_acc']},{results['loss']},{results['hidden']},{results['layers']},{results['lr']},{results['batch_size']},{results['flag']},{results['step_size']},{results['m']},{results['training_time']}\n")
 
 def compare_models():
@@ -436,13 +628,13 @@ def init_all_datasets(path, families, mapping, reversed_mapping):
     id = 1
 
     # PyG dataset
-    # dataset, label, fam_idx, fam_dict, dataset_wl = GNN_script.init_dataset(path, families, reversed_mapping, [], {}, False)
-    # train_idx, test_idx = GNN_script.split_dataset_indexes(dataset, label)
+    dataset, label, fam_idx, fam_dict, dataset_wl = GNN_script.init_dataset(path, families, reversed_mapping, [], {}, False)
+    train_idx, test_idx = GNN_script.split_dataset_indexes(dataset, label)
 
-    # full_train_dataset,y_full_train, test_dataset, y_test = get_datasets(dataset, train_idx, test_idx)
+    full_train_dataset,y_full_train, test_dataset, y_test = get_datasets(dataset, train_idx, test_idx)
 
-    dataset_dict, dataset, label, fam_idx, fam_dict, dataset_wl, dataset_dict_wl = GNN_script.temporal_init_dataset(path, families, reversed_mapping, [], {}, False)
-    full_train_dataset,y_full_train, test_dataset, y_test = GNN_script.temporal_split_train_test(dataset_dict, 0.6)
+    # dataset_dict, dataset, label, fam_idx, fam_dict, dataset_wl, dataset_dict_wl = GNN_script.temporal_init_dataset(path, families, reversed_mapping, [], {}, False)
+    # full_train_dataset,y_full_train, test_dataset, y_test = GNN_script.temporal_split_train_test(dataset_dict, 0.6)
 
     GNN_script.cprint(f"GNN {id} : datasets length, {len(dataset)}, {len(full_train_dataset)}, {len(test_dataset)}",id)
 
@@ -451,9 +643,9 @@ def init_all_datasets(path, families, mapping, reversed_mapping):
     train_dataset, y_train, val_dataset, y_val = get_datasets(full_train_dataset, trn_idx, val_idx)
 
     # WL dataset
-    # wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = get_datasets_wl(dataset_wl, train_idx, test_idx, label)
+    wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = get_datasets_wl(dataset_wl, train_idx, test_idx, label)
 
-    wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = GNN_script.temporal_split_train_test_wl(dataset_dict_wl, 0.6, label)
+    # wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = GNN_script.temporal_split_train_test_wl(dataset_dict_wl, 0.6, label)
     GNN_script.cprint(f"WL {id} : datasets length, {len(dataset_wl)}, {len(wl_full_train_dataset)} {len(wl_test_dataset)}",id)
 
     # import pdb; pdb.set_trace()
@@ -464,12 +656,13 @@ def main(batch_size, hidden, num_layers, drop_ratio, residual, rand_graph, flag,
     id = 1
     #Dataset Loading
     # families = ["berbew","sillyp2p","benjamin","small","mira","upatre","wabot"]
+    families = ['benjamin', 'berbew', 'ceeinject', 'dinwod', 'ganelp', 'gepys', 'mira', 'sfone', 'sillyp2p', 'small', 'upatre', 'wabot', 'wacatac']
     # families = ['delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','sytro','wabot','RemcosRAT']
     # families = ['delf','FeakerStealer','ircbot','lamer','nitol','RedLineStealer','sillyp2p','sytro','wabot','RemcosRAT']
     # families = ['delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','sytro','wabot','RemcosRAT','bancteian', 'Sodinokibi']
     # families = ["cleanware", "malware"]
 
-    families = ['delf','FeakerStealer','gandcrab','lamer','nitol','RedLineStealer','sfone','sillyp2p','sytro','wabot','RemcosRAT', 'Sodinokibi']
+    # families = ['delf','FeakerStealer','gandcrab','lamer','nitol','RedLineStealer','sfone','sillyp2p','sytro','wabot','RemcosRAT', 'Sodinokibi']
 
     
 
@@ -512,7 +705,8 @@ def main(batch_size, hidden, num_layers, drop_ratio, residual, rand_graph, flag,
                 print("Invalid GNN model")
                 return
             # Train model
-            model = train(model, full_train_dataset, val_dataset, batch_size, DEVICE, epochs, step_size, m, flag, lr)
+            # model = train(model, full_train_dataset, val_dataset, batch_size, DEVICE, epochs, step_size, m, flag, lr)
+            model = train(model, train_dataset, val_dataset, batch_size, DEVICE, epochs, step_size, m, flag, lr, y_val=y_val)
 
             save_model(model, f"./SemaClassifier/classifier/saved_model/{clf_model}_model.pkl") 
         else:
@@ -547,6 +741,10 @@ def main(batch_size, hidden, num_layers, drop_ratio, residual, rand_graph, flag,
         elif clf_model == 'ginjk':
             GNN_script.cprint("Tuning parameters for ginjk",id)
             results = tune_parameters_ginjk(full_train_dataset, train_dataset, val_dataset, y_val, test_dataset, y_test, num_classes)
+            write_stats_to_csv(results, clf_model)
+        elif clf_model == 'rgin':
+            GNN_script.cprint("Tuning parameters for rgin",id)
+            results = tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_dataset, y_val, test_dataset, y_test, num_classes, fam_idx)
             write_stats_to_csv(results, clf_model)
         else:
             print("Not implemented yet")
@@ -609,9 +807,10 @@ if __name__ == "__main__":
     # ds_path = "./databases/examples_samy/BODMAS/detection/cdfs_01"
     # ds_path = "./databases/examples_samy/big_dataset/merged/alldata/CDFS_b"
     # ds_path = "./databases/examples_samy/big_dataset/merged/alldata/WSELECTSET2_b"
-    ds_path = "./databases/examples_samy/ch_gk/105_cdfs"
+    # ds_path = "./databases/examples_samy/ch_gk/105_cdfs"
     # ds_path = "./databases/examples_samy/ch_gk/three_edges_105_cdfs"
     # ds_path = "./databases/examples_samy/ch_gk/106_wselect3"
+    ds_path = "/root/gs1"
 
     mapping = read_mapping("./mapping.txt")
     reversed_mapping = read_mapping_inverse("./mapping.txt")
