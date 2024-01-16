@@ -162,7 +162,7 @@ def train(model, train_dataset, val_dataset, batch_size, device, epochs, step_si
                             T_max = 42, # Maximum number of iterations.
                             eta_min = 1e-4) # Minimum learning rate.
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
+    val_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
     best_val_loss = float('inf')
     count = 0
     best_model_wts = copy.deepcopy(model.state_dict())
@@ -194,7 +194,7 @@ def train(model, train_dataset, val_dataset, batch_size, device, epochs, step_si
         model.load_state_dict(best_model_wts)
     return model 
 
-def test(model, test_loader , batch_size, device):
+def test(model, test_loader, batch_size, device):
     model.eval()
     criterion = torch.nn.CrossEntropyLoss()
     y_pred = []
@@ -475,14 +475,9 @@ def tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_da
     best_loss = float('inf')
     best_fscore = 0
 
-    # train_indexes, val_indexes = GNN_script.cross_val_split_dataset_indexes(full_train_dataset, y_full_train, 4)
-    # train_folds, y_train_folds, val_folds, y_val_folds = get_folds(full_train_dataset,train_indexes, val_indexes)
-
-    
-    # for i in range(len(train_folds)):
-    #     train_data, y_train_data = train_folds[i], y_train_folds[i]
-    #     val_data, y_val_data = val_folds[i], y_val_folds[i]
-    #     bal_acc_lists = []
+    folds = 4
+    train_indexes, val_indexes = GNN_script.cross_val_split_dataset_indexes(full_train_dataset, y_full_train, folds)
+    train_folds, y_train_folds, val_folds, y_val_folds = get_folds(full_train_dataset,train_indexes, val_indexes)
 
     for h in hidden:
         for l in num_layers:
@@ -536,6 +531,46 @@ def tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_da
                                 print(best_params)
                                 write_stats_to_tmp_csv(current_params, "rgin")
                     else:
+                        cv_curr_params = {}
+                        cv_curr_params["hidden"] = h
+                        cv_curr_params["layers"] = l
+                        cv_curr_params["lr"] = r
+                        cv_curr_params["batch_size"] = bs
+                        cv_curr_params["flag"] = fg
+                        cv_curr_params["step_size"] = -1
+                        cv_curr_params["m"] = -1
+                        cv_curr_params["acc"], cv_curr_params["prec"], cv_curr_params["rec"], cv_curr_params["f1"], cv_curr_params["bal_acc"], cv_curr_params["training_time"], cv_curr_params["testing_time"], cv_curr_params["loss"] = [], [], [], [], [], [], [], []
+
+                        for fold in range(folds):
+                            train_data, y_train_data = train_folds[fold], y_train_folds[fold]
+                            val_data, y_val_data = val_folds[fold], y_val_folds[fold]
+                            
+                            print(f"Fold: {fold}, Hidden: {h}, Layers: {l}, LR: {r}, FLAG: {fg}")
+                            model = R_GINJK(h, num_classes, l).to(DEVICE)
+                            start = time.time()
+                            model = train(model, train_data, val_data, bs, DEVICE, epochs, flag=fg, lr=r, y_val=y_val_data)
+                            end = time.time()
+                            trn_time = end - start
+                            print(f"Training time: {trn_time}")
+                            cv_curr_params["training_time"].append(trn_time)
+                            val_data_loader = DataLoader(val_dataset, batch_size=32, shuffle=False)
+                            start = time.time()
+                            accuracy, loss, y_pred = test(model, val_data_loader, bs, DEVICE)
+                            end = time.time()
+                            tst_time = end - start
+                            print(f"Testing time: {tst_time}")
+                            cv_curr_params["testing_time"].append(tst_time)
+                            cv_curr_params["loss"].append(loss)
+                            acc, prec, rec, f1, bal_acc = computre_metrics(y_val_data, y_pred, fam_idx)
+                            cv_curr_params["acc"].append(acc)
+                            cv_curr_params["prec"].append(prec)
+                            cv_curr_params["rec"].append(rec)
+                            cv_curr_params["f1"].append(f1)
+                            cv_curr_params["bal_acc"].append(bal_acc)
+                            
+                            to_write = {"hidden": h, "layers": l, "lr": r, "batch_size": bs, "flag": fg, "step_size": -1, "m": -1, "acc": acc, "prec": prec, "rec": rec, "f1": f1, "bal_acc": bal_acc, "training_time": trn_time, "testing_time": tst_time, "loss": loss}
+                            write_cross_val_stats_to_tmp_csv(to_write, "rgin", fold)
+
                         current_params = {}
                         current_params["hidden"] = h
                         current_params["layers"] = l
@@ -544,20 +579,16 @@ def tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_da
                         current_params["flag"] = fg
                         current_params["step_size"] = -1
                         current_params["m"] = -1
-                        print(f"Hidden: {h}, Layers: {l}, LR: {r}, FLAG: {fg}")
-                        model = R_GINJK(train_dataset[0].num_node_features, h, num_classes, l, drop_ratio=drop_ratio, residual=residual).to(DEVICE)
-                        start = time.time()
-                        model = train(model, train_dataset, val_dataset, bs, DEVICE, epochs, flag=fg, lr=r, y_val=y_val)
-                        end = time.time()
-                        trn_time = end - start
-                        print(f"Training time: {trn_time}")
-                        current_params["training_time"] = trn_time
-                        start = time.time()
-                        accuracy, loss, y_pred = test(model, val_loader, bs, DEVICE)
-                        end = time.time()
-                        print(f"Testing time: {end - start}")
-                        current_params["loss"] = loss
-                        current_params["acc"], current_params["prec"], current_params["rec"], current_params["f1"], current_params["bal_acc"] = computre_metrics(y_val, y_pred, fam_idx)
+                        
+                        current_params["training_time"] = np.mean(cv_curr_params["training_time"])
+                        current_params["testing_time"] = np.mean(cv_curr_params["testing_time"])
+                        current_params["loss"] = np.mean(cv_curr_params["loss"])
+                        current_params["acc"] = np.mean(cv_curr_params["acc"])
+                        current_params["prec"] = np.mean(cv_curr_params["prec"])
+                        current_params["rec"] = np.mean(cv_curr_params["rec"])
+                        current_params["f1"] = np.mean(cv_curr_params["f1"])
+                        current_params["bal_acc"] = np.mean(cv_curr_params["bal_acc"])
+
                         if current_params["bal_acc"] > best_bal_acc:
                             best_bal_acc = current_params["bal_acc"]
                             best_loss = loss
@@ -582,13 +613,15 @@ def tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_da
                         write_stats_to_tmp_csv(current_params, "rgin")
     # return best_params
     # Evaluate best model
-    model = R_GINJK(full_train_dataset[0].num_node_features, best_params["hidden"], num_classes, best_params["layers"], drop_ratio=drop_ratio, residual=residual).to(DEVICE)
+    model = R_GINJK(best_params["hidden"], num_classes, best_params["layers"]).to(DEVICE)
     # tain and get training time:
     start = time.time()
     model = train(model, full_train_dataset, test_dataset, best_params["batch_size"], DEVICE, epochs, best_params["step_size"], best_params["m"], best_params["flag"], best_params["lr"], eval_mode=False)
     end = time.time()
-    save_model(model, f"./SemaClassifier/classifier/saved_model/{clf_model}_flag_model.pkl") 
+    save_model(model, f"./SemaClassifier/classifier/saved_model/{clf_model}_model.pkl") 
+    start_test = time.time()
     accuracy, loss, y_pred = test(model, test_loader, best_params["batch_size"], DEVICE)
+    end_test = time.time()
     final_acc, final_prec, final_rec, final_f1, final_bal_acc = computre_metrics(y_test, y_pred, fam_idx)
     results = {}
     results["final_acc"] = final_acc
@@ -599,6 +632,7 @@ def tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_da
     results["final_loss"] = loss
     results["best_params"] = best_params
     results["training_time"] = end - start
+    results["testing_time"] = end_test - start_test
     return results
 
 
@@ -606,19 +640,29 @@ def write_stats_to_csv(results, clf_model):
     # Write stats and params in csv file
     if not os.path.isfile(f"stats_cv_{clf_model}.csv"):
         with open(f"stats_cv_{clf_model}.csv", "w") as f:
-            f.write("model,acc,prec,rec,f1,bal_acc,loss,hidden,layers,lr,batch_size,flag,step_size,m,time\n")
+            f.write("model,acc,prec,rec,f1,bal_acc,loss,hidden,layers,lr,batch_size,flag,step_size,m,train_time,test_time\n")
     
     with open(f"stats_cv_{clf_model}.csv", "a") as f:
-        f.write(f"{clf_model},{results['final_acc']},{results['final_prec']},{results['final_rec']},{results['final_f1']},{results['final_bal_acc']},{results['final_loss']},{results['best_params']['hidden']},{results['best_params']['layers']},{results['best_params']['lr']},{results['best_params']['batch_size']},{results['best_params']['flag']},{results['best_params']['step_size']},{results['best_params']['m']},{results['training_time']}\n")
+        f.write(f"{clf_model},{results['final_acc']},{results['final_prec']},{results['final_rec']},{results['final_f1']},{results['final_bal_acc']},{results['final_loss']},{results['best_params']['hidden']},{results['best_params']['layers']},{results['best_params']['lr']},{results['best_params']['batch_size']},{results['best_params']['flag']},{results['best_params']['step_size']},{results['best_params']['m']},{results['training_time']},{results['testing_time']}\n")
 
 def write_stats_to_tmp_csv(results, clf_model):
     # Write stats and params in csv file
-    if not os.path.isfile(f"tmp_stats_cv_{clf_model}.csv"):
-        with open(f"tmp_stats_cv_{clf_model}.csv", "w") as f:
-            f.write("model,acc,prec,rec,f1,bal_acc,loss,hidden,layers,lr,batch_size,flag,step_size,m,time\n")
+    if not os.path.isfile(f"tmp_avg_stats_cv_{clf_model}.csv"):
+        with open(f"tmp_avg_stats_cv_{clf_model}.csv", "w") as f:
+            f.write("model,acc,prec,rec,f1,bal_acc,loss,hidden,layers,lr,batch_size,flag,step_size,m,train_time,test_time\n")
     
-    with open(f"tmp_stats_cv_{clf_model}.csv", "a") as f:
-        f.write(f"{clf_model},{results['acc']},{results['prec']},{results['rec']},{results['f1']},{results['bal_acc']},{results['loss']},{results['hidden']},{results['layers']},{results['lr']},{results['batch_size']},{results['flag']},{results['step_size']},{results['m']},{results['training_time']}\n")
+    with open(f"tmp_avg_stats_cv_{clf_model}.csv", "a") as f:
+        f.write(f"{clf_model},{results['acc']},{results['prec']},{results['rec']},{results['f1']},{results['bal_acc']},{results['loss']},{results['hidden']},{results['layers']},{results['lr']},{results['batch_size']},{results['flag']},{results['step_size']},{results['m']},{results['training_time']},{results['testing_time']}\n")
+
+def write_cross_val_stats_to_tmp_csv(results, clf_model, fold):
+    # Write stats and params in csv file
+    if not os.path.isfile(f"tmp_folds_stats_cv_{clf_model}.csv"):
+        with open(f"tmp_folds_stats_cv_{clf_model}.csv", "w") as f:
+            f.write("model,acc,prec,rec,f1,bal_acc,loss,hidden,layers,lr,batch_size,fold,flag,step_size,m,train_time,test_time\n")
+    
+    with open(f"tmp_folds_stats_cv_{clf_model}.csv", "a") as f:
+        f.write(f"{clf_model},{results['acc']},{results['prec']},{results['rec']},{results['f1']},{results['bal_acc']},{results['loss']},{results['hidden']},{results['layers']},{results['lr']},{results['batch_size']},fold_{fold},{results['flag']},{results['step_size']},{results['m']},{results['training_time']},{results['testing_time']}\n")
+
 
 def compare_models():
     pass
@@ -683,7 +727,7 @@ def main(batch_size, hidden, num_layers, drop_ratio, residual, rand_graph, flag,
                 model = RanGINJK(full_train_dataset[0].num_node_features, hidden, num_classes, num_layers,
                 graph_model=rand_graph, drop_ratio=drop_ratio, residual=residual, net_linear=net_linear, drop_path_p=drop_path_p, edge_p=edge_p).to(DEVICE)
             elif clf_model == "rgin":
-                model = R_GINJK(full_train_dataset[0].num_node_features, hidden, num_classes, num_layers, drop_ratio=drop_ratio, residual=residual).to(DEVICE)
+                model = R_GINJK(hidden, num_classes, num_layers).to(DEVICE)
             elif clf_model == "wl":
                 model = SVMWLClassifier("./databases/examples_samy/BODMAS/01", 0.45, families)
                 model.train(dataset=wl_full_train_dataset, label=wl_y_full_train)

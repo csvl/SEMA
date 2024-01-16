@@ -107,15 +107,12 @@ class RGINConv(MessagePassing):
         return aggr_out
 
 class R_GINJK_node(torch.nn.Module):
-    def __init__(self, num_features, hidden, num_classes, num_layers=4, drop_ratio=0.5, residual=False):
+    def __init__(self, hidden, num_classes, num_layers=4):
         super(R_GINJK_node, self).__init__()
         self.num_layers = num_layers
         self.emb_dim = hidden
         self.hidden = hidden
         self.num_tasks = num_classes
-        self.num_features = num_features
-        self.drop_ratio = drop_ratio
-        self.residual = residual
 
         if self.num_layers < 2:
             raise ValueError("Number of GNN layers must be greater than 1.")
@@ -143,18 +140,17 @@ class R_GINJK_node(torch.nn.Module):
         return node_representation
 
 class R_GINJK(torch.nn.Module):
-    def __init__(self, num_features, hidden, num_classes, num_layers=4, drop_ratio=0.5, residual=False):
+    def __init__(self, hidden, num_classes, num_layers=4):
         super(R_GINJK, self).__init__()
         self.num_layers = num_layers
         self.emb_dim = hidden
         self.hidden = hidden
         self.num_tasks = num_classes
-        self.num_features = num_features
 
         if self.num_layers < 2:
             raise ValueError("Number of GNN layers must be greater than 1.")
         
-        self.gnn_node = R_GINJK_node(num_features, hidden, num_classes, num_layers, drop_ratio, residual)
+        self.gnn_node = R_GINJK_node(hidden, num_classes, num_layers)
 
         self.pool = global_mean_pool
         # self.pool = global_add_pool
