@@ -30,6 +30,7 @@ import progressbar
 
 import argparse
 import random
+import json
 
 # from ..Classifier import Classifier
 # from .GINClassifier import GIN
@@ -139,23 +140,28 @@ def temporal_init_dataset(path, families, mapping, fam_idx, fam_dict, BINARY_CLA
             print("Path with error: " + path)
             exit(-1)
         else:
+            with open('./final_hashes_mapping.json') as json_file:
+                data = json.load(json_file)
+            # import pdb; pdb.set_trace()
+            hashes_mapping = data
             fdf = pd.read_csv(f'./databases/examples_samy/ch_gk/fam_timestamps/{family}_timestamps.csv')
             filenames_sorted = fdf["sha"].values
-            # filenames = [os.path.join(path, f"{sample}.gs") for sample in filenames_sorted if os.path.isfile(os.path.join(path, f"{sample}.gs"))]
-            filenames = [os.path.join(path, f"{sample}.json") for sample in filenames_sorted if os.path.isfile(os.path.join(path, f"{sample}.json"))]
+            keys = list(hashes_mapping.keys())
+            filenames = [os.path.join(path, f"{hashes_mapping[sample][:-4]}.gs") for sample in filenames_sorted if os.path.isfile(os.path.join(path, f"{hashes_mapping[sample][:-4]}.gs"))]
+            # filenames = [os.path.join(path, f"{sample}.json") for sample in filenames_sorted if os.path.isfile(os.path.join(path, f"{sample}.json"))]
             # import pdb; pdb.set_trace()
             if len(filenames) > 1 and family not in fam_idx :
                 fam_idx.append(family)
                 fam_dict[family] = len(fam_idx) - 1
             for file in filenames:
                 # import pdb; pdb.set_trace()
-                if file.endswith(".json"):
-                # if file.endswith(".gs"):
-                    # edges, nodes, vertices, edge_labels = read_gs_4_gnn(file, mapping)
-                    edges, nodes, vertices, edge_labels = read_json_4_gnn(file, mapping)
+                # if file.endswith(".json"):
+                if file.endswith(".gs"):
+                    edges, nodes, vertices, edge_labels = read_gs_4_gnn(file, mapping)
+                    # edges, nodes, vertices, edge_labels = read_json_4_gnn(file, mapping)
                     data = gen_graph_data(edges, nodes, vertices, edge_labels, fam_dict[family])
-                    # wl_graph = read_gs(file, mapping)
-                    wl_graph = read_json_4_wl(file, mapping)
+                    wl_graph = read_gs(file, mapping)
+                    # wl_graph = read_json_4_wl(file, mapping)
                     if len(edges) > 0:
                         if len(nodes) > 1:
                             dataset.append(data)
@@ -225,10 +231,13 @@ def split_dataset_indexes(dataset, label):
     y_val = []
     sss = StratifiedShuffleSplit(n_splits=1, test_size=0.3, random_state=24)
     # import pdb; pdb.set_trace()
+    train_indexes = []
+    val_indexes = []
     for train, test in sss.split(dataset, label):
-        train_index = train
-        val_index = test
-    return train_index, val_index
+        train_indexes.append(train)
+        val_indexes.append(test)
+    import pdb; pdb.set_trace()
+    return train_indexes, val_indexes
 
 def cross_val_split_dataset_indexes(dataset, label, k):
     train_dataset = []

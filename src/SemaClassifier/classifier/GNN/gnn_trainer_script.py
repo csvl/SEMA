@@ -692,7 +692,7 @@ def init_all_datasets(path, families, mapping, reversed_mapping):
     full_train_dataset,y_full_train, test_dataset, y_test = get_datasets(dataset, train_idx, test_idx)
 
     # dataset_dict, dataset, label, fam_idx, fam_dict, dataset_wl, dataset_dict_wl = GNN_script.temporal_init_dataset(path, families, reversed_mapping, [], {}, False)
-    # full_train_dataset,y_full_train, test_dataset, y_test = GNN_script.temporal_split_train_test(dataset_dict, 0.6)
+    # full_train_dataset,y_full_train, test_dataset, y_test = GNN_script.temporal_split_train_test(dataset_dict, 0.7)
 
     GNN_script.cprint(f"GNN {id} : datasets length, {len(dataset)}, {len(full_train_dataset)}, {len(test_dataset)}",id)
 
@@ -703,7 +703,7 @@ def init_all_datasets(path, families, mapping, reversed_mapping):
     # WL dataset
     wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = get_datasets_wl(dataset_wl, train_idx, test_idx, label)
 
-    # wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = GNN_script.temporal_split_train_test_wl(dataset_dict_wl, 0.6, label)
+    # wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = GNN_script.temporal_split_train_test_wl(dataset_dict_wl, 0.7, label)
     GNN_script.cprint(f"WL {id} : datasets length, {len(dataset_wl)}, {len(wl_full_train_dataset)} {len(wl_test_dataset)}",id)
 
     # import pdb; pdb.set_trace()
@@ -725,6 +725,8 @@ def main(batch_size, hidden, num_layers, drop_ratio, residual, rand_graph, flag,
     # families = ['delf','FeakerStealer','gandcrab','lamer','nitol','RedLineStealer','sfone','sillyp2p','sytro','wabot','RemcosRAT', 'Sodinokibi']
 
     # families = ["FeakerStealer", "RedLineStealer", "RemcosRAT", "Sodinokibi", "delf", "gandcrab", "ircbot", "lamer", "nitol", "sfone", "sillyp2p", "sytro", "wabot"]
+
+    
 
     
 
@@ -886,9 +888,8 @@ if __name__ == "__main__":
     # ds_path = "./databases/examples_samy/ch_gk/105_cdfs"
     # ds_path = "./databases/examples_samy/ch_gk/three_edges_105_cdfs"
     # ds_path = "./databases/examples_samy/ch_gk/106_wselect3"
-    # ds_path = "/root/gs1_sema/gs1"
-    ds_path = "/root/gs1_bodmas/gs1"
-    # ds_path = "/root/gs"
+    ds_path = "/media/sbettaieb/My Passport/mal_dataset/scdg_bodmas/gs1"
+    # ds_path = "./databases/examples_samy/gs1"
 
     mapping = read_mapping("./mapping.txt")
     reversed_mapping = read_mapping_inverse("./mapping.txt")
