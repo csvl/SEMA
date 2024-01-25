@@ -36,7 +36,7 @@ class GINConv(MessagePassing):
     def update(self, aggr_out):
         return aggr_out
 
-class R_GINConv(MessagePassing):
+class R_GINConv(MessagePassing): # MLP
     def __init__(self, emb_dim):
         '''
             emb_dim (int): node embedding dimensionality
@@ -77,7 +77,7 @@ class R_GINConv(MessagePassing):
     def update(self, aggr_out):
         return aggr_out
 
-class RGINConv(MessagePassing):
+class RGINConv(MessagePassing): # Weight matrix
     def __init__(self, emb_dim):
         super(RGINConv, self).__init__(aggr="mean")  
         self.emb_dim = emb_dim
@@ -121,8 +121,8 @@ class R_GINJK_node(torch.nn.Module):
         self.batch_norms = torch.nn.ModuleList()
         for layer in range(num_layers):
             # self.convs.append(GINConv(hidden))
-            self.convs.append(R_GINConv(hidden))
-            # self.convs.append(RGINConv(hidden))
+            # self.convs.append(R_GINConv(hidden))
+            self.convs.append(RGINConv(hidden))
 
     def forward(self, x, edge_index, edge_attr, batch, perturb=None, edge_types=None):
         tmp = x + perturb if perturb is not None else x

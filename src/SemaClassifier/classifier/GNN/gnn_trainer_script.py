@@ -460,10 +460,10 @@ def tune_parameters_fginjk(full_train_dataset, train_dataset, val_dataset, y_val
     return results
 
 def tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_dataset, y_val, test_dataset, y_test, num_classes, fam_idx):
-    hidden = [128, 64]
-    num_layers = [4, 5, 6, 7]
+    hidden = [32]
+    num_layers = [6, 7]
     lr = [0.001]
-    batch_sizes = [64, 32, 16]
+    batch_sizes = [64, 32, 16, 8]
     flag = False
     fg = flag
     step_size = [8e-3, 5e-3, 1e-3]
@@ -652,29 +652,29 @@ def tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_da
 
 def write_stats_to_csv(results, clf_model):
     # Write stats and params in csv file
-    if not os.path.isfile(f"stats_cv_{clf_model}.csv"):
-        with open(f"stats_cv_{clf_model}.csv", "w") as f:
+    if not os.path.isfile(f"stats_mlp_bd_cv_{clf_model}.csv"):
+        with open(f"stats_mlp_bd_cv_{clf_model}.csv", "w") as f:
             f.write("model,acc,prec,rec,f1,bal_acc,loss,hidden,layers,lr,batch_size,flag,step_size,m,train_time,test_time\n")
     
-    with open(f"stats_cv_{clf_model}.csv", "a") as f:
+    with open(f"stats_mlp_bd_cv_{clf_model}.csv", "a") as f:
         f.write(f"{clf_model},{results['final_acc']},{results['final_prec']},{results['final_rec']},{results['final_f1']},{results['final_bal_acc']},{results['final_loss']},{results['best_params']['hidden']},{results['best_params']['layers']},{results['best_params']['lr']},{results['best_params']['batch_size']},{results['best_params']['flag']},{results['best_params']['step_size']},{results['best_params']['m']},{results['training_time']},{results['testing_time']}\n")
 
 def write_stats_to_tmp_csv(results, clf_model):
     # Write stats and params in csv file
-    if not os.path.isfile(f"tmp_avg_stats_cv_{clf_model}.csv"):
-        with open(f"tmp_avg_stats_cv_{clf_model}.csv", "w") as f:
+    if not os.path.isfile(f"tmp_avg_stats_mlp_bd_cv_{clf_model}.csv"):
+        with open(f"tmp_avg_stats_mlp_bd_cv_{clf_model}.csv", "w") as f:
             f.write("model,acc,prec,rec,f1,bal_acc,loss,hidden,layers,lr,batch_size,flag,step_size,m,train_time,test_time\n")
     
-    with open(f"tmp_avg_stats_cv_{clf_model}.csv", "a") as f:
+    with open(f"tmp_avg_stats_mlp_bd_cv_{clf_model}.csv", "a") as f:
         f.write(f"{clf_model},{results['acc']},{results['prec']},{results['rec']},{results['f1']},{results['bal_acc']},{results['loss']},{results['hidden']},{results['layers']},{results['lr']},{results['batch_size']},{results['flag']},{results['step_size']},{results['m']},{results['training_time']},{results['testing_time']}\n")
 
 def write_cross_val_stats_to_tmp_csv(results, clf_model, fold):
     # Write stats and params in csv file
-    if not os.path.isfile(f"tmp_folds_stats_cv_{clf_model}.csv"):
-        with open(f"tmp_folds_stats_cv_{clf_model}.csv", "w") as f:
+    if not os.path.isfile(f"tmp_folds_stats_mlp_bd_cv_{clf_model}.csv"):
+        with open(f"tmp_folds_stats_mlp_bd_cv_{clf_model}.csv", "w") as f:
             f.write("model,acc,prec,rec,f1,bal_acc,loss,hidden,layers,lr,batch_size,fold,flag,step_size,m,train_time,test_time\n")
     
-    with open(f"tmp_folds_stats_cv_{clf_model}.csv", "a") as f:
+    with open(f"tmp_folds_stats_mlp_bd_cv_{clf_model}.csv", "a") as f:
         f.write(f"{clf_model},{results['acc']},{results['prec']},{results['rec']},{results['f1']},{results['bal_acc']},{results['loss']},{results['hidden']},{results['layers']},{results['lr']},{results['batch_size']},fold_{fold},{results['flag']},{results['step_size']},{results['m']},{results['training_time']},{results['testing_time']}\n")
 
 
@@ -715,12 +715,16 @@ def main(batch_size, hidden, num_layers, drop_ratio, residual, rand_graph, flag,
     #Dataset Loading
     # families = ["berbew","sillyp2p","benjamin","small","mira","upatre","wabot"]
     families = ['benjamin', 'berbew', 'ceeinject', 'dinwod', 'ganelp', 'gepys', 'mira', 'sfone', 'sillyp2p', 'small', 'upatre', 'wabot', 'wacatac']
-    # families = ['delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','sytro','wabot','RemcosRAT']
+
+    # families = ['delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','sytro','wabot','RemcosRAT'] # gs sema
+
     # families = ['delf','FeakerStealer','ircbot','lamer','nitol','RedLineStealer','sillyp2p','sytro','wabot','RemcosRAT']
     # families = ['delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','sytro','wabot','RemcosRAT','bancteian', 'Sodinokibi']
     # families = ["cleanware", "malware"]
 
     # families = ['delf','FeakerStealer','gandcrab','lamer','nitol','RedLineStealer','sfone','sillyp2p','sytro','wabot','RemcosRAT', 'Sodinokibi']
+
+    # families = ["FeakerStealer", "RedLineStealer", "RemcosRAT", "Sodinokibi", "delf", "gandcrab", "ircbot", "lamer", "nitol", "sfone", "sillyp2p", "sytro", "wabot"]
 
     
 
@@ -744,8 +748,15 @@ def main(batch_size, hidden, num_layers, drop_ratio, residual, rand_graph, flag,
                 model = R_GINJK(hidden, num_classes, num_layers).to(DEVICE)
             elif clf_model == "wl":
                 model = SVMWLClassifier("./databases/examples_samy/BODMAS/01", 0.45, families)
+                start_train = time.time()
                 model.train(dataset=wl_full_train_dataset, label=wl_y_full_train)
+                end_train = time.time()
+                GNN_script.cprint(f"Training time: {end_train - start_train}", 3)
+
+                start_test = time.time()
                 wl_y_pred = model.classify(dataset=wl_test_dataset)
+                end_test = time.time()
+                GNN_script.cprint(f"Testing time: {end_test - start_test}", 3)
 
                 wl_acc, wl_prec, wl_rec, wl_f1, wl_bal_acc = computre_metrics(wl_y_test, wl_y_pred, label)
                 print()
@@ -758,13 +769,17 @@ def main(batch_size, hidden, num_layers, drop_ratio, residual, rand_graph, flag,
                 print()
                 GNN_script.cprint("--------------------------------------------------",id)
                 plot_confusion_matrix(wl_y_test, wl_y_pred, fam_idx, model_name="WL")
+                save_model(model, f"./SemaClassifier/classifier/saved_model/{clf_model}_model.pkl") 
                 return
             else:
                 print("Invalid GNN model")
                 return
             # Train model
-            # model = train(model, full_train_dataset, val_dataset, batch_size, DEVICE, epochs, step_size, m, flag, lr)
-            model = train(model, train_dataset, val_dataset, batch_size, DEVICE, epochs, step_size, m, flag, lr, y_val=y_val)
+            start_train = time.time()
+            model = train(model, full_train_dataset, val_dataset, batch_size, DEVICE, epochs, step_size, m, flag, lr, eval_mode=False)
+            # model = train(model, train_dataset, val_dataset, batch_size, DEVICE, epochs, step_size, m, flag, lr, y_val=y_val)
+            end_train = time.time()
+            GNN_script.cprint(f"Training time: {end_train - start_train}", 3)
 
             save_model(model, f"./SemaClassifier/classifier/saved_model/{clf_model}_model.pkl") 
         else:
@@ -772,7 +787,10 @@ def main(batch_size, hidden, num_layers, drop_ratio, residual, rand_graph, flag,
         
         # Test model
         test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+        start_test = time.time()
         accuracy, loss, y_pred = test(model, test_loader, batch_size, DEVICE)
+        end_test = time.time()
+        GNN_script.cprint(f"Testing time: {end_test - start_test}", 3)
         GNN_script.cprint(f"GNN: Evaluation accuracy & loss, {accuracy:%}, {loss}",id)
         # Compute metrics
         acc, prec, rec, f1, bal_acc = computre_metrics(y_test, y_pred, fam_idx)
@@ -868,7 +886,9 @@ if __name__ == "__main__":
     # ds_path = "./databases/examples_samy/ch_gk/105_cdfs"
     # ds_path = "./databases/examples_samy/ch_gk/three_edges_105_cdfs"
     # ds_path = "./databases/examples_samy/ch_gk/106_wselect3"
-    ds_path = "/root/gs1"
+    # ds_path = "/root/gs1_sema/gs1"
+    ds_path = "/root/gs1_bodmas/gs1"
+    # ds_path = "/root/gs"
 
     mapping = read_mapping("./mapping.txt")
     reversed_mapping = read_mapping_inverse("./mapping.txt")

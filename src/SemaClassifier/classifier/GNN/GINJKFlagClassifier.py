@@ -36,73 +36,6 @@ class GINConv(MessagePassing):
     def update(self, aggr_out):
         return aggr_out
 
-class R_GINConv(MessagePassing):
-    def __init__(self, emb_dim):
-        '''
-            emb_dim (int): node embedding dimensionality
-        '''
-        super(R_GINConv, self).__init__(aggr="mean")
-        self.emb_dim = emb_dim
-        self.mlp = torch.nn.Sequential(
-            torch.nn.Linear(emb_dim, 2 * emb_dim),
-            torch.nn.ReLU(),
-            torch.nn.Linear(2 * emb_dim, emb_dim)
-        )
-        self.eps = torch.nn.Parameter(torch.Tensor([0]))
-
-        # edge_attr is 1 dimensional after augment_edge transformation
-        self.edge_encoder = torch.nn.Linear(1, emb_dim)
-        self.relation_mlp = torch.nn.Sequential(
-            torch.nn.Linear(emb_dim, 2 * emb_dim),
-            torch.nn.ReLU(),
-            torch.nn.Linear(2 * emb_dim, emb_dim)
-        )
-
-    def forward(self, x, edge_index, edge_attr, edge_types=None):
-        # import pdb; pdb.set_trace()
-        edge_embedding = self.edge_encoder(edge_attr)
-        relation_embedding = self.relation_mlp(edge_embedding)
-        out = self.mlp((1 + self.eps) * x + self.propagate(edge_index, x=x, relation_embedding=relation_embedding))
-
-        return out
-
-    def message(self, x_j, relation_embedding):
-        # import pdb; pdb.set_trace()
-        # conc = torch.cat([x_j, relation_embedding], dim=-1)
-        # return F.relu(conc)
-        return F.relu(x_j + relation_embedding)
-
-    def update(self, aggr_out):
-        return aggr_out
-
-class RGINConv(MessagePassing):
-    def __init__(self, emb_dim):
-        super(RGINConv, self).__init__(aggr="mean")  
-        self.emb_dim = emb_dim
-        self.mlp = torch.nn.Sequential(
-            torch.nn.Linear(emb_dim, 2 * emb_dim),
-            torch.nn.ReLU(),
-            torch.nn.Linear(2 * emb_dim, emb_dim)
-        )
-        self.eps = torch.nn.Parameter(torch.Tensor([0]))
-        self.edge_encoder = torch.nn.Linear(1, emb_dim)
-        
-        # Using a relation-specific weight matrix
-        self.R = torch.nn.Parameter(torch.Tensor(emb_dim, emb_dim))
-        torch.nn.init.xavier_uniform_(self.R)  # Initialize with Xavier (Glorot) initialization
-
-    def forward(self, x, edge_index, edge_attr):
-        edge_embedding = self.edge_encoder(edge_attr)
-        relation_embedding = torch.matmul(edge_embedding, self.R)
-        out = self.mlp((1 + self.eps) * x + self.propagate(edge_index, x=x, relation_embedding=relation_embedding))
-        return out
-
-    def message(self, x_j, relation_embedding):
-        return F.relu(x_j + relation_embedding)
-
-    def update(self, aggr_out):
-        return aggr_out
-
 class GINJKFlag_node(torch.nn.Module):
     def __init__(self, num_features, hidden, num_classes, num_layers=4, drop_ratio=0.5, residual=False):
         super(GINJKFlag_node, self).__init__()
@@ -120,8 +53,7 @@ class GINJKFlag_node(torch.nn.Module):
         self.convs = torch.nn.ModuleList()
         self.batch_norms = torch.nn.ModuleList()
         for layer in range(num_layers):
-            # self.convs.append(GINConv(hidden))
-            self.convs.append(RGINConv(hidden))
+            self.convs.append(GINConv(hidden))
 
     def forward(self, x, edge_index, edge_attr, batch, perturb=None, edge_types=None):
         tmp = x + perturb if perturb is not None else x
