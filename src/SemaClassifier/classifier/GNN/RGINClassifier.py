@@ -52,7 +52,7 @@ class R_GINConv(MessagePassing): # MLP
         self.eps = torch.nn.Parameter(torch.Tensor([0]))
 
         # edge_attr is 1 dimensional after augment_edge transformation
-        self.edge_encoder = torch.nn.Linear(1, emb_dim)
+        self.edge_encoder = torch.nn.Linear(6, emb_dim)
         self.relation_mlp = torch.nn.Sequential(
             torch.nn.Linear(emb_dim, emb_dim),
             # torch.nn.BatchNorm1d(2*emb_dim), 
@@ -63,7 +63,8 @@ class R_GINConv(MessagePassing): # MLP
     def forward(self, x, edge_index, edge_attr, edge_types=None):
         # import pdb; pdb.set_trace()
         edge_embedding = self.edge_encoder(edge_attr)
-        relation_embedding = self.relation_mlp(edge_embedding)
+        # relation_embedding = self.relation_mlp(edge_embedding)
+        relation_embedding = edge_embedding
         out = self.mlp((1 + self.eps) * x + self.propagate(edge_index, x=x, relation_embedding=relation_embedding))
 
         return out
@@ -72,7 +73,9 @@ class R_GINConv(MessagePassing): # MLP
         # import pdb; pdb.set_trace()
         # conc = torch.cat([x_j, relation_embedding], dim=-1)
         # return F.relu(conc)
-        return F.relu(x_j + relation_embedding)
+        out = self.relation_mlp(x_j + relation_embedding)
+        return out
+        # return F.relu(x_j + relation_embedding)
 
     def update(self, aggr_out):
         return aggr_out
@@ -121,8 +124,9 @@ class R_GINJK_node(torch.nn.Module):
         self.batch_norms = torch.nn.ModuleList()
         for layer in range(num_layers):
             # self.convs.append(GINConv(hidden))
-            # self.convs.append(R_GINConv(hidden))
-            self.convs.append(RGINConv(hidden))
+            self.convs.append(R_GINConv(hidden))    # MLP
+            # self.convs.append(RGINConv(hidden))
+            # self.convs.append(X_GINConv(hidden))
 
     def forward(self, x, edge_index, edge_attr, batch, perturb=None, edge_types=None):
         tmp = x + perturb if perturb is not None else x
