@@ -13,14 +13,13 @@ class GINConv(MessagePassing):
         self.emb_dim = emb_dim
         self.mlp = torch.nn.Sequential(
             torch.nn.Linear(emb_dim, 2*emb_dim), 
-            # torch.nn.BatchNorm1d(2*emb_dim), 
+            torch.nn.BatchNorm1d(2*emb_dim), 
             torch.nn.ReLU(),
             torch.nn.Linear(2*emb_dim, emb_dim))
         self.eps = torch.nn.Parameter(torch.Tensor([0]))
         # self.eps = torch.nn.Parameter(torch.randn(1) * 0.01)
-        
-        # edge_attr is 1 dimensional after augment_edge transformation
-        self.edge_encoder = torch.nn.Linear(6, emb_dim)
+
+        self.edge_encoder = torch.nn.Linear(1, emb_dim)
 
     def forward(self, x, edge_index, edge_attr):
         # import pdb; pdb.set_trace()

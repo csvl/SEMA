@@ -52,7 +52,7 @@ class R_GINConv(MessagePassing): # MLP
         self.eps = torch.nn.Parameter(torch.Tensor([0]))
 
         # edge_attr is 1 dimensional after augment_edge transformation
-        self.edge_encoder = torch.nn.Linear(6, emb_dim)
+        self.edge_encoder = torch.nn.Linear(1, emb_dim)
         self.relation_mlp = torch.nn.Sequential(
             torch.nn.Linear(emb_dim, emb_dim),
             # torch.nn.BatchNorm1d(2*emb_dim), 
@@ -63,8 +63,8 @@ class R_GINConv(MessagePassing): # MLP
     def forward(self, x, edge_index, edge_attr, edge_types=None):
         # import pdb; pdb.set_trace()
         edge_embedding = self.edge_encoder(edge_attr)
-        # relation_embedding = self.relation_mlp(edge_embedding)
-        relation_embedding = edge_embedding
+        relation_embedding = self.relation_mlp(edge_embedding)
+        # relation_embedding = edge_embedding
         out = self.mlp((1 + self.eps) * x + self.propagate(edge_index, x=x, relation_embedding=relation_embedding))
 
         return out
@@ -73,12 +73,15 @@ class R_GINConv(MessagePassing): # MLP
         # import pdb; pdb.set_trace()
         # conc = torch.cat([x_j, relation_embedding], dim=-1)
         # return F.relu(conc)
-        out = self.relation_mlp(x_j + relation_embedding)
-        return out
-        # return F.relu(x_j + relation_embedding)
+        # out = self.relation_mlp(x_j + relation_embedding)
+        # return out
+        return F.relu(x_j + relation_embedding)
 
     def update(self, aggr_out):
         return aggr_out
+
+    # def update(self, aggr_out):
+    #     return self.mlp(aggr_out)
 
 class RGINConv(MessagePassing): # Weight matrix
     def __init__(self, emb_dim):

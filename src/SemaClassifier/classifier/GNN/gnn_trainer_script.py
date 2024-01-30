@@ -396,7 +396,7 @@ def tune_parameters_ginjk(full_train_dataset, y_full_train, train_dataset, val_d
     results["testing_time"] = end_test - start_test
     return results
 
-def tune_parameters_fginjk(full_train_dataset, train_dataset, val_dataset, y_val, test_dataset, y_test, num_classes):
+def tune_parameters_fginjk(full_train_dataset, y_full_train, train_dataset, val_dataset, y_val, test_dataset, y_test, num_classes, fam_idx):
     hidden = [128, 64, 32]
     num_layers = [4, 5, 6, 7]
     lr = [0.001]
@@ -868,7 +868,7 @@ def main(batch_size, hidden, num_layers, drop_ratio, residual, rand_graph, flag,
         if not trained_model:
             #Model
             if clf_model == "fginjk":
-                model = GINJKFlag(full_train_dataset[0].num_node_features, hidden, num_classes, num_layers, drop_ratio=drop_ratio, residual=residual).to(DEVICE)
+                model = GINJKFlag(hidden, num_classes, num_layers).to(DEVICE)
             elif clf_model == "ginjk":
                 model = GINJK(full_train_dataset[0].num_node_features, hidden, num_classes, num_layers).to(DEVICE)
             elif clf_model == "gin":
@@ -944,7 +944,7 @@ def main(batch_size, hidden, num_layers, drop_ratio, residual, rand_graph, flag,
     else:
         if clf_model == 'fginjk':
             GNN_script.cprint("Tuning parameters for fginjk",id)
-            results = tune_parameters_fginjk(full_train_dataset, train_dataset, val_dataset, y_val, test_dataset, y_test, num_classes)
+            results = tune_parameters_fginjk(full_train_dataset, y_full_train, train_dataset, val_dataset, y_val, test_dataset, y_test, num_classes, fam_idx)
             write_stats_to_csv(results, clf_model)
         elif clf_model == 'ginjk':
             GNN_script.cprint("Tuning parameters for ginjk",id)

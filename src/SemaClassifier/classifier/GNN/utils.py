@@ -41,8 +41,8 @@ def gen_graph_data(edges, nodes, vertices, edge_labels, label):
     edges = list(edges)
     x = torch.tensor([torch.tensor(nodes[v]) for v in vertices])
     x = x.unsqueeze(-1)
-    # edge_attr = torch.tensor([int(str(edge_labels[e])[0]) for e in edges]) # 1st version
-    edge_attr = torch.cat([edge_labels[key].unsqueeze(0) for key in edges], dim=0) # vector version
+    edge_attr = torch.tensor([int(str(edge_labels[e])[0]) for e in edges]) # 1st version
+    # edge_attr = torch.cat([edge_labels[key].unsqueeze(0) for key in edges], dim=0) # vector version
     # import pdb; pdb.set_trace()
     # edge_attr = torch.tensor([0.0 for _ in edges])
     num_nodes = len(vertices)
@@ -59,7 +59,7 @@ def gen_graph_data(edges, nodes, vertices, edge_labels, label):
     #     import pdb; pdb.set_trace()
     # correct edge_attr dimensions
     edge_attr = edge_attr.to(torch.float32)
-    # edge_attr = edge_attr.unsqueeze(-1)
+    edge_attr = edge_attr.unsqueeze(-1)
 
     # import pdb; pdb.set_trace()
     data = Data(x=x, edge_index=edge_index, edge_attr=edge_attr, num_nodes=num_nodes, y=y)
@@ -281,10 +281,11 @@ def read_gs_4_gnn(path, mapping, lonely=True):
             sp = line.split(" ")
             v1 = int(sp[1])
             v2 = int(sp[2])
-            if tuple((v1,v2)) not in edges:
-                edges[tuple((v1,v2))] = 1
-                edge_labels[tuple((v1,v2))] = torch.zeros(6)
-            edge_labels[tuple((v1,v2))][int(sp[3].replace('\n',''))-1] += 1
+            edges[tuple((v1,v2))] = 1
+            edge_labels[tuple((v1,v2))] = int(sp[3].replace('\n',''))
+            # if tuple((v1,v2)) not in edges:
+                # edge_labels[tuple((v1,v2))] = torch.zeros(6)
+            # edge_labels[tuple((v1,v2))][int(sp[3].replace('\n',''))-1] += 1
             c_edges = c_edges + 1
             vertices[v1].append(v2)
             vertices[v2].append(v1)
