@@ -9,25 +9,24 @@ class GINConv(MessagePassing):
         '''
             emb_dim (int): node embedding dimensionality
         '''
-
         super(GINConv, self).__init__(aggr = "mean") # can change to add
         self.emb_dim = emb_dim
         self.mlp = torch.nn.Sequential(
             torch.nn.Linear(emb_dim, 2*emb_dim), 
-            # torch.nn.BatchNorm1d(2*emb_dim), 
+            torch.nn.BatchNorm1d(2*emb_dim), 
             torch.nn.ReLU(),
             torch.nn.Linear(2*emb_dim, emb_dim))
         self.eps = torch.nn.Parameter(torch.Tensor([0]))
-        
-        # edge_attr is 1 dimensional after augment_edge transformation
+        # self.eps = torch.nn.Parameter(torch.randn(1) * 0.01)
+
         self.edge_encoder = torch.nn.Linear(1, emb_dim)
 
     def forward(self, x, edge_index, edge_attr):
         # import pdb; pdb.set_trace()
         edge_embedding = self.edge_encoder(edge_attr)
         out = self.mlp((1 + self.eps) *x + self.propagate(edge_index, x=x, edge_embedding=edge_embedding))
-    
         return out
+        # return self.propagate(edge_index, x=x, edge_embedding=edge_embedding)
 
     def message(self, x_j, edge_embedding):
         # import pdb; pdb.set_trace()
@@ -36,16 +35,20 @@ class GINConv(MessagePassing):
     def update(self, aggr_out):
         return aggr_out
 
+    # def message(self, x_j, edge_embedding):
+    #     return F.relu(x_j + edge_embedding)
+    #     # return torch.cat([x_j, edge_embedding], dim = 1)
+
+    # def update(self, aggr_out):
+    #     return self.mlp(aggr_out)
+
 class GINJKFlag_node(torch.nn.Module):
-    def __init__(self, num_features, hidden, num_classes, num_layers=4, drop_ratio=0.5, residual=False):
+    def __init__(self, hidden, num_classes, num_layers=4):
         super(GINJKFlag_node, self).__init__()
         self.num_layers = num_layers
         self.emb_dim = hidden
         self.hidden = hidden
         self.num_tasks = num_classes
-        self.num_features = num_features
-        self.drop_ratio = drop_ratio
-        self.residual = residual
 
         if self.num_layers < 2:
             raise ValueError("Number of GNN layers must be greater than 1.")
@@ -71,18 +74,17 @@ class GINJKFlag_node(torch.nn.Module):
         return node_representation
 
 class GINJKFlag(torch.nn.Module):
-    def __init__(self, num_features, hidden, num_classes, num_layers=4, drop_ratio=0.5, residual=False):
+    def __init__(self, hidden, num_classes, num_layers=4):
         super(GINJKFlag, self).__init__()
         self.num_layers = num_layers
         self.emb_dim = hidden
         self.hidden = hidden
         self.num_tasks = num_classes
-        self.num_features = num_features
 
         if self.num_layers < 2:
             raise ValueError("Number of GNN layers must be greater than 1.")
         
-        self.gnn_node = GINJKFlag_node(num_features, hidden, num_classes, num_layers, drop_ratio, residual)
+        self.gnn_node = GINJKFlag_node(hidden, num_classes, num_layers)
 
         self.pool = global_mean_pool
         # self.pool = global_add_pool

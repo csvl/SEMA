@@ -41,7 +41,8 @@ def gen_graph_data(edges, nodes, vertices, edge_labels, label):
     edges = list(edges)
     x = torch.tensor([torch.tensor(nodes[v]) for v in vertices])
     x = x.unsqueeze(-1)
-    edge_attr = torch.tensor([int(str(edge_labels[e])[0]) for e in edges])
+    edge_attr = torch.tensor([int(str(edge_labels[e])[0]) for e in edges]) # 1st version
+    # edge_attr = torch.cat([edge_labels[key].unsqueeze(0) for key in edges], dim=0) # vector version
     # import pdb; pdb.set_trace()
     # edge_attr = torch.tensor([0.0 for _ in edges])
     num_nodes = len(vertices)
@@ -65,6 +66,7 @@ def gen_graph_data(edges, nodes, vertices, edge_labels, label):
     # print(data)
     # import pdb; pdb.set_trace()
     return data
+    
 def read_json_4_wl(path, mapping, lonely=True):
     vertices = {}
     nodes = {}
@@ -281,6 +283,9 @@ def read_gs_4_gnn(path, mapping, lonely=True):
             v2 = int(sp[2])
             edges[tuple((v1,v2))] = 1
             edge_labels[tuple((v1,v2))] = int(sp[3].replace('\n',''))
+            # if tuple((v1,v2)) not in edges:
+                # edge_labels[tuple((v1,v2))] = torch.zeros(6)
+            # edge_labels[tuple((v1,v2))][int(sp[3].replace('\n',''))-1] += 1
             c_edges = c_edges + 1
             vertices[v1].append(v2)
             vertices[v2].append(v1)

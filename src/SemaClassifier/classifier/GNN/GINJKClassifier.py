@@ -1,6 +1,6 @@
 import torch
 import torch.nn.functional as F
-from torch_geometric.nn import GINConv, global_mean_pool
+from torch_geometric.nn import GINEConv, GINConv, global_mean_pool
 
 class GINJK(torch.nn.Module):
     def __init__(self, num_features, hidden, num_classes, num_layers=4):
@@ -15,7 +15,7 @@ class GINJK(torch.nn.Module):
                             torch.nn.Linear(num_features, hidden),
                             torch.nn.ReLU(),
                             torch.nn.Linear(hidden, hidden),
-                        ), train_eps=False
+                        ), train_eps=False, aggr="mean"
                     )
                 )
             else:
@@ -25,7 +25,7 @@ class GINJK(torch.nn.Module):
                             torch.nn.Linear(hidden, hidden),
                             torch.nn.ReLU(),
                             torch.nn.Linear(hidden, hidden),
-                        )
+                        ), aggr="mean"
                     )
                 )
         self.fc = torch.nn.Linear(hidden * num_layers, num_classes)  # Adjust the output dimension
@@ -39,6 +39,46 @@ class GINJK(torch.nn.Module):
         x = global_mean_pool(x, batch)
         x = self.fc(x)
         return F.log_softmax(x, dim=-1)
+
+# class GINJK(torch.nn.Module):
+#     def __init__(self, num_features, hidden, num_classes, num_layers=4):
+#         super(GINJK, self).__init__()
+#         self.num_layers = num_layers
+#         self.convs = torch.nn.ModuleList()
+#         self.edge_encoder = torch.nn.Linear(1, hidden)
+#         for i in range(num_layers):
+#             if i == 0:
+#                 self.convs.append(
+#                     GINEConv(
+#                         torch.nn.Sequential(
+#                             torch.nn.Linear(num_features, hidden),
+#                             torch.nn.ReLU(),
+#                             torch.nn.Linear(hidden, hidden),
+#                         ), train_eps=False, edge_dim=hidden, aggr="mean"
+#                     )
+#                 )
+#             else:
+#                 self.convs.append(
+#                     GINEConv(
+#                         torch.nn.Sequential(
+#                             torch.nn.Linear(hidden, hidden),
+#                             torch.nn.ReLU(),
+#                             torch.nn.Linear(hidden, hidden),
+#                         ), edge_dim=hidden, aggr="mean"
+#                     )
+#                 )
+#         self.fc = torch.nn.Linear(hidden * num_layers, num_classes)  # Adjust the output dimension
+
+#     def forward(self, x, edge_index, edge_attr, batch, pertrub=None):
+#         xs = []
+#         for i in range(self.num_layers):
+#             edge_embedding = self.edge_encoder(edge_attr)
+#             x = F.relu(self.convs[i](x, edge_index, edge_attr=edge_embedding))
+#             xs.append(x)
+#         x = torch.cat(xs, dim=1)  # Concatenate representations from all layers
+#         x = global_mean_pool(x, batch)
+#         x = self.fc(x)
+#         return F.log_softmax(x, dim=-1)
     
 
 # class RanGINJK_node(torch.nn.Module):

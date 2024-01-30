@@ -100,10 +100,10 @@ def init_dataset(path, families, mapping, fam_idx, fam_dict, BINARY_CLASS):
                 if file.endswith(".gs"):
                     edges, nodes, vertices, edge_labels = read_gs_4_gnn(file, mapping)
                     # edges, nodes, vertices, edge_labels = read_json_4_gnn(file, mapping)
-                    data = gen_graph_data(edges, nodes, vertices, edge_labels, fam_dict[family])
                     wl_graph = read_gs(file, mapping)
                     # wl_graph = read_json_4_wl(file, mapping)
                     if len(edges) > 0:
+                        data = gen_graph_data(edges, nodes, vertices, edge_labels, fam_dict[family])
                         if len(nodes) > 1:
                             dataset.append(data)
                             dataset_wl.append(wl_graph)
