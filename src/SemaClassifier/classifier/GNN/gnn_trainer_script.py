@@ -587,7 +587,7 @@ def tune_parameters_fginjk(full_train_dataset, y_full_train, train_dataset, val_
     return results
 
 def tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_dataset, y_val, test_dataset, y_test, num_classes, fam_idx):
-    hidden = [64]
+    hidden = [128, 64]
     num_layers = [5, 6]
     lr = [0.001]
     batch_sizes = [128, 64, 32, 16, 8]
