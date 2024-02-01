@@ -813,13 +813,15 @@ def init_all_datasets(path, families, mapping, reversed_mapping):
     id = 1
 
     # PyG dataset
-    dataset, label, fam_idx, fam_dict, dataset_wl = GNN_script.init_dataset(path, families, reversed_mapping, [], {}, False)
-    train_idx, test_idx = GNN_script.split_dataset_indexes(dataset, label)
+    # dataset, label, fam_idx, fam_dict, dataset_wl = GNN_script.init_dataset(path, families, reversed_mapping, [], {}, False)
+    # train_idx, test_idx = GNN_script.split_dataset_indexes(dataset, label)
 
-    full_train_dataset,y_full_train, test_dataset, y_test = get_datasets(dataset, train_idx, test_idx)
+    # full_train_dataset,y_full_train, test_dataset, y_test = get_datasets(dataset, train_idx, test_idx)
 
-    # dataset_dict, dataset, label, fam_idx, fam_dict, dataset_wl, dataset_dict_wl = GNN_script.temporal_init_dataset(path, families, reversed_mapping, [], {}, False)
-    # full_train_dataset,y_full_train, test_dataset, y_test = GNN_script.temporal_split_train_test(dataset_dict, 0.6)
+    with open("/root/rev_bodmas_mapping_hash.json", "r") as fp:
+        name_map = json.load(fp)
+    dataset_dict, dataset, label, fam_idx, fam_dict, dataset_wl, dataset_dict_wl = GNN_script.temporal_init_dataset(path, families, reversed_mapping, [], {}, False, name_map)
+    full_train_dataset,y_full_train, test_dataset, y_test = GNN_script.temporal_split_train_test(dataset_dict, 0.7)
 
     GNN_script.cprint(f"GNN {id} : datasets length, {len(dataset)}, {len(full_train_dataset)}, {len(test_dataset)}",id)
 
@@ -828,9 +830,9 @@ def init_all_datasets(path, families, mapping, reversed_mapping):
     train_dataset, y_train, val_dataset, y_val = get_datasets(full_train_dataset, trn_idx, val_idx)
 
     # WL dataset
-    wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = get_datasets_wl(dataset_wl, train_idx, test_idx, label)
+    # wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = get_datasets_wl(dataset_wl, train_idx, test_idx, label)
 
-    # wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = GNN_script.temporal_split_train_test_wl(dataset_dict_wl, 0.6, label)
+    wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = GNN_script.temporal_split_train_test_wl(dataset_dict_wl, 0.7, label)
     GNN_script.cprint(f"WL {id} : datasets length, {len(dataset_wl)}, {len(wl_full_train_dataset)} {len(wl_test_dataset)}",id)
 
     # import pdb; pdb.set_trace()

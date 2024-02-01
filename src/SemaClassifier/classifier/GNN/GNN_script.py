@@ -118,7 +118,7 @@ def init_dataset(path, families, mapping, fam_idx, fam_dict, BINARY_CLASS):
     bar.finish()
     return dataset, label, fam_idx, fam_dict, dataset_wl
 
-def temporal_init_dataset(path, families, mapping, fam_idx, fam_dict, BINARY_CLASS):
+def temporal_init_dataset(path, families, mapping, fam_idx, fam_dict, BINARY_CLASS, name_map):
     if path[-1] != "/":
         path += "/"
     print("Path: " + path)
@@ -139,24 +139,24 @@ def temporal_init_dataset(path, families, mapping, fam_idx, fam_dict, BINARY_CLA
             print("Path with error: " + path)
             exit(-1)
         else:
-            fdf = pd.read_csv(f'./databases/examples_samy/ch_gk/fam_timestamps/{family}_timestamps.csv')
+            fdf = pd.read_csv(f'/root/fam_sorted/{family}_sorted_metadata.csv')
             filenames_sorted = fdf["sha"].values
-            # filenames = [os.path.join(path, f"{sample}.gs") for sample in filenames_sorted if os.path.isfile(os.path.join(path, f"{sample}.gs"))]
-            filenames = [os.path.join(path, f"{sample}.json") for sample in filenames_sorted if os.path.isfile(os.path.join(path, f"{sample}.json"))]
+            filenames = [os.path.join(path, f"{name_map[sample]}") for sample in filenames_sorted if os.path.isfile(os.path.join(path, f"{name_map[sample]}"))]
+            # filenames = [os.path.join(path, f"{sample}.json") for sample in filenames_sorted if os.path.isfile(os.path.join(path, f"{sample}.json"))]
             # import pdb; pdb.set_trace()
             if len(filenames) > 1 and family not in fam_idx :
                 fam_idx.append(family)
                 fam_dict[family] = len(fam_idx) - 1
             for file in filenames:
                 # import pdb; pdb.set_trace()
-                if file.endswith(".json"):
-                # if file.endswith(".gs"):
-                    # edges, nodes, vertices, edge_labels = read_gs_4_gnn(file, mapping)
-                    edges, nodes, vertices, edge_labels = read_json_4_gnn(file, mapping)
-                    data = gen_graph_data(edges, nodes, vertices, edge_labels, fam_dict[family])
-                    # wl_graph = read_gs(file, mapping)
-                    wl_graph = read_json_4_wl(file, mapping)
+                # if file.endswith(".json"):
+                if file.endswith(".gs"):
+                    edges, nodes, vertices, edge_labels = read_gs_4_gnn(file, mapping)
+                    # edges, nodes, vertices, edge_labels = read_json_4_gnn(file, mapping)
+                    wl_graph = read_gs(file, mapping)
+                    # wl_graph = read_json_4_wl(file, mapping)
                     if len(edges) > 0:
+                        data = gen_graph_data(edges, nodes, vertices, edge_labels, fam_dict[family])
                         if len(nodes) > 1:
                             dataset.append(data)
                             dataset_wl.append(wl_graph)
@@ -193,8 +193,6 @@ def temporal_split_train_test(dataset_dict, ratio, names_dict=None):
         # train_names.extend(name[:split_index])
         # test_names.extend(name[split_index:])
 
-    random.shuffle(train_dataset)
-    random.shuffle(test_dataset)
     for e_tr in train_dataset:
         y_train.append(e_tr.y.item())
     for e_ts in test_dataset:
