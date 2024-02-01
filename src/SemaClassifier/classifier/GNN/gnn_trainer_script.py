@@ -252,7 +252,7 @@ def plot_confusion_matrix(y_true, y_pred, fam_idx, model_name):
     plt.xlabel('Predicted label')
     plt.title(f"Confusion matrix for {model_name}")
     plt.savefig(f"confusion_matrix_{model_name}_1.png")
-    plt.show()
+    # plt.show()
 
 def tune_parameters_ginjk(full_train_dataset, y_full_train, train_dataset, val_dataset, y_val, test_dataset, y_test, num_classes, fam_idx):
     hidden = [128, 64, 32]
@@ -779,29 +779,29 @@ def tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_da
 
 def write_stats_to_csv(results, clf_model):
     # Write stats and params in csv file
-    if not os.path.isfile(f"stats_cv_{clf_model}.csv"):
-        with open(f"stats_cv_{clf_model}.csv", "w") as f:
+    if not os.path.isfile(f"vec_stats_cv_{clf_model}.csv"):
+        with open(f"vec_stats_cv_{clf_model}.csv", "w") as f:
             f.write("model,acc,prec,rec,f1,bal_acc,loss,hidden,layers,lr,batch_size,flag,step_size,m,train_time,test_time\n")
     
-    with open(f"stats_cv_{clf_model}.csv", "a") as f:
+    with open(f"vec_stats_cv_{clf_model}.csv", "a") as f:
         f.write(f"{clf_model},{results['final_acc']},{results['final_prec']},{results['final_rec']},{results['final_f1']},{results['final_bal_acc']},{results['final_loss']},{results['best_params']['hidden']},{results['best_params']['layers']},{results['best_params']['lr']},{results['best_params']['batch_size']},{results['best_params']['flag']},{results['best_params']['step_size']},{results['best_params']['m']},{results['training_time']},{results['testing_time']}\n")
 
 def write_stats_to_tmp_csv(results, clf_model):
     # Write stats and params in csv file
-    if not os.path.isfile(f"tmp_avg_stats_cv_{clf_model}.csv"):
-        with open(f"tmp_avg_stats_cv_{clf_model}.csv", "w") as f:
+    if not os.path.isfile(f"avg_vec_stats_cv_{clf_model}.csv"):
+        with open(f"avg_vec_stats_cv_{clf_model}.csv", "w") as f:
             f.write("model,acc,prec,rec,f1,bal_acc,loss,hidden,layers,lr,batch_size,flag,step_size,m,train_time,test_time\n")
     
-    with open(f"tmp_avg_stats_cv_{clf_model}.csv", "a") as f:
+    with open(f"avg_vec_stats_cv_{clf_model}.csv", "a") as f:
         f.write(f"{clf_model},{results['acc']},{results['prec']},{results['rec']},{results['f1']},{results['bal_acc']},{results['loss']},{results['hidden']},{results['layers']},{results['lr']},{results['batch_size']},{results['flag']},{results['step_size']},{results['m']},{results['training_time']},{results['testing_time']}\n")
 
 def write_cross_val_stats_to_tmp_csv(results, clf_model, fold):
     # Write stats and params in csv file
-    if not os.path.isfile(f"tmp_folds_stats_cv_{clf_model}.csv"):
-        with open(f"tmp_folds_stats_cv_{clf_model}.csv", "w") as f:
+    if not os.path.isfile(f"folds_vec_stats_cv_{clf_model}.csv"):
+        with open(f"folds_vec_stats_cv_{clf_model}.csv", "w") as f:
             f.write("model,acc,prec,rec,f1,bal_acc,loss,hidden,layers,lr,batch_size,fold,flag,step_size,m,train_time,test_time\n")
     
-    with open(f"tmp_folds_stats_cv_{clf_model}.csv", "a") as f:
+    with open(f"folds_vec_stats_cv_{clf_model}.csv", "a") as f:
         f.write(f"{clf_model},{results['acc']},{results['prec']},{results['rec']},{results['f1']},{results['bal_acc']},{results['loss']},{results['hidden']},{results['layers']},{results['lr']},{results['batch_size']},fold_{fold},{results['flag']},{results['step_size']},{results['m']},{results['training_time']},{results['testing_time']}\n")
 
 
@@ -813,15 +813,15 @@ def init_all_datasets(path, families, mapping, reversed_mapping):
     id = 1
 
     # PyG dataset
-    # dataset, label, fam_idx, fam_dict, dataset_wl = GNN_script.init_dataset(path, families, reversed_mapping, [], {}, False)
-    # train_idx, test_idx = GNN_script.split_dataset_indexes(dataset, label)
+    dataset, label, fam_idx, fam_dict, dataset_wl = GNN_script.init_dataset(path, families, reversed_mapping, [], {}, False)
+    train_idx, test_idx = GNN_script.split_dataset_indexes(dataset, label)
 
-    # full_train_dataset,y_full_train, test_dataset, y_test = get_datasets(dataset, train_idx, test_idx)
+    full_train_dataset,y_full_train, test_dataset, y_test = get_datasets(dataset, train_idx, test_idx)
 
-    with open("/root/rev_bodmas_mapping_hash.json", "r") as fp:
-        name_map = json.load(fp)
-    dataset_dict, dataset, label, fam_idx, fam_dict, dataset_wl, dataset_dict_wl = GNN_script.temporal_init_dataset(path, families, reversed_mapping, [], {}, False, name_map)
-    full_train_dataset,y_full_train, test_dataset, y_test = GNN_script.temporal_split_train_test(dataset_dict, 0.7)
+    # with open("/root/rev_bodmas_mapping_hash.json", "r") as fp:
+    #     name_map = json.load(fp)
+    # dataset_dict, dataset, label, fam_idx, fam_dict, dataset_wl, dataset_dict_wl = GNN_script.temporal_init_dataset(path, families, reversed_mapping, [], {}, False, name_map)
+    # full_train_dataset,y_full_train, test_dataset, y_test = GNN_script.temporal_split_train_test(dataset_dict, 0.7)
 
     GNN_script.cprint(f"GNN {id} : datasets length, {len(dataset)}, {len(full_train_dataset)}, {len(test_dataset)}",id)
 
@@ -830,9 +830,9 @@ def init_all_datasets(path, families, mapping, reversed_mapping):
     train_dataset, y_train, val_dataset, y_val = get_datasets(full_train_dataset, trn_idx, val_idx)
 
     # WL dataset
-    # wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = get_datasets_wl(dataset_wl, train_idx, test_idx, label)
+    wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = get_datasets_wl(dataset_wl, train_idx, test_idx, label)
 
-    wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = GNN_script.temporal_split_train_test_wl(dataset_dict_wl, 0.7, label)
+    # wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = GNN_script.temporal_split_train_test_wl(dataset_dict_wl, 0.7, label)
     GNN_script.cprint(f"WL {id} : datasets length, {len(dataset_wl)}, {len(wl_full_train_dataset)} {len(wl_test_dataset)}",id)
 
     # import pdb; pdb.set_trace()
