@@ -19,7 +19,7 @@ class GINConv(MessagePassing):
         self.eps = torch.nn.Parameter(torch.Tensor([0]))
         # self.eps = torch.nn.Parameter(torch.randn(1) * 0.01)
 
-        self.edge_encoder = torch.nn.Linear(1, emb_dim)
+        self.edge_encoder = torch.nn.Linear(6, emb_dim)
 
     def forward(self, x, edge_index, edge_attr):
         # import pdb; pdb.set_trace()
