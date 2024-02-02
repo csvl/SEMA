@@ -53,25 +53,26 @@ class GNNExplainability():
                 task_level='graph',
                 return_type='log_probs',
             ),
-            threshold_config=dict(threshold_type='topk', value=10),
+            threshold_config=dict(threshold_type='topk', value=20),
         )
 
         for i in range(len(self.dataset)):
             data = self.dataset[i]
             print(data)
-            explanation = explainer(data.x, data.edge_index, edge_attr=data.edge_attr, batch=data.batch, target=data.y)
-            print(explanation)
+            explanation = explainer(data.x, data.edge_index, edge_attr=data.edge_attr, target=data.y)
+            # print(explanation)
             # import pdb; pdb.set_trace()
-            pred = explainer.get_prediction(data.x, data.edge_index, data.edge_attr, data.batch).argmax(dim=1).item()
+            unfaithfulness_score = unfaithfulness(explainer, explanation)
+            print(unfaithfulness_score)
+            fid_pm = fidelity(explainer, explanation)
+            print(fid_pm)
+            pred = explainer.get_prediction(data.x, data.edge_index, data.edge_attr).argmax(dim=1).item()
             true_label = data.y.item()
-            # unfaithfulness_score = unfaithfulness(explainer, explanation)
-            # print(unfaithfulness_score)
-            # fid_pm = fidelity(explainer, explanation)
-            # print(fid_pm)
             if self.output_path is not None:
                 visualize_graph(explanation.x, 
                                 self.mapping,
                                 explanation.edge_index, 
+                                explanation.edge_attr,
                                 explanation.edge_mask,
                                 self.output_path+f"subgraph_{i}_{self.fam_idx[true_label]}_{self.fam_idx[pred]}.png", 
                                 backend="graphviz")
@@ -123,6 +124,7 @@ def _visualize_graph_via_graphviz(
     x: Tensor,
     mapping: dict,
     edge_index: Tensor,
+    edge_attr: Tensor,
     edge_weight: Tensor,
     path: Optional[str] = None,
 ) -> Any:
@@ -136,7 +138,6 @@ def _visualize_graph_via_graphviz(
         # import pdb; pdb.set_trace()
         node_feat = x[node].item()
         g.node(str(node), label=f"idx {str(node)}; "+str(mapping[node_feat]))
-
     for (src, dst), w in zip(edge_index.t().tolist(), edge_weight.tolist()):
         hex_color = hex(255 - round(255 * w))[2:]
         hex_color = f'{hex_color}0' if len(hex_color) == 1 else hex_color
@@ -205,6 +206,7 @@ def visualize_graph(
     x: Tensor,
     mapping: dict,
     edge_index: Tensor,
+    edge_attr: Tensor,
     edge_weight: Optional[Tensor] = None,
     path: Optional[str] = None,
     backend: Optional[str] = None,
@@ -242,7 +244,7 @@ def visualize_graph(
     if backend.lower() == 'networkx':
         return _visualize_graph_via_networkx(x, mapping, edge_index, edge_weight, path)
     elif backend.lower() == 'graphviz':
-        return _visualize_graph_via_graphviz(x, mapping, edge_index, edge_weight, path)
+        return _visualize_graph_via_graphviz(x, mapping, edge_index, edge_attr, edge_weight, path)
 
     raise ValueError(f"Expected graph drawing backend to be in "
                      f"{BACKENDS} (got '{backend}')")
