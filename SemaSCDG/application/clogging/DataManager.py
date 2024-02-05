@@ -29,12 +29,13 @@ class DataManager():
     def setup_csv(self, csv_file_path):
         try:
             df = pd.read_csv(csv_file_path,sep=";")
-            self.log.info(df)
         except:
             df = pd.DataFrame(
                 columns=["family",
                             "filename", 
-                            "time",
+                            "execution time",
+                            "hooking time",
+                            "exploration time",
                             "date",
                             "Syscall found", 
                             "EnvVar found",
@@ -49,9 +50,12 @@ class DataManager():
                             "Min/Max addresses",
                             "Stack executable",
                             "Binary position-independent",
-                            "Total number of blocks",
-                            "Total number of instr",
+                            "Number diff syscall found",
+                            "Total number of different blocks",
+                            "Number of different block visited",
                             "Number of blocks visited",
+                            "Total number of different instr",
+                            "Number of different instruction visited",
                             "Number of instr visited",
                             ]) # TODO add frame type
         self.dataframe = df
@@ -60,7 +64,9 @@ class DataManager():
     def save_to_csv(self, proj, family, call_sim, csv_file_path):
         to_append = pd.DataFrame({"family":family,
                     "filename": self.data["nameFileShort"], 
-                    "time": self.data["elapsed_time"],
+                    "execution time": self.data["execution_time"],
+                    "hooking time": self.data["hooking_time"],
+                    "exploration time": self.data["exploration_time"],
                     "date":datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                     
                     "Syscall found": json.dumps(call_sim.syscall_found),  
@@ -78,7 +84,7 @@ class DataManager():
                     "Entry point": proj.loader.main_object.entry,
                     "Min/Max addresses": str(proj.loader.main_object.mapped_base) + "/" + str(proj.loader.main_object.max_addr),
                     "Stack executable": proj.loader.main_object.execstack,
-                    "Binary position-independent:": proj.loader.main_object.pic,
+                    "Binary position-independent": proj.loader.main_object.pic,
                     "Total number of different blocks": self.data.get("nbblocks", -1),
                     "Number of different block visited": len(self.data.get("block_dict", {})),
                     "Number of blocks visited": sum(self.data.get("block_dict", {}).values()),
