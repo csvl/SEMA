@@ -34,8 +34,6 @@ class SemaSCDG():
     TODO
     """
     def __init__(self):
-        self.start_time = time.time()
-
         config = configparser.ConfigParser()
         config.read('config.ini')
         self.config = config
@@ -102,6 +100,7 @@ class SemaSCDG():
         self.binary_path = config['SCDG_arg']['binary_path']
         self.n_args = int(config['SCDG_arg']['n_args'])
         self.csv_file = config['SCDG_arg']['csv_file']
+        self.csv_path = "database/SCDG/runs/" + self.exp_dir_name + "/" + self.csv_file
         self.pre_run_thread = config['SCDG_arg'].getboolean('pre_run_thread')
         self.runtime_run_thread = config['SCDG_arg'].getboolean('runtime_run_thread')
         self.post_run_thread = config['SCDG_arg'].getboolean('post_run_thread')
@@ -294,12 +293,10 @@ class SemaSCDG():
         self.scdg_fin.clear()
         
         # TODO check if PE file get /GUARD option (VS code) with leaf
-        
-        self.start_time = time.time()
 
         # Create a Dataframe for future data if a csv file is specified
         if self.store_data:
-            self.data_manager.setup_csv(exp_dir + self.csv_file)
+            self.data_manager.setup_csv(self.csv_path)
         
         # Setup the output directory
         self.log.info("Results wil be saved into : " + exp_dir)
@@ -357,6 +354,8 @@ class SemaSCDG():
     # Setup angr project, runs it and build the SCDG graph
     def run(self, exp_dir):
 
+        start_execution_time = time.time()
+
         exp_dir, fileHandler = self.run_setup(exp_dir)
         
         title = "--- Building SCDG of " + self.family  +"/" + self.nameFileShort  + " ---"
@@ -368,7 +367,6 @@ class SemaSCDG():
         """
         TODO : Note for further works : support_selfmodifying_code should be investigated
         """
-
         proj = self.deal_with_packing()
 
         main_obj = proj.loader.main_object
@@ -389,7 +387,9 @@ class SemaSCDG():
         # address has been hooked, and if so, runs the hook instead of the binary
         # code at that address.
 
+        start_hooking_time = time.time()
         self.setup_hooks(proj, state, os_obj)
+        self.data_manager.data["hooking_time"] = time.time() - start_hooking_time
                 
         # Creation of simulation managerinline_call, primary interface in angr for performing execution
         
@@ -442,7 +442,9 @@ class SemaSCDG():
             + "\n------------------------------"
         )
         
+        start_explo_time = time.time()
         simgr.run()
+        self.data_manager.data["exploration_time"] = time.time() - start_explo_time
 
         self.log.info(
             "\n------------------------------\nEnd - State of simulation manager :\n "
@@ -457,9 +459,9 @@ class SemaSCDG():
         if self.post_run_thread:
             state.plugin_thread.post_run_thread(simgr)
     
-        elapsed_time = time.time() - self.start_time
-        self.data_manager.data["elapsed_time"] = elapsed_time
-        self.log.info("Total execution time: " + str(elapsed_time))
+        execution_time = time.time() - start_execution_time
+        self.data_manager.data["execution_time"] = execution_time
+        self.log.info("Total execution time: " + str(execution_time))
 
         if self.count_block_enable:
             self.data_manager.print_block_info()
@@ -504,7 +506,7 @@ class SemaSCDG():
             g.build_graph(self.scdg_fin, graph_output=graph_output)
 
         if self.store_data:
-            self.data_manager.save_to_csv(proj, self.family, self.call_sim, csv_file_path=exp_dir + self.csv_file)
+            self.data_manager.save_to_csv(proj, self.family, self.call_sim, self.csv_path)
 
         logging.getLogger().removeHandler(fileHandler)
 
