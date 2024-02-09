@@ -123,11 +123,17 @@ class CustomSimProcedure(ABC):
     def __init__(self):
         self.sim_proc = {}
         self.system_call_table = {}
-
+        self.syscall_found = {}
         self.ddl_loader = DDLLoader()
         self.linux_loader = LinuxTableLoader()
 
+    def clear(self):
+        self.sim_proc = {}
+        self.system_call_table = {}
         self.syscall_found = {}
+        self.ddl_loader = DDLLoader()
+        self.linux_loader = LinuxTableLoader()
+
 
     def get_gen_simproc(self):
         custom_pack = self.sim_proc["custom_package"]

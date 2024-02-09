@@ -15,13 +15,18 @@ class LinuxSimProcedure(CustomSimProcedure):
         self.init_sim_proc("linux")
 
     def config_logger(self):
-        self.log = logging.getLogger("LinuxSimProcedure")
+        logger = logging.getLogger("LinuxSimProcedure")
         ch = logging.StreamHandler()
         ch.setLevel(self.log_level)
         ch.setFormatter(CustomFormatter())
-        self.log.addHandler(ch)
-        self.log.propagate = False
-        self.log.setLevel(self.log_level)
+        logger.addHandler(ch)
+        logger.propagate = False
+        logger.setLevel(self.log_level)
+        self.log = logger
+    
+    def clear(self):
+        super().clear()
+        self.init_sim_proc("linux")
 
     def deal_with_alt_names(self, pkg_name, proc):
         for altname in proc.ALT_NAMES:
