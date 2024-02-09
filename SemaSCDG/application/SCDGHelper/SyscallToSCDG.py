@@ -2,6 +2,7 @@ import logging
 import os
 from clogging.CustomFormatter import CustomFormatter
 import archinfo
+import configparser
 
 
 class SyscallToSCDGBuilder:
@@ -118,11 +119,13 @@ class SyscallToSCDGBuilder:
         "getsockopt",
     }
 
-    def __init__(self, call_sim, scdg, string_resolv=True, print_syscall=True):
-        self.call_sim = call_sim
+    def __init__(self, scdg):
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+        self.config = config
         self.scdg = scdg
-        self.string_resolv = string_resolv
-        self.print_syscall = print_syscall
+        self.string_resolv = config['SCDG_arg'].getboolean('string_resolve')
+        self.print_syscall = config['SCDG_arg'].getboolean('print_syscall')
         self.config_logger()
 
     def config_logger(self):
@@ -135,6 +138,9 @@ class SyscallToSCDGBuilder:
         logger.propagate = False
         logger.setLevel(self.log_level)
         self.log = logger
+
+    def set_call_sim(self, call_sim):
+        self.call_sim = call_sim
 
     def decode_string(self, string):
         if hasattr(string, "decode"):

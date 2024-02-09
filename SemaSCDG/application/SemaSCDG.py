@@ -13,7 +13,6 @@ from capstone import *
 
 import angr
 import gc
-import logging
 import progressbar
 import configparser
 
@@ -61,6 +60,21 @@ class SemaSCDG():
         self.current_exps = 0
         self.current_exp_dir = 0
 
+        self.windows_simproc = WindowsSimProcedure()
+        self.linux_simproc = LinuxSimProcedure()
+        self.syscall_to_scdg_builder = SyscallToSCDGBuilder(self.scdg_graph)
+        self.graph_builder = GraphBuilder()
+
+        # Setup the output directory
+        self.log.info("Results wil be saved into : " + self.mapping_dir)
+        try:
+            os.makedirs(self.mapping_dir)
+        except:
+            pass
+
+        # Save the configuration used
+        self.save_conf()
+
     # Setup the logging system and set it to the level specified in the config file
     def config_logger(self):
         self.log_level = self.config['SCDG_arg'].get('log_level')
@@ -78,12 +92,11 @@ class SemaSCDG():
 
     # Get the parameters from config file
     def get_config_param(self, config):
+        output_dir = "database/SCDG/runs/"
         self.fast_main = config['SCDG_arg'].getboolean('fast_main')
-        self.print_syscall = config['SCDG_arg'].getboolean('print_syscall')
-        self.string_resolve = config['SCDG_arg'].getboolean('string_resolve')
         self.concrete_target_is_local = config['SCDG_arg'].getboolean('concrete_target_is_local')
         self.is_packed = config['SCDG_arg'].getboolean('is_packed')
-        self.unpack_mode = config['SCDG_arg']['packing_type']
+        self.packing_type = config['SCDG_arg']['packing_type']
         self.keep_inter_scdg = config['SCDG_arg'].getboolean('keep_inter_scdg')
         self.approximate = config['SCDG_arg'].getboolean('approximate')
         self.track_command = config['SCDG_arg'].getboolean('track_command')
@@ -95,24 +108,25 @@ class SemaSCDG():
         self.expl_method = config['SCDG_arg']["expl_method"]
         self.family = config['SCDG_arg']['family']
         self.exp_dir_name = config['SCDG_arg']['exp_dir']
-        self.exp_dir = self.exp_dir_name + "/" + self.family
-        self.mapping_dir = self.exp_dir_name + "/"
+        self.exp_dir = output_dir + self.exp_dir_name + "/" + self.family
+        self.mapping_dir = output_dir + self.exp_dir_name + "/"
         self.binary_path = config['SCDG_arg']['binary_path']
         self.n_args = int(config['SCDG_arg']['n_args'])
         self.csv_file = config['SCDG_arg']['csv_file']
-        self.csv_path = "database/SCDG/runs/" + self.exp_dir_name + "/" + self.csv_file
+        self.csv_path = output_dir + self.exp_dir_name + "/" + self.csv_file
+        self.conf_path = output_dir + self.exp_dir_name + "/scdg_conf.json"
         self.pre_run_thread = config['SCDG_arg'].getboolean('pre_run_thread')
         self.runtime_run_thread = config['SCDG_arg'].getboolean('runtime_run_thread')
         self.post_run_thread = config['SCDG_arg'].getboolean('post_run_thread')
 
     # Save the configuration of the experiment in a json file
-    def save_conf(self, path):
+    def save_conf(self):
         param = dict()
         sections = self.config.sections()
         for section in sections:
             items=self.config.items(section)
             param[section]=dict(items)
-        with open(os.path.join(path, "scdg_conf.json"), "w") as f:
+        with open(self.conf_path, "w") as f:
             json.dump(param, f, indent=4)
 
     # Create and return an angr project
@@ -191,13 +205,13 @@ class SemaSCDG():
     def setup_simproc_scdg_builder(self, proj, os_obj):
         # Load pre-defined syscall table
         if os_obj == "windows":
-            self.call_sim = WindowsSimProcedure()
+            self.call_sim = self.windows_simproc
             self.call_sim.system_call_table = self.call_sim.ddl_loader.load(proj, False , None)
         else:
-            self.call_sim = LinuxSimProcedure()
+            self.call_sim = self.linux_simproc
             self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(proj)
-           
-        self.syscall_to_scdg_builder = SyscallToSCDGBuilder(self.call_sim, self.scdg_graph, self.string_resolve, self.print_syscall)
+
+        self.syscall_to_scdg_builder.set_call_sim(self.call_sim)
             
         self.log.info("System call table loaded")
         self.log.debug("System call table size : " + str(len(self.call_sim.system_call_table)))
@@ -289,24 +303,11 @@ class SemaSCDG():
     
     # Processing before run
     def run_setup(self, exp_dir):
-        self.scdg_graph.clear()
-        self.scdg_fin.clear()
-        
         # TODO check if PE file get /GUARD option (VS code) with leaf
 
         # Create a Dataframe for future data if a csv file is specified
         if self.store_data:
             self.data_manager.setup_csv(self.csv_path)
-        
-        # Setup the output directory
-        self.log.info("Results wil be saved into : " + exp_dir)
-        try:
-            os.makedirs(exp_dir)
-        except:
-            pass
-            
-        # Save the configuration used
-        self.save_conf(exp_dir)
 
         # Take name of the sample without full path
         if "/" in self.binary_path:
@@ -485,30 +486,30 @@ class SemaSCDG():
         ####################################################
 
         self.build_scdg(main_obj, state, simgr, exp_dir)
-        
-        g = GraphBuilder(
-            name=self.nameFileShort,
-            mapping= "database/SCDG/runs/" + self.mapping_dir + "mapping_" + self.exp_dir_name + ".txt",
-            merge_call=(not self.config['build_graph_arg'].getboolean('disjoint_union')),
-            comp_args=(not self.config['build_graph_arg'].getboolean('not_comp_args')),
-            min_size=int(self.config['build_graph_arg']['min_size']),
-            ignore_zero=(not self.config['build_graph_arg'].getboolean('not_ignore_zero')),
-            three_edges=self.config['build_graph_arg'].getboolean('three_edges'),
-            odir=exp_dir,
-            log_level=self.log_level,
-            family=self.family
-        )
+
+        self.graph_builder.set_graph_parameters(self.mapping_dir + "mapping_" + self.exp_dir_name + ".txt", self.exp_dir + "/" + self.nameFileShort, self.family)
+
         graph_output = self.config['build_graph_arg']['graph_output']
         if graph_output == "":
-            g.build_graph(self.scdg_fin, graph_output="gs")
-            g.build_graph(self.scdg_fin, graph_output="json", gv = False)
+            self.graph_builder.build_graph(self.scdg_fin, graph_output="gs")
+            self.graph_builder.build_graph(self.scdg_fin, graph_output="json", gv = False)
         else :
-            g.build_graph(self.scdg_fin, graph_output=graph_output)
+            self.graph_builder.build_graph(self.scdg_fin, graph_output=graph_output)
 
         if self.store_data:
             self.data_manager.save_to_csv(proj, self.family, self.call_sim, self.csv_path)
 
         logging.getLogger().removeHandler(fileHandler)
+
+        self.end_run()
+
+    #Clean the SCDG object to be ready for next run
+    def end_run(self):
+        self.windows_simproc.clear()
+        self.linux_simproc.clear()
+        self.scdg_graph.clear()
+        self.scdg_fin.clear()
+        self.graph_builder.clear()
 
     #Construct the SCDG with the stashes content
     def build_scdg(self, main_obj, state, simgr, exp_dir):
@@ -586,10 +587,10 @@ class SemaSCDG():
             self.nb_exps = 1
             self.log.info("You decide to analyse a single binary: "+ self.binary_path)
             # *|CURSOR_MARCADOR|*
-            self.run( "database/SCDG/runs/" + self.exp_dir + "/")
+            self.run(self.exp_dir + "/")
             self.current_exps = 1
         else:
-            last_family = "Unknown"
+            last_family = self.family
             if os.path.isdir(self.binary_path):
                 subfolder = [os.path.join(self.binary_path, f) for f in os.listdir(self.binary_path) if os.path.isdir(os.path.join(self.binary_path, f))]
                
@@ -614,7 +615,7 @@ class SemaSCDG():
                     for file in files:
                         self.binary_path = file
                         self.family = current_family
-                        self.run( "database/SCDG/runs/" + self.exp_dir + "/")
+                        self.run(self.exp_dir + "/")
                         fc+=1
                         self.current_exps += 1
                         bar.update(fc)

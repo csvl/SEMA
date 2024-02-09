@@ -116,7 +116,7 @@ class SemaExplorer(ExplorationTechnique):
         # simgr.active[0].globals["buffer_send"] = []
         simgr.active[0].globals["FindFirstFile"] = 0
         # simgr.active[0].globals["FindNextFile"] = 0
-        # simgr.active[0].globals["GetMessageA"] = 0
+        simgr.active[0].globals["GetMessageA"] = 0
         # simgr.active[0].globals["GetLastError"] = claripy.BVS("last_error", 32)
         simgr.active[0].globals["HeapSize"] = {}
         # simgr.active[0].globals["files_fd"] = {}
@@ -431,7 +431,7 @@ class SemaExplorer(ExplorationTechnique):
             self.log.info("Timeout expired for simulation !")
         if not (len(simgr.active) > 0 and self.deadended < self.max_end_state):
             self.log.info("len(simgr.active) <= 0 or deadended >= self.max_end_state)")
-        if True:
+        if False:
             vmem = psutil.virtual_memory()
             if vmem.percent > 97:
                 # TODO return in logs file the malware hash

@@ -5,29 +5,43 @@ from graphviz import Digraph
 import os
 import json
 import logging
+import configparser
 
 
 class GraphBuilder:
-    def __init__(
-        self,
-        mapping=None,
-        name=None,
-        merge_call=True,
-        comp_args=True,
-        min_size=3,
-        ignore_zero=True,
-        three_edges = False,
-        odir=None,
-        get_info=False,
-        log_level="DEBUG",
-        family="unknown"
-    ):
+    def __init__(self):
+        config = configparser.ConfigParser()
+        config.read('config.ini')
+        self.config = config
+
         self.DISCARD = {
             "LoopBreaker",
             "Dummy_call",
         }  # Nodes used for debug purpose but not real syscall
-        self.TAKE = {}
+        self.clear()
+
+        # Default value of parameters
+        self.MERGE_CALL = not self.config['build_graph_arg'].getboolean('disjoint_union')
+        self.COMP_ARGS = not self.config['build_graph_arg'].getboolean('not_comp_args')
+        self.MIN_SIZE = int(self.config['build_graph_arg']['min_size'])
+        self.IGNORE_ZERO = not self.config['build_graph_arg'].getboolean('not_ignore_zero')
+        self.three_edges = self.config['build_graph_arg'].getboolean('three_edges')
+        ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+        ROOT_DIR = ROOT_DIR.replace("/helper", "")
+
+        self.log_level = os.environ["LOG_LEVEL"]
+        self.config_logger()
+
+    # Set the parameters of the next graph that will be build with 'build_graph'
+    def set_graph_parameters(self, mapping, odir, family):
+        self.odir = odir
         self.mapping_dir = mapping
+        self.family = family
+        self.create_mapping(mapping)
+
+    # Reset all list/dictionnaries of the object
+    def clear(self):
+        self.TAKE = {}
         self.id = 0
         self.graph_file = None
         self.existing_nodes = {}
@@ -45,45 +59,16 @@ class GraphBuilder:
         self.usefullTraces = 0
         self.totTrace = 0
 
-        # Default value of parameters
-        self.MERGE_CALL = merge_call
-        self.COMP_ARGS = comp_args
-        self.MIN_SIZE = min_size
-        self.IGNORE_ZERO = ignore_zero
-        self.three_edges = three_edges
-        ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-        ROOT_DIR = ROOT_DIR.replace("/helper", "")
-
-        self.get_info = get_info
-
-        self.log_level = log_level
-        self.config_logger()
-
-        self.create_mapping(mapping)
-
-        if not name:
-            self.name = "test"
-        else:
-            self.name = name
-
-        if odir:
-            self.odir = odir
-            if not os.path.exists(self.odir):
-                os.makedirs(self.odir)
-        else:
-            self.odir = "database/SCDG/runs/" + family # ROOT_DIR +
-        self.log.info("Output dir :" + self.odir)
-
     #Setup the logger
     def config_logger(self):
-        self.log = logging.getLogger("GraphBuilder")
-        self.log.setLevel(self.log_level)
+        logger = logging.getLogger("GraphBuilder")
         ch = logging.StreamHandler()
         ch.setLevel(self.log_level)
         ch.setFormatter(CustomFormatter())
-        self.log.addHandler(ch)
-        self.log.propagate = False
-        self.log.setLevel(self.log_level)
+        logger.addHandler(ch)
+        logger.propagate = False
+        logger.setLevel(self.log_level)
+        self.log = logger
 
     # Create a mapping for the different syscall name and an unique identifier.
     # args : mapping = name of the file for the mapping to use (format : id syscallname\n)
@@ -262,6 +247,9 @@ class GraphBuilder:
                 )
 
     def build_graph(self, SCDG, graph_output="gs", gv = True):
+        if not os.path.exists(self.odir):
+            os.makedirs(self.odir)
+        self.log.info("Output dir :" + self.odir)
         json_content = {}
         if graph_output == "gs":
             self.graph_file = open(self.odir + "/final_SCDG.gs", "w")
@@ -320,8 +308,6 @@ class GraphBuilder:
                     json_content["links"].append(newlink)
                 else:
                     self.graph_file.write(l)
-
-            # dot.render(self.odir+'/SCDG_'+self.name+'.dot', view=False,nslimit=2)
             if gv:
                 dot.save(self.odir + "/final_SCDG.gv")
             if graph_output == "json":

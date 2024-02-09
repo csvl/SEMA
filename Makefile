@@ -3,9 +3,11 @@ build-toolchain:
 	DOCKER_BUILDKIT=0 docker compose -f docker-compose.deploy.yml build
 
 build-web-app:
+	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
 	docker build --rm --cache-from sema-web-app:latest -t sema-web-app  -f SemaWebApp/Dockerfile .
 
 build-scdg:
+	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
 	docker build --rm --cache-from sema-scdg:latest -t sema-scdg -f SemaSCDG/Dockerfile .		
 
 build-scdg-pypy:
@@ -51,21 +53,6 @@ run-scdg-service-pypy:
 		--net=micro_network \
 		--name="sema-scdg-pypy" \
 		-it sema-scdg-pypy bash
-
-run-scdg-test:	
-	docker run \
-		--rm -i\
-		-v $(PWD)/SemaSCDG/:/sema-scdg \
-		-v $(PWD)/submodules/angr-utils:/sema-scdg/application/submodules/angr-utils \
-		-v $(PWD)/submodules/bingraphvis:/sema-scdg/application/submodules/bingraphvis \
-		-v $(PWD)/penv-fix/:/sema-scdg/application/penv-fix \
-		-v $(PWD)/database/:/sema-scdg/application/database\
-		-e DISPLAY=$(DISPLAY) \
-		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-p 5001:5001 \
-		--net=micro_network\
-		--name="sema-scdg" \
-		sema-scdg python3 SCDGApp.py
 
 run-toolchain-compose:
 	DOCKER_BUILDKIT=0 docker compose -f docker-compose.deploy.yml up
