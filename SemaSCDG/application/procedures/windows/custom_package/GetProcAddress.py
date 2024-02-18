@@ -16,9 +16,11 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 
 class GetProcAddress(angr.SimProcedure):
     def run(self, lib_handle, name_addr):
+        if not self.state.has_plugin("plugin_widechar"):
+            lw.warning("The procedure GetProcAddress is using the plugin plugin_widechar which is not activated")
         call_sim = WindowsSimProcedure()
-        if self.state.solver.eval(name_addr) in self.state.plugin_widechar.widechar_address:
-            name = self.state.mem[name_addr].wstring.concrete
+        if self.state.has_plugin("plugin_widechar") and self.state.solver.eval(name_addr) in self.state.plugin_widechar.widechar_address:
+                name = self.state.mem[name_addr].wstring.concrete
         else:
             name = self.state.mem[name_addr].string.concrete
             if not isinstance(name, str):

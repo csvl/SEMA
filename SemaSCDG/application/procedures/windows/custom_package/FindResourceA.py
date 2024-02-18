@@ -10,6 +10,8 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 
 class FindResourceA(angr.SimProcedure):
     def run(self, hModule, lpName, lpType):
+        if not self.state.has_plugin("plugin_ressources"):
+            lw.warning("The procedure FindRessourceA is using the plugin plugin_ressources which is not activated")
         minaddr = self.state.project.loader.min_addr
         name = self.state.mem[lpName].string.concrete
         rsrc = self.state.globals["rsrc"]
@@ -44,7 +46,8 @@ class FindResourceA(angr.SimProcedure):
         finaloffset = self.state.solver.eval(self.state.memory.load(rsrc+offset,4,endness=archinfo.Endness.LE))
         size = self.state.solver.eval(self.state.memory.load(rsrc+offset+0x4,4,endness=archinfo.Endness.LE))
         resource = self.state.solver.eval(self.state.memory.load(minaddr+finaloffset,size,endness=archinfo.Endness.LE))
-        self.state.plugin_resources.resources[finaloffset+minaddr] = {"size": size, "name": name, "data": resource, "rsrcname": rsrcname}
+        if self.state.has_plugin("plugin_ressources"):
+            self.state.plugin_resources.resources[finaloffset+minaddr] = {"size": size, "name": name, "data": resource, "rsrcname": rsrcname}
         x = finaloffset+minaddr
         return finaloffset+minaddr
         

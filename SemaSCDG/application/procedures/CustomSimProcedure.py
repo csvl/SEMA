@@ -120,21 +120,40 @@ class CustomSimProcedure(ABC):
         "esi",
     }
 
-    def __init__(self):
+    def __init__(self, verbose=False):
+        self.verbose = verbose
         self.sim_proc = {}
         self.system_call_table = {}
         self.syscall_found = {}
-        self.ddl_loader = DDLLoader()
-        self.linux_loader = LinuxTableLoader()
 
+    # Return True if the object is already filled with data
+    def __already_setup(self):
+        return len(self.system_call_table) > 0
+    
+    # Clear all structure of the object and reload 
     def clear(self):
-        self.sim_proc = {}
-        self.system_call_table = {}
-        self.syscall_found = {}
-        self.ddl_loader = DDLLoader()
-        self.linux_loader = LinuxTableLoader()
+        self.sim_proc.clear()
+        self.system_call_table.clear()
+        self.syscall_found.clear()
 
+    def setup(self, os):
+        if not self.__already_setup():
+            self.ddl_loader = DDLLoader()
+            self.linux_loader = LinuxTableLoader()
+            if self.verbose:
+                self.config_logger()
+            self.init_sim_proc(os)
 
+    # Define the behaviour to load the syscall table
+    @abstractmethod
+    def load_syscall_table(self, proj):
+        pass
+
+    @abstractmethod
+    def config_logger(self):
+        pass
+
+    # Create and return a dictionary containg generic simproc
     def get_gen_simproc(self):
         custom_pack = self.sim_proc["custom_package"]
         generic = {}
@@ -147,6 +166,7 @@ class CustomSimProcedure(ABC):
         generic["6"] = custom_pack["gen_simproc6"]
         return generic
     
+    # Return a dictionary containg all custom simprocedures in "custom_package"
     def get_custom_sim_proc(self):
         custom_pack = self.sim_proc["custom_package"]
         custom = {
@@ -196,6 +216,7 @@ class CustomSimProcedure(ABC):
         }
         return custom
 
+    # Create a generic simprocedure depending on the args and the ret type, return the evaluation of the simprocedure
     def generic_sim_procedure(self, args, ret):
         s = "lambda self, " + ", ".join(args)
         if ret != "void":
@@ -204,19 +225,24 @@ class CustomSimProcedure(ABC):
             s += ": None"
         return eval(s)
 
+    # Create a simprocedure containing the name, args and return type specified by parameters, 
+    # set the ARGS_MISMATCH value to true if the parameter is set
     def create_sim_procedure(self, name, args, ret, args_mismatch):
         contains = {"run": self.generic_sim_procedure(args, ret)}
         if args_mismatch:
             contains.update({"ARGS_MISMATCH": True})
         return type(name, (angr.SimProcedure,), contains)
 
+    # Define the behaviour when a the program meet a procedure having the argument ALT_NAMES
+    # (See following method)
     @abstractmethod
     def deal_with_alt_names(self, pkg_name, proc):
         pass
 
+    # Load all the simprocedure present depending on the os name into a dictionary organized by package name
     def init_sim_proc(self, os_name):
         path = os.path.dirname(os.path.abspath(__file__)) + "/" + os_name
-        self.log.debug(os_name + " lib path = " + str(path))
+        if self.verbose : self.log.debug(os_name + " lib path = " + str(path))
         skip_dirs = ["definitions"]
         pkg = "procedures." + os_name
         for pkg_name, package in autoimport.auto_import_packages(pkg, path, skip_dirs):
@@ -276,7 +302,7 @@ class CustomSimProcedure(ABC):
                 ourargs = len(args)
                 angrargs = len(angrlib.prototypes[name].args)
                 if ourargs != angrargs:
-                    self.log.warning(
+                    if self.verbose : self.log.warning(
                         "Procedure {} in DLL {} has {} arguments in json and {} arguments in angr prototype. "
                         "Taking number of arguments from json.".format(
                             name, libname, ourargs, angrargs
@@ -288,9 +314,10 @@ class CustomSimProcedure(ABC):
             procedures.update({name: sp})
         return procedures
 
+    # Set the calling conventions of angr
     def set_calling_conventions(self, lib_name, dlls_functions):
         if lib_name in self.ANGR_LIBS:
-            self.log.info("Was in angr :" + str(lib_name))
+            if self.verbose: self.log.info("Was in angr :" + str(lib_name))
             angrlib = SIM_LIBRARIES[self.ANGR_LIBS[lib_name]]
             cc = list(dlls_functions[lib_name].values())[0]["cc"]
 
@@ -318,7 +345,7 @@ class CustomSimProcedure(ABC):
         """
         symbols = project.loader.symbols
         dic_symbols = {symb.name: symb.rebased_addr for symb in symbols}
-        self.log.debug(dic_symbols)
+        if self.verbose: self.log.debug(dic_symbols)
 
         for dllname in project.loader.requested_names:
             libname = dllname
@@ -370,24 +397,28 @@ class CustomSimProcedure(ABC):
 
         for s in ok:
             del dic_symbols[s]
-        self.log.info("No hooks for: %s", str(dic_symbols))
+        if self.verbose: self.log.info("No hooks for: %s", str(dic_symbols))
 
+    # Hook of the type "SimCCStdcall"
     def std_sim_proc_hook(self, proj, name, simproc):
         proj.hook(
             name,
             simproc(cc=SimCCStdcall(proj.arch)),
         )
 
+    # Hook of the type "SimCCCdecl"
     def exception_sim_proc_hook(self, proj, name, simproc):
         proj.hook(
             name,
             simproc(cc=SimCCCdecl(proj.arch)),
         )
 
+    # Define the behaviour when the architecture is amd64
     @abstractmethod
     def amd64_sim_proc_hook(self, project, name, sim_proc):
         pass
 
+    # Define the hooking process for static simprocedures
     @abstractmethod
     def custom_hook_static(self, proj):
         """_summary_
@@ -403,7 +434,7 @@ class CustomSimProcedure(ABC):
         Args:
             proj (_type_): _description_
         """
-        self.log.info("custom_hook_no_symbols")
+        if self.verbose: self.log.info("custom_hook_no_symbols")
 
         custom = self.get_custom_sim_proc()
 

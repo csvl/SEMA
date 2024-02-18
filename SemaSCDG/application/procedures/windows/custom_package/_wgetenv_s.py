@@ -8,6 +8,8 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 
 class _wgetenv_s(angr.SimProcedure):
     def get_str(self, lpName):
+        if not self.state.has_plugin("plugin_env_var"):
+            lw.warning("The procedure _wgetenv_s is using the plugin plugin_env_var which is not activated")
         name = self.state.mem[lpName].wstring.concrete
         # if hasattr(name, "decode"):
         #     name = name.decode("utf-16-le")
@@ -15,7 +17,7 @@ class _wgetenv_s(angr.SimProcedure):
         name = str(name.encode("utf-8")).replace("b'","").replace("'","")
         lw.debug(name)
         lw.debug(self.state.plugin_env_var.wenv_var.keys())
-        if name in self.state.plugin_env_var.wenv_var.keys() and self.state.plugin_env_var.wenv_var[name] != None:
+        if self.state.has_plugin("plugin_env_var") and name in self.state.plugin_env_var.wenv_var.keys() and self.state.plugin_env_var.wenv_var[name] != None:
             ret = self.state.plugin_env_var.wenv_var[name].decode("utf-16-le")
             lw.debug(ret)
             # lw.warning(name + " " + str(size) + " " + ret)
@@ -29,9 +31,11 @@ class _wgetenv_s(angr.SimProcedure):
                 ret = ret.encode("utf-16-le")
         else:
             ret =  None #"None"
-            self.state.plugin_env_var.wenv_var[name] = None
+            if self.state.has_plugin("plugin_env_var"):
+                self.state.plugin_env_var.wenv_var[name] = None
         lw.debug(ret)
-        self.state.plugin_env_var.wenv_var_requested[name] = ret
+        if self.state.has_plugin("plugin_env_var"):
+            self.state.plugin_env_var.wenv_var_requested[name] = ret
         return ret
 
 

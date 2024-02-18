@@ -18,29 +18,6 @@ class GraphBuilder:
             "LoopBreaker",
             "Dummy_call",
         }  # Nodes used for debug purpose but not real syscall
-        self.clear()
-
-        # Default value of parameters
-        self.MERGE_CALL = not self.config['build_graph_arg'].getboolean('disjoint_union')
-        self.COMP_ARGS = not self.config['build_graph_arg'].getboolean('not_comp_args')
-        self.MIN_SIZE = int(self.config['build_graph_arg']['min_size'])
-        self.IGNORE_ZERO = not self.config['build_graph_arg'].getboolean('not_ignore_zero')
-        self.three_edges = self.config['build_graph_arg'].getboolean('three_edges')
-        ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-        ROOT_DIR = ROOT_DIR.replace("/helper", "")
-
-        self.log_level = os.environ["LOG_LEVEL"]
-        self.config_logger()
-
-    # Set the parameters of the next graph that will be build with 'build_graph'
-    def set_graph_parameters(self, mapping, odir, family):
-        self.odir = odir
-        self.mapping_dir = mapping
-        self.family = family
-        self.create_mapping(mapping)
-
-    # Reset all list/dictionnaries of the object
-    def clear(self):
         self.TAKE = {}
         self.id = 0
         self.graph_file = None
@@ -59,8 +36,48 @@ class GraphBuilder:
         self.usefullTraces = 0
         self.totTrace = 0
 
+        # Default value of parameters
+        self.graph_output = self.config['build_graph_arg']['graph_output']
+        self.MERGE_CALL = not self.config['build_graph_arg'].getboolean('disjoint_union')
+        self.COMP_ARGS = not self.config['build_graph_arg'].getboolean('not_comp_args')
+        self.MIN_SIZE = int(self.config['build_graph_arg']['min_size'])
+        self.IGNORE_ZERO = not self.config['build_graph_arg'].getboolean('not_ignore_zero')
+        self.three_edges = self.config['build_graph_arg'].getboolean('three_edges')
+        ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+        ROOT_DIR = ROOT_DIR.replace("/helper", "")
+
+        self.__config_logger()
+
+    # Set the parameters of the next graph that will be build with 'build_graph'
+    def __set_graph_parameters(self, mapping, odir, family):
+        self.odir = odir
+        self.mapping_dir = mapping
+        self.family = family
+        self.__create_mapping(mapping)
+
+    # Reset all list/dictionnaries of the object
+    def clear(self):
+        self.TAKE.clear()
+        self.id = 0
+        self.graph_file = None
+        self.existing_nodes.clear()
+        self.current_trace_nodes.clear()
+        self.id_map = 0
+        self.tabnode.clear()  # Nodes in gspan format
+        self.tablink.clear()  # Edges in gspan format
+        self.nodes.clear()  # mapping Node ID --> node name (addr.callname args)
+        self.mapping.clear()
+        self.on_flight = False
+        self.dico_addr.clear()
+
+        # Metrics about traces which add information in the graph (or not)
+        self.uselessTraces = 0
+        self.usefullTraces = 0
+        self.totTrace = 0
+
     #Setup the logger
-    def config_logger(self):
+    def __config_logger(self):
+        self.log_level = os.environ["LOG_LEVEL"]
         logger = logging.getLogger("GraphBuilder")
         ch = logging.StreamHandler()
         ch.setLevel(self.log_level)
@@ -72,7 +89,7 @@ class GraphBuilder:
 
     # Create a mapping for the different syscall name and an unique identifier.
     # args : mapping = name of the file for the mapping to use (format : id syscallname\n)
-    def create_mapping(self, mapping):
+    def __create_mapping(self, mapping):
         try:
             map_file = open(mapping, "r")
             for line in map_file:
@@ -82,8 +99,18 @@ class GraphBuilder:
         except:
             pass # todo
         
+    # Build the scdg using the list representing the syscalls and the mapping
+    # save the graph in a file using the output directory and the family
+    def build(self, stashes_content, mapping, odir, family):
+        self.__set_graph_parameters(mapping, odir, family)
+        if self.graph_output == "":
+            self.__build_graph(stashes_content, graph_output="gs")
+            self.__build_graph(stashes_content, graph_output="json", gv = False)
+        else :
+            self.__build_graph(stashes_content, graph_output=self.graph_output)        
 
-    def build_links(self, trace, graph, dico={}):
+
+    def __build_links(self, trace, graph, dico={}):
         # self.log.info("Building links between calls")
         # Dictionnary used to build link between args
         # Variable to check if this trace has added some content to the graph
@@ -104,7 +131,7 @@ class GraphBuilder:
             if call["name"] in self.DISCARD:
                 is_present = True
             else:
-                is_present = self.check_duplicate(call)
+                is_present = self.__check_duplicate(call)
 
             if not is_present:
                 contribution = True
@@ -114,14 +141,14 @@ class GraphBuilder:
                     + "."
                     + call["name"]
                     + "\n"
-                    + self.args_to_strings(call["args"]),
+                    + self.__args_to_strings(call["args"]),
                 )
                 self.nodes[str(self.id)] = (
                     str(call["addr"])
                     + "."
                     + call["name"]
                     + " "
-                    + self.args_to_strings(call["args"])
+                    + self.__args_to_strings(call["args"])
                 )
                 if call["name"] in self.mapping:
                     label = self.mapping[call["name"]]
@@ -138,12 +165,12 @@ class GraphBuilder:
                             and str(j) != "None"
                             and str(j) != "0"
                         ):
-                            self.create_link(
+                            self.__create_link(
                                 (str(self.id), arg_id), dico[str(j)], graph
                             )
                             dico[str(j)].append((self.id, arg_id))
                         elif str(j) in dico and str(j) == "0" and not self.IGNORE_ZERO:
-                            self.create_link(
+                            self.__create_link(
                                 (str(self.id), arg_id), dico[str(j)], graph
                             )
                             dico[str(j)].append((self.id, arg_id))
@@ -192,14 +219,14 @@ class GraphBuilder:
                             pass
                         else:
                             if ret in dico:
-                                self.create_link((str(self.id), 0), dico[ret], graph)
+                                self.__create_link((str(self.id), 0), dico[ret], graph)
                                 dico[ret].append((self.id, 0))
 
                             else:
                                 dico[ret] = [(self.id, 0)]
                     except Exception:
                         if ret in dico:
-                            self.create_link((str(self.id), 0), dico[ret], graph)
+                            self.__create_link((str(self.id), 0), dico[ret], graph)
                             dico[ret].append((self.id, 0))
                         else:
                             dico[ret] = [(self.id, 0)]
@@ -208,7 +235,7 @@ class GraphBuilder:
                     if addr not in self.dico_addr:
                         self.dico_addr[addr] = (str(self.id), 0)
                     if addr in dico:
-                        self.create_link((str(self.id), 0), dico[addr], graph, lab_type="2")
+                        self.__create_link((str(self.id), 0), dico[addr], graph, lab_type="2")
 
                 self.id = self.id + 1
         if self.totTrace < 500:
@@ -219,10 +246,10 @@ class GraphBuilder:
             self.totTrace = self.totTrace + 1
         return dico
 
-    def create_link(self, node1, node_list, dot, lab_type="1"):
+    def __create_link(self, node1, node_list, dot, lab_type="1"):
         for i in node_list:
             check = True
-            if self.MERGE_CALL and not self.is_in_curr_nodes(i[0]):
+            if self.MERGE_CALL and not self.__is_in_curr_nodes(i[0]):
                 check = False
             label2 = lab_type + "9" + str(i[1]) + "9" + str(node1[1])
             check2 = "e " + str(i[0]) + " " + str(node1[0]) + " " + label2 + "\n"
@@ -246,7 +273,7 @@ class GraphBuilder:
                     "e " + str(i[0]) + " " + str(node1[0]) + " " + label + "\n"
                 )
 
-    def build_graph(self, SCDG, graph_output="gs", gv = True):
+    def __build_graph(self, SCDG, graph_output="gs", gv = True):
         if not os.path.exists(self.odir):
             os.makedirs(self.odir)
         self.log.info("Output dir :" + self.odir)
@@ -269,7 +296,7 @@ class GraphBuilder:
 
                 if len(SCDG[i]) >= self.MIN_SIZE:
                     # import pdb; pdb.set_trace()
-                    self.build_links(SCDG[i], dot, dico)
+                    self.__build_links(SCDG[i], dot, dico)
                 else:
                     self.log.info(
                         "The SCDG "
@@ -319,7 +346,7 @@ class GraphBuilder:
                     json_content["graph_" + str(i)] = {}
                     json_content["graph_" + str(i)]["nodes"] = []
                     json_content["graph_" + str(i)]["links"] = []
-                    self.build_links(SCDG[i], dot)
+                    self.__build_links(SCDG[i], dot)
 
                     for n in self.tabnode:
                         if graph_output == "json":
@@ -377,7 +404,7 @@ class GraphBuilder:
     #                corresponding to a node already present
     # If not COMP_ARGS : a call is considered present if it had same addr and name corresponding to a node already present
     # Add the call to existing_node if relevant and return Boolean
-    def check_duplicate(self, call):
+    def __check_duplicate(self, call):
         name_node = str(call["addr"]) + "." + str(call["name"])
         if name_node in self.existing_nodes:
             if not self.COMP_ARGS:
@@ -402,7 +429,7 @@ class GraphBuilder:
                 flag = True
                 for test_args in self.current_trace_nodes[name_node]["args"]:
                     # Check if a node exist with exactly the same args
-                    if self.is_match(test_args, call["args"]):
+                    if self.__is_match(test_args, call["args"]):
                         flag = False
                 if flag:
                     self.current_trace_nodes[name_node]["args"].append(call["args"])
@@ -413,7 +440,7 @@ class GraphBuilder:
 
             # For each possible set of arguments already observed
             for test_args in args:
-                if self.is_match(test_args, call["args"]):
+                if self.__is_match(test_args, call["args"]):
                     return True
             # If it's a new set of arguments
             args.append(call["args"])
@@ -429,7 +456,7 @@ class GraphBuilder:
         return False
 
     # Check if two list of args match
-    def is_match(self, test_list, new_list):
+    def __is_match(self, test_list, new_list):
         if not test_list or not new_list:
             return True
         if isinstance(test_list, int) and isinstance(new_list, int):
@@ -445,7 +472,7 @@ class GraphBuilder:
                 return False
         return True
 
-    def args_to_strings(self, args):
+    def __args_to_strings(self, args):
         if not args:
             return ""
         ret = ""
@@ -456,12 +483,12 @@ class GraphBuilder:
         ret = ret[:-1]
         return ret
 
-    def is_in_curr_nodes(self, ID):
+    def __is_in_curr_nodes(self, ID):
         str_test = self.nodes[str(ID)]
         str_name = str_test.split(" ")[0]
         if str_name in self.current_trace_nodes:
             for args in self.current_trace_nodes[str_name]["args"]:
-                temp = str_name + " " + self.args_to_strings(args)
+                temp = str_name + " " + self.__args_to_strings(args)
                 if temp == str_test:
                     return True
         return False

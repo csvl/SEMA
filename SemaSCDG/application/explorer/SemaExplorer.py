@@ -120,7 +120,7 @@ class SemaExplorer(ExplorationTechnique):
         # simgr.active[0].globals["GetLastError"] = claripy.BVS("last_error", 32)
         simgr.active[0].globals["HeapSize"] = {}
         # simgr.active[0].globals["files_fd"] = {}
-        # simgr.active[0].globals["create_thread_address"] = []
+        simgr.active[0].globals["create_thread_address"] = []
         # simgr.active[0].globals["allow_web_interaction"] = False
 
     def check_constraint(self, state, value):
@@ -294,7 +294,10 @@ class SemaExplorer(ExplorationTechnique):
                 state.globals["JumpExcedeed"] = False
                 self.jump_dict[self.id].clear()
                 self.jump_concrete_dict[self.id].clear()
-                self.loopBreak_stack.remove(state)
+                try:
+                    self.loopBreak_stack.remove(state)
+                except:
+                    pass
             simgr.move(
                 from_stash="ExcessLoop",
                 to_stash="active",

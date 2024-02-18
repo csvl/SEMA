@@ -9,4 +9,7 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 
 class GetEnvironmentStringsW(angr.SimProcedure):
     def run(self):
-        return self.state.plugin_env_var.env_blockw
+        if not self.state.has_plugin("plugin_env_var"):
+            lw.warning("The procedure GetEnvironmentStringsW is using the plugin plugin_env_var which is not activated")
+        else :
+            return self.state.plugin_env_var.env_blockw
