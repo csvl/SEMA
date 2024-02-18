@@ -76,8 +76,8 @@ class GetModuleHandleExW(angr.SimProcedure):
         return lib_ptr
         # return self.load(lib)
 
-
-class GetModuleHandleExW(GetModuleHandleExW):
-    def decodeString(self, ptr):
-        lib = self.state.mem[ptr].string.concrete.decode("utf-8")
-        return lib
+# Was triggering errors because of encoding that can not be decoded in utf-8
+#class GetModuleHandleExW(GetModuleHandleExW):
+    # def decodeString(self, ptr):
+    #     lib = self.state.mem[ptr].string.concrete.decode("utf-8")
+    #     return lib

@@ -8,6 +8,8 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 
 class GetLocaleInfoW(angr.SimProcedure):
     def run(self, locale, lctype, lp_lc_data, cch_data):
+        if not self.state.has_plugin("plugin_locale_info"):
+            lw.warning("Procedure GetLocaleInfoW is using the plugin plugin_locale_info which is not activated")
         response = { # TODO check from ChatGPT + enhance
             0x00000001: "English (United States)\x00", # LOCALE_SENGLANGUAGE
             0x00000002: "United States\x00", # LOCALE_SENGCOUNTRY
@@ -79,7 +81,7 @@ class GetLocaleInfoW(angr.SimProcedure):
             str_size = min(str_size, self.state.solver.eval(cch_data))  # make sure we don't write past the end of the buffer
             self.state.memory.store(lp_lc_data, return_string.encode("utf-16le")[:str_size * 2], endness="little")
             locale_ev = self.state.solver.eval(locale)
-            if not locale_ev in self.state.plugin_locale_info.locale_info:
+            if self.state.has_plugin("plugin_locale_info")and not locale_ev in self.state.plugin_locale_info.locale_info:
                 self.state.plugin_locale_info.locale_info[locale_ev] = (self.state.solver.eval(lctype), return_string, str_size)
             # Return the size of the string, in characters, excluding the null terminator
             return str_size - 1
@@ -87,15 +89,16 @@ class GetLocaleInfoW(angr.SimProcedure):
             lw.debug("Not in response")
             locale_ev = self.state.solver.eval(locale)
             lw.debug(hex(locale_ev))
-            if locale_ev in self.state.plugin_locale_info.locale_info:
-                infotype, lpdata, cchData = self.state.plugin_locale_info.locale_info[locale_ev]
-                info_ev = self.state.solver.eval(infotype)
-                lctype_ev = self.state.solver.eval(lctype)
-                if info_ev == lctype_ev:
-                    self.state.memory.store(lp_lc_data, lpdata, endness="little")
-                    return cchData
-            lw.debug("Not in locale_info")
-            self.state.plugin_locale_info.locale_info[locale_ev] = (self.state.solver.eval(lctype), self.state.solver.eval(lp_lc_data), self.state.solver.eval(cch_data))
+            if self.state.has_plugin("plugin_locale_info"):
+                if locale_ev in self.state.plugin_locale_info.locale_info:
+                    infotype, lpdata, cchData = self.state.plugin_locale_info.locale_info[locale_ev]
+                    info_ev = self.state.solver.eval(infotype)
+                    lctype_ev = self.state.solver.eval(lctype)
+                    if info_ev == lctype_ev:
+                        self.state.memory.store(lp_lc_data, lpdata, endness="little")
+                        return cchData
+                lw.debug("Not in locale_info")
+                self.state.plugin_locale_info.locale_info[locale_ev] = (self.state.solver.eval(lctype), self.state.solver.eval(lp_lc_data), self.state.solver.eval(cch_data))
             return 0
 
         

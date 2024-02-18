@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 import argparse
 import configparser
 
-from SCDGHelper.ArgumentParserSCDG import ArgumentParserSCDG
+from scdg_helper.ArgumentParserSCDG import ArgumentParserSCDG
 from SemaSCDG import SemaSCDG
 
 

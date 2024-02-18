@@ -8,14 +8,14 @@ from clogging.CustomFormatter import CustomFormatter
 
 class DataManager():
     def __init__(self):
-        self.config_logger()
+        self.__config_logger()
         self.dataframe = None
         self.data = dict()
         self.data["instr_dict"] = {}
         self.data["block_dict"] = {}
 
     #Set up the logger
-    def config_logger(self):
+    def __config_logger(self):
         self.log_level = os.environ["LOG_LEVEL"]
         self.log = logging.getLogger("DataManager")
         ch = logging.StreamHandler()
@@ -62,6 +62,13 @@ class DataManager():
     
     # Save project information into a csv file or append the data to an existing csv file
     def save_to_csv(self, proj, family, call_sim, csv_file_path):
+        # Convert bytes field into string if the plugin ressources is activated
+        resources_found = self.data.get("total_res", -1)
+        if (resources_found != -1):
+            for key in resources_found:
+                resources_found[key][0]["name"] = resources_found[key][0]["name"].decode("utf-8")
+                resources_found[key][0]["rsrcname"] = resources_found[key][0]["rsrcname"].decode("utf-8")
+
         to_append = pd.DataFrame({"family":family,
                     "filename": self.data["nameFileShort"], 
                     "execution time": self.data["execution_time"],
@@ -72,7 +79,7 @@ class DataManager():
                     "Syscall found": json.dumps(call_sim.syscall_found),  
                     "EnvVar found": json.dumps(self.data.get("total_env_var", -1)), 
                     "Locale found": json.dumps(self.data.get("total_locale", -1)), 
-                    "Resources found": json.dumps(self.data.get("total_res", -1)), 
+                    "Resources found": json.dumps(resources_found),
                     "Registry found": json.dumps(self.data.get("total_registery", -1)), 
                     
                     "Number Address found": 0, 
@@ -139,22 +146,22 @@ class DataManager():
             total_env_var = state.plugin_env_var.ending_state(simgr)
             if to_store:
                 self.data["total_env_var"] = total_env_var
-            self.log.info("Environment variables:" + str(total_env_var))
+            #self.log.info("Environment variables:" + str(total_env_var))
         if state.has_plugin("plugin_registery"):
             total_registery = state.plugin_registery.ending_state(simgr)
             if to_store:
                 self.data["total_registery"] = total_registery
-            self.log.info("Registery variables:" + str(total_registery))
+            #self.log.info("Registery variables:" + str(total_registery))
         if state.has_plugin("plugin_locale_info"):
             total_locale = state.plugin_locale_info.ending_state(simgr)
             if to_store:
                 self.data["total_locale"] = total_locale
-            self.log.info("Locale informations variables:" + str(total_locale))
+            #self.log.info("Locale informations variables:" + str(total_locale))
         if state.has_plugin("plugin_resources"): 
             total_res = state.plugin_resources.ending_state(simgr)
             if to_store:
                 self.data["total_res"] = total_res
-            self.log.info("Resources variables:" + str(total_res))
+            #self.log.info("Resources variables:" + str(total_res))
 
     #Log information about instructions and blocks
     def print_block_info(self):

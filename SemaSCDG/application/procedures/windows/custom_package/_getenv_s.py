@@ -8,12 +8,14 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 
 class _getenv_s(angr.SimProcedure):
     def get_str(self, lpName):
+        if not self.state.has_plugin("plugin_env_var"):
+            lw.warning("The procedure _getenv_s is using the plugin plugin_env_var which is not activated")
         name = self.state.mem[lpName].string.concrete
         if hasattr(name, "decode"):
             name = name.decode("utf-8")
         name = name.upper()
         lw.debug(name)
-        if name in self.state.plugin_env_var.env_var.keys() and self.state.plugin_env_var.env_var[name] != None:
+        if self.state.has_plugin("plugin_env_var") and name in self.state.plugin_env_var.env_var.keys() and self.state.plugin_env_var.env_var[name] != None:
             ret = self.state.plugin_env_var.env_var[name]
             lw.debug(ret)
             # lw.warning(name + " " + str(size) + " " + ret)
@@ -27,9 +29,11 @@ class _getenv_s(angr.SimProcedure):
                 ret = ret.encode("utf-")
         else:
             ret =  None #"None"
-            self.state.plugin_env_var.env_var[name] = None
+            if self.state.has_plugin("plugin_env_var") : 
+                self.state.plugin_env_var.env_var[name] = None
         lw.debug(ret)
-        self.state.plugin_env_var.env_var_requested[name] = ret
+        if self.state.has_plugin("plugin_env_var") : 
+            self.state.plugin_env_var.env_var_requested[name] = ret
         return ret
 
 

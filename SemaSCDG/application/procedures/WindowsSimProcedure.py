@@ -11,40 +11,41 @@ from angr.calling_conventions import SimCCMicrosoftAMD64
 
 class WindowsSimProcedure(CustomSimProcedure):
 
-    def __init__(self):
-        super().__init__()
-        self.log_level = os.environ["LOG_LEVEL"]
-        self.config_logger()
-        self.init_sim_proc("windows")
+    def __init__(self, verbose = False):
+        super().__init__(verbose)
+        self.log = None
+        self.setup("windows")
 
+    # Set up the logger
     def config_logger(self):
-        logger = logging.getLogger("WindowsSimProcedure")
-        ch = logging.StreamHandler()
-        ch.setLevel(self.log_level)
-        ch.setFormatter(CustomFormatter())
-        logger.addHandler(ch)
-        logger.propagate = False
-        logger.setLevel(self.log_level)
-        self.log = logger
-
-    def clear(self):
-        super().clear()
-        self.init_sim_proc("windows")
+        if self.log is None:
+            self.log_level = os.environ["LOG_LEVEL"]
+            logger = logging.getLogger("WindowsSimProcedure")
+            ch = logging.StreamHandler()
+            ch.setLevel(self.log_level)
+            ch.setFormatter(CustomFormatter())
+            logger.addHandler(ch)
+            logger.propagate = False
+            logger.setLevel(self.log_level)
+            self.log = logger
     
+    # Set properly the value in the sim_proc dictionary when meeting an ALT_NAME argument
     def deal_with_alt_names(self, pkg_name, proc):
         new_proc = proc # TODO clone
         new_proc.__name__ = proc.ALT_NAMES
         new_proc.__qualname__ = proc.ALT_NAMES
         self.sim_proc[pkg_name][proc.ALT_NAMES] = new_proc
     
+    # Check if the name is present in angr simprocedures
     def name_in_angr_simproc(self, name, simproc_names):
         for i in simproc_names:
             if name in angr.SIM_PROCEDURES[i]:
                 return True
         return False
 
+    # Hooking method for static library
     def custom_hook_static(self, proj):
-        self.log.info("custom_hook_static_windows")
+        if self.verbose: self.log.info("custom_hook_static_windows")
         proj.loader
         symbols = proj.loader.symbols
 
@@ -113,10 +114,12 @@ class WindowsSimProcedure(CustomSimProcedure):
                 part_names = name.split(".")
                 lib_part = part_names[2][2:] + ".dll"
                 ord_part = part_names[1]
-                self.log.info(lib_part)
-                self.log.info(ord_part)
+                if self.verbose:
+                    self.log.info(lib_part)
+                    self.log.info(ord_part)
                 # symb.name = self.system_call_table[lib_part][ord_part]['name']
 
+    # Hooking method for procedures in custom package and hooking of project symbols
     def custom_hook_windows_symbols(self, proj):
         """_summary_
         TODO CH
@@ -124,7 +127,7 @@ class WindowsSimProcedure(CustomSimProcedure):
             proj (_type_): _description_
         """
         # self.ANG_CALLING_CONVENTION = {"__stdcall": SimCCStdcall, "__cdecl": SimCCCdecl}
-        self.log.info("custom_hook_windows_symbols")
+        if self.verbose: self.log.info("custom_hook_windows_symbols")
         proj.loader
         symbols = proj.loader.symbols
 
@@ -174,6 +177,7 @@ class WindowsSimProcedure(CustomSimProcedure):
                                     SIM_LIBRARIES[lib].get(real_name, proj.arch),
                                 )
 
+    # Hook of the type "SimCCMicrosoftAMD64" when project architecture is AMD64
     def amd64_sim_proc_hook(self, project, name, sim_proc):
         if project.arch.name == "AMD64":
             project.hook(
@@ -184,3 +188,7 @@ class WindowsSimProcedure(CustomSimProcedure):
             )
             return True
         return False
+    
+    # Use the ddl loader to get the syscall table
+    def load_syscall_table(self, proj):
+        self.system_call_table = self.ddl_loader.load(proj, False , None)

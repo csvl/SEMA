@@ -16,8 +16,8 @@ import gc
 import progressbar
 import configparser
 
-from SCDGHelper.GraphBuilder import *
-from SCDGHelper.SyscallToSCDG import SyscallToSCDGBuilder
+from scdg_helper.GraphBuilder import *
+from scdg_helper.SyscallToSCDG import SyscallToSCDGBuilder
 from plugin.PluginManager import PluginManager
 from procedures.LinuxSimProcedure import LinuxSimProcedure
 from procedures.WindowsSimProcedure import WindowsSimProcedure
@@ -42,7 +42,6 @@ class SemaSCDG():
 
         self.store_data = self.csv_file != ""
         self.scdg_graph = []
-        self.scdg_fin = []
         self.new = {}
         self.nameFileShort = ""
         self.content = ""
@@ -60,8 +59,8 @@ class SemaSCDG():
         self.current_exps = 0
         self.current_exp_dir = 0
 
-        self.windows_simproc = WindowsSimProcedure()
-        self.linux_simproc = LinuxSimProcedure()
+        self.windows_simproc = WindowsSimProcedure(verbose=True)
+        self.linux_simproc = LinuxSimProcedure(verbose=True)
         self.syscall_to_scdg_builder = SyscallToSCDGBuilder(self.scdg_graph)
         self.graph_builder = GraphBuilder()
 
@@ -206,10 +205,12 @@ class SemaSCDG():
         # Load pre-defined syscall table
         if os_obj == "windows":
             self.call_sim = self.windows_simproc
-            self.call_sim.system_call_table = self.call_sim.ddl_loader.load(proj, False , None)
+            self.call_sim.setup("windows")
         else:
             self.call_sim = self.linux_simproc
-            self.call_sim.system_call_table = self.call_sim.linux_loader.load_table(proj)
+            self.call_sim.setup("linux")
+
+        self.call_sim.load_syscall_table(proj)
 
         self.syscall_to_scdg_builder.set_call_sim(self.call_sim)
             
@@ -485,16 +486,9 @@ class SemaSCDG():
         ##########         SCDG build           ############
         ####################################################
 
-        self.build_scdg(main_obj, state, simgr, exp_dir)
+        stashes_content = self.get_stashes_content(main_obj, state, simgr, exp_dir)
 
-        self.graph_builder.set_graph_parameters(self.mapping_dir + "mapping_" + self.exp_dir_name + ".txt", self.exp_dir + "/" + self.nameFileShort, self.family)
-
-        graph_output = self.config['build_graph_arg']['graph_output']
-        if graph_output == "":
-            self.graph_builder.build_graph(self.scdg_fin, graph_output="gs")
-            self.graph_builder.build_graph(self.scdg_fin, graph_output="json", gv = False)
-        else :
-            self.graph_builder.build_graph(self.scdg_fin, graph_output=graph_output)
+        self.graph_builder.build(stashes_content, self.mapping_dir + "mapping_" + self.exp_dir_name + ".txt", self.exp_dir + "/" + self.nameFileShort, self.family)
 
         if self.store_data:
             self.data_manager.save_to_csv(proj, self.family, self.call_sim, self.csv_path)
@@ -505,17 +499,16 @@ class SemaSCDG():
 
     #Clean the SCDG object to be ready for next run
     def end_run(self):
-        self.windows_simproc.clear()
-        self.linux_simproc.clear()
+        self.call_sim.clear()
         self.scdg_graph.clear()
-        self.scdg_fin.clear()
         self.graph_builder.clear()
 
-    #Construct the SCDG with the stashes content
-    def build_scdg(self, main_obj, state, simgr, exp_dir):
+    #Construct a list representing the stashes content with the syscalls
+    def get_stashes_content(self, main_obj, state, simgr, exp_dir):
         dump_file = {}
         dump_id = 0
         dic_hash_SCDG = {}
+        scdg_fin = []
         # Add all traces with relevant content to graph construction
         stashes = {
             "deadended" : simgr.deadended,
@@ -542,7 +535,7 @@ class SemaSCDG():
                         "trace": self.scdg_graph[present_state.globals["id"]],
                     }
                     dump_id = dump_id + 1
-                    self.scdg_fin.append(self.scdg_graph[present_state.globals["id"]])
+                    scdg_fin.append(self.scdg_graph[present_state.globals["id"]])
                 
         self.print_memory_info(main_obj, dump_file)
         
@@ -558,6 +551,7 @@ class SemaSCDG():
             list_obj.append(dump_file)
             json_dumper.dump(list_obj, save_SCDG)  # ,indent=4)
             save_SCDG.close()
+        return scdg_fin
             
     def print_memory_info(self, main_obj, dump_file):
         dump_file["sections"] = {}

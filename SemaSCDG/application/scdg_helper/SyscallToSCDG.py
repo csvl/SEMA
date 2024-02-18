@@ -126,9 +126,9 @@ class SyscallToSCDGBuilder:
         self.scdg = scdg
         self.string_resolv = config['SCDG_arg'].getboolean('string_resolve')
         self.print_syscall = config['SCDG_arg'].getboolean('print_syscall')
-        self.config_logger()
+        self.__config_logger()
 
-    def config_logger(self):
+    def __config_logger(self):
         logger = logging.getLogger("SyscallToSCDGBuilder")
         self.log_level = os.environ["LOG_LEVEL"]
         ch = logging.StreamHandler()
@@ -142,7 +142,7 @@ class SyscallToSCDGBuilder:
     def set_call_sim(self, call_sim):
         self.call_sim = call_sim
 
-    def decode_string(self, string):
+    def __decode_string(self, string):
         if hasattr(string, "decode"):
             return string.decode("utf-8")
         else:
@@ -210,7 +210,7 @@ class SyscallToSCDGBuilder:
                 
         if self.scdg[id][-1]["name"] == name and args:
             for i in range(len(args)):
-                args[i] = self.proper_formating(state, args[i])
+                args[i] = self.__proper_formating(state, args[i])
                 temp = args[i]
 
                 try : 
@@ -218,18 +218,18 @@ class SyscallToSCDGBuilder:
                         wstring_to_check = ["LPCWSTR", "LPWSTR", "wchar_t*const", "OLECHAR", "PWSTR", "PCWSTR", "LPCWCH"]
                         if len(set(callee_arg[i]["type"]).intersection(wstring_to_check)) != 0:
                             string = state.mem[args[i]].wstring.concrete
-                            args[i] = self.decode_string(string)
+                            args[i] = self.__decode_string(string)
                         string_to_check = ["LPCSTR", "LPSTR", "const char*", "PSTR", "PCSTR", "LPCH"]
                         if len(set(callee_arg[i]["type"]).intersection(string_to_check)) != 0:
                             string = state.mem[args[i]].string.concrete
-                            args[i] = self.decode_string(string)
+                            args[i] = self.__decode_string(string)
                         to_check = ["LPCTSTR", "LPTSTR", "PTSTR", "PCTSTR", "LPCCH"]
                         if len(set(callee_arg[i]["type"]).intersection(to_check)) != 0:
                             if state.solver.eval(state.memory.load(args[i]+1,1)) == 0x0:
                                 string = state.mem[args[i]].wstring.concrete
                             else:
                                 string = state.mem[args[i]].string.concrete  
-                            args[i] = self.decode_string(string)
+                            args[i] = self.__decode_string(string)
                         to_check = ["PCUNICODESTRING"]
                         if len(set(callee_arg[i]["type"]).intersection(to_check)) != 0:
                             addr = state.memory.load(args[i]+4,4,endness=archinfo.Endness.LE)
@@ -250,7 +250,7 @@ class SyscallToSCDGBuilder:
                                 args[index_str] = string
                             else :
                                 string = state.mem[args[index_str]].string.concrete
-                                args[index_str] = self.decode_string(string)
+                                args[index_str] = self.__decode_string(string)
                         except Exception:
                             self.log.warning("Error in string resolv")
 
@@ -301,7 +301,7 @@ class SyscallToSCDGBuilder:
                         self.scdg[id][-1]["name"] = calls[i]
                 if present :
                     for i in range(len(args)):
-                        args[i] = self.proper_formating(state, args[i])
+                        args[i] = self.__proper_formating(state, args[i])
                     self.scdg[id][-1]["args"] = args
 
                     try:
@@ -375,20 +375,20 @@ class SyscallToSCDGBuilder:
                 except:
                     reg = None
                 # reg = get_register(state,reg)
-                reg = self.proper_formating(state, reg)
+                reg = self.__proper_formating(state, reg)
                 args.append(reg)
 
         dic["name"] = name
 
         if self.string_resolv and args:
-            args, dic = self.check_syscall_string(syscall, state, args, dic)
+            args, dic = self.__check_syscall_string(syscall, state, args, dic)
 
         if syscall in self.FUNCTION_HANDLER:
             self.FUNCTION_HANDLER[syscall](state)
 
         if args:
             for i in range(len(args)):
-                args[i] = self.proper_formating(state, args[i])
+                args[i] = self.__proper_formating(state, args[i])
 
         dic["args"] = args
         dic["addr_func"] = hex(state.addr)
@@ -423,7 +423,7 @@ class SyscallToSCDGBuilder:
 
             return
         
-    def check_syscall_string(self, syscall, state, args, dic):
+    def __check_syscall_string(self, syscall, state, args, dic):
         for string_type in [self.FUNCTION_STRING, self.FUNCTION_WSTRING, self.FUNCTION_CHAR]:
             if syscall in string_type:
                 if isinstance(string_type[syscall], int):
@@ -444,7 +444,7 @@ class SyscallToSCDGBuilder:
                                     string = state.mem[arg_str].string.concrete
                                 elif string_type == self.FUNCTION_WSTRING:
                                     string = state.mem[arg_str].wstring.concrete
-                                args[index_str] = self.decode_string(string)
+                                args[index_str] = self.__decode_string(string)
                             else :
                                 string = chr(arg_str)
                                 args[index_str] = string
@@ -466,7 +466,7 @@ class SyscallToSCDGBuilder:
         if len(calls) > 1:
             state.globals["addr_call"] = calls[1:]
 
-    def proper_formating(self, state, value):
+    def __proper_formating(self, state, value):
         """
         Take a state and a value (argument/return value) and return an appropriate reprensentation to use in SCDG.
         """
