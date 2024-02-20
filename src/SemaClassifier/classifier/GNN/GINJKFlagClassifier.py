@@ -58,7 +58,7 @@ class GINJKFlag_node(torch.nn.Module):
         for layer in range(num_layers):
             self.convs.append(GINConv(hidden))
 
-    def forward(self, x, edge_index, edge_attr, batch, perturb=None, edge_types=None):
+    def forward(self, x, edge_index, edge_attr, batch=None, perturb=None, edge_types=None):
         tmp = x + perturb if perturb is not None else x
         h_list = []
         h = tmp
@@ -94,7 +94,7 @@ class GINJKFlag(torch.nn.Module):
 
 
 
-    def forward(self, x, edge_index, edge_attr, batch, perturb=None):
+    def forward(self, x, edge_index, edge_attr, batch=None, perturb=None):
         
         node_rep = self.gnn_node(x, edge_index, edge_attr, batch, perturb)
         # import pdb; pdb.set_trace()

@@ -41,7 +41,7 @@ def gen_graph_data(edges, nodes, vertices, edge_labels, label):
     edges = list(edges)
     x = torch.tensor([torch.tensor(nodes[v]) for v in vertices])
     x = x.unsqueeze(-1)
-    # edge_attr = torch.tensor([int(str(edge_labels[i])) for i in range(len(edges))]) # 1st version
+    # edge_attr = torch.tensor([int(str(edge_labels[e])) for e in edges]) # 1st version
     edge_attr = torch.cat([edge_labels[key].unsqueeze(0) for key in edges], dim=0) # vector version
     # import pdb; pdb.set_trace()
     # edge_attr = torch.tensor([0.0 for _ in edges])
@@ -49,6 +49,7 @@ def gen_graph_data(edges, nodes, vertices, edge_labels, label):
     # edge_index=torch.tensor(edges).t().contiguous()
     y = torch.tensor([label])
     edge_index=torch.tensor(edges, dtype=torch.long)
+    # edge_index = edge_index.to(torch.float32)
     # print("edges 1 : ", edge_index.size())
 
     if (len(edge_index.size()) == 2):
@@ -59,7 +60,7 @@ def gen_graph_data(edges, nodes, vertices, edge_labels, label):
     #     import pdb; pdb.set_trace()
     # correct edge_attr dimensions
     edge_attr = edge_attr.to(torch.float32)
-    # edge_attr = edge_attr.unsqueeze(-1)
+    # edge_attr = edge_attr.unsqueeze(-1) # for 1st version
 
     # import pdb; pdb.set_trace()
     data = Data(x=x, edge_index=edge_index, edge_attr=edge_attr, num_nodes=num_nodes, y=y)
@@ -153,8 +154,10 @@ def read_gs(path,mapping,lonely=True):
             sp = line.split(" ")
             v1 = int(sp[1])
             v2 = int(sp[2])
+            e_label = sp[3].replace('\n','')
+            # if e_label == "2":
             edges[tuple((v1,v2))] = 1
-            edge_labels[tuple((v1,v2))] = sp[3].replace('\n','')
+            edge_labels[tuple((v1,v2))] = e_label
             c_edges = c_edges + 1
             vertices[v1].append(v2)
             vertices[v2].append(v1)
@@ -286,15 +289,23 @@ def read_gs_4_gnn(path, mapping, lonely=True):
             #     print((v1,v2))
             # edges.append(tuple((v1,v2)))
             # edge_labels.append(e_label)
+
+            # edges[tuple((v1,v2))] = 1
             # edge_labels[tuple((v1,v2))] = e_label
+
+            # if e_label == 2:
             if tuple((v1,v2)) not in edges:
                 edges[tuple((v1,v2))] = 1
                 edge_labels[tuple((v1,v2))] = torch.zeros(6)
+            # if e_label < 6:
             edge_labels[tuple((v1,v2))][e_label-1] += 1
+        # else:
+        #     edge_labels[tuple((v1,v2))][e_label-2] += 1
+
             c_edges = c_edges + 1
             vertices[v1].append(v2)
             vertices[v2].append(v1)
-    
+
     if not lonely:
         #STUFF below to delete lonely nodes
         de = []
@@ -393,16 +404,3 @@ def save_graph(graph, path):
 
 def load_graph(path):
   return nx.read_yaml(path)
-
-
-# INFO:Classifier:Accuracy 86.73 %
-# INFO:Classifier:Balanced accuracy 86.67 %
-# INFO:Classifier:Precision 89.29 %
-# INFO:Classifier:Recall 86.73 %
-# INFO:Classifier:F1-score 85.36 %
-
-# INFO:Classifier:Accuracy 89.80 %
-# INFO:Classifier:Balanced accuracy 89.67 %
-# INFO:Classifier:Precision 90.53 %
-# INFO:Classifier:Recall 89.80 %
-# INFO:Classifier:F1-score 89.44 %

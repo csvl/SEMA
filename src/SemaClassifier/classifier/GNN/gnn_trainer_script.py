@@ -21,6 +21,7 @@ from GINClassifier import GIN
 from GINJKClassifier import GINJK
 from RGINClassifier import R_GINJK
 from RGINJKClassifier import RanGINJK
+from GCNClassifier import GCN
 import sys
 sys.path.append("./SemaClassifier/classifier/")
 from SVM.SVMClassifier import SVMClassifier
@@ -221,7 +222,7 @@ def explain(model, dataset, mapping, fam_idx, output_path):
     explainer = GNNExplainability(dataset, loader, model, mapping, fam_idx, output_path)
     explainer.explain()
 
-def computre_metrics(y_true, y_pred, fam_idx):
+def compute_metrics(y_true, y_pred, fam_idx):
     acc = accuracy_score(y_true, y_pred)
     prec = precision_score(y_true, y_pred, average='weighted')
     rec = recall_score(y_true, y_pred, average='weighted')
@@ -251,7 +252,7 @@ def plot_confusion_matrix(y_true, y_pred, fam_idx, model_name):
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
     plt.title(f"Confusion matrix for {model_name}")
-    plt.savefig(f"confusion_matrix_{model_name}_1.png")
+    plt.savefig(f"confusion_matrix_{model_name}_ST.png")
     # plt.show()
 
 def tune_parameters_ginjk(full_train_dataset, y_full_train, train_dataset, val_dataset, y_val, test_dataset, y_test, num_classes, fam_idx):
@@ -308,7 +309,7 @@ def tune_parameters_ginjk(full_train_dataset, y_full_train, train_dataset, val_d
                         print(f"Testing time: {tst_time}")
                         cv_curr_params["testing_time"].append(tst_time)
                         cv_curr_params["loss"].append(loss)
-                        acc, prec, rec, f1, bal_acc = computre_metrics(y_val_data, y_pred, fam_idx)
+                        acc, prec, rec, f1, bal_acc = compute_metrics(y_val_data, y_pred, fam_idx)
                         cv_curr_params["acc"].append(acc)
                         cv_curr_params["prec"].append(prec)
                         cv_curr_params["rec"].append(rec)
@@ -376,7 +377,7 @@ def tune_parameters_ginjk(full_train_dataset, y_full_train, train_dataset, val_d
     start_test = time.time()
     accuracy, loss, y_pred = test(model, test_loader, best_params["batch_size"], DEVICE)
     end_test = time.time()
-    final_acc, final_prec, final_rec, final_f1, final_bal_acc = computre_metrics(y_test, y_pred, fam_idx)
+    final_acc, final_prec, final_rec, final_f1, final_bal_acc = compute_metrics(y_test, y_pred, fam_idx)
     GNN_script.cprint("--------------------------------------------------",0)
     GNN_script.cprint(f"GNN: Test accuracy: {final_acc}",0)
     GNN_script.cprint(f"GNN: Test balanced accuracy: {final_bal_acc}",0)
@@ -384,6 +385,7 @@ def tune_parameters_ginjk(full_train_dataset, y_full_train, train_dataset, val_d
     GNN_script.cprint(f"GNN: Test recall: {final_rec}",0)
     GNN_script.cprint(f"GNN: Test f1: {final_f1}",0)
     GNN_script.cprint("--------------------------------------------------",0)
+    plot_confusion_matrix(y_test, y_pred, fam_idx, model_name="ginjk")
     results = {}
     results["final_acc"] = final_acc
     results["final_prec"] = final_prec
@@ -444,7 +446,7 @@ def tune_parameters_fginjk(full_train_dataset, y_full_train, train_dataset, val_
                                 end = time.time()
                                 print(f"Testing time: {end - start}")
                                 current_params["loss"] = loss
-                                current_params["acc"], current_params["prec"], current_params["rec"], current_params["f1"], current_params["bal_acc"] = computre_metrics(y_val, y_pred, fam_idx)
+                                current_params["acc"], current_params["prec"], current_params["rec"], current_params["f1"], current_params["bal_acc"] = compute_metrics(y_val, y_pred, fam_idx)
                                 if current_params["bal_acc"] > best_bal_acc:
                                     best_bal_acc = current_params["bal_acc"]
                                     best_loss = loss
@@ -498,7 +500,7 @@ def tune_parameters_fginjk(full_train_dataset, y_full_train, train_dataset, val_
                             print(f"Testing time: {tst_time}")
                             cv_curr_params["testing_time"].append(tst_time)
                             cv_curr_params["loss"].append(loss)
-                            acc, prec, rec, f1, bal_acc = computre_metrics(y_val_data, y_pred, fam_idx)
+                            acc, prec, rec, f1, bal_acc = compute_metrics(y_val_data, y_pred, fam_idx)
                             cv_curr_params["acc"].append(acc)
                             cv_curr_params["prec"].append(prec)
                             cv_curr_params["rec"].append(rec)
@@ -566,7 +568,7 @@ def tune_parameters_fginjk(full_train_dataset, y_full_train, train_dataset, val_
     start_test = time.time()
     accuracy, loss, y_pred = test(model, test_loader, best_params["batch_size"], DEVICE)
     end_test = time.time()
-    final_acc, final_prec, final_rec, final_f1, final_bal_acc = computre_metrics(y_test, y_pred, fam_idx)
+    final_acc, final_prec, final_rec, final_f1, final_bal_acc = compute_metrics(y_test, y_pred, fam_idx)
     GNN_script.cprint("--------------------------------------------------",0)
     GNN_script.cprint(f"GNN: Test accuracy: {final_acc}",0)
     GNN_script.cprint(f"GNN: Test balanced accuracy: {final_bal_acc}",0)
@@ -574,6 +576,7 @@ def tune_parameters_fginjk(full_train_dataset, y_full_train, train_dataset, val_
     GNN_script.cprint(f"GNN: Test recall: {final_rec}",0)
     GNN_script.cprint(f"GNN: Test f1: {final_f1}",0)
     GNN_script.cprint("--------------------------------------------------",0)
+    plot_confusion_matrix(y_test, y_pred, fam_idx, model_name="fginjk")
     results = {}
     results["final_acc"] = final_acc
     results["final_prec"] = final_prec
@@ -587,10 +590,10 @@ def tune_parameters_fginjk(full_train_dataset, y_full_train, train_dataset, val_
     return results
 
 def tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_dataset, y_val, test_dataset, y_test, num_classes, fam_idx):
-    hidden = [128, 64]
-    num_layers = [5, 6]
+    hidden = [128, 64, 32]
+    num_layers = [4, 5, 6, 7]
     lr = [0.001]
-    batch_sizes = [128, 64, 32, 16, 8]
+    batch_sizes = [64, 32, 16, 8]
     flag = False
     fg = flag
     step_size = [8e-3, 5e-3, 1e-3]
@@ -634,7 +637,7 @@ def tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_da
                                 end = time.time()
                                 print(f"Testing time: {end - start}")
                                 current_params["loss"] = loss
-                                current_params["acc"], current_params["prec"], current_params["rec"], current_params["f1"], current_params["bal_acc"] = computre_metrics(y_val, y_pred, fam_idx)
+                                current_params["acc"], current_params["prec"], current_params["rec"], current_params["f1"], current_params["bal_acc"] = compute_metrics(y_val, y_pred, fam_idx)
                                 if current_params["bal_acc"] > best_bal_acc:
                                     best_bal_acc = current_params["bal_acc"]
                                     best_loss = loss
@@ -688,7 +691,7 @@ def tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_da
                             print(f"Testing time: {tst_time}")
                             cv_curr_params["testing_time"].append(tst_time)
                             cv_curr_params["loss"].append(loss)
-                            acc, prec, rec, f1, bal_acc = computre_metrics(y_val_data, y_pred, fam_idx)
+                            acc, prec, rec, f1, bal_acc = compute_metrics(y_val_data, y_pred, fam_idx)
                             cv_curr_params["acc"].append(acc)
                             cv_curr_params["prec"].append(prec)
                             cv_curr_params["rec"].append(rec)
@@ -756,7 +759,7 @@ def tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_da
     start_test = time.time()
     accuracy, loss, y_pred = test(model, test_loader, best_params["batch_size"], DEVICE)
     end_test = time.time()
-    final_acc, final_prec, final_rec, final_f1, final_bal_acc = computre_metrics(y_test, y_pred, fam_idx)
+    final_acc, final_prec, final_rec, final_f1, final_bal_acc = compute_metrics(y_test, y_pred, fam_idx)
     GNN_script.cprint("--------------------------------------------------",0)
     GNN_script.cprint(f"GNN: Test accuracy: {final_acc}",0)
     GNN_script.cprint(f"GNN: Test balanced accuracy: {final_bal_acc}",0)
@@ -764,6 +767,7 @@ def tune_parameters_rgin(full_train_dataset, y_full_train, train_dataset, val_da
     GNN_script.cprint(f"GNN: Test recall: {final_rec}",0)
     GNN_script.cprint(f"GNN: Test f1: {final_f1}",0)
     GNN_script.cprint("--------------------------------------------------",0)
+    plot_confusion_matrix(y_test, y_pred, fam_idx, model_name="rgin")
     results = {}
     results["final_acc"] = final_acc
     results["final_prec"] = final_prec
@@ -808,20 +812,25 @@ def write_cross_val_stats_to_tmp_csv(results, clf_model, fold):
 def compare_models():
     pass
 
+def init_adv_dataset(path, families, mapping, reversed_mapping):
+    dataset, label, fam_idx, fam_dict, dataset_wl, data_paths = GNN_script.init_dataset(path, families, reversed_mapping, [], {}, False)
+    y_test = [e.y.item() for e in dataset]
+    return dataset, y_test, dataset_wl, label, fam_idx, label, data_paths
+
 def init_all_datasets(path, families, mapping, reversed_mapping):
 
     id = 1
 
     # PyG dataset
-    dataset, label, fam_idx, fam_dict, dataset_wl = GNN_script.init_dataset(path, families, reversed_mapping, [], {}, False)
-    train_idx, test_idx = GNN_script.split_dataset_indexes(dataset, label)
+    # dataset, label, fam_idx, fam_dict, dataset_wl = GNN_script.init_dataset(path, families, reversed_mapping, [], {}, False)
+    # train_idx, test_idx = GNN_script.split_dataset_indexes(dataset, label)
 
-    full_train_dataset,y_full_train, test_dataset, y_test = get_datasets(dataset, train_idx, test_idx)
+    # full_train_dataset,y_full_train, test_dataset, y_test = get_datasets(dataset, train_idx, test_idx)
 
-    # with open("/root/rev_bodmas_mapping_hash.json", "r") as fp:
-    #     name_map = json.load(fp)
-    # dataset_dict, dataset, label, fam_idx, fam_dict, dataset_wl, dataset_dict_wl = GNN_script.temporal_init_dataset(path, families, reversed_mapping, [], {}, False, name_map)
-    # full_train_dataset,y_full_train, test_dataset, y_test = GNN_script.temporal_split_train_test(dataset_dict, 0.7)
+    with open("/root/rev_bodmas_mapping_hash.json", "r") as fp:
+        name_map = json.load(fp)
+    dataset_dict, dataset, label, fam_idx, fam_dict, dataset_wl, dataset_dict_wl = GNN_script.temporal_init_dataset(path, families, reversed_mapping, [], {}, False, name_map)
+    full_train_dataset,y_full_train, test_dataset, y_test = GNN_script.temporal_split_train_test(dataset_dict, 0.7)
 
     GNN_script.cprint(f"GNN {id} : datasets length, {len(dataset)}, {len(full_train_dataset)}, {len(test_dataset)}",id)
 
@@ -830,9 +839,10 @@ def init_all_datasets(path, families, mapping, reversed_mapping):
     train_dataset, y_train, val_dataset, y_val = get_datasets(full_train_dataset, trn_idx, val_idx)
 
     # WL dataset
-    wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = get_datasets_wl(dataset_wl, train_idx, test_idx, label)
+    # wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = get_datasets_wl(dataset_wl, train_idx, test_idx, label)
 
-    # wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = GNN_script.temporal_split_train_test_wl(dataset_dict_wl, 0.7, label)
+    wl_full_train_dataset,wl_y_full_train, wl_test_dataset,wl_y_test = GNN_script.temporal_split_train_test_wl(dataset_dict_wl, 0.7, label)
+
     GNN_script.cprint(f"WL {id} : datasets length, {len(dataset_wl)}, {len(wl_full_train_dataset)} {len(wl_test_dataset)}",id)
 
     # import pdb; pdb.set_trace()
@@ -841,28 +851,26 @@ def init_all_datasets(path, families, mapping, reversed_mapping):
 
 def main(batch_size, hidden, num_layers, drop_ratio, residual, rand_graph, flag, step_size, m, epochs, net_linear, drop_path_p, edge_p, clf_model, tune, lr, ds_path, explaining, trained_model, plot_mtx, mapping, reversed_mapping):
     id = 1
-    #Dataset Loading
-    # families = ["berbew","sillyp2p","benjamin","small","mira","upatre","wabot"]
-    
+
+    #Dataset Loading    
     families = ['benjamin', 'berbew', 'ceeinject', 'dinwod', 'ganelp', 'gepys', 'mira', 'sfone', 'sillyp2p', 'small', 'upatre', 'wabot', 'wacatac'] # merge1
 
     # families = ['berbew', 'ceeinject', 'dinwod', 'ganelp', 'sfone', 'sillyp2p', 'small', 'upatre', 'wabot'] # merge0
 
     # families = ['berbew', 'ceeinject', 'dinwod', 'ganelp', 'sfone', 'sillyp2p', 'small', 'upatre', 'wabot', 'wacatac'] # merge2
 
+    # families = ["cleanware", "malware"] # detect
+
     # families = ['delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','sytro','wabot','RemcosRAT'] # gs sema
 
-    # families = ['delf','FeakerStealer','ircbot','lamer','nitol','RedLineStealer','sillyp2p','sytro','wabot','RemcosRAT']
-    # families = ['delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','sytro','wabot','RemcosRAT','bancteian', 'Sodinokibi']
-    # families = ["cleanware", "malware"]
 
-    # families = ['delf','FeakerStealer','gandcrab','lamer','nitol','RedLineStealer','sfone','sillyp2p','sytro','wabot','RemcosRAT', 'Sodinokibi']
-
-    # families = ["FeakerStealer", "RedLineStealer", "RemcosRAT", "Sodinokibi", "delf", "gandcrab", "ircbot", "lamer", "nitol", "sfone", "sillyp2p", "sytro", "wabot"]
-
-    
-
-    
+    if test_only:
+        test_dataset, y_test, wl_test_dataset, wl_y_test, fam_idx, label, data_paths  = init_adv_dataset(ds_path, families, mapping, reversed_mapping)
+    elif train_only:
+        val_dataset = []
+        full_train_dataset, y_full_train, wl_full_train_dataset, wl_y_full_train, fam_idx, label, data_paths  = init_adv_dataset(ds_path, families, mapping, reversed_mapping)
+    else:
+        full_train_dataset, y_full_train, test_dataset, y_test, train_dataset, y_train, val_dataset, y_val, wl_full_train_dataset, wl_y_full_train, wl_test_dataset, wl_y_test, label, fam_idx = init_all_datasets(ds_path, families, mapping, reversed_mapping)
 
     full_train_dataset, y_full_train, test_dataset, y_test, train_dataset, y_train, val_dataset, y_val, wl_full_train_dataset, wl_y_full_train, wl_test_dataset, wl_y_test, label, fam_idx = init_all_datasets(ds_path, families, mapping, reversed_mapping)
 
@@ -888,7 +896,43 @@ def main(batch_size, hidden, num_layers, drop_ratio, residual, rand_graph, flag,
                 model.train(dataset=wl_full_train_dataset, label=wl_y_full_train)
                 end_train = time.time()
                 GNN_script.cprint(f"Training time: {end_train - start_train}", 3)
+                save_model(model, f"./SemaClassifier/classifier/saved_model/{clf_model}_model.pkl") 
+                if train_only:
+                    return
+                start_test = time.time()
+                wl_y_pred = model.classify(dataset=wl_test_dataset)
+                end_test = time.time()
+                GNN_script.cprint(f"Testing time: {end_test - start_test}", 3)
 
+                wl_acc, wl_prec, wl_rec, wl_f1, wl_bal_acc = compute_metrics(wl_y_test, wl_y_pred, label)
+                print()
+                GNN_script.cprint("--------------------------------------------------",id)
+                GNN_script.cprint(f"WL kernel Test accuracy: {wl_acc}",id)
+                GNN_script.cprint(f"WL kernel Test balanced accuracy: {wl_bal_acc}",id)
+                GNN_script.cprint(f"WL kernel Test precision: {wl_prec}",id)
+                GNN_script.cprint(f"WL kernel Test recall: {wl_rec}",id)
+                GNN_script.cprint(f"WL kernel Test f1: {wl_f1}",id)
+                print()
+                GNN_script.cprint("--------------------------------------------------",id)
+                plot_confusion_matrix(wl_y_test, wl_y_pred, fam_idx, model_name="WL")
+                return
+            else:
+                print("Invalid GNN model")
+                return
+            # Train model
+            start_train = time.time()
+            model = train(model, full_train_dataset, val_dataset, batch_size, DEVICE, epochs, step_size, m, flag, lr, eval_mode=False)
+            # model = train(model, train_dataset, val_dataset, batch_size, DEVICE, epochs, step_size, m, flag, lr, y_val=y_val)
+            end_train = time.time()
+            GNN_script.cprint(f"Training time: {end_train - start_train}", 3)
+
+            save_model(model, f"./SemaClassifier/classifier/saved_model/{clf_model}_model.pkl")
+            if train_only:
+                return 
+        else:
+            model = load_model(f"./SemaClassifier/classifier/saved_model/{clf_model}_model.pkl")
+
+        if (clf_model == "wl" or clf_model == "adv_wl") and test_only:
                 start_test = time.time()
                 wl_y_pred = model.classify(dataset=wl_test_dataset)
                 end_test = time.time()
@@ -905,21 +949,7 @@ def main(batch_size, hidden, num_layers, drop_ratio, residual, rand_graph, flag,
                 print()
                 GNN_script.cprint("--------------------------------------------------",id)
                 plot_confusion_matrix(wl_y_test, wl_y_pred, fam_idx, model_name="WL")
-                save_model(model, f"./SemaClassifier/classifier/saved_model/{clf_model}_model.pkl") 
                 return
-            else:
-                print("Invalid GNN model")
-                return
-            # Train model
-            start_train = time.time()
-            model = train(model, full_train_dataset, val_dataset, batch_size, DEVICE, epochs, step_size, m, flag, lr, eval_mode=False)
-            # model = train(model, train_dataset, val_dataset, batch_size, DEVICE, epochs, step_size, m, flag, lr, y_val=y_val)
-            end_train = time.time()
-            GNN_script.cprint(f"Training time: {end_train - start_train}", 3)
-
-            save_model(model, f"./SemaClassifier/classifier/saved_model/{clf_model}_model.pkl") 
-        else:
-            model = load_model(f"./SemaClassifier/classifier/saved_model/{clf_model}_model.pkl")
         
         # Test model
         test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
@@ -929,7 +959,7 @@ def main(batch_size, hidden, num_layers, drop_ratio, residual, rand_graph, flag,
         GNN_script.cprint(f"Testing time: {end_test - start_test}", 3)
         GNN_script.cprint(f"GNN: Evaluation accuracy & loss, {accuracy:%}, {loss}",id)
         # Compute metrics
-        acc, prec, rec, f1, bal_acc = computre_metrics(y_test, y_pred, fam_idx)
+        acc, prec, rec, f1, bal_acc = compute_metrics(y_test, y_pred, fam_idx)
         GNN_script.cprint("--------------------------------------------------",id)
         GNN_script.cprint(f"GNN: Test accuracy: {acc}",id)
         GNN_script.cprint(f"GNN: Test balanced accuracy: {bal_acc}",id)
@@ -943,7 +973,7 @@ def main(batch_size, hidden, num_layers, drop_ratio, residual, rand_graph, flag,
             plot_confusion_matrix(y_test, y_pred, fam_idx, model_name=clf_model)
 
         if explaining:
-            explain(model, test_dataset[:10], mapping, fam_idx, f"./SemaClassifier/classifier/explain_output/{clf_model}_2/")
+            explain(model, test_dataset, mapping, fam_idx, f"./SemaClassifier/classifier/explain_output/{clf_model}_2/")
         
     else:
         if clf_model == 'fginjk':
@@ -987,6 +1017,8 @@ if __name__ == "__main__":
     parser.add_argument('--explain', action="store_true", help='Explainability module.')
     parser.add_argument('--trained_model', action="store_true", help='Already trained model, whether we train or not')
     parser.add_argument('--plot_mtx', action='store_true', help="Whether to plot confusion matrix after classification")
+    parser.add_argument('--test', action="store_true", help='Only test the models with the test dataset.')
+    parser.add_argument('--train', action="store_true", help='Only train the model with the train dataset.')
 
     args = parser.parse_args()
     print(args)
@@ -1011,31 +1043,29 @@ if __name__ == "__main__":
     explaining = args.explain
     trained_model = args.trained_model
     plot_mtx = args.plot_mtx
+    test_only = args.test
+    train_only = args.train
 
-    # ds_path = "./databases/examples_samy/BODMAS/01"
-    # ds_path = "./databases/examples_samy/gs"
-    # ds_path = "./databases/examples_samy/out_serena/12/gs"
-    # ds_path = "./databases/examples_samy/BODMAS/wselect3_01"
-    # ds_path = "./databases/examples_samy/BODMAS/detection/cdfs_01"
-    # ds_path = "./databases/examples_samy/big_dataset/merged/alldata/CDFS_b"
-    # ds_path = "./databases/examples_samy/big_dataset/merged/alldata/WSELECTSET2_b"
-    # ds_path = "./databases/examples_samy/ch_gk/105_cdfs"
-    # ds_path = "./databases/examples_samy/ch_gk/three_edges_105_cdfs"
-    # ds_path = "./databases/examples_samy/ch_gk/106_wselect3"
-    # ds_path = "/media/sbettaieb/My Passport/mal_dataset/scdg_bodmas/gs1"
-    ds_path = "./databases/examples_samy/gs1"
     # ds_path = "/root/gs1_sema/gs1"
-    # ds_path = "/root/gs1_bodmas/gs1"
+    ds_path = "/root/gs1_bodmas/gs1"
     # ds_path = "/root/gs1_bodmas/gs0"
     # ds_path = "/root/gs1_bodmas/gs2"
-    # ds_path = "/root/gs"
 
-    mapping = read_mapping("./mapping.txt")
-    reversed_mapping = read_mapping_inverse("./mapping.txt")
+    # ds_path = "/root/detect/gs1"
 
-    # with open("mapping_pandi.json") as f:
-    #     reversed_mapping = json.load(f)
-    # mapping = {v: k for k, v in reversed_mapping.items()}
+    if test_only:
+        ds_path = "/root/SEMA-ToolChain/src/SemaClassifier/classifier/test_files_detection"
+        trained_model = True
+        plot_mtx = True 
+    if train_only:
+        ds_path = "/root/SEMA-ToolChain/src/SemaClassifier/classifier/train_files_detection"
+
+    # mapping = read_mapping("./mapping.txt")
+    # reversed_mapping = read_mapping_inverse("./mapping.txt")
+
+    with open("mapping_pandi.json") as f:
+        reversed_mapping = json.load(f)
+    mapping = {v: k for k, v in reversed_mapping.items()}
 
     main(batch_size, hidden, num_layers, drop_ratio, residual, rand_graph, flag, step_size, m, epochs, net_linear, drop_path_p, edge_p, clf_model, tune, lr, ds_path, explaining, trained_model, plot_mtx, mapping, reversed_mapping)
     

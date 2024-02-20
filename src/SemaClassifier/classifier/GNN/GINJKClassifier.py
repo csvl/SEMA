@@ -12,9 +12,10 @@ class GINJK(torch.nn.Module):
                 self.convs.append(
                     GINConv(
                         torch.nn.Sequential(
-                            torch.nn.Linear(num_features, hidden),
+                            torch.nn.Linear(num_features, 2*hidden),
+                            torch.nn.BatchNorm1d(2*hidden),
                             torch.nn.ReLU(),
-                            torch.nn.Linear(hidden, hidden),
+                            torch.nn.Linear(2*hidden, hidden),
                         ), train_eps=False, aggr="mean"
                     )
                 )
@@ -22,9 +23,10 @@ class GINJK(torch.nn.Module):
                 self.convs.append(
                     GINConv(
                         torch.nn.Sequential(
-                            torch.nn.Linear(hidden, hidden),
+                            torch.nn.Linear(hidden, 2*hidden),
+                            torch.nn.BatchNorm1d(2*hidden),
                             torch.nn.ReLU(),
-                            torch.nn.Linear(hidden, hidden),
+                            torch.nn.Linear(2*hidden, hidden),
                         ), aggr="mean"
                     )
                 )

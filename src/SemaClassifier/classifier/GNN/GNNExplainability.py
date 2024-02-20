@@ -1,7 +1,7 @@
 from torch_geometric.data import Data
 from torch_geometric.explain import Explainer, PGExplainer, GNNExplainer, CaptumExplainer
 from torch_geometric.loader import DataLoader
-from torch_geometric.explain.metric import fidelity
+from torch_geometric.explain.metric import fidelity, characterization_score
 from torch_geometric.explain import unfaithfulness
 
 import matplotlib.pyplot as plt
@@ -12,6 +12,11 @@ import torch
 from torch import Tensor
 
 from captum.attr import DeepLift
+
+from collections import defaultdict
+
+import json
+
 
 BACKENDS = {'graphviz', 'networkx'}
 
@@ -40,20 +45,30 @@ class GNNExplainability():
         self.output_path= output_path
         self.mapping = mapping
         self.fam_idx = fam_idx
+        self.syscall_counter = {"cleanware-cleanware": defaultdict(lambda: 0),
+                                "cleanware-malware": defaultdict(lambda: 0),
+                                "malware-malware": defaultdict(lambda: 0),
+                                "malware-cleanware": defaultdict(lambda: 0)}
+        self.edge_counter = {"cleanware-cleanware": defaultdict(lambda: 0),
+                                "cleanware-malware": defaultdict(lambda: 0),
+                                "malware-malware": defaultdict(lambda: 0),
+                                "malware-cleanware": defaultdict(lambda: 0)}
 
     def explain(self):
         explainer = Explainer(
             model=self.model,
-            algorithm=GNNExplainer(epochs=200),
-            explanation_type='phenomenon', #'model',
+            # algorithm=CaptumExplainer("Saliency"),
+            algorithm=GNNExplainer(epochs=300),
+            # explanation_type='model',
+            explanation_type='phenomenon',
             node_mask_type='attributes',
             edge_mask_type='object',
             model_config=dict(
                 mode='multiclass_classification',
                 task_level='graph',
-                return_type='log_probs',
+                return_type='raw',
             ),
-            threshold_config=dict(threshold_type='topk', value=20),
+            threshold_config=dict(threshold_type='hard', value=0.5),
         )
 
         for i in range(len(self.dataset)):
@@ -63,9 +78,12 @@ class GNNExplainability():
             # print(explanation)
             # import pdb; pdb.set_trace()
             unfaithfulness_score = unfaithfulness(explainer, explanation)
-            print(unfaithfulness_score)
+            print(f"Unfaithfulness : {unfaithfulness_score}")
             fid_pm = fidelity(explainer, explanation)
-            print(fid_pm)
+            print(f"Fidelity : {fid_pm}")
+            # char_score = characterization_score(fid_pm[0], fid_pm[1])
+            # print(f"Char score : {char_score}")
+            # if fid_pm[0] > 0.5:
             pred = explainer.get_prediction(data.x, data.edge_index, data.edge_attr).argmax(dim=1).item()
             true_label = data.y.item()
             if self.output_path is not None:
@@ -75,12 +93,21 @@ class GNNExplainability():
                                 explanation.edge_attr,
                                 explanation.edge_mask,
                                 self.output_path+f"subgraph_{i}_{self.fam_idx[true_label]}_{self.fam_idx[pred]}.png", 
-                                backend="graphviz")
+                                backend="graphviz",
+                                syscall_counter=self.syscall_counter,
+                                edge_counter=self.edge_counter,
+                                true_label=self.fam_idx[true_label],
+                                pred=self.fam_idx[pred])
+                
                 # explanation.visualize_graph(self.output_path+f'subgraph_{i}_{true_label}_{pred}.png', backend="graphviz")
                 # explanation.visualize_feature_importance(self.output_path+f'feature_importance_{i}_{true_label}_{pred}.png', top_k=10)
             else:
                 explanation.visualize_graph(f'subgraph_{i}_{self.fam_idx[true_label]}_{self.fam_idx[pred]}.png', backend="graphviz")
                 # explanation.visualize_feature_importance(f'feature_importance_{i}_{true_label}_{pred}.png', top_k=10)
+        with open(self.output_path+"expl_syscalls_counter.json", "w") as f:
+            json.dump(self.syscall_counter, f)
+        with open(self.output_path+"expl_edge_counter.json", "w") as f:
+            json.dump(self.edge_counter, f)
 
     # def explain(self):
     #     explainer = Explainer(
@@ -127,21 +154,29 @@ def _visualize_graph_via_graphviz(
     edge_attr: Tensor,
     edge_weight: Tensor,
     path: Optional[str] = None,
+    syscall_counter: dict = None,
+    edge_counter = None,
+    true_label = None,
+    pred = None
 ) -> Any:
     import graphviz
 
     suffix = path.split('.')[-1] if path is not None else None
     g = graphviz.Digraph('graph', format=suffix)
     g.attr('node', shape='circle', fontsize='11pt')
+    print(f"{true_label}-{pred}")
 
     for node in edge_index.view(-1).unique().tolist():
         # import pdb; pdb.set_trace()
         node_feat = x[node].item()
         g.node(str(node), label=f"idx {str(node)}; "+str(mapping[node_feat]))
+        syscall_counter[f"{true_label}-{pred}"][str(mapping[node_feat])] += 1
     for (src, dst), w in zip(edge_index.t().tolist(), edge_weight.tolist()):
         hex_color = hex(255 - round(255 * w))[2:]
         hex_color = f'{hex_color}0' if len(hex_color) == 1 else hex_color
         g.edge(str(src), str(dst), color=f'#{hex_color}{hex_color}{hex_color}')
+        edge_counter[f"{true_label}-{pred}"][f"{str(mapping[x[src].item()])} - {str(mapping[x[dst].item()])}"] += 1
+
 
     if path is not None:
         path = '.'.join(path.split('.')[:-1])
@@ -157,6 +192,7 @@ def _visualize_graph_via_networkx(
     edge_index: Tensor,
     edge_weight: Tensor,
     path: Optional[str] = None,
+    syscall_counter: dict = None,
 ) -> Any:
     import matplotlib.pyplot as plt
     import networkx as nx
@@ -210,6 +246,10 @@ def visualize_graph(
     edge_weight: Optional[Tensor] = None,
     path: Optional[str] = None,
     backend: Optional[str] = None,
+    syscall_counter: dict = None,
+    edge_counter = None,
+    true_label = None,
+    pred = None
 ) -> Any:
     r"""Visualizes the graph given via :obj:`edge_index` and (optional)
     :obj:`edge_weight`.
@@ -242,9 +282,9 @@ def visualize_graph(
         backend = 'graphviz' if has_graphviz() else 'networkx'
 
     if backend.lower() == 'networkx':
-        return _visualize_graph_via_networkx(x, mapping, edge_index, edge_weight, path)
+        return _visualize_graph_via_networkx(x, mapping, edge_index, edge_weight, path, syscall_counter)
     elif backend.lower() == 'graphviz':
-        return _visualize_graph_via_graphviz(x, mapping, edge_index, edge_attr, edge_weight, path)
+        return _visualize_graph_via_graphviz(x, mapping, edge_index, edge_attr, edge_weight, path, syscall_counter, edge_counter, true_label, pred)
 
     raise ValueError(f"Expected graph drawing backend to be in "
                      f"{BACKENDS} (got '{backend}')")
