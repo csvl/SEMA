@@ -938,7 +938,7 @@ def main(batch_size, hidden, num_layers, drop_ratio, residual, rand_graph, flag,
                 end_test = time.time()
                 GNN_script.cprint(f"Testing time: {end_test - start_test}", 3)
 
-                wl_acc, wl_prec, wl_rec, wl_f1, wl_bal_acc = computre_metrics(wl_y_test, wl_y_pred, label)
+                wl_acc, wl_prec, wl_rec, wl_f1, wl_bal_acc = compute_metrics(wl_y_test, wl_y_pred, label)
                 print()
                 GNN_script.cprint("--------------------------------------------------",id)
                 GNN_script.cprint(f"WL kernel Test accuracy: {wl_acc}",id)
