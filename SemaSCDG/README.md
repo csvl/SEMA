@@ -9,11 +9,12 @@ make run-scdg-service
 
 Inside the container just run  :
 ```bash
-python3 SemaSCDG.py
+python3 SemaSCDG.py config.ini
 ```
 
 The parameters are put in a configuration file : "config.ini"
-Feel free to modify it to run different experiments. To restore the default values do :
+Feel free to modify it or create new configuration files to run different experiments. 
+To restore the default values of 'config.ini' do :
 ```bash
 python3 restore_defaults.py
 ```
@@ -26,8 +27,8 @@ SCDG module arguments
 
 ```
 expl_method:
-  DFS                 TODO
-  BFS                 TODO
+  DFS                 Depth First Search
+  BFS                 Breadth First Search
   CDFS                TODO
   CBFS                TODO (default)
   DBFS                TODO
@@ -53,12 +54,9 @@ SCDG exploration techniques parameters:
 Binary parameters:
   n_args                  Number of symbolic arguments given to the binary (default : 0)
   loop_counter_concrete   TODO (default : 10240)
-  count_block_enable      TODO
-  sim_file                TODO
+  count_block_enable      Enable the count of visited blocks and instructions
+  sim_file                Create SimFile
   track_command           TODO
-  ioc_report              TODO
-  hooks_enable            TODO
-  entry_addr              Entry address of the binary
 
 SCDG creation parameter:
   min_size             Minimum size required for a trace to be used in SCDG (default : 3)
@@ -73,19 +71,33 @@ Global parameter:
   concrete_target_is_local      Use a local GDB server instead of using cuckoo (default : False)
   print_syscall        print the syscall found
   print_address        print the address
-  csv_file             save the stats into a csv file
+  csv_file             Name of the csv to save the experiment data
   plugin_enable        enable the plugins set to true in the config.ini file
-  approximate          TODO
+  approximate          Symbolic approximation
   is_packed            Is the binary packed ? (default : False)
   timeout              Timeout in seconds before ending extraction (default : 600)
   string_resolve       Do we try to resolv references of string (default : False)
   memory_limit         Skip binary experiment when memory > 90% (default : False)
-  log_level            Level of log, can be INFO, DEBUG, WARNING, NONE (default : INFO) 
+  log_level            Level of log, can be INFO, DEBUG, WARNING, ERROR (default : INFO) 
   family               Family of the malware (default : Unknown)
-  exp_dir              Directory to save SCDG extracted (default : Default)
-  binary_path          Name of the binary to analyze
+  exp_dir              Name of the directory to save SCDG extracted (default : Default)
+  binary_path          Path to the binary or directory
   fast_main            Jump directly into the main function 
+
+Plugins:
+  plugin_env_var          Enable the env_var plugin 
+  plugin_locale_info      Enable the locale_info plugin
+  plugin_resources        Enable the resources plugin
+  plugin_widechar         Enable the widechar plugin
+  plugin_registery        Enable the registery plugin
+  plugin_atom             Enable the atom plugin
+  plugin_thread           Enable the thread plugin
+  plugin_track_command    Enable the track_command plugin
+  plugin_ioc_report       Enable the ioc_report plugin
+  plugin_hooks            Enable the hooks plugin
 ```
+
+To know the details of the angr options see [Angr documentation](https://docs.angr.io/en/latest/appendix/options.html)
 
 Program will output a graph in `.gs` format that could be exploited by `gspan`.
 

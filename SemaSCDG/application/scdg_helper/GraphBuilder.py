@@ -6,12 +6,13 @@ import os
 import json
 import logging
 import configparser
+import sys
 
 
 class GraphBuilder:
     def __init__(self):
         config = configparser.ConfigParser()
-        config.read('config.ini')
+        config.read(sys.argv[1])
         self.config = config
 
         self.DISCARD = {

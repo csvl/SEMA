@@ -3,11 +3,7 @@ import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 import sys
 from SemaExplorer import SemaExplorer
-import configparser
 import os
-
-config = configparser.ConfigParser()
-config.read('config.ini')
 
 class SemaExplorerDFS(SemaExplorer):
     def __init__(

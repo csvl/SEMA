@@ -3,6 +3,7 @@ import os
 from clogging.CustomFormatter import CustomFormatter
 import archinfo
 import configparser
+import sys
 
 
 class SyscallToSCDGBuilder:
@@ -121,7 +122,7 @@ class SyscallToSCDGBuilder:
 
     def __init__(self, scdg):
         config = configparser.ConfigParser()
-        config.read('config.ini')
+        config.read(sys.argv[1])
         self.config = config
         self.scdg = scdg
         self.string_resolv = config['SCDG_arg'].getboolean('string_resolve')

@@ -6,12 +6,13 @@ from collections import deque
 import angr
 import psutil
 import configparser
+import sys
 import os
 
-config = configparser.ConfigParser()
-config.read('config.ini')
-
 from angr.exploration_techniques import ExplorationTechnique
+
+config = configparser.ConfigParser()
+config.read(sys.argv[1])
 
 class SemaExplorer(ExplorationTechnique):
     """
