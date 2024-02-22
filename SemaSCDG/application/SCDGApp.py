@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 import argparse
 import configparser
+import os
+import sys
 
 from scdg_helper.ArgumentParserSCDG import ArgumentParserSCDG
 from SemaSCDG import SemaSCDG
@@ -10,7 +12,7 @@ app = Flask(__name__)
 app.debug = True
 
 config = configparser.ConfigParser()
-config.read('config.ini')
+config.read(sys.argv[1])
 
 #Parse the parameters received in the request and launch the SCDG
 @app.route('/run_scdg', methods=['POST'])

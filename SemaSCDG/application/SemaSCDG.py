@@ -34,7 +34,7 @@ class SemaSCDG():
     """
     def __init__(self):
         config = configparser.ConfigParser()
-        config.read('config.ini')
+        config.read(sys.argv[1])
         self.config = config
         self.get_config_param(self.config)
 
@@ -98,9 +98,9 @@ class SemaSCDG():
         self.packing_type = config['SCDG_arg']['packing_type']
         self.keep_inter_scdg = config['SCDG_arg'].getboolean('keep_inter_scdg')
         self.approximate = config['SCDG_arg'].getboolean('approximate')
-        self.track_command = config['SCDG_arg'].getboolean('track_command')
-        self.ioc_report = config['SCDG_arg'].getboolean('ioc_report')
-        self.hooks_enable = config['SCDG_arg'].getboolean('hooks_enable')
+        self.track_command = config['Plugins_to_load'].getboolean('plugin_track_command')
+        self.ioc_report = config['Plugins_to_load'].getboolean('plugin_ioc_report')
+        self.hooks_enable = config['Plugins_to_load'].getboolean('plugin_hooks')
         self.sim_file = config['SCDG_arg'].getboolean('sim_file')
         self.count_block_enable = config['SCDG_arg'].getboolean('count_block_enable')
         self.plugin_enable = config['SCDG_arg'].getboolean('plugin_enable')
