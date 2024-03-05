@@ -4,7 +4,7 @@ import configparser
 import os
 import sys
 
-from scdg_helper.ArgumentParserSCDG import ArgumentParserSCDG
+from helper.ArgumentParserSCDG import ArgumentParserSCDG
 from SemaSCDG import SemaSCDG
 
 

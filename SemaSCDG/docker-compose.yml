@@ -9,7 +9,7 @@ networks:
 
 services:
   sema-scdg:
-    container_name: scdg
+    container_name: sema-scdg
     image: sema-scdg:latest
     build:
       context: .

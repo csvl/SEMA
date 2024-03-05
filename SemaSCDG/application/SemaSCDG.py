@@ -16,8 +16,8 @@ import gc
 import progressbar
 import configparser
 
-from scdg_helper.GraphBuilder import *
-from scdg_helper.SyscallToSCDG import SyscallToSCDGBuilder
+from helper.GraphBuilder import *
+from helper.SyscallToSCDG import SyscallToSCDGBuilder
 from plugin.PluginManager import PluginManager
 from procedures.LinuxSimProcedure import LinuxSimProcedure
 from procedures.WindowsSimProcedure import WindowsSimProcedure

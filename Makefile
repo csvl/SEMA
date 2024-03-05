@@ -11,7 +11,28 @@ build-scdg:
 	docker build --rm --cache-from sema-scdg:latest -t sema-scdg -f SemaSCDG/Dockerfile .		
 
 build-scdg-pypy:
+	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
 	docker build --rm --cache-from sema-scdg-pypy:latest -t sema-scdg-pypy -f SemaSCDG/Dockerfile-pypy .   
+
+build-classifier:
+	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
+	docker build --rm --cache-from sema-classifier:latest -t sema-classifier -f sema_classifier/Dockerfile .
+
+run-classifier-service:
+	docker run \
+		--rm \
+		-v $(PWD)/sema_classifier/:/sema-classifier \
+		-v $(PWD)/submodules/SEMA-quickspan:/sema-classifier/application/submodules/SEMA-quickspan \
+		-v $(PWD)/submodules/bingraphvis:/sema-classifier/application/submodules/bingraphvis \
+		-v $(PWD)/penv-fix/:/sema-classifier/application/penv-fix \
+		-v $(PWD)/database/:/sema-classifier/application/database\
+		-v $(PWD)/yara/:/sema-classifier/application/yara\
+		-e DISPLAY=$(DISPLAY) \
+		-v /tmp/.X11-unix:/tmp/.X11-unix \
+		-p 5002:5002 \
+		--net=micro_network \
+		--name="sema-classifier" \
+		-it sema-classifier bash
 
 run-web-app-service:
 	docker run \
@@ -70,7 +91,21 @@ run-toolchain:
 		-p 5001:5001 \
 		--net=micro_network \
 		--name="sema-scdg" \
-		sema-scdg python3 SCDGApp.py
+		sema-scdg python3 SCDGApp.py config.ini
+	docker run \
+		--rm -d\
+		-v $(PWD)/sema_classifier/:/sema-classifier \
+		-v $(PWD)/submodules/SEMA-quickspan:/sema-classifier/application/submodules/SEMA-quickspan \
+		-v $(PWD)/submodules/bingraphvis:/sema-classifier/application/submodules/bingraphvis \
+		-v $(PWD)/penv-fix/:/sema-classifier/application/penv-fix \
+		-v $(PWD)/database/:/sema-classifier/application/database\
+		-v $(PWD)/yara/:/sema-classifier/application/yara\
+		-e DISPLAY=$(DISPLAY) \
+		-v /tmp/.X11-unix:/tmp/.X11-unix \
+		-p 5002:5002 \
+		--net=micro_network \
+		--name="sema-classifier" \
+		-it sema-classifier python3 ClassifierApp.py
 	sleep 5
 	docker run \
 		--rm \

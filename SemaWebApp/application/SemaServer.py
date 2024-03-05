@@ -34,50 +34,12 @@ class SemaServer:
     # enable CORS
     CORS(app, resources={r'/*': {'origins': '*'}})
     
-    ##TODO : replace by an API call to get args
-    # def init_class_args(self):    
-    #     for group in SemaServer.sema.args_parser.args_parser_class.parser._mutually_exclusive_groups:
-    #         #SemaServer.log.info(group.title)
-    #         if len(SemaServer.actions_classifier[-1]) == 3:
-    #             SemaServer.actions_classifier.append({})
-                
-    #         for action in group._group_actions:
-    #             # TODO add group_name in new dictionary
-    #             group_name = group.title
-    #             #SemaServer.log.info(action)
-    #             if group_name not in SemaServer.actions_classifier[-1]:
-    #                 SemaServer.actions_classifier[-1][group_name] = []
-    #             if isinstance(action, argparse._StoreTrueAction):
-    #                 SemaServer.actions_classifier[-1][group_name].append({'name': action.dest, 'help': action.help, "type": "bool", "default": False, "is_mutually_exclusive": True})
-    #             elif isinstance(action, argparse._StoreFalseAction):
-    #                 SemaServer.actions_classifier[-1][group_name].append({'name': action.dest, 'help': action.help, "type": "bool", "default": True, "is_mutually_exclusive": True})
-    #             elif not isinstance(action, argparse._HelpAction):
-    #                 SemaServer.actions_classifier[-1][group_name].append({'name': action.dest, 'help': action.help, "type": str(action.type), "default": action.default, "is_mutually_exclusive": True})
-        
-    #     for group in SemaServer.sema.args_parser.args_parser_class.parser._action_groups:
-    #         if group.title == "positional arguments":
-    #             continue
-    #         if group.title == "optional arguments":
-    #             continue
-    #         #SemaServer.log.info(group.title)
-            
-    #         if len(SemaServer.actions_classifier[-1]) == 3:
-    #             SemaServer.actions_classifier.append({})
-                
-    #         for action in group._group_actions:
-    #             # TODO add group_name in new dictionary
-    #             group_name = group.title
-                
-    #             #SemaServer.log.info(action)
-    #             if group_name not in SemaServer.actions_classifier[-1]:
-    #                 SemaServer.actions_classifier[-1][group_name] = []
-    #             if isinstance(action, argparse._StoreTrueAction):
-    #                 SemaServer.actions_classifier[-1][group_name].append({'name': action.dest, 'help': action.help, "type": "bool", "default": False, "is_mutually_exclusive": False})
-    #             elif isinstance(action, argparse._StoreFalseAction):
-    #                 SemaServer.actions_classifier[-1][group_name].append({'name': action.dest, 'help': action.help, "type": "bool", "default": True, "is_mutually_exclusive": False})
-    #             elif not isinstance(action, argparse._HelpAction):
-    #                 SemaServer.actions_classifier[-1][group_name].append({'name': action.dest, 'help': action.help, "type": str(action.type), "default": action.default, "is_mutually_exclusive": False})
-        
+    #Ask the SCDG microservice for available parameters and returns them
+    def init_classifier_args(self):  
+        """Do an API call to the sema-classifier container to get the arguments to put on the index page"""
+        response = requests.get('http://sema-classifier:5002/classifier_args')
+        return response.json()
+    
     #Ask the SCDG microservice for available parameters and returns them
     def init_scdg_args(self):  
         """Do an API call to the sema-scdg container to get the arguments to put on the index page"""
@@ -96,10 +58,8 @@ class SemaServer:
         self.log.info("SCDG arguments retreived")
         
         # Init actions_classifier with current arguments available in ArgParser
-        SemaServer.actions_classifier = [{}]
-        # #self.init_class_args()
-        # self.log.info("Classifier arguments: ")
-        # self.log.info(SemaServer.actions_classifier)
+        SemaServer.actions_classifier = self.init_classifier_args()
+        self.log.info("Classifier arguments retreived")
         
         SemaServer.exps = []
         SemaServer.download_thread = None
@@ -145,50 +105,6 @@ class SemaServer:
     # def iteration():
     #     return
     #     return str(SemaServer.sema.tool_scdg.nb_exps)
-    
-    
-    #Get the parameters entered on the page to transmit them to the classifier
-    # def get_class_args(request):
-    #     # The above code is initializing an empty dictionary `class_args` and two empty lists
-    #     # `exp_args` and `exp_args_str`. It is not doing anything else with these variables.
-    #     class_args = {}
-    #     exp_args = []
-    #     exp_args_str = ""
-    #     for group in SemaServer.sema.args_parser.args_parser_class.parser._mutually_exclusive_groups:
-    #         #SemaServer.log.info(group.title)
-    #         if group.title in request.form:
-    #             exp_args.append("--" + request.form[group.title])
-    #             class_args[request.form[group.title]] = True
-    #     for group in SemaServer.sema.args_parser.args_parser_class.parser._action_groups:
-    #         for action in group._group_actions:
-    #             if action.dest == "binaries":
-    #                 pass
-    #             elif action.dest in request.form:
-    #                 # TODO add group_name in new dictionary
-    #                 group_name = group.title
-    #                 if isinstance(action, argparse._StoreTrueAction) or isinstance(action, argparse._StoreFalseAction):
-    #                     exp_args.append("--" + action.dest)
-    #                     class_args[action.dest] = True
-    #                 else:
-    #                     exp_args.append("--" + action.dest)
-    #                     exp_args.append(request.form[action.dest])
-    #                     class_args[action.dest] = request.form[action.dest]
-                
-    #     if len(request.form["binaries"]) > 0:
-    #         binaries = request.form["binaries"]
-    #         binary_split = binaries.split("/src")
-    #         SemaServer.log.info(binary_split)
-    #         #exit()
-    #         if len(binary_split) > 1:
-    #             binaries = "/app/src/" + binary_split[1]
-    #         else:
-    #             binaries = "/app/src/" + binary_split[0]
-    #         exp_args.append(binaries)
-    #         class_args["binaries"] = binaries        
-    #         #exp_args.append(request.files["binaries"].split("/")[0])
-    #     else:
-    #         exp_args.append("None")
-    #     return class_args, exp_args, exp_args_str
 
     @app.route('/index.html', methods = ['GET', 'POST'])
     def serve_index():
@@ -223,19 +139,8 @@ class SemaServer:
 
             #TODO replace by API call
             if "class_enable" in request.form:
-                pass
-            #     SemaServer.sema.tool_classifier.args = args
-            #     SemaServer.sema.args_parser.args_parser_class.update_tool(args)
-            #     csv_class_file =  "src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/" + "classifier.csv"
-            #     SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.init, args=([args.exp_dir, [], csv_class_file]))) # TODO family
-            #     SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.save_conf,args=([class_args,"src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/"])))
-            #     if SemaServer.sema.tool_classifier.args.train:
-            #         SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.train, args=()))
-            #     elif SemaServer.sema.tool_classifier.mode == "classification":
-            #         SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.classify, args=()))
-            #     elif SemaServer.sema.tool_classifier.mode == "detection":
-            #         SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.detect, args=()))
-            #     SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.save_csv, args=()))
+                response = requests.post('http://sema-classifier:5002/run_classifier', json=class_args)
+                SemaServer.app.logger.info(str(response.content))
             
         return render_template('index.html', 
                             actions_scdg=SemaServer.actions_scdg, 
