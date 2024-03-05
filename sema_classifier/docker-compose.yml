@@ -1,0 +1,24 @@
+# docker-compose.yml
+version: '2'
+
+
+networks:
+  micro_network:
+    name: micro_network
+    external: True
+
+services:
+  sema-classifier:
+    container_name: sema-classifier
+    image: sema-classifier:latest
+    build:
+      context: .
+    ports:
+    - "5001:5001"
+    networks:
+      - micro_network
+    restart: always
+
+      
+
+  
