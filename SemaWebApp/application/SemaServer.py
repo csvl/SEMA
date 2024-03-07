@@ -124,7 +124,7 @@ class SemaServer:
             for key,value in arguments.items():
                 if (key,value) == ('boundary', 'experiment separation'):
                     exp_number += 1
-                if exp_number == 1:
+                elif exp_number == 1:
                     scdg_args[key] = value
                 elif exp_number == 2:
                     class_args[key] = value

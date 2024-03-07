@@ -46,8 +46,6 @@ class SemaClassifier:
 
     def load_model(self,path):
         with open(path, 'rb') as inp:
-            print(path)
-            print(inp)
             return dill.load(inp)
 
     def init_classifer(self,args,
@@ -89,14 +87,14 @@ class SemaClassifier:
                 exit(-1)    
         else: # TODO improve
             if self.classifier_name == "gspan":
-                self.classifier = self.load_model("/classifier/saved_model/gspan_model.pkl")
+                self.classifier = self.load_model("./classifier/saved_model/gspan_model.pkl")
             elif self.classifier_name == "inria": 
-                self.classifier = self.load_model("/classifier/saved_model/inria_model.pkl")
+                self.classifier = self.load_model("./classifier/saved_model/inria_model.pkl")
             elif self.classifier_name == "wl": 
-                self.classifier = self.load_model("/classifier/saved_model/wl_model.pkl")
+                self.classifier = self.load_model("./classifier/saved_model/wl_model.pkl")
             elif self.classifier_name == "dl": # not working with pypy
                 from classifier.DL.DLTrainerClassifier import DLTrainerClassifier
-                self.classifier = self.load_model("/classifier/saved_model/dl_model.pkl")
+                self.classifier = self.load_model("./classifier/saved_model/dl_model.pkl")
             else:
                 self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
                 exit(-1)   
@@ -113,8 +111,6 @@ class SemaClassifier:
         elif self.input_path is None:
             self.input_path = exp_dir
         self.input_path = self.input_path.replace("unknown/","") # todo
-        
-        print(csv_file)
 
         if False : # TODO  or self.args.families -> new args
             self.init_classifer(args=self.args,families=self.args.families ,from_saved_model=(not self.args.train))
@@ -135,7 +131,6 @@ class SemaClassifier:
             try:
                 self.csv_path = csv_file
                 self.df = pd.read_csv(csv_file,sep=";")
-                print(self.df)
             except:
                 self.df = pd.DataFrame(
                     columns=["path", 
@@ -200,9 +195,9 @@ class SemaClassifier:
 
 def main():
     tc = SemaClassifier()
-    args_parser = ArgumentParserClassifier(tc)
+    args_parser = ArgumentParserClassifier()
     tc.args = args_parser.parse_arguments()
-    args_parser.update_tool(tc.args)
+    args_parser.update_tool(tc, tc.args)
     tc.init()
     if tc.args.train:
         tc.train()

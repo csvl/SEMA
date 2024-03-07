@@ -3,6 +3,7 @@ import argparse
 import configparser
 import os
 import sys
+import traceback
 
 from helper.ArgumentParserClassifier import ArgumentParserClassifier
 from SemaClassifier import SemaClassifier
@@ -13,56 +14,45 @@ app.debug = True
 #Parse the parameters received in the request and launch the classifier
 @app.route('/run_classifier', methods=['POST'])
 def run_scdg():
-    args_parser = ArgumentParserClassifier().parser
+    parser = ArgumentParserClassifier()
+    args_parser = parser.parser
     class_args = {}
     exp_args = []
     for group in args_parser._mutually_exclusive_groups:
-        if group.title in request.form:
-            exp_args.append("--" + request.form[group.title])
-            class_args[request.form[group.title]] = True
+        if group.title in request.json:
+            exp_args.append("--" + request.json[group.title])
+            class_args[request.json[group.title]] = True
     for group in args_parser._action_groups:
         for action in group._group_actions:
-            if action.dest == "binaries":
+            if action.dest == "binary_signatures":
                 pass
-            elif action.dest in request.form:
+            elif action.dest in request.json:
                 if isinstance(action, argparse._StoreTrueAction) or isinstance(action, argparse._StoreFalseAction):
                     exp_args.append("--" + action.dest)
                     class_args[action.dest] = True
                 else:
                     exp_args.append("--" + action.dest)
-                    exp_args.append(request.form[action.dest])
-                    class_args[action.dest] = request.form[action.dest]
-            
-    if len(request.form["binaries"]) > 0:
-        binaries = request.form["binaries"]
-        binary_split = binaries.split("/src")
-        if len(binary_split) > 1:
-            binaries = "/app/src/" + binary_split[1]
-        else:
-            binaries = "/app/src/" + binary_split[0]
-        exp_args.append(binaries)
-        class_args["binaries"] = binaries        
-    else:
-        exp_args.append("None")
-    
-    print("************" + class_args)
-    print("//////////////" + exp_args)
+                    exp_args.append(request.json[action.dest])
+                    class_args[action.dest] = request.json[action.dest]
 
-    args_parser.update_tool(class_args)
-    # csv_class_file =  "src/output/runs/"+str(SemaServer.sema.current_exp_dir)+"/" + "classifier.csv"
-    # if SemaServer.sema.tool_classifier.args.train:
-    #     SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.train, args=()))
-    # elif SemaServer.sema.tool_classifier.mode == "classification":
-    #     SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.classify, args=()))
-    # elif SemaServer.sema.tool_classifier.mode == "detection":
-    #     SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.detect, args=()))
-    # SemaServer.exps.append(threading.Thread(target=SemaServer.sema.tool_classifier.save_csv, args=()))
+    class_args["binary_signatures"] = request.json["binary_signatures"] 
+    exp_args.append(request.json["binary_signatures"])       
 
     toolc = SemaClassifier()
+    toolc.args = parser.parse_arguments(args_list=exp_args)
+    parser.update_tool(toolc, toolc.args)
+    toolc.init()
+
     try:
-        toolc.train()
+        if class_args.get("operation_mode", False) == "classification":
+            toolc.classify()
+        elif class_args.get("operation_mode", False) == "detection":
+            toolc.detect()
+        elif not class_args.get("operation_mode", False):
+            toolc.train()
         return "Request successful"
-    except:
+    except :
+        traceback.print_exc() 
         return "Something went wrong"
 
 # Return a json object containing all the available parameters of the Classifier as well as their group, default value and help message
