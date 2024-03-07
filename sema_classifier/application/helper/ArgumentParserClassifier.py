@@ -6,7 +6,7 @@ import multiprocessing
 
 class ArgumentParserClassifier:
     # TODO add logs
-    def __init__(self, tcw):
+    def __init__(self):
         self.parser = argparse.ArgumentParser(description='Classification module arguments')
         self.group_global_class = self.parser.add_argument_group("Global classifiers parameters")
         self.group_global_class.add_argument(
@@ -69,7 +69,7 @@ class ArgumentParserClassifier:
         )
 
         self.group_global_expl = self.parser.add_mutually_exclusive_group() # required=True)
-        self.group_global_expl.title = 'Operation mode'
+        self.group_global_expl.title = 'operation_mode'
         self.group_global_expl.add_argument(
             "--classification",
             help="By malware family",
@@ -85,7 +85,7 @@ class ArgumentParserClassifier:
         
         
         self.group_cl = self.parser.add_mutually_exclusive_group() # required=True
-        self.group_cl.title = 'Classifier used'
+        self.group_cl.title = 'classifier_used'
         self.group_cl.add_argument(
             "--wl",
             help="TODO",
@@ -197,30 +197,20 @@ class ArgumentParserClassifier:
             default=multiprocessing.cpu_count(),
         )
         
-        self.group.add_argument("binaries", 
-                                default="output/runs/",
-                                help="Name of the folder containing binary'signatures to analyze (Default: output/runs/, only that for ToolChain)")
-        self.tcw = tcw
+        self.group.add_argument("binary_signatures", 
+                                help="Name of the folder containing binary'signatures to analyze")
 
-    def update_tool(self, args):
-        if args.binaries: # and not allow_unk
-            self.tcw.input_path = args.binaries
+    def update_tool(self, tcw, args):
+        if args.binary_signatures: # and not allow_unk
+            tcw.input_path = args.binary_signatures
         else:
-            self.tcw.input_path = None
-        sys.setrecursionlimit(2000)
-        # if args.classifier:
-        #     class_method = args.classifier
-        #     if class_method.lower() not in ["gspan","inria","wl","dl"]:
-        #         self.tcw.classifier_name = "wl"
-        #     else:
-        #         self.tcw.classifier_name = class_method
-        #else:
-        self.tcw.classifier_name = "wl" if args.wl else "inria" if args.inria else "dl" if args.dl else "gspan"
+            tcw.input_path = None
+        tcw.classifier_name = "wl" if args.wl else "inria" if args.inria else "dl" if args.dl else "gspan"
 
         if args.threshold:
-            self.tcw.threshold = args.threshold
+            tcw.threshold = args.threshold
 
-        self.tcw.mode = "classification"  if args.classification else "detection"
+        tcw.mode = "classification"  if args.classification else "detection"
 
     def parse_arguments(self, allow_unk=False, args_list=None):
         args = None

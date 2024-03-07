@@ -4,19 +4,19 @@ build-toolchain:
 
 build-web-app:
 	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
-	docker build --rm --cache-from sema-web-app:latest -t sema-web-app  -f SemaWebApp/Dockerfile .
+	docker buildx build --rm --cache-from sema-web-app:latest -t sema-web-app  -f SemaWebApp/Dockerfile .
 
 build-scdg:
 	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
-	docker build --rm --cache-from sema-scdg:latest -t sema-scdg -f SemaSCDG/Dockerfile .		
+	docker buildx build --rm --cache-from sema-scdg:latest -t sema-scdg -f SemaSCDG/Dockerfile .		
 
 build-scdg-pypy:
 	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
-	docker build --rm --cache-from sema-scdg-pypy:latest -t sema-scdg-pypy -f SemaSCDG/Dockerfile-pypy .   
+	docker buildx build --rm --cache-from sema-scdg-pypy:latest -t sema-scdg-pypy -f SemaSCDG/Dockerfile-pypy .   
 
 build-classifier:
 	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
-	docker build --rm --cache-from sema-classifier:latest -t sema-classifier -f sema_classifier/Dockerfile .
+	docker buildx build --rm --cache-from sema-classifier:latest -t sema-classifier -f sema_classifier/Dockerfile .
 
 run-classifier-service:
 	docker run \
@@ -105,8 +105,8 @@ run-toolchain:
 		-p 5002:5002 \
 		--net=micro_network \
 		--name="sema-classifier" \
-		-it sema-classifier python3 ClassifierApp.py
-	sleep 5
+		-i sema-classifier python3 ClassifierApp.py
+	sleep 10
 	docker run \
 		--rm \
 		-v $(PWD)/SemaWebApp/:/sema-web-app \
@@ -129,9 +129,3 @@ clean-scdg-runs:
 
 clean-scdg-saved-runs:
 	sudo rm -r database/SCDG/saved_runs/*
-				
-clean-scdg-empty-directory:
-	sudo rm -r -f SemaSCDG/application/submodules
-	sudo rm -r -f SemaSCDG/application/penv-fix
-	sudo rm -r -f SemaSCDG/application/database
-	sudo rm -r -f SemaSCDG/application/logs

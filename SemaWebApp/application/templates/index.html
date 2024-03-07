@@ -433,25 +433,13 @@
                                                       </label>
                                                       <div id="{{ args["name"] }}Help" class="form-text">{{ args["help"] }}</div>
                                                    </div>
-                                                {% elif  args["name"] == "binaries" or args["name"] == "dir" or  args["name"] == "exp_dir" %}
+                                                {% elif  args["name"] == "binary_signatures" or args["name"] == "dir" or  args["name"] == "exp_dir" %}
                                                    <div class="mb-3">
                                                       <label for="{{ args["name"] }}" class="form-label">{{ args["name"] }}</label>
-                                                      <input class="form-control" aria-describedby="{{ args["name"] }}Help" name="{{ args["name"] }}" value="" type="file" id="{{ args["name"] }}" multiple directory webkitdirectory>
                                                       <div id="{{ args["name"] }}Help" class="form-text">
                                                          {{ args["help"] }}
-                                                         If you use the html "input" file, then we considere the root directory being in the default directory, else use the following textual input with full path
                                                       </div>
                                                       <input class="form-control"  name="{{ args["name"] }}" value="{{ args["default"] }}" type="text" id="{{ args["name"] }}">
-                                                   </div>
-                                                {% elif  args["name"] == "binary_path" %}
-                                                   <div class="mb-3">
-                                                      <label for="{{ args["name"] }}" class="form-label">{{ args["name"] }}</label>
-                                                      <input class="form-control" aria-describedby="{{ args["name"] }}Help" name="{{ args["name"] }}" value="" type="file" id="{{ args["name"] }}" multiple>
-                                                      <div id="{{ args["name"] }}Help" class="form-text">
-                                                         {{ args["help"] }}
-                                                         If you use the html "input" file, then we considere the root directory being in the default directory, else use the following textual input with full path
-                                                      </div>
-                                                      <input class="form-control"  name="{{ args["name"] }}" value="" type="text" id="{{ args["name"] }}">
                                                    </div>
                                                 {% else %}
                                                    <input class="form-control" aria-describedby="{{ args["name"] }}Help" type="text" placeholder="{{ args["name"] }}" aria-label="{{ args["help"] }}">
