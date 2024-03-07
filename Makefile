@@ -4,15 +4,15 @@ build-toolchain:
 
 build-web-app:
 	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
-	docker buildx build --rm --cache-from sema-web-app:latest -t sema-web-app  -f SemaWebApp/Dockerfile .
+	docker buildx build --rm --cache-from sema-web-app:latest -t sema-web-app  -f sema_web_app/Dockerfile .
 
 build-scdg:
 	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
-	docker buildx build --rm --cache-from sema-scdg:latest -t sema-scdg -f SemaSCDG/Dockerfile .		
+	docker buildx build --rm --cache-from sema-scdg:latest -t sema-scdg -f sema_scdg/Dockerfile .		
 
 build-scdg-pypy:
 	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
-	docker buildx build --rm --cache-from sema-scdg-pypy:latest -t sema-scdg-pypy -f SemaSCDG/Dockerfile-pypy .   
+	docker buildx build --rm --cache-from sema-scdg-pypy:latest -t sema-scdg-pypy -f sema_scdg/Dockerfile-pypy .   
 
 build-classifier:
 	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
@@ -37,7 +37,7 @@ run-classifier-service:
 run-web-app-service:
 	docker run \
 		--rm \
-		-v $(PWD)/SemaWebApp/:/sema-web-app \
+		-v $(PWD)/sema_web_app/:/sema-web-app \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-e DISPLAY=$(DISPLAY) \
 		-p 5000:5000 \
@@ -48,7 +48,7 @@ run-web-app-service:
 run-scdg-service:	
 	docker run \
 		--rm \
-		-v $(PWD)/SemaSCDG/:/sema-scdg \
+		-v $(PWD)/sema_scdg/:/sema-scdg \
 		-v $(PWD)/submodules/angr-utils:/sema-scdg/application/submodules/angr-utils \
 		-v $(PWD)/submodules/bingraphvis:/sema-scdg/application/submodules/bingraphvis \
 		-v $(PWD)/penv-fix/:/sema-scdg/application/penv-fix \
@@ -63,7 +63,7 @@ run-scdg-service:
 run-scdg-service-pypy:
 	docker run \
 		--rm \
-		-v $(PWD)/SemaSCDG/:/sema-scdg \
+		-v $(PWD)/sema_scdg/:/sema-scdg \
 		-v $(PWD)/submodules/angr-utils:/sema-scdg/application/submodules/angr-utils \
 		-v $(PWD)/submodules/bingraphvis:/sema-scdg/application/submodules/bingraphvis \
 		-v $(PWD)/penv-fix/:/sema-scdg/application/penv-fix \
@@ -81,7 +81,7 @@ run-toolchain-compose:
 run-toolchain:
 	docker run \
 		--rm -d -i\
-		-v $(PWD)/SemaSCDG/:/sema-scdg \
+		-v $(PWD)/sema_scdg/:/sema-scdg \
 		-v $(PWD)/submodules/angr-utils:/sema-scdg/application/submodules/angr-utils \
 		-v $(PWD)/submodules/bingraphvis:/sema-scdg/application/submodules/bingraphvis \
 		-v $(PWD)/penv-fix/:/sema-scdg/application/penv-fix \
@@ -109,7 +109,7 @@ run-toolchain:
 	sleep 10
 	docker run \
 		--rm \
-		-v $(PWD)/SemaWebApp/:/sema-web-app \
+		-v $(PWD)/sema_web_app/:/sema-web-app \
 		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-e DISPLAY=$(DISPLAY) \
 		-p 5000:5000 \
