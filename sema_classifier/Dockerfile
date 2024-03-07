@@ -24,4 +24,10 @@ RUN apt update; apt-get install --fix-missing -y  \
 COPY ./sema_classifier/requirements.txt /sema-classifier/requirements.txt
 RUN pip3 install -r /sema-classifier/requirements.txt
 
+RUN apt update; apt-get --fix-missing -y install \ 
+    cmake
+
+COPY ./sema_classifier/docker_startup.sh /sema-classifier/docker_startup.sh
+RUN chmod +x /sema-classifier/docker_startup.sh
+
 WORKDIR /sema-classifier/application/

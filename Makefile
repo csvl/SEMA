@@ -32,18 +32,7 @@ run-classifier-service:
 		-p 5002:5002 \
 		--net=micro_network \
 		--name="sema-classifier" \
-		-it sema-classifier bash
-
-run-web-app-service:
-	docker run \
-		--rm \
-		-v $(PWD)/sema_web_app/:/sema-web-app \
-		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-e DISPLAY=$(DISPLAY) \
-		-p 5000:5000 \
-		--net=micro_network \
-		--name="sema-web-app" \
-		-it sema-web-app python3 application/SemaServer.py
+		-it sema-classifier ../docker_startup.sh 1
 
 run-scdg-service:	
 	docker run \
@@ -75,47 +64,8 @@ run-scdg-service-pypy:
 		--name="sema-scdg-pypy" \
 		-it sema-scdg-pypy bash
 
-run-toolchain-compose:
-	DOCKER_BUILDKIT=0 docker compose -f docker-compose.deploy.yml up
-
 run-toolchain:
-	docker run \
-		--rm -d -i\
-		-v $(PWD)/sema_scdg/:/sema-scdg \
-		-v $(PWD)/submodules/angr-utils:/sema-scdg/application/submodules/angr-utils \
-		-v $(PWD)/submodules/bingraphvis:/sema-scdg/application/submodules/bingraphvis \
-		-v $(PWD)/penv-fix/:/sema-scdg/application/penv-fix \
-		-v $(PWD)/database/:/sema-scdg/application/database\
-		-e DISPLAY=$(DISPLAY) \
-		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-p 5001:5001 \
-		--net=micro_network \
-		--name="sema-scdg" \
-		sema-scdg python3 SCDGApp.py config.ini
-	docker run \
-		--rm -d\
-		-v $(PWD)/sema_classifier/:/sema-classifier \
-		-v $(PWD)/submodules/SEMA-quickspan:/sema-classifier/application/submodules/SEMA-quickspan \
-		-v $(PWD)/submodules/bingraphvis:/sema-classifier/application/submodules/bingraphvis \
-		-v $(PWD)/penv-fix/:/sema-classifier/application/penv-fix \
-		-v $(PWD)/database/:/sema-classifier/application/database\
-		-v $(PWD)/yara/:/sema-classifier/application/yara\
-		-e DISPLAY=$(DISPLAY) \
-		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-p 5002:5002 \
-		--net=micro_network \
-		--name="sema-classifier" \
-		-i sema-classifier python3 ClassifierApp.py
-	sleep 10
-	docker run \
-		--rm \
-		-v $(PWD)/sema_web_app/:/sema-web-app \
-		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-e DISPLAY=$(DISPLAY) \
-		-p 5000:5000 \
-		--net=micro_network \
-		--name="sema-web-app"\
-		-it sema-web-app python3 application/SemaServer.py
+	DOCKER_BUILDKIT=0 docker compose -f docker-compose.deploy.yml up 
 
 stop-all-containers:
 	docker stop $$(docker ps -a -q)

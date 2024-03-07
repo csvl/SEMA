@@ -69,8 +69,7 @@ class GSpanClassifier(Classifier):
         self.log.info("Input Path = " + path)
         if path[-1] != "/":
             path += "/"
-        families = glob.glob(path+"/*")
-        print(families)
+        families = glob.glob(path+"*/")
         bar = progressbar.ProgressBar(max_value=len(families))
         bar.start()
         cnt = 0
@@ -78,13 +77,11 @@ class GSpanClassifier(Classifier):
         for family_dir in families:
             if not os.path.isdir(family_dir):
                 continue
-            family_name = family_dir.split('/')[-1].split('_')[0] # TODO only consider folder
+            family_name = os.path.basename(os.path.normpath(family_dir))
             self.log.info("Family = " + family_name)
             self.families.append(family_name)
             # todo handle exception
-            print(glob.glob(family_dir+"/*/*.gs"))
-            graph_test = random.sample(glob.glob(family_dir+"/*/*.gs"), (len(glob.glob(family_dir+"/*/*.gs"))//4)+1)
-            print(graph_test)
+            graph_test = random.sample(glob.glob(family_dir+"*/*.gs"), (len(glob.glob(family_dir+"*/*.gs"))//4)+1)
             id_graph = 0
             merge_graph = self.path_sig+family_name+'_merge.gs'
             #self.log.info("Merge_graph = " + merge_graph)
@@ -113,7 +110,7 @@ class GSpanClassifier(Classifier):
                                     res.write(line)
                         f.close()
             res.close() # TODO in docker save that to share folder
-
+            print(self.path_sig+family_name)
             command = self.gspan_path + "gspan " + '--input_file '+self.path_sig+family_name+'_merge.gs --output_file '+out_name + \
                     ' --pattern --biggest_subgraphs ' + str(self.biggest_subgraphs) + \
                     ' --threads ' + str(self.thread) + \
