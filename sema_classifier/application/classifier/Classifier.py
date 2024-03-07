@@ -24,7 +24,7 @@ class Classifier():
         
         self.name = name
         self.threshold = threshold
-        self.gspan_path = "submodules/SEMA-quickspan/build/" #path.replace("sema_classifier","submodules/SEMA-quickspan/build/") 
+        self.gspan_path = "./submodules/SEMA-quickspan/build/" #path.replace("sema_classifier","submodules/SEMA-quickspan/build/") 
         self.dico_precomputed = []
         self.dataset_len = 0
 
