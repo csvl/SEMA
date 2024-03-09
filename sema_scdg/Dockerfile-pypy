@@ -80,7 +80,7 @@ RUN /etc/init.d/guacd start
 
 RUN apt-get update
 
-COPY ./Semasema_scdgSCDG/requirements_pypy.txt /sema-scdg/requirements_pypy.txt
+COPY ./sema_scdg/requirements_pypy.txt /sema-scdg/requirements_pypy.txt
 RUN pypy3 -m pip install -r /sema-scdg/requirements_pypy.txt
 
 WORKDIR /sema-scdg/application/
