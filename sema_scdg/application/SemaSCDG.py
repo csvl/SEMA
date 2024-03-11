@@ -502,6 +502,7 @@ class SemaSCDG():
         self.call_sim.clear()
         self.scdg_graph.clear()
         self.graph_builder.clear()
+        self.data_manager.clear()
 
     #Construct a list representing the stashes content with the syscalls
     def get_stashes_content(self, main_obj, state, simgr, exp_dir):

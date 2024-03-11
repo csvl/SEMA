@@ -169,3 +169,8 @@ class DataManager():
         self.log.info("Total number of instr: " + str(self.data["nbinstr"]))
         self.log.info("Number of blocks visited: " + str(sum(self.data["block_dict"].values())))
         self.log.info("Number of instr visited: " + str(sum(self.data["instr_dict"].values())))
+
+    def clear(self):
+        self.data.clear()
+        self.data["instr_dict"] = {}
+        self.data["block_dict"] = {}
