@@ -572,6 +572,8 @@ class SemaSCDG():
     def start_scdg(self):
         sys.setrecursionlimit(10000)
         gc.collect()
+
+        crashed_samples = []
         
         self.binary_path = "".join(self.binary_path.rstrip())
         self.nb_exps = 0
@@ -609,7 +611,10 @@ class SemaSCDG():
                     for file in files:
                         self.binary_path = file
                         self.family = current_family
-                        self.run(self.exp_dir + "/")
+                        try :
+                            self.run(self.exp_dir + "/")
+                        except:
+                            crashed_samples.append(self.binary_path)
                         fc+=1
                         self.current_exps += 1
                         bar.update(fc)
@@ -622,6 +627,11 @@ class SemaSCDG():
             else:
                 self.log.error("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/Binaries/malware-win/small_train")
                 exit(-1)
+
+        if len(crashed_samples) > 0:
+            self.log.warning(str(len(crashed_samples)) + " sample(s) has(ve) crashed : ")
+            for i in crashed_samples:
+                print("\t" + i)
 
 def main():
     toolc = SemaSCDG()
