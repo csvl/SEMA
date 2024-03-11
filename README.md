@@ -133,6 +133,7 @@ First launch the containers :
 ```bash
 make run-toolchain
 ```
+Wait for the containers to be up
 
 Then visit 127.0.0.1:5000 on your browser
 
@@ -153,6 +154,10 @@ make run-scdg-service
 Inside the container just run  :
 ```bash
 python3 SemaSCDG.py config.ini
+```
+Or if you want to use pypy3:
+```bash
+pypy3 SemaSCDG.py config.ini
 ```
 
 The parameters are put in a configuration file : "config.ini"
