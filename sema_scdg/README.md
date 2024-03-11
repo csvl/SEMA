@@ -11,6 +11,10 @@ Inside the container just run  :
 ```bash
 python3 SemaSCDG.py config.ini
 ```
+Or if you want to use pypy3:
+```bash
+pypy3 SemaSCDG.py config.ini
+```
 
 The parameters are put in a configuration file : "config.ini"
 Feel free to modify it or create new configuration files to run different experiments. 

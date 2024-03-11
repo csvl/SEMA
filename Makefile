@@ -10,10 +10,6 @@ build-scdg:
 	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
 	docker buildx build --rm --cache-from sema-scdg:latest -t sema-scdg -f sema_scdg/Dockerfile .		
 
-build-scdg-pypy:
-	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
-	docker buildx build --rm --cache-from sema-scdg-pypy:latest -t sema-scdg-pypy -f sema_scdg/Dockerfile-pypy .   
-
 build-classifier:
 	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
 	docker buildx build --rm --cache-from sema-classifier:latest -t sema-classifier -f sema_classifier/Dockerfile .
@@ -49,26 +45,11 @@ run-scdg-service:
 		--name="sema-scdg" \
 		-it sema-scdg bash
 
-run-scdg-service-pypy:
-	docker run \
-		--rm \
-		-v $(PWD)/sema_scdg/:/sema-scdg \
-		-v $(PWD)/submodules/angr-utils:/sema-scdg/application/submodules/angr-utils \
-		-v $(PWD)/submodules/bingraphvis:/sema-scdg/application/submodules/bingraphvis \
-		-v $(PWD)/penv-fix/:/sema-scdg/application/penv-fix \
-		-v $(PWD)/database/:/sema-scdg/application/database\
-		-e DISPLAY=$(DISPLAY) \
-		-v /tmp/.X11-unix:/tmp/.X11-unix \
-		-p 5001:5001 \
-		--net=micro_network \
-		--name="sema-scdg-pypy" \
-		-it sema-scdg-pypy bash
-
 run-toolchain:
-	DOCKER_BUILDKIT=0 docker compose -f docker-compose.deploy.yml up 
-
-stop-all-containers:
-	docker stop $$(docker ps -a -q)
+	DOCKER_BUILDKIT=0 docker compose -f docker-compose.deploy.yml up
+	
+stop-toolchain:
+	docker compose -f docker-compose.deploy.yml down
 
 ARGS = *
 save-scdg-runs:
