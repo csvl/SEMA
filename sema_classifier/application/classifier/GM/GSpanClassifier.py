@@ -29,10 +29,10 @@ class GSpanClassifier(Classifier):
             path = path +'/'
         exp_name = os.path.basename(os.path.normpath(path))
         try :
-            os.mkdir('database/ClassifierOuptut/' + exp_name)
+            os.mkdir('database/ClassifierOutput/' + exp_name)
         except:
             self.log.warning("A folder having the same name already exists in 'ClassifierOutput', new results could overwrite the old ones")
-        self.path_sig = 'database/ClassifierOuptut/' + exp_name + '/sig/'
+        self.path_sig = 'database/ClassifierOutput/' + exp_name + '/sig/'
         self.path_test = 'test-set/'
         self.path_clean = 'clean/'
         self.families = []
