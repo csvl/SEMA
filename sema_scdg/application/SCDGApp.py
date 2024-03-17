@@ -26,7 +26,7 @@ def run_scdg():
             config.set('SCDG_arg', arg, user_data[arg])
         if arg in config['build_graph_arg']:
             config.set('build_graph_arg', arg, user_data[arg])
-    with open('config.ini', 'w') as configfile:
+    with open(sys.argv[1], 'w') as configfile:
         config.write(configfile)
 
     toolc = SemaSCDG()
