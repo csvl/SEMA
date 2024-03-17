@@ -1,45 +1,15 @@
 *.pyc
 archives/*
 */__pycache__/
-penv/
-penv-2.7/
-Examples/
-database/SCDG/*
+database/SCDG/
 database/Binaries/databases/
+database/Binaries/magicRAT/
+database/Binaries/memory_problem_exp/
 database/ClassifierOutput/
-magicRAT/
-mprofile-data/
-malware-win/
-malware-win1/
-malware-win2/
-malware-linux/
-kkrunchy-dataset-1/
-PEPacker-dataset-1/
-malware-inputs-2/
-malware-inputs/
-upx-dataset/
 src/
 .vscode/
 .idea/
 build/
-dist/
-runs/
-toolchain-malware-analysis.rep
-.unpacker_history
-toolchain-malware-analysis.gpr
-databases_local
-samples.zip
-delf.zip
-bancteian.zip
-lamer.zip
-nitol.zip
-sfone.zip
-sillyp2p.zip
-simbot.zip
-sytro.zip
-wabot.zip
-wl_model.pkl
-# find . -size +100M | cat >> .gitignore
 
 # Packages #
 ############
@@ -52,6 +22,3 @@ wl_model.pkl
 *.jar
 *.rar
 *.tar
-*.zip
-sema_webapp.egg-info
-# TODO dl link

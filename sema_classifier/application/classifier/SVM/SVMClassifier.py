@@ -103,7 +103,6 @@ class SVMClassifier(Classifier):
 
     def get_stat_classifier(self):
         logging.basicConfig(level=logging.INFO)
-        
 
         self.log.info("Accuracy %2.2f %%" %(accuracy_score(self.label, self.y_pred)*100))
         self.log.info("Precision %2.2f %%" %(precision_score(self.label, self.y_pred,average='weighted')*100))

@@ -9,22 +9,29 @@ make run-scdg-service
 
 Inside the container just run  :
 ```bash
-python3 SemaSCDG.py config.ini
+python3 SemaSCDG.py configs/config.ini
 ```
 Or if you want to use pypy3:
 ```bash
-pypy3 SemaSCDG.py config.ini
+pypy3 SemaSCDG.py configs/config.ini
 ```
 
-The parameters are put in a configuration file : "config.ini"
+The parameters are put in a configuration file : `configs/config.ini`
 Feel free to modify it or create new configuration files to run different experiments. 
-To restore the default values of 'config.ini' do :
+To restore the default values of `config.ini` do :
 ```bash
 python3 restore_defaults.py
 ```
-The default parameters are stored in the file "default_config.ini"
+The default parameters are stored in the file `default_config.ini`
 
-**The binary path has to be a relative path to a binary beeing into the *database* directory**
+If you wish to run multiple experiments with different configuration files, the script `multiple_experiments.sh` is available and can be used inside the scdg container:
+```bash
+# To show usage
+./multiple_experiments.sh -h
+
+# Run example
+./multiple_experiments.sh -m python3 -c configs/config configs/default_configs
+```
 
 ### Parameters description
 SCDG module arguments
@@ -33,8 +40,8 @@ SCDG module arguments
 expl_method:
   DFS                 Depth First Search
   BFS                 Breadth First Search
-  CDFS                TODO
-  CBFS                TODO (default)
+  CDFS                TODO (default)
+  CBFS                TODO 
   DBFS                TODO
   SDFS                TODO
   SCDFS               TODO
@@ -60,7 +67,7 @@ Binary parameters:
   loop_counter_concrete   TODO (default : 10240)
   count_block_enable      Enable the count of visited blocks and instructions
   sim_file                Create SimFile
-  track_command           TODO
+  entry_addr              Entry address of the binary
 
 SCDG creation parameter:
   min_size             Minimum size required for a trace to be used in SCDG (default : 3)
@@ -73,21 +80,20 @@ SCDG creation parameter:
 
 Global parameter:
   concrete_target_is_local      Use a local GDB server instead of using cuckoo (default : False)
-  print_syscall        print the syscall found
-  print_address        print the address
-  csv_file             Name of the csv to save the experiment data
-  plugin_enable        enable the plugins set to true in the config.ini file
-  approximate          Symbolic approximation
-  is_packed            Is the binary packed ? (default : False)
-  timeout              Timeout in seconds before ending extraction (default : 600)
-  string_resolve       Do we try to resolv references of string (default : False)
-  memory_limit         Skip binary experiment when memory > 90% (default : False)
-  log_level            Level of log, can be INFO, DEBUG, WARNING, ERROR (default : INFO) 
-  family               Family of the malware (default : Unknown)
-  exp_dir              Name of the directory to save SCDG extracted (default : Default)
-  binary_path          Path to the binary or directory
-  fast_main            Jump directly into the main function 
-
+  print_syscall                 Print the syscall found
+  print_address                 Print the address
+  csv_file                      Name of the csv to save the experiment data
+  plugin_enable                 Enable the plugins set to true in the config.ini file
+  approximate                   Symbolic approximation
+  is_packed                     Is the binary packed ? (default : False, not yet supported)
+  timeout                       Timeout in seconds before ending extraction (default : 600)
+  string_resolve                Do we try to resolv references of string (default : True)
+  log_level                     Level of log, can be INFO, DEBUG, WARNING, ERROR (default : INFO) 
+  family                        Family of the malware (default : Unknown)
+  exp_dir                       Name of the directory to save SCDG extracted (default : Default)
+  binary_path                   Relative path to the binary or directory (has to be in the database folder)
+  fast_main                     Jump directly into the main function 
+  
 Plugins:
   plugin_env_var          Enable the env_var plugin 
   plugin_locale_info      Enable the locale_info plugin
@@ -101,23 +107,25 @@ Plugins:
   plugin_hooks            Enable the hooks plugin
 ```
 
+**The binary path has to be a relative path to a binary beeing into the `database` directory**
+
 To know the details of the angr options see [Angr documentation](https://docs.angr.io/en/latest/appendix/options.html)
 
 Program will output a graph in `.gs` format that could be exploited by `gspan`.
 
-You also have a script `MergeGspan.py` which could merge all `.gs` from a directory into only one file.
-
-Password for Examples archive is "infected". Warning : it contains real samples of malwares.
+You also have a script `MergeGspan.py` in `sema_scdg/application/helper` which could merge all `.gs` from a directory into only one file.
 
 
 ## Managing your runs
+
+The output of the SCDG are put into `database/SCDG/runs/`
 
 If you want to remove all the runs you have made :
 ```bash
 make clean-scdg-runs
 ```
 
-If you want to save some runs into the saved_runs file:
+If you want to save some runs into the `saved_runs` directory:
 ```bash
 make save-scdg-runs                   #If you want to save all runs
 make save-scdg-runs ARGS=DIR_NAME     #If you want to save only a specific run
