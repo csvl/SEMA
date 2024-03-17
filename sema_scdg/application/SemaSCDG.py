@@ -34,10 +34,11 @@ class SemaSCDG():
     """
     def __init__(self):
         config = configparser.ConfigParser()
-        config.read(sys.argv[1])
+        file = config.read(sys.argv[1])
         self.config = config
+        if file == []:
+            raise FileNotFoundError("Config file not found")
         self.get_config_param(self.config)
-
         self.config_logger()
 
         self.store_data = self.csv_file != ""
@@ -409,7 +410,7 @@ class SemaSCDG():
 
         self.set_breakpoints(state)
         
-        # (3) TODO manon: move that but as serena purposes car je ne sais pas ahah
+        # (3) TODO: move that but as serena purposes
         for sec in main_obj.sections:
             name = sec.name.replace("\x00", "")
             if name == ".rsrc":
@@ -590,7 +591,9 @@ class SemaSCDG():
             last_family = self.family
             if os.path.isdir(self.binary_path):
                 subfolder = [os.path.join(self.binary_path, f) for f in os.listdir(self.binary_path) if os.path.isdir(os.path.join(self.binary_path, f))]
-               
+                if len(subfolder) == 0:
+                    self.log.error("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/Binaries/malware-win/small_train")
+                    exit(-1)
                 for folder in subfolder:
                     files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and not f.endswith(".zip")]
                     self.nb_exps += len(files)
@@ -614,7 +617,9 @@ class SemaSCDG():
                         self.family = current_family
                         try :
                             self.run(self.exp_dir + "/")
-                        except:
+                        except Exception as e:
+                            if type(e) == KeyboardInterrupt:
+                                sys.exit(-1)
                             crashed_samples.append(self.binary_path)
                         fc+=1
                         self.current_exps += 1

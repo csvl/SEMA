@@ -31,7 +31,6 @@ class SemaExplorer(ExplorationTechnique):
 
         self.start_time = timer.time()
 
-        self.memory_limit = config['explorer_arg'].getboolean('memory_limit')
         self.verbose = config['explorer_arg'].getboolean('verbose')
         self.eval_time = config['explorer_arg'].getboolean('eval_time')
         #self._max_length = int(config['explorer_arg']['max_length'])
@@ -435,7 +434,8 @@ class SemaExplorer(ExplorationTechnique):
             self.log.info("Timeout expired for simulation !")
         if not (len(simgr.active) > 0 and self.deadended < self.max_end_state):
             self.log.info("len(simgr.active) <= 0 or deadended >= self.max_end_state)")
-        if False:
+        # Stop binary analysis if the memory usage is above 97% (prevent the machine from crashing)
+        if True:
             vmem = psutil.virtual_memory()
             if vmem.percent > 97:
                 # TODO return in logs file the malware hash

@@ -23,6 +23,7 @@
 
 3. [ SEMA ](#tc)
     1. [ `SemaSCDG` ](#tcscdg)
+    2. [ `SemaClassifier` ](#tcc)
 
 4. [Quick Start Demos](#)
     1. [ `Extract SCDGs from binaries` ](https://github.com/csvl/SEMA-ToolChain/blob/production/Tutorial/Notebook/SEMA-SCDG%20Demo.ipynb)
@@ -43,7 +44,7 @@
 
     * KVM/QEMU
 
-    * Celery
+    * Docker, docker buildx, docker compose 
 
 ##### Interesting links
 
@@ -51,16 +52,19 @@
 
 * https://bazaar.abuse.ch/
 
+* https://docs.docker.com/engine/install/ubuntu/
+
 :page_with_curl: Installation
 ====
 <a name="install"></a>
 
-Tested on Ubuntu 18 LTS. Checkout Makefile and install.sh for more details.
+Tested on Ubuntu 20.
 
 **Recommanded installation:**
 
 ```bash
 git clone https://github.com/Manon-Oreins/SEMA-ToolChain.git;
+
 # Full installation (ubuntu)
 make build-toolchain;
 ```
@@ -84,41 +88,20 @@ To install pip on arch-based systems:
 sudo pacman -Sy python-pip xterm;
 ```
 
-#### Python virtual environment
-
-For `angr`, it is recommended to use the python virtual environment. 
-
-```bash
-python3 -m venv penv;
-```
-
-This create a virtual envirnment called `penv`. 
-Then, you can run your virtual environment with:
-
-```bash
-source penv/bin/activate;
-```
-
-##### For extracting test database
+##### For extracting database
 
 ```bash
 cd databases/Binaries; bash extract_deploy_db.sh
 ```
 
+Password for archive is "infected". Warning : it contains real samples of malwares.
+
 ##### For code cleaning
 
-For dev (code cleaning):
 ```bash
-cd databases/Binaries; bash compress_db.sh 
 #To zip back the test database
-make clean-scdg-empty-directory
-#To remove all directory created by the docker files that are empty
-
+cd databases/Binaries; bash compress_db.sh 
 ```
-
-##### Dependencies
-
-docker buildx and docker compose -> see https://docs.docker.com/engine/install/ubuntu/
 
 :page_with_curl: `SEMA - ToolChain`
 ====
@@ -133,10 +116,14 @@ First launch the containers :
 ```bash
 make run-toolchain
 ```
+
+It will start the scdg, the classifier and the web app services. If you wish to use only the scdg or only the classifier, refer to the next sections.
+
 Wait for the containers to be up
 
 Then visit 127.0.0.1:5000 on your browser
 
+See next sections for details about the different parameters.
 
 :page_with_curl: System Call Dependency Graphs extractor (`SemaSCDG`)
 ====
@@ -153,22 +140,29 @@ make run-scdg-service
 
 Inside the container just run  :
 ```bash
-python3 SemaSCDG.py config.ini
+python3 SemaSCDG.py configs/config.ini
 ```
 Or if you want to use pypy3:
 ```bash
-pypy3 SemaSCDG.py config.ini
+pypy3 SemaSCDG.py configs/config.ini
 ```
 
-The parameters are put in a configuration file : "config.ini"
+The parameters are put in a configuration file : `configs/config.ini`
 Feel free to modify it or create new configuration files to run different experiments. 
-To restore the default values of 'config.ini' do :
+To restore the default values of `config.ini` do :
 ```bash
 python3 restore_defaults.py
 ```
-The default parameters are stored in the file "default_config.ini"
+The default parameters are stored in the file `default_config.ini`
 
-**The binary path has to be a relative path to a binary beeing into the *database* directory**
+If you wish to run multiple experiments with different configuration files, the script `multiple_experiments.sh` is available and can be used inside the scdg container:
+```bash
+# To show usage
+./multiple_experiments.sh -h
+
+# Run example
+./multiple_experiments.sh -m python3 -c configs/config configs/default_configs
+```
 
 ### Parameters description
 SCDG module arguments
@@ -177,8 +171,8 @@ SCDG module arguments
 expl_method:
   DFS                 Depth First Search
   BFS                 Breadth First Search
-  CDFS                TODO
-  CBFS                TODO (default)
+  CDFS                TODO (default)
+  CBFS                TODO 
   DBFS                TODO
   SDFS                TODO
   SCDFS               TODO
@@ -217,20 +211,19 @@ SCDG creation parameter:
 
 Global parameter:
   concrete_target_is_local      Use a local GDB server instead of using cuckoo (default : False)
-  print_syscall        print the syscall found
-  print_address        print the address
-  csv_file             Name of the csv to save the experiment data
-  plugin_enable        enable the plugins set to true in the config.ini file
-  approximate          Symbolic approximation
-  is_packed            Is the binary packed ? (default : False)
-  timeout              Timeout in seconds before ending extraction (default : 600)
-  string_resolve       Do we try to resolv references of string (default : False)
-  memory_limit         Skip binary experiment when memory > 90% (default : False)
-  log_level            Level of log, can be INFO, DEBUG, WARNING, ERROR (default : INFO) 
-  family               Family of the malware (default : Unknown)
-  exp_dir              Name of the directory to save SCDG extracted (default : Default)
-  binary_path          Path to the binary or directory
-  fast_main            Jump directly into the main function 
+  print_syscall                 Print the syscall found
+  print_address                 Print the address
+  csv_file                      Name of the csv to save the experiment data
+  plugin_enable                 Enable the plugins set to true in the config.ini file
+  approximate                   Symbolic approximation
+  is_packed                     Is the binary packed ? (default : False, not yet supported)
+  timeout                       Timeout in seconds before ending extraction (default : 600)
+  string_resolve                Do we try to resolv references of string (default : True)
+  log_level                     Level of log, can be INFO, DEBUG, WARNING, ERROR (default : INFO) 
+  family                        Family of the malware (default : Unknown)
+  exp_dir                       Name of the directory to save SCDG extracted (default : Default)
+  binary_path                   Relative path to the binary or directory (has to be in the database folder)
+  fast_main                     Jump directly into the main function 
   
 Plugins:
   plugin_env_var          Enable the env_var plugin 
@@ -245,23 +238,25 @@ Plugins:
   plugin_hooks            Enable the hooks plugin
 ```
 
+**The binary path has to be a relative path to a binary beeing into the `database` directory**
+
 To know the details of the angr options see [Angr documentation](https://docs.angr.io/en/latest/appendix/options.html)
 
 Program will output a graph in `.gs` format that could be exploited by `gspan`.
 
-You also have a script `MergeGspan.py` which could merge all `.gs` from a directory into only one file.
-
-Password for Examples archive is "infected". Warning : it contains real samples of malwares.
+You also have a script `MergeGspan.py` in `sema_scdg/application/helper` which could merge all `.gs` from a directory into only one file.
 
 
 ## Managing your runs
+
+The output of the SCDG are put into `database/SCDG/runs/`
 
 If you want to remove all the runs you have made :
 ```bash
 make clean-scdg-runs
 ```
 
-If you want to save some runs into the saved_runs file:
+If you want to save some runs into the `saved_runs` directory:
 ```bash
 make save-scdg-runs                   #If you want to save all runs
 make save-scdg-runs ARGS=DIR_NAME     #If you want to save only a specific run

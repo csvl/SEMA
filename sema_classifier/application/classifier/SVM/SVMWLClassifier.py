@@ -18,17 +18,11 @@ from sklearn.svm import SVC
 from sklearn.metrics import roc_curve, roc_auc_score
 
 
-try:
-    from .SVMClassifier import SVMClassifier
-    from clogging.CustomFormatter import CustomFormatter
-except:
-    from .SVMClassifier import SVMClassifier
-    from ...clogging.CustomFormatter import CustomFormatter
-
+from .SVMClassifier import SVMClassifier
+from clogging.CustomFormatter import CustomFormatter
 
 CLASS_DIR = os.path.dirname(os.path.abspath(__file__))
 BINARY_CLASS = False # TODO
-
 
 class SVMWLClassifier(SVMClassifier):
     def __init__(self,path,threshold=0.45, 
@@ -61,6 +55,7 @@ class SVMWLClassifier(SVMClassifier):
             super().init_dataset(path)
             K_test = self.gk.transform(self.dataset)
             self.y_pred = self.clf.predict(K_test)
+        self.get_stat_classifier()
 
 
     def train(self,path):
