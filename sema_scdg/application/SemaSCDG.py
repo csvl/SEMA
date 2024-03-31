@@ -359,7 +359,7 @@ class SemaSCDG():
 
         start_execution_time = time.time()
 
-        exp_dir, fileHandler = self.run_setup(exp_dir)
+        exp_dir, self.fileHandler = self.run_setup(exp_dir)
         
         title = "--- Building SCDG of " + self.family  +"/" + self.nameFileShort  + " ---"
         self.log.info("\n" + "-" * len(title) + "\n" + title + "\n" + "-" * len(title))
@@ -494,13 +494,15 @@ class SemaSCDG():
         if self.store_data:
             self.data_manager.save_to_csv(proj, self.family, self.call_sim, self.csv_path)
 
-        logging.getLogger().removeHandler(fileHandler)
-
         self.end_run()
 
     #Clean the SCDG object to be ready for next run
     def end_run(self):
-        self.call_sim.clear()
+        logging.getLogger().removeHandler(self.fileHandler)
+        try:
+            self.call_sim.clear()
+        except:
+            pass
         self.scdg_graph.clear()
         self.graph_builder.clear()
         self.data_manager.clear()
@@ -573,7 +575,7 @@ class SemaSCDG():
     #Setup a logger, detect if the path to analyze is a single file or a directory and launch the run() function
     def start_scdg(self):
         sys.setrecursionlimit(10000)
-        gc.collect()
+        #gc.collect()
 
         crashed_samples = []
         
@@ -604,7 +606,7 @@ class SemaSCDG():
                 bar_f.start()
                 ffc = 0
                 for folder in subfolder:
-                    gc.collect()
+                    #gc.collect()
                     self.log.info("You are currently building SCDG for " + folder)
                     files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and not f.endswith(".zip")]
                     bar = progressbar.ProgressBar(max_value=len(files))
@@ -619,7 +621,10 @@ class SemaSCDG():
                             self.run(self.exp_dir + "/")
                         except Exception as e:
                             if type(e) == KeyboardInterrupt:
+                                print("Interrupted by user")
                                 sys.exit(-1)
+                            self.log.error("This sample has crashed")
+                            self.end_run()
                             crashed_samples.append(self.binary_path)
                         fc+=1
                         self.current_exps += 1
@@ -635,7 +640,7 @@ class SemaSCDG():
                 exit(-1)
 
         if len(crashed_samples) > 0:
-            self.log.warning(str(len(crashed_samples)) + " sample(s) has(ve) crashed : ")
+            self.log.warning(str(len(crashed_samples)) + " sample(s) has(ve) crashed, see 'scdg.ans' file for log details or run the samples individually to see error details")
             for i in crashed_samples:
                 print("\t" + i)
 
