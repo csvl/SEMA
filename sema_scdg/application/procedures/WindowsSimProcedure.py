@@ -80,7 +80,6 @@ class WindowsSimProcedure(CustomSimProcedure):
             "msvcr"
         ]
         
-        #TODO : Try with and without the "if x86 : if windows"
         for symb in symbols:
             name = symb.name
             if name in manual_link:

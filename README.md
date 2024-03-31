@@ -367,7 +367,7 @@ python3 SemaClassifier/SemaClassifier.py output/test-set/
 To leave the toolchain just press Ctrl+C then use
 
 ```bash
-make stop-all-containers
+make stop-toolchain
 ```
 
 To stop all docker containers.

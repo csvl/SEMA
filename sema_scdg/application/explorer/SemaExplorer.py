@@ -389,6 +389,7 @@ class SemaExplorer(ExplorationTechnique):
                     self.id = self.id - 1
 
     def filter(self, simgr, state, **kwargs) :
+        state.history.trim()
         # Manage lost state
         if state.addr < simgr._project.loader.main_object.mapped_base :
             return "lost"
