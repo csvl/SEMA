@@ -45,14 +45,16 @@ class GNNExplainability():
         self.output_path= output_path
         self.mapping = mapping
         self.fam_idx = fam_idx
-        self.syscall_counter = {"cleanware-cleanware": defaultdict(lambda: 0),
-                                "cleanware-malware": defaultdict(lambda: 0),
-                                "malware-malware": defaultdict(lambda: 0),
-                                "malware-cleanware": defaultdict(lambda: 0)}
-        self.edge_counter = {"cleanware-cleanware": defaultdict(lambda: 0),
-                                "cleanware-malware": defaultdict(lambda: 0),
-                                "malware-malware": defaultdict(lambda: 0),
-                                "malware-cleanware": defaultdict(lambda: 0)}
+        # self.syscall_counter = {"cleanware-cleanware": defaultdict(lambda: 0),
+        #                         "cleanware-malware": defaultdict(lambda: 0),
+        #                         "malware-malware": defaultdict(lambda: 0),
+        #                         "malware-cleanware": defaultdict(lambda: 0)}
+        # self.edge_counter = {"cleanware-cleanware": defaultdict(lambda: 0),
+        #                         "cleanware-malware": defaultdict(lambda: 0),
+        #                         "malware-malware": defaultdict(lambda: 0),
+        #                         "malware-cleanware": defaultdict(lambda: 0)}
+        self.syscall_counter = {}
+        self.edge_counter = {}
 
     def explain(self):
         explainer = Explainer(
@@ -71,7 +73,7 @@ class GNNExplainability():
             threshold_config=dict(threshold_type='hard', value=0.5),
         )
 
-        for i in range(len(self.dataset)):
+        for i in range(len(self.dataset[:10])):
             data = self.dataset[i]
             print(data)
             explanation = explainer(data.x, data.edge_index, edge_attr=data.edge_attr, target=data.y)
@@ -170,12 +172,12 @@ def _visualize_graph_via_graphviz(
         # import pdb; pdb.set_trace()
         node_feat = x[node].item()
         g.node(str(node), label=f"idx {str(node)}; "+str(mapping[node_feat]))
-        syscall_counter[f"{true_label}-{pred}"][str(mapping[node_feat])] += 1
+        # syscall_counter[f"{true_label}-{pred}"][str(mapping[node_feat])] += 1
     for (src, dst), w in zip(edge_index.t().tolist(), edge_weight.tolist()):
         hex_color = hex(255 - round(255 * w))[2:]
         hex_color = f'{hex_color}0' if len(hex_color) == 1 else hex_color
         g.edge(str(src), str(dst), color=f'#{hex_color}{hex_color}{hex_color}')
-        edge_counter[f"{true_label}-{pred}"][f"{str(mapping[x[src].item()])} - {str(mapping[x[dst].item()])}"] += 1
+        # edge_counter[f"{true_label}-{pred}"][f"{str(mapping[x[src].item()])} - {str(mapping[x[dst].item()])}"] += 1
 
 
     if path is not None:

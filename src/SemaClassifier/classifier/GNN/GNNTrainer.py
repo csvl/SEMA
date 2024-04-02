@@ -9,29 +9,33 @@ import seaborn as sns
 import pandas as pd
 import os
 import glob
-from torch_geometric.data import Batch
 from torch_geometric.loader import DataLoader
-from torch_geometric.datasets import TUDataset
-from torch_geometric import compile
 import numpy as np
 import logging
 
 from ..Classifier import Classifier
 from .GINClassifier import GIN
-from .GINJKClassifier import GINJK
-from .GCNClassifier import GCN
-from .RGINClassifier import R_GINJK
-from .RGINJKClassifier import RanGINJK
-from .GINJKFlagClassifier import GINJKFlag
+
 from .GNNExplainability import GNNExplainability
-from .utils import gen_graph_data, read_gs_4_gnn, read_json_4_gnn
 import copy
 
-# import torch._dynamo
-# torch._dynamo.config.suppress_errors = True
+from .models.GINEClassifier import GINE
+from .models.GINJKClassifier import GINJK
+from .models.GINMLPClassifier import GINMLP
+
+from .gnn_helpers.metrics_utils import *
+from .gnn_helpers.models_training import *
+from .gnn_helpers.models_tuning import *
+
+from .gnn_helpers.utils import gen_graph_data, read_gs_4_gnn, read_mapping, read_mapping_inverse, save_model, load_model, cprint
+
+from .utils import read_json_4_gnn
 
 CLASS_DIR = os.path.dirname(os.path.abspath(__file__))
 BINARY_CLASS = False # TODO
+
+DEVICE: str = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+print(f"Using device: {DEVICE}")
 
 class GNNTrainer(Classifier):
     def __init__(self, path, name, threshold=0.45,
@@ -93,24 +97,20 @@ class GNNTrainer(Classifier):
             # val_dataset = self.val_dataset
             if self.name=="gin":
                 self.clf = GIN(self.train_dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
-            # elif self.name=="sage":
-            #     self.clf = GraphSAGE(self.train_dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
+        
             elif self.name=="ginjk":
                 self.clf = GINJK(self.train_dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
-            elif self.name=="rgin":
-                self.clf = RanGIN(self.train_dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
-            elif self.name=="fginjk":
-                self.clf = GINJKFlag(self.train_dataset[0].num_node_features, self.hidden, num_classes, self.num_layers,
-                                     drop_ratio=drop_ratio, residual=residual)
-            elif self.name=="rginjk":
-                self.clf = RanGINJK(self.train_dataset[0].num_node_features, self.hidden, num_classes, self.num_layers,
-                                    graph_model=graph_model, net_linear=net_linear, drop_ratio=drop_ratio,
-                                    drop_path_p=drop_path_p, edge_p=edge_p, net_seed=net_seed,
-                                    residual=residual)
-            elif self.name=="gcn":
-                self.clf = GCN(self.train_dataset[0].num_node_features, self.hidden, num_classes, self.num_layers)
             
-            # self.clf = compile(self.clf, fullgraph=True) # dynamic=True
+            elif self.name == "gine":
+                self.clf = GINE(self.hidden, num_classes, self.num_layers)
+
+            elif self.name == "ginmlp":
+                self.clf = GINMLP(self.hidden, num_classes, self.num_layers)
+            else:
+                print("Invalid GNN model")
+        else:
+            self.log.info("Dataset length should be > 0")
+            exit(-1)
 
 
     def init_dataset(self, path):
@@ -138,12 +138,12 @@ class GNNTrainer(Classifier):
                     self.fam_idx.append(family)
                     self.fam_dict[family] = len(self.fam_idx) - 1
                 for file in filenames:
-                    # if file.endswith(".gs"):
-                    if file.endswith(".json"):
-                        # edges, nodes, vertices, edge_labels = read_gs_4_gnn(file, self.mapping)
-                        edges, nodes, vertices, edge_labels = read_json_4_gnn(file, self.mapping_inv)
-                        data = gen_graph_data(edges, nodes, vertices, edge_labels, self.fam_dict[family])
+                    if file.endswith(".gs"):
+                    # if file.endswith(".json"):
+                        edges, nodes, vertices, edge_labels = read_gs_4_gnn(file, self.mapping)
+                        # edges, nodes, vertices, edge_labels = read_json_4_gnn(file, self.mapping_inv)
                         if len(edges) > 0:
+                            data = gen_graph_data(edges, nodes, vertices, edge_labels, self.fam_dict[family])
                             if len(nodes) > 1:
                                 self.dataset.append(data)
                             if BINARY_CLASS and len(nodes) > 1:
@@ -158,11 +158,9 @@ class GNNTrainer(Classifier):
         bar.finish()
 
     def split_dataset(self):
-        print("########## Dataset:")
-        # import pdb; pdb.set_trace()
-        for f in self.dataset[:200:20]:
-            print(f"{f.num_nodes} -- {f.num_edges}")
-        sss = StratifiedShuffleSplit(n_splits=1, test_size=0.4, random_state=24)
+        # for f in self.dataset[:200:20]:
+        #     print(f"{f.num_nodes} -- {f.num_edges}")
+        sss = StratifiedShuffleSplit(n_splits=1, test_size=0.3, random_state=24)
         for train, test in sss.split(self.dataset, self.label):
             self.train_index = train
             self.val_index = test
@@ -172,13 +170,6 @@ class GNNTrainer(Classifier):
         for i in self.val_index:
             self.val_dataset.append(self.dataset[i])
             self.y_val.append(self.label[i])
-        print("########## Train set:")
-        # import pdb; pdb.set_trace()
-        for g in self.train_dataset[:4]:
-            print(f"{g.num_nodes} -- {g.num_edges}")
-        print("########## Valid set:")
-        for e in self.val_dataset[:4]:
-            print(f"{e.num_nodes} -- {e.num_edges}")
 
     def get_label(self,fname):
         name = os.path.basename(fname)
@@ -393,47 +384,52 @@ class GNNTrainer(Classifier):
             exit(-1)
 
     def train(self, path):
-        if self.flag:
-            self.train_flag(path)
-        else:
-            self.train_vanilla(path)
+        # import pdb; pdb.set_trace()
+        self.clf = train(self.clf, self.train_dataset, self.batch_size, self.device, self.epoch, self.step_size, self.m, self.flag, self.lr, self.val_dataset, self.y_val, eval_mode=False)
+        # if self.flag:
+        #     self.train_flag(path)
+        # else:
+        #     self.train_vanilla(path)
 
     @torch.no_grad()
     def classify(self,path=None):
         if path is None:
             self.clf.eval()
             val_loader = DataLoader(self.val_dataset, batch_size=64, shuffle=False)
+            criterion = torch.nn.CrossEntropyLoss()
             self.y_pred = list()
             correct = 0
-            for data in val_loader:
-                out = self.clf(data.x, data.edge_index, data.edge_attr, data.batch)
-                pred = out.argmax(dim=1)
-                # correct += int((pred == data.y).sum())
-                correct += pred.eq(data.y).sum().item()
-                for p in pred:
-                    # print(p)
-                    self.y_pred.append(self.fam_idx[p])
-            # print("AAAAAccuracy: " + str(correct/len(self.dataset)))
+            with torch.inference_mode():
+                for data in val_loader:
+                    data = data.to(self.device)
+                    out = self.clf(data.x, data.edge_index, data.edge_attr, data.batch)
+                    pred = out.argmax(dim=1)
+                    # correct += int((pred == data.y).sum())
+                    correct += pred.eq(data.y).sum().item()
+                    for p in pred:
+                        # print(p)
+                        self.y_pred.append(self.fam_idx[p])
+                # print("AAAAAccuracy: " + str(correct/len(self.dataset)))
         else:
             # import pdb; pdb.set_trace()
             self.init_dataset(path)
             print("Dataset len: " + str(len(self.dataset)))
-            import pdb; pdb.set_trace()
+            # import pdb; pdb.set_trace()
             self.clf.eval()
             val_loader = DataLoader(self.dataset, batch_size=64, shuffle=False)
             self.y_pred = list()
             correct = 0
-            
-            for data in val_loader:
-                out = self.clf(data.x, data.edge_index, data.edge_attr, data.batch)
-                pred = out.argmax(dim=1)
-                # correct += int((pred == data.y).sum())
-                correct += pred.eq(data.y).sum().item()
-                for p in pred:
-                    # print(p)
-                    self.y_pred.append(self.fam_idx[p])
-            # print("AAAAAccuracy: " + str(correct/len(self.dataset)))
-            # import pdb; pdb.set_trace() 
+            with torch.inference_mode():
+                for data in val_loader:
+                    out = self.clf(data.x, data.edge_index, data.edge_attr, data.batch)
+                    pred = out.argmax(dim=1)
+                    # correct += int((pred == data.y).sum())
+                    correct += pred.eq(data.y).sum().item()
+                    for p in pred:
+                        # print(p)
+                        self.y_pred.append(self.fam_idx[p])
+                # print("AAAAAccuracy: " + str(correct/len(self.dataset)))
+                # import pdb; pdb.set_trace() 
 
 
     @torch.no_grad()

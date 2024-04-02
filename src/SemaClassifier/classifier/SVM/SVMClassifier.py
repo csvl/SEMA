@@ -104,16 +104,16 @@ class SVMClassifier(Classifier):
         bar.finish()
     
     def split_dataset(self, label):
-        sss = StratifiedShuffleSplit(n_splits=1, test_size=0.4, random_state=24)
-        for train, test in sss.split(self.dataset, label):
+        sss = StratifiedShuffleSplit(n_splits=1, test_size=0.3, random_state=24)
+        for train, test in sss.split(self.dataset, self.label):
             self.train_index = train
             self.val_index = test
         for i in self.train_index:
             self.train_dataset.append(self.dataset[i])
-            self.y_train.append(label[i])  
+            self.y_train.append(self.label[i])  
         for i in self.val_index:
             self.val_dataset.append(self.dataset[i])
-            self.y_val.append(label[i])
+            self.y_val.append(self.label[i])
 
     def get_stat_classifier(self):
         logging.basicConfig(level=logging.INFO)

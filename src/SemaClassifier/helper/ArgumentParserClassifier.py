@@ -35,6 +35,94 @@ class ArgumentParserClassifier:
             type=int,
             default=3,
         )
+
+        self.group_gnn = self.parser.add_argument_group('GNN options')
+        self.group_gnn.add_argument(
+            "--num_layers",
+            help="Number of layers for the GNN (default: 4)",
+            type=int,
+            default=4,
+        )
+        self.group_gnn.add_argument(
+            "--hidden",
+            help="Number of hidden units for the GNN (default: 64)",
+            type=int,
+            default=64,
+        )
+        
+        self.group_gnn.add_argument(
+            "--explain",
+            help="Only for GNN model: explain the prediction (default: False)\n",
+            action='store_true'
+        )
+        self.group_gnn.add_argument(
+            "--no_flag",
+            help="TODO",
+            action="store_true",
+        )
+        self.group_gnn.add_argument(
+            "--patience",
+            help="Only for GNN model: patience for early stopping (default: no early stopping)\n",
+            type=int,
+            default=-1,
+        )
+        self.group_gnn.add_argument(
+            "--step_size",
+            help="Only for GNN model with FLAG: Ascent step size for FLAG algorithm (default: 8e-3)\n",
+            type=float,
+            default=8e-3,
+        )
+        self.group_gnn.add_argument(
+            "--M",
+            help="Only for GNN model with FLAG: Ascent steps for FLAG algorithm (default: 3)\n",
+            type=int,
+            default=3,
+        )
+        self.group_gnn.add_argument(
+            "--net_linear",
+            help="Only for RAN-GNN model: Specify if the network is linear (default: False)",
+            action="store_true",
+        )
+
+        self.group_gnn.add_argument(
+            "--drop_ratio",
+            help="Only for RAN-GNN model: Dropout ratio for the network (default: 0.5)",
+            type=float,
+            default=0.5,
+        )
+
+        self.group_gnn.add_argument(
+            "--drop_path_p",
+            help="Only for RAN-GNN model: Drop path probability (default: 0.01)",
+            type=float,
+            default=0.01,
+        )
+
+        self.group_gnn.add_argument(
+            "--edge_p",
+            help="Only for RAN-GNN model: Edge probability (default: 0.6)",
+            type=float,
+            default=0.6,
+        )
+
+        self.group_gnn.add_argument(
+            "--net_seed",
+            help="Only for RAN-GNN model: Random seed for the network (default: 47)",
+            type=int,
+            default=47,
+        )
+
+        self.group_gnn.add_argument(
+            "--residual",
+            help="Only for RAN-GNN model: Specify if residual connections are used (default: False)",
+            action="store_true",
+        )
+        self.group_gnn.add_argument(
+            "--graph_model",
+            help="Only for RAN-GNN model: Specify the graph model (default: ER), possible values: ER, BA, WS",
+            type=str,
+            default="ER",
+        )
         
         self.group_dl = self.parser.add_argument_group('Deep Learning options')
         self.group_dl.add_argument(
@@ -106,6 +194,30 @@ class ArgumentParserClassifier:
         )
         self.group_cl.add_argument(
             "--gspan",
+            help="TODO",
+            action="store_true",
+            
+        )
+        self.group_cl.add_argument(
+            "--gine",
+            help="TODO",
+            action="store_true",
+            
+        )
+        self.group_cl.add_argument(
+            "--ginjk",
+            help="TODO",
+            action="store_true",
+            
+        )
+        self.group_cl.add_argument(
+            "--ginmlp",
+            help="TODO",
+            action="store_true",
+            
+        )
+        self.group_cl.add_argument(
+            "--gin",
             help="TODO",
             action="store_true",
             
@@ -215,7 +327,7 @@ class ArgumentParserClassifier:
         #     else:
         #         self.tcw.classifier_name = class_method
         #else:
-        self.tcw.classifier_name = "wl" if args.wl else "inria" if args.inria else "dl" if args.dl else "gspan"
+        self.tcw.classifier_name = "wl" if args.wl else "inria" if args.inria else "dl" if args.dl else "gine" if args.gine else "ginjk" if args.ginjk else "ginmlp" if args.ginmlp else "gin" if args.gin else "gspan"
 
         if args.threshold:
             self.tcw.threshold = args.threshold
