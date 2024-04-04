@@ -3,6 +3,7 @@ from ast import arg
 import datetime
 import os
 import sys
+import r2pipe
 from collections import defaultdict
 from typing import Optional, Set, List, Tuple, Dict, TYPE_CHECKING
 from angr.knowledge_plugins.functions import Function
@@ -445,7 +446,6 @@ class SemaSCDG:
             )
             for lib in self.call_sim.system_call_table:
                 print(proj.loader.find_all_symbols(lib))
-            print("biatch")
             #for obj in proj.loader.all_objects:
             #    print(obj)
             #exit()
@@ -635,9 +635,21 @@ class SemaSCDG:
         
 
         # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows)
+        r = r2pipe.open(self.inputs)
+        out_r2 = r.cmd('f ~sym._main')
+        out_r2 = r.cmd('f ~sym._main')   
         addr_main = proj.loader.find_symbol("main")
         if addr_main and self.fast_main:
             addr = addr_main.rebased_addr
+        elif out_r2:
+            addr= None
+            try:
+                iter = out_r2.split("\n")
+                for s in iter:
+                    if s.endswith("._main"):
+                        addr = int(s.split(" ")[0],16)
+            except:
+                pass
         else:
             addr = None
 
@@ -661,7 +673,7 @@ class SemaSCDG:
             options = {angr.options.MEMORY_CHUNK_INDIVIDUAL_READS} #{angr.options.USE_SYSTEM_TIMES} # {angr.options.SIMPLIFY_MEMORY_READS} # angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS {angr.options.SYMBOLIC_INITIAL_VALUES
             # options.add(angr.options.EFFICIENT_STATE_MERGING)
             # options.add(angr.options.DOWNSIZE_Z3)
-            options.add(angr.options.USE_SYSTEM_TIMES)
+            # options.add(angr.options.USE_SYSTEM_TIMES)
             # options.add(angr.options.OPTIMIZE_IR)
             # options.add(angr.options.FAST_MEMORY)
             # options.add(angr.options.SIMPLIFY_MEMORY_READS)
@@ -1358,7 +1370,6 @@ class SemaSCDG:
         tsimgr.active[0].globals["is_thread"] = False
         tsimgr.active[0].globals["recv"] = 0
         tsimgr.active[0].globals["allow_web_interaction"] = False
-        
 
     def build_scdg_fin(self, exp_dir, nameFileShort, main_obj, state, simgr):
         dump_file = {}
