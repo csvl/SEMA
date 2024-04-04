@@ -1591,6 +1591,7 @@ class SemaSCDG:
         else:
             import progressbar
             last_familiy = "unknown"
+            self.log.info(self.inputs)
             if os.path.isdir(self.inputs):
                 subfolder = [os.path.join(self.inputs, f) for f in os.listdir(self.inputs) if os.path.isdir(os.path.join(self.inputs, f))]
                
@@ -1633,7 +1634,7 @@ class SemaSCDG:
                 bar_f.finish()
             else:
                 self.log.info("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/malware-inputs/Sample_paper")
-                exit(-1)
+                # exit(-1)
 
 
 def main():
