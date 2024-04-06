@@ -92,3 +92,10 @@ This will classify input dataset based on previously computed models
 ```bash
 python3 SemaClassifier/SemaClassifier.py output/test-set/
 ```
+
+### Tests
+
+To run the classifier tests, run inside the docker container:
+```bash
+python3 classifier_tests.py configs/config_test.ini
+```

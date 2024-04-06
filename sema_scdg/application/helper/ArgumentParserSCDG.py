@@ -12,25 +12,25 @@ class ArgumentParserSCDG:
         self.group_expl.title = 'expl_method'
         self.group_expl.add_argument(
             "--DFS",
-            help="TODO",
+            help="Depth First Search",
             action="store_true",
             
         )
         self.group_expl.add_argument(
             "--BFS",
-            help="TODO",
+            help="Breadth First Search",
             action="store_true",
             
         )
         self.group_expl.add_argument(
             "--CDFS",
-            help="TODO",
+            help="Custom Depth First Search (Default)",
             action="store_true",
             
         )
         self.group_expl.add_argument(
             "--CBFS",
-            help="TODO",
+            help="Custom Breadth First Search",
             action="store_true",
             
         )
@@ -165,7 +165,7 @@ class ArgumentParserSCDG:
         )
         self.group_bin.add_argument(
             "--loop_counter_concrete",
-            help="TODO (default : 10240)",
+            help="How many times a loop can loop (default : 10240)",
             default=10240,
             type=int,
         )
@@ -184,19 +184,19 @@ class ArgumentParserSCDG:
             
         )
         self.group_rats.add_argument(
-            "--track_command",
+            "--plugin_track_command",
             help="Track command loop of RATs  (default : False)",
             action="store_true",
    
         )
         self.group_rats.add_argument(
-            "--ioc_report",
+            "--plugin_ioc_report",
             help="produces and IoC report  (default : False)",
             action="store_true",
    
         )
         self.group_rats.add_argument(
-            "--hooks_enable",
+            "--plugin_hooks",
             help="activates the hooks for time-consuming functions  (default : False)",
             action="store_true",
    
@@ -291,13 +291,6 @@ class ArgumentParserSCDG:
             help=" Name of the output directory", 
             default = "Test",
 
-        )
-
-        self.group.add_argument(
-            "--verbose",
-            help="Verbose output during calls extraction  (default : False)",
-            action="store_true",
-            
         )
 
         self.group.add_argument(

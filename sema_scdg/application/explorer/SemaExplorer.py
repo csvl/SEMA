@@ -8,11 +8,16 @@ import psutil
 import configparser
 import sys
 import os
+import json
 
 from angr.exploration_techniques import ExplorationTechnique
 
 config = configparser.ConfigParser()
 config.read(sys.argv[1])
+
+log = logging.getLogger("SemaExplorer")
+log_level = os.environ["LOG_LEVEL"]
+log.setLevel(log_level)
 
 class SemaExplorer(ExplorationTechnique):
     """
@@ -29,9 +34,11 @@ class SemaExplorer(ExplorationTechnique):
     ):
         super(SemaExplorer, self).__init__()
 
+        self.log = log
+        self.log_level = log_level
+
         self.start_time = timer.time()
 
-        self.verbose = config['explorer_arg'].getboolean('verbose')
         self.eval_time = config['explorer_arg'].getboolean('eval_time')
         #self._max_length = int(config['explorer_arg']['max_length'])
         self.timeout = int(config['explorer_arg']['timeout'])
@@ -41,10 +48,7 @@ class SemaExplorer(ExplorationTechnique):
         self.loop_counter_concrete = int(config['explorer_arg']['loop_counter_concrete'])
         self.max_simul_state = int(config['explorer_arg']['max_simul_state'])
         self.max_in_pause_stach = int(config['explorer_arg']['max_in_pause_stach'])
-        self.timeout_tab = config['explorer_arg']['timeout_tab']
-        
-        self.log = logging.getLogger("SemaExplorer")
-        self.log.setLevel(os.environ["LOG_LEVEL"])
+        self.timeout_tab = json.loads(config['explorer_arg']['timeout_tab'])
 
         self.errored = 0
         self.unconstrained = 0
@@ -131,9 +135,8 @@ class SemaExplorer(ExplorationTechnique):
                 val = val.to_claripy()
 
         except Exception as e:
-            if self.verbose:
-                self.log.info("Symbolic value encountered !")
-                print(e)
+            self.log.info("Symbolic value encountered !")
+            print(e)
             return value
         return val
 

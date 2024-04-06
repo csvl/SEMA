@@ -1,13 +1,22 @@
 #!/usr/bin/env python3
-from clogging.CustomFormatter import CustomFormatter
 import claripy
-from graphviz import Digraph
 import os
 import json
 import logging
 import configparser
 import sys
 
+from graphviz import Digraph
+from clogging.CustomFormatter import CustomFormatter
+
+log_level = os.environ["LOG_LEVEL"]
+logger = logging.getLogger("GraphBuilder")
+ch = logging.StreamHandler()
+ch.setLevel(log_level)
+ch.setFormatter(CustomFormatter())
+logger.addHandler(ch)
+logger.propagate = False
+logger.setLevel(log_level)
 
 class GraphBuilder:
     def __init__(self):
@@ -78,14 +87,7 @@ class GraphBuilder:
 
     #Setup the logger
     def __config_logger(self):
-        self.log_level = os.environ["LOG_LEVEL"]
-        logger = logging.getLogger("GraphBuilder")
-        ch = logging.StreamHandler()
-        ch.setLevel(self.log_level)
-        ch.setFormatter(CustomFormatter())
-        logger.addHandler(ch)
-        logger.propagate = False
-        logger.setLevel(self.log_level)
+        self.log_level = log_level
         self.log = logger
 
     # Create a mapping for the different syscall name and an unique identifier.
