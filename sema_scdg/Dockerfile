@@ -86,6 +86,12 @@ RUN ldconfig
 RUN /etc/init.d/guacd start
 
 
+#For testing
+RUN  apt update; apt-get --fix-missing -y install \ 
+        libgraphviz-dev \
+        pkg-config
+
+
 COPY ./sema_scdg/requirements.txt /sema-scdg/requirements.txt
 RUN pip3 install -r /sema-scdg/requirements.txt
 

@@ -14,11 +14,28 @@ app.debug = True
 config = configparser.ConfigParser()
 config.read(sys.argv[1])
 
-#Parse the parameters received in the request and launch the SCDG
+# Parse the parameters received in the request and launch the SCDG
 @app.route('/run_scdg', methods=['POST'])
 def run_scdg():
     #Modify config file with the args provided in web app
     user_data = request.json
+    parse_json_request(user_data)
+
+    toolc = SemaSCDG()
+    try:
+        toolc.start_scdg()
+        return "Request successful"
+    except:
+        return "Something went wrong"
+    
+# Respond to the request with a json object containing the return value of get_args
+@app.route('/scdg_args', methods=['GET'])
+def get_args_request():
+    return jsonify(get_args())
+
+# Parse a json object corresponding to the argument received for the scdg.
+# Update the config file 
+def parse_json_request(user_data):
     for arg in user_data:
         if arg in config['explorer_arg']:
             config.set('explorer_arg', arg, user_data[arg])
@@ -29,16 +46,8 @@ def run_scdg():
     with open(sys.argv[1], 'w') as configfile:
         config.write(configfile)
 
-    toolc = SemaSCDG()
-    try:
-        toolc.start_scdg()
-        return "Request successful"
-    except:
-        return "Something went wrong"
-    
-# Return a json object containing all the available parameters of the SCDG as well as their group, default value and help message
-@app.route('/scdg_args', methods=['GET'])
-def get_args():
+# Return a list containing all the available parameters of the SCDG as well as their group, default value and help message
+def get_args(): 
     args_parser = ArgumentParserSCDG().parser
     args_list = [{}]
     is_mutually_exclusive = True
@@ -62,7 +71,7 @@ def get_args():
                 elif not isinstance(action, argparse._HelpAction):
                     args_list[-1][group_name].append({'name': action.dest, 'help': action.help, "type": str(action.type), "default": action.default, "is_mutually_exclusive": is_mutually_exclusive})
         is_mutually_exclusive = False
-    return jsonify(args_list)
+    return args_list
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5001, use_reloader=True)

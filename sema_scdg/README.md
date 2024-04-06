@@ -40,8 +40,8 @@ SCDG module arguments
 expl_method:
   DFS                 Depth First Search
   BFS                 Breadth First Search
-  CDFS                TODO (default)
-  CBFS                TODO 
+  CDFS                Custom Depth First Search (Default)
+  CBFS                Custom Breadth First Search
   DBFS                TODO
   SDFS                TODO
   SCDFS               TODO
@@ -64,7 +64,7 @@ SCDG exploration techniques parameters:
 
 Binary parameters:
   n_args                  Number of symbolic arguments given to the binary (default : 0)
-  loop_counter_concrete   TODO (default : 10240)
+  loop_counter_concrete   How many times a loop can loop (default : 10240)
   count_block_enable      Enable the count of visited blocks and instructions
   sim_file                Create SimFile
   entry_addr              Entry address of the binary
@@ -81,7 +81,6 @@ SCDG creation parameter:
 Global parameter:
   concrete_target_is_local      Use a local GDB server instead of using cuckoo (default : False)
   print_syscall                 Print the syscall found
-  print_address                 Print the address
   csv_file                      Name of the csv to save the experiment data
   plugin_enable                 Enable the plugins set to true in the config.ini file
   approximate                   Symbolic approximation
@@ -134,4 +133,11 @@ make save-scdg-runs ARGS=DIR_NAME     #If you want to save only a specific run
 If you want to erase all saved runs :
 ```bash
 make clean-scdg-saved-runs
+```
+
+## Tests
+
+To run the test, inside the docker container :
+```bash
+python3 scdg_tests.py configs/config_test.ini
 ```

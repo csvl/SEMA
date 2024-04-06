@@ -1,12 +1,21 @@
 import logging
 import os
-from clogging.CustomFormatter import CustomFormatter
 import archinfo
 import configparser
 import sys
 
+from clogging.CustomFormatter import CustomFormatter
 
-class SyscallToSCDGBuilder:
+logger = logging.getLogger("SyscallToSCDG")
+log_level = os.environ["LOG_LEVEL"]
+ch = logging.StreamHandler()
+ch.setLevel(log_level)
+ch.setFormatter(CustomFormatter())
+logger.addHandler(ch)
+logger.propagate = False
+logger.setLevel(log_level)
+
+class SyscallToSCDG:
     FUNCTION_CHAR = {
         "fputc": 0,
     }
@@ -130,14 +139,7 @@ class SyscallToSCDGBuilder:
         self.__config_logger()
 
     def __config_logger(self):
-        logger = logging.getLogger("SyscallToSCDGBuilder")
-        self.log_level = os.environ["LOG_LEVEL"]
-        ch = logging.StreamHandler()
-        ch.setLevel(self.log_level)
-        ch.setFormatter(CustomFormatter())
-        logger.addHandler(ch)
-        logger.propagate = False
-        logger.setLevel(self.log_level)
+        self.log_level = log_level
         self.log = logger
 
     def set_call_sim(self, call_sim):
@@ -149,8 +151,6 @@ class SyscallToSCDGBuilder:
         else:
             return string
         
-    # (2) TODO manon: check correctness of the function with old project version
-    # This function create the SCDG based on encounter syscall during execution -> very important for the project
     # Similar to add_SysCall but with more information (CH)
     def add_call(self, state):
         """_summary_
@@ -319,8 +319,6 @@ class SyscallToSCDGBuilder:
                     self.scdg[id][-1]["ret"] = ret
 
 
-    # (3) TODO manon: configurable eventually
-    # state.inspect.b("simprocedure", when=angr.BP_BEFORE, action=self.call_sim.add_call_debug) in SemaSCDG.py
     def add_call_debug(self, state):
         name = state.inspect.simprocedure_name
         sim_proc = state.inspect.simprocedure
@@ -334,8 +332,7 @@ class SyscallToSCDGBuilder:
 
         self.add_SysCall(name, n_args, state)
 
-    # (2) TODO manon: check correctness of the function with old project version
-    # This function create the SCDG based on encounter syscall during execution -> very important for the project
+
     def add_SysCall(self, syscall, n_args, state):
         """_summary_
         TODO CH for manon

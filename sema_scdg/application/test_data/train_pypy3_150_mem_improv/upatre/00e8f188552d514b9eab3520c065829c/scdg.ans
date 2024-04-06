@@ -1,0 +1,351 @@
+[1;32;40mINFO - 2024-04-05 18:00:18,130 - [34mangr.project[0m - [34mLoading binary database/Binaries/malware-win/train/upatre/00e8f188552d514b9eab3520c065829c[0m[0m
+[1;33;40mWARNING - 2024-04-05 18:00:18,144 - [34mangr.project[0m - [34mDisabling IRSB translation cache because support for self-modifying code is enabled.[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,145 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved InternetSetOptionW from wininet.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,145 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved HttpSendRequestW from wininet.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,146 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved InternetConnectW from wininet.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,146 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved InternetReadFile from wininet.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,147 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved HttpQueryInfoW from wininet.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,147 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved HttpOpenRequestW from wininet.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,148 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved InternetQueryOptionW from wininet.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,148 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved InternetOpenW from wininet.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,149 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved HeapCreate from kernel32.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,149 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved GetModuleFileNameW from kernel32.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,150 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved DeleteFileW from kernel32.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,151 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved CloseHandle from kernel32.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,151 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved GetCurrentDirectoryW from kernel32.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,152 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved GetTempPathW from kernel32.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,153 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved lstrlenW from kernel32.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,154 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved lstrcmpW from kernel32.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,154 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved ExitProcess from kernel32.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,155 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved GetFileSize from kernel32.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,155 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved HeapAlloc from kernel32.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,156 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved GetModuleHandleW from kernel32.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,157 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved WriteFile from kernel32.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,157 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved ReadFile from kernel32.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,158 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved CreateFileW from kernel32.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,158 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved wsprintfW from user32.dll[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:18,159 - [34mangr.project[0m - [34mUsing builtin SimProcedure for unresolved ShellExecuteW from shell32.dll[0m[0m
+[1;33;40mWARNING - 2024-04-05 18:00:21,936 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0x90001c, <SimProcedure InternetOpenW>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2024-04-05 18:00:22,359 - [34mangr.project[0m - [34mAddress is already hooked, during hook(0xa01014, <SimProcedure KiUserExceptionDispatcher>). Not re-hooking.[0m[0m
+[1;33;40mWARNING - 2024-04-05 18:00:22,360 - [34mangr.project[0m - [34mAddress 0x8e0000 not hooked[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,375 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,416 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e1000: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,416 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,416 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,426 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e1380: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,427 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,427 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,430 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e13a2: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,430 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,431 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,434 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e1394: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,434 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,437 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e13a2: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,437 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,440 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e1394: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,441 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,441 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,445 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e1398: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,445 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,445 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,451 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e100d: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,452 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,452 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,511 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure GetModuleHandleW from 0x90004c: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,511 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,512 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,515 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e1019: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,515 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,516 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,519 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e1026: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,520 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,520 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,522 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure HeapCreate from 0x900020: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,523 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,523 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,528 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e1034: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,528 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,528 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,537 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure HeapAlloc from 0x900048: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,537 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,538 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,542 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e1043: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,542 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,550 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure HeapAlloc from 0x900048: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,550 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,550 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,554 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e104e: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,555 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,555 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,558 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure GetModuleFileNameW from 0x900024: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,558 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,558 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,562 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e105c: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,562 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,562 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,693 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure GetTempPathW from 0x900034: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,693 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,693 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,698 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e106a: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,699 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,699 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,759 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure wsprintfW from 0x90005c: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,759 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,760 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,767 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e1080: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,767 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,767 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,782 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure CreateFileW from 0x900058: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,782 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,782 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,787 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e109c: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,787 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,787 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,791 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e10ac: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,791 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,791 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,887 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure GetFileSize from 0x900044: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,887 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,887 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,892 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e10b4: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,892 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,892 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,901 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure lstrlenW from 0x900038: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,901 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,901 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,908 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e10c2: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,908 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;33;40mWARNING - 2024-04-05 18:00:22,971 - [33mangr.state_plugins.heap.heap_base[0m - [33mAllocation request of 1048643 bytes exceeded maximum of 128 bytes; allocating 128 bytes[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,977 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure HeapAlloc from 0x900048: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,977 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,978 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,983 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e10d1: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,984 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,984 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,990 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e10dc: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,990 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:22,990 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,086 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure ReadFile from 0x900054: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,086 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,086 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,091 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e10ee: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,091 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,092 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,100 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure lstrcmpW from 0x90003c: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,101 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,101 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,105 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e10fa: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,105 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,106 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,108 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e1102: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,109 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,117 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure lstrlenW from 0x900038: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,117 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,117 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,125 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e1107: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,125 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,125 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,368 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e1117: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,369 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,369 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,484 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,484 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,598 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,599 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,710 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,710 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,821 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,822 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,930 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:24,931 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:25,038 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:25,038 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:25,146 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:25,147 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:25,253 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:25,254 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:25,362 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:25,363 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:25,469 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:25,470 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:25,576 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:25,576 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:25,681 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:25,681 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:25,790 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:25,790 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:25,894 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:25,894 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:26,000 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:26,032 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:26,165 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:26,185 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:26,305 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:26,321 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:26,441 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:26,459 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:26,578 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:26,602 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:26,733 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:26,758 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:26,883 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:26,906 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:27,031 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:27,057 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:27,185 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:27,207 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:27,337 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:27,381 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:27,517 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:27,545 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:27,747 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:27,748 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:27,873 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:27,874 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:27,982 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:27,983 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:28,088 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:28,089 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:28,192 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:28,192 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:28,298 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:28,299 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:28,402 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:28,402 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:28,526 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:28,527 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:28,632 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:28,633 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:28,742 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:28,742 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:28,846 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:28,847 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:28,957 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:28,957 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:29,061 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:29,062 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:29,172 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:29,173 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:29,280 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:29,281 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:29,384 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:29,385 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:29,493 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:29,493 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:29,598 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:29,599 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:29,707 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:29,708 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:29,813 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:29,813 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:29,922 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:29,922 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:30,033 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:30,039 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:30,143 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:30,148 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:30,252 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:30,252 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:30,757 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:30,758 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:30,874 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:30,874 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:30,987 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:30,988 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:31,100 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:31,100 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:31,216 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:31,217 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:31,338 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:31,338 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:31,509 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:31,509 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:31,628 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:31,628 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:31,734 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:31,735 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:31,840 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:31,840 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:31,945 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:31,945 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,051 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,051 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,156 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,157 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,280 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,280 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,383 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,384 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,486 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e111f: 1 sat 1 unsat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,486 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,486 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,493 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e112a: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,493 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,549 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure CreateFileW from 0x900058: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,549 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,549 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,582 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e1143: 2 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,583 - [32mSemaExplorerCDFS[0m - [32mA new block of execution have been executed with changes in sim_manager.[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,583 - [32mSemaExplorerCDFS[0m - [32mCurrently, simulation manager is :
+<SimulationManager with 2 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,583 - [32mSemaExplorerCDFS[0m - [32mpause stash len :0[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,583 - [32mSemaExplorerCDFS[0m - [32mfork_stack : 1 0x8e10a4 || 0x8e114f[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,583 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,583 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 2 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,590 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e10a4: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,594 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e114f: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,595 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,595 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 2 active>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,597 - [31mangr.procedures.stubs.CallReturn[0m - [31mA factory.call_state-created path returned![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,597 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure CallReturn from 0x1301000: empty>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,605 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure lstrlenW from 0x900038: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,606 - [32mSemaExplorerCDFS[0m - [32mA new block of execution have been executed with changes in sim_manager.[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,606 - [32mSemaExplorerCDFS[0m - [32mCurrently, simulation manager is :
+<SimulationManager with 1 active, 1 deadended>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,606 - [32mSemaExplorerCDFS[0m - [32mpause stash len :0[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,606 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,606 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active, 1 deadended>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,613 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e1159: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,613 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:32,613 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active, 1 deadended>[0m[0m
+[1;33;40mWARNING - 2024-04-05 18:00:32,668 - [33mangr.state_plugins.posix[0m - [33mTried to look up a symbolic fd - constrained to 4 and opened b'/tmp/angr_implicit_0'[0m[0m
+[1;33;40mWARNING - 2024-04-05 18:00:32,707 - [34mangr.storage.file[0m - [34mSymbolic write size is too large for threshold - concretizing to min (1048643)[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,889 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure WriteFile from 0x900050: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,889 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,889 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active, 1 deadended>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,895 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e116a: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,895 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,896 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active, 1 deadended>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,899 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure CloseHandle from 0x90002c: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,899 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,900 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active, 1 deadended>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,903 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e1175: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,904 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active, 1 deadended>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,906 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure CloseHandle from 0x90002c: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,907 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,907 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active, 1 deadended>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,911 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e117a: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,912 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active, 1 deadended>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,978 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure GetTempPathW from 0x900034: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,978 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,978 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active, 1 deadended>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,986 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e1188: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,986 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,986 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active, 1 deadended>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,990 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure ShellExecuteW from 0x900060: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,991 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,991 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active, 1 deadended>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,994 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e119c: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,994 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,994 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active, 1 deadended>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,998 - [37mangr.engines.engine[0m - [37mTicked state: <IRSB from 0x8e1020: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,998 - [32mSemaExplorerCDFS[0m - [32mHey new addr ![0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:34,998 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active, 1 deadended>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:35,001 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure ExitProcess from 0x900040: 1 sat>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:35,001 - [35mangr.sim_manager[0m - [35mStepping active of <SimulationManager with 1 active, 1 deadended>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:35,003 - [37mangr.engines.engine[0m - [37mTicked state: <SimProcedure PathTerminator from 0x900040: empty>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:35,004 - [32mSemaExplorerCDFS[0m - [32mA new block of execution have been executed with changes in sim_manager.[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:35,004 - [32mSemaExplorerCDFS[0m - [32mCurrently, simulation manager is :
+<SimulationManager with 2 deadended>[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:35,004 - [32mSemaExplorerCDFS[0m - [32mpause stash len :0[0m[0m
+[1;32;40mINFO - 2024-04-05 18:00:35,004 - [32mSemaExplorerCDFS[0m - [32mlen(simgr.active) <= 0 or deadended >= self.max_end_state)[0m[0m

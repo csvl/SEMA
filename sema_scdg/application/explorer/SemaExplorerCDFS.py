@@ -5,6 +5,9 @@ from collections import deque
 import sys, os
 from SemaExplorer import SemaExplorer
 
+log_level = os.environ["LOG_LEVEL"]
+log = logging.getLogger("SemaExplorerCDFS")
+log.setLevel(log_level)
 
 class SemaExplorerCDFS(SemaExplorer):
     def __init__(
@@ -26,9 +29,8 @@ class SemaExplorerCDFS(SemaExplorer):
         self.config_logger()
 
     def config_logger(self):
-        self.log_level = os.environ["LOG_LEVEL"]
-        self.log = logging.getLogger("SemaExplorerCDFS")
-        self.log.setLevel(self.log_level)
+        self.log_level = log_level
+        self.log = log
 
     def setup(self, simgr):
         super().setup(simgr)
@@ -121,12 +123,12 @@ class SemaExplorerCDFS(SemaExplorer):
 
         self.build_snapshot(simgr)
 
-        if self.verbose and (len(self.fork_stack) > 0 or len(simgr.deadended) > self.deadended):
+        if (len(self.fork_stack) > 0 or len(simgr.deadended) > self.deadended):
             self.log.info("A new block of execution have been executed with changes in sim_manager.")
             self.log.info("Currently, simulation manager is :\n" + str(simgr))
             self.log.info("pause stash len :" + str(len(self.pause_stash)))
 
-        if self.verbose and len(self.fork_stack) > 0:
+        if len(self.fork_stack) > 0:
             self.log.info("fork_stack : " + str(len(self.fork_stack)) + " " + hex(simgr.active[0].addr) + " || " + hex(simgr.active[1].addr))
         
         # We detect fork for a state

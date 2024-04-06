@@ -137,7 +137,6 @@ class SemaServer:
                 response = requests.post('http://sema-scdg:5001/run_scdg', json=scdg_args)
                 SemaServer.app.logger.info(str(response.content))
 
-            #TODO replace by API call
             if "class_enable" in request.form:
                 response = requests.post('http://sema-classifier:5002/run_classifier', json=class_args)
                 SemaServer.app.logger.info(str(response.content))

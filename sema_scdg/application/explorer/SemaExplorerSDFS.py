@@ -5,6 +5,10 @@ import sys, os
 import angr
 from SemaExplorer import SemaExplorer
 
+log_level = os.environ["LOG_LEVEL"]
+log = logging.getLogger("SemaExplorerSDFS")
+log.setLevel(log_level)
+
 class SemaExplorerSDFS(SemaExplorer):
     def __init__(
         self,
@@ -28,9 +32,8 @@ class SemaExplorerSDFS(SemaExplorer):
         self.config_logger()
 
     def config_logger(self):
-        self.log_level = os.environ["LOG_LEVEL"]
-        self.log = logging.getLogger("SemaExplorerSDFS")
-        self.log.setLevel(self.log_level)
+        self.log_level = log_level
+        self.log = log
         
     def execute_concretely(self, simgr, proj, sdfs):
         if len(simgr.stashes["ExcessLoop"]) > 0:
@@ -78,16 +81,14 @@ class SemaExplorerSDFS(SemaExplorer):
             exit(-1)
         super().build_snapshot(simgr)
 
-        if self.verbose and (
-            len(self.fork_stack) > 0 or len(simgr.deadended) > self.deadended
-        ):
+        if len(self.fork_stack) > 0 or len(simgr.deadended) > self.deadended:
             self.log.info(
                 "A new block of execution have been executed with changes in sim_manager."
             )
             self.log.info("Currently, simulation manager is :\n" + str(simgr))
             self.log.info("pause stash len :" + str(len(simgr.pause)))
 
-        if self.verbose and len(self.fork_stack) > 0:
+        if len(self.fork_stack) > 0:
             self.log.info("fork_stack : " + str(len(self.fork_stack)) + " " + hex(simgr.active[0].addr) + " " + hex(simgr.active[1].addr))
         
         simgr.move("active", "found", lambda s: s.addr == self.find)

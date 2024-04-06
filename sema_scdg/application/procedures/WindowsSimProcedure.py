@@ -8,6 +8,14 @@ from CustomSimProcedure import CustomSimProcedure
 from angr.procedures import SIM_LIBRARIES
 from angr.calling_conventions import SimCCMicrosoftAMD64
 
+log_level = os.environ["LOG_LEVEL"]
+logger = logging.getLogger("WindowsSimProcedure")
+ch = logging.StreamHandler()
+ch.setLevel(log_level)
+ch.setFormatter(CustomFormatter())
+logger.addHandler(ch)
+logger.propagate = False
+logger.setLevel(log_level)
 
 class WindowsSimProcedure(CustomSimProcedure):
 
@@ -19,15 +27,9 @@ class WindowsSimProcedure(CustomSimProcedure):
     # Set up the logger
     def config_logger(self):
         if self.log is None:
-            self.log_level = os.environ["LOG_LEVEL"]
-            logger = logging.getLogger("WindowsSimProcedure")
-            ch = logging.StreamHandler()
-            ch.setLevel(self.log_level)
-            ch.setFormatter(CustomFormatter())
-            logger.addHandler(ch)
-            logger.propagate = False
-            logger.setLevel(self.log_level)
             self.log = logger
+            self.log_level = log_level
+
     
     # Set properly the value in the sim_proc dictionary when meeting an ALT_NAME argument
     def deal_with_alt_names(self, pkg_name, proc):

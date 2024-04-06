@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 import os
 import sys
-
-import json as json_dumper
-from builtins import open as open_file
+import traceback
 import time
 
 import claripy
-#import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from capstone import *
 
@@ -16,8 +13,19 @@ import gc
 import progressbar
 import configparser
 
+import json as json_dumper
+from builtins import open as open_file
+
+
+config = configparser.ConfigParser()
+file = config.read(sys.argv[1])
+if file == []:
+    raise FileNotFoundError("Config file not found")
+log_level = config['SCDG_arg'].get('log_level')
+os.environ["LOG_LEVEL"] = log_level
+
 from helper.GraphBuilder import *
-from helper.SyscallToSCDG import SyscallToSCDGBuilder
+from helper.SyscallToSCDG import SyscallToSCDG
 from plugin.PluginManager import PluginManager
 from procedures.LinuxSimProcedure import LinuxSimProcedure
 from procedures.WindowsSimProcedure import WindowsSimProcedure
@@ -28,18 +36,26 @@ from clogging.DataManager import DataManager
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
+# Setup the logging system and set it to the level specified in the config file
+logger = logging.getLogger("SemaSCDG")
+ch = logging.StreamHandler()
+ch.setLevel(log_level)
+ch.setFormatter(CustomFormatter())
+logger.addHandler(ch)
+logger.propagate = False
+logging.getLogger("angr").setLevel(log_level)
+logging.getLogger('claripy').setLevel(log_level)
+logger.setLevel(log_level)
+
 class SemaSCDG():
     """
     TODO
     """
     def __init__(self):
-        config = configparser.ConfigParser()
-        file = config.read(sys.argv[1])
         self.config = config
-        if file == []:
-            raise FileNotFoundError("Config file not found")
         self.get_config_param(self.config)
-        self.config_logger()
+        self.log = logger
+        self.log_level = log_level
 
         self.store_data = self.csv_file != ""
         self.scdg_graph = []
@@ -55,14 +71,13 @@ class SemaSCDG():
         self.data_manager = DataManager()
         self.explorer_manager = SemaExplorerManager()
 
-        self.families = []
         self.nb_exps = 0
         self.current_exps = 0
         self.current_exp_dir = 0
 
         self.windows_simproc = WindowsSimProcedure(verbose=True)
         self.linux_simproc = LinuxSimProcedure(verbose=True)
-        self.syscall_to_scdg_builder = SyscallToSCDGBuilder(self.scdg_graph)
+        self.syscall_to_scdg_builder = SyscallToSCDG(self.scdg_graph)
         self.graph_builder = GraphBuilder()
 
         # Setup the output directory
@@ -74,21 +89,6 @@ class SemaSCDG():
 
         # Save the configuration used
         self.save_conf()
-
-    # Setup the logging system and set it to the level specified in the config file
-    def config_logger(self):
-        self.log_level = self.config['SCDG_arg'].get('log_level')
-        os.environ["LOG_LEVEL"] = self.log_level
-        logger = logging.getLogger("SemaSCDG")
-        ch = logging.StreamHandler()
-        ch.setLevel(self.log_level)
-        ch.setFormatter(CustomFormatter())
-        logger.addHandler(ch)
-        logger.propagate = False
-        logging.getLogger("angr").setLevel(self.log_level)
-        logging.getLogger('claripy').setLevel(self.log_level)
-        logger.setLevel(self.log_level)
-        self.log = logger
 
     # Get the parameters from config file
     def get_config_param(self, config):
@@ -572,81 +572,80 @@ class SemaSCDG():
             self.log.info(name)
             self.log.info(dump_file["sections"][name])
 
-    #Setup a logger, detect if the path to analyze is a single file or a directory and launch the run() function
-    def start_scdg(self):
-        sys.setrecursionlimit(10000)
-        #gc.collect()
+def start_scdg():
+    crashed_samples = []   
+    binary_path = config['SCDG_arg']['binary_path']
+    binary_path = "".join(binary_path.rstrip())
+    nb_exps = 0
+    current_exps = 0
+    sema_scdg = SemaSCDG()
 
-        crashed_samples = []
-        
-        self.binary_path = "".join(self.binary_path.rstrip())
-        self.nb_exps = 0
-        self.current_exps = 0
-
-        if os.path.isfile(self.binary_path):
-            self.nb_exps = 1
-            self.log.info("You decide to analyse a single binary: "+ self.binary_path)
-            # *|CURSOR_MARCADOR|*
-            self.run(self.exp_dir + "/")
-            self.current_exps = 1
-        else:
-            last_family = self.family
-            if os.path.isdir(self.binary_path):
-                subfolder = [os.path.join(self.binary_path, f) for f in os.listdir(self.binary_path) if os.path.isdir(os.path.join(self.binary_path, f))]
-                if len(subfolder) == 0:
-                    self.log.error("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/Binaries/malware-win/small_train")
-                    exit(-1)
-                for folder in subfolder:
-                    files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and not f.endswith(".zip")]
-                    self.nb_exps += len(files)
-                    
-                self.log.info(self.nb_exps)
-               
-                bar_f = progressbar.ProgressBar(max_value=len(subfolder))
-                bar_f.start()
-                ffc = 0
-                for folder in subfolder:
-                    #gc.collect()
-                    self.log.info("You are currently building SCDG for " + folder)
-                    files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and not f.endswith(".zip")]
-                    bar = progressbar.ProgressBar(max_value=len(files))
-                    bar.start()
-                    fc = 0
-                    current_family = folder.split("/")[-1]
-                    self.exp_dir = self.exp_dir.replace(last_family,current_family) 
-                    for file in files:
-                        self.binary_path = file
-                        self.family = current_family
-                        try :
-                            self.run(self.exp_dir + "/")
-                        except Exception as e:
-                            if type(e) == KeyboardInterrupt:
-                                print("Interrupted by user")
-                                sys.exit(-1)
-                            self.log.error("This sample has crashed")
-                            self.end_run()
-                            crashed_samples.append(self.binary_path)
-                        fc+=1
-                        self.current_exps += 1
-                        bar.update(fc)
-                    self.families += current_family
-                    last_family = current_family
-                    bar.finish()
-                    ffc+=1
-                    bar_f.update(ffc)
-                bar_f.finish()
-            else:
-                self.log.error("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/Binaries/malware-win/small_train")
+    if os.path.isfile(binary_path): 
+        nb_exps = 1
+        sema_scdg.log.info("You decide to analyse a single binary: "+ sema_scdg.binary_path)
+        sema_scdg.run(sema_scdg.exp_dir + "/")
+        current_exps = 1
+    else:
+        last_family = sema_scdg.family
+        if os.path.isdir(sema_scdg.binary_path):
+            subfolder = [os.path.join(sema_scdg.binary_path, f) for f in os.listdir(sema_scdg.binary_path) if os.path.isdir(os.path.join(sema_scdg.binary_path, f))]
+            if len(subfolder) == 0:
+                sema_scdg.log.error("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/Binaries/malware-win/small_train")
                 exit(-1)
+            for folder in subfolder:
+                files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and not f.endswith(".zip")]
+                nb_exps += len(files)
+                
+            sema_scdg.log.info(nb_exps)
+            
+            bar_f = progressbar.ProgressBar(max_value=len(subfolder))
+            bar_f.start()
+            ffc = 0
+            for folder in subfolder:
+                sema_scdg.log.info("You are currently building SCDG for " + folder)
+                files = [os.path.join(folder, f) for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f)) and not f.endswith(".zip")]
+                bar = progressbar.ProgressBar(max_value=len(files))
+                bar.start()
+                fc = 0
+                current_family = folder.split("/")[-1]
+                current_exp_dir = sema_scdg.exp_dir.replace(last_family,current_family) 
+                for file in files:
+                    del sema_scdg
+                    claripy.ast.bv._bvv_cache = dict()
+                    gc.collect()
+                    sema_scdg = SemaSCDG()
+                    sema_scdg.exp_dir = current_exp_dir
 
-        if len(crashed_samples) > 0:
-            self.log.warning(str(len(crashed_samples)) + " sample(s) has(ve) crashed, see 'scdg.ans' file for log details or run the samples individually to see error details")
-            for i in crashed_samples:
-                print("\t" + i)
+                    sema_scdg.binary_path = file
+                    sema_scdg.family = current_family
+                    try :
+                        sema_scdg.run(sema_scdg.exp_dir + "/")
+                    except Exception as e:
+                        if type(e) == KeyboardInterrupt:
+                            print("Interrupted by user")
+                            sys.exit(-1)
+                        # traceback.print_exc() 
+                        # sys.exit(-1)
+                        sema_scdg.log.error("This sample has crashed")
+                        sema_scdg.end_run()
+                        crashed_samples.append(sema_scdg.binary_path)
+                    fc+=1
+                    current_exps += 1
+                    bar.update(fc)
+                last_family = current_family
+                bar.finish()
+                ffc+=1
+                bar_f.update(ffc)
+            bar_f.finish()
+        else:
+            sema_scdg.log.error("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/Binaries/malware-win/small_train")
+            exit(-1)
 
-def main():
-    toolc = SemaSCDG()
-    toolc.start_scdg()
+    if len(crashed_samples) > 0:
+        sema_scdg.log.warning(str(len(crashed_samples)) + " sample(s) has(ve) crashed, see 'scdg.ans' file for log details or run the samples individually to see error details")
+        for i in crashed_samples:
+            print("\t" + i)
+
 
 if __name__ == "__main__":
-    main()
+    start_scdg()

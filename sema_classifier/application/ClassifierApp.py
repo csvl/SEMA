@@ -13,30 +13,11 @@ app.debug = True
 
 #Parse the parameters received in the request and launch the classifier
 @app.route('/run_classifier', methods=['POST'])
-def run_scdg():
+def run_classifier():
+    user_data = request.json
     parser = ArgumentParserClassifier()
     args_parser = parser.parser
-    class_args = {}
-    exp_args = []
-    for group in args_parser._mutually_exclusive_groups:
-        if group.title in request.json:
-            exp_args.append("--" + request.json[group.title])
-            class_args[request.json[group.title]] = True
-    for group in args_parser._action_groups:
-        for action in group._group_actions:
-            if action.dest == "binary_signatures":
-                pass
-            elif action.dest in request.json:
-                if isinstance(action, argparse._StoreTrueAction) or isinstance(action, argparse._StoreFalseAction):
-                    exp_args.append("--" + action.dest)
-                    class_args[action.dest] = True
-                else:
-                    exp_args.append("--" + action.dest)
-                    exp_args.append(request.json[action.dest])
-                    class_args[action.dest] = request.json[action.dest]
-
-    class_args["binary_signatures"] = request.json["binary_signatures"] 
-    exp_args.append(request.json["binary_signatures"])       
+    class_args, exp_args = parse_class_args(user_data, args_parser)
 
     toolc = SemaClassifier()
     toolc.args = parser.parse_arguments(args_list=exp_args)
@@ -57,6 +38,36 @@ def run_scdg():
 
 # Return a json object containing all the available parameters of the Classifier as well as their group, default value and help message
 @app.route('/classifier_args', methods=['GET'])
+def get_args_request():
+    return jsonify(get_args())
+
+
+def parse_class_args(user_data, args_parser):
+    class_args = {}
+    exp_args = []
+    for group in args_parser._mutually_exclusive_groups:
+        if group.title in user_data:
+            exp_args.append("--" + user_data[group.title])
+            class_args[user_data[group.title]] = True
+    for group in args_parser._action_groups:
+        for action in group._group_actions:
+            if action.dest == "binary_signatures":
+                pass
+            elif action.dest in user_data:
+                if isinstance(action, argparse._StoreTrueAction) or isinstance(action, argparse._StoreFalseAction):
+                    exp_args.append("--" + action.dest)
+                    class_args[action.dest] = True
+                else:
+                    exp_args.append("--" + action.dest)
+                    exp_args.append(user_data[action.dest])
+                    class_args[action.dest] = user_data[action.dest]
+
+    class_args["binary_signatures"] = user_data["binary_signatures"] 
+    exp_args.append(user_data["binary_signatures"])  
+
+    return class_args, exp_args
+
+
 def get_args():
     args_parser = ArgumentParserClassifier().parser
     args_list = [{}]
@@ -81,7 +92,8 @@ def get_args():
                 elif not isinstance(action, argparse._HelpAction):
                     args_list[-1][group_name].append({'name': action.dest, 'help': action.help, "type": str(action.type), "default": action.default, "is_mutually_exclusive": is_mutually_exclusive})
         is_mutually_exclusive = False 
-    return jsonify(args_list)
+    return args_list
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5002, use_reloader=True)
