@@ -91,11 +91,16 @@ RUN  apt update; apt-get --fix-missing -y install \
         libgraphviz-dev \
         pkg-config
 
-
 COPY ./sema_scdg/requirements.txt /sema-scdg/requirements.txt
 RUN pip3 install -r /sema-scdg/requirements.txt
 
 COPY ./sema_scdg/requirements_pypy.txt /sema-scdg/requirements_pypy.txt
 RUN pypy3 -m pip install -r /sema-scdg/requirements_pypy.txt
+
+COPY ./sema_scdg/ /sema-scdg 
+COPY ./submodules/angr-utils /sema-scdg/application/submodules/angr-utils
+COPY ./submodules/bingraphvis /sema-scdg/application/submodules/bingraphvis 
+COPY ./penv-fix/ /sema-scdg/application/penv-fix
+COPY ./database/ /sema-scdg/application/database
 
 WORKDIR /sema-scdg/application/

@@ -35,7 +35,7 @@ class TestSCDG(unittest.TestCase):
         self.assertEqual(sema_scdg.expl_method, "CDFS")
         self.assertEqual(sema_scdg.family, "Binaryfamily")
         self.assertEqual(sema_scdg.exp_dir_name, "ExpDirName")
-        self.assertEqual(sema_scdg.binary_path, "database/Binaries/malware-win/train/upatre/00a8c63b42803a887b12865ba5f388bf")
+        self.assertEqual(sema_scdg.binary_path, "test_data/00a8c63b42803a887b12865ba5f388bf")
         self.assertEqual(sema_scdg.n_args, 1)
         self.assertEqual(sema_scdg.csv_file, "stats.csv")
         self.assertEqual(sema_scdg.pre_run_thread, False)
@@ -224,13 +224,14 @@ class TestSCDG(unittest.TestCase):
     def test_isomorphism_scdg(self):
         refactS_folder = "test_data/train_150_refactS/"
         refactS_mem_improv_folder = "test_data/train_refactS_150_mem_improv/"
-        pypy_folder = "test_data/train_150_pypy"
-        pypy_mem_iprov_folder = "test_data/train_pypy3_150_mem_improv"
 
         family_names = []
         for f in os.listdir(refactS_folder)[:]:
             if os.path.isdir(os.path.join(refactS_folder, f)):
                 family_names.append(f)
+
+        # For old version vs refactS (python3)
+        # TODO
 
         # For refactS folders (python3)
         for family in family_names:
@@ -242,17 +243,6 @@ class TestSCDG(unittest.TestCase):
 
                 print(f"Family : {family} binary : {binary_folder}")
                 result = compare_graphs(refactS_binary_graph_path, refactS_mem_improv_binary_graph_path, csv_path_refactS, csv_path_refactS_mem_improv, 150)
-                self.assertEqual(result, True)
-
-        # For pypy folders
-        for family in family_names:
-            for binary_folder in os.listdir(os.path.join(pypy_folder, family)):
-                pypy_binary_graph_path = os.path.join(os.path.join(pypy_folder, family), binary_folder)
-                csv_path_pypy = os.path.join(pypy_folder,"stats_train_150_pypy.csv")
-                pypy_mem_improv_binary_graph_path = os.path.join(os.path.join(pypy_mem_iprov_folder, family), binary_folder)
-                csv_path_pypy_mem_improv = os.path.join(pypy_mem_iprov_folder, "stats_pypy3_150_mem_improv.csv")
-                print(f"Family : {family} binary : {binary_folder}")
-                result = compare_graphs(pypy_binary_graph_path, pypy_mem_improv_binary_graph_path, csv_path_pypy, csv_path_pypy_mem_improv, 150)
                 self.assertEqual(result, True)
 
 

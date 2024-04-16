@@ -38,13 +38,6 @@ services:
     ports:
     - "5001:5001"
     restart: always
-    volumes:
-      - ${PWD}/sema_scdg/:/sema-scdg 
-      - ${PWD}/submodules/angr-utils:/sema-scdg/application/submodules/angr-utils 
-      - ${PWD}/submodules/bingraphvis:/sema-scdg/application/submodules/bingraphvis 
-      - ${PWD}/penv-fix/:/sema-scdg/application/penv-fix 
-      - ${PWD}/database/:/sema-scdg/application/database
-      - /tmp/.X11-unix:/tmp/.X11-unix
     environment:
       - DISPLAY=unix$DISPLAY
     networks:

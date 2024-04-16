@@ -69,6 +69,13 @@ git clone https://github.com/Manon-Oreins/SEMA-ToolChain.git;
 make build-toolchain;
 ```
 
+If you only need the SCDG part of the toolchain you can use :
+```bash
+make pull-scdg
+```
+
+Or visit `https://hub.docker.com/repository/docker/manonoreins/sema-scdg/tags` to pull the image
+
 ## Installation details (optional)
 
 #### Pip
@@ -250,20 +257,9 @@ You also have a script `MergeGspan.py` in `sema_scdg/application/helper` which c
 
 The output of the SCDG are put into `database/SCDG/runs/`
 
-If you want to remove all the runs you have made :
+If you want to save some runs from the container to your host machine :
 ```bash
-make clean-scdg-runs
-```
-
-If you want to save some runs into the `saved_runs` directory:
-```bash
-make save-scdg-runs                   #If you want to save all runs
-make save-scdg-runs ARGS=DIR_NAME     #If you want to save only a specific run
-```
-
-If you want to erase all saved runs :
-```bash
-make clean-scdg-saved-runs
+make save-scdg-runs ARGS=PATH
 ```
 
 ## Tests
@@ -272,6 +268,21 @@ To run the test, inside the docker container :
 ```bash
 python3 scdg_tests.py configs/config_test.ini
 ```
+
+## Tutorial
+
+There is a jupyter notebook providing a tutorial on how to use the scdg. To launch it, run the container by using :
+```bash
+make run-scdg
+```
+
+Then, inside the docker, run 
+```bash
+jupyter notebook --ip=0.0.0.0 --port=5001 --no-browser --allow-root --NotebookApp.token=''
+```
+
+and visit `http://127.0.0.1:5001/tree` on your browser. Go to `/Tutorial` and open the jupyter notebook.
+
 
 :page_with_curl: Model & Classification extractor (`SemaClassifier`)
 ====

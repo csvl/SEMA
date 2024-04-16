@@ -8,7 +8,13 @@ build-web-app:
 
 build-scdg:
 	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
-	docker buildx build --rm --cache-from sema-scdg:latest -t sema-scdg -f sema_scdg/Dockerfile .		
+	docker buildx build --rm --cache-from sema-scdg:latest -t sema-scdg -f sema_scdg/Dockerfile .	
+
+pull-scdg:
+	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
+	docker pull manonoreins/sema-scdg:latest
+	docker image tag manonoreins/sema-scdg:latest sema-scdg:latest
+	docker rmi manonoreins/sema-scdg:latest
 
 build-classifier:
 	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
@@ -30,16 +36,10 @@ run-classifier-service:
 		--name="sema-classifier" \
 		-it sema-classifier ../docker_startup.sh 1
 
-run-scdg-service:	
+run-scdg-service:
 	docker run \
 		--rm \
-		-v $(PWD)/sema_scdg/:/sema-scdg \
-		-v $(PWD)/submodules/angr-utils:/sema-scdg/application/submodules/angr-utils \
-		-v $(PWD)/submodules/bingraphvis:/sema-scdg/application/submodules/bingraphvis \
-		-v $(PWD)/penv-fix/:/sema-scdg/application/penv-fix \
-		-v $(PWD)/database/:/sema-scdg/application/database\
 		-e DISPLAY=$(DISPLAY) \
-		-v /tmp/.X11-unix:/tmp/.X11-unix \
 		-p 5001:5001 \
 		--net=micro_network \
 		--name="sema-scdg" \
@@ -53,10 +53,4 @@ stop-toolchain:
 
 ARGS = *
 save-scdg-runs:
-	sudo mv database/SCDG/runs/$(ARGS) database/SCDG/saved_runs/
-
-clean-scdg-runs:
-	sudo rm -r database/SCDG/runs/*
-
-clean-scdg-saved-runs:
-	sudo rm -r database/SCDG/saved_runs/*
+	docker cp sema-scdg:sema-scdg/application/database/SCDG/runs/ $(ARGS)
