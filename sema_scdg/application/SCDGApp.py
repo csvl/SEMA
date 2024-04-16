@@ -3,9 +3,10 @@ import argparse
 import configparser
 import os
 import sys
+import traceback
 
 from helper.ArgumentParserSCDG import ArgumentParserSCDG
-from SemaSCDG import SemaSCDG
+from SemaSCDG import start_scdg
 
 
 app = Flask(__name__)
@@ -21,11 +22,11 @@ def run_scdg():
     user_data = request.json
     parse_json_request(user_data)
 
-    toolc = SemaSCDG()
     try:
-        toolc.start_scdg()
+        start_scdg()
         return "Request successful"
     except:
+        print(traceback.print_exc())
         return "Something went wrong"
     
 # Respond to the request with a json object containing the return value of get_args

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import os
 import sys
-import traceback
 import time
+import argparse
 
 import claripy
 import logging
@@ -16,6 +16,9 @@ import configparser
 import json as json_dumper
 from builtins import open as open_file
 
+args_parser = argparse.ArgumentParser(description="SCDG module arguments")
+args_parser.add_argument('config_file', type=str, help='The relative path to the config file')
+args = args_parser.parse_args()
 
 config = configparser.ConfigParser()
 file = config.read(sys.argv[1])
