@@ -49,7 +49,6 @@ class SemaExplorerDBFS(SemaExplorer):
             else:
                 for m in range(moves):
                     super().take_longuest(simgr, "pause")
-        super().manage_pause(simgr)
         
         super().drop_excessed_loop(simgr)
 
@@ -61,7 +60,6 @@ class SemaExplorerDBFS(SemaExplorer):
     
 
     def step(self, simgr, stash="active", **kwargs):
-
         try:
             simgr = simgr.step(stash=stash, **kwargs)
         except Exception as inst:
@@ -92,6 +90,12 @@ class SemaExplorerDBFS(SemaExplorer):
             simgr.stashes["pause"] = []
         # We detect fork for a state
         super().manage_fork(simgr)
+
+        # Remove state which performed more jump than the limit allowed
+        super().remove_exceeded_jump(simgr)
+
+        # Manage ended state
+        super().manage_deadended(simgr)
 
         self.manage_stashes(simgr)
 

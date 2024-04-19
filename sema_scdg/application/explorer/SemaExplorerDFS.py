@@ -32,7 +32,6 @@ class SemaExplorerDFS(SemaExplorer):
         self.log = log
         
     def step(self, simgr, stash="active", **kwargs):
-
         try:
             simgr = simgr.step(stash=stash, **kwargs)
         except Exception as inst:
@@ -57,6 +56,12 @@ class SemaExplorerDFS(SemaExplorer):
         # We detect fork for a state
         self.manage_fork(simgr)
 
+        # Remove state which performed more jump than the limit allowed
+        super().remove_exceeded_jump(simgr)
+
+        # Manage ended state
+        super().manage_deadended(simgr)
+
         # If limit of simultaneous state is not reached and we have some states available in pause stash
         if len(simgr.stashes["pause"]) > 0 and len(simgr.active) < self.max_simul_state:
             moves = min(
@@ -65,8 +70,6 @@ class SemaExplorerDFS(SemaExplorer):
             )
             for m in range(moves):
                 self.take_longuest(simgr, "pause")
-                    
-        super().manage_pause(simgr)
         
         super().drop_excessed_loop(simgr)
         # If states end with errors, it is often worth investigating. Set DEBUG_ERROR to live debug

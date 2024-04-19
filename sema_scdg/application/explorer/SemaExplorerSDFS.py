@@ -95,6 +95,12 @@ class SemaExplorerSDFS(SemaExplorer):
 
         # We detect fork for a state
         super().manage_fork(simgr)
+
+        # Remove state which performed more jump than the limit allowed
+        super().remove_exceeded_jump(simgr)
+
+        # Manage ended state
+        super().manage_deadended(simgr)
         
         #super().execute_concretely(simgr, self.proj, self)
             
@@ -106,9 +112,6 @@ class SemaExplorerSDFS(SemaExplorer):
             )
             for m in range(moves):
                 super().take_longuest(simgr, "pause")
-                    
-
-        super().manage_pause(simgr)
         
         super().drop_excessed_loop(simgr)
 

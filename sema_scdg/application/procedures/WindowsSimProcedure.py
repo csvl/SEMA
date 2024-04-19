@@ -1,6 +1,7 @@
 import angr
 import logging
 import os
+from datetime import datetime
 
 from clogging.CustomFormatter import CustomFormatter
 from CustomSimProcedure import CustomSimProcedure
@@ -130,31 +131,31 @@ class WindowsSimProcedure(CustomSimProcedure):
         # self.ANG_CALLING_CONVENTION = {"__stdcall": SimCCStdcall, "__cdecl": SimCCCdecl}
         if self.verbose: self.log.info("custom_hook_windows_symbols")
         proj.loader
-        symbols = proj.loader.symbols
 
         excluded_simproc_name = ["win32","win_user32","ntdll","msvcr"]
         special_case_simproc_name = ["posix", "linux_kernel", "libc"]
 
+        symbols_set = set()
+        symbols = proj.loader.symbols
+        for symb in symbols:
+            symbols_set.add(symb)
+            if symb.name in self.sim_proc["custom_package"]:
+                proj.unhook(symb.rebased_addr)
+                if not self.amd64_sim_proc_hook(proj, symb.rebased_addr, self.sim_proc["custom_package"][symb.name]):
+                    if symb.name not in self.CDECL_EXCEPT:
+                        self.std_sim_proc_hook(proj, symb.rebased_addr, self.sim_proc["custom_package"][symb.name])
+                    else:
+                        self.exception_sim_proc_hook(proj, symb.rebased_addr, self.sim_proc["custom_package"][symb.name])
 
         for lib in self.system_call_table:
             for key in self.system_call_table[lib]:
                 name = self.system_call_table[lib][key]["name"]
                 if (not self.name_in_angr_simproc(name, excluded_simproc_name) and len(self.system_call_table[lib][key]["arguments"]) != 0):
-                    for symb in symbols:
-                        if (name == symb.name and (not self.name_in_angr_simproc(name, special_case_simproc_name))
-                            and name not in self.sim_proc["custom_package"]
-                        ):
+                    for symb in symbols_set:
+                        if (name == symb.name and (not self.name_in_angr_simproc(name, special_case_simproc_name)) and name not in self.sim_proc["custom_package"]):
                             proj.hook_symbol(
                                 name, SIM_LIBRARIES[lib].get(name, proj.arch)
                             )
-                        if symb.name in self.sim_proc["custom_package"]:
-                            proj.unhook(symb.rebased_addr)
-                            if not self.amd64_sim_proc_hook(proj, symb.rebased_addr, self.sim_proc["custom_package"][symb.name]):
-                                if symb.name not in self.CDECL_EXCEPT:
-                                    self.std_sim_proc_hook(proj, symb.rebased_addr, self.sim_proc["custom_package"][symb.name])
-                                else:
-                                    self.exception_sim_proc_hook(proj, symb.rebased_addr, self.sim_proc["custom_package"][symb.name])
-
                         if symb.name and "ordinal" in symb.name:
                             # ex : ordinal.680.b'shell32.dll'
                             part_names = symb.name.split(".")

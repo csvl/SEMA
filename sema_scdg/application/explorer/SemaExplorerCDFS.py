@@ -4,6 +4,7 @@ import logging
 from collections import deque
 import sys, os
 from SemaExplorer import SemaExplorer
+import traceback
 
 log_level = os.environ["LOG_LEVEL"]
 log = logging.getLogger("SemaExplorerCDFS")
@@ -39,8 +40,48 @@ class SemaExplorerCDFS(SemaExplorer):
         if self.new_addr_stash not in simgr.stashes:
             simgr.stashes[self.new_addr_stash] = []
 
-    # Prioritize state with new addr by replace state in active stash by state in new addr stash
-    def new_addr_priority(self, simgr):
+    def step(self, simgr, stash="active", **kwargs):
+        try:
+            simgr = simgr.step(stash=stash, **kwargs)
+        except Exception:
+            traceback.print_exc()
+            raise Exception("ERROR IN STEP() - YOU ARE NOT SUPPOSED TO BE THERE !")
+
+        super().build_snapshot(simgr)
+
+        if  (len(self.fork_stack) > 0 or len(simgr.deadended) > self.deadended):
+            self.log.info("A new block of execution have been executed with changes in sim_manager.")
+            self.log.info("Currently, simulation manager is :\n" + str(simgr))
+            self.log.info("pause stash len :" + str(len(self.pause_stash)))
+
+        if len(self.fork_stack) > 0:
+            self.log.info("fork_stack : " + str(len(self.fork_stack)) + " " + hex(simgr.active[0].addr) + " || " + hex(simgr.active[1].addr))
+
+        # We detect fork for a state
+        super().manage_fork(simgr)
+        
+        # Remove state which performed more jump than the limit allowed
+        super().remove_exceeded_jump(simgr)
+
+        # Manage ended state
+        super().manage_deadended(simgr)
+        
+        for s in simgr.active:
+            vis_addr = str(self.check_constraint(s, s.history.jump_target))
+            id_to_stash = []
+            if vis_addr not in self.dict_addr_vis:
+                id_to_stash.append(s.globals["id"])
+            simgr.move(
+                from_stash="active",
+                to_stash="new_addr",
+                filter_func=lambda s: s.globals["id"] in id_to_stash,
+            )
+
+        if len(simgr.active) > self.max_simul_state:
+            excess = len(simgr.active) - self.max_simul_state
+            while excess > 0:
+                self.pause_stash.append(simgr.active.pop())
+                excess = excess - 1
         if len(simgr.stashes["new_addr"]) > 0:
             count = min(len(simgr.active), len(simgr.stashes["new_addr"]))
             while count > 0:
@@ -52,22 +93,6 @@ class SemaExplorerCDFS(SemaExplorer):
         while len(simgr.active) < self.max_simul_state and len(self.pause_stash) > 0:
             simgr.active.append(self.pause_stash.pop())
 
-    def manage_stashes(self, simgr):
-        # Put new addr state in active stash to treat them first
-        for s in simgr.active:
-            vis_addr = str(self.check_constraint(s, s.history.jump_target))
-            id_to_stash = []
-            if vis_addr not in self.dict_addr_vis:
-                self.dict_addr_vis.add(vis_addr)
-                id_to_stash.append(s.globals["id"])
-            simgr.move(
-                from_stash="active",
-                to_stash="new_addr",
-                filter_func=lambda s: s.globals["id"] in id_to_stash,
-            )
-            
-        self.new_addr_priority(simgr)
-        
         # If limit of simultaneous state is not reached and we have some states available in pause stash
         if len(simgr.stashes["pause"]) > 0 and len(simgr.active) < self.max_simul_state:
             moves = min(
@@ -75,18 +100,20 @@ class SemaExplorerCDFS(SemaExplorer):
                 len(simgr.stashes["pause"]),
             )
             for m in range(moves):
-                self.take_longuest(simgr, "pause")
+                super().take_longuest(simgr, "pause")
 
-        self.manage_pause(simgr)
-        
-        self.drop_excessed_loop(simgr)
+        super().drop_excessed_loop(simgr)
 
-        self.manage_error(simgr)
+        # If states end with errors, it is often worth investigating. Set DEBUG_ERROR to live debug
+        # TODO : add a log file if debug error is not activated
+        super().manage_error(simgr)
 
-        self.manage_unconstrained(simgr)
+        super().manage_unconstrained(simgr)
 
         for vis in simgr.active:
-            self.dict_addr_vis.add(str(super().check_constraint(vis, vis.history.jump_target)))
+            self.dict_addr_vis.add(
+                str(super().check_constraint(vis, vis.history.jump_target))
+            )
 
         for s in simgr.stashes["new_addr"]:
             vis_addr = str(self.check_constraint(s, s.history.jump_target))
@@ -102,40 +129,11 @@ class SemaExplorerCDFS(SemaExplorer):
             moves = len(simgr.stashes["temp"])
             for i in range(moves):
                 self.pause_stash.append(simgr.stashes["temp"].pop())
+            
+        super().excessed_step_to_active(simgr)
 
-        # Take back state from ExcessStep stash if active stash is empty
-        self.excessed_step_to_active(simgr)
+        super().excessed_loop_to_active(simgr)
 
-        # Take back state from ExcessLoop stash if active stash is empty
-        self.excessed_loop_to_active(simgr)
-    
-    def step(self, simgr, stash="active", **kwargs):
-        try:
-            simgr = simgr.step(stash=stash, **kwargs)
-        except Exception as inst:
-            self.log.warning(inst)  # __str__ allows args to be printed directly,
-            exc_type, exc_obj, exc_tb = sys.exc_info()
-            # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            self.log.warning(exc_type)
-            self.log.warning(exc_obj,exc_type)
-            #exit(-1)
-            raise Exception("ERROR IN STEP() - YOU ARE NOT SUPPOSED TO BE THERE !")
-
-        self.build_snapshot(simgr)
-
-        if (len(self.fork_stack) > 0 or len(simgr.deadended) > self.deadended):
-            self.log.info("A new block of execution have been executed with changes in sim_manager.")
-            self.log.info("Currently, simulation manager is :\n" + str(simgr))
-            self.log.info("pause stash len :" + str(len(self.pause_stash)))
-
-        if len(self.fork_stack) > 0:
-            self.log.info("fork_stack : " + str(len(self.fork_stack)) + " " + hex(simgr.active[0].addr) + " || " + hex(simgr.active[1].addr))
-        
-        # We detect fork for a state
-        self.manage_fork(simgr)  
-
-        self.manage_stashes(simgr)
-
-        self.time_evaluation(simgr)
+        super().time_evaluation(simgr)
 
         return simgr

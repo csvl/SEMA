@@ -153,11 +153,6 @@ class SyscallToSCDG:
         
     # Similar to add_SysCall but with more information (CH)
     def add_call(self, state):
-        """_summary_
-        TODO CH for manon
-        Args:
-            state (_type_): _description_
-        """
         name = state.inspect.simprocedure_name
 
         if name in self.AVOID:
@@ -208,103 +203,103 @@ class SyscallToSCDG:
             else:
                 self.call_sim.syscall_found[key_name] = self.call_sim.syscall_found[key_name] + 1
             self.log.info("Syscall found:  " + str(name) + str(args))
-                
-        if self.scdg[id][-1]["name"] == name and args:
-            for i in range(len(args)):
-                args[i] = self.__proper_formating(state, args[i])
-                temp = args[i]
 
-                try : 
-                    if self.string_resolv and callee_arg and args[i] != 0:
-                        wstring_to_check = ["LPCWSTR", "LPWSTR", "wchar_t*const", "OLECHAR", "PWSTR", "PCWSTR", "LPCWCH"]
-                        if len(set(callee_arg[i]["type"]).intersection(wstring_to_check)) != 0:
-                            string = state.mem[args[i]].wstring.concrete
-                            args[i] = self.__decode_string(string)
-                        string_to_check = ["LPCSTR", "LPSTR", "const char*", "PSTR", "PCSTR", "LPCH"]
-                        if len(set(callee_arg[i]["type"]).intersection(string_to_check)) != 0:
-                            string = state.mem[args[i]].string.concrete
-                            args[i] = self.__decode_string(string)
-                        to_check = ["LPCTSTR", "LPTSTR", "PTSTR", "PCTSTR", "LPCCH"]
-                        if len(set(callee_arg[i]["type"]).intersection(to_check)) != 0:
-                            if state.solver.eval(state.memory.load(args[i]+1,1)) == 0x0:
+        if args:   
+            name_to_check =  self.scdg[id][-1]["name"] 
+            possibilities = { "writev": "write", "readv":"read", "socketcall": "" }
+            if name_to_check == name:
+                for i in range(len(args)):
+                    args[i] = self.__proper_formating(state, args[i])
+                    temp = args[i]
+                    try:
+                        if (self.string_resolv and callee_arg and args[i] != 0):
+                            if ("LPCWSTR" in callee_arg[i]["type"] 
+                                or "LPWSTR" in callee_arg[i]["type"]
+                                or "wchar_t*const" in callee_arg[i]["type"]
+                                or "OLECHAR" in callee_arg[i]["type"]
+                                or "PWSTR" in callee_arg[i]["type"]
+                                or "PCWSTR" in callee_arg[i]["type"]
+                                or "LPCWCH" in callee_arg[i]["type"]
+                            ) :
                                 string = state.mem[args[i]].wstring.concrete
-                            else:
-                                string = state.mem[args[i]].string.concrete  
-                            args[i] = self.__decode_string(string)
-                        to_check = ["PCUNICODESTRING"]
-                        if len(set(callee_arg[i]["type"]).intersection(to_check)) != 0:
-                            addr = state.memory.load(args[i]+4,4,endness=archinfo.Endness.LE)
-                            args[i] = state.mem[addr].wstring.concrete
-                except:
-                    args[i] = temp
+
+                                if hasattr(string, "decode"):
+                                    args[i] = string.decode("utf-8")
+                                else:
+                                    args[i] = string
+                    except:
+                        args[i] = temp
+                    try:
+                        if (self.string_resolv and callee_arg and args[i] != 0):
+                            if ("LPCSTR" in callee_arg[i]["type"]
+                                or "LPSTR" in callee_arg[i]["type"]
+                                or "const char*" in callee_arg[i]["type"]
+                                #or "LPCVOID" in callee_arg[i]["type"]
+                                or "PSTR" in callee_arg[i]["type"]
+                                or "PCSTR" in callee_arg[i]["type"]
+                                or "LPCH" in callee_arg[i]["type"]
+                            ):
+                                string = state.mem[args[i]].string.concrete
+                                
+                                if hasattr(string, "decode"):
+                                    args[i] = string.decode("utf-8")
+                                else:
+                                    args[i] = string
+                    except:
+                        args[i] = temp
+                    try:
+                        if (self.string_resolv and callee_arg and args[i] != 0):
+                            if ("LPCTSTR" in callee_arg[i]["type"]
+                                or "LPTSTR" in callee_arg[i]["type"]
+                                or "PTSTR" in callee_arg[i]["type"]
+                                or "PCTSTR" in callee_arg[i]["type"]
+                                or "LPCCH" in callee_arg[i]["type"]
+                            ):
+                                string = ''
+                                if state.solver.eval(state.memory.load(args[i]+1,1)) == 0x0:
+                                    string = state.mem[args[i]].wstring.concrete
+                                else:
+                                    string = state.mem[args[i]].string.concrete
+                                    
+                                if hasattr(string, "decode"):
+                                    args[i] = string.decode("utf-8")
+                                else:
+                                    args[i] = string
+                    except:
+                        args[i] = temp
+                    try:
+                        if (self.string_resolv and callee_arg and args[i] != 0 and ("PCUNICODESTRING" in callee_arg[i]["type"])):
+                            addr = self.state.memory.load(args[i]+4,4,endness=archinfo.Endness.LE)
+                            args[i] = self.state.mem[addr].wstring.concrete
+                    except:
+                        args[i] = temp
                 
-            if self.string_resolv and args:
-                for string_type in [self.FUNCTION_STRING, self.FUNCTION_WSTRING, self.FUNCTION_CHAR]:
-                    if name in string_type:
-                        index_str = string_type[name]
-                        try:
-                            if string_type != self.FUNCTION_STRING:
-                                if string_type == self.FUNCTION_CHAR:
-                                    string = chr(args[index_str])
-                                elif string_type == self.FUNCTION_WSTRING:
+                if self.string_resolv and args:
+                    string_func = [self.FUNCTION_STRING, self.FUNCTION_WSTRING, self.FUNCTION_CHAR]
+                    for i in range(len(string_func)):
+                        func = string_func[i]
+                        if name in func:
+                            index_str = func[name]
+                            try:
+                                # FUNCTION_STRING
+                                if i == 0:
+                                    string = state.mem[args[index_str]].string.concrete
+                                    args[index_str] = self.__decode_string(string)
+                                # FUNCTION_WSTRING
+                                if i == 1:
                                     string = state.mem[args[index_str]].wstring.concrete
-                                args[index_str] = string
-                            else :
-                                string = state.mem[args[index_str]].string.concrete
-                                args[index_str] = self.__decode_string(string)
-                        except Exception:
-                            self.log.warning("Error in string resolv")
+                                    args[index_str] = string
+                                # FUNCTION_CHAR
+                                if i == 2:
+                                    string = chr(args[index_str])
+                                    args[index_str] = string
+                            except Exception :
+                                print("Error in string resolv")
 
-            self.scdg[id][-1]["args"] = args
+                self.scdg[id][-1]["args"] = args
 
-            if self.scdg[id][-1]["ret"] != "symbolic" and name not in self.FUNCTION_RETURNS:
-                ret = -22
-                try:
-                    ret = state.solver.eval_one(state.inspect.simprocedure_result)
-                except Exception:
-                    stub = state.inspect.simprocedure_result
-                    if hasattr(stub, "to_claripy"):
-                        stub = stub.to_claripy()
-                    if hasattr(stub, "name"):
-                        ret = stub.name
-                    else:
-                        ret = str(stub)
-
-                self.scdg[id][-1]["ret"] = ret
-
-            if (
-                name == "write"
-                and len(self.scdg[id]) > 1
-                and self.scdg[id][-2]["name"] == "write"
-                and self.scdg[id][-1]["addr"] == self.scdg[id][-1]["addr"]
-                and sim_proc.use_state_arguments
-            ):
-                self.scdg[id][-2]["args"][1] = str(self.scdg[id][-2]["args"][1]) + str(
-                    self.scdg[id][-1]["args"][1]
-                )
-                self.scdg[id].pop()
-
-            return
-        else:
-            calls = {
-                "writev" : "write",
-                "readv" : "read",
-                "socketcall" : ""
-            }
-            for i in  calls:
-                present = False
-                if self.scdg[id][-1]["name"] == i and args:
-                    if i == "socketcall" and name in self.SOCKETCALL_dic:
-                        self.scdg[id][-1]["name"] = name
-                        present = True                        
-                    elif name == calls[i] :
-                        present = True
-                        self.scdg[id][-1]["name"] = calls[i]
-                if present :
-                    for i in range(len(args)):
-                        args[i] = self.__proper_formating(state, args[i])
-                    self.scdg[id][-1]["args"] = args
-
+                if self.scdg[id][-1]["ret"] != "symbolic" and name not in self.FUNCTION_RETURNS:
+                    ret = -22
                     try:
                         ret = state.solver.eval_one(state.inspect.simprocedure_result)
                     except Exception:
@@ -317,6 +312,39 @@ class SyscallToSCDG:
                             ret = str(stub)
 
                     self.scdg[id][-1]["ret"] = ret
+
+                if (name == "write"
+                    and len(self.scdg[id]) > 1
+                    and self.scdg[id][-2]["name"] == "write"
+                    and self.scdg[id][-1]["addr"] == self.scdg[id][-1]["addr"]
+                    and sim_proc.use_state_arguments
+                ):
+                    self.scdg[id][-2]["args"][1] = str(self.scdg[id][-2]["args"][1]) + str(self.scdg[id][-1]["args"][1])
+                    self.scdg[id].pop()
+
+                return
+            
+            elif name_to_check in possibilities:
+                if name_to_check != "socketcall":
+                    self.scdg[id][-1]["name"] = possibilities[name_to_check]
+                elif name in self.SOCKETCALL_dic:
+                    self.scdg[id][-1]["name"] = name
+                for i in range(len(args)):
+                    args[i] = self.proper_formating(state, args[i])
+                self.scdg[id][-1]["args"] = args
+                
+                try:
+                    ret = state.solver.eval_one(state.inspect.simprocedure_result)
+                except Exception:
+                    stub = state.inspect.simprocedure_result
+                    if hasattr(stub, "to_claripy"):
+                        stub = stub.to_claripy()
+                    if hasattr(stub, "name"):
+                        ret = stub.name
+                    else:
+                        ret = str(stub)
+
+                self.scdg[id][-1]["ret"] = ret
 
 
     def add_call_debug(self, state):
@@ -334,17 +362,6 @@ class SyscallToSCDG:
 
 
     def add_SysCall(self, syscall, n_args, state):
-        """_summary_
-        TODO CH for manon
-        Args:
-            syscall (_type_): _description_
-            n_args (_type_): _description_
-            state (_type_): _description_
-
-        Returns:
-            _type_: _description_
-        """
-        # global SCDG
         dic = {}
 
         name = syscall
@@ -372,12 +389,12 @@ class SyscallToSCDG:
                     reg = getattr(state.regs, reg)
                 except:
                     reg = None
-                # reg = get_register(state,reg)
                 reg = self.__proper_formating(state, reg)
                 args.append(reg)
 
         dic["name"] = name
 
+        # Transform if option enabled
         if self.string_resolv and args:
             args, dic = self.__check_syscall_string(syscall, state, args, dic)
 
@@ -422,35 +439,34 @@ class SyscallToSCDG:
             return
         
     def __check_syscall_string(self, syscall, state, args, dic):
-        for string_type in [self.FUNCTION_STRING, self.FUNCTION_WSTRING, self.FUNCTION_CHAR]:
-            if syscall in string_type:
-                if isinstance(string_type[syscall], int):
+        possibilities = {"string": self.FUNCTION_STRING, "wstring": self.FUNCTION_WSTRING, "char": self.FUNCTION_CHAR}
+        for string_function in possibilities:
+            if syscall in string_function:
+                if isinstance(possibilities[string_function][syscall], int):
                     arg_len = 1
                 else:
-                    arg_len = len(string_type[syscall])
+                    arg_len = len(possibilities[string_function][syscall])
                 for i in range(arg_len):
                     if arg_len > 1:
-                        index_str = string_type[syscall][i]
+                        index_str = possibilities[string_function][syscall][i]
                     else:
-                        index_str = string_type[syscall]
+                        index_str = possibilities[string_function][syscall]
                     arg_str = args[index_str]
-                    # import pdb; pdb.set_trace()
                     if arg_str:
                         try:
-                            if string_type != self.FUNCTION_CHAR:
-                                if string_type == self.FUNCTION_STRING:
-                                    string = state.mem[arg_str].string.concrete
-                                elif string_type == self.FUNCTION_WSTRING:
-                                    string = state.mem[arg_str].wstring.concrete
-                                args[index_str] = self.__decode_string(string)
-                            else :
+                            if string_function == "char":
                                 string = chr(arg_str)
                                 args[index_str] = string
+                            if string_function == "string":
+                                string = state.mem[arg_str].string.concrete
+                                args[index_str] = self.__decode_string(string)
+                            elif string_function == "wstring":
+                                string = state.mem[arg_str].wstring.concrete
+                                args[index_str] = self.__decode_string(string)
                             if i > 0:
                                 dic["ref_str"][(index_str + 1)] = arg_str
                             else:
                                 dic["ref_str"] = {(index_str + 1): arg_str}
-                            # self.log.info(string)
                         except Exception:
                             pass
         return args, dic

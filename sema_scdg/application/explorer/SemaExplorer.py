@@ -3,7 +3,7 @@ import time as timer
 #import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from collections import deque
-import angr
+import angr, claripy
 import psutil
 import configparser
 import sys
@@ -80,8 +80,6 @@ class SemaExplorer(ExplorationTechnique):
         self.dict_addr_vis = set()
 
     def setup(self, simgr):
-        #TODO : split in specific observer what is needed
-
         # The stash where states which exceed the threshold related to loops are moved. If new states are needed and there is no state available in pause
         # or ExcessStep stash, states in this stash are used to resume exploration (their loop counter are put back to zero).
         if self.excessLoop_stash not in simgr.stashes:
@@ -106,26 +104,67 @@ class SemaExplorer(ExplorationTechnique):
         simgr.active[0].globals["loop"] = 0
         simgr.active[0].globals["files"] = {}
         simgr.active[0].globals["is_thread"] = False
-        # simgr.active[0].globals["crypt_algo"] = 0
-        # simgr.active[0].globals["crypt_result"] = 0
-        # simgr.active[0].globals["n_buffer"] = 0
-        # simgr.active[0].globals["n_calls"] = 0
-        # simgr.active[0].globals["recv"] = 0
-        # simgr.active[0].globals["rsrc"] = 0
-        # simgr.active[0].globals["resources"] = {}
-        # simgr.active[0].globals["df"] = 0
-        # simgr.active[0].globals["n_calls_recv"] = 0
-        # simgr.active[0].globals["n_calls_send"] = 0
-        # simgr.active[0].globals["n_buffer_send"] = 0
-        # simgr.active[0].globals["buffer_send"] = []
+        simgr.active[0].globals["crypt_algo"] = 0
+        simgr.active[0].globals["crypt_result"] = 0
+        simgr.active[0].globals["n_buffer"] = 0
+        simgr.active[0].globals["n_calls"] = 0
+        simgr.active[0].globals["recv"] = 0
+        simgr.active[0].globals["rsrc"] = 0
+        simgr.active[0].globals["resources"] = {}
+        simgr.active[0].globals["df"] = 0
+        simgr.active[0].globals["n_calls_recv"] = 0
+        simgr.active[0].globals["n_calls_send"] = 0
+        simgr.active[0].globals["n_buffer_send"] = 0
+        simgr.active[0].globals["buffer_send"] = []
         simgr.active[0].globals["FindFirstFile"] = 0
-        # simgr.active[0].globals["FindNextFile"] = 0
+        simgr.active[0].globals["FindNextFile"] = 0
         simgr.active[0].globals["GetMessageA"] = 0
-        # simgr.active[0].globals["GetLastError"] = claripy.BVS("last_error", 32)
+        simgr.active[0].globals["GetLastError"] = claripy.BVS("last_error", 32)
         simgr.active[0].globals["HeapSize"] = {}
-        # simgr.active[0].globals["files_fd"] = {}
+        simgr.active[0].globals["files_fd"] = {}
         simgr.active[0].globals["create_thread_address"] = []
-        # simgr.active[0].globals["allow_web_interaction"] = False
+        simgr.active[0].globals["allow_web_interaction"] = False
+
+    # Each time a new state is created, this function checks where the state has to go. Put the state in active stash by default
+    def filter(self, simgr, state, **kwargs) :
+        if state.addr < simgr._project.loader.main_object.mapped_base :
+            return "lost"
+        
+        # Manage end thread state
+        if state.addr == 0xdeadbeef:
+            return "deadbeef"
+        
+        # If too many states are explored simulateously, put state into pause stash
+        if len(simgr.active) > self.max_simul_state:
+            return "pause"
+        
+        # if Execute too many times a simple loop
+        test = str(state.history.jump_target) + "-" + str(state.history.jump_source)
+        if test in self.jump_concrete_dict[state.globals["id"]]:
+            self.jump_concrete_dict[state.globals["id"]][test] += 1
+        else:
+            state.globals["previous_regs"] = state.regs
+            self.jump_concrete_dict[state.globals["id"]][test] = 1
+
+        if (self.jump_concrete_dict[state.globals["id"]][test] > self.loop_counter_concrete):
+            self.jump_concrete_dict[state.globals["id"]][test] = 0
+            return "ExcessLoop"
+        
+        # If execute too many steps
+        if state.globals["n_steps"] % 1000 == 0:
+            self.log.debug("n_steps = " + str(state.globals["n_steps"]))
+
+        if state.globals["n_steps"] > self.max_step:
+            state.history.trim()
+            self.log.info("A state has been discarded because of max_step reached")
+            return "ExcessStep"
+        
+        # TODO check seems new
+        if state.globals["loop"] > 3:
+            self.log.info("A state has been discarded because of 1 loop reached")
+            return "ExcessLoop"
+        
+        return simgr.filter(state, **kwargs)
 
     def check_constraint(self, state, value):
         try:
@@ -184,22 +223,6 @@ class SemaExplorer(ExplorationTechnique):
 
         simgr.move(source_stash, "active", lambda s: s.globals["id"] == id_to_move)
 
-    # Return True if a loop without symbolic variable takes too much time
-    def check_bad_active(self, state):
-        test = str(state.history.jump_target) + "-" + str(state.history.jump_source)
-        #backwards = state.solver.eval(state.history.jump_target) - state.solver.eval(state.history.jump_source) < 0
-
-        if test in self.jump_concrete_dict[state.globals["id"]]:
-            self.jump_concrete_dict[state.globals["id"]][test] += 1
-        else:
-            state.globals["previous_regs"] = state.regs
-            self.jump_concrete_dict[state.globals["id"]][test] = 1
-
-        if (self.jump_concrete_dict[state.globals["id"]][test] > self.loop_counter_concrete):
-            self.jump_concrete_dict[state.globals["id"]][test] = 0
-            return True
-        return False
-
     def __update_id_stash(self, simgr, id, new_id):
         """
         Inspect active stash
@@ -232,6 +255,9 @@ class SemaExplorer(ExplorationTechnique):
                     first_state = state
         # Was a 'fake' fork
         first_state.globals["id"] = id
+
+    def step(self, simgr, stash="active", **kwargs):
+        raise NotImplementedError()
 
     def build_snapshot(self, simgr):
         self.snapshot_state.clear()
@@ -297,25 +323,32 @@ class SemaExplorer(ExplorationTechnique):
                 state.globals["JumpExcedeed"] = False
                 self.jump_dict[self.id].clear()
                 self.jump_concrete_dict[self.id].clear()
-                try:
-                    self.loopBreak_stack.remove(state)
-                except:
-                    pass
             simgr.move(
                 from_stash="ExcessLoop",
                 to_stash="active",
                 filter_func=lambda s: s.globals["id"] in id_move,
             )
 
-    # If there is too much states in pause stash, discard some of them
-    def manage_pause(self, simgr):
+        # If there is too much states in pause stash, discard some of them
         excess_pause = len(simgr.stashes["pause"]) - self.max_in_pause_stach
         if excess_pause > 0:
             id_to_stash = []
             state_to_stash = simgr.pause[-excess_pause:]
             for t in state_to_stash:
                 id_to_stash.append(t.globals["id"])
-            simgr.drop(filter_func=lambda s: s.globals["id"] in id_to_stash, stash="pause")
+            simgr.drop(
+                filter_func=lambda s: s.globals["id"] in id_to_stash, stash="pause"
+            )
+
+    def remove_exceeded_jump(self, simgr):
+        if len(self.loopBreak_stack) > 0:
+            for i in range(len(self.loopBreak_stack)):
+                self.log.info("A state has been discarded because of jump")
+                guilty_state_id, addr = self.loopBreak_stack.pop()
+                self.log.info(hex(addr))
+                simgr.move(
+                    "active", "ExcessLoop", lambda s: s.globals["id"] == guilty_state_id
+                )
 
     def time_evaluation(self, simgr):
         ######################################
@@ -345,6 +378,13 @@ class SemaExplorer(ExplorationTechnique):
                 self.scdg_fin.clear()
                 self.time_id = self.time_id + 1
 
+    def manage_deadended(self, simgr):
+        if len(simgr.deadended) > self.deadended:
+            to_clean = len(simgr.deadended) - self.deadended
+            for i in range(to_clean):
+                simgr.deadended[-i - 1].globals["id"]
+            self.deadended = len(simgr.deadended)
+
     def check_fork_split(self, prev_id, found_jmp_table, state):
         if found_jmp_table and prev_id == state.globals["id"]:
             self.snapshot_state[prev_id] = self.snapshot_state[prev_id] - 1
@@ -360,7 +400,7 @@ class SemaExplorer(ExplorationTechnique):
                 self.jump_dict[state.globals["id"]][concrete_targ] += 1
                 if (self.jump_dict[state.globals["id"]][concrete_targ] >= self.jump_it):
                     state.globals["JumpExcedeed"] = True
-                    self.loopBreak_stack.append(state)
+                    self.loopBreak_stack.append((state.globals["id"],state.scratch.ins_addr,))
 
     def manage_fork(self, simgr):
         if len(self.fork_stack) > 0:
@@ -390,47 +430,7 @@ class SemaExplorer(ExplorationTechnique):
                     self.check_fork_split(prev_id, found_jmp_table, state_fork1)
                 else:
                     self.id = self.id - 1
-
-    def filter(self, simgr, state, **kwargs) :
-        state.history.trim()
-        # Manage lost state
-        if state.addr < simgr._project.loader.main_object.mapped_base :
-            return "lost"
-        
-        # Manage end thread state
-        if state.addr == 0xdeadbeef:
-            return "deadbeef"
-        
-        if state in self.loopBreak_stack:
-            self.log.info("A state has been discarded because of jump")
-            self.log.info(state.addr)
-            return "ExcessLoop"
-        
-        if self.check_bad_active(state):
-            self.log.info("A state has been discarded because of simple loop")
-            return "ExcessLoop"
-        
-        if state.globals["n_steps"] % 1000 == 0:
-            self.log.debug("n_steps = " + str(state.globals["n_steps"]))
-
-        if state.globals["n_steps"] > self.max_step:
-            state.history.trim()
-            self.log.info("A state has been discarded because of max_step reached")
-            return "ExcessStep"
-            
-        # TODO check seems new
-        if state.globals["loop"] > 3:
-            self.log.info("A state has been discarded because of 1 loop reached")
-            return "ExcessLoop"
-        
-        # If too many states are explored simulateously, put state into pause stash
-        if len(simgr.active) > self.max_simul_state:
-            return "pause"
-
-        else :
-            return simgr.filter(state, **kwargs)
-
-
+                       
     def complete(self, simgr):
         self.deadended = len(simgr.deadended)
         elapsed_time = timer.time() - self.start_time
@@ -438,7 +438,6 @@ class SemaExplorer(ExplorationTechnique):
             self.log.info("Timeout expired for simulation !")
         if not (len(simgr.active) > 0 and self.deadended < self.max_end_state):
             self.log.info("len(simgr.active) <= 0 or deadended >= self.max_end_state)")
-        # Stop binary analysis if the memory usage is above 97% (prevent the machine from crashing)
         if True:
             vmem = psutil.virtual_memory()
             if vmem.percent > 97:

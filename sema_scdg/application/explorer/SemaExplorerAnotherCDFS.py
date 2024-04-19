@@ -39,16 +39,8 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
         simgr.active[0].globals["n_forks"] = 0
         if self.new_addr_stash not in simgr.stashes:
             simgr.stashes[self.new_addr_stash] = []
-    
-    def filter(self, simgr, state, **kwargs):
-        if self.flag:
-            if state.addr not in self.dict_addr_vis:
-                self.dict_addr_vis.add(state.addr)
-                return "new_addr"       
-        super().filter(simgr, state, **kwargs)
 
     def manage_stashes(self, simgr):
-        super().manage_pause(simgr)
 
         super().drop_excessed_loop(simgr)
 
@@ -93,6 +85,12 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
 
         # We detect fork for a state
         self.manage_fork(simgr)
+
+        # Remove state which performed more jump than the limit allowed
+        super().remove_exceeded_jump(simgr)
+
+        # Manage ended state
+        super().manage_deadended(simgr)
         
         if len(simgr.active) > 1 and self.flag:
             l1 = simgr.active[0].solver.constraints
@@ -110,9 +108,21 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
             l4 = [value for value in ll2 if value not in ll1]
             simgr.active[1].globals["condition"] = l4
 
+        if self.flag:
+            id_to_stash = []
+            for s in simgr.active:
+                vis_addr = s.addr
+                if vis_addr not in self.dict_addr_vis:
+                    self.dict_addr_vis[vis_addr] = 1
+                    id_to_stash.append(s.globals["id"])
+            simgr.move(
+                from_stash="active",
+                to_stash="new_addr",
+                filter_func=lambda s: s.globals["id"] in id_to_stash,
+            )
+
         self.manage_stashes(simgr)
 
         self.time_evaluation(simgr)
 
         return simgr
-
