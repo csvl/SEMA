@@ -54,7 +54,13 @@ class SemaExplorerBFS(SemaExplorer):
             self.log.info("fork_stack : " + str(len(self.fork_stack)))
 
         # We detect fork for a state
-        self.manage_fork(simgr)
+        super().manage_fork(simgr)
+
+        # Remove state which performed more jump than the limit allowed
+        super().remove_exceeded_jump(simgr)
+
+        # Manage ended state
+        super().manage_deadended(simgr)
 
         while simgr.active:
             simgr.stashes["pause"].append(simgr.active.pop())
@@ -66,9 +72,7 @@ class SemaExplorerBFS(SemaExplorer):
                 len(simgr.stashes["pause"]),
             )
             for m in range(moves):
-                self.take_smallest(simgr, "pause")
-
-        super().manage_pause(simgr)
+                super().take_smallest(simgr, "pause")
 
         super().drop_excessed_loop(simgr)
 

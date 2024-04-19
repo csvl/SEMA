@@ -59,7 +59,7 @@ class SHGetFolderPathW(angr.SimProcedure):
         elif csidl == 0x17: # CSIDL_PRINTHOOD
             self.state.memory.store(pszPath,self.state.solver.BVV("C:\\Users\\%USERNAME%\\AppData\\Roaming\\Microsoft\\Windows\\Printer Shortcuts".encode('utf-16le')))
         elif csidl == 0x18: # CSIDL_COMMON_STARTUP
-            self.state.memory.store(pszPath,self.state.solver.BVV("C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp".encode('utf-16le')))
+            self.state.memory.store(pszPath,self.state.solver.BVV("C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp".encode('utf-16le')))
         elif csidl == 0x19: # CSIDL_ALTSTARTUP
             self.state.memory.store(pszPath,self.state.solver.BVV("C:\\Users\\%USERNAME%\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\StartUp".encode('utf-16le')))
         elif csidl == 0x1A: # CSIDL_COMMON_ALTSTARTUP

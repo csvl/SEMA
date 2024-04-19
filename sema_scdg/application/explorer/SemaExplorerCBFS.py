@@ -39,6 +39,12 @@ class SemaExplorerCBFS(SemaExplorer):
             simgr.stashes[self.new_addr_stash] = []
 
     def new_addr_priority(self, simgr):
+        if len(simgr.active) > self.max_simul_state:
+            excess = len(simgr.active) - self.max_simul_state
+            while excess > 0:
+                self.pause_stash.append(simgr.active.pop())
+                excess = excess - 1
+
         while simgr.active:
             self.pause_stash.append(simgr.active.pop())
             
@@ -52,6 +58,12 @@ class SemaExplorerCBFS(SemaExplorer):
             simgr.active.append(self.pause_stash.popleft())
     
     def manage_stashes(self, simgr):
+        # Remove state which performed more jump than the limit allowed
+        super().remove_exceeded_jump(simgr)
+
+        # Manage ended state
+        super().manage_deadended(simgr)
+
         for s in simgr.active:
             vis_addr = str(self.check_constraint(s, s.history.jump_target))
             id_to_stash = []
@@ -76,8 +88,6 @@ class SemaExplorerCBFS(SemaExplorer):
             )
             for m in range(moves):
                 super().take_smallest(simgr, "pause")
-
-        super().manage_pause(simgr)
 
         super().drop_excessed_loop(simgr)
 
@@ -113,7 +123,6 @@ class SemaExplorerCBFS(SemaExplorer):
         try:
             simgr = simgr.step(stash=stash, **kwargs)
         except Exception as inst:
-            self.log.warning("ERROR IN STEP() - YOU ARE NOT SUPPOSED TO BE THERE !")
             self.log.warning(inst)  # __str__ allows args to be printed directly,
             exc_type, exc_obj, exc_tb = sys.exc_info()
             self.log.warning(exc_type, exc_obj)

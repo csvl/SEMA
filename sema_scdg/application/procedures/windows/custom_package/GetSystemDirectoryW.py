@@ -9,7 +9,7 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 
 class GetSystemDirectoryW(angr.SimProcedure):
     def getSystemName(self, size):
-        path = ("C:\Windows\System32"[: size - 1] + "\0").encode(
+        path = ("C:\\Windows\\System32"[: size - 1] + "\0").encode(
             "utf-16-le"
         )  # truncate if too long
         return path

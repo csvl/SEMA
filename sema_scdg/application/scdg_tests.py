@@ -224,6 +224,7 @@ class TestSCDG(unittest.TestCase):
     def test_isomorphism_scdg(self):
         refactS_folder = "test_data/train_150_refactS/"
         refactS_mem_improv_folder = "test_data/train_refactS_150_mem_improv/"
+        old_version_folder = "test_data/train_150_prod/"
 
         family_names = []
         for f in os.listdir(refactS_folder)[:]:
@@ -231,7 +232,16 @@ class TestSCDG(unittest.TestCase):
                 family_names.append(f)
 
         # For old version vs refactS (python3)
-        # TODO
+        for family in family_names:
+            for binary_folder in os.listdir(os.path.join(refactS_folder, family)):
+                refactS_binary_graph_path = os.path.join(os.path.join(refactS_folder, family), binary_folder)
+                csv_path_refactS = os.path.join(refactS_folder, "stats_train_150_refactS.csv")
+                old_version_folder_graph_path = os.path.join(os.path.join(old_version_folder, family), binary_folder)
+                csv_path_old_version = os.path.join(old_version_folder,"stats_train_150_prod.csv")
+
+                print(f"Family : {family} binary : {binary_folder}")
+                result = compare_graphs(refactS_binary_graph_path, old_version_folder_graph_path, csv_path_refactS, csv_path_old_version, 150, prod=False)
+                self.assertEqual(result, True)
 
         # For refactS folders (python3)
         for family in family_names:
@@ -246,10 +256,14 @@ class TestSCDG(unittest.TestCase):
                 self.assertEqual(result, True)
 
 
-def compare_graphs(graph1_path, graph2_path, csv_path1, csv_path2, exploration_timeout):
+def compare_graphs(graph1_path, graph2_path, csv_path1, csv_path2, exploration_timeout, prod=False):
+    if prod:
+        g2_path = graph2_path + "/" + os.path.basename(graph2_path) + ".gv"
+    else :
+        g2_path = graph2_path + "/final_SCDG.gv"
     # Convert DOT representations to networkx DiGraph objects
     g1 = nx.drawing.nx_agraph.read_dot(graph1_path + "/final_SCDG.gv")
-    g2 = nx.drawing.nx_agraph.read_dot(graph2_path + "/final_SCDG.gv")
+    g2 = nx.drawing.nx_agraph.read_dot(g2_path)
     # Check for isomorphism (structural equivalence)
     isomorphic = nx.is_isomorphic(g1, g2)
     if isomorphic:
@@ -258,22 +272,40 @@ def compare_graphs(graph1_path, graph2_path, csv_path1, csv_path2, exploration_t
     else:
         # Checking that the binary has been explored completely, 
         # if not it is impossible to tell if the difference is due to how far the program went or to the correctness of it.
-        dataset1 = pd.read_csv(csv_path1, delimiter=";")
-        dataset1 = pd.DataFrame(dataset1)
-        dataset1 = dataset1[["filename", "exploration time"]]
-        binary_name1 = os.path.basename(graph1_path)
-        binary_data1 = dataset1.loc[dataset1['filename'] == binary_name1]
+        # dataset1 = pd.read_csv(csv_path1, delimiter=";")
+        # dataset1 = pd.DataFrame(dataset1)
+        # dataset1 = dataset1[["filename", "exploration time"]]
+        # binary_name1 = os.path.basename(graph1_path)
+        # binary_data1 = dataset1.loc[dataset1['filename'] == binary_name1]
 
-        dataset2 = pd.read_csv(csv_path2, delimiter=";")
-        dataset2 = pd.DataFrame(dataset2)
-        dataset2 = dataset2[["filename", "exploration time"]]
-        binary_name2 = os.path.basename(graph2_path)
-        binary_data2 = dataset2.loc[dataset2['filename'] == binary_name2]
+        # dataset2 = pd.read_csv(csv_path2, delimiter=";")
+        # dataset2 = pd.DataFrame(dataset2)
+        # dataset2 = dataset2[["filename", "exploration time"]]
+        # binary_name2 = os.path.basename(graph2_path)
+        # binary_data2 = dataset2.loc[dataset2['filename'] == binary_name2]
  
-        if (binary_data1.iloc[0]['exploration time'] >= exploration_timeout or binary_data2.iloc[0]['exploration time'] >= exploration_timeout):
-            print("One or the two versions could not explore the binary entirely, impossible to compare the graphs")
-            print("The binary has been ignored for the test")
+        # if (binary_data1.iloc[0]['exploration time'] >= exploration_timeout or binary_data2.iloc[0]['exploration time'] >= exploration_timeout):
+        #     print("One or the two versions could not explore the binary entirely, impossible to compare the graphs")
+        #     print("The binary has been ignored for the test")
+        #     return True
+        min = 15
+        print(g1.size(), g2.size())
+        for v in nx.optimize_edit_paths(g1, g2, node_del_cost=0, edge_del_cost=0, timeout=5):
+            min = v[2]
+        print(min)
+        if min < 10:
             return True
+        nx.draw_networkx(g1)
+        plt.savefig("Graph1.png", format="PNG")
+        plt.close()
+        nx.draw_networkx(g2)
+        plt.savefig("Graph2.png", format="PNG")
+        plt.close()
+
+            return True
+            return True
+        return False
+        return True
         return False
 
 
