@@ -1,0 +1,24 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4206015.main
+00d70c92c6691c99e87785ab7ca1ff99
+<BV128 arg0_16624488_128>"]
+	1 [label="0x402dde.VirtualAlloc
+0
+6339
+12288
+64"]
+	2 [label="0xc0084045.VirtualProtect
+4219264
+3712
+4
+2147417628"]
+	3 [label="0xc0084045.VirtualProtect
+4210688
+4096
+4
+2147417628"]
+	2 -> 3 [label="(3-->3)"]
+	2 -> 3 [label="(4-->4)"]
+	2 -> 3 [label="(0-->0)"]
+}

@@ -1,0 +1,216 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4204148.main
+0064d378368a29f1a66244f70a7d5341
+<BV128 arg0_18700093_128>"]
+	1 [label="0x4026a1.__set_app_type
+"]
+	2 [label="0x4026b6.__p__fmode
+"]
+	1 -> 2 [label="(0-->0)"]
+	3 [label="0x4026c4.__p__commode
+"]
+	1 -> 3 [label="(0-->0)"]
+	2 -> 3 [label="(0-->0)"]
+	4 [label="0x4027ee._controlfp
+"]
+	1 -> 4 [label="(0-->0)"]
+	2 -> 4 [label="(0-->0)"]
+	3 -> 4 [label="(0-->0)"]
+	5 [label="0x402706._initterm
+4210704
+4210708"]
+	6 [label="0x402729.__getmainargs
+2147417576
+2147417560
+2147417572
+0
+2147417564"]
+	7 [label="0x402739._initterm
+4210688
+4210700"]
+	5 -> 7 [label="(0-->0)"]
+	8 [label="0x402580.??0Init@ios_base@std@@QAE@XZ
+"]
+	1 -> 8 [label="(0-->0)"]
+	2 -> 8 [label="(0-->0)"]
+	3 -> 8 [label="(0-->0)"]
+	4 -> 8 [label="(0-->0)"]
+	9 [label="0x402643._onexit
+4203952"]
+	10 [label="0x4025c0.??0_Winit@std@@QAE@XZ
+"]
+	1 -> 10 [label="(0-->0)"]
+	2 -> 10 [label="(0-->0)"]
+	3 -> 10 [label="(0-->0)"]
+	4 -> 10 [label="(0-->0)"]
+	8 -> 10 [label="(0-->0)"]
+	11 [label="0x402643._onexit
+4204016"]
+	12 [label="0x402778.GetStartupInfoA
+2147417580"]
+	5 -> 12 [label="(0-->0)"]
+	7 -> 12 [label="(0-->0)"]
+	13 [label="0x40279c.GetModuleHandleA
+0"]
+	14 [label="0x401ccd.MessageBoxA
+0
+123
+123
+0"]
+	15 [label="0x401f88.MessageBoxA
+0
+
+
+0"]
+	16 [label="0x401845.CoInitialize
+0"]
+	17 [label="0x401850.CoCreateGuid
+2147415812"]
+	18 [label="0x4018da._snprintf
+4211888
+64
+{%08X-%04X-%04x-%02X%02X-%02X%02X%02X%02X%02X%02X}
+0"]
+	19 [label="0x4018e3.CoUninitialize
+"]
+	1 -> 19 [label="(0-->0)"]
+	2 -> 19 [label="(0-->0)"]
+	3 -> 19 [label="(0-->0)"]
+	4 -> 19 [label="(0-->0)"]
+	8 -> 19 [label="(0-->0)"]
+	10 -> 19 [label="(0-->0)"]
+	20 [label="0x40101d.GetSystemWindowsDirectoryA
+
+260"]
+	21 [label="0x4019b7.GetModuleFileNameA
+0
+0064d378368a29f1a66244f70a7d5341
+260"]
+	0 -> 21 [label="(1-->2)"]
+	20 -> 21 [label="(2-->3)"]
+	22 [label="0x401a26.RegCreateKeyA
+2147483650
+SOFTWARE\Microsoft\Active Setup\Installed Components\
+2147415856"]
+	23 [label="0x401a31.lstrlenA
+\.exe"]
+	24 [label="0x401a4b.RegSetValueExA
+0
+stubpath
+0
+2
+2147415944
+5"]
+	23 -> 24 [label="(0-->6)"]
+	25 [label="0x401a56.RegCloseKey
+0"]
+	26 [label="0x401a69.fopen
+0064d378368a29f1a66244f70a7d5341
+rb"]
+	0 -> 26 [label="(1-->1)"]
+	21 -> 26 [label="(2-->1)"]
+	27 [label="0x401a7c.fseek
+3221323808
+0
+2"]
+	26 -> 27 [label="(0-->1)"]
+	24 -> 27 [label="(4-->3)"]
+	28 [label="0x401a7f.ftell
+3221323808"]
+	26 -> 28 [label="(0-->1)"]
+	27 -> 28 [label="(1-->1)"]
+	29 [label="0x401a8c.fseek
+3221323808
+0
+0"]
+	26 -> 29 [label="(0-->1)"]
+	27 -> 29 [label="(1-->1)"]
+	28 -> 29 [label="(1-->1)"]
+	30 [label="0x401a8f.malloc
+filesize_file_2163_0064d378368a29f1a66244f70a7d5341_18798438_32"]
+	31 [label="0x401ab0.fread
+3221323968
+filesize_file_2163_0064d378368a29f1a66244f70a7d5341_18798438_32
+1
+3221323808"]
+	30 -> 31 [label="(0-->1)"]
+	30 -> 31 [label="(1-->2)"]
+	26 -> 31 [label="(0-->4)"]
+	27 -> 31 [label="(1-->4)"]
+	28 -> 31 [label="(1-->4)"]
+	29 -> 31 [label="(1-->4)"]
+	32 [label="0x401ab7.fclose
+3221323808"]
+	26 -> 32 [label="(0-->1)"]
+	27 -> 32 [label="(1-->1)"]
+	28 -> 32 [label="(1-->1)"]
+	29 -> 32 [label="(1-->1)"]
+	31 -> 32 [label="(4-->1)"]
+	33 [label="0x401b12.fopen
+e
+wb"]
+	34 [label="0x401b26.fwrite
+3221323968
+filesize_file_2163_0064d378368a29f1a66244f70a7d5341_18798438_32
+1
+3221324104"]
+	30 -> 34 [label="(0-->1)"]
+	31 -> 34 [label="(1-->1)"]
+	30 -> 34 [label="(1-->2)"]
+	31 -> 34 [label="(2-->2)"]
+	31 -> 34 [label="(3-->3)"]
+	31 -> 34 [label="(0-->3)"]
+	33 -> 34 [label="(0-->4)"]
+	35 [label="0x401b2d.fclose
+3221324104"]
+	33 -> 35 [label="(0-->1)"]
+	34 -> 35 [label="(4-->1)"]
+	36 [label="0x401b34.free
+3221323968"]
+	30 -> 36 [label="(0-->1)"]
+	31 -> 36 [label="(1-->1)"]
+	34 -> 36 [label="(1-->1)"]
+	5 -> 36 [label="(0-->0)"]
+	7 -> 36 [label="(0-->0)"]
+	12 -> 36 [label="(0-->0)"]
+	37 [label="0x401b7e.CreateProcessA
+0
+e
+0
+0
+0
+0
+0
+0
+2147415864
+2147415932"]
+	33 -> 37 [label="(1-->2)"]
+	31 -> 37 [label="(3-->0)"]
+	31 -> 37 [label="(0-->0)"]
+	34 -> 37 [label="(3-->0)"]
+	38 [label="0x401a8f.malloc
+filesize_file_2161_0064d378368a29f1a66244f70a7d5341_18798436_32"]
+	39 [label="0x401ab0.fread
+3221323968
+filesize_file_2161_0064d378368a29f1a66244f70a7d5341_18798436_32
+1
+3221323808"]
+	38 -> 39 [label="(0-->1)"]
+	38 -> 39 [label="(1-->2)"]
+	26 -> 39 [label="(0-->4)"]
+	27 -> 39 [label="(1-->4)"]
+	28 -> 39 [label="(1-->4)"]
+	29 -> 39 [label="(1-->4)"]
+	40 [label="0x401b26.fwrite
+3221323968
+filesize_file_2161_0064d378368a29f1a66244f70a7d5341_18798436_32
+1
+3221324104"]
+	38 -> 40 [label="(0-->1)"]
+	39 -> 40 [label="(1-->1)"]
+	38 -> 40 [label="(1-->2)"]
+	39 -> 40 [label="(2-->2)"]
+	39 -> 40 [label="(3-->3)"]
+	33 -> 40 [label="(0-->4)"]
+}
