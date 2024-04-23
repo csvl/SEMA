@@ -1,0 +1,22 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4198860.main
+00170db5bf4e7e94c04ab2f320aac8cb
+<BV128 arg0_16135455_128>"]
+	1 [label="0x4011dc.CharLowerBuffW
+version.dll
+7"]
+	2 [label="0x4011eb.GetSystemInfo
+4206636"]
+	3 [label="0x401615.ExitProcess
+16777216"]
+	2 -> 3 [label="(0-->0)"]
+	4 [label="0x401204.LoadLibraryW
+D3D8.dll"]
+	5 [label="0x401216.GetModuleHandleW
+version.dll"]
+	1 -> 5 [label="(1-->1)"]
+	6 [label="0x401615.ExitProcess
+4199956"]
+	2 -> 6 [label="(0-->0)"]
+}

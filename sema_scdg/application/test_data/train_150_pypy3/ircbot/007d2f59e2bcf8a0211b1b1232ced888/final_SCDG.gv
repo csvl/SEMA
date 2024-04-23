@@ -1,0 +1,149 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4270136.main
+007d2f59e2bcf8a0211b1b1232ced888
+<BV128 arg0_3642225_128>"]
+	1 [label="0x405b54.GetModuleHandleA
+0"]
+	2 [label="0x403301.GetKeyboardType
+0"]
+	3 [label="0x405a17.GetCommandLineA
+"]
+	4 [label="0x4012c2.GetStartupInfoA
+2147412320"]
+	5 [label="0x405a2b.GetVersion
+"]
+	3 -> 5 [label="(0-->0)"]
+	6 [label="0x405a69.GetThreadLocale
+"]
+	3 -> 6 [label="(0-->0)"]
+	5 -> 6 [label="(0-->0)"]
+	7 [label="0x40590e.GetLocaleInfoA
+retval_GetThreadLocale_3740545_32
+4100
+
+7"]
+	8 [label="0x405a78.GetCurrentThreadId
+"]
+	3 -> 8 [label="(0-->0)"]
+	5 -> 8 [label="(0-->0)"]
+	6 -> 8 [label="(0-->0)"]
+	9 [label="0x405c62.CreateMutexA
+0
+1
+svchostsx"]
+	10 [label="0x412880.GetLastError
+"]
+	3 -> 10 [label="(0-->0)"]
+	5 -> 10 [label="(0-->0)"]
+	6 -> 10 [label="(0-->0)"]
+	8 -> 10 [label="(0-->0)"]
+	11 [label="0x4128a1.GetSystemDirectoryA
+C:\Windows\System32
+200"]
+	12 [label="0x4128b0.GetSystemDirectoryA
+C:\Windows\System32
+161"]
+	11 -> 12 [label="(1-->1)"]
+	11 -> 12 [label="(0-->0)"]
+	13 [label="0x4019be.InitializeCriticalSection
+4367812"]
+	4 -> 13 [label="(0-->0)"]
+	14 [label="0x4019fb.LocalAlloc
+0
+4088"]
+	15 [label="0x4014ef.VirtualAlloc
+0
+1048576
+8192
+1"]
+	9 -> 15 [label="(2-->4)"]
+	16 [label="0x40132f.LocalAlloc
+0
+1604"]
+	17 [label="0x4016c1.VirtualAlloc
+3222798336
+16384
+4096
+4"]
+	15 -> 17 [label="(0-->1)"]
+	2 -> 17 [label="(0-->4)"]
+	15 -> 17 [label="(0-->0)"]
+	18 [label="0x40752d.CreateDirectoryA
+C:\Windows\System32\drivers32
+0"]
+	19 [label="0x40738b.FindFirstFileA
+C:\Windows\System32\svchosts.exe
+2147412084"]
+	20 [label="0x407396.FindClose
+retval_FindFirstFileA_3740590_32"]
+	9 -> 20 [label="(2-->0)"]
+	15 -> 20 [label="(4-->0)"]
+	21 [label="0x4073af.FileTimeToLocalFileTime
+2147412104
+2147412404"]
+	22 [label="0x4073c0.FileTimeToDosDateTime
+2147412404
+2147412414
+2147412412"]
+	21 -> 22 [label="(2-->1)"]
+	23 [label="0x41261f.FindResourceA
+4194304
+TN
+"]
+	1 -> 23 [label="(0-->1)"]
+	24 [label="0x4126fc.RegOpenKeyA
+2147483650
+SOFTWARE\MICROSOFT\WINDOWS\CURRENTVERSION\RUN
+2147412412"]
+	22 -> 24 [label="(3-->3)"]
+	25 [label="0x41270a.lstrlenA
+C:\Windows\System32\drivers32\Twist.exe"]
+	26 [label="0x412727.RegSetValueExA
+4270476
+SvcHosts32
+0
+1
+3222798504
+40"]
+	9 -> 26 [label="(2-->4)"]
+	15 -> 26 [label="(4-->4)"]
+	20 -> 26 [label="(0-->4)"]
+	27 [label="0x412730.RegCloseKey
+4270476"]
+	26 -> 27 [label="(1-->1)"]
+	28 [label="0x407396.FindClose
+retval_FindFirstFileA_3740612_32"]
+	9 -> 28 [label="(2-->0)"]
+	15 -> 28 [label="(4-->0)"]
+	29 [label="0x402940.GetModuleFileNameA
+0
+007d2f59e2bcf8a0211b1b1232ced888
+261"]
+	0 -> 29 [label="(1-->2)"]
+	30 [label="0x4129dc.CopyFileA
+007d2f59e2bcf8a0211b1b1232ced888
+C:\Windows\System32\drivers32\Half-Life 2 No-Cd Crack.exe
+0"]
+	0 -> 30 [label="(1-->1)"]
+	29 -> 30 [label="(2-->1)"]
+	9 -> 30 [label="(2-->0)"]
+	15 -> 30 [label="(4-->0)"]
+	20 -> 30 [label="(0-->0)"]
+	31 [label="0x412a25.CopyFileA
+007d2f59e2bcf8a0211b1b1232ced888
+C:\Windows\System32\drivers32\Half-Life No-Cd Crack.exe
+0"]
+	0 -> 31 [label="(1-->1)"]
+	29 -> 31 [label="(2-->1)"]
+	30 -> 31 [label="(1-->1)"]
+	9 -> 31 [label="(2-->0)"]
+	15 -> 31 [label="(4-->0)"]
+	20 -> 31 [label="(0-->0)"]
+	30 -> 31 [label="(0-->0)"]
+	32 [label="0x40590e.GetLocaleInfoA
+retval_GetThreadLocale_3740544_32
+4100
+
+7"]
+}
