@@ -20,6 +20,9 @@ logger.setLevel(log_level)
 
 class GraphBuilder:
     def __init__(self):
+        """
+        Initialize GraphBuilder with configuration settings and logger.
+        """
         config = configparser.ConfigParser()
         config.read(sys.argv[1])
         self.config = config
@@ -58,15 +61,26 @@ class GraphBuilder:
 
         self.__config_logger()
 
-    # Set the parameters of the next graph that will be build with 'build_graph'
     def __set_graph_parameters(self, mapping, odir, family):
+        """
+        Set parameters for the next graph to be built.
+        
+        Args:
+            mapping: Name of the file for the mapping to use.
+            odir: Output directory for the graph.
+            family: Family of the graph.
+        """
         self.odir = odir
         self.mapping_dir = mapping
         self.family = family
         self.__create_mapping(mapping)
 
-    # Reset all list/dictionnaries of the object
     def clear(self):
+        """
+        Reset all lists and dictionaries of the object.
+
+        Metrics about traces which add information in the graph (or not) are reset to zero.
+        """
         self.TAKE.clear()
         self.id = 0
         self.graph_file = None
@@ -85,14 +99,22 @@ class GraphBuilder:
         self.usefullTraces = 0
         self.totTrace = 0
 
-    #Setup the logger
     def __config_logger(self):
+        """
+        Setup the logger.
+
+        Sets the log level and logger for the object.
+        """
         self.log_level = log_level
         self.log = logger
 
-    # Create a mapping for the different syscall name and an unique identifier.
-    # args : mapping = name of the file for the mapping to use (format : id syscallname\n)
     def __create_mapping(self, mapping):
+        """
+        Create a mapping for the different syscall name and an unique identifier.
+
+        Args:
+            mapping: Name of the file for the mapping to use (format: id syscallname\n).
+        """
         try:
             map_file = open(mapping, "r")
             for line in map_file:
@@ -102,9 +124,16 @@ class GraphBuilder:
         except:
             pass # todo
         
-    # Build the scdg using the list representing the syscalls and the mapping
-    # save the graph in a file using the output directory and the family
     def build(self, stashes_content, mapping, odir, family):
+        """
+        Build the system call dependency graph using the list representing the syscalls and the mapping.
+        
+        Args:
+            stashes_content: Content of the stashes.
+            mapping: Name of the file for the mapping to use.
+            odir: Output directory for the graph.
+            family: Family of the graph.
+        """
         self.__set_graph_parameters(mapping, odir, family)
         if self.graph_output == "":
             self.__build_graph(stashes_content, graph_output="gs")
@@ -114,125 +143,41 @@ class GraphBuilder:
 
 
     def __build_links(self, trace, graph, dico={}):
-        # self.log.info("Building links between calls")
-        # Dictionnary used to build link between args
-        # Variable to check if this trace has added some content to the graph
+        """
+        Build links between calls in the graph.
+
+        Args:
+            trace: List representing syscalls.
+            graph: Graph representation.
+            dico: Dictionary used to build links between args.
+
+        Returns:
+            Updated dictionary with links between calls.
+        """
         contribution = False
 
         for i in range(len(trace)):
             call = trace[i]
+            if call["name"] in self.DISCARD:
+                continue
 
             # Call was already present in the mapping. We need to add it.
-            if (call["name"] not in self.DISCARD) and (
-                call["name"] not in self.mapping
-            ):
+            if call["name"] not in self.mapping:
                 self.mapping[call["name"]] = self.id_map
                 self.id_map = self.id_map + 1
                 self.on_flight = True
 
-            # Check if a similar node already exists
-            if call["name"] in self.DISCARD:
-                is_present = True
-            else:
-                is_present = self.__check_duplicate(call)
+            is_present = self.__check_duplicate(call)
 
             if not is_present:
                 contribution = True
-                graph.node(
-                    str(self.id),
-                    str(call["addr"])
-                    + "."
-                    + call["name"]
-                    + "\n"
-                    + self.__args_to_strings(call["args"]),
-                )
-                self.nodes[str(self.id)] = (
-                    str(call["addr"])
-                    + "."
-                    + call["name"]
-                    + " "
-                    + self.__args_to_strings(call["args"])
-                )
+                graph.node(str(self.id),str(call["addr"]) + "." + call["name"]+ "\n" + self.__args_to_strings(call["args"]),)
+                self.nodes[str(self.id)] = (str(call["addr"]) + "." + call["name"] + " " + self.__args_to_strings(call["args"]))
                 if call["name"] in self.mapping:
                     label = self.mapping[call["name"]]
-                    self.tabnode.append("v " + str(self.id) + " " + str(label) + "\n")
+                    self.tabnode.append(f"v {str(self.id)} {str(label)}" + "\n")
 
-                arg_id = 1
-                if call["args"]:
-                    for j in call["args"]:
-
-                        if (
-                            str(j) in dico
-                            and str(j) != " "
-                            and str(j) != ""
-                            and str(j) != "None"
-                            and str(j) != "0"
-                        ):
-                            self.__create_link(
-                                (str(self.id), arg_id), dico[str(j)], graph
-                            )
-                            dico[str(j)].append((self.id, arg_id))
-                        elif str(j) in dico and str(j) == "0" and not self.IGNORE_ZERO:
-                            self.__create_link(
-                                (str(self.id), arg_id), dico[str(j)], graph
-                            )
-                            dico[str(j)].append((self.id, arg_id))
-                        else:
-                            try:
-                                if (
-                                    str(j) == ""
-                                    or str(j) == " "
-                                    or str(j) == "None"
-                                    or (self.IGNORE_ZERO and int(str(j)) == 0)
-                                ):
-                                    pass
-                                else:
-                                    dico[str(j)] = [(self.id, arg_id, j)]
-                            except Exception:
-                                dico[str(j)] = [(self.id, arg_id, j)]
-
-                        arg_id = arg_id + 1
-
-                if "ref_str" in call and False:
-                    self.log.info("ref_str")
-                    for j in call["ref_str"]:
-                        ref = call["ref_str"][j]
-                        if str(ref) in dico:
-                            self.create_link((str(self.id), j), dico[str(ref)], graph)
-                            dico[str(ref)].append((self.id, j))
-                        else:
-                            try:
-                                if self.IGNORE_ZERO and int(str(ref)) == 0:
-                                    pass
-                                else:
-                                    dico[str(ref)] = [(self.id, j, str(ref))]
-                            except Exception:
-                                dico[str(ref)] = [(self.id, j, str(ref))]
-
-                ret = str(call["ret"])
-
-                if call["ret"] != None and ret != "symbolic":
-                    try:
-                        if (
-                            str(j) == ""
-                            or str(j) == " "
-                            or str(j) == "None"
-                            or (self.IGNORE_ZERO and int(ret) == 0)
-                        ):
-                            pass
-                        else:
-                            if ret in dico:
-                                self.__create_link((str(self.id), 0), dico[ret], graph)
-                                dico[ret].append((self.id, 0))
-
-                            else:
-                                dico[ret] = [(self.id, 0)]
-                    except Exception:
-                        if ret in dico:
-                            self.__create_link((str(self.id), 0), dico[ret], graph)
-                            dico[ret].append((self.id, 0))
-                        else:
-                            dico[ret] = [(self.id, 0)]
+                dico = self.add_link(graph, dico, call)
                 if self.three_edges:
                     addr = str(call["addr_func"])
                     if addr not in self.dico_addr:
@@ -241,184 +186,277 @@ class GraphBuilder:
                         self.__create_link((str(self.id), 0), dico[addr], graph, lab_type="2")
 
                 self.id = self.id + 1
+        self.__update_trace(contribution)
+        return dico
+    
+    def __update_trace(self, contribution):
+        """
+        Update trace metrics based on the contribution.
+
+        Args:
+            contribution: Boolean indicating if the trace has added content to the graph.
+        """
         if self.totTrace < 500:
             if contribution:
-                self.usefullTraces = self.usefullTraces + 1
+                self.usefullTraces += 1
             else:
-                self.uselessTraces = self.uselessTraces + 1
-            self.totTrace = self.totTrace + 1
+                self.uselessTraces += 1
+            self.totTrace += 1
+
+    def add_link(self, graph, dico, call):
+        """
+        Add links between calls in the graph based on call arguments and return value.
+
+        Args:
+            graph: Graph representation.
+            dico: Dictionary used to build links between args.
+            call: Call information containing args and return value.
+        """
+        arg_id = 1
+        if call["args"]:
+            for j in call["args"]:
+                if str(j) in dico and str(j) not in [" ", "", "None", "0"]:
+                    self.__create_link((str(self.id), arg_id), dico[str(j)], graph)
+                    dico[str(j)].append((self.id, arg_id))
+                elif str(j) in dico and str(j) == "0" and not self.IGNORE_ZERO:
+                    self.__create_link((str(self.id), arg_id), dico[str(j)], graph)
+                    dico[str(j)].append((self.id, arg_id))
+                else:
+                    try:
+                        if (str(j) not in ["", " ", "None"] and (not self.IGNORE_ZERO or int(str(j)) != 0)):
+                            dico[str(j)] = [(self.id, arg_id, j)]
+                    except Exception:
+                        dico[str(j)] = [(self.id, arg_id, j)]
+                arg_id = arg_id + 1
+
+        ret = str(call["ret"])
+
+        if call["ret"] != None and ret != "symbolic":
+            try:
+                if (str(j) not in ["", " ", "None"] and (not self.IGNORE_ZERO or int(ret) != 0)):
+                    if ret in dico:
+                        self.__create_link((str(self.id), 0), dico[ret], graph)
+                        dico[ret].append((self.id, 0))
+                    else:
+                        dico[ret] = [(self.id, 0)]
+            except Exception:
+                if ret in dico:
+                    self.__create_link((str(self.id), 0), dico[ret], graph)
+                    dico[ret].append((self.id, 0))
+                else:
+                    dico[ret] = [(self.id, 0)]
         return dico
 
     def __create_link(self, node1, node_list, dot, lab_type="1"):
+        """
+        Create a link between nodes in the graph based on specific conditions.
+
+        Args:
+            node1: First node to link.
+            node_list: List of nodes to link.
+            dot: Graph representation.
+            lab_type: Type of link.
+        """
         for i in node_list:
             check = True
             if self.MERGE_CALL and not self.__is_in_curr_nodes(i[0]):
                 check = False
-            label2 = lab_type + "9" + str(i[1]) + "9" + str(node1[1])
-            check2 = "e " + str(i[0]) + " " + str(node1[0]) + " " + label2 + "\n"
-            label3 = lab_type + "9" + str(node1[1]) + "9" + str(i[1])
-            check3 = "e " + str(node1[0]) + " " + str(i[0]) + " " + label3 + "\n"
+            label2 = f"{lab_type}9{str(i[1])}9{str(node1[1])}"
+            check2 = f"e {str(i[0])} {str(node1[0])} {label2}" + "\n"
+            label3 = f"{lab_type}9{str(node1[1])}9{str(i[1])}"
+            check3 = f"e {str(node1[0])} {str(i[0])} {label3}" + "\n"
             selfie = str(i[0]) == str(node1[0])
 
-            if (
-                check
+            if (check
                 and (check2 not in self.tablink)
                 and (check3 not in self.tablink)
                 and not selfie
             ):
-                dot.edge(
-                    str(i[0]),
-                    str(node1[0]),
-                    label="(" + str(i[1]) + "-->" + str(node1[1]) + ")",
-                )
-                label = lab_type + "9" + str(i[1]) + "9" + str(node1[1])
-                self.tablink.append(
-                    "e " + str(i[0]) + " " + str(node1[0]) + " " + label + "\n"
-                )
+                dot.edge(str(i[0]), str(node1[0]), label=f"({str(i[1])}-->{str(node1[1])})")
+                label = f"{lab_type}9{str(i[1])}9{str(node1[1])}"
+                self.tablink.append(f"e {str(i[0])} {str(node1[0])} {label}" + "\n")
 
     def __build_graph(self, SCDG, graph_output="gs", gv = True):
+        """
+        Build the system call dependency graph using the given content.
+
+        Args:
+            SCDG: List representing syscalls.
+            graph_output: Output format for the graph.
+            gv: Boolean to determine if the function should also provide the gv graph.
+        """
         if not os.path.exists(self.odir):
             os.makedirs(self.odir)
-        self.log.info("Output dir :" + self.odir)
+        self.log.info(f"Output dir :{self.odir}")
         json_content = {}
         if graph_output == "gs":
-            self.graph_file = open(self.odir + "/final_SCDG.gs", "w")
+            self.graph_file = open(f"{self.odir}/final_SCDG.gs", "w")
             self.graph_file.write("t # 0\n")
         else:
-            self.graph_file = open(self.odir + "/final_SCDG.json", "w")
+            self.graph_file = open(f"{self.odir}/final_SCDG.json", "w")
 
         if self.MERGE_CALL:
-            json_content["nodes"] = []
-            json_content["links"] = []
-
-            dico = {}
-            dot = Digraph(comment="Global SCDG with merge call", format="dot")
-
-            for i in range(len(SCDG)):
-                self.log.info("Using SCDG " + str(i + 1) + " over " + str(len(SCDG)))
-
-                if len(SCDG[i]) >= self.MIN_SIZE:
-                    # import pdb; pdb.set_trace()
-                    self.__build_links(SCDG[i], dot, dico)
-                else:
-                    self.log.info(
-                        "The SCDG "
-                        + str(i)
-                        + " was too small, smaller than "
-                        + str(self.MIN_SIZE)
-                        + " calls."
-                    )
-                self.current_trace_nodes.clear()
-
-            # Save data parts
-            for n in self.tabnode:
-                if graph_output == "json":
-                    # json_content['nodes'].append(n)
-                    id_node = n.replace("\n", "").split(" ")[1]
-                    node_name = self.nodes[id_node].split(" ")[0]
-                    arg_node = self.nodes[id_node].split(" ")[1].split("\n")
-                    content = self.existing_nodes[node_name]
-                    newnode = {
-                        "id": id_node,
-                        "name": content["name"],
-                        "addr": node_name.split(".")[0],
-                        "args": arg_node,
-                    }
-                    json_content["nodes"].append(newnode)
-                else:
-                    self.graph_file.write(n)
-            for l in self.tablink:
-                if graph_output == "json":
-                    tab_split = l.split(" ")
-                    newlink = {
-                        "id1": tab_split[1],
-                        "id2": tab_split[2],
-                        "label": tab_split[3].replace("\n", ""),
-                    }
-                    json_content["links"].append(newlink)
-                else:
-                    self.graph_file.write(l)
-            if gv:
-                dot.save(self.odir + "/final_SCDG.gv")
-            if graph_output == "json":
-                json.dump(json_content, self.graph_file)
+            self.scdg_with_merge_calls(SCDG, graph_output, gv, json_content)
         else:
-            dot = Digraph(comment="SCDG with disjoint union", format="dot")
-            for i in range(len(SCDG)):
-                if len(SCDG[i]) >= self.MIN_SIZE:
-                    json_content["graph_" + str(i)] = {}
-                    json_content["graph_" + str(i)]["nodes"] = []
-                    json_content["graph_" + str(i)]["links"] = []
-                    self.__build_links(SCDG[i], dot)
+            self.scdg_with_disjoint_union(SCDG, graph_output, json_content)
+        self.save_result(graph_output, json_content)
 
-                    for n in self.tabnode:
-                        if graph_output == "json":
-                            # json_content['nodes'].append(n)
-                            id_node = n.replace("\n", "").split(" ")[1]
-                            node_name = self.nodes[id_node].split(" ")[0]
-                            arg_node = self.nodes[id_node].split(" ")[1].split("\n")
-                            content = self.existing_nodes[node_name]
-                            newnode = {
+    def reset_attributes(self):
+        """
+        Reset attributes used in the graph building process.
+
+        Clears various attributes to prepare for building a new graph.
+        """
+        self.id = 0
+        self.tabnode = []
+        self.tablink = []
+        self.dico_addr.clear()
+        self.existing_nodes.clear()
+        self.current_trace_nodes.clear()
+        self.nodes.clear()
+
+    def scdg_with_disjoint_union(self, SCDG, graph_output, json_content):
+        """
+        Build the system call dependency graph with disjoint union.
+
+        Args:
+            SCDG: List representing syscalls.
+            graph_output: Output format for the graph.
+            json_content: Dictionary to store JSON content.
+
+        Returns:
+            None
+        """
+        dot = Digraph(comment="SCDG with disjoint union", format="dot")
+        for i in range(len(SCDG)):
+            if len(SCDG[i]) >= self.MIN_SIZE:
+                json_content[f"graph_{str(i)}"] = {"nodes": [], "links": []}
+                self.__build_links(SCDG[i], dot)
+
+                for n in self.tabnode:
+                    if graph_output == "json":
+                        id_node = n.replace("\n", "").split(" ")[1]
+                        node_name = self.nodes[id_node].split(" ")[0]
+                        arg_node = self.nodes[id_node].split(" ")[1].split("\n")
+                        content = self.existing_nodes[node_name]
+                        newnode = {
                                 "id": id_node,
                                 "name": content["name"],
                                 "addr": node_name.split(".")[0],
                                 "args": arg_node,
                             }
-                            json_content["graph_" + str(i)]["nodes"].append(newnode)
-                        else:
-                            self.graph_file.write(n)
-                    for l in self.tablink:
-                        if graph_output == "json":
-                            tab_split = l.split(" ")
-                            newlink = {
+                        json_content[f"graph_{str(i)}"]["nodes"].append(newnode)
+                    else:
+                        self.graph_file.write(n)
+                for l in self.tablink:
+                    if graph_output == "json":
+                        tab_split = l.split(" ")
+                        newlink = {
                                 "id1": tab_split[1],
                                 "id2": tab_split[2],
                                 "label": tab_split[3],
                             }
-                            json_content["graph_" + str(i)]["links"].append(newlink)
-                        else:
-                            self.graph_file.write(l)
+                        json_content[f"graph_{str(i)}"]["links"].append(newlink)
+                    else:
+                        self.graph_file.write(l)
 
-                    #dot.save("../output/test-output/disjoint_union" + str(i) + ".gv")
-                    dot.save(self.odir + "/test-output/disjoint_union" + str(i) + ".gv")
-                    self.id = 0
-                    self.tabnode = []
-                    self.tablink = []
-                    self.dico_addr.clear()
-                    self.existing_nodes.clear()
-                    self.current_trace_nodes.clear()
-                    self.nodes.clear()
-                    dot.clear()
+                dot.save(f"{self.odir}/test-output/disjoint_union{str(i)}.gv")
+                self.reset_attributes()
+                dot.clear()
+        dot.save(f"{self.odir}/test-output/disjoint_union.gv")
 
-            dot.save(self.odir + "/test-output/disjoint_union.gv")
+    def scdg_with_merge_calls(self, SCDG, graph_output, gv, json_content):
+        """
+        Build the system call dependency graph with merge calls.
+
+        Args:
+            SCDG: List representing syscalls.
+            graph_output: Output format for the graph.
+            gv: Boolean to determine if the function should also provide the gv graph.
+            json_content: Dictionary to store JSON content.
+        """
+        json_content["nodes"] = []
+        json_content["links"] = []
+
+        dico = {}
+        dot = Digraph(comment="Global SCDG with merge call", format="dot")
+
+        for i in range(len(SCDG)):
+            self.log.info(f"Using SCDG {str(i + 1)} over {len(SCDG)}")
+
+            if len(SCDG[i]) >= self.MIN_SIZE:
+                self.__build_links(SCDG[i], dot, dico)
+            else:
+                self.log.info(
+                    f"The SCDG {str(i)} was too small, smaller than {str(self.MIN_SIZE)} calls."
+                )
+            self.current_trace_nodes.clear()
+
+        # Save data parts
+        for n in self.tabnode:
             if graph_output == "json":
-                json.dump(json_content, self.graph_file)
+                id_node = n.replace("\n", "").split(" ")[1]
+                node_name = self.nodes[id_node].split(" ")[0]
+                arg_node = self.nodes[id_node].split(" ")[1].split("\n")
+                content = self.existing_nodes[node_name]
+                newnode = {
+                        "id": id_node,
+                        "name": content["name"],
+                        "addr": node_name.split(".")[0],
+                        "args": arg_node,
+                    }
+                json_content["nodes"].append(newnode)
+            else:
+                self.graph_file.write(n)
+        for l in self.tablink:
+            if graph_output == "json":
+                tab_split = l.split(" ")
+                newlink = {
+                        "id1": tab_split[1],
+                        "id2": tab_split[2],
+                        "label": tab_split[3].replace("\n", ""),
+                    }
+                json_content["links"].append(newlink)
+            else:
+                self.graph_file.write(l)
+        if gv:
+            dot.save(f"{self.odir}/final_SCDG.gv")
+
+    def save_result(self, graph_output, json_content):
+        """
+        Save the result of the graph building process.
+
+        Args:
+            graph_output: Output format for the graph.
+            json_content: JSON content to be saved.
+        """
+        if graph_output == "json":
+            json.dump(json_content, self.graph_file)
         self.graph_file.close()
-        # dot.render('output/test-output/disjoint_union.gv', view=False) # really heavy could crash
 
         if self.on_flight:
-            out_map = open(self.mapping_dir, "w")
-            for key in self.mapping:
-                out_map.write(str(self.mapping[key]) + " " + str(key) + "\n")
-            out_map.close()
+            with open(self.mapping_dir, "w") as out_map:
+                for key in self.mapping:
+                    out_map.write(f"{str(self.mapping[key])} {str(key)}" + "\n")
 
-    # Check if a call is already present in the graph
-    # If COMP_ARGS : a call is considered present if it had same addr,name and all of its args
-    #                corresponding to a node already present
-    # If not COMP_ARGS : a call is considered present if it had same addr and name corresponding to a node already present
-    # Add the call to existing_node if relevant and return Boolean
     def __check_duplicate(self, call):
+        """
+        Check if a call node is a duplicate in the graph.
+
+        Args:
+            call: Information about the call node.
+
+        Returns:
+            Boolean indicating if the call node is a duplicate.
+        """
         name_node = str(call["addr"]) + "." + str(call["name"])
         if name_node in self.existing_nodes:
-            if not self.COMP_ARGS:
-                # We just care about call name and address, since node already exists, we add it to current_traces_nodes (to authorize creation of new link)
-                # But we return True since node already exists
-                if name_node not in self.current_trace_nodes:
-                    self.current_trace_nodes[name_node] = {
-                        "name": call["name"],
-                        "args": [call["args"]],
-                    }
-                    return True
+            if not self.COMP_ARGS and name_node not in self.current_trace_nodes:
+                self.current_trace_nodes[name_node] = {
+                    "name": call["name"],
+                    "args": [call["args"]],
+                }
+                return True
 
             self.existing_nodes[name_node]["name"]
             args = self.existing_nodes[name_node]["args"]
@@ -458,8 +496,17 @@ class GraphBuilder:
         }
         return False
 
-    # Check if two list of args match
     def __is_match(self, test_list, new_list):
+        """
+        Check if two lists match element-wise.
+
+        Args:
+            test_list (list): The list to compare elements from.
+            new_list (list): The list to compare elements to.
+
+        Returns:
+            bool: True if the lists match element-wise, False otherwise.
+        """
         if not test_list or not new_list:
             return True
         if isinstance(test_list, int) and isinstance(new_list, int):
@@ -476,22 +523,39 @@ class GraphBuilder:
         return True
 
     def __args_to_strings(self, args):
+        """
+        Convert a list of arguments to a formatted string.
+
+        Args:
+            args (list): The list of arguments to convert to strings.
+
+        Returns:
+            str: A formatted string containing the arguments.
+        """
         if not args:
             return ""
         ret = ""
         for a in args:
             test = str(a)
-            ret = ret + str(test)
+            ret = ret + test
             ret = ret + "\n"
-        ret = ret[:-1]
-        return ret
+        return ret[:-1]
 
     def __is_in_curr_nodes(self, ID):
+        """
+        Check if a given ID is in the current trace nodes.
+
+        Args:
+            ID: The ID to check for in the current trace nodes.
+
+        Returns:
+            bool: True if the ID is found in the current trace nodes, False otherwise.
+        """
         str_test = self.nodes[str(ID)]
         str_name = str_test.split(" ")[0]
         if str_name in self.current_trace_nodes:
             for args in self.current_trace_nodes[str_name]["args"]:
-                temp = str_name + " " + self.__args_to_strings(args)
+                temp = f"{str_name} {self.__args_to_strings(args)}"
                 if temp == str_test:
                     return True
         return False
