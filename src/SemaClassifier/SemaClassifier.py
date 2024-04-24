@@ -10,11 +10,15 @@ try:
     from classifier.SVM.SVMInriaClassifier import SVMInriaClassifier
     from classifier.SVM.SVMWLClassifier import SVMWLClassifier
     from clogging.CustomFormatter import CustomFormatter
+    from classifier.GM.GSpanClassifier import GSpanClassifier
+    from classifier.GNN.GNNTrainer import GNNTrainer
 except:
     from src.SemaClassifier.helper.ArgumentParserClassifier import ArgumentParserClassifier
     from src.SemaClassifier.classifier.SVM.SVMInriaClassifier import SVMInriaClassifier
     from src.SemaClassifier.classifier.SVM.SVMWLClassifier import SVMWLClassifier
     from src.SemaClassifier.clogging.CustomFormatter import CustomFormatter
+    from src.SemaClassifier.classifier.GM.GSpanClassifier import GSpanClassifier
+    from src.SemaClassifier.classifier.GNN.GNNTrainer import GNNTrainer
 
 import pandas as pd
 
@@ -66,6 +70,19 @@ class SemaClassifier:
             biggest_subgraph = args.biggest_subgraph
             epoch = args.epoch
             shared_type = 1#args.smodel
+            num_layers = args.num_layers
+            hidden = args.hidden
+            self.flag = not args.no_flag
+            patience = args.patience
+            step_size = args.step_size
+            m = args.M
+            self.net_linear = args.net_linear
+            self.drop_ratio = args.drop_ratio
+            self.drop_path_p = args.drop_path_p
+            self.edge_p = args.edge_p
+            self.net_seed = args.net_seed
+            self.residual = args.residual
+            self.graph_model = args.graph_model
             self.mode = "detection" if args.detection else "classification"
         else:
             threshold = args["threshold"]
@@ -88,6 +105,24 @@ class SemaClassifier:
                 except:
                     from .classifier.DL.DLTrainerClassifier import DLTrainerClassifier
                 self.classifier = DLTrainerClassifier(path=ROOT_DIR,epoch=epoch,shared_type=shared_type)
+            elif self.classifier_name == "gin":
+                self.classifier = GNNTrainer(path=ROOT_DIR,epoch=epoch, name="gin", threshold=threshold, families=families,
+                                             num_layers=num_layers,
+                                             hidden=hidden, patience=patience, step_size=step_size, m=m,
+                                             input_path=input_path, flag=self.flag)
+            elif self.classifier_name == "ginjk":
+                self.classifier = GNNTrainer(path=ROOT_DIR,epoch=epoch, name="ginjk", threshold=threshold, families=families,
+                                             num_layers=num_layers,
+                                             hidden=hidden, patience=patience, step_size=step_size, m=m,
+                                             input_path=input_path, flag=self.flag)
+            elif self.classifier_name == "gine":
+                self.classifier = GNNTrainer(path=ROOT_DIR,epoch=epoch, name="gine", threshold=threshold, families=families,
+                                             num_layers=num_layers, 
+                                             hidden=hidden, patience=patience, step_size=step_size, m=m,input_path=input_path, flag=self.flag)
+            elif self.classifier_name == "ginmlp":
+                self.classifier = GNNTrainer(path=ROOT_DIR,epoch=epoch, name="ginmlp", threshold=threshold, families=families,
+                                             num_layers=num_layers, 
+                                             hidden=hidden, patience=patience, step_size=step_size, m=m,input_path=input_path, flag=self.flag)
             else:
                 self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl|gin|ginjk|rgin|rginjk|fginjk)")
                 exit(-1)    
@@ -98,6 +133,14 @@ class SemaClassifier:
                 self.classifier = self.load_model(ROOT_DIR + "/classifier/saved_model/inria_model.pkl")
             elif self.classifier_name == "wl": 
                 self.classifier = self.load_model(ROOT_DIR + "/classifier/saved_model/wl_model.pkl")
+            elif self.classifier_name == "gin":
+                self.classifier = self.load_model(ROOT_DIR + "/classifier/saved_model/gin_model.pkl")
+            elif self.classifier_name == "ginjk":
+                self.classifier = self.load_model(ROOT_DIR + "/classifier/saved_model/ginjk_model.pkl")
+            elif self.classifier_name == "gine":
+                self.classifier = self.load_model(ROOT_DIR + "/classifier/saved_model/gine_model.pkl")
+            elif self.classifier_name == "ginmlp":
+                self.classifier = self.load_model(ROOT_DIR + "/classifier/saved_model/ginmlp_model.pkl")
             elif self.classifier_name == "dl": # not working with pypy
                 try:
                     from classifier.DL.DLTrainerClassifier import DLTrainerClassifier
@@ -105,7 +148,7 @@ class SemaClassifier:
                     from .classifier.DL.DLTrainerClassifier import DLTrainerClassifier
                 self.classifier = self.load_model(ROOT_DIR + "/classifier/saved_model/dl_model.pkl")
             else:
-                self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
+                self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl|gin|ginjk|gine|ginmlp)")
                 exit(-1)   
             self.classifier.families = families
         fileHandler = logging.FileHandler(args.binaries + "/classifier.log")
@@ -184,14 +227,24 @@ class SemaClassifier:
             self.save_model(self.classifier,ROOT_DIR + "/classifier/saved_model/"+ self.classifier_name +"_model.pkl")
         
             self.training_elapsed_time = time.time() - self.start_time
+            #write training time to file
+            with open(f"output/gnn_eval/randgnn_eval_stats.csv", "a") as f:
+                f.write(f"{self.training_elapsed_time:.2f},{self.flag},{self.graph_model},")
             self.log.info("Total training time: " + str(self.training_elapsed_time))
 
     def classify(self):
         self.classifier.classify(path=(None if self.args.train else self.input_path))
         self.elapsed_time = time.time() - self.start_time
         # self.log.info(self.classifier.get_stat_classifier())
+        accuracy, balanced_accuracy, precision, recall, f_score = self.classifier.get_stat_classifier()
+        with open(f"output/gnn_eval/randgnn_eval_stats.csv", "a") as f:
+            # f.write("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+            f.write(f"{accuracy},{balanced_accuracy},{precision},{recall},{f_score}\n")
     def detect(self):
         self.classifier.detection(path=(None if self.args.train else self.input_path))
+        self.elapsed_time = time.time() - self.start_time
+    def explain(self):
+        self.classifier.explain(path=(None if self.args.train else self.input_path), output_path=ROOT_DIR + "/classifier/explain_output/new/")
         self.elapsed_time = time.time() - self.start_time
         
     def save_csv(self):
@@ -219,12 +272,14 @@ def main():
     tc.args = args_parser.parse_arguments()
     args_parser.update_tool(tc.args)
     tc.init()
-    if tc.args.train:
+    if tc.args.explain:
+        tc.explain()
+    elif tc.args.train:
         tc.train()
         training_elapsed_time = time.time() - tc.start_time
     elif tc.mode == "classification":
         tc.classify()
-        tc.classifier.get_stat_classifier()
+        # // get stats and write file:
     elif tc.mode == "detection":
         tc.detect()
         tc.classifier.get_stat_classifier()

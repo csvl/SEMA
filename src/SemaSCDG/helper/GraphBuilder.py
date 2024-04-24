@@ -210,9 +210,13 @@ class GraphBuilder:
                         else:
                             dico[ret] = [(self.id, 0)]
                 if self.three_edges:
+                    # import pdb; pdb.set_trace()
                     addr = str(call["addr_func"])
                     if addr not in self.dico_addr:
                         self.dico_addr[addr] = (str(self.id), 0)
+                    # conv to decimal:
+                    addr = int(addr, 16)
+                    addr = str(addr)
                     if addr in dico:
                         self.create_link((str(self.id), 0), dico[addr], graph, lab_type="2")
 
@@ -291,7 +295,7 @@ class GraphBuilder:
                     # json_content['nodes'].append(n)
                     id_node = n.replace("\n", "").split(" ")[1]
                     node_name = self.nodes[id_node].split(" ")[0]
-                    arg_node = self.nodes[id_node].split(" ")[1].split("\n")
+                    arg_node = self.nodes[id_node].split(" ", 1)[1].split("\n")
                     content = self.existing_nodes[node_name]
                     newnode = {
                         "id": id_node,

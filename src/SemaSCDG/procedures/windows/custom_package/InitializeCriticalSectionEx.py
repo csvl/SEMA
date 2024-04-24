@@ -10,9 +10,9 @@ class InitializeCriticalSectionEx(angr.SimProcedure):
         dwSpinCount,
         Flags
     ):
-        x = self.state.stack_pop()
-        self.state.stack_pop()
-        self.state.stack_pop()
-        self.state.stack_pop()
-        self.state.stack_push(x)
+        # x = self.state.stack_pop()
+        # self.state.stack_pop()
+        # self.state.stack_pop()
+        # self.state.stack_pop()
+        # self.state.stack_push(x)
         return 0x1

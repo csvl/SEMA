@@ -9,7 +9,12 @@
 8 GetModuleHandleA
 9 LoadLibraryA
 10 GetProcAddress
-11 RegOpenKeyExA
-12 RegCloseKey
-13 StartServiceCtrlDispatcherA
-14 exit
+11 GetModuleFileNameA
+12 RegOpenKeyExA
+13 RegCloseKey
+14 StartServiceCtrlDispatcherA
+15 exit
+16 atexit
+17 GetTickCount
+18 Sleep
+19 MessageBoxA

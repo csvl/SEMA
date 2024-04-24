@@ -1,0 +1,113 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4198432.main
+297f29756d0bc3b143514dd9b4fa465f7eea277a097007bed29e7baea851e348.exe"]
+	1 [label="0x40102f.GetModuleHandleW
+0"]
+	2 [label="0x40104a.HeapCreate
+0
+8192
+0"]
+	3 [label="0x40105d.HeapAlloc
+1
+8
+8192"]
+	2 -> 3 [label="(0-->1)"]
+	2 -> 3 [label="(2-->3)"]
+	4 [label="0x401068.HeapAlloc
+1
+8
+8192"]
+	2 -> 4 [label="(0-->1)"]
+	3 -> 4 [label="(1-->1)"]
+	3 -> 4 [label="(2-->2)"]
+	2 -> 4 [label="(2-->3)"]
+	3 -> 4 [label="(3-->3)"]
+	5 [label="0x401072.GetModuleFileNameW
+0
+297f29756d0bc3b143514dd9b4fa465f7eea277a097007bed29e7baea851e348.exe
+8192"]
+	0 -> 5 [label="(1-->2)"]
+	2 -> 5 [label="(2-->3)"]
+	3 -> 5 [label="(3-->3)"]
+	4 -> 5 [label="(3-->3)"]
+	6 [label="0x401080.GetTempPathW
+4096
+"]
+	7 [label="0x401096.wsprintfW
+
+%s%s"]
+	8 [label="0x4010b2.CreateFileW
+297f29756d0bc3b143514dd9b4fa465f7eea277a097007bed29e7baea851e348.exe
+2147483648
+1
+0
+3
+128
+0"]
+	0 -> 8 [label="(1-->1)"]
+	5 -> 8 [label="(2-->1)"]
+	2 -> 8 [label="(0-->3)"]
+	3 -> 8 [label="(1-->3)"]
+	4 -> 8 [label="(1-->3)"]
+	9 [label="0x4010ca.GetFileSize
+3
+0"]
+	8 -> 9 [label="(5-->1)"]
+	8 -> 9 [label="(0-->1)"]
+	10 [label="0x4010dc.lstrlenW
+297f29756d0bc3b143514dd9b4fa465f7eea277a097007bed29e7baea851e348.exe"]
+	0 -> 10 [label="(1-->1)"]
+	5 -> 10 [label="(2-->1)"]
+	8 -> 10 [label="(1-->1)"]
+	11 [label="0x4010eb.HeapAlloc
+1
+8
+retval_GetFileSize_131071_32"]
+	2 -> 11 [label="(0-->1)"]
+	3 -> 11 [label="(1-->1)"]
+	4 -> 11 [label="(1-->1)"]
+	8 -> 11 [label="(3-->1)"]
+	3 -> 11 [label="(2-->2)"]
+	4 -> 11 [label="(2-->2)"]
+	12 [label="0x401104.ReadFile
+3
+3221372984
+retval_GetFileSize_131071_32
+2147417564
+0"]
+	8 -> 12 [label="(5-->1)"]
+	8 -> 12 [label="(0-->1)"]
+	9 -> 12 [label="(1-->1)"]
+	11 -> 12 [label="(0-->2)"]
+	11 -> 12 [label="(3-->3)"]
+	2 -> 12 [label="(0-->0)"]
+	3 -> 12 [label="(1-->0)"]
+	4 -> 12 [label="(1-->0)"]
+	8 -> 12 [label="(3-->0)"]
+	11 -> 12 [label="(1-->0)"]
+	13 [label="0x401110.lstrcmpW
+297f29756d0bc3b143514dd9b4fa465f7eea277a097007bed29e7baea851e348.exe
+"]
+	0 -> 13 [label="(1-->1)"]
+	5 -> 13 [label="(2-->1)"]
+	8 -> 13 [label="(1-->1)"]
+	10 -> 13 [label="(1-->1)"]
+	14 [label="0x401121.lstrlenW
+297f29756d0bc3b143514dd9b4fa465f7eea277a097007bed29e7baea851e348.exe"]
+	0 -> 14 [label="(1-->1)"]
+	5 -> 14 [label="(2-->1)"]
+	8 -> 14 [label="(1-->1)"]
+	10 -> 14 [label="(1-->1)"]
+	13 -> 14 [label="(1-->1)"]
+	10 -> 14 [label="(0-->0)"]
+	15 [label="0x40114c.CreateFileW
+
+1073741824
+2
+0
+2
+128
+0"]
+	8 -> 15 [label="(6-->6)"]
+}

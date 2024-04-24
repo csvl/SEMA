@@ -298,8 +298,8 @@ class ArgumentParserSCDG:
         )     
         self.group.add_argument(
             "--timeout",
-            help="Timeout in seconds before ending extraction (default : 200)",
-            default=1000,
+            help="Timeout in seconds before ending extraction (default : 600)",
+            default=600,
             type=int,
         )     
         self.group.add_argument(

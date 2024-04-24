@@ -37,7 +37,23 @@ class SemaExplorerWSELECT3(SemaExplorer):
             max_length,
             exp_dir,
             nameFileShort,
-            worker
+            worker.scdg,
+            worker.call_sim,
+            worker.eval_time,
+            worker.timeout,
+            worker.max_end_state,
+            worker.max_step,
+            worker.timeout_tab,
+            worker.jump_it,
+            worker.loop_counter_concrete,
+            worker.jump_dict,
+            worker.jump_concrete_dict,
+            worker.max_simul_state,
+            worker.max_in_pause_stach,
+            worker.print_on,
+            worker.print_sm_step,
+            worker.print_syscall,
+            worker.debug_error,
         )
         self.start_state = simgr.one_active
         # self.restart_prob = restart_prob
@@ -56,13 +72,13 @@ class SemaExplorerWSELECT3(SemaExplorer):
         try:
             simgr = simgr.step(stash=stash, **kwargs)
         except Exception as inst:
-            self.log.warning("ERROR IN STEP() - YOU ARE NOT SUPPOSED TO BE THERE !")
-            # self.log.warning(type(inst))    # the exception instance
             self.log.warning(inst)  # __str__ allows args to be printed directly,
             exc_type, exc_obj, exc_tb = sys.exc_info()
             # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-            self.log.warning(exc_type, exc_obj)
-            exit(-1)
+            self.log.warning(exc_type)
+            self.log.warning(exc_obj,exc_type)
+            #exit(-1)
+            #raise Exception("ERROR IN STEP() - YOU ARE NOT SUPPOSED TO BE THERE !")
 
         super().build_snapshot(simgr)
 
@@ -76,13 +92,23 @@ class SemaExplorerWSELECT3(SemaExplorer):
             self.log.info("pause stash len :" + str(len(self.pause_stash)))
 
         if self.print_sm_step and len(self.fork_stack) > 0:
-            self.log.info("fork_stack : " + str(len(self.fork_stack)))
+            self.log.info("fork_stack : " + str(len(self.fork_stack)) + " " + hex(simgr.active[0].addr) + " || " + hex(simgr.active[1].addr))
 
         # We detect fork for a state
         super().manage_fork(simgr)
 
+        simgr.move(
+            from_stash="active",
+            to_stash="deadend",
+            filter_func=lambda s: s.addr == 0xdeadbeef,
+        )
+
         # Remove state which performed more jump than the limit allowed
         super().remove_exceeded_jump(simgr)
+
+        super().manage_end_thread(simgr)
+        
+        super().manage_lost(simgr)
 
         # Manage ended state
         super().manage_deadended(simgr)
@@ -122,11 +148,10 @@ class SemaExplorerWSELECT3(SemaExplorer):
                     return states
 
                 for s in states:
-                    if s.globals["id"] not in self.affinity:
-                        self.affinity[s.globals["id"]] = count_syscall(s)
+                    # if s.globals["id"] not in self.affinity:
+                    self.affinity[s.globals["id"]] = count_syscall(s)
                 weights = []
                 population = []
-                # import pdb; pdb.set_trace()
                 for _, e in enumerate(states):
                     population.append(e)
                     # weights.append(self.affinity[e.globals["id"]])
@@ -137,19 +162,9 @@ class SemaExplorerWSELECT3(SemaExplorer):
                     n = len(population)
                 # import pdb; pdb.set_trace()
                 sorted_list = sorted(population, key=lambda x: self.affinity[x.globals["id"]], reverse=True)
-                # picked = self._random.choice(population, p=norm_weights, size=n, replace=False)
                 picked = sorted_list[:n]
-                # import pdb; pdb.set_trace()
                 return picked
 
-
-        # if self._random.random() < self.restart_prob:
-        #     print("\n ########################################### \n RESTART \n ######################################### \n")
-        #     # import pdb; pdb.set_trace()
-        #     simgr.active = [self.start_state]
-        #     self.affinity.clear()
-        #     self.seed += 1
-        #     self._random.seed(self.seed)
         if not simgr.active:
             if len(simgr.stashes["pause"]) > 0:
                 the_chosen_ones = weighted_pick(simgr.stashes["pause"], self.max_simul_state) # Pick randomly states from pause stash
@@ -159,18 +174,6 @@ class SemaExplorerWSELECT3(SemaExplorer):
                     filter_func=lambda s: s.globals["id"] in [elem.globals["id"] for elem in the_chosen_ones]
                 )
 
-        # for state in simgr.active:
-        #     if self.last_scdg[state.globals["id"]] != len(self.scdg[state.globals["id"]]):
-        #         print(self.scdg[state.globals["id"]])
-        #         import pdb; pdb.set_trace()
-        #         self.last_scdg[state.globals["id"]] = len(self.scdg[state.globals["id"]])
-        #         self.discovery_counter = 0
-        #         break
-        #     else:
-        #         self.discovery_counter += 1
-
-        # print(self.restart_prob)
-        # import pdb; pdb.set_trace()
         if (len(simgr.active) > self.max_simul_state
             # If limit of simultaneous state is exceeded
             or (len(simgr.stashes["pause"]) > 0 and len(simgr.active) < self.max_simul_state)):

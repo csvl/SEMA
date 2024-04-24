@@ -406,8 +406,14 @@ class SemaExplorer(ExplorationTechnique):
         simgr.move(
             from_stash="active",
             to_stash="lost" ,#"lost", deadended
+            # filter_func=lambda s: s.addr < simgr._project.loader.main_object.mapped_base,
             filter_func=lambda s: s.addr < simgr._project.loader.main_object.mapped_base,
         )
+        if len(simgr.stashes["lost"]) > 0:
+            # pirnt lost addresses:
+            for state in simgr.stashes["lost"]:
+                self.log.info("lost address: " + hex(state.addr))
+            # import pdb; pdb.set_trace()
         
     def manage_end_thread(self, simgr):
         simgr.move(

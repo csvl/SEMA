@@ -1,0 +1,821 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4249708.main
+0a7e9dc5a2b38944e1c4c64b205d6cb6cc798509600066a4d9d11289c3d7a077.exe"]
+	1 [label="0x404854.GetModuleHandleA
+0"]
+	2 [label="0x4032b9.GetKeyboardType
+0"]
+	3 [label="0x404764.GetCommandLineA
+"]
+	4 [label="0x401142.GetStartupInfoA
+2147417452"]
+	5 [label="0x404778.GetCurrentThreadId
+"]
+	3 -> 5 [label="(0-->0)"]
+	6 [label="0x4054c2.GetSystemDirectoryA
+C:\Windows\System32
+256"]
+	7 [label="0x40183e.InitializeCriticalSection
+4257200"]
+	4 -> 7 [label="(0-->0)"]
+	8 [label="0x40187b.LocalAlloc
+0
+4088"]
+	9 [label="0x40136f.VirtualAlloc
+0
+1048576
+8192
+1"]
+	10 [label="0x4011af.LocalAlloc
+0
+1604"]
+	11 [label="0x401541.VirtualAlloc
+3758096384
+16384
+4096
+4"]
+	9 -> 11 [label="(0-->1)"]
+	2 -> 11 [label="(0-->4)"]
+	9 -> 11 [label="(0-->0)"]
+	12 [label="0x40275c.GetModuleFileNameA
+0
+0a7e9dc5a2b38944e1c4c64b205d6cb6cc798509600066a4d9d11289c3d7a077.exe
+261"]
+	0 -> 12 [label="(1-->2)"]
+	13 [label="0x404e73.CopyFileA
+0a7e9dc5a2b38944e1c4c64b205d6cb6cc798509600066a4d9d11289c3d7a077.exe
+C:\Windows\System32\sIRC4.exe
+0"]
+	0 -> 13 [label="(1-->1)"]
+	12 -> 13 [label="(2-->1)"]
+	9 -> 13 [label="(4-->0)"]
+	14 [label="0x404ea4.WritePrivateProfileStringA
+boot
+shell
+Explorer.exe sIRC4.exe
+system.ini"]
+	9 -> 14 [label="(4-->0)"]
+	13 -> 14 [label="(0-->0)"]
+	15 [label="0x40495a.CreateMutexA
+0
+0
+sIRC4"]
+	16 [label="0x404ec0.ExitProcess
+0"]
+	4 -> 16 [label="(0-->0)"]
+	7 -> 16 [label="(0-->0)"]
+	17 [label="0x4015c2.VirtualFree
+3758096384
+16384
+16384"]
+	9 -> 17 [label="(0-->1)"]
+	11 -> 17 [label="(1-->1)"]
+	11 -> 17 [label="(0-->1)"]
+	11 -> 17 [label="(2-->2)"]
+	11 -> 17 [label="(2-->3)"]
+	9 -> 17 [label="(4-->0)"]
+	13 -> 17 [label="(0-->0)"]
+	14 -> 17 [label="(0-->0)"]
+	18 [label="0x401480.VirtualFree
+3758096384
+0
+32768"]
+	9 -> 18 [label="(0-->1)"]
+	11 -> 18 [label="(1-->1)"]
+	11 -> 18 [label="(0-->1)"]
+	17 -> 18 [label="(1-->1)"]
+	9 -> 18 [label="(4-->0)"]
+	13 -> 18 [label="(0-->0)"]
+	14 -> 18 [label="(0-->0)"]
+	17 -> 18 [label="(0-->0)"]
+	19 [label="0x402984.CreateFileA
+C:\marijuana.txt
+1073741824
+1
+0
+2
+128
+0"]
+	9 -> 19 [label="(4-->3)"]
+	13 -> 19 [label="(0-->3)"]
+	14 -> 19 [label="(0-->3)"]
+	17 -> 19 [label="(0-->3)"]
+	18 -> 19 [label="(0-->3)"]
+	20 [label="0x402a6d.GetFileType
+3"]
+	19 -> 20 [label="(0-->1)"]
+	21 [label="0x4028af.WriteFile
+3
+4259984
+128
+2147417536
+0"]
+	19 -> 21 [label="(0-->1)"]
+	20 -> 21 [label="(1-->1)"]
+	19 -> 21 [label="(6-->3)"]
+	9 -> 21 [label="(4-->0)"]
+	13 -> 21 [label="(0-->0)"]
+	14 -> 21 [label="(0-->0)"]
+	17 -> 21 [label="(0-->0)"]
+	18 -> 21 [label="(0-->0)"]
+	19 -> 21 [label="(3-->0)"]
+	22 [label="0x4028af.WriteFile
+3
+4259984
+106
+2147417548
+0"]
+	19 -> 22 [label="(0-->1)"]
+	20 -> 22 [label="(1-->1)"]
+	21 -> 22 [label="(1-->1)"]
+	21 -> 22 [label="(2-->2)"]
+	9 -> 22 [label="(4-->0)"]
+	13 -> 22 [label="(0-->0)"]
+	14 -> 22 [label="(0-->0)"]
+	17 -> 22 [label="(0-->0)"]
+	18 -> 22 [label="(0-->0)"]
+	19 -> 22 [label="(3-->0)"]
+	21 -> 22 [label="(0-->0)"]
+	23 [label="0x4028d0.CloseHandle
+3"]
+	19 -> 23 [label="(0-->1)"]
+	20 -> 23 [label="(1-->1)"]
+	21 -> 23 [label="(1-->1)"]
+	22 -> 23 [label="(1-->1)"]
+	9 -> 23 [label="(4-->0)"]
+	13 -> 23 [label="(0-->0)"]
+	14 -> 23 [label="(0-->0)"]
+	17 -> 23 [label="(0-->0)"]
+	18 -> 23 [label="(0-->0)"]
+	19 -> 23 [label="(3-->0)"]
+	21 -> 23 [label="(0-->0)"]
+	22 -> 23 [label="(0-->0)"]
+	24 [label="0x401541.VirtualAlloc
+3759144960
+16384
+4096
+4"]
+	11 -> 24 [label="(2-->2)"]
+	17 -> 24 [label="(2-->2)"]
+	17 -> 24 [label="(3-->2)"]
+	11 -> 24 [label="(3-->3)"]
+	2 -> 24 [label="(0-->4)"]
+	11 -> 24 [label="(4-->4)"]
+	25 [label="0x406543.FindFirstFileA
+C:\*.*
+2147417236"]
+	26 [label="0x4064d5.FileTimeToLocalFileTime
+2147417256
+2147417012"]
+	27 [label="0x4064e4.FileTimeToDosDateTime
+2147417012
+2147417214
+2147417212"]
+	26 -> 27 [label="(2-->1)"]
+	28 [label="0x406543.FindFirstFileA
+C:\abcdef.cmd\*.*
+2147416704"]
+	29 [label="0x4064d5.FileTimeToLocalFileTime
+2147416724
+2147416480"]
+	30 [label="0x4064e4.FileTimeToDosDateTime
+2147416480
+2147416682
+2147416680"]
+	29 -> 30 [label="(2-->1)"]
+	31 [label="0x406d98.FindFirstFileA
+0a7e9dc5a2b38944e1c4c64b205d6cb6cc798509600066a4d9d11289c3d7a077.exe
+2147415616"]
+	0 -> 31 [label="(1-->1)"]
+	12 -> 31 [label="(2-->1)"]
+	13 -> 31 [label="(1-->1)"]
+	32 [label="0x406da3.FindClose
+retval_FindFirstFileA_131119_32"]
+	9 -> 32 [label="(4-->0)"]
+	13 -> 32 [label="(0-->0)"]
+	14 -> 32 [label="(0-->0)"]
+	17 -> 32 [label="(0-->0)"]
+	18 -> 32 [label="(0-->0)"]
+	19 -> 32 [label="(3-->0)"]
+	21 -> 32 [label="(0-->0)"]
+	22 -> 32 [label="(0-->0)"]
+	23 -> 32 [label="(0-->0)"]
+	33 [label="0x406d98.FindFirstFileA
+C:\abcdef.cmd\abcdef.cmd
+2147415616"]
+	31 -> 33 [label="(2-->2)"]
+	34 [label="0x406da3.FindClose
+retval_FindFirstFileA_131130_32"]
+	9 -> 34 [label="(4-->0)"]
+	13 -> 34 [label="(0-->0)"]
+	14 -> 34 [label="(0-->0)"]
+	17 -> 34 [label="(0-->0)"]
+	18 -> 34 [label="(0-->0)"]
+	19 -> 34 [label="(3-->0)"]
+	21 -> 34 [label="(0-->0)"]
+	22 -> 34 [label="(0-->0)"]
+	23 -> 34 [label="(0-->0)"]
+	32 -> 34 [label="(0-->0)"]
+	35 [label="0x4027a2.GetSystemTime
+2147415928"]
+	4 -> 35 [label="(0-->0)"]
+	7 -> 35 [label="(0-->0)"]
+	36 [label="0x406bb4.GetSystemDirectoryA
+C:\Windows\System32
+256"]
+	6 -> 36 [label="(1-->1)"]
+	6 -> 36 [label="(2-->2)"]
+	6 -> 36 [label="(0-->0)"]
+	37 [label="0x406b67.GetFileAttributesA
+C:\Windows\System32\xdccPrograms"]
+	38 [label="0x406c2a.CreateDirectoryA
+C:\Windows\System32\xdccPrograms
+0"]
+	37 -> 38 [label="(1-->1)"]
+	39 [label="0x40579a.CopyFileA
+0a7e9dc5a2b38944e1c4c64b205d6cb6cc798509600066a4d9d11289c3d7a077.exe
+C:\Windows\System32\xdccPrograms\abcdef.exe
+0"]
+	0 -> 39 [label="(1-->1)"]
+	12 -> 39 [label="(2-->1)"]
+	13 -> 39 [label="(1-->1)"]
+	31 -> 39 [label="(1-->1)"]
+	9 -> 39 [label="(4-->0)"]
+	13 -> 39 [label="(0-->0)"]
+	14 -> 39 [label="(0-->0)"]
+	17 -> 39 [label="(0-->0)"]
+	18 -> 39 [label="(0-->0)"]
+	19 -> 39 [label="(3-->0)"]
+	21 -> 39 [label="(0-->0)"]
+	22 -> 39 [label="(0-->0)"]
+	23 -> 39 [label="(0-->0)"]
+	32 -> 39 [label="(0-->0)"]
+	34 -> 39 [label="(0-->0)"]
+	40 [label="0x404a76.CreateFileA
+
+2147483648
+1
+0
+3
+128
+0"]
+	9 -> 40 [label="(4-->3)"]
+	13 -> 40 [label="(0-->3)"]
+	14 -> 40 [label="(0-->3)"]
+	17 -> 40 [label="(0-->3)"]
+	18 -> 40 [label="(0-->3)"]
+	19 -> 40 [label="(3-->3)"]
+	21 -> 40 [label="(0-->3)"]
+	22 -> 40 [label="(0-->3)"]
+	23 -> 40 [label="(0-->3)"]
+	32 -> 40 [label="(0-->3)"]
+	34 -> 40 [label="(0-->3)"]
+	39 -> 40 [label="(0-->3)"]
+	19 -> 40 [label="(0-->5)"]
+	20 -> 40 [label="(1-->5)"]
+	21 -> 40 [label="(1-->5)"]
+	22 -> 40 [label="(1-->5)"]
+	23 -> 40 [label="(1-->5)"]
+	19 -> 40 [label="(6-->6)"]
+	21 -> 40 [label="(3-->6)"]
+	41 [label="0x404a94.ReadFile
+retval_CreateFileA_131132_32
+2147415916
+22
+2147415908
+0"]
+	9 -> 41 [label="(4-->0)"]
+	13 -> 41 [label="(0-->0)"]
+	14 -> 41 [label="(0-->0)"]
+	17 -> 41 [label="(0-->0)"]
+	18 -> 41 [label="(0-->0)"]
+	19 -> 41 [label="(3-->0)"]
+	21 -> 41 [label="(0-->0)"]
+	22 -> 41 [label="(0-->0)"]
+	23 -> 41 [label="(0-->0)"]
+	32 -> 41 [label="(0-->0)"]
+	34 -> 41 [label="(0-->0)"]
+	39 -> 41 [label="(0-->0)"]
+	40 -> 41 [label="(3-->0)"]
+	42 [label="0x404aa0.SetFilePointer
+retval_CreateFileA_131132_32
+0
+0
+0"]
+	41 -> 42 [label="(1-->1)"]
+	43 [label="0x404aca.ReadFile
+retval_CreateFileA_131132_32
+3759145804
+38
+2147415908
+0"]
+	41 -> 43 [label="(1-->1)"]
+	42 -> 43 [label="(1-->1)"]
+	41 -> 43 [label="(4-->4)"]
+	9 -> 43 [label="(4-->0)"]
+	13 -> 43 [label="(0-->0)"]
+	14 -> 43 [label="(0-->0)"]
+	17 -> 43 [label="(0-->0)"]
+	18 -> 43 [label="(0-->0)"]
+	19 -> 43 [label="(3-->0)"]
+	21 -> 43 [label="(0-->0)"]
+	22 -> 43 [label="(0-->0)"]
+	23 -> 43 [label="(0-->0)"]
+	32 -> 43 [label="(0-->0)"]
+	34 -> 43 [label="(0-->0)"]
+	39 -> 43 [label="(0-->0)"]
+	40 -> 43 [label="(3-->0)"]
+	41 -> 43 [label="(0-->0)"]
+	44 [label="0x404b0c.SetFilePointer
+retval_CreateFileA_131132_32
+file_1_/tmp/angr_implicit_0_16_131135_304
+0
+0"]
+	41 -> 44 [label="(1-->1)"]
+	42 -> 44 [label="(1-->1)"]
+	43 -> 44 [label="(1-->1)"]
+	45 [label="0x404b1f.ReadFile
+retval_CreateFileA_131132_32
+0
+file_1_/tmp/angr_implicit_0_16_131135_304
+2147415908
+0"]
+	41 -> 45 [label="(1-->1)"]
+	42 -> 45 [label="(1-->1)"]
+	43 -> 45 [label="(1-->1)"]
+	44 -> 45 [label="(1-->1)"]
+	44 -> 45 [label="(2-->3)"]
+	41 -> 45 [label="(4-->4)"]
+	43 -> 45 [label="(4-->4)"]
+	9 -> 45 [label="(4-->0)"]
+	13 -> 45 [label="(0-->0)"]
+	14 -> 45 [label="(0-->0)"]
+	17 -> 45 [label="(0-->0)"]
+	18 -> 45 [label="(0-->0)"]
+	19 -> 45 [label="(3-->0)"]
+	21 -> 45 [label="(0-->0)"]
+	22 -> 45 [label="(0-->0)"]
+	23 -> 45 [label="(0-->0)"]
+	32 -> 45 [label="(0-->0)"]
+	34 -> 45 [label="(0-->0)"]
+	39 -> 45 [label="(0-->0)"]
+	40 -> 45 [label="(3-->0)"]
+	41 -> 45 [label="(0-->0)"]
+	43 -> 45 [label="(0-->0)"]
+	46 [label="0x404b25.CloseHandle
+retval_CreateFileA_131132_32"]
+	41 -> 46 [label="(1-->1)"]
+	42 -> 46 [label="(1-->1)"]
+	43 -> 46 [label="(1-->1)"]
+	44 -> 46 [label="(1-->1)"]
+	45 -> 46 [label="(1-->1)"]
+	9 -> 46 [label="(4-->0)"]
+	13 -> 46 [label="(0-->0)"]
+	14 -> 46 [label="(0-->0)"]
+	17 -> 46 [label="(0-->0)"]
+	18 -> 46 [label="(0-->0)"]
+	19 -> 46 [label="(3-->0)"]
+	21 -> 46 [label="(0-->0)"]
+	22 -> 46 [label="(0-->0)"]
+	23 -> 46 [label="(0-->0)"]
+	32 -> 46 [label="(0-->0)"]
+	34 -> 46 [label="(0-->0)"]
+	39 -> 46 [label="(0-->0)"]
+	40 -> 46 [label="(3-->0)"]
+	41 -> 46 [label="(0-->0)"]
+	43 -> 46 [label="(0-->0)"]
+	45 -> 46 [label="(0-->0)"]
+	47 [label="0x404b31.BeginUpdateResourceA
+C:\Windows\System32\xdccPrograms\abcdef.exe
+0"]
+	39 -> 47 [label="(2-->1)"]
+	48 [label="0x404b49.UpdateResourceA
+retval_BeginUpdateResourceA_131137_32
+
+
+0
+0
+file_1_/tmp/angr_implicit_0_16_131135_304"]
+	44 -> 48 [label="(2-->6)"]
+	45 -> 48 [label="(3-->6)"]
+	49 [label="0x404b51.EndUpdateResourceA
+retval_BeginUpdateResourceA_131137_32
+0"]
+	48 -> 49 [label="(1-->1)"]
+	50 [label="0x402984.CreateFileA
+C:\Windows\System32\xdccPrograms\abcdef.exe
+3221225472
+1
+0
+3
+128
+0"]
+	39 -> 50 [label="(2-->1)"]
+	47 -> 50 [label="(1-->1)"]
+	9 -> 50 [label="(4-->3)"]
+	13 -> 50 [label="(0-->3)"]
+	14 -> 50 [label="(0-->3)"]
+	17 -> 50 [label="(0-->3)"]
+	18 -> 50 [label="(0-->3)"]
+	19 -> 50 [label="(3-->3)"]
+	21 -> 50 [label="(0-->3)"]
+	22 -> 50 [label="(0-->3)"]
+	23 -> 50 [label="(0-->3)"]
+	32 -> 50 [label="(0-->3)"]
+	34 -> 50 [label="(0-->3)"]
+	39 -> 50 [label="(0-->3)"]
+	40 -> 50 [label="(3-->3)"]
+	41 -> 50 [label="(0-->3)"]
+	43 -> 50 [label="(0-->3)"]
+	45 -> 50 [label="(0-->3)"]
+	46 -> 50 [label="(0-->3)"]
+	19 -> 50 [label="(0-->5)"]
+	20 -> 50 [label="(1-->5)"]
+	21 -> 50 [label="(1-->5)"]
+	22 -> 50 [label="(1-->5)"]
+	23 -> 50 [label="(1-->5)"]
+	40 -> 50 [label="(5-->5)"]
+	19 -> 50 [label="(6-->6)"]
+	21 -> 50 [label="(3-->6)"]
+	40 -> 50 [label="(6-->6)"]
+	51 [label="0x4029a8.GetFileSize
+5
+0"]
+	50 -> 51 [label="(0-->1)"]
+	52 [label="0x4029c4.SetFilePointer
+5
+0
+0
+0"]
+	50 -> 52 [label="(0-->1)"]
+	51 -> 52 [label="(1-->1)"]
+	53 [label="0x402aa0.GetLastError
+"]
+	3 -> 53 [label="(0-->0)"]
+	5 -> 53 [label="(0-->0)"]
+	54 [label="0x403c00.MessageBoxA
+0
+Runtime error 103 at 00405818
+Error
+0"]
+	55 [label="0x40192b.LocalFree
+3221356584"]
+	8 -> 55 [label="(0-->1)"]
+	56 [label="0x40194a.VirtualFree
+3759144960
+0
+32768"]
+	24 -> 56 [label="(1-->1)"]
+	24 -> 56 [label="(0-->1)"]
+	18 -> 56 [label="(3-->3)"]
+	9 -> 56 [label="(4-->0)"]
+	13 -> 56 [label="(0-->0)"]
+	14 -> 56 [label="(0-->0)"]
+	17 -> 56 [label="(0-->0)"]
+	18 -> 56 [label="(0-->0)"]
+	19 -> 56 [label="(3-->0)"]
+	21 -> 56 [label="(0-->0)"]
+	22 -> 56 [label="(0-->0)"]
+	23 -> 56 [label="(0-->0)"]
+	32 -> 56 [label="(0-->0)"]
+	34 -> 56 [label="(0-->0)"]
+	39 -> 56 [label="(0-->0)"]
+	40 -> 56 [label="(3-->0)"]
+	41 -> 56 [label="(0-->0)"]
+	43 -> 56 [label="(0-->0)"]
+	45 -> 56 [label="(0-->0)"]
+	46 -> 56 [label="(0-->0)"]
+	50 -> 56 [label="(3-->0)"]
+	57 [label="0x401989.LocalFree
+3221360680"]
+	10 -> 57 [label="(0-->1)"]
+	58 [label="0x4019bc.DeleteCriticalSection
+4257200"]
+	7 -> 58 [label="(1-->1)"]
+	4 -> 58 [label="(0-->0)"]
+	7 -> 58 [label="(0-->0)"]
+	35 -> 58 [label="(0-->0)"]
+	59 [label="0x403cce.ExitProcess
+103"]
+	4 -> 59 [label="(0-->0)"]
+	7 -> 59 [label="(0-->0)"]
+	35 -> 59 [label="(0-->0)"]
+	58 -> 59 [label="(0-->0)"]
+	60 [label="0x4029e5.ReadFile
+5
+2147416344
+128
+2147415920
+0"]
+	50 -> 60 [label="(0-->1)"]
+	51 -> 60 [label="(1-->1)"]
+	52 -> 60 [label="(1-->1)"]
+	19 -> 60 [label="(6-->3)"]
+	21 -> 60 [label="(3-->3)"]
+	40 -> 60 [label="(6-->3)"]
+	50 -> 60 [label="(6-->3)"]
+	9 -> 60 [label="(4-->0)"]
+	13 -> 60 [label="(0-->0)"]
+	14 -> 60 [label="(0-->0)"]
+	17 -> 60 [label="(0-->0)"]
+	18 -> 60 [label="(0-->0)"]
+	19 -> 60 [label="(3-->0)"]
+	21 -> 60 [label="(0-->0)"]
+	22 -> 60 [label="(0-->0)"]
+	23 -> 60 [label="(0-->0)"]
+	32 -> 60 [label="(0-->0)"]
+	34 -> 60 [label="(0-->0)"]
+	39 -> 60 [label="(0-->0)"]
+	40 -> 60 [label="(3-->0)"]
+	41 -> 60 [label="(0-->0)"]
+	43 -> 60 [label="(0-->0)"]
+	45 -> 60 [label="(0-->0)"]
+	46 -> 60 [label="(0-->0)"]
+	50 -> 60 [label="(3-->0)"]
+	61 [label="0x402a0e.SetFilePointer
+5
+4294967168
+0
+2"]
+	50 -> 61 [label="(0-->1)"]
+	51 -> 61 [label="(1-->1)"]
+	52 -> 61 [label="(1-->1)"]
+	60 -> 61 [label="(1-->1)"]
+	19 -> 61 [label="(5-->4)"]
+	62 [label="0x402a0e.SetFilePointer
+5
+4294967169
+0
+2"]
+	50 -> 62 [label="(0-->1)"]
+	51 -> 62 [label="(1-->1)"]
+	52 -> 62 [label="(1-->1)"]
+	60 -> 62 [label="(1-->1)"]
+	19 -> 62 [label="(5-->4)"]
+	63 [label="0x402a0e.SetFilePointer
+5
+4294967170
+0
+2"]
+	50 -> 63 [label="(0-->1)"]
+	51 -> 63 [label="(1-->1)"]
+	52 -> 63 [label="(1-->1)"]
+	60 -> 63 [label="(1-->1)"]
+	19 -> 63 [label="(5-->4)"]
+	64 [label="0x402a1c.SetEndOfFile
+5"]
+	50 -> 64 [label="(0-->1)"]
+	51 -> 64 [label="(1-->1)"]
+	52 -> 64 [label="(1-->1)"]
+	60 -> 64 [label="(1-->1)"]
+	63 -> 64 [label="(1-->1)"]
+	9 -> 64 [label="(4-->0)"]
+	13 -> 64 [label="(0-->0)"]
+	14 -> 64 [label="(0-->0)"]
+	17 -> 64 [label="(0-->0)"]
+	18 -> 64 [label="(0-->0)"]
+	19 -> 64 [label="(3-->0)"]
+	21 -> 64 [label="(0-->0)"]
+	22 -> 64 [label="(0-->0)"]
+	23 -> 64 [label="(0-->0)"]
+	32 -> 64 [label="(0-->0)"]
+	34 -> 64 [label="(0-->0)"]
+	39 -> 64 [label="(0-->0)"]
+	40 -> 64 [label="(3-->0)"]
+	41 -> 64 [label="(0-->0)"]
+	43 -> 64 [label="(0-->0)"]
+	45 -> 64 [label="(0-->0)"]
+	46 -> 64 [label="(0-->0)"]
+	50 -> 64 [label="(3-->0)"]
+	60 -> 64 [label="(0-->0)"]
+	65 [label="0x402a6d.GetFileType
+5"]
+	50 -> 65 [label="(0-->1)"]
+	51 -> 65 [label="(1-->1)"]
+	52 -> 65 [label="(1-->1)"]
+	60 -> 65 [label="(1-->1)"]
+	63 -> 65 [label="(1-->1)"]
+	64 -> 65 [label="(1-->1)"]
+	66 [label="0x4028af.WriteFile
+5
+2147416344
+1
+2147415920
+0"]
+	50 -> 66 [label="(0-->1)"]
+	51 -> 66 [label="(1-->1)"]
+	52 -> 66 [label="(1-->1)"]
+	60 -> 66 [label="(1-->1)"]
+	63 -> 66 [label="(1-->1)"]
+	64 -> 66 [label="(1-->1)"]
+	65 -> 66 [label="(1-->1)"]
+	60 -> 66 [label="(2-->2)"]
+	9 -> 66 [label="(4-->3)"]
+	13 -> 66 [label="(0-->3)"]
+	14 -> 66 [label="(0-->3)"]
+	17 -> 66 [label="(0-->3)"]
+	18 -> 66 [label="(0-->3)"]
+	19 -> 66 [label="(3-->3)"]
+	21 -> 66 [label="(0-->3)"]
+	22 -> 66 [label="(0-->3)"]
+	23 -> 66 [label="(0-->3)"]
+	32 -> 66 [label="(0-->3)"]
+	34 -> 66 [label="(0-->3)"]
+	39 -> 66 [label="(0-->3)"]
+	40 -> 66 [label="(3-->3)"]
+	41 -> 66 [label="(0-->3)"]
+	43 -> 66 [label="(0-->3)"]
+	45 -> 66 [label="(0-->3)"]
+	46 -> 66 [label="(0-->3)"]
+	50 -> 66 [label="(3-->3)"]
+	60 -> 66 [label="(0-->3)"]
+	64 -> 66 [label="(0-->3)"]
+	60 -> 66 [label="(4-->4)"]
+	9 -> 66 [label="(4-->0)"]
+	13 -> 66 [label="(0-->0)"]
+	14 -> 66 [label="(0-->0)"]
+	17 -> 66 [label="(0-->0)"]
+	18 -> 66 [label="(0-->0)"]
+	19 -> 66 [label="(3-->0)"]
+	21 -> 66 [label="(0-->0)"]
+	22 -> 66 [label="(0-->0)"]
+	23 -> 66 [label="(0-->0)"]
+	32 -> 66 [label="(0-->0)"]
+	34 -> 66 [label="(0-->0)"]
+	39 -> 66 [label="(0-->0)"]
+	40 -> 66 [label="(3-->0)"]
+	41 -> 66 [label="(0-->0)"]
+	43 -> 66 [label="(0-->0)"]
+	45 -> 66 [label="(0-->0)"]
+	46 -> 66 [label="(0-->0)"]
+	50 -> 66 [label="(3-->0)"]
+	60 -> 66 [label="(0-->0)"]
+	64 -> 66 [label="(0-->0)"]
+	67 [label="0x4028d0.CloseHandle
+5"]
+	50 -> 67 [label="(0-->1)"]
+	51 -> 67 [label="(1-->1)"]
+	52 -> 67 [label="(1-->1)"]
+	60 -> 67 [label="(1-->1)"]
+	63 -> 67 [label="(1-->1)"]
+	64 -> 67 [label="(1-->1)"]
+	65 -> 67 [label="(1-->1)"]
+	66 -> 67 [label="(1-->1)"]
+	9 -> 67 [label="(4-->0)"]
+	13 -> 67 [label="(0-->0)"]
+	14 -> 67 [label="(0-->0)"]
+	17 -> 67 [label="(0-->0)"]
+	18 -> 67 [label="(0-->0)"]
+	19 -> 67 [label="(3-->0)"]
+	21 -> 67 [label="(0-->0)"]
+	22 -> 67 [label="(0-->0)"]
+	23 -> 67 [label="(0-->0)"]
+	32 -> 67 [label="(0-->0)"]
+	34 -> 67 [label="(0-->0)"]
+	39 -> 67 [label="(0-->0)"]
+	40 -> 67 [label="(3-->0)"]
+	41 -> 67 [label="(0-->0)"]
+	43 -> 67 [label="(0-->0)"]
+	45 -> 67 [label="(0-->0)"]
+	46 -> 67 [label="(0-->0)"]
+	50 -> 67 [label="(3-->0)"]
+	60 -> 67 [label="(0-->0)"]
+	64 -> 67 [label="(0-->0)"]
+	66 -> 67 [label="(3-->0)"]
+	66 -> 67 [label="(0-->0)"]
+	68 [label="0x406583.FindNextFileA
+retval_FindFirstFileA_131095_32
+2147416704"]
+	28 -> 68 [label="(2-->2)"]
+	69 [label="0x406595.GetLastError
+"]
+	3 -> 69 [label="(0-->0)"]
+	5 -> 69 [label="(0-->0)"]
+	70 [label="0x406543.FindFirstFileA
+C:\abcdef.cmd\abcdef.cmd\*.*
+2147416172"]
+	71 [label="0x4064b8.FindNextFileA
+retval_FindFirstFileA_131095_32
+2147416704"]
+	28 -> 71 [label="(2-->2)"]
+	72 [label="0x4064c1.GetLastError
+"]
+	3 -> 72 [label="(0-->0)"]
+	5 -> 72 [label="(0-->0)"]
+	73 [label="0x4064b8.FindNextFileA
+retval_FindFirstFileA_131108_32
+2147416172"]
+	70 -> 73 [label="(2-->2)"]
+	74 [label="0x406583.FindNextFileA
+retval_FindFirstFileA_131108_32
+2147416172"]
+	73 -> 74 [label="(1-->1)"]
+	70 -> 74 [label="(2-->2)"]
+	73 -> 74 [label="(2-->2)"]
+	75 [label="0x4053f6.RegOpenKeyExA
+2147483650
+software\microsoft\windows\currentversion\app paths\winzip32.exe
+0
+1
+2147415868"]
+	9 -> 75 [label="(4-->4)"]
+	13 -> 75 [label="(0-->4)"]
+	14 -> 75 [label="(0-->4)"]
+	17 -> 75 [label="(0-->4)"]
+	18 -> 75 [label="(0-->4)"]
+	19 -> 75 [label="(3-->4)"]
+	21 -> 75 [label="(0-->4)"]
+	22 -> 75 [label="(0-->4)"]
+	23 -> 75 [label="(0-->4)"]
+	32 -> 75 [label="(0-->4)"]
+	34 -> 75 [label="(0-->4)"]
+	39 -> 75 [label="(0-->4)"]
+	40 -> 75 [label="(3-->4)"]
+	41 -> 75 [label="(0-->4)"]
+	43 -> 75 [label="(0-->4)"]
+	45 -> 75 [label="(0-->4)"]
+	46 -> 75 [label="(0-->4)"]
+	50 -> 75 [label="(3-->4)"]
+	60 -> 75 [label="(0-->4)"]
+	64 -> 75 [label="(0-->4)"]
+	66 -> 75 [label="(3-->4)"]
+	66 -> 75 [label="(0-->4)"]
+	67 -> 75 [label="(0-->4)"]
+	76 [label="0x40541e.RegQueryValueExA
+key_handle_RegOpenKeyExA_131148_32
+
+0
+0
+2147399481
+2147415864"]
+	77 [label="0x405427.RegCloseKey
+key_handle_RegOpenKeyExA_131148_32"]
+	76 -> 77 [label="(1-->1)"]
+	78 [label="0x4053f6.RegOpenKeyExA
+2147483650
+software\microsoft\windows\currentversion\app paths\WinRAR.exe
+0
+1
+2147415868"]
+	75 -> 78 [label="(1-->1)"]
+	9 -> 78 [label="(4-->4)"]
+	13 -> 78 [label="(0-->4)"]
+	14 -> 78 [label="(0-->4)"]
+	17 -> 78 [label="(0-->4)"]
+	18 -> 78 [label="(0-->4)"]
+	19 -> 78 [label="(3-->4)"]
+	21 -> 78 [label="(0-->4)"]
+	22 -> 78 [label="(0-->4)"]
+	23 -> 78 [label="(0-->4)"]
+	32 -> 78 [label="(0-->4)"]
+	34 -> 78 [label="(0-->4)"]
+	39 -> 78 [label="(0-->4)"]
+	40 -> 78 [label="(3-->4)"]
+	41 -> 78 [label="(0-->4)"]
+	43 -> 78 [label="(0-->4)"]
+	45 -> 78 [label="(0-->4)"]
+	46 -> 78 [label="(0-->4)"]
+	50 -> 78 [label="(3-->4)"]
+	60 -> 78 [label="(0-->4)"]
+	64 -> 78 [label="(0-->4)"]
+	66 -> 78 [label="(3-->4)"]
+	66 -> 78 [label="(0-->4)"]
+	67 -> 78 [label="(0-->4)"]
+	75 -> 78 [label="(4-->4)"]
+	75 -> 78 [label="(5-->5)"]
+	79 [label="0x40541e.RegQueryValueExA
+key_handle_RegOpenKeyExA_131149_32
+
+0
+0
+2147399481
+2147415864"]
+	76 -> 79 [label="(5-->5)"]
+	76 -> 79 [label="(6-->6)"]
+	80 [label="0x405427.RegCloseKey
+key_handle_RegOpenKeyExA_131149_32"]
+	79 -> 80 [label="(1-->1)"]
+	81 [label="0x40541e.RegQueryValueExA
+key_handle_RegOpenKeyExA_131158_32
+
+0
+0
+2147399481
+2147415864"]
+	82 [label="0x405427.RegCloseKey
+key_handle_RegOpenKeyExA_131158_32"]
+	81 -> 82 [label="(1-->1)"]
+	83 [label="0x40541e.RegQueryValueExA
+key_handle_RegOpenKeyExA_131159_32
+
+0
+0
+2147399481
+2147415864"]
+	81 -> 83 [label="(5-->5)"]
+	81 -> 83 [label="(6-->6)"]
+	84 [label="0x405427.RegCloseKey
+key_handle_RegOpenKeyExA_131159_32"]
+	83 -> 84 [label="(1-->1)"]
+}

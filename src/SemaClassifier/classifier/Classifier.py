@@ -7,16 +7,16 @@ import numpy as np
 from grakel import Graph
 from grakel.datasets import fetch_dataset
 
-try:
-    from clogging.CustomFormatter import CustomFormatter
-except:
-    from ..clogging.CustomFormatter import CustomFormatter
+# try:
+#     from clogging.CustomFormatter import CustomFormatter
+# except:
+#     from ..clogging.CustomFormatter import CustomFormatter
         
 class Classifier():
     def __init__(self,path, name, threshold):
         ch = logging.StreamHandler()
         ch.setLevel(logging.INFO)
-        ch.setFormatter(CustomFormatter())
+        # ch.setFormatter(CustomFormatter())
         self.log = logging.getLogger("Classifier")
         self.log.setLevel(logging.INFO)
         self.log.addHandler(ch)

@@ -143,7 +143,7 @@ class SemaSCDG:
         loop_counter_concrete=10000000000000000000000000,
         jump_dict={},
         jump_concrete_dict={},
-        max_simul_state=1,
+        max_simul_state=5,
         max_in_pause_stach=500,
         fast_main=False,
         force_symbolique_return=False,
@@ -237,7 +237,7 @@ class SemaSCDG:
         self.call_sim.syscall_found.clear()
         self.call_sim.system_call_table.clear()
         
-        # TODO check if PE file get /GUARD option (VS code) with leaf
+        # TODO check if PE file get /GUARD option (VS code) with lief
         
         self.start_time = time.time()
         if csv_file:
@@ -301,7 +301,8 @@ class SemaSCDG:
         self.log.info(args)
 
         if exp_dir != "output/runs/"+ str(self.current_exp_dir) + "/":
-            setup = open_file("output/runs/"+ str(self.current_exp_dir) + "/" + "setup.txt", "w")
+            # setup = open_file("src/output/runs/"+ str(self.current_exp_dir) + "/" + "setup.txt", "w")
+            setup = open_file("./output/runs/"+ str(self.current_exp_dir) + "/" + "setup.txt", "w")
             setup.write(str(self.jump_it) + "\n")
             setup.write(str(self.loop_counter_concrete) + "\n")
             setup.write(str(self.max_simul_state) + "\n")
@@ -674,6 +675,10 @@ class SemaSCDG:
                 pass
         else:
             addr = None
+        
+        addr = 0x401460
+        # Example paper code 1
+        # addr = 0x401476
 
         # Wabot
         # addr = 0x004081fc
@@ -685,6 +690,9 @@ class SemaSCDG:
         # addr = 0x6f7100 # 0x5f4f10 0x01187c00 0x40139a
         # addr = 0x06fda90
         # addr = 0x06f7e90
+
+        # Nitol
+        # addr = 0x402f52
         
         # Create initial state of the binary
         if self.is_packed and self.unpack_mode == "symbion":
@@ -695,7 +703,7 @@ class SemaSCDG:
             options = {angr.options.MEMORY_CHUNK_INDIVIDUAL_READS} #{angr.options.USE_SYSTEM_TIMES} # {angr.options.SIMPLIFY_MEMORY_READS} # angr.options.ZERO_FILL_UNCONSTRAINED_REGISTERS {angr.options.SYMBOLIC_INITIAL_VALUES
             # options.add(angr.options.EFFICIENT_STATE_MERGING)
             # options.add(angr.options.DOWNSIZE_Z3)
-            options.add(angr.options.USE_SYSTEM_TIMES)
+            # options.add(angr.options.USE_SYSTEM_TIMES)
             # options.add(angr.options.OPTIMIZE_IR)
             # options.add(angr.options.FAST_MEMORY)
             # options.add(angr.options.SIMPLIFY_MEMORY_READS)
@@ -735,6 +743,7 @@ class SemaSCDG:
             state.fs.insert("pagefile.sys", pagefile)
         
         state.options.discard("LAZY_SOLVES") 
+        # state.options.add("LAZY_SOLVES") 
         if not (self.is_packed and self.unpack_mode == "symbion") or True:
             state.register_plugin(
                 "heap", 
@@ -868,6 +877,10 @@ class SemaSCDG:
             
             
         def nothing(state):
+            # if hex(state.addr) == "0x404bab":
+            #     print("***** PRINT ESI *****")
+            #     print(state.regs.esi)
+            # if True:
             if False:
                 print(hex(state.addr))
                     
@@ -1543,7 +1556,8 @@ class SemaSCDG:
                 }
                 dump_id = dump_id + 1
                 self.scdg_fin.append(self.scdg[state.globals["id"]])
-                
+        
+        # import pdb; pdb.set_trace()
         self.print_memory_info(main_obj, dump_file)
         
         if self.discard_scdg:
@@ -1558,6 +1572,7 @@ class SemaSCDG:
                     list_obj = json_dumper.load(fp)
             save_SCDG = open_file(ofilename, "w")
             list_obj.append(dump_file)
+            # import pdb; pdb.set_trace()
             json_dumper.dump(list_obj, save_SCDG)  # ,indent=4)
             save_SCDG.close()
     
