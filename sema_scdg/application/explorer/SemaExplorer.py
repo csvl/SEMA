@@ -21,17 +21,17 @@ log.setLevel(log_level)
 
 class SemaExplorer(ExplorationTechnique):
     """
-    TODO
+    Manages the exploration of states during symbolic execution.
+
+    This class defines methods for setting up exploration parameters, filtering states based on various criteria, and managing the exploration process, including handling timeouts and memory limits.
     """
 
-    def __init__(
-        self,
-        simgr,
-        exp_dir,
-        nameFileShort,
-        scdg_graph,
-        call_sim
-    ):
+    def __init__(self, simgr, exp_dir, nameFileShort, scdg_graph, call_sim):
+        """
+        Initializes the SemaExplorer for symbolic execution exploration.
+
+        This class sets up parameters and data structures for symbolic execution exploration, including timeout, maximum steps, and state management.
+        """
         super(SemaExplorer, self).__init__()
 
         self.log = log
@@ -80,6 +80,11 @@ class SemaExplorer(ExplorationTechnique):
         self.dict_addr_vis = set()
 
     def setup(self, simgr):
+        """
+        Sets up the exploration parameters and state management for symbolic execution.
+
+        This function initializes various global variables and stashes in the symbolic execution manager to manage states during exploration.
+        """
         # The stash where states which exceed the threshold related to loops are moved. If new states are needed and there is no state available in pause
         # or ExcessStep stash, states in this stash are used to resume exploration (their loop counter are put back to zero).
         if self.excessLoop_stash not in simgr.stashes:
@@ -125,21 +130,26 @@ class SemaExplorer(ExplorationTechnique):
         simgr.active[0].globals["create_thread_address"] = []
         simgr.active[0].globals["allow_web_interaction"] = False
 
-    # Each time a new state is created, this function checks where the state has to go. Put the state in active stash by default
-    def filter(self, simgr, state, **kwargs) :
+    def filter(self, simgr, state, **kwargs):
+        """
+        Filters states during symbolic execution exploration.
+
+        This function determines the appropriate stash for a state based on various criteria such as address, loop counters, step counts, and specific conditions, managing state transitions during exploration.
+        Each time a new state is created, this function checks where the state has to go. Put the state in active stash by default
+        """
         if state.addr < simgr._project.loader.main_object.mapped_base :
             return "lost"
-        
+
         # Manage end thread state
         if state.addr == 0xdeadbeef:
             return "deadbeef"
-        
+
         # If too many states are explored simulateously, put state into pause stash
         if len(simgr.active) > self.max_simul_state:
             return "pause"
-        
+
         # if Execute too many times a simple loop
-        test = str(state.history.jump_target) + "-" + str(state.history.jump_source)
+        test = f"{str(state.history.jump_target)}-{str(state.history.jump_source)}"
         if test in self.jump_concrete_dict[state.globals["id"]]:
             self.jump_concrete_dict[state.globals["id"]][test] += 1
         else:
@@ -149,7 +159,7 @@ class SemaExplorer(ExplorationTechnique):
         if (self.jump_concrete_dict[state.globals["id"]][test] > self.loop_counter_concrete):
             self.jump_concrete_dict[state.globals["id"]][test] = 0
             return "ExcessLoop"
-        
+
         # If execute too many steps
         if state.globals["n_steps"] % 1000 == 0:
             self.log.debug("n_steps = " + str(state.globals["n_steps"]))
@@ -158,19 +168,23 @@ class SemaExplorer(ExplorationTechnique):
             state.history.trim()
             self.log.info("A state has been discarded because of max_step reached")
             return "ExcessStep"
-        
+
         # TODO check seems new
         if state.globals["loop"] > 3:
             self.log.info("A state has been discarded because of 1 loop reached")
             return "ExcessLoop"
-        
+
         return simgr.filter(state, **kwargs)
 
     def check_constraint(self, state, value):
+        """
+        Checks and evaluates constraints on a state.
+
+        This function evaluates a constraint value in the context of a state, handling symbolic values and exceptions, and returning the evaluated value.
+        """
         try:
             val = state.solver.eval_one(value)
-            is_sao = hasattr(val, "to_claripy")
-            if is_sao:
+            if hasattr(val, "to_claripy"):
                 val = val.to_claripy()
 
         except Exception as e:
@@ -186,12 +200,11 @@ class SemaExplorer(ExplorationTechnique):
         """
         id_to_move = 0
         min_step = 2000
-        if len(simgr.stashes[source_stash]) > 0:
-            id_to_move = simgr.stashes[source_stash][0].globals["id"]
-            min_step = simgr.stashes[source_stash][0].globals["n_steps"]
-        else:
+        if len(simgr.stashes[source_stash]) <= 0:
             return
 
+        id_to_move = simgr.stashes[source_stash][0].globals["id"]
+        min_step = simgr.stashes[source_stash][0].globals["n_steps"]
         for s in simgr.stashes[source_stash]:
             if s.globals["n_steps"] < min_step or (
                 str(self.check_constraint(s, s.history.jump_target))
@@ -210,12 +223,11 @@ class SemaExplorer(ExplorationTechnique):
         """
         id_to_move = 0
         max_step = 0
-        if len(simgr.stashes[source_stash]) > 0:
-            id_to_move = simgr.stashes[source_stash][0].globals["id"]
-            max_step = simgr.stashes[source_stash][0].globals["n_steps"]
-        else:
+        if len(simgr.stashes[source_stash]) <= 0:
             return
 
+        id_to_move = simgr.stashes[source_stash][0].globals["id"]
+        max_step = simgr.stashes[source_stash][0].globals["n_steps"]
         for s in simgr.stashes[source_stash]:
             if s.globals["n_steps"] > max_step:
                 id_to_move = s.globals["id"]
@@ -241,10 +253,10 @@ class SemaExplorer(ExplorationTechnique):
                         return first_state, state
                     return state, first_state
                 # Case 2 : First state of stash could not be a JumpExcedeed, second is !
-                elif found and state.globals["JumpExcedeed"]:
+                elif found:
                     return state, first_state
                 # Case 3 : First state of stash IS a jumpExcedeed !
-                elif not found and state.globals["JumpExcedeed"]:
+                elif state.globals["JumpExcedeed"]:
                     found = True
                     was_excess = True
                     first_state = state
@@ -260,6 +272,11 @@ class SemaExplorer(ExplorationTechnique):
         raise NotImplementedError()
 
     def build_snapshot(self, simgr):
+        """
+        Builds a snapshot of the current state during symbolic execution.
+
+        This function clears the existing snapshot state, updates the state information, and increments the step count for each active state in the symbolic execution manager.
+        """
         self.snapshot_state.clear()
         for state in simgr.active:
             if state.globals["id"] in self.snapshot_state:
@@ -270,34 +287,52 @@ class SemaExplorer(ExplorationTechnique):
             state.globals["n_steps"] += 1
 
     def manage_unconstrained(self, simgr):
+        """
+        Manages unconstrained states during symbolic execution.
+
+        This function tracks and logs the unconstrained states in the symbolic execution manager, providing information about the end of each unconstrained trace.
+        """
         if len(simgr.unconstrained) > self.unconstrained:
             new_unconstrained = len(simgr.unconstrained) - self.unconstrained
-            for i in range(new_unconstrained):
+            for _ in range(new_unconstrained):
                 id_cur = simgr.unconstrained[-1].globals["id"]
-                self.log.info("End of the trace number " + str(id_cur) + " unconstrained")
+                self.log.info(f"End of the trace number {str(id_cur)} unconstrained")
             self.unconstrained = len(simgr.unconstrained)
             
     def manage_error(self, simgr):
+        """
+        Manages and logs errors encountered during symbolic execution.
+
+        This function compares the number of errors in the symbolic execution manager with the stored count of errors, logs information about each new error, and updates the error count.
+        """
         if len(simgr.errored) > self.errored:
             new_errors = len(simgr.errored) - self.errored
             for i in range(new_errors):
                 id_cur = simgr.errored[-i - 1].state.globals["id"]
-                self.log.info("End of the trace number " + str(id_cur) + " with errors")
+                self.log.info(f"End of the trace number {str(id_cur)} with errors")
                 self.log.info(simgr.errored[-i - 1].state)
                 self.log.info(simgr.errored[-i - 1].error)
             self.errored = len(simgr.errored)
 
     def drop_excessed_loop(self, simgr):
+        """
+        Drops excessed loop states from the symbolic execution manager.
+
+        This function calculates the number of excess loop states to drop based on a threshold, selects the states to drop from the "ExcessLoop" stash, and removes them from the symbolic execution manager.
+        """
         excess_loop = len(simgr.stashes["ExcessLoop"]) - (self.max_in_pause_stach / 5)
         excess_loop = int(excess_loop)  # TODO chris check where we round (up-down)
         if excess_loop > 0:
-            id_to_stash = []
             state_to_stash = simgr.stashes["ExcessLoop"][-excess_loop:]
-            for t in state_to_stash:
-                id_to_stash.append(t.globals["id"])
+            id_to_stash = [t.globals["id"] for t in state_to_stash]
             simgr.drop(filter_func=lambda s: s.globals["id"] in id_to_stash, stash="ExcessLoop")
 
     def excessed_step_to_active(self, simgr):
+        """
+        Moves excessed step states to the active stash for further exploration.
+
+        This function transfers states from the "ExcessStep" stash to the active stash if the active stash is empty and there are states in the "ExcessStep" stash, resetting the step count for the moved states.
+        """
         if len(simgr.active) == 0 and len(simgr.stashes["ExcessStep"]) > 0:
             moves = min(len(simgr.stashes["ExcessStep"]), self.max_simul_state)
             id_move = []
@@ -313,6 +348,11 @@ class SemaExplorer(ExplorationTechnique):
             )
 
     def excessed_loop_to_active(self, simgr):
+        """
+        Moves excessed loop states to the active stash for further exploration and manages the number of states in the pause stash.
+
+        This function transfers states from the "ExcessLoop" stash to the active stash if the active stash is empty and there are states in the "ExcessLoop" stash, resetting certain state attributes. It also checks and discards excess states from the pause stash if the number of states exceeds a specified threshold.
+        """
         if len(simgr.active) == 0 and len(simgr.stashes["ExcessLoop"]) > 0:
             moves = min(len(simgr.stashes["ExcessLoop"]), self.max_simul_state)
             id_move = []
@@ -332,15 +372,18 @@ class SemaExplorer(ExplorationTechnique):
         # If there is too much states in pause stash, discard some of them
         excess_pause = len(simgr.stashes["pause"]) - self.max_in_pause_stach
         if excess_pause > 0:
-            id_to_stash = []
             state_to_stash = simgr.pause[-excess_pause:]
-            for t in state_to_stash:
-                id_to_stash.append(t.globals["id"])
+            id_to_stash = [t.globals["id"] for t in state_to_stash]
             simgr.drop(
                 filter_func=lambda s: s.globals["id"] in id_to_stash, stash="pause"
             )
 
     def remove_exceeded_jump(self, simgr):
+        """
+        Removes states with exceeded jumps from the active stash.
+
+        This function checks for states in the loopBreak_stack indicating exceeded jumps, logs information about the discarded states, and moves these states from the active stash to the "ExcessLoop" stash based on the guilty state ID.
+        """
         if len(self.loopBreak_stack) > 0:
             for i in range(len(self.loopBreak_stack)):
                 self.log.info("A state has been discarded because of jump")
@@ -351,34 +394,35 @@ class SemaExplorer(ExplorationTechnique):
                 )
 
     def time_evaluation(self, simgr):
-        ######################################
-        #######     Timeout reached ?  #######
-        ######################################
-        if self.eval_time:
-            for new in ["deadended", "active", "errored", "Excessloop", "ExcessStep", "unconstrained"]:
-                for state in simgr.stashes[new]:
-                    if new == "errored":
-                        state = state.state
-                    self.scdg_graph[state.globals["id"]][0]["ret"] = new
-                    self.scdg_fin.append(self.scdg_graph[state.globals["id"]])
+        """
+        Evaluates states based on time constraints during symbolic execution.
 
-            if self.time_id >= len(self.timeout_tab):
-                self.log.info("All timeouts were tested !")
-            else:
-                with open(
-                    self.exp_dir
-                    + self.nameFileShort
-                    + "_SCDG_"
-                    + str(self.timeout_tab[self.time_id])
-                    + ".txt",
-                    "w",
-                ) as save_SCDG:
-                    for s in self.scdg_fin:
-                        save_SCDG.write(str(s) + "\n")
-                self.scdg_fin.clear()
-                self.time_id = self.time_id + 1
+        This function processes states based on time evaluation criteria, updating the state information in the SCFG graph and saving the results to files if the time evaluation conditions are met.
+        """
+        if not self.eval_time:
+            return
+        for new in ["deadended", "active", "errored", "Excessloop", "ExcessStep", "unconstrained"]:
+            for state in simgr.stashes[new]:
+                if new == "errored":
+                    state = state.state
+                self.scdg_graph[state.globals["id"]][0]["ret"] = new
+                self.scdg_fin.append(self.scdg_graph[state.globals["id"]])
+
+        if self.time_id >= len(self.timeout_tab):
+            self.log.info("All timeouts were tested !")
+        else:
+            with open(self.exp_dir + self.nameFileShort + "_SCDG_" + str(self.timeout_tab[self.time_id]) + ".txt","w",) as save_SCDG:
+                for s in self.scdg_fin:
+                    save_SCDG.write(str(s) + "\n")
+            self.scdg_fin.clear()
+            self.time_id = self.time_id + 1
 
     def manage_deadended(self, simgr):
+        """
+        Manages states that have reached a dead-ended state during symbolic execution.
+
+        This function tracks and updates the count of dead-ended states in the symbolic execution manager, ensuring proper management of these states.
+        """
         if len(simgr.deadended) > self.deadended:
             to_clean = len(simgr.deadended) - self.deadended
             for i in range(to_clean):
@@ -386,6 +430,11 @@ class SemaExplorer(ExplorationTechnique):
             self.deadended = len(simgr.deadended)
 
     def check_fork_split(self, prev_id, found_jmp_table, state):
+        """
+        Checks and manages fork splits during symbolic execution.
+
+        This function evaluates the fork split conditions based on the previous state ID, jump table presence, and concrete targets, updating state attributes and managing exceeded jumps by adding states to the loopBreak_stack.
+        """
         if found_jmp_table and prev_id == state.globals["id"]:
             self.snapshot_state[prev_id] = self.snapshot_state[prev_id] - 1
         else:
@@ -403,47 +452,55 @@ class SemaExplorer(ExplorationTechnique):
                     self.loopBreak_stack.append((state.globals["id"],state.scratch.ins_addr,))
 
     def manage_fork(self, simgr):
-        if len(self.fork_stack) > 0:
-            for i in range(len(self.fork_stack)):
-                prev_id = self.fork_stack.pop()
-                self.id = self.id + 1  # id for the new state
+        """
+        Manages forked states during symbolic execution.
 
-                # TODO true and false branch ? is it an IF statement here ?
-                state_fork1, state_fork2 = self.__update_id_stash(simgr, prev_id, self.id)
+        This function processes and updates forked states, handling the creation of new states, managing state IDs, and checking for jump tables to handle forked states appropriately.
+        """
+        if len(self.fork_stack) <= 0:
+            return
+        for _ in range(len(self.fork_stack)):
+            prev_id = self.fork_stack.pop()
+            self.id = self.id + 1  # id for the new state
+
+            # TODO true and false branch ? is it an IF statement here ?
+            state_fork1, state_fork2 = self.__update_id_stash(simgr, prev_id, self.id)
+            if (state_fork1 and state_fork2 and state_fork1.globals["id"] != state_fork2.globals["id"]):
+                if state_fork2.globals["id"] != self.id:
+                    self.log.warning("Something bad happend after update_id_stash, ids are messed up")
+
+                self.scdg_graph.append(self.scdg_graph[prev_id].copy())
+                self.scdg_graph[-1][0] = self.scdg_graph[prev_id][0].copy()
+
+                self.jump_dict[self.id] = self.jump_dict[prev_id].copy()
+                self.jump_concrete_dict[self.id] = self.jump_concrete_dict[prev_id].copy()
+
                 # Check if there is a jump table ('fork implying more than two states')
                 found_jmp_table = self.snapshot_state[prev_id] > 1
 
-                if (state_fork1 and state_fork2 and state_fork1.globals["id"] != state_fork2.globals["id"]):
-                    if state_fork2.globals["id"] != self.id:
-                        self.log.warning("Something bad happend after update_id_stash, ids are messed up")
+                # Manage jump of first state
+                self.check_fork_split(prev_id, found_jmp_table, state_fork2)
 
-                    self.scdg_graph.append(self.scdg_graph[prev_id].copy())
-                    self.scdg_graph[-1][0] = self.scdg_graph[prev_id][0].copy()
-
-                    self.jump_dict[self.id] = self.jump_dict[prev_id].copy()
-                    self.jump_concrete_dict[self.id] = self.jump_concrete_dict[prev_id].copy()
-
-                    # Manage jump of first state
-                    self.check_fork_split(prev_id, found_jmp_table, state_fork2)
-
-                    # Manage jump of second state
-                    self.check_fork_split(prev_id, found_jmp_table, state_fork1)
-                else:
-                    self.id = self.id - 1
+                # Manage jump of second state
+                self.check_fork_split(prev_id, found_jmp_table, state_fork1)
+            else:
+                self.id = self.id - 1
                        
     def complete(self, simgr):
+        """
+        Checks if the symbolic execution is finished by checking the timeout value, the number of state in the active stash and the number of state in the deadended stash
+        """
         self.deadended = len(simgr.deadended)
         elapsed_time = timer.time() - self.start_time
         if elapsed_time > self.timeout:
             self.log.info("Timeout expired for simulation !")
-        if not (len(simgr.active) > 0 and self.deadended < self.max_end_state):
+        if len(simgr.active) <= 0 or self.deadended >= self.max_end_state:
             self.log.info("len(simgr.active) <= 0 or deadended >= self.max_end_state)")
-        if True:
-            vmem = psutil.virtual_memory()
-            if vmem.percent > 97:
-                # TODO return in logs file the malware hash
-                self.log.info("Memory limit reach")
-                return True
+        vmem = psutil.virtual_memory()
+        if vmem.percent > 97:
+            # TODO return in logs file the malware hash
+            self.log.info("Memory limit reach")
+            return True
         return elapsed_time > self.timeout or (
             len(simgr.active) <= 0 or self.deadended >= self.max_end_state
         )
