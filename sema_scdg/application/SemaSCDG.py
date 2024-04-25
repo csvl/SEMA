@@ -3,6 +3,7 @@ import os
 import sys
 import time
 import argparse
+import r2pipe
 
 import claripy
 import contextlib
@@ -267,9 +268,19 @@ class SemaSCDG():
         This function searches for the entry address in the project, considering the 'fast_main' flag and configuration settings, and returns the entry address in hexadecimal format.
         """
         # TODO : Maybe useless : Try to directly go into main (optimize some binary in windows)
+        r = r2pipe.open(self.binary_path)
+        out_r2 = r.cmd('f ~sym._main')
+        out_r2 = r.cmd('f ~sym._main')
         addr_main = proj.loader.find_symbol("main")
         if addr_main and self.fast_main:
             addr = addr_main.rebased_addr
+        elif out_r2:
+            addr= None
+            with contextlib.suppress(Exception):
+                iter = out_r2.split("\n")
+                for s in iter:
+                    if s.endswith("._main"):
+                        addr = int(s.split(" ")[0],16)
         else:
             # Take the entry point specify in config file
             addr = self.config["SCDG_arg"]["entry_addr"]
