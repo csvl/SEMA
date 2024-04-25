@@ -143,4 +143,4 @@ Then, inside the docker, run
 jupyter notebook --ip=0.0.0.0 --port=5001 --no-browser --allow-root --NotebookApp.token=''
 ```
 
-and visit `http://127.0.0.1:5001/tree` on your browser. Go to `/Tutorial` and open the jupyter notebook.
+and visit `http://127.0.0.1:5001/tree` on your browser. Go to `/Tutorial` and open the jupyter notebook. If it shows you a blank page, use ctrl + shift + R to refresh the page

@@ -91,6 +91,8 @@ RUN  apt update; apt-get --fix-missing -y install \
         libgraphviz-dev \
         pkg-config
 
+RUN apt-get --fix-missing -y install radare2
+
 COPY ./sema_scdg/requirements.txt /sema-scdg/requirements.txt
 RUN pip3 install -r /sema-scdg/requirements.txt
 
