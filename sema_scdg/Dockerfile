@@ -36,7 +36,6 @@ RUN apt-get update; apt-get --fix-missing -y install \
         libssl-dev \
         libffi-dev \
         cargo \
-        curl \
         build-essential
 
 # Cuckoo

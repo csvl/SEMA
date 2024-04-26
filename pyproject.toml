@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools>=62.4"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["sema_scdg", "sema_web_app", "sema_classifier"]
+
+[project]
+name = "sema_toolchain"
+version = "0.0.3"
+authors = [
+  { name="Manon-Oreins", email="manon.oreins@gmail.com" },
+]
+description = "Python symbolic execution package"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: Unix",
+]
+keywords = ["scdg", "binary", "symbolic", "analysis"]
+dependencies= [
+    "setuptools>=62.4",
+    "setuptools-rust",
+    "pyinstaller",
+    "bcrypt<4.0.0",
+    "pandas",
+    "pymongo==4.4.0",
+    "pyzipper",
+    "click==8.1.3",
+    "tasks",
+    "requests",
+    "graphviz",
+    "monkeyhex",
+    "protobuf==3.20.*",
+    "angr==9.2.21",
+    "researchpy",
+    "avatar2",
+    "pyinstaller",
+    "matplotlib",
+    "cryptography==3.3.2",
+    "logbook==1.5.3",
+    "mmh3==3.0.0",
+    "psutil",
+    "r2pipe",
+    "claripy==9.2.21",
+    "unix",
+    "kvm",
+    "nose",
+    "libvirt-python==9.5.0",
+    "unipacker",
+    "minidump==0.0.10",
+    "flask",
+    "pygraphviz",
+    "notebook",
+    "yara-python",
+    "pybind11",
+    "dill",
+    "seaborn",
+    "scikit-learn",
+    "progressbar",
+    "gensim",
+    "grakel",
+    "numpy",
+    "torch"
+]
+
+
+
+[project.urls]
+Homepage = "https://github.com/Manon-Oreins/SEMA-ToolChain/tree/refactor_simproc"

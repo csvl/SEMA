@@ -18,6 +18,9 @@ config = configparser.ConfigParser()
 
 class TestSCDG(unittest.TestCase):
 
+    def setUp(self):
+        print("In method", self._testMethodName)
+
     def test_config_scdg(self):
         sema_scdg = SemaSCDG()
         self.assertEqual(sema_scdg.fast_main, False)
@@ -82,12 +85,8 @@ class TestSCDG(unittest.TestCase):
 
     def test_config_plugin(self):
         sema_scdg = SemaSCDG()
-        exp_dir, sema_scdg.fileHandler = sema_scdg.run_setup(sema_scdg.exp_dir + "/")
-        proj = sema_scdg.deal_with_packing()
-        main_obj = proj.loader.main_object
-        os_obj = main_obj.os
-        sema_scdg.setup_simproc_scdg_builder(proj, os_obj)
-        state, args_binary = sema_scdg.create_binary_init_state(proj)
+        exp_dir, fileHandler = sema_scdg.run_setup(sema_scdg.exp_dir + "/")
+        proj, main_obj, os_obj, state, args_binary = sema_scdg.project_creation()
         self.assertEqual(state.has_plugin("plugin_env_var"), True)
         self.assertEqual(state.has_plugin("plugin_locale_info"), True)
         self.assertEqual(state.has_plugin("plugin_resources"), True)
