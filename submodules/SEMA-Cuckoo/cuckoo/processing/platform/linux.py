@@ -19,14 +19,14 @@ class FilteredProcessLog(list):
 
     def __iter__(self):
         for event in self.eventstream:
-            for k, v in self.kwfilters.items():
+            for k, v in list(self.kwfilters.items()):
                 if event[k] != v:
                     continue
 
                 del event["type"]
                 yield event
 
-    def __nonzero__(self):
+    def __bool__(self):
         return True
 
 class LinuxSystemTap(BehaviorHandler):

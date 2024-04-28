@@ -8,7 +8,7 @@ import logging
 import pkgutil
 import shutil
 import sys
-import xmlrpclib
+import xmlrpc.client
 import time
 
 from lib.core.packages import choose_package
@@ -257,5 +257,5 @@ if __name__ == "__main__":
     # back to the agent, notifying that it can report back to the host.
     finally:
         # Establish connection with the agent XMLRPC server.
-        server = xmlrpclib.Server("http://127.0.0.1:8000")
+        server = xmlrpc.client.Server("http://127.0.0.1:8000")
         server.complete(success, error, PATHS["root"])

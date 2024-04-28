@@ -22,13 +22,13 @@ from sklearn.metrics import roc_curve, roc_auc_score
 
 from ..Classifier import Classifier
 from clogging.CustomFormatter import CustomFormatter
-     
+
 
 CLASS_DIR = os.path.dirname(os.path.abspath(__file__))
 BINARY_CLASS = False # TODO
 
 class SVMClassifier(Classifier):
-    def __init__(self,path,name, threshold=0.45, 
+    def __init__(self,path,name, threshold=0.45,
                  families=['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT']):
         super().__init__(path,name, threshold)
         f = open(CLASS_DIR+'/dico/myDico5.pkl','rb')
@@ -88,7 +88,7 @@ class SVMClassifier(Classifier):
                                 if len(G.node_labels) > 1:
                                     self.label.append(family)
         bar.finish()
-    
+
     def split_dataset(self):
         sss = StratifiedShuffleSplit(n_splits=1, test_size=0.4, random_state=24)
         for train, test in sss.split(self.dataset, self.label):
@@ -96,7 +96,7 @@ class SVMClassifier(Classifier):
             self.val_index = test
         for i in self.train_index:
             self.train_dataset.append(self.dataset[i])
-            self.y_train.append(self.label[i])  
+            self.y_train.append(self.label[i])
         for i in self.val_index:
             self.val_dataset.append(self.dataset[i])
             self.y_val.append(self.label[i])
@@ -109,13 +109,13 @@ class SVMClassifier(Classifier):
         self.log.info("Recall %2.2f %%" %(recall_score(self.label, self.y_pred,average='weighted')*100))
         f_score = f1_score(self.label, self.y_pred,average='weighted')*100
         self.log.info("F1-score %2.2f %%" %(f_score))
-        
+
         self.fscore = f_score
         self.accuracy = accuracy_score(self.label, self.y_pred)*100
         self.precision = precision_score(self.label, self.y_pred,average='weighted')*100
         self.recall = recall_score(self.label, self.y_pred,average='weighted')*100
 
-    
+
         if BINARY_CLASS:
             conf = confusion_matrix(self.label,self.y_pred,labels=['clean','malware'])
             y_score1 = self.clf.predict_proba(self.K_val)[:,1]
@@ -155,4 +155,3 @@ class SVMClassifier(Classifier):
         plt.show()
         #plt.savefig(self.original_path + "figure.png")
         return f_score
-    

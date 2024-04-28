@@ -48,4 +48,3 @@ class linux_pslist_cache(linux_pslist.linux_pslist):
         for task in cache:
             if not pidlist or task.pid in pidlist:
                 yield task
-

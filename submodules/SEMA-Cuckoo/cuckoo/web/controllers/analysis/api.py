@@ -280,7 +280,7 @@ class AnalysisApi(object):
                 return json_error_response("invalid packages")
             filters["info.package"] = {"$in": packs}
 
-        if score_range and isinstance(score_range, basestring):
+        if score_range and isinstance(score_range, str):
             if score_range.count("-") != 1:
                 return json_error_response("faulty score")
 
@@ -307,10 +307,10 @@ class AnalysisApi(object):
                 "$lte": score_max,
             }
 
-        if not isinstance(offset, (int, long)):
+        if not isinstance(offset, int):
             return json_error_response("invalid offset")
 
-        if not isinstance(limit, (int, long)):
+        if not isinstance(limit, int):
             return json_error_response("invalid limit")
 
         # TODO Use a mongodb abstraction class once there is one.
@@ -356,7 +356,7 @@ class AnalysisApi(object):
 
         return JsonResponse({
             "tasks": sorted(
-                tasks.values(), key=lambda task: task["id"], reverse=True
+                list(tasks.values()), key=lambda task: task["id"], reverse=True
             ),
         }, safe=False)
 

@@ -1,1 +1,181 @@
-[{"0": {"status": "lost", "trace": [{"name": "main", "args": ["00c1b21ce6d363204a31ffdeae617d1f"], "addr": 5246976, "ret": "symbolic", "addr_func": 5246976}, {"name": "GetCommandLineA", "args": [], "addr_func": "0x600054", "addr": "0x503b72", "ret": "0x0"}, {"name": "GetModuleHandleA", "args": [0], "addr_func": "0x600050", "addr": "0x503bb7", "ret": 5242880}, {"name": "LoadIconA", "args": [0, ""], "addr_func": "0x60003c", "addr": "0x503be2", "ret": "<BV32 retval_LoadIconA_20720685_32>"}, {"name": "LoadCursorA", "args": [0, ""], "addr_func": "0x600038", "addr": "0x503bf9", "ret": "<BV32 retval_LoadCursorA_20720686_32>"}, {"name": "RegisterClassExA", "args": [5263896], "addr_func": "0x600024", "addr": "0x503c09", "ret": "<BV32 retval_RegisterClassExA_20720687_32>"}, {"name": "CreateWindowExA", "args": [0, "aroka", "wait", 262144, 4294964616, 4294960426, 542, 485, 0, 0, 5242880, 0], "addr_func": "0x600020", "addr": "0x503c40", "ret": "<BV32 retval_CreateWindowExA_20720688_32>"}, {"name": "ShowWindow", "args": ["retval_CreateWindowExA_20720688_32", 5], "addr_func": "0x600040", "addr": "0x503c53", "ret": "<BV32 retval_ShowWindow_20720689_32>"}, {"name": "UpdateWindow", "args": ["retval_CreateWindowExA_20720688_32"], "addr_func": "0x600008", "addr": "0x503c5f", "ret": "<BV32 retval_UpdateWindow_20720690_32>"}, {"name": "GetMessageA", "args": [5263944, 0, 0, 0], "addr_func": "0x600004", "addr": "0x503c75", "ret": 1}, {"name": "TranslateMessage", "args": [5263944], "addr_func": "0x600018", "addr": "0x503c84", "ret": "<BV32 retval_TranslateMessage_20720691_32>"}, {"name": "DispatchMessageA", "args": [5263944], "addr_func": "0x600010", "addr": "0x503c8f", "ret": "<BV32 retval_DispatchMessageA_20720692_32>"}, {"name": "GetMessageA", "args": [5263944, 0, 0, 0], "addr_func": "0x600004", "addr": "0x503c75", "ret": 0}]}, "sections": {".text": {"vaddr": 5246976, "memsize": 11434, "is_readable": true, "is_writable": false, "is_executable": true}, ".rdata": {"vaddr": 5259264, "memsize": 1206, "is_readable": true, "is_writable": false, "is_executable": false}, ".data": {"vaddr": 5263360, "memsize": 1584, "is_readable": true, "is_writable": true, "is_executable": false}, ".rsrc": {"vaddr": 5267456, "memsize": 10952, "is_readable": true, "is_writable": false, "is_executable": false}, ".reloc": {"vaddr": 5279744, "memsize": 536, "is_readable": true, "is_writable": false, "is_executable": false}}}]
+[
+  {
+    "0": {
+      "status": "lost",
+      "trace": [
+        {
+          "name": "main",
+          "args": [
+            "00c1b21ce6d363204a31ffdeae617d1f"
+          ],
+          "addr": 5246976,
+          "ret": "symbolic",
+          "addr_func": 5246976
+        },
+        {
+          "name": "GetCommandLineA",
+          "args": [],
+          "addr_func": "0x600054",
+          "addr": "0x503b72",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetModuleHandleA",
+          "args": [
+            0
+          ],
+          "addr_func": "0x600050",
+          "addr": "0x503bb7",
+          "ret": 5242880
+        },
+        {
+          "name": "LoadIconA",
+          "args": [
+            0,
+            ""
+          ],
+          "addr_func": "0x60003c",
+          "addr": "0x503be2",
+          "ret": "<BV32 retval_LoadIconA_20720685_32>"
+        },
+        {
+          "name": "LoadCursorA",
+          "args": [
+            0,
+            ""
+          ],
+          "addr_func": "0x600038",
+          "addr": "0x503bf9",
+          "ret": "<BV32 retval_LoadCursorA_20720686_32>"
+        },
+        {
+          "name": "RegisterClassExA",
+          "args": [
+            5263896
+          ],
+          "addr_func": "0x600024",
+          "addr": "0x503c09",
+          "ret": "<BV32 retval_RegisterClassExA_20720687_32>"
+        },
+        {
+          "name": "CreateWindowExA",
+          "args": [
+            0,
+            "aroka",
+            "wait",
+            262144,
+            4294964616,
+            4294960426,
+            542,
+            485,
+            0,
+            0,
+            5242880,
+            0
+          ],
+          "addr_func": "0x600020",
+          "addr": "0x503c40",
+          "ret": "<BV32 retval_CreateWindowExA_20720688_32>"
+        },
+        {
+          "name": "ShowWindow",
+          "args": [
+            "retval_CreateWindowExA_20720688_32",
+            5
+          ],
+          "addr_func": "0x600040",
+          "addr": "0x503c53",
+          "ret": "<BV32 retval_ShowWindow_20720689_32>"
+        },
+        {
+          "name": "UpdateWindow",
+          "args": [
+            "retval_CreateWindowExA_20720688_32"
+          ],
+          "addr_func": "0x600008",
+          "addr": "0x503c5f",
+          "ret": "<BV32 retval_UpdateWindow_20720690_32>"
+        },
+        {
+          "name": "GetMessageA",
+          "args": [
+            5263944,
+            0,
+            0,
+            0
+          ],
+          "addr_func": "0x600004",
+          "addr": "0x503c75",
+          "ret": 1
+        },
+        {
+          "name": "TranslateMessage",
+          "args": [
+            5263944
+          ],
+          "addr_func": "0x600018",
+          "addr": "0x503c84",
+          "ret": "<BV32 retval_TranslateMessage_20720691_32>"
+        },
+        {
+          "name": "DispatchMessageA",
+          "args": [
+            5263944
+          ],
+          "addr_func": "0x600010",
+          "addr": "0x503c8f",
+          "ret": "<BV32 retval_DispatchMessageA_20720692_32>"
+        },
+        {
+          "name": "GetMessageA",
+          "args": [
+            5263944,
+            0,
+            0,
+            0
+          ],
+          "addr_func": "0x600004",
+          "addr": "0x503c75",
+          "ret": 0
+        }
+      ]
+    },
+    "sections": {
+      ".text": {
+        "vaddr": 5246976,
+        "memsize": 11434,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": true
+      },
+      ".rdata": {
+        "vaddr": 5259264,
+        "memsize": 1206,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      },
+      ".data": {
+        "vaddr": 5263360,
+        "memsize": 1584,
+        "is_readable": true,
+        "is_writable": true,
+        "is_executable": false
+      },
+      ".rsrc": {
+        "vaddr": 5267456,
+        "memsize": 10952,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      },
+      ".reloc": {
+        "vaddr": 5279744,
+        "memsize": 536,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      }
+    }
+  }
+]

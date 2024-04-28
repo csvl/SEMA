@@ -164,6 +164,5 @@ class ArmAddressSpace(paged.AbstractWritablePagedMemory):
     # this (may?) be painful to write due to ARM's different page table types and having small & large pages inside of those
     def get_available_pages(self):
 
-        for i in xrange(0, (2 ** 32) - 1, 4096):
+        for i in range(0, (2 ** 32) - 1, 4096):
             yield (i, 0x1000)
-

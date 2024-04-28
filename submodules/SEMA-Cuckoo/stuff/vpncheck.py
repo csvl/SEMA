@@ -35,13 +35,13 @@ if __name__ == "__main__":
     init_routing()
 
     error = 0
-    for vpn, status in rooter("vpn_status").items():
+    for vpn, status in list(rooter("vpn_status").items()):
         if vpn not in vpns:
-            print "Not a configured VPN", vpn
+            print("Not a configured VPN", vpn)
             continue
 
         if not rooter("nic_available", vpns[vpn].interface):
-            print>>sys.stderr, "VPN is no longer available", vpn
+            print("VPN is no longer available", vpn, file=sys.stderr)
             error = 1
             continue
 
@@ -62,9 +62,9 @@ if __name__ == "__main__":
             ret = sock.recv(4096).split("\r\n\r\n", 1)[-1]
 
             if args.verbose:
-                print vpns[vpn].name, ipaddr, ret
+                print(vpns[vpn].name, ipaddr, ret)
         except socket.error:
-            print>>sys.stderr, "Unable to connect through VPN", vpn
+            print("Unable to connect through VPN", vpn, file=sys.stderr)
             error = 1
 
         rooter(

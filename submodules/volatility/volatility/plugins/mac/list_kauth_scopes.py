@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 import volatility.obj   as obj
 import volatility.utils as utils
@@ -39,14 +39,14 @@ class mac_list_kauth_scopes(common.AbstractMacCommand):
         scopes_addr = self.addr_space.profile.get_symbol("_kauth_scopes")
         scopes_ptr = obj.Object("Pointer", offset = scopes_addr, vm = self.addr_space)
         scope = scopes_ptr.dereference_as("kauth_scope")
-        
+
         while scope.is_valid():
             yield scope
             scope = scope.ks_link.tqe_next.dereference()
 
     def unified_output(self, data):
         common.set_plugin_members(self)
-        
+
         return TreeGrid([("Offset", Address),
                           ("Name", str),
                           ("IData", Address),
@@ -75,7 +75,7 @@ class mac_list_kauth_scopes(common.AbstractMacCommand):
 
     def render_text(self, outfd, data):
         common.set_plugin_members(self)
-        
+
         self.table_header(outfd, [("Offset", "[addrpad]"),
                           ("Name", "24"),
                           ("IData", "[addrpad]"),
@@ -85,13 +85,13 @@ class mac_list_kauth_scopes(common.AbstractMacCommand):
                           ("Callback Sym", ""),])
 
         kaddr_info = common.get_handler_name_addrs(self)
-        
+
         for scope in data:
             cb = scope.ks_callback.v()
-            (module, handler_sym) = common.get_handler_name(kaddr_info, cb) 
-            
+            (module, handler_sym) = common.get_handler_name(kaddr_info, cb)
+
             self.table_row(outfd, scope.v(),
                                   scope.ks_identifier,
                                   scope.ks_idata,
-                                  len([l for l in scope.listeners()]), 
+                                  len([l for l in scope.listeners()]),
                                   cb, module, handler_sym)

@@ -4,12 +4,12 @@
 
 import os.path
 import requests
-import urlparse
+import urllib.parse
 
 from cuckoo.distributed.exception import InvalidReport, InvalidPcap
 
 def _get(base, uri, *args, **kwargs):
-    return requests.get(urlparse.urljoin(base, uri % args), **kwargs)
+    return requests.get(urllib.parse.urljoin(base, uri % args), **kwargs)
 
 def list_machines(url):
     return _get(url, "/machines/list").json()["machines"]
@@ -45,7 +45,7 @@ def submit_task(url, task):
     files = {"file": (task["filename"], open(task["path"], "rb"))}
     try:
         r = requests.post(
-            urlparse.urljoin(url, "/tasks/create/file"),
+            urllib.parse.urljoin(url, "/tasks/create/file"),
             data=data, files=files
         )
         r.raise_for_status()

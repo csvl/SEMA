@@ -19,7 +19,7 @@ import string
 import sys
 import threading
 import warnings
-import xmlrpclib
+import xmlrpc.client
 
 from distutils.version import StrictVersion, LooseVersion
 
@@ -105,7 +105,7 @@ def validate_url(url, allow_invalid=False):
     except:
         pass
 
-class TimeoutServer(xmlrpclib.ServerProxy):
+class TimeoutServer(xmlrpc.client.ServerProxy):
     """Timeout server for XMLRPC.
     XMLRPC + timeout - still a bit ugly - but at least gets rid of setdefaulttimeout
     inspired by http://stackoverflow.com/questions/372365/set-timeout-for-xmlrpclib-serverproxy
@@ -115,7 +115,7 @@ class TimeoutServer(xmlrpclib.ServerProxy):
     def __init__(self, *args, **kwargs):
         timeout = kwargs.pop("timeout", None)
         kwargs["transport"] = TimeoutTransport(timeout=timeout)
-        xmlrpclib.ServerProxy.__init__(self, *args, **kwargs)
+        xmlrpc.client.ServerProxy.__init__(self, *args, **kwargs)
 
     def _set_timeout(self, timeout):
         t = self._ServerProxy__transport
@@ -124,13 +124,13 @@ class TimeoutServer(xmlrpclib.ServerProxy):
         if hasattr(t, "_connection") and t._connection[1] and t._connection[1].sock:
             t._connection[1].sock.settimeout(timeout)
 
-class TimeoutTransport(xmlrpclib.Transport):
+class TimeoutTransport(xmlrpc.client.Transport):
     def __init__(self, *args, **kwargs):
         self.timeout = kwargs.pop("timeout", None)
-        xmlrpclib.Transport.__init__(self, *args, **kwargs)
+        xmlrpc.client.Transport.__init__(self, *args, **kwargs)
 
     def make_connection(self, *args, **kwargs):
-        conn = xmlrpclib.Transport.make_connection(self, *args, **kwargs)
+        conn = xmlrpc.client.Transport.make_connection(self, *args, **kwargs)
         if self.timeout is not None:
             conn.timeout = self.timeout
         return conn
@@ -166,7 +166,7 @@ def to_unicode(s):
         encodings = ("ascii", "utf8", "latin1")
         for enc in encodings:
             try:
-                return unicode(s2, enc)
+                return str(s2, enc)
             except UnicodeDecodeError:
                 pass
         return None
@@ -176,13 +176,13 @@ def to_unicode(s):
         enc = chardet.detect(s2)["encoding"]
 
         try:
-            return unicode(s2, enc)
+            return str(s2, enc)
         except UnicodeDecodeError:
             pass
         return None
 
     # If already in unicode, skip.
-    if isinstance(s, unicode):
+    if isinstance(s, str):
         return s
 
     # First try to decode against a little set of common encodings.
@@ -195,7 +195,7 @@ def to_unicode(s):
     # If not possible to convert the input string, try again with
     # a replace strategy.
     if not result:
-        result = unicode(s, errors="replace")
+        result = str(s, errors="replace")
 
     return result
 
@@ -349,10 +349,10 @@ def list_of(l, cls):
     return True
 
 def list_of_ints(l):
-    return list_of(l, (int, long))
+    return list_of(l, (int, int))
 
 def list_of_strings(l):
-    return list_of(l, basestring)
+    return list_of(l, str)
 
 def cmp_version(first, second, op):
     op_lookup = {

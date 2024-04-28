@@ -12,7 +12,7 @@ class GetFileAttributesExW(angr.SimProcedure):
 
         # Get the path of the file to check
         path = self.state.mem[lpFileName].wstring.concrete
-        
+
         lpFileInformation_addr = self.state.mem[lpFileInformation].int.concrete
 
         # Check if the file exists
@@ -22,8 +22,8 @@ class GetFileAttributesExW(angr.SimProcedure):
 
             #if os.path.isfile(path):
             # file_attributes |= 0x00000020  # FILE_ATTRIBUTE_ARCHIVE
-            
-            file_attributes |= 0x00000080  # FILE_ATTRIBUTE_NORMAL 
+
+            file_attributes |= 0x00000080  # FILE_ATTRIBUTE_NORMAL
 
             # if os.path.isdir(path):
             #     file_attributes |= 0x00000010  # FILE_ATTRIBUTE_DIRECTORY
@@ -32,7 +32,7 @@ class GetFileAttributesExW(angr.SimProcedure):
             #     file_attributes |= 0x00000001  # FILE_ATTRIBUTE_READONLY
 
             # Write the file attributes to the output buffer
-            
+
             # typedef struct _FILE_BASIC_INFO {
             # LARGE_INTEGER CreationTime;
             # LARGE_INTEGER LastAccessTime;
@@ -40,7 +40,7 @@ class GetFileAttributesExW(angr.SimProcedure):
             # LARGE_INTEGER ChangeTime;
             # DWORD         FileAttributes;
             # } FILE_BASIC_INFO, *PFILE_BASIC_INFO;
-            
+
             _FILE_BASIC_INFO = {
                 'CreationTime': self.state.solver.BVS("CreationTime{}".format(self.display_name),64), # 0xFEEF04BD,
                 'LastAccessTime': self.state.solver.BVS("LastAccessTime{}".format(self.display_name),64), # 0x00010000,
@@ -48,7 +48,7 @@ class GetFileAttributesExW(angr.SimProcedure):
                 'ChangeTime': self.state.solver.BVS("ChangeTime{}".format(self.display_name),64), #  0x00040001,
                 'FileAttributes': self.state.solver.BVS("FileAttributes{}".format(self.display_name),32) # 0x00030002,
             }
-            
+
             # _FILE_BASIC_INFO = {
             #     'CreationTime': int(time.time() * 1000 * 1000 / 100), # 0xFEEF04BD,
             #     'LastAccessTime': int(time.time() * 1000 * 1000 / 100), # 0x00010000,
@@ -56,29 +56,29 @@ class GetFileAttributesExW(angr.SimProcedure):
             #     'ChangeTime': int(time.time() * 1000 * 1000 / 100), #  0x00040001,
             #     'FileAttributes': self.state.solver.BVS("FileAttributes{}".format(self.display_name),32) # 0x00030002,
             # }
-            
+
             self.state.solver.add(_FILE_BASIC_INFO['CreationTime'] >= 1601)
             self.state.solver.add(_FILE_BASIC_INFO['CreationTime'] < 30827)
-            
+
             self.state.solver.add(_FILE_BASIC_INFO['LastAccessTime'] >= 1601)
             self.state.solver.add(_FILE_BASIC_INFO['LastAccessTime'] < 30827)
-            
+
             self.state.solver.add(_FILE_BASIC_INFO['LastWriteTime'] >= 1601)
             self.state.solver.add(_FILE_BASIC_INFO['LastWriteTime'] < 30827)
-            
+
             self.state.solver.add(_FILE_BASIC_INFO['ChangeTime'] >= 1601)
             self.state.solver.add(_FILE_BASIC_INFO['ChangeTime'] < 30827)
-            
+
             self.state.solver.add(_FILE_BASIC_INFO['CreationTime']  <= _FILE_BASIC_INFO['LastAccessTime'])
             self.state.solver.add(_FILE_BASIC_INFO['LastWriteTime'] <= _FILE_BASIC_INFO['LastAccessTime'])
             self.state.solver.add(_FILE_BASIC_INFO['ChangeTime']    <= _FILE_BASIC_INFO['LastWriteTime'])
-            
+
             self.state.mem[lpFileInformation_addr].qword    = _FILE_BASIC_INFO['CreationTime']
             self.state.mem[lpFileInformation_addr+8].qword  = _FILE_BASIC_INFO['LastAccessTime']
             self.state.mem[lpFileInformation_addr+16].qword = _FILE_BASIC_INFO['LastWriteTime']
             self.state.mem[lpFileInformation_addr+24].qword = _FILE_BASIC_INFO['ChangeTime']
             file_attributes = 0
-            file_attributes = 0x00000080  # FILE_ATTRIBUTE_NORMAL 
+            file_attributes = 0x00000080  # FILE_ATTRIBUTE_NORMAL
             self.state.mem[lpFileInformation_addr+32].dword =  _FILE_BASIC_INFO['FileAttributes'] # file_attributes #.to_bytes(int(self.arch.bits/8), byteorder='little')
             #self.state.mem[lpFileInformation_addr+32].dword = _FILE_BASIC_INFO['FileAttributes']
             #self.state.memory.store(lpFileInformation, file_attributes.to_bytes(int(self.arch.bits/8), byteorder='little'))

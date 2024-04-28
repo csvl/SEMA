@@ -98,13 +98,13 @@ def movesql(dburi, mode, dirpath):
 def sqldump(dburi, dirpath):
     args, env = dumpcmd(dburi, dirpath)
 
-    envargs = " ".join("%s=%s" % (k, v) for k, v in env.items())
+    envargs = " ".join("%s=%s" % (k, v) for k, v in list(env.items()))
     cmdline = " ".join('"%s"' % arg if " " in arg else arg for arg in args)
     cmd = "%s %s" % (envargs, cmdline) if envargs else cmdline
 
-    print "We can make a SQL database backup as follows:"
-    print "input cmd  =>", cmd
-    print "output SQL =>", cwd("backup.sql")
+    print("We can make a SQL database backup as follows:")
+    print("input cmd  =>", cmd)
+    print("output SQL =>", cwd("backup.sql"))
 
     if not click.confirm("Would you like to make a backup", default=True):
         return
@@ -112,7 +112,7 @@ def sqldump(dburi, dirpath):
     try:
         subprocess.check_call(
             args, stdout=open(cwd("backup.sql"), "wb"),
-            env=dict(os.environ.items() + env.items())
+            env=dict(list(os.environ.items()) + list(env.items()))
         )
     except (subprocess.CalledProcessError, OSError) as e:
         raise CuckooOperationalError(
@@ -139,7 +139,7 @@ def import_cuckoo(username, mode, dirpath):
             "from scratch, your configuration would have been obsolete anyway!"
         )
 
-    print "We've identified a Cuckoo Sandbox %s installation!" % version
+    print("We've identified a Cuckoo Sandbox %s installation!" % version)
 
     if os.path.isdir(cwd()) and os.listdir(cwd()):
         raise CuckooOperationalError(
@@ -151,14 +151,14 @@ def import_cuckoo(username, mode, dirpath):
     from cuckoo.apps import migrate_database
     from cuckoo.main import cuckoo_create
 
-    print "Reading in the old configuration.."
+    print("Reading in the old configuration..")
 
     # Port the older configuration.
     cfg = Config.from_confdir(os.path.join(dirpath, "conf"), loose=True)
     cfg = migrate_conf(cfg, version)
 
-    print "  configuration has been migrated to the latest version!"
-    print
+    print("  configuration has been migrated to the latest version!")
+    print()
 
     # Create a fresh Cuckoo Working Directory.
     cuckoo_create(username, cfg, quiet=True)
@@ -180,13 +180,13 @@ def import_cuckoo(username, mode, dirpath):
     import_legacy_analyses(mode, dirpath)
 
     # Urge the user to run the community command.
-    print
-    print "You have successfully imported your old version of Cuckoo!"
-    print "However, in order to get up-to-date, you'll probably want to"
-    print yellow("run the community command"),
-    print "by running", red("'cuckoo community'"), "manually."
-    print "The community command will fetch the latest monitoring updates"
-    print "and Cuckoo Signatures."
+    print()
+    print("You have successfully imported your old version of Cuckoo!")
+    print("However, in order to get up-to-date, you'll probably want to")
+    print(yellow("run the community command"), end=' ')
+    print("by running", red("'cuckoo community'"), "manually.")
+    print("The community command will fetch the latest monitoring updates")
+    print("and Cuckoo Signatures.")
 
 def import_analysis_copy(src, dst):
     def ignore(src, names):

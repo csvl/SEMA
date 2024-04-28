@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.plugins.mac.pstasks as pstasks
@@ -55,7 +55,7 @@ class mac_psaux(pstasks.mac_tasks):
 
     def render_text(self, outfd, data):
 
-        self.table_header(outfd, [("Pid", "8"), 
+        self.table_header(outfd, [("Pid", "8"),
                                   ("Name", "20"),
                                   ("Bits", "16"),
                                   ("Stack", "#018x"),
@@ -63,9 +63,9 @@ class mac_psaux(pstasks.mac_tasks):
                                   ("Argc", "8"),
                                   ("Arguments", "")])
         for proc in data:
-            self.table_row(outfd, 
-                           proc.p_pid, 
-                           proc.p_comm, 
+            self.table_row(outfd,
+                           proc.p_pid,
+                           proc.p_comm,
                            str(proc.task.map.pmap.pm_task_map or '')[9:],
                            proc.user_stack,
                            proc.p_argslen,

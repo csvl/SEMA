@@ -49,7 +49,7 @@ class ExtractManager(object):
             cls.extractors.append(ext)
 
             # Turn str/unicode into a tuple of size one.
-            if isinstance(ext.yara_rules, basestring):
+            if isinstance(ext.yara_rules, str):
                 ext.yara_rules = ext.yara_rules,
 
     def __del__(self):
@@ -177,7 +177,7 @@ class ExtractManager(object):
                 break
 
     def peek_office(self, files):
-        for filename, content in files.items():
+        for filename, content in list(files.items()):
             externals = {
                 "filename": filename,
             }

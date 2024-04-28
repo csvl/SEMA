@@ -227,7 +227,7 @@ class DWARFParser(object):
                     sz = int(data['DW_AT_byte_size'], self.base)
                 else:
                     sz = 0
-                
+
                 self.enums[name] = [sz, {}]
 
         elif kind == 'DW_TAG_pointer_type':
@@ -335,7 +335,7 @@ class DWARFParser(object):
             self.vtypes = self.resolve_refs()
             self.all_vtypes.update(self.vtypes)
         if self.vars:
-            self.vars = dict(((k, self.resolve(v)) for k, v in self.vars.items()))
+            self.vars = dict(((k, self.resolve(v)) for k, v in list(self.vars.items())))
             self.all_vars.update(self.vars)
         if self.local_vars:
             self.local_vars = [ (name, lineno, decl_file, self.resolve(tp)) for
@@ -349,7 +349,7 @@ class DWARFParser(object):
             changed = False
             s = set()
             for m in self.all_vtypes:
-                for t in self.all_vtypes[m][1].values():
+                for t in list(self.all_vtypes[m][1].values()):
                     s.add(self.get_deepest(t))
             for m in self.all_vars:
                 s.add(self.get_deepest(self.all_vars[m][1]))
@@ -365,7 +365,7 @@ class DWARFParser(object):
                 d = self.get_deepest(memb)
                 if d in self.enums:
                     sz = self.enums[d][0]
-                    vals = dict((v, k) for k, v in self.enums[d][1].items())
+                    vals = dict((v, k) for k, v in list(self.enums[d][1].items()))
                     self.all_vtypes[t][1][m] = self.deep_replace(
                         memb, [d],
                         ['Enumeration', dict(target = self.sz2tp[sz], choices = vals)]
@@ -375,19 +375,19 @@ class DWARFParser(object):
 
     def print_output(self):
         self.finalize()
-        print "linux_types = {"
+        print("linux_types = {")
 
         for t in self.all_vtypes:
-            print "  '%s': [ %#x, {" % (t, self.all_vtypes[t][0])
+            print("  '%s': [ %#x, {" % (t, self.all_vtypes[t][0]))
             for m in sorted(self.all_vtypes[t][1], key = lambda m: self.all_vtypes[t][1][m][0]):
-                print "    '%s': [%#x, %s]," % (m, self.all_vtypes[t][1][m][0], self.all_vtypes[t][1][m][1])
-            print "}],"
-        print "}"
-        print
-        print "linux_gvars = {"
+                print("    '%s': [%#x, %s]," % (m, self.all_vtypes[t][1][m][0], self.all_vtypes[t][1][m][1]))
+            print("}],")
+        print("}")
+        print()
+        print("linux_gvars = {")
         for v in sorted(self.all_vars, key = lambda v: self.all_vars[v][0]):
-            print "  '%s': [%#010x, %s]," % (v, self.all_vars[v][0], self.all_vars[v][1])
-        print "}"
+            print("  '%s': [%#010x, %s]," % (v, self.all_vars[v][0], self.all_vars[v][1]))
+        print("}")
 
 if __name__ == '__main__':
     import sys

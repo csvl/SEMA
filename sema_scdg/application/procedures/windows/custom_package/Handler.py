@@ -14,4 +14,3 @@ class Handler(angr.SimProcedure):
 
     def run_initializer(self):
             self.jump(self.state.globals['jump'])
-            

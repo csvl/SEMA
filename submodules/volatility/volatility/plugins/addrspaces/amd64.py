@@ -82,20 +82,20 @@ class AMD64PagedMemory(paged.AbstractWritablePagedMemory):
         return not self.is_user_page(entry)
 
     def is_writeable(self, entry):
-        return entry & (1 << 1) == (1 << 1) 
-        
+        return entry & (1 << 1) == (1 << 1)
+
     def is_dirty(self, entry):
         return entry & (1 << 6) == (1 << 6)
-        
+
     def is_nx(self, entry):
         return entry & (1 << 63) == (1 << 63)
-        
+
     def is_accessed(self, entry):
         return entry & (1 << 5) == (1 << 5)
-        
+
     def is_copyonwrite(self, entry):
         return entry & (1 << 9) == (1 << 9)
-        
+
     def is_prototype(self, entry):
         return entry & (1 << 10) == (1 << 10)
 
@@ -187,7 +187,7 @@ class AMD64PagedMemory(paged.AbstractWritablePagedMemory):
         Invalid entries should be handled with operating
         system abstractions.
         '''
-        vaddr = long(vaddr)
+        vaddr = int(vaddr)
         retVal = None
         pml4e = self.get_pml4e(vaddr)
         if not self.entry_present(pml4e):
@@ -265,7 +265,7 @@ class AMD64PagedMemory(paged.AbstractWritablePagedMemory):
                     continue
 
                 if self.page_size_flag(pdpte_value):
-                    if with_pte: 
+                    if with_pte:
                         yield (pdpte_value, vaddr, 0x40000000)
                     else:
                         yield (vaddr, 0x40000000)
@@ -287,7 +287,7 @@ class AMD64PagedMemory(paged.AbstractWritablePagedMemory):
                     prev_pd_entry = entry
 
                     if self.entry_present(entry) and self.page_size_flag(entry):
-                        if with_pte: 
+                        if with_pte:
                             yield (entry, vaddr + soffset, 0x200000)
                         else:
                             yield (vaddr + soffset, 0x200000)

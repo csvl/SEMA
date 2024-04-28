@@ -10,13 +10,13 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 #     def run(self, buffer, format, args):
 #         # Get the format string
 #         strlen = angr.SIM_PROCEDURES['libc']['strlen']
-#         format_strlen = self.inline_call(strlen, format) 
+#         format_strlen = self.inline_call(strlen, format)
 
 #         format_str = self.state.memory.load(format, size=format_strlen.max_null_index, endness='Iend_LE')
 #         format_str = self.state.solver.eval(format_str) # ,cast_to=bytes
 #         print(format_str)
 #         # Get the number of arguments
-#         num_args = len(format_str.split("%") ) -1 
+#         num_args = len(format_str.split("%") ) -1
 #         # Get the arguments
 #         arg_list = []
 #         for i in range(num_args):
@@ -60,7 +60,7 @@ class sprintf(angr.SimProcedure):
         # # import pdb; pdb.set_trace()
 
         # return len(var_string)
-        
+
         addr = self.state.solver.eval(arg2)
         buf = self.state.solver.eval(arg1)
         byte = self.state.solver.eval(self.state.memory.load(addr,1))
@@ -84,7 +84,7 @@ class sprintf(angr.SimProcedure):
                             arg = arg.decode("utf-8")
                     except:
                         arg = self.state.solver.eval(argaddr)
-                        arg = hex(arg) # TODO 
+                        arg = hex(arg) # TODO
                     sup_args.append(arg)
                     self.state.memory.store(buf,self.state.solver.BVV(arg))
                     buf += len(arg)

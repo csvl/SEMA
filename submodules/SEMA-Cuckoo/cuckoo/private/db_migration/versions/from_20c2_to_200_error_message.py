@@ -40,7 +40,7 @@ def upgrade():
 
         errors = []
         for error in old_errors:
-            errors.append(dict(zip(("id", "message", "task_id"), error)))
+            errors.append(dict(list(zip(("id", "message", "task_id"), error))))
 
         op.rename_table("errors", "old_errors")
         op.drop_table("old_errors")

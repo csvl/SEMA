@@ -51,7 +51,7 @@ Guacamole.Status = function(code, message) {
      * The human-readable message is not required, and is generally provided
      * for debugging purposes only. For user feedback, it is better to translate
      * the Guacamole status code into a message.
-     * 
+     *
      * @type {String}
      */
     this.message = message;

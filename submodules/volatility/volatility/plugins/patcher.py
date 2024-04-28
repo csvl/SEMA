@@ -45,7 +45,7 @@ PAGESIZE = 4096
 
 class MultiPageScanner(object):
     """Scans a page at a time through the address space
-    
+
        Designed to minimize reads/writes to the address space
     """
     def __init__(self, patchers, full = False):
@@ -178,13 +178,13 @@ class Patcher(commands.Command):
     def parse_patchfile(self):
         """Parses the patch XML data"""
         if not self._config.WRITE:
-            print "Warning: WRITE support not enabled, no patching will occur"
+            print("Warning: WRITE support not enabled, no patching will occur")
 
         if self._config.XML_INPUT is None:
             debug.error("No XML input file was specified")
         try:
             root = etree.parse(self._config.XML_INPUT).getroot()
-        except SyntaxError, e:
+        except SyntaxError as e:
             debug.error("XML input file was improperly formed: " + str(e))
 
         for element in root:

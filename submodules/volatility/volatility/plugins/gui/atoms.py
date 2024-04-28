@@ -86,7 +86,7 @@ class AtomScan(common.AbstractScanCommand):
 
             # This defeats the purpose of having a generator, but
             # its required if we want to be able to sort. We also
-            # filter string atoms here. 
+            # filter string atoms here.
             atoms = [a for a in atom_table.atoms() if a.is_string_atom()]
 
             if self._config.SORT_BY == "atom":
@@ -219,11 +219,11 @@ class Atoms(common.AbstractWindowsCommand):
 
         for atom_table, window_station in data:
             for atom in atom_table.atoms():
-            
-                ## Filter string atoms 
+
+                ## Filter string atoms
                 if not atom.is_string_atom():
-                    continue 
-            
+                    continue
+
                 self.table_row(outfd,
                     atom_table.PhysicalAddress,
                     window_station.dwSessionId,
@@ -234,4 +234,3 @@ class Atoms(common.AbstractWindowsCommand):
                     atom.Pinned,
                     str(atom.Name or "")
                     )
-

@@ -1,5 +1,5 @@
 import libvirt # VMs manager
-import sys 
+import sys
 
 class VMInterface:
     def __init__(self,name: str) -> None:
@@ -23,6 +23,6 @@ class VMInterface:
 
     def pause_vm(self):
         pass
-    
+
     def resume_vm(self):
         pass

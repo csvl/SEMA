@@ -35,30 +35,30 @@ class linux_check_tty(linux_common.AbstractLinuxCommand):
 
     def calculate(self):
         linux_common.set_plugin_members(self)
-        
+
         modules  = linux_lsmod.linux_lsmod(self._config).get_modules()
 
         tty_addr = self.addr_space.profile.get_symbol("tty_drivers")
-        
+
         if not tty_addr:
             debug.error("Symbol tty_drivers not found in kernel")
-                        
+
         drivers = obj.Object("list_head", offset = tty_addr, vm = self.addr_space)
-        
+
         sym_cache = {}
 
         for tty in drivers.list_of_type("tty_driver", "tty_drivers"):
             name = tty.name.dereference_as("String", length = linux_common.MAX_STRING_LENGTH)
-            
+
             ttys = obj.Object("Array", targetType = "Pointer", vm = self.addr_space, offset = tty.ttys, count = tty.num)
             for tty_dev in ttys:
                 if tty_dev == 0:
                     continue
-                
+
                 tty_dev = tty_dev.dereference_as("tty_struct")
                 name = tty_dev.name
                 recv_buf = tty_dev.ldisc.ops.receive_buf
-                
+
                 known = self.is_known_address(recv_buf, modules)
 
                 if not known:
@@ -67,9 +67,9 @@ class linux_check_tty(linux_common.AbstractLinuxCommand):
                 else:
                     sym_name = self.profile.get_symbol_by_address("kernel", recv_buf)
                     hooked = 0
-                
+
                 sym_cache[recv_buf] = sym_name
-                
+
                 yield (name, recv_buf, sym_name, hooked)
 
     def unified_output(self, data):
@@ -84,5 +84,5 @@ class linux_check_tty(linux_common.AbstractLinuxCommand):
 
     def render_text(self, outfd, data):
         self.table_header(outfd, [("Name", "<16"), ("Address", "[addrpad]"), ("Symbol", "<30")])
-        for name, call_addr, sym_name, _hooked in data: 
+        for name, call_addr, sym_name, _hooked in data:
             self.table_row(outfd, name, call_addr, sym_name)

@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 import volatility.obj as obj
 import volatility.plugins.mac.common as common
@@ -34,15 +34,15 @@ class mac_check_mig_table(common.AbstractMacCommand):
 
     def calculate(self):
         common.set_plugin_members(self)
-       
+
         n = 1024
         mig_buckets_addr = self.addr_space.profile.get_symbol("_mig_buckets")
 
         if self.addr_space.profile.has_type("mig_hash_t"):
             ele_size = self.addr_space.profile.get_obj_size("mig_hash_t")
-            
+
             ele_type = "mig_hash_t"
-       
+
         else:
             # we can't use an array as the size of mig_hash_entry
             # depends on if MAC_COUNTERS is set, which changes between kernels
@@ -50,7 +50,7 @@ class mac_check_mig_table(common.AbstractMacCommand):
             # which allows us to calculate the size of each entry dynamically
             di_addr  = self.addr_space.profile.get_symbol("_mig_table_max_displ")
             ele_size = (di_addr - mig_buckets_addr) / n
-            
+
             ele_type = "mig_hash_entry"
 
         for i in range(n):
@@ -85,5 +85,4 @@ class mac_check_mig_table(common.AbstractMacCommand):
                           ("Routine Handler", "[addrpad]")])
 
         for (num, name, routine) in data:
-            self.table_row(outfd, num, name, routine) 
-
+            self.table_row(outfd, num, name, routine)

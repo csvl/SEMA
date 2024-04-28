@@ -11,7 +11,7 @@ class OpenreilCFGSource(Source):
     def parse(self, obj, graph):
         if not isinstance(obj, pyopenreil.REIL.CFGraph):
             raise VisError("Unknown input type '%s'" % type(obj))
-        
+
         for k,n in obj.nodes.items():
             if n not in self.lookup:
                 wn = Node(self.seq, n)
@@ -27,4 +27,3 @@ class OpenreilCFGSource(Source):
             wsrc = self.lookup[e.node_from]
             wdst = self.lookup[e.node_to]
             graph.add_edge(Edge(wsrc, wdst, {'name': e.name}))
-

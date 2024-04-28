@@ -36,7 +36,7 @@ class SemaExplorerCDFS(SemaExplorer):
     def setup(self, simgr):
         super().setup(simgr)
         self.pause_stash = deque()
-        # The stash where states leading to new instruction addresses (not yet explored) of the binary are kept. 
+        # The stash where states leading to new instruction addresses (not yet explored) of the binary are kept.
         if self.new_addr_stash not in simgr.stashes:
             simgr.stashes[self.new_addr_stash] = []
 
@@ -59,13 +59,13 @@ class SemaExplorerCDFS(SemaExplorer):
 
         # We detect fork for a state
         super().manage_fork(simgr)
-        
+
         # Remove state which performed more jump than the limit allowed
         super().remove_exceeded_jump(simgr)
 
         # Manage ended state
         super().manage_deadended(simgr)
-        
+
         for s in simgr.active:
             vis_addr = str(self.check_constraint(s, s.history.jump_target))
             id_to_stash = []
@@ -129,7 +129,7 @@ class SemaExplorerCDFS(SemaExplorer):
             moves = len(simgr.stashes["temp"])
             for i in range(moves):
                 self.pause_stash.append(simgr.stashes["temp"].pop())
-            
+
         super().excessed_step_to_active(simgr)
 
         super().excessed_loop_to_active(simgr)

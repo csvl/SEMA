@@ -373,7 +373,7 @@ class TestAPIStats(flask_testing.TestCase):
             open("tests/files/statsapireply.json", "rb")
         )
 
-        keys = r.json.keys()
+        keys = list(r.json.keys())
         assert r.status_code == 200
         assert r.json == correct_reply
         assert len(keys) == 9
@@ -383,7 +383,7 @@ class TestAPIStats(flask_testing.TestCase):
                 "/api/stats?nodes=%s&include=memory_usage" % node
             )
             assert r.status_code == 200
-            assert r.json["memory_usage"]["hour"].keys() == [node]
+            assert list(r.json["memory_usage"]["hour"].keys()) == [node]
 
         keys.remove("nodes")
         for stat in keys:

@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -51,7 +51,7 @@ class linux_pidhashtable(linux_pslist.linux_pslist):
         chained = 0
 
         pid_tasks_0 = pid.tasks[0].first
-        
+
         if pid_tasks_0 == 0:
             chained = 1
             pnext_addr = upid.obj_offset + self.profile.get_obj_offset("upid", "pid_chain") + self.profile.get_obj_offset("hlist_node", "next")
@@ -83,7 +83,7 @@ class linux_pidhashtable(linux_pslist.linux_pslist):
             if not pid_chain:
                 break
 
-            upid = self.get_obj(pid_chain.next, "upid", "pid_chain")
+            upid = self.get_obj(pid_chain.__next__, "upid", "pid_chain")
 
     def _get_pidhash_array(self):
         pidhash_shift = obj.Object("unsigned int", offset = self.addr_space.profile.get_symbol("pidhash_shift"), vm = self.addr_space)
@@ -130,16 +130,16 @@ class linux_pidhashtable(linux_pslist.linux_pslist):
         debug.error("{0:s}: This profile is currently unsupported by this plugin. Please file a bug report on our issue tracker to have support added.".format(func_name))
 
     def calculate_v2(self):
-        poff = self.addr_space.profile.get_obj_offset("task_struct", "pids") 
+        poff = self.addr_space.profile.get_obj_offset("task_struct", "pids")
 
         pidhash    = self._get_pidhash_array()
 
         for p  in pidhash:
             if p.v() == 0:
                 continue
-            
+
             ptr = obj.Object("Pointer", offset = p.v(), vm = self.addr_space)
-    
+
             if ptr.v() == 0:
                 continue
 
@@ -149,7 +149,7 @@ class linux_pidhashtable(linux_pslist.linux_pslist):
 
             if not nexth.is_valid():
                 continue
-         
+
             nexth = obj.Object("task_struct", offset = nexth - poff, vm = self.addr_space)
 
             while 1:
@@ -157,14 +157,14 @@ class linux_pidhashtable(linux_pslist.linux_pslist):
                     break
 
                 yield nexth
-               
-                pidl = pidl.node.m("next").dereference_as("pid_link")    
-                
+
+                pidl = pidl.node.m("next").dereference_as("pid_link")
+
                 nexth = pidl.pid
 
                 if not nexth.is_valid():
                     break
- 
+
                 nexth = obj.Object("task_struct", offset = nexth - poff, vm = self.addr_space)
 
     def calculate_v1(self):
@@ -214,7 +214,7 @@ class linux_pidhashtable(linux_pslist.linux_pslist):
 
     def _walk_idr_node(self, node, height, idx):
         for i in range(self.RADIX_TREE_MAP_SIZE):
-            shift = (height - 1) * self.RADIX_TREE_MAP_SHIFT  
+            shift = (height - 1) * self.RADIX_TREE_MAP_SHIFT
 
             slot = node.slots[i]
 
@@ -238,12 +238,12 @@ class linux_pidhashtable(linux_pslist.linux_pslist):
 
         ns_addr = self.addr_space.profile.get_symbol("init_pid_ns")
         ns = obj.Object("pid_namespace", offset = ns_addr, vm = self.addr_space)
-        
+
         root = ns.idr.idr_rt
 
         node = root.rnode
         if not node.is_valid():
-            return 
+            return
 
         height = 0
 
@@ -255,12 +255,12 @@ class linux_pidhashtable(linux_pslist.linux_pslist):
 
         is_indirect = self.radix_tree_is_indirect_ptr(node)
         node = self.radix_tree_indirect_to_ptr(node)
-        
+
         if is_indirect and hasattr(node, "shift"):
             height = (node.shift / self.RADIX_TREE_MAP_SHIFT) + 1
 
         if height == 0:
-            yield node  
+            yield node
         else:
             for child_node in self._walk_idr_node(node, height, 0):
                 yield child_node
@@ -279,14 +279,14 @@ class linux_pidhashtable(linux_pslist.linux_pslist):
                 offset = self.addr_space.profile.get_obj_offset("task_struct", "pid_links")
             else:
                 debug.error("Unable to determine task_struct pids member")
-            
+
             task = obj.Object("task_struct", offset = pid_tasks_0 - offset, vm = self.addr_space)
-      
-        return task 
-    
+
+        return task
+
     def _do_walk_xarray(self, ff, node, height, index):
         shift = (height - 1) * self.XA_CHUNK_SHIFT
-        
+
         for i in range(self.XA_CHUNK_SIZE):
             slot = ff.xa_get_entry_from_offset(i, node)
             if slot == None:
@@ -296,11 +296,11 @@ class linux_pidhashtable(linux_pslist.linux_pslist):
                 slot = obj.Object("xa_node", offset = slot.v() & ~self.XARRAY_TAG_INTERNAL, vm = self.addr_space)
 
             if height == 1:
-                yield slot   
+                yield slot
             else:
                 new_index = index | (i << shift)
                 for new_slot in self._do_walk_xarray(ff, slot, height - 1, new_index):
-                    yield new_slot 
+                    yield new_slot
 
     def _walk_xarray_pids(self):
         ff = find_file.linux_find_file(self._config)
@@ -315,7 +315,7 @@ class linux_pidhashtable(linux_pslist.linux_pslist):
 
         ns_addr = self.addr_space.profile.get_symbol("init_pid_ns")
         ns = obj.Object("pid_namespace", offset = ns_addr, vm = self.addr_space)
- 
+
         xarray = ns.idr.idr_rt
 
         if not xarray.is_valid():
@@ -330,7 +330,7 @@ class linux_pidhashtable(linux_pslist.linux_pslist):
 
         height = 0
         node   = obj.Object("xa_node", offset = root, vm = self.addr_space)
-        
+
         if is_internal and hasattr(node, "shift"):
             height = (node.shift / self.XA_CHUNK_SHIFT) + 1
 
@@ -349,7 +349,7 @@ class linux_pidhashtable(linux_pslist.linux_pslist):
         for node in func():
             task = self._task_for_radix_pid_node(node)
             if task != None:
-                yield task    
+                yield task
 
     def determine_func(self):
         pidhash = self.addr_space.profile.get_symbol("pidhash")
@@ -367,24 +367,18 @@ class linux_pidhashtable(linux_pslist.linux_pslist):
             func = self.refresh_pid_hash_task_table
 
         elif pid_idr:
-            func = self.pid_namespace_idr            
+            func = self.pid_namespace_idr
 
         else:
-            self.profile_unsupported("determine_func")             
+            self.profile_unsupported("determine_func")
 
         return func
 
     def calculate(self):
         linux_common.set_plugin_members(self)
         func = self.determine_func()
-        
+
         for task in func():
             if 0 < task.pid < 66000:
                 if task.parent.is_valid():
                     yield task
-
-
-
-
-
-

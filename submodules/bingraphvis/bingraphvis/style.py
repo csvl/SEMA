@@ -79,7 +79,7 @@ STYLE_KYLE = {
 class Style:
     def __init__(self, st):
         self.style = st
-        
+
     def make_edge(self, edge, edge_type):
         edge_attrs = self.style['COLOR_SCHEME']['EDGECOLOR_' + edge_type.upper()]
         for k,v in edge_attrs.items():

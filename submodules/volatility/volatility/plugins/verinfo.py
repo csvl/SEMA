@@ -54,7 +54,7 @@ class VerInfo(procdump.ProcDump):
                     module_pattern = re.compile(self._config.REGEX, flags = sre_constants.SRE_FLAG_IGNORECASE)
                 else:
                     module_pattern = re.compile(self._config.REGEX)
-            except sre_constants.error, e:
+            except sre_constants.error as e:
                 debug.error('Regular expression parsing error: {0}'.format(e))
 
         if self._config.OFFSET is not None:
@@ -85,7 +85,7 @@ class VerInfo(procdump.ProcDump):
                        ("Flags", str),
                        ("OS", str),
                        ("FileType", str),
-                       ("FileDate", str), 
+                       ("FileDate", str),
                        ("InfoString", str)],
                         self.generator(data))
 

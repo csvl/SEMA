@@ -246,7 +246,7 @@ class GetSIDs(taskmods.DllList):
                     sid_name = " ({0})".format(well_known_sids[sid_string])
                 elif sid_string in getservicesids.servicesids:
                     sid_name = " ({0})".format(getservicesids.servicesids[sid_string])
-                elif sid_string in user_sids:   
+                elif sid_string in user_sids:
                     sid_name = " ({0})".format(user_sids[sid_string])
                 else:
                     sid_name_re = find_sid_re(sid_string, well_known_sid_re)

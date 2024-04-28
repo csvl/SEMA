@@ -3,13 +3,13 @@
 class PluginCommands:
     def __init__(self):
         pass
-        
+
     def merge(self,calls,new_calls):
         for call in new_calls:
             if call not in calls:
                 calls.append(call)
         return calls
-                            
+
     def track(self, simgr,scdg,exp_dir):
         not_interesting = ["CopyHook","HeapAlloc","HeapFree","GetProcessHeap","UserHook","VirtualFree","HeapReAlloc","VirtualAlloc","lstrlenA","lstrlenW","strlen","lstrcpyA","lstrcpyW","strncpy","lstrcatA","lstrcatW","lstrcmpA","lstrcmpW","strcmp","strncmp","wsprintfA","wsprintfW"]
         buffers = {}

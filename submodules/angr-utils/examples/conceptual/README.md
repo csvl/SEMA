@@ -10,12 +10,12 @@ ASM | VEX
 
 ## DDG #1
 Statement graph | Data graph
---- | ---  
+--- | ---
 ![ddg_stmt][ddg_stmt] | ![ddg_data][ddg_data]
 
-## DDG #2 
+## DDG #2
 32bit | 64 bit
---- | --- 
+--- | ---
 ![ddg_hr1][ddg_hr1] | ![ddg_hr2][ddg_hr2]
 
 

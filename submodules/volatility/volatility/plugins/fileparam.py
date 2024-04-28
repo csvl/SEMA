@@ -20,7 +20,7 @@
 #
 
 import volatility.conf as conf
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import sys
 import os
 ## This is required to ensure that LOCATION is defined here
@@ -39,7 +39,7 @@ def set_location(_option, _opt_str, value, parser):
         # So to keep the URLs correct, we only add file: rather than file://
         if sys.platform.startswith('win'):
             slashes = ""
-        parser.values.location = "file:" + slashes + urllib.pathname2url(os.path.abspath(value))
+        parser.values.location = "file:" + slashes + urllib.request.pathname2url(os.path.abspath(value))
 
 config.add_option("FILENAME", default = None, action = "callback",
                   callback = set_location, type = 'str',

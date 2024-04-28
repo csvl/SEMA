@@ -24,7 +24,7 @@ def analyze(b, addr, name=None):
         c = 0
         for p in state.history.bbl_addrs:
             if p ==  last:
-               c += 1 
+               c += 1
         return c > 1
 
     def step_func(lsimgr):
@@ -45,4 +45,3 @@ if __name__ == "__main__":
     proj = angr.Project("../samples/ais3_crackme", load_options={'auto_load_libs':False})
     main = proj.loader.main_object.get_symbol("main")
     analyze(proj, main.rebased_addr, "ais3")
-

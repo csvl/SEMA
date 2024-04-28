@@ -430,7 +430,7 @@ altogether. So please bear with us and install the latest version :-)
 No handlers could be found for logger X in UWSGI log
 ----------------------------------------------------
 
-If you see this message, it means Cuckoo is throwing an error before its loggers are initialized. 
+If you see this message, it means Cuckoo is throwing an error before its loggers are initialized.
 This might happen if database migration or CWD updates are required.
 
 Start the development web server to see the error::

@@ -50,7 +50,7 @@ class AngrX86ArrayAccessAnnotator(ContentAnnotator):
 
     def register(self, content):
         content.add_column_after('comment')
-        
+
     def annotate_content(self, node, content):
         for k in content['data']:
             ins = k['_ins']
@@ -81,7 +81,7 @@ class AngrX86CommentsAsm(ContentAnnotator):
 
     def register(self, content):
         content.add_column_after('comment')
-        
+
     def demangle(self, names):
         import subprocess
         args = ['c++filt']
@@ -111,7 +111,7 @@ class AngrX86CommentsAsm(ContentAnnotator):
                                 fname = self.demangle([fname])[0]
                             except Exception as e:
                                 pass
-                    
+
                     if fname:
                         if not ('comment' in k and 'content' in k['comment']):
                             k['comment'] = {
@@ -122,5 +122,5 @@ class AngrX86CommentsAsm(ContentAnnotator):
 
                         k['comment']['color'] ='gray'
                         k['comment']['align'] = 'LEFT'
-                except: 
+                except:
                     pass

@@ -32,17 +32,17 @@ class DataManager():
         except:
             df = pd.DataFrame(
                 columns=["family",
-                            "filename", 
+                            "filename",
                             "execution time",
                             "hooking time",
                             "exploration time",
                             "date",
-                            "Syscall found", 
+                            "Syscall found",
                             "EnvVar found",
                             "Locale found",
                             "Resources found",
                             "Registry found",
-                            "Address found", 
+                            "Address found",
                             "Libraries",
                             "OS",
                             "CPU architecture",
@@ -59,7 +59,7 @@ class DataManager():
                             "Number of instr visited",
                             ]) # TODO add frame type
         self.dataframe = df
-    
+
     # Save project information into a csv file or append the data to an existing csv file
     def save_to_csv(self, proj, family, call_sim, csv_file_path):
         # Convert bytes field into string if the plugin ressources is activated
@@ -70,20 +70,20 @@ class DataManager():
                 resources_found[key][0]["rsrcname"] = resources_found[key][0]["rsrcname"].decode("utf-8")
 
         to_append = pd.DataFrame({"family":family,
-                    "filename": self.data["nameFileShort"], 
+                    "filename": self.data["nameFileShort"],
                     "execution time": self.data["execution_time"],
                     "hooking time": self.data["hooking_time"],
                     "exploration time": self.data["exploration_time"],
                     "date":datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                    
-                    "Syscall found": json.dumps(call_sim.syscall_found),  
-                    "EnvVar found": json.dumps(self.data.get("total_env_var", -1)), 
-                    "Locale found": json.dumps(self.data.get("total_locale", -1)), 
+
+                    "Syscall found": json.dumps(call_sim.syscall_found),
+                    "EnvVar found": json.dumps(self.data.get("total_env_var", -1)),
+                    "Locale found": json.dumps(self.data.get("total_locale", -1)),
                     "Resources found": json.dumps(resources_found),
-                    "Registry found": json.dumps(self.data.get("total_registery", -1)), 
-                    
-                    "Number Address found": 0, 
-                    "Number Syscall found": sum(call_sim.syscall_found.values()), 
+                    "Registry found": json.dumps(self.data.get("total_registery", -1)),
+
+                    "Number Address found": 0,
+                    "Number Syscall found": sum(call_sim.syscall_found.values()),
                     "Number diff syscall found": len(call_sim.syscall_found),
                     "Libraries":str(proj.loader.requested_names),
                     "OS": proj.loader.main_object.os,
@@ -115,7 +115,7 @@ class DataManager():
                 vaddr = sec.vaddr
                 memsize = sec.memsize
         i = vaddr
-        
+
         while i < vaddr + memsize:
             block = proj.factory.block(i)
             nbinstr += block.instructions
@@ -127,15 +127,15 @@ class DataManager():
                 i += len(block.bytes)
         self.data["nbblocks"] = nbblocks
         self.data["nbinstr"] = nbinstr
-    
+
     #Print state address if verbose set to True
     def print_state_address(self, state):
         self.log.debug(hex(state.addr))
-                
+
     # Add the instruction into the instructions set
     def add_instr_addr(self, state):
         self.data["instr_dict"][state.addr] = self.data["instr_dict"].get(state.addr,0) + 1
-            
+
     # Add the block address into the block address set
     def add_block_addr(self, state):
         self.data["block_dict"][state.inspect.address] = self.data["block_dict"].get(state.inspect.address,0) + 1
@@ -157,7 +157,7 @@ class DataManager():
             if to_store:
                 self.data["total_locale"] = total_locale
             #self.log.info("Locale informations variables:" + str(total_locale))
-        if state.has_plugin("plugin_resources"): 
+        if state.has_plugin("plugin_resources"):
             total_res = state.plugin_resources.ending_state(simgr)
             if to_store:
                 self.data["total_res"] = total_res

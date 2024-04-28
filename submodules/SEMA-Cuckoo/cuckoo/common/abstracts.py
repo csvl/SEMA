@@ -66,7 +66,7 @@ class Configuration(object):
             self.order.append(entry["family"])
         family = self.families[entry["family"]]
 
-        for key, value in entry.items():
+        for key, value in list(entry.items()):
             if key in self.skip or not value:
                 continue
             key = self.mapping.get(key, key)

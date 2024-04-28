@@ -1,6 +1,6 @@
 # Volatility
 # Copyright (C) 2007-2013 Volatility Foundation
-# 
+#
 # This file is part of Volatility.
 #
 # Volatility is free software; you can redistribute it and/or modify
@@ -41,16 +41,16 @@ class linux_find_file(linux_common.AbstractLinuxCommand):
         config.add_option('FIND',  short_option = 'F', default = None, help = 'file (path) to find', action = 'store', type = 'str')
         config.add_option('INODE', short_option = 'i', default = None, help = 'inode to write to disk', action = 'store', type = 'int')
         config.add_option('OUTFILE', short_option = 'O', default = None, help = 'output file path', action = 'store', type = 'str')
-        
+
         config.remove_option("LIST_SBS")
         config.add_option('LISTFILES', short_option = 'L', default = None, help = 'list all files cached in memory', action = 'count')
-    
+
         self.ptr_size = -1
         self.seen_dents = set()
 
     def _walk_sb(self, dentry_param, parent):
         ret = []
-            
+
         if hasattr(dentry_param, "d_child"):
             walk_member = "d_child"
         else:
@@ -58,21 +58,21 @@ class linux_find_file(linux_common.AbstractLinuxCommand):
 
         for dentry in dentry_param.d_subdirs.list_of_type("dentry", walk_member):
             dentry_addr = dentry.v()
-            
+
             # corruption
             if dentry_addr == dentry_param.v():
                 continue
 
             if dentry_addr in self.seen_dents:
                 break
- 
-            self.seen_dents.add(dentry_addr) 
+
+            self.seen_dents.add(dentry_addr)
 
             if not dentry.d_name.name.is_valid():
                 continue
 
             inode = dentry.d_inode
-            
+
             ivalid = False
             if inode and inode.is_valid():
                 if inode.i_ino == 0 or inode.i_ino > 100000000000:
@@ -84,15 +84,15 @@ class linux_find_file(linux_common.AbstractLinuxCommand):
             name  = dentry.d_name.name.dereference_as("String", length = 255)
             new_file = parent + "/" + name
             ret.append((new_file, dentry))
- 
+
             if ivalid and inode.is_dir():
                 ret = ret + self._walk_sb(dentry, new_file)
 
         return ret
-     
+
     def _get_sbs(self):
         ret = []
-        
+
         for (sb, _dev_name, path, fstype, _rr, _mnt_string) in linux_mount.linux_mount(self._config).calculate():
             ret.append((sb, path))
 
@@ -120,7 +120,7 @@ class linux_find_file(linux_common.AbstractLinuxCommand):
         linux_common.set_plugin_members(self)
 
         find_file  = self._config.FIND
-        inode_addr = self._config.inode        
+        inode_addr = self._config.inode
         outfile    = self._config.outfile
         listfiles  = self._config.LISTFILES
 
@@ -136,13 +136,13 @@ class linux_find_file(linux_common.AbstractLinuxCommand):
 
         elif inode_addr and inode_addr > 0 and outfile and len(outfile) > 0:
             inode = obj.Object("inode", offset = inode_addr, vm = self.addr_space)
-           
-            try: 
+
+            try:
                 f = open(outfile, "wb")
-            except IOError, e:
+            except IOError as e:
                 debug.error("Unable to open output file (%s): %s" % (outfile, str(e)))
 
-            for page in self.get_file_contents(inode):        
+            for page in self.get_file_contents(inode):
                 f.write(page)
 
             f.close()
@@ -161,7 +161,7 @@ class linux_find_file(linux_common.AbstractLinuxCommand):
                 inode_num = inode.i_ino
 
                 self.table_row(outfd, inode_num, inode, file_path)
-                
+
     # from here down is code to walk the page cache and mem_map / mem_section page structs#
     def radix_tree_is_internal_node(self, ptr):
         if hasattr(ptr, "v"):
@@ -178,10 +178,10 @@ class linux_find_file(linux_common.AbstractLinuxCommand):
     def index_is_valid(self, root, index):
         node = root.rnode
         if self.radix_tree_is_internal_node(node):
-            maxindex = (self.RADIX_TREE_MAP_SIZE << node.shift) - 1 
+            maxindex = (self.RADIX_TREE_MAP_SIZE << node.shift) - 1
         else:
             maxindex = 0
-       
+
         if index > maxindex:
             node = None
 
@@ -202,11 +202,11 @@ class linux_find_file(linux_common.AbstractLinuxCommand):
         ent_ptr = parent.slots.obj_offset + (self.ptr_size * offset)
         entry   = obj.Object(theType="Pointer", targetType="unsigned long", offset = ent_ptr, vm = self.addr_space)
 
-        if 1: # TODO - multi order 
+        if 1: # TODO - multi order
             if self.radix_tree_is_internal_node(entry):
-                print "multi internal"
+                print("multi internal")
                 if self.is_sibling_entry(parent, entry):
-                    print "sibling ptr"
+                    print("sibling ptr")
                     sibentry = self.radix_tree_indirect_to_ptr(entry)
                     offset = self.get_slot_offset(parent, sibentry)
                     entry   = sibentry.v()
@@ -219,7 +219,7 @@ class linux_find_file(linux_common.AbstractLinuxCommand):
         node = self.index_is_valid(root, index)
         if node == None:
             return None
-        
+
         slot = root.rnode.v()
 
         while self.radix_tree_is_internal_node(node):
@@ -227,7 +227,7 @@ class linux_find_file(linux_common.AbstractLinuxCommand):
                 return None
             else:
                 parent    = self.radix_tree_indirect_to_ptr(node)
-                offset, node = self.radix_tree_descend(parent, node, index) 
+                offset, node = self.radix_tree_descend(parent, node, index)
                 slot_addr = parent.slots.obj_offset + (offset * self.ptr_size)
                 slot      = obj.Object(theType="Pointer", targetType="unsigned long", offset = slot_addr, vm = self.addr_space)
                 slot      = slot.v()
@@ -306,7 +306,7 @@ class linux_find_file(linux_common.AbstractLinuxCommand):
     def SHMEM_I(self, inode):
         offset = self.profile.get_obj_offset("shmem_inode_info", "vfs_inode")
         return obj.Object("shmem_inode_info", offset = inode.obj_offset - offset, vm = self.addr_space)
-    
+
     def xa_is_internal(self, entry):
         return (int(entry) & 3) == 2
 
@@ -317,12 +317,12 @@ class linux_find_file(linux_common.AbstractLinuxCommand):
         return (index >> node.shift) & 63
 
     def xa_get_entry_from_offset(self, offset, node):
-        ent_ptr = node.slots.obj_offset + (8 * offset) 
+        ent_ptr = node.slots.obj_offset + (8 * offset)
         return obj.Object(theType="Pointer", targetType="unsigned long", offset = ent_ptr, vm = self.addr_space)
 
     def xas_descend(self, offset, node):
         offset = self.xa_get_offset(offset, node)
-        
+
         entry = self.xa_get_entry_from_offset(offset, node)
         if entry == None:
             return entry
@@ -333,7 +333,7 @@ class linux_find_file(linux_common.AbstractLinuxCommand):
             entry = self.xa_get_entry_from_offset(offset, node)
             if entry == None:
                 return entry
-        
+
         return entry
 
     def walk_xarray(self, inode, offset):
@@ -344,7 +344,7 @@ class linux_find_file(linux_common.AbstractLinuxCommand):
 
             if node.shift < 0:
                 break
-    
+
             entry = self.xas_descend(offset, node)
 
         return entry
@@ -377,7 +377,7 @@ class linux_find_file(linux_common.AbstractLinuxCommand):
         return data
 
     # main function to be called, handles getting all the pages of an inode
-    # and handles the last page not being page_size aligned 
+    # and handles the last page not being page_size aligned
     def get_file_contents(self, inode):
         linux_common.set_plugin_members(self)
         if self.addr_space.profile.metadata.get('memory_model', '32bit') == "32bit":
@@ -400,16 +400,14 @@ class linux_find_file(linux_common.AbstractLinuxCommand):
 
         if idxs > 1000000000:
             raise StopIteration
-            
+
         for idx in range(0, idxs):
             data = self.get_page_contents(inode, idx)
-                
+
             # this is to chop off any extra data on the last page
             if idx == idxs - 1:
                 if extra > 0:
                     extra = extra * -1
                     data = data[:extra]
-            
+
             yield data
-
-

@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.plugins.mac.common as common
@@ -34,7 +34,7 @@ class mac_find_aslr_shift(common.AbstractMacCommand):
         common.set_plugin_members(self)
 
         yield self.profile.shift_address
- 
+
     def render_text(self, outfd, data):
         self.table_header(outfd, [("Shift Value", "#018x")])
         for shift_address in data:

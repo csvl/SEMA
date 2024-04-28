@@ -2,17 +2,17 @@
 import avatar2 as avatar2
 import re
 
-    
+
 class PluginHooks: # TODO replace with classses
     def __init__(self):
         self.hooks = {}
-        
+
         self.general_hooks = {
             "copy": b'\x56\x33\xf6\x39\x74\x24\x08\x76\x0d\x8a\x04\x16\x88\x04\x0e\x46\x3b\x74\x24\x08\x72\xf3\x5e',
             "copy_2":  b'\x55\x8b\xec\x56\x8b\x75\x08\x85\xf6\x74\x11\x57\x8b\xf9\x2b\xfa\x8a\x02\x88\x04\x17\x42\x83\xee\x01\x75\xf5\x5f\x8b\xc1\x5e\x5d',
             "copy_3":  b'\x55\x8b\xec\x83\x7d\x10\x00\x8b\x4d\x08\x56\x8b\xf1\x74\x12\x8b\x55\x0c\x8a\x02\xff\x4d\x10\x88\x01\x41\x42\x83\x7d\x10\x00\x75\xf1\x8b\xc6\x5e\x5d',
         }
-        
+
         self.internal_functions_hooks = {
                 # for warzone
                 "crc32": b'\x53\x55\x56\x33\xf6\x8b\xda\x8b\xe9\x39\x35\x04\xac\x41\x00\x75\x38\x57\x8b\xfe\xb9\x00\xa8\x41\x00\x6a\x08\x8b\xc7\x5a\xa8\x01\x74\x09\xd1\xe8\x35\x20\x83\xb8\xed\xeb\x02\xd1\xe8\x4a\x75\xee\x89\x01\x47\x83\xc1\x04\x81\xff\x00\x01\x00\x00\x72\xdb\xc7\x05\x04\xac\x41\x00\x01\x00\x00\x00\x5f\x83\xc9\xff\x85\xdb\x74\x1a\x0f\xb6\x04\x2e\x33\xc1\xc1\xe9\x08\x25\xff\x00\x00\x00\x33\x0c\x85\x00\xa8\x41\x00\x46\x3b\xf3\x72\xe6\x5e\xf7\xd1\x5d\x8b\xc1\x5b',
@@ -35,21 +35,21 @@ class PluginHooks: # TODO replace with classses
                 "rewriting": b'\x8b\x45\xf8\x8b\x5d\xf0\x39\xd8\x74\x97',
                 # AsyncRat
                 #"returns": b'\x83\xc4\x34\x5b\x5e\xc3'
-                #"TODO": b'\x55\x8b\xec\x83\xc4\xf0\xb8\xf0\x76\x48\x00\xe8\x80\xec\xf7\xff\xa1\x0c\x1e\x49\x00\x8b\x00\xe8\x9c\x66\xfd\xff\x8b\x0d\xa8\x1f\x49\x00\xa1\x0c\x1e\x49\x00\x8b\x00\x8b\x15\x48\x74\x48\x00\xe8\x9c\x66\xfd\xff'#b'\x55\x8b\xec\x83\xc4\xf0\xb8\xf0\x76\x48\x00\xe8\x80\xec\xf7\xff\xa1\x0c\x1e\x49\x00\x8b\x00\xe8\x9c\x66\xfd\xff' 
-                
+                #"TODO": b'\x55\x8b\xec\x83\xc4\xf0\xb8\xf0\x76\x48\x00\xe8\x80\xec\xf7\xff\xa1\x0c\x1e\x49\x00\x8b\x00\xe8\x9c\x66\xfd\xff\x8b\x0d\xa8\x1f\x49\x00\xa1\x0c\x1e\x49\x00\x8b\x00\x8b\x15\x48\x74\x48\x00\xe8\x9c\x66\xfd\xff'#b'\x55\x8b\xec\x83\xc4\xf0\xb8\xf0\x76\x48\x00\xe8\x80\xec\xf7\xff\xa1\x0c\x1e\x49\x00\x8b\x00\xe8\x9c\x66\xfd\xff'
+
                 # MagicRat       b'\x31\xd2\x48\x89\xd0\x48\x87\x01\x48\x85\xc0\x74\x03\x31\xc0\xc3\xf3\x90\x48\x8b\x01\x48\x85\xc0\x74\xf6\xeb\xe6'
                 "magicRAT_trap": b'\x31\xd2\x48\x89\xd0\x48\x87\x01\x48\x85\xc0\x74\x03\x31\xc0\xc3\xf3\x90\x48\x8b\x01\x48\x85\xc0\x74\xf6\xeb\xe6',
-                "trap":b'\x0f\x29\x02', 
+                "trap":b'\x0f\x29\x02',
                 "trap_2": b'\x0f\x29\x74\x24\x20',
                 "trap_3": b'\x0f\x28\x74\x24\x20',
                 "force_test":b'\x85\xdb',
-                #"sse3_mrat": b'\x45\x85\xc9', 
+                #"sse3_mrat": b'\x45\x85\xc9',
                 "sse3_mrat": b'\x45\x85\xc9\x0f\x84\xf5\x00\x00\x00',
                 "cpuid":b'\x0f\xa2',
                 "LAB_00cafb11":b'\x48\x8b\x84\x24\xd0\x00\x00\x00\x48\x8b\x48\x08\x48\x85\xc9\x74\x07\x48\x8b\x01\xff\x50\x08\x90',
                 "0x701140":b'',
             }
-    
+
     def initialization(self, cont, is_64bits=False):
         pe_header = int.from_bytes(cont[0x3c:0x40],"little")
         if not is_64bits:
@@ -61,7 +61,7 @@ class PluginHooks: # TODO replace with classses
             base_of_code = int.from_bytes(cont[pe_header+0x48:pe_header+0x48+4], "little")
             image_base = int.from_bytes(cont[pe_header+0x38:pe_header+0x38+8], "little")
         total = base_of_code + image_base - size_of_headers
-        
+
         addr_list = [m.start()+total for m in re.finditer(b'\xf3\xab',cont)]
         if(len(addr_list) > 0):
             self.hooks["rep stosd"] = addr_list
@@ -81,28 +81,28 @@ class PluginHooks: # TODO replace with classses
         addr_list4 = [m.start()+total for m in re.finditer(b'\xfc',cont)]
         if(len(addr_list4) > 0):
             self.hooks["cld"] = addr_list4
-            
+
         for fun in self.general_hooks.keys():
             offset = cont.find(self.general_hooks[fun])
             if offset != -1:
                 self.hooks[fun] = offset+total
-        
+
         for fun in self.internal_functions_hooks.keys():
             offset = cont.find(self.internal_functions_hooks[fun])
             if offset != -1:
                 self.hooks[fun] = offset+total
-        
+
         #self.hooks["cpuid"] = [0x559e37,0x559e27,0x559e68]
-        
+
     def hook(self,state,proj,call_sim):
-        if False: # TODO 
+        if False: # TODO
             if "std" in self.hooks:
                 for addr in self.hooks["std"]:
                     proj.hook(
                         addr,
                         call_sim.custom_simproc_windows["custom_hook"]["StdHook"](plength=1),
                         length=1
-                    )          
+                    )
             if "cld" in self.hooks:
                 for addr in self.hooks["cld"]:
                     proj.hook(
@@ -116,15 +116,15 @@ class PluginHooks: # TODO replace with classses
                         addr,
                         call_sim.custom_simproc_windows["custom_hook"]["RepMovsdHook"](plength=2),
                         length=2
-                    )    
+                    )
             if "rep movsb" in self.hooks:
                 for addr in self.hooks["rep movsb"]:
                     proj.hook(
                         addr,
                         call_sim.custom_simproc_windows["custom_hook"]["RepMovsbHook"](plength=2),
                         length=2
-                    )   
-           
+                    )
+
             if "rep stosd" in self.hooks:
                 for addr in self.hooks["rep stosd"]:
                     proj.hook(
@@ -132,21 +132,21 @@ class PluginHooks: # TODO replace with classses
                         call_sim.custom_simproc_windows["custom_hook"]["RepStosdHook"](plength=2),
                         length=2
                     )
-        
+
             for addr in self.hooks["cpuid"]:
                 proj.hook(
                     addr,
                     call_sim.custom_simproc_windows["custom_hook"]["CPUIDHook"](plength=2),
                     length=2
-                ) 
-        # TODO change key per class name and add list for multiple hooks                 
+                )
+        # TODO change key per class name and add list for multiple hooks
         for fun in self.hooks.keys():
             if fun == "copy" or fun == "copy_2":
                 proj.hook(
                     self.hooks[fun],
                     call_sim.custom_simproc_windows["custom_hook"]["CopyHook"](plength=len(self.general_hooks[fun])),
                     length=len(self.general_hooks[fun])
-                )        
+                )
             elif fun == "copy_3":
                 proj.hook(
                     self.hooks[fun],
@@ -158,98 +158,98 @@ class PluginHooks: # TODO replace with classses
                     self.hooks[fun],
                     call_sim.custom_simproc_windows["custom_hook"]["MurmurHashHook"](plength=len(self.internal_functions_hooks[fun])),
                     length=len(self.internal_functions_hooks[fun])
-                )        
+                )
             elif fun == "murmurhash2":
                 proj.hook(
                     self.hooks[fun],
                     call_sim.custom_simproc_windows["custom_hook"]["MurmurHash2Hook"](plength=len(self.internal_functions_hooks[fun])),
                     length=len(self.internal_functions_hooks[fun])
-                )               
+                )
             elif fun == "crc32":
                 proj.hook(
                     self.hooks[fun],
                     call_sim.custom_simproc_windows["custom_hook"]["Crc32Hook"](plength=len(self.internal_functions_hooks[fun])),
                     length=len(self.internal_functions_hooks[fun])
-                )  
+                )
             elif "findstart" in fun:
                 proj.hook(
                     self.hooks[fun],
                     call_sim.custom_simproc_windows["custom_hook"]["FindStartHook"](plength=len(self.internal_functions_hooks[fun])),
                     length=len(self.internal_functions_hooks[fun])
-                )  
+                )
             elif fun == "weed":
                 proj.hook(
                     self.hooks[fun],
                     call_sim.custom_simproc_windows["custom_hook"]["WeedLeafHook"](plength=len(self.internal_functions_hooks[fun])),
                     length=len(self.internal_functions_hooks[fun])
-                )  
+                )
             elif fun == "weed2":
                 proj.hook(
                     self.hooks[fun],
                     call_sim.custom_simproc_windows["custom_hook"]["WeedLeaf2Hook"](plength=len(self.internal_functions_hooks[fun])),
                     length=len(self.internal_functions_hooks[fun])
-                )  
+                )
             elif fun == "weed3" or fun == "weed4" or fun == "weed5":
                 proj.hook(
                     self.hooks[fun],
                     call_sim.custom_simproc_windows["custom_hook"]["WeedLeaf3Hook"](plength=len(self.internal_functions_hooks[fun])),
                     length=len(self.internal_functions_hooks[fun])
-                )  
+                )
             elif fun == "rewriting":
                 proj.hook(
                     self.hooks[fun],
                     call_sim.custom_simproc_windows["custom_hook"]["RewritingHook"](plength=len(self.internal_functions_hooks[fun])),
                     length=len(self.internal_functions_hooks[fun])
-                ) 
+                )
             elif fun == "clear_stack":
                 proj.hook(
                         self.hooks[fun],
                         call_sim.custom_simproc_windows["custom_hook"]["ClearStackHook"](plength=len(self.internal_functions_hooks[fun])),
                         length=len(self.internal_functions_hooks[fun])
-                ) 
+                )
             elif fun == "magicRAT_trap":
                 proj.hook(
                         self.hooks[fun],
                         call_sim.custom_simproc_windows["custom_hook"]["MagicRATTrapHook"](plength=len(self.internal_functions_hooks[fun])),
                         length=len(self.internal_functions_hooks[fun])
-                ) 
+                )
             elif fun == "trap":
                 proj.hook(
                         self.hooks[fun],
                         call_sim.custom_simproc_windows["custom_hook"]["MagicRATTrapHook2"](plength=len(self.internal_functions_hooks[fun])),
                         length=len(self.internal_functions_hooks[fun])
-                )   
+                )
             elif fun == "trap_2":
                 proj.hook(
                         self.hooks[fun],
                         call_sim.custom_simproc_windows["custom_hook"]["MagicRATTrapHook3"](plength=len(self.internal_functions_hooks[fun])),
                         length=len(self.internal_functions_hooks[fun])
-                )   
+                )
             elif fun == "trap_3":
                 proj.hook(
                         self.hooks[fun],
                         call_sim.custom_simproc_windows["custom_hook"]["MagicRATTrapHook4"](plength=len(self.internal_functions_hooks[fun])),
                         length=len(self.internal_functions_hooks[fun])
-                )   
+                )
             elif fun == "sse3_mrat":
                 proj.hook(
                         self.hooks[fun],
                         call_sim.custom_simproc_windows["custom_hook"]["MagicRATSSE3Hook"](plength=len(self.internal_functions_hooks[fun])),
                         length=len(self.internal_functions_hooks[fun])
-                ) 
+                )
             elif fun == "force_test":
                 proj.hook(
                         self.hooks[fun],
                         call_sim.custom_simproc_windows["custom_hook"]["MagicRATForceHook"](plength=len(self.internal_functions_hooks[fun])),
                         length=len(self.internal_functions_hooks[fun])
-                ) 
+                )
             elif fun == "LAB_00cafb11":
                 proj.hook(
                         self.hooks[fun],
                         call_sim.custom_simproc_windows["custom_hook"]["LAB_00cafb11"](plength=len(self.internal_functions_hooks[fun])),
                         length=len(self.internal_functions_hooks[fun])
-                ) 
-            
+                )
+
             elif fun == "TODO":
                 @proj.hook(self.hooks[fun], length=len(self.internal_functions_hooks[fun]))
                 def nothing(state):

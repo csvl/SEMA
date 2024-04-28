@@ -40,11 +40,11 @@ class GetLocaleInfoA(angr.SimProcedure):
             0x00000019: "2\x00",  # LOCALE_ICURRDIGITS
             0x00000005: "840\x00",  # LOCALE_ICOUNTRY
             0x00000024: "1\x00",  # LOCALE_ICENTURY
-            
+
             0x00001009: "1\x00",  # LOCALE_ICALENDARTYPE
             0x00001004: "zh-sg\x00",  # LOCALE_ICALENDARTYPE
             0x0000100b: "1\x00",  # LOCALE_IOPTIONALCALENDAR
-            
+
             0x00000031: "Monday\x00", # LOCALE_SABBREVDAYNAME1
             0x00000031: "Tuesday\x00", # LOCALE_SABBREVDAYNAME2
             0x00000033: "Wednesday\x00", # LOCALE_SABBREVDAYNAME3
@@ -52,9 +52,9 @@ class GetLocaleInfoA(angr.SimProcedure):
             0x00000035: "Friday\x00", # LOCALE_SABBREVDAYNAME5
             0x00000036: "Saturday\x00", # LOCALE_SABBREVDAYNAME6
             0x00000037: "Sunday\x00", # LOCALE_SABBREVDAYNAME7
-             
+
             #0x00010000: "\x00", # LOCALE_RETURN_NUMBER    = 68
-            
+
             0x00000044: "January\x00", # LOCALE_SABBREVMONTHNAME1    = 68
             0x00000045: "February\x00", # LOCALE_SABBREVMONTHNAME2    = 69
             0x00000046: "March\x00", # LOCALE_SABBREVMONTHNAME3    = 70
@@ -68,7 +68,7 @@ class GetLocaleInfoA(angr.SimProcedure):
             0x00000054: "November\x00", # LOCALE_SABBREVMONTHNAME11   = 78
             0x00000055: "December\x00", # LOCALE_SABBREVMONTHNAME12   = 79
             0x00000056: "\x00", # LOCALE_SABBREVMONTHNAME13   = 0x100F
-            
+
             0xFFFFFFFF: "\x00", # LOCALE_ALL
         }
         # TODO some error, shoud init with local directly in plugin
@@ -101,5 +101,3 @@ class GetLocaleInfoA(angr.SimProcedure):
                 lw.debug("Not in locale_info")
                 self.state.plugin_locale_info.locale_info[locale_ev] = (self.state.solver.eval(lctype), self.state.solver.eval(lp_lc_data), self.state.solver.eval(cch_data))
             return 0
-
-        

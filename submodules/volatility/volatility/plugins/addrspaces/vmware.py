@@ -23,7 +23,7 @@
 @contact:      nirizr@gmail.com
 
 This Address Space for Volatility is based on Nir's vmsnparser:
-http://code.google.com/p/vmsnparser. It was converted by MHL. 
+http://code.google.com/p/vmsnparser. It was converted by MHL.
 """
 
 import volatility.addrspace as addrspace
@@ -58,7 +58,7 @@ class _VMWARE_GROUP(obj.CType):
 
         while not (tag.Flags == 0 and tag.NameLength == 0):
             yield tag
-            ## Determine the address of the next tag  
+            ## Determine the address of the next tag
             tag = obj.Object("_VMWARE_TAG", vm = self.obj_vm,
                              parent = self._get_header(),
                              offset = tag.RealDataOffset + tag.DataDiskSize)
@@ -67,7 +67,7 @@ class _VMWARE_TAG(obj.CType):
     """A class for VMware Tags"""
 
     def _size_type(self):
-        """Depending on the version, the 'real' data size field is 
+        """Depending on the version, the 'real' data size field is
         either 4 or 8 bytes"""
 
         if self.obj_parent.Version == 0:
@@ -172,20 +172,20 @@ class VMWareAddressSpace(addrspace.AbstractRunBasedMemory):
         ## This is a tuple of (physical memory offset, file offset, length)
         self.runs = []
 
-        ## A VMware header is found at offset zero of the file 
+        ## A VMware header is found at offset zero of the file
         self.header = obj.Object("_VMWARE_HEADER", offset = 0, vm = base)
 
         self.as_assert(self.header.Magic in [0xbed2bed0, 0xbad1bad1, 0xbed2bed2, 0xbed3bed3],
                        "Invalid VMware signature: {0:#x}".format(self.header.Magic))
 
-        ## The number of memory regions contained in the file 
+        ## The number of memory regions contained in the file
         region_count = self.get_tag(self.header, grp_name = "memory",
-                                     tag_name = "regionsCount", 
+                                     tag_name = "regionsCount",
                                      data_type = "unsigned int")
 
         if not region_count.is_valid() or region_count == 0:
-            ## Create a single run from the main memory region 
-            memory_tag = self.get_tag(self.header, grp_name = "memory", 
+            ## Create a single run from the main memory region
+            memory_tag = self.get_tag(self.header, grp_name = "memory",
                                       tag_name = "Memory")
 
             self.as_assert(memory_tag != None,
@@ -202,7 +202,7 @@ class VMWareAddressSpace(addrspace.AbstractRunBasedMemory):
                 self.as_assert(memory_tag != None,
                            "Cannot find the Memory tag")
 
-                memory_offset = self.get_tag(self.header, grp_name = "memory", 
+                memory_offset = self.get_tag(self.header, grp_name = "memory",
                                 tag_name = "regionPPN",
                                 indices = [i],
                                 data_type = "unsigned int") * self.PAGE_SIZE
@@ -212,7 +212,7 @@ class VMWareAddressSpace(addrspace.AbstractRunBasedMemory):
                                 data_type = "unsigned int") * \
                                 self.PAGE_SIZE + memory_tag.RealDataOffset
 
-                length = self.get_tag(self.header, grp_name = "memory", 
+                length = self.get_tag(self.header, grp_name = "memory",
                                 tag_name = "regionSize",
                                 indices = [i],
                                 data_type = "unsigned int") * self.PAGE_SIZE
@@ -226,36 +226,36 @@ class VMWareAddressSpace(addrspace.AbstractRunBasedMemory):
     @staticmethod
     def get_tag(header, grp_name, tag_name, indices = None, data_type = None):
         """Get a tag from the VMware headers
-        
+
         @param grp_name: the group name (from _VMWARE_GROUP.Name)
-        
+
         @param tag_name: the tag name (from _VMWARE_TAG.Name)
-        
-        @param indices: a group can contain multiple tags of the same name, 
-        and tags can also contain meta-tags. this parameter lets you specify 
-        which tag or meta-tag exactly to operate on. for example the 3rd CR 
-        register (CR3) of the first CPU would use [0][3] indices. If this 
-        parameter is None, then you just match on grp_name and tag_name. 
-        
-        @param data_type: the type of data depends on the purpose of the tag. 
-        If you supply this parameter, the function returns an object of the 
-        specified type (for example an int or long). If not supplied, you just 
-        get back the _VMWARE_TAG object itself. 
+
+        @param indices: a group can contain multiple tags of the same name,
+        and tags can also contain meta-tags. this parameter lets you specify
+        which tag or meta-tag exactly to operate on. for example the 3rd CR
+        register (CR3) of the first CPU would use [0][3] indices. If this
+        parameter is None, then you just match on grp_name and tag_name.
+
+        @param data_type: the type of data depends on the purpose of the tag.
+        If you supply this parameter, the function returns an object of the
+        specified type (for example an int or long). If not supplied, you just
+        get back the _VMWARE_TAG object itself.
         """
 
         for group in header.Groups:
             ## Match on the group's name
             if str(group.Name) != grp_name:
                 continue
-            ## Iterate the tags looking for a matchah 
+            ## Iterate the tags looking for a matchah
             for tag in group.Tags:
                 if str(tag.Name) != tag_name:
                     continue
                 ## If a set of indices was supplied, make sure it matches
                 if indices and tag.TagIndices != indices:
                     continue
-                ## If a data type is specified, cast the Tag and return the 
-                ## object. Otherwise return the Tag object itself. 
+                ## If a data type is specified, cast the Tag and return the
+                ## object. Otherwise return the Tag object itself.
                 if data_type:
                     return tag.cast_as(data_type)
                 else:

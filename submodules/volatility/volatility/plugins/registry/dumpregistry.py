@@ -38,7 +38,7 @@ class DumpRegistry(common.AbstractWindowsCommand):
     def __init__(self, config, *args, **kwargs):
         common.AbstractWindowsCommand.__init__(self, config, *args, **kwargs)
         config.add_option('HIVE-OFFSET', short_option = 'o', default = None,
-                          help = 'Hive offset (virtual)', 
+                          help = 'Hive offset (virtual)',
                           action = 'store', type = 'int')
         config.add_option('DUMP-DIR', short_option = 'D', default = None,
                       cache_invalidator = False,
@@ -46,14 +46,14 @@ class DumpRegistry(common.AbstractWindowsCommand):
 
     def fixname(self, name, offset):
         name = name.split("\\")[-1].strip()
-        name = name.replace(".", "") 
+        name = name.replace(".", "")
         name = name.replace("/", "")
         name = name.replace(" ", "_")
         name = name.replace("[", "")
         name = name.replace("]", "")
         name = "registry.0x{0:x}.{1}.reg".format(offset, name)
         return name
-        
+
 
     def calculate(self):
         if self._config.DUMP_DIR == None:
@@ -80,5 +80,5 @@ class DumpRegistry(common.AbstractWindowsCommand):
 
             hive.save(regout, outfd)
             regout.close()
-    
+
             outfd.write("{0}\n".format(header))

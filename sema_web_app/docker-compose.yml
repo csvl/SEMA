@@ -10,7 +10,7 @@ services:
   web-app:
     container_name: web-app
     image: sema-web-app:latest
-    command: python3 application/SemaServer.py 
+    command: python3 application/SemaServer.py
     depends_on:
       - sema-classifier
       - sema-scdg
@@ -27,4 +27,3 @@ services:
       - DISPLAY=unix$DISPLAY
     networks:
       - micro_network # TODO set fix IPv4 ?
-  

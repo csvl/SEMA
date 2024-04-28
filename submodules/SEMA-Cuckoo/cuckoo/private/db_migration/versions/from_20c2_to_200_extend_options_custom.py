@@ -75,7 +75,7 @@ def upgrade():
 
         tasks = []
         for task in old_tasks:
-            tasks.append(dict(zip(columns, task)))
+            tasks.append(dict(list(zip(columns, task))))
             parse_dates(
                 tasks[-1], "clock", "added_on", "started_on", "completed_on"
             )

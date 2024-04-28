@@ -23,7 +23,7 @@ import volatility.obj as obj
 
 class AbstractPagedMemory(addrspace.AbstractVirtualAddressSpace):
     """ Class to handle all the details of a paged virtual address space
-        
+
     Note: Pages can be of any size
     """
     checkname = "Intel"
@@ -64,19 +64,19 @@ class AbstractPagedMemory(addrspace.AbstractVirtualAddressSpace):
     def is_writeable(self, entry):
         """True if the page can be written to"""
         raise NotImplementedError
-        
+
     def is_dirty(self, entry):
         """True if the page has been written to"""
         raise NotImplementedError
-        
+
     def is_nx(self, entry):
         """True if the page /cannot/ be executed"""
         raise NotImplementedError
-        
+
     def is_accessed(self, entry):
         """True if the page has been accessed"""
         raise NotImplementedError
-        
+
     def is_copyonwrite(self, entry):
         """True if the page is copy-on-write"""
         raise NotImplementedError
@@ -165,7 +165,7 @@ class AbstractWritablePagedMemory(AbstractPagedMemory):
     """
     def write(self, vaddr, buf):
         """Writes the data from buf to the vaddr specified
-        
+
            Note: writes are not transactionaly, meaning if they can write half the data and then fail"""
         if not self._config.WRITE:
             return False

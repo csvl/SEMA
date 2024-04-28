@@ -27,14 +27,14 @@ class PluginManager():
             if config["Plugins_to_load"].getboolean(plugin):
                 if plugin == "plugin_env_var" :
                     state.register_plugin(plugin, PluginEnvVar())
-                    state.plugin_env_var.setup_plugin() 
+                    state.plugin_env_var.setup_plugin()
                 elif plugin == "plugin_locale_info" :
-                    state.register_plugin(plugin, PluginLocaleInfo()) 
+                    state.register_plugin(plugin, PluginLocaleInfo())
                     state.plugin_locale_info.setup_plugin()
                 elif plugin == "plugin_resources" :
                     state.register_plugin(plugin, PluginResources())
                     state.plugin_resources.setup_plugin()
-                elif plugin == "plugin_widechar" : 
+                elif plugin == "plugin_widechar" :
                     state.register_plugin(plugin, PluginWideChar())
                 elif plugin == "plugin_registery" :
                     state.register_plugin(plugin, PluginRegistery())
@@ -42,17 +42,17 @@ class PluginManager():
                 elif plugin == "plugin_atom" :
                     state.register_plugin(plugin, PluginAtom())
                 #TODO Christophe : Check if plugin thread does the right thing (handles thread in the binary and not try to multithread angr execution)
-                # elif plugin == "plugin_thread" : 
+                # elif plugin == "plugin_thread" :
                 #     state.register_plugin("plugin_thread", PluginThread(self, exp_dir, proj, nameFileShort, options))
 
     def get_plugin_hooks(self):
         return self.hooks
-    
+
     def get_plugin_commands(self):
         return self.commands
-    
+
     def get_plugin_ioc(self):
         return self.ioc
-    
+
     def get_plugin_packing(self):
         return self.packing

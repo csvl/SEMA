@@ -8,4 +8,3 @@ def hook0(project):
         yield
     finally:
         project.unhook(0x0)
-

@@ -5,7 +5,7 @@
 import logging
 import os.path
 import subprocess
-import _winreg
+import winreg
 
 from lib.common.abstracts import Auxiliary
 from lib.common.registry import set_regkey
@@ -30,8 +30,8 @@ class DbgView(Auxiliary):
 
         # Make sure all logging makes it into DbgView.
         set_regkey(
-            _winreg.HKEY_LOCAL_MACHINE, DebugPrintFilter,
-            "", _winreg.REG_DWORD, 0xffffffff
+            winreg.HKEY_LOCAL_MACHINE, DebugPrintFilter,
+            "", winreg.REG_DWORD, 0xffffffff
         )
 
         self.filepath = os.path.join(self.analyzer.path, "bin", "dbgview.log")

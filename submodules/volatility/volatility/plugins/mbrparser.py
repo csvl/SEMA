@@ -38,7 +38,7 @@ import os
 
 try:
     import distorm3
-    has_distorm3 = True 
+    has_distorm3 = True
 except ImportError:
     has_distorm3 = False
 
@@ -126,11 +126,11 @@ MBR_types = {
 class PARTITION_ENTRY(obj.CType):
     def get_value(self, char):
         padded = "\x00\x00\x00" + str(char)
-        val = int(struct.unpack('>I', padded)[0]) 
+        val = int(struct.unpack('>I', padded)[0])
         return val
 
     def get_type(self):
-        return PartitionTypes.get(self.get_value(self.PartitionType), "Invalid") 
+        return PartitionTypes.get(self.get_value(self.PartitionType), "Invalid")
 
     def is_bootable(self):
         return self.get_value(self.BootableFlag) == 0x80
@@ -179,7 +179,7 @@ class MbrObjectTypes(obj.ProfileModification):
         profile.vtypes.update(MBR_types)
 
 class MBRScanner(scan.BaseScanner):
-    checks = [ ] 
+    checks = [ ]
 
     def __init__(self, window_size = 512, needles = None):
         self.needles = needles
@@ -194,25 +194,25 @@ class MBRParser(commands.Command):
     """ Scans for and parses potential Master Boot Records (MBRs) """
     def __init__(self, config, *args, **kwargs):
         commands.Command.__init__(self, config, *args)
-        # We have all these options, however another will be added for diffing 
+        # We have all these options, however another will be added for diffing
         # when it is more refined
         config.add_option('HEX', short_option = 'H', default = False,
                           help = 'Output HEX of Bootcode instead of default disassembly',
                           action = "store_true")
         config.add_option('HASH', short_option = 'M', default = None,
-                          help = "Hash of bootcode (up to RET) to search for", 
+                          help = "Hash of bootcode (up to RET) to search for",
                           action = "store", type = "str")
         config.add_option('FULLHASH', short_option = 'F', default = None,
-                          help = "Hash of full bootcode to search for", 
+                          help = "Hash of full bootcode to search for",
                           action = "store", type = "str")
         config.add_option('DISOFFSET', short_option = 'D', default = None,
-                          help = "Offset to start disassembly", 
+                          help = "Offset to start disassembly",
                           action = "store", type = "int")
         config.add_option('OFFSET', short_option = 'o', default = None,
-                          help = "Offset of MBR", 
+                          help = "Offset of MBR",
                           action = "store", type = "int")
         config.add_option('NOCHECK', short_option = 'N', default = False,
-                          help = "Don't check partitions", 
+                          help = "Don't check partitions",
                           action = "store_true")
         config.add_option('DISK', short_option = 'm', default = None,
                          help = "Disk or extracted MBR",
@@ -231,22 +231,22 @@ class MBRParser(commands.Command):
     # http://en.wikibooks.org/wiki/Algorithm_implementation/Strings/Levenshtein_distance#Python
     def levenshtein(self, s1, s2):
         if len(s1) < len(s2):
-            return self.levenshtein(s2, s1) 
- 
+            return self.levenshtein(s2, s1)
+
         # len(s1) >= len(s2)
         if len(s2) == 0:
             return len(s1)
- 
-        previous_row = xrange(len(s2) + 1)
+
+        previous_row = list(range(len(s2) + 1))
         for i, c1 in enumerate(s1):
             current_row = [i + 1]
             for j, c2 in enumerate(s2):
                 insertions = previous_row[j + 1] + 1 # j+1 instead of j since previous_row and current_row are one character longer
                 deletions = current_row[j] + 1       # than s2
-                substitutions = previous_row[j] + (c1 != c2) 
+                substitutions = previous_row[j] + (c1 != c2)
                 current_row.append(min(insertions, deletions, substitutions))
             previous_row = current_row
- 
+
         return previous_row[-1]
 
     def calculate(self):
@@ -266,7 +266,7 @@ class MBRParser(commands.Command):
             file = open(self._config.DISK, "rb")
             self.disk_mbr = file.read(440)
             file.close()
-        
+
         all_zeros = None
         if self._config.OFFSET:
             PARTITION_TABLE = obj.Object('PARTITION_TABLE', vm = address_space,
@@ -277,7 +277,7 @@ class MBRParser(commands.Command):
             if not all_zeros:
                 yield self._config.OFFSET, PARTITION_TABLE, boot_code
             else:
-                print "Not a valid MBR: Data all zeroed out"
+                print("Not a valid MBR: Data all zeroed out")
         else:
             scanner = MBRScanner(needles = ['\x55\xaa'])
             for offset in scanner.scan(address_space):
@@ -291,7 +291,7 @@ class MBRParser(commands.Command):
 
 
     def Hexdump(self, data, given_offset = 0, width = 16):
-        for offset in xrange(0, len(data), width):
+        for offset in range(0, len(data), width):
             row_data = data[offset:offset + width]
             translated_data = [x if ord(x) < 127 and ord(x) > 32 else "." for x in row_data]
             hexdata = " ".join(["{0:02x}".format(ord(x)) for x in row_data])
@@ -302,18 +302,18 @@ class MBRParser(commands.Command):
         if self._config.HEX:
             return "".join(["{2}".format(o, h, ''.join(c)) for o, h, c in self.Hexdump(boot_code, 0)])
         iterable = distorm3.DecodeGenerator(0, boot_code, distorm3.Decode16Bits)
-        ret = ""  
+        ret = ""
         for (offset, size, instruction, hexdump) in iterable:
             ret += "{0}".format(instruction)
             if instruction == "RET":
-                hexstuff = "".join(["{2}".format(o, h, ''.join(c)) for o, h, c in self.Hexdump(boot_code[offset + size:], 0)]) 
+                hexstuff = "".join(["{2}".format(o, h, ''.join(c)) for o, h, c in self.Hexdump(boot_code[offset + size:], 0)])
                 ret += hexstuff
                 break
-        return ret 
+        return ret
 
     def get_disasm_text(self, boot_code, start):
         iterable = distorm3.DecodeGenerator(0, boot_code, distorm3.Decode16Bits)
-        ret = ""  
+        ret = ""
         self.code_data = boot_code
         for (offset, size, instruction, hexdump) in iterable:
             ret += "{0:010x}: {1:<32} {2}\n".format(offset + start, hexdump, instruction)
@@ -353,7 +353,7 @@ class MBRParser(commands.Command):
                        ("PartDLBA", Hex),
                        ("PartDStartCHS", str),
                        ("PartDEndCHS", str),
-                       ("PartDSectorSize", Hex), 
+                       ("PartDSectorSize", Hex),
                        ("Bootcode", Bytes)],
                         self.generator(data))
 
@@ -367,7 +367,7 @@ class MBRParser(commands.Command):
             entry3 = PARTITION_TABLE.Entry3.dereference_as('PARTITION_ENTRY')
             entry4 = PARTITION_TABLE.Entry4.dereference_as('PARTITION_ENTRY')
             have_bootable = entry1.is_bootable_and_used() or entry2.is_bootable_and_used() or entry3.is_bootable_and_used() or entry4.is_bootable_and_used()
-            if not self._config.NOCHECK and not have_bootable: 
+            if not self._config.NOCHECK and not have_bootable:
                 # it doesn't really make sense to have a partition that is bootable, but empty or invalid
                 # but we only skip MBRs with these types of partitions if we are checking
                 continue
@@ -407,26 +407,26 @@ class MBRParser(commands.Command):
                   "Cylinder: {0} Head: {1} Sector: {2}".format(entry1.StartingCylinder(), entry1.StartingCHS[0], entry1.StartingSector()),
                   "Cylinder: {0} Head: {1} Sector: {2}".format(entry1.EndingCylinder(), entry1.EndingCHS[0], entry1.EndingSector()),
                   Hex(entry1.SizeInSectors),
-                  "{0:#x} {1}".format(entry2.get_value(entry2.BootableFlag), "(Bootable)" if entry2.is_bootable() else ""), 
+                  "{0:#x} {1}".format(entry2.get_value(entry2.BootableFlag), "(Bootable)" if entry2.is_bootable() else ""),
                   "{0:#x} ({1})".format(entry2.get_value(entry2.PartitionType), entry2.get_type()),
                   Hex(entry2.StartingLBA),
                   "Cylinder: {0} Head: {1} Sector: {2}".format(entry2.StartingCylinder(), entry2.StartingCHS[0], entry2.StartingSector()),
                   "Cylinder: {0} Head: {1} Sector: {2}".format(entry2.EndingCylinder(), entry2.EndingCHS[0], entry2.EndingSector()),
                   Hex(entry2.SizeInSectors),
-                  "{0:#x} {1}".format(entry3.get_value(entry3.BootableFlag), "(Bootable)" if entry3.is_bootable() else ""), 
+                  "{0:#x} {1}".format(entry3.get_value(entry3.BootableFlag), "(Bootable)" if entry3.is_bootable() else ""),
                   "{0:#x} ({1})".format(entry3.get_value(entry3.PartitionType), entry3.get_type()),
                   Hex(entry3.StartingLBA),
                   "Cylinder: {0} Head: {1} Sector: {2}".format(entry3.StartingCylinder(), entry3.StartingCHS[0], entry3.StartingSector()),
                   "Cylinder: {0} Head: {1} Sector: {2}".format(entry3.EndingCylinder(), entry3.EndingCHS[0], entry3.EndingSector()),
                   Hex(entry3.SizeInSectors),
-                  "{0:#x} {1}".format(entry4.get_value(entry4.BootableFlag), "(Bootable)" if entry4.is_bootable() else ""), 
+                  "{0:#x} {1}".format(entry4.get_value(entry4.BootableFlag), "(Bootable)" if entry4.is_bootable() else ""),
                   "{0:#x} ({1})".format(entry4.get_value(entry4.PartitionType), entry4.get_type()),
                   Hex(entry4.StartingLBA),
                   "Cylinder: {0} Head: {1} Sector: {2}".format(entry4.StartingCylinder(), entry4.StartingCHS[0], entry4.StartingSector()),
                   "Cylinder: {0} Head: {1} Sector: {2}".format(entry4.EndingCylinder(), entry4.EndingCHS[0], entry4.EndingSector()),
                   Hex(entry4.SizeInSectors),
                   Bytes(boot_code)])
-                       
+
 
     def render_text(self, outfd, data):
         border = "*" * 75
@@ -440,7 +440,7 @@ class MBRParser(commands.Command):
             entry3 = PARTITION_TABLE.Entry3.dereference_as('PARTITION_ENTRY')
             entry4 = PARTITION_TABLE.Entry4.dereference_as('PARTITION_ENTRY')
             have_bootable = entry1.is_bootable_and_used() or entry2.is_bootable_and_used() or entry3.is_bootable_and_used() or entry4.is_bootable_and_used()
-            if not self._config.NOCHECK and not have_bootable: 
+            if not self._config.NOCHECK and not have_bootable:
                 # it doesn't really make sense to have a partition that is bootable, but empty or invalid
                 # but we only skip MBRs with these types of partitions if we are checking
                 continue
@@ -458,7 +458,7 @@ class MBRParser(commands.Command):
             else:
                 hexstuff = "\n" + "\n".join(["{0:010x}  {1:<48}  {2}".format(o, h, ''.join(c)) for o, h, c in self.Hexdump(boot_code, start)])
                 boot_code_output = "Bootable code: \n{0} \n\n".format(hexstuff)
-                
+
             h = hashlib.md5()
             f = hashlib.md5()
             h.update(self.code_data)
@@ -479,7 +479,7 @@ class MBRParser(commands.Command):
             outfd.write("{0}\n".format(border))
             outfd.write("Potential MBR at physical offset: {0:#x}\n".format(offset))
             outfd.write("Disk Signature: {0:02x}-{1:02x}-{2:02x}-{3:02x}\n".format(
-                PARTITION_TABLE.DiskSignature[0], 
+                PARTITION_TABLE.DiskSignature[0],
                 PARTITION_TABLE.DiskSignature[1],
                 PARTITION_TABLE.DiskSignature[2],
                 PARTITION_TABLE.DiskSignature[3]))

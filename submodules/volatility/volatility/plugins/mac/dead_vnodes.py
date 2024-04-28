@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -34,13 +34,13 @@ class mac_dead_vnodes(pslist.mac_pslist):
 
     def calculate(self):
         common.set_plugin_members(self)
-    
+
         zones = list_zones.mac_list_zones(self._config).calculate()
 
         for zone in zones:
             name = str(zone.zone_name.dereference())
             if name == "vnodes":
-                vnodes = zone.get_free_elements("vnode")        
+                vnodes = zone.get_free_elements("vnode")
                 for vnode in vnodes:
                     yield vnode
 
@@ -49,6 +49,3 @@ class mac_dead_vnodes(pslist.mac_pslist):
             path = vnode.full_path()
             if path:
                 outfd.write("{0:s}\n".format(path))
-
-
-

@@ -78,7 +78,7 @@ class Replay(Auxiliary):
 
         PORT_LOCK.acquire()
 
-        for port in xrange(port_base, port_base + 512):
+        for port in range(port_base, port_base + 512):
             if port not in PORTS:
                 self.port = port
                 break

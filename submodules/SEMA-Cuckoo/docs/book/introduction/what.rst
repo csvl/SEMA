@@ -163,4 +163,3 @@ repository`_.
 
 .. _`official website`: http://www.cuckoosandbox.org
 .. _`official git repository`: http://github.com/cuckoosandbox/cuckoo
-

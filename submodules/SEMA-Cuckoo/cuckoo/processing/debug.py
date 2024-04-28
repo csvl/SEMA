@@ -28,7 +28,7 @@ class Logfile(list):
         except Exception as e:
             log.info("Error decoding %s: %s", self.filepath, e)
 
-    def __nonzero__(self):
+    def __bool__(self):
         return bool(os.path.getsize(self.filepath))
 
 class Debug(Processing):

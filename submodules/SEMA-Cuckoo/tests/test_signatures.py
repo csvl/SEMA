@@ -538,20 +538,20 @@ class TestRunSignatures(object):
             SignatureDispatch, SignatureDummy])
         assert len(r.signatures) == 5
         lazy_compare(
-            r.call_for_api.keys(),
+            list(r.call_for_api.keys()),
             ["GetSystemTimeAsFileTime", "LdrLoadDll"]
         )
         assert classes(r.call_for_api["LdrLoadDll"]) == [SignatureDispatch]
         assert classes(r.call_for_cat["system"]) == [SignatureCategory]
         assert SignatureDummy not in classes(r.call_always)
-        for v in r.call_for_api.values():
+        for v in list(r.call_for_api.values()):
             assert SignatureDummy not in classes(v)
-        for v in r.call_for_cat.values():
+        for v in list(r.call_for_cat.values()):
             assert SignatureDummy not in classes(v)
         assert not r.api_sigs
         r.run()
         lazy_compare(
-            r.api_sigs.keys(),
+            list(r.api_sigs.keys()),
             ["GetSystemTimeAsFileTime", "LdrLoadDll", "XUndefined"]
         )
         lazy_compare(

@@ -10,7 +10,7 @@ def random_string(minimum, maximum=None):
         maximum = minimum
 
     count = random.randint(minimum, maximum)
-    return "".join(random.choice(string.ascii_letters) for x in xrange(count))
+    return "".join(random.choice(string.ascii_letters) for x in range(count))
 
 def random_integer(digits):
     start = 10 ** (digits - 1)

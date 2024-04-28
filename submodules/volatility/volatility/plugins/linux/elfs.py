@@ -43,7 +43,7 @@ class linux_elfs(linux_pslist.linux_pslist):
         for task in tasks:
             for elf, elf_start, elf_end, soname, needed in task.elfs():
                 yield task, elf, elf_start, elf_end, soname, needed
-    
+
     def unified_output(self, data):
         return TreeGrid([("Pid", int),
                        ("Name", str),
@@ -56,7 +56,7 @@ class linux_elfs(linux_pslist.linux_pslist):
     def generator(self, data):
         for task, elf, start, end, soname, needed in data:
             yield (0, [int(task.pid), str(task.comm), Address(start), Address(end), str(soname), ",".join(needed)])
- 
+
 
     def render_text(self, outfd, data):
         self.table_header(outfd, [("Pid", "8"),
@@ -68,4 +68,3 @@ class linux_elfs(linux_pslist.linux_pslist):
                                 ])
         for task, elf, start, end, soname, needed in data:
             self.table_row(outfd, task.pid, task.comm, start, end, soname, ",".join(needed))
-

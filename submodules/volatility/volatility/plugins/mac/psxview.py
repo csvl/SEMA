@@ -40,26 +40,26 @@ class mac_psxview(common.AbstractMacCommand):
 
     def _get_pid_hash_table(self):
         return [p.v() for p in pid_hash_table.mac_pid_hash_table(self._config).calculate()]
-    
+
     def _get_pgrp_hash_table(self):
         return [p.v() for p in pgrp_hash_table.mac_pgrp_hash_table(self._config).calculate()]
- 
+
     def _get_session_hash_table(self):
         return [s.s_leader.v() for s in session_hash_table.mac_list_sessions(self._config).calculate() if s.s_leader.is_valid()]
-    
+
     def _get_procs_from_tasks(self):
-        return [p.v() for p in pstasks.mac_tasks(self._config).calculate()]       
+        return [p.v() for p in pstasks.mac_tasks(self._config).calculate()]
 
     def calculate(self):
         common.set_plugin_members(self)
 
         ps_sources = {}
-        
+
         ps_sources['pslist']   = self._get_pslist()
         ps_sources['parents']  = self._get_parent_pointers()
         ps_sources['pid_hash'] = self._get_pid_hash_table()
-        ps_sources['pgrp_hash_table']    = self._get_pgrp_hash_table() 
-        ps_sources['session_hash_table'] = self._get_session_hash_table() 
+        ps_sources['pgrp_hash_table']    = self._get_pgrp_hash_table()
+        ps_sources['session_hash_table'] = self._get_session_hash_table()
         ps_sources['procs_from_tasks']   = self._get_procs_from_tasks()
 
         # Build a list of offsets from all sources
@@ -71,7 +71,7 @@ class mac_psxview(common.AbstractMacCommand):
                 if offset not in seen_offsets:
                     seen_offsets.append(offset)
                     yield offset, obj.Object("proc", offset = offset, vm = self.addr_space), ps_sources
-                    
+
     def unified_output(self, data):
         return TreeGrid([("Offset(V)", Address),
                                   ("Name", str),
@@ -83,7 +83,7 @@ class mac_psxview(common.AbstractMacCommand):
                                   ("session leaders", str),
                                   ("task processes", str),
                                   ], self.generator(data))
-                                  
+
     def generator(self, data):
         for offset, process, ps_sources in data:
             yield (0, [

@@ -11,7 +11,7 @@ class lstrcmpA(angr.SimProcedure):
     def run(self, string1, string2):
         if string1.symbolic or string2.symbolic:
             return self.state.solver.BVS("retval_{}".format(self.display_name), 32)
-            
+
         try:
             first_str = self.state.mem[string1].string.concrete
         except:
@@ -22,7 +22,7 @@ class lstrcmpA(angr.SimProcedure):
         except:
             lw.debug("string2 not resolvable")
             second_str = ""
-            
+
         try:
             first_str = first_str.decode("utf-8")
         except:
@@ -33,7 +33,7 @@ class lstrcmpA(angr.SimProcedure):
         except:
             lw.debug("string2 not decodable")
             second_str = ""
-            
+
         if first_str == second_str:
             return 0
         elif first_str > second_str:

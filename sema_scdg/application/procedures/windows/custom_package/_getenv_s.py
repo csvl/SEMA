@@ -29,10 +29,10 @@ class _getenv_s(angr.SimProcedure):
                 ret = ret.encode("utf-")
         else:
             ret =  None #"None"
-            if self.state.has_plugin("plugin_env_var") : 
+            if self.state.has_plugin("plugin_env_var") :
                 self.state.plugin_env_var.env_var[name] = None
         lw.debug(ret)
-        if self.state.has_plugin("plugin_env_var") : 
+        if self.state.has_plugin("plugin_env_var") :
             self.state.plugin_env_var.env_var_requested[name] = ret
         return ret
 

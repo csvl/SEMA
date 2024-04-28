@@ -16,5 +16,3 @@ class LockResource(angr.SimProcedure):
             self.state.memory.store(addr,ptr,endness=archinfo.Endness.LE)
             return addr
         return hResData
-           
-        

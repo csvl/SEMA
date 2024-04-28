@@ -37,13 +37,13 @@ from volatility.renderers.basic import Address
 
 thread_overlay = {
                      "thread": [ None, {
-                                            "options": [None, ['Flags', {'target': 'int', 'bitmap': {    
-                                                                                                          "TH_OPT_INTMASK": 0,# interrupt / abort level 
-                                                                                                          "TH_OPT_INTMASK": 1,# interrupt / abort level 
+                                            "options": [None, ['Flags', {'target': 'int', 'bitmap': {
+                                                                                                          "TH_OPT_INTMASK": 0,# interrupt / abort level
+                                                                                                          "TH_OPT_INTMASK": 1,# interrupt / abort level
                                                                                                           "TH_OPT_VMPRIV": 2, # may allocate reserved memory
                                                                                                           "TH_OPT_DTRACE": 3, # executing under dtrace_probe
-                                                                                                          "TH_OPT_SYSTEM_CRITICAL": 4, # Thread must always be allowed to run, even under heavy load 
-                                                                                                          "TH_OPT_PROC_CPULIMIT": 5, # Thread has a task-wide CPU limit applied to it 
+                                                                                                          "TH_OPT_SYSTEM_CRITICAL": 4, # Thread must always be allowed to run, even under heavy load
+                                                                                                          "TH_OPT_PROC_CPULIMIT": 5, # Thread has a task-wide CPU limit applied to it
                                                                                                           "TH_OPT_PRVT_CPULIMIT": 6 # Thread has a thread-private CPU limit applied to it
                                                                        }}]],
                                             "state":   [None, ['Flags', {'target': 'int', 'bitmap': {
@@ -63,7 +63,7 @@ thread_overlay = {
                                                                                                           "TH_MODE_PROMOTED": 3,  # /* sched pri has been promoted */
                                                                                                           "TH_MODE_ABORT": 4,     # /* abort interruptible waits */
                                                                                                           "TH_MODE_ABORTSAFELY": 5, # /* ... but only those at safe point */
-                                                                                                          # "TH_MODE_ISABORTED": (TH_MODE_ABORT | TH_MODE_ABORTSAFELY) 
+                                                                                                          # "TH_MODE_ISABORTED": (TH_MODE_ABORT | TH_MODE_ABORTSAFELY)
                                                                                                           "TH_MODE_DEPRESS": 6,   # /* normal depress yield */
                                                                                                           "TH_MODE_POLLDEPRESS": 7, # /* polled depress yield */
                                                                                                           # "TH_MODE_ISDEPRESSED": (TH_MODE_DEPRESS | TH_MODE_POLLDEPRESS)
@@ -202,7 +202,7 @@ class mac_threads(mac_tasks.mac_tasks):
         return threads
 
     def is_thread_active(self, thread, active_threads):
-        for active_thread in active_threads.values():
+        for active_thread in list(active_threads.values()):
             if active_thread.v() == thread.v():
                 return True
         return False
@@ -280,7 +280,7 @@ class mac_threads(mac_tasks.mac_tasks):
                 trapfn_name = self.addr_space.profile.get_symbol_by_address('kernel', trapfn_addr)
 
             if trapfn_name == '':
-                trapfn = "UNKNOWN function at {0}".format(trapfn_addr) 
+                trapfn = "UNKNOWN function at {0}".format(trapfn_addr)
             else:
                 trapfn = "{0} at {1:#10x}".format(trapfn_name, trapfn_addr)
 
@@ -364,7 +364,7 @@ class mac_threads(mac_tasks.mac_tasks):
                 yield proc, thread, stack_start, stack_size, thread_args, registers, is_active, dtraced, debugged, uid
 
             proc = proc.p_list.le_next.dereference()
-        
+
         self.get_active_threads()
 
     def unified_output(self, data):
@@ -383,7 +383,7 @@ class mac_threads(mac_tasks.mac_tasks):
                                   ("DTraced", str),
                                   ("Arguments", str),
                                   ], self.generator(data))
-                          
+
     def generator(self, data):
         for proc, thread, stack_start, stack_size, args, registers, is_active, dtraced, debugged, uid in data:
             if not thread.is_valid():

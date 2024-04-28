@@ -22,7 +22,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -51,7 +51,7 @@ class linux_malfind(linux_pslist.linux_pslist):
                     fname = vma.vm_name(task)
                     if fname == "[vdso]":
                         continue
-                   
+
                     prots = vma.protection()
                     flags = vma.flags()
 
@@ -75,10 +75,5 @@ class linux_malfind(linux_pslist.linux_pslist):
                         ["{0:#x} {1:<16} {2}".format(o, h, i)
                         for o, i, h in malfind.Disassemble(content, vma.vm_start, bits = bits)
                         ]))
-                
+
                     outfd.write("\n\n")
-
-       
-
-
- 

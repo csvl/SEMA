@@ -2,8 +2,8 @@ import angr
 
 # class GetThreadLocaleW(angr.SimProcedure):
 #     def run(self, locale, lctype, lp_lc_data, cch_data):
-        
-       
+
+
 #         response = { # TODO check from ChatGPT
 #             0x00000001: "English (United States)\x00", # LOCALE_SENGLANGUAGE
 #             0x00000002: "United States\x00", # LOCALE_SENGCOUNTRY
@@ -37,7 +37,5 @@ import angr
 #                 if infotype == lctype:
 #                     self.state.memory.store(lp_lc_data, lpdata, endness="little")
 #                     return cchData
-                
-#             return 0
 
-        
+#             return 0

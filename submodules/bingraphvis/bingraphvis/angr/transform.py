@@ -5,7 +5,7 @@ import networkx
 class AngrRemovePathTerminator(Transformer):
     def __init__(self):
         pass
-        
+
     def transform(self, graph):
         remove = []
         for n in graph.nodes:
@@ -18,7 +18,7 @@ class AngrRemovePathTerminator(Transformer):
 class AngrRemoveSimProcedures(Transformer):
     def __init__(self):
         pass
-        
+
     def transform(self, graph):
         remove = []
         for n in graph.nodes:
@@ -44,7 +44,7 @@ class AngrRemoveImports(Transformer):
     def __init__(self, project):
         self.project = project
         self.eaddrs = self.import_addrs(project)
-        
+
     def import_addrs(self, project):
         eaddrs=[]
         for _ in project.loader.main_object.imports.values():
@@ -78,7 +78,7 @@ class AngrRemoveImports(Transformer):
 class AngrRemoveFakeretEdges(Transformer):
     def __init__(self):
         pass
-        
+
     def transform(self, graph):
         remove = []
         for e in graph.edges:
@@ -92,7 +92,7 @@ class AngrRemoveFakeretEdges(Transformer):
 class AngrDDGRemoveGarbageNodes(Transformer):
     def __init__(self, project):
         super(AngrDDGRemoveGarbageNodes, self).__init__()
-        self.project = project        
+        self.project = project
 
     def transform(self, graph):
 
@@ -102,9 +102,9 @@ class AngrDDGRemoveGarbageNodes(Transformer):
         offsets.add(self.project.arch.registers['cc_dep1'][0])
         offsets.add(self.project.arch.registers['cc_dep2'][0])
         offsets.add(self.project.arch.registers['ip'][0])
-        
+
         remove = []
-        
+
         for node in graph.nodes:
             if node.obj.location.sim_procedure != None:
                 continue

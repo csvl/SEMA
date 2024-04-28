@@ -55,9 +55,9 @@ class DotOutput(Output):
         r = []
         for k,v in a.items():
             r.append(k+"="+v)
-        
+
         return "["+", ".join(r)+"]"
-    
+
     def render_cell(self, key, data):
         if data != None and data['content'] != None and data['content'].strip() != '':
             ret = '<TD '+ ('bgcolor="'+data['bgcolor']+'" ' if 'bgcolor' in data else '') + ('ALIGN="'+data['align']+'"' if 'align' in data else '' )+'>'
@@ -65,7 +65,7 @@ class DotOutput(Output):
                 ret += '<FONT COLOR="'+data['color']+'">'
             if 'style' in data:
                 ret += '<'+data['style']+'>'
-            
+
             #'content': "<TABLE><TR><TD>" +  "</TD></TR><TR><TD>".join(self.cllog[key]) + "</TD></TR></TABLE>",
             if isinstance(data['content'], list):
                 ret += '<TABLE BORDER="0">'
@@ -84,14 +84,14 @@ class DotOutput(Output):
             return ret
         else:
             return "<TD></TD>"
-    
+
     def render_row(self, row, colmeta):
         ret = "<TR>"
         for k in colmeta:
-            ret += self.render_cell(k, row[k] if k in row else None) 
+            ret += self.render_cell(k, row[k] if k in row else None)
         ret += "</TR>"
         return ret
-    
+
     def render_content(self, c):
         ret = ''
         if len(c['data']) > 0:
@@ -100,7 +100,7 @@ class DotOutput(Output):
                 ret += self.render_row(r, c['columns'])
             ret += '</TABLE>'
         return ret
-        
+
     def render_node(self, n):
         attrs = {}
         if n.style:
@@ -115,17 +115,17 @@ class DotOutput(Output):
             attrs['URL'] = '"'+n.url+'"'
         if n.tooltip:
             attrs['tooltip'] = '"'+n.tooltip+'"'
-            
-            
+
+
         label = "|".join([self.render_content(c) for c in n.content.values()])
         if label:
             attrs['label'] = '<{ %s }>' % label
-        
+
         #label = '<TABLE ROWS="*" BORDER="1" STYLE="ROUNDED" CELLSPACING="4" CELLPADDING="0" CELLBORDER="0"><TR><TD FIXEDSIZE="FALSE" ALIGN="LEFT">' + '</TD></TR><TR><TD FIXEDSIZE="FALSE"  ALIGN="LEFT">'.join([self.render_content(c) for c in n.content.values()]) + "</TD></TR></TABLE>"
         #if label:
         #    attrs['label'] = '<%s>' % label
-        
-        
+
+
         return "%s %s" % (str(n.seq), self.render_attributes(default_node_attributes, attrs))
 
     def render_edge(self, e):
@@ -142,24 +142,24 @@ class DotOutput(Output):
             attrs['weight'] = str(e.weight)
 
         return "%s -> %s %s" % (str(e.src.seq), str(e.dst.seq), self.render_attributes(default_edge_attributes, attrs))
-        
-        
+
+
     def generate_cluster_label(self, label):
         rendered = ""
-        
+
         if label is None:
             pass
         elif isinstance(label, list):
             rendered = ""
             rendered += "<BR ALIGN=\"left\"/>"
             for l in label:
-                rendered += escape(l) 
+                rendered += escape(l)
                 rendered += "<BR ALIGN=\"left\"/>"
         else:
             rendered += escape(label)
-        
+
         return 'label=< %s >;' % rendered
-        
+
     def generate_cluster(self, graph, cluster):
         ret = ""
         if cluster:
@@ -169,12 +169,12 @@ class DotOutput(Output):
                 ret +='style="%s";\n' % cluster.style
             if cluster.fillcolor:
                 ret +='color="%s";\n' % cluster.fillcolor
-                
+
         nodes = list(filter(lambda n:n.cluster == cluster, graph.nodes))
-        
+
         if len(nodes) > 0 and hasattr(nodes[0].obj, 'addr'):
             nodes = sorted(nodes, key=lambda n: n.obj.addr)
-        
+
         for n in nodes:
             ret += self.render_node(n) + "\n"
 
@@ -185,7 +185,7 @@ class DotOutput(Output):
         if cluster:
             ret += "}\n"
         return ret
-        
+
     def generate(self, graph):
         ret  = "digraph \"\" {\n"
         ret += "rankdir=TB;\n"
@@ -193,17 +193,17 @@ class DotOutput(Output):
         # for some clusters graphviz ignores the alignment specified in BR
         # but does the alignment based on this value (possible graphviz bug)
         ret += "labeljust=l;\n"
-        
+
         for cluster in graph.get_clusters():
             ret += self.generate_cluster(graph, cluster)
-            
+
         ret += self.generate_cluster(graph, None)
 
         for e in graph.edges:
             ret += self.render_edge(e) + "\n"
-            
+
         ret += "}\n"
-                
+
         if self.show:
             p = Popen(['xdot', '-'], stdin=PIPE)
             p.stdin.write(ret)
@@ -211,7 +211,7 @@ class DotOutput(Output):
             p.stdin.close()
             if self.pause:
                 p.wait()
-        
+
         if self.fname:
             dotfile = XDot(ret)
             dotfile.write("{}.{}".format(self.fname, self.format), format=self.format)
@@ -230,4 +230,3 @@ class DumpOutput(Output):
 
     def render_edge(self, e):
         return "%s %s %s" % (hex(e.src.obj.addr), hex(e.dst.obj.addr), e.meta['jumpkind'])
-        

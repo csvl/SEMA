@@ -9,7 +9,7 @@ class WaitForSingleObject(angr.SimProcedure):
 
         # Constrain dwMilliseconds to be non-negative
         self.state.add_constraints(dwMilliseconds >= 0)
-        
+
         # Return WAIT_OBJECT_0 to indicate that the object is signaled
         return  self.state.solver.BVS(
                 "retval_{}".format(self.display_name), self.arch.bits

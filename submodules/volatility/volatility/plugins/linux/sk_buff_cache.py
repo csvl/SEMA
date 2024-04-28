@@ -83,5 +83,3 @@ class linux_sk_buff_cache(linux_common.AbstractLinuxCommand):
 
         for msg in data:
             outfd.write("{0:s}\n".format(msg))
-
-

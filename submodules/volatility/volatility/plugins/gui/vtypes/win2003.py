@@ -53,4 +53,3 @@ class Win2003x86GuiVTypes(obj.ProfileModification):
             'cbHandleTable' : [ 0x1b8, ['unsigned long']],
             }],
         })
-

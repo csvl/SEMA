@@ -5,7 +5,7 @@
 
 import time
 import logging
-import StringIO
+import io
 from threading import Thread
 from lib.common.abstracts import Auxiliary
 from lib.common.results import NetlogFile
@@ -44,7 +44,7 @@ class Screenshots(Auxiliary, Thread):
                         continue
 
                 file = open(img_current, 'r')
-                tmpio = StringIO.StringIO(file.read())
+                tmpio = io.StringIO(file.read())
                 # now upload to host from the StringIO
                 nf = NetlogFile("shots/%s.jpg" % str(img_counter).rjust(4, "0"))
 

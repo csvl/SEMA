@@ -24,14 +24,14 @@ try:
 except:
     from .SVMClassifier import SVMClassifier
     from ...clogging.CustomFormatter import CustomFormatter
-        
+
 CLASS_DIR = os.path.dirname(os.path.abspath(__file__))
 BINARY_CLASS = False # TODO
 
-class SVMInriaClassifier(SVMClassifier):    
-    def __init__(self,path,threshold=0.45, 
+class SVMInriaClassifier(SVMClassifier):
+    def __init__(self,path,threshold=0.45,
                  families=['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT']):
-        
+
         super().__init__(path,'Inria', threshold,families)
 
         ch = logging.StreamHandler()
@@ -41,7 +41,7 @@ class SVMInriaClassifier(SVMClassifier):
         self.log.setLevel(logging.INFO)
         self.log.addHandler(ch)
         self.log.propagate = False
-    
+
     def classify(self,path=None):
         if path is None:
             self.y_pred = self.clf.predict(self.K_val)
@@ -57,7 +57,7 @@ class SVMInriaClassifier(SVMClassifier):
 
     def train(self,path):
         super().init_dataset(path)
-        
+
         self.log.info("Dataset len: " + str(len(self.dataset)))
         self.dataset_len = len(self.dataset)
         if len(self.dataset) > 0:
@@ -76,4 +76,3 @@ class SVMInriaClassifier(SVMClassifier):
         else:
             self.log.info("Dataset length should be > 0")
             exit(-1)
-    

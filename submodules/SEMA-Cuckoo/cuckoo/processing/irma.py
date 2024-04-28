@@ -4,7 +4,7 @@
 
 import logging
 import time
-import urlparse
+import urllib.parse
 import requests
 
 from cuckoo.common.abstracts import Processing
@@ -43,7 +43,7 @@ class Irma(Processing):
 
     def _scan_file(self, filepath, force):
         # Initialize scan in IRMA.
-        init = self._post_json(urlparse.urljoin(self.url, "/api/v1.1/scans"))
+        init = self._post_json(urllib.parse.urljoin(self.url, "/api/v1.1/scans"))
 
         log.debug("Scanning file: %s", filepath)
 
@@ -51,7 +51,7 @@ class Irma(Processing):
         files = {
             "files": open(filepath, "rb"),
         }
-        url = urlparse.urljoin(
+        url = urllib.parse.urljoin(
             self.url, "/api/v1.1/scans/%s/files" % init.get("id")
         )
         self._post_json(url, files=files,)
@@ -62,7 +62,7 @@ class Irma(Processing):
         }
         if self.options.get("probes"):
             params["probes"] = self.options.get("probes")
-        url = urlparse.urljoin(
+        url = urllib.parse.urljoin(
             self.url, "/api/v1.1/scans/%s/launch" % init.get("id")
         )
         requests.post(url, json=params)
@@ -75,7 +75,7 @@ class Irma(Processing):
                 break
 
             log.debug("Polling for results for ID %s", init.get("id"))
-            url = urlparse.urljoin(
+            url = urllib.parse.urljoin(
                 self.url, "/api/v1.1/scans/%s" % init.get("id")
             )
             result = self._request_json(url)
@@ -84,7 +84,7 @@ class Irma(Processing):
     def _get_results(self, sha256):
         # Fetch list of scan IDs.
         results = self._request_json(
-            urlparse.urljoin(self.url, "/api/v1.1/files/%s" % sha256)
+            urllib.parse.urljoin(self.url, "/api/v1.1/files/%s" % sha256)
         )
 
         if not results.get("items"):
@@ -93,7 +93,7 @@ class Irma(Processing):
 
         result_id = results["items"][-1]["result_id"]
         return self._request_json(
-            urlparse.urljoin(self.url, "/api/v1.1/results/%s" % result_id)
+            urllib.parse.urljoin(self.url, "/api/v1.1/results/%s" % result_id)
         )
 
     def run(self):
@@ -129,7 +129,7 @@ class Irma(Processing):
         # related to  https://github.com/elastic/elasticsearch/issues/15377
         # entropy value is sometimes 0 and sometimes like  0.10191042566270775
         # other issue is that results type changes between string and object :/
-        
+
         for idx, result in enumerate(results["probe_results"]):
             if result["name"] == "PE Static Analyzer":
                 log.debug("Ignoring PE results at index {0}".format(idx))

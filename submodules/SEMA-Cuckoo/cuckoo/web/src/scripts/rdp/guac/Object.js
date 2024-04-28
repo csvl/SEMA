@@ -22,7 +22,7 @@ var Guacamole = Guacamole || {};
 /**
  * An object used by the Guacamole client to house arbitrarily-many named
  * input and output streams.
- * 
+ *
  * @constructor
  * @param {Guacamole.Client} client
  *     The client owning this object.
@@ -140,7 +140,7 @@ Guacamole.Object = function guacamoleObject(client, index) {
     /**
      * Called when this object is being undefined. Once undefined, no further
      * communication involving this object may occur.
-     * 
+     *
      * @event
      */
     this.onundefine = null;

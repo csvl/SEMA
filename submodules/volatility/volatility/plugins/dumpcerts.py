@@ -45,19 +45,19 @@ except ImportError:
 
 class _X509_PUBLIC_CERT(obj.CType):
     """Class for x509 public key certificates"""
-    
+
     @property
     def Size(self):
         """
         The certificate size (in bytes) is a product of this
-        object's Size1 and Size2 members. 
+        object's Size1 and Size2 members.
         """
         return (self.Size1 << 8 & 0xFFFF) + self.Size2
 
     def object_as_string(self):
         """
         Get the object's data as a string. in this case its
-        the certificate header and body. 
+        the certificate header and body.
         """
         return self.obj_vm.zread(self.obj_offset, self.Size + 4)
 
@@ -76,26 +76,26 @@ class _X509_PUBLIC_CERT(obj.CType):
         """
         Represent this object as openssl-parsed certificate.
 
-        Since OpenSSL does not accept DERs from STDIN, we 
-        have to redirect it to a file first. 
+        Since OpenSSL does not accept DERs from STDIN, we
+        have to redirect it to a file first.
 
         @param file_name: a file on disk where this object
         has been dumped. the caller should ensure that the
-        file exists before calling this function. 
+        file exists before calling this function.
         """
         return subprocess.Popen(
-                ['openssl', 'x509', '-in', file_name, '-inform', 'DER', '-text'], 
-                stdout = subprocess.PIPE, 
+                ['openssl', 'x509', '-in', file_name, '-inform', 'DER', '-text'],
+                stdout = subprocess.PIPE,
                 stderr = subprocess.PIPE
                 ).communicate()[0]
-        
+
 class _PKCS_PRIVATE_CERT(_X509_PUBLIC_CERT):
     """Class for PKCS private key certificates"""
-    
+
     def as_openssl(self, file_name):
         return subprocess.Popen(
-                ['openssl', 'rsa', '-check', '-in', file_name, '-inform', 'DER', '-text'], 
-                stdout = subprocess.PIPE, 
+                ['openssl', 'rsa', '-check', '-in', file_name, '-inform', 'DER', '-text'],
+                stdout = subprocess.PIPE,
                 stderr = subprocess.PIPE
                 ).communicate()[0]
 
@@ -108,25 +108,25 @@ class SSLKeyModification(obj.ProfileModification):
 
         profile.vtypes.update({
             '_X509_PUBLIC_CERT': [ None, {
-                'Size1': [ 0x2, ['unsigned char']], 
-                'Size2': [ 0x3, ['unsigned char']], 
+                'Size1': [ 0x2, ['unsigned char']],
+                'Size2': [ 0x3, ['unsigned char']],
                 }],
             '_PKCS_PRIVATE_CERT': [ None, {
-                'Size1': [ 0x2, ['unsigned char']], 
-                'Size2': [ 0x3, ['unsigned char']], 
+                'Size1': [ 0x2, ['unsigned char']],
+                'Size2': [ 0x3, ['unsigned char']],
                 }],
             })
 
         profile.object_classes.update({
-            '_X509_PUBLIC_CERT': _X509_PUBLIC_CERT, 
-            '_PKCS_PRIVATE_CERT': _PKCS_PRIVATE_CERT, 
+            '_X509_PUBLIC_CERT': _X509_PUBLIC_CERT,
+            '_PKCS_PRIVATE_CERT': _PKCS_PRIVATE_CERT,
             })
 
 # Inherit from ProcDump for access to the --dump-dir option
 class DumpCerts(procdump.ProcDump):
     """Dump RSA private and public SSL keys"""
 
-    # Wildcard signatures to scan for 
+    # Wildcard signatures to scan for
     rules = {}
     if has_yara:
         rules = yara.compile(sources = {
@@ -136,7 +136,7 @@ class DumpCerts(procdump.ProcDump):
 
     # These signature names map to these data structures
     type_map = {
-        'x509' : '_X509_PUBLIC_CERT', 
+        'x509' : '_X509_PUBLIC_CERT',
         'pkcs' : '_PKCS_PRIVATE_CERT',
     }
 
@@ -144,11 +144,11 @@ class DumpCerts(procdump.ProcDump):
         procdump.ProcDump.__init__(self, config, *args, **kwargs)
 
         config.remove_option("UNSAFE")
-        config.add_option("SSL", short_option = 's', 
+        config.add_option("SSL", short_option = 's',
                           default = False,
                           help = "Use OpenSSL for certificate parsing", action = "store_true")
         config.add_option("PHYSICAL", short_option = 'P',
-                          default = False, 
+                          default = False,
                           help = "Scan across physical space (in deallocated/freed storage)",
                           action = "store_true")
 
@@ -160,17 +160,17 @@ class DumpCerts(procdump.ProcDump):
 
         if not self._config.DUMP_DIR:
             debug.error("You must supply a --dump-dir parameter")
-        
+
         if self._config.PHYSICAL:
             # Find the FileAddressSpace
             while addr_space.__class__.__name__ != "FileAddressSpace":
-                addr_space = addr_space.base 
-            scanner = malfind.DiscontigYaraScanner(address_space = addr_space, 
+                addr_space = addr_space.base
+            scanner = malfind.DiscontigYaraScanner(address_space = addr_space,
                                                    rules = DumpCerts.rules)
             for hit, address in scanner.scan():
-                cert = obj.Object(DumpCerts.type_map.get(hit.rule), 
+                cert = obj.Object(DumpCerts.type_map.get(hit.rule),
                                             vm = scanner.address_space,
-                                            offset = address, 
+                                            offset = address,
                                             )
                 if cert.is_valid():
                     yield None, cert
@@ -178,16 +178,16 @@ class DumpCerts(procdump.ProcDump):
             for process in self.filter_tasks(tasks.pslist(addr_space)):
                 scanner = malfind.VadYaraScanner(task = process, rules = DumpCerts.rules)
                 for hit, address in scanner.scan():
-                    cert = obj.Object(DumpCerts.type_map.get(hit.rule), 
+                    cert = obj.Object(DumpCerts.type_map.get(hit.rule),
                                             vm = scanner.address_space,
-                                            offset = address, 
+                                            offset = address,
                                             )
                     if cert.is_valid():
                         yield process, cert
 
     def get_parsed_fields(self, openssl, fields = ["O", "OU"]):
         """
-        Get fields from the parsed openssl output. 
+        Get fields from the parsed openssl output.
 
         @param openssl: the output of an openssl command
 
@@ -195,7 +195,7 @@ class DumpCerts(procdump.ProcDump):
         key certificate that you want to get.
 
         @returns: a tuple of the field found and the field value.
-        
+
         """
         for line in openssl.split("\n"):
             if "Subject:" in line:
@@ -230,7 +230,7 @@ class DumpCerts(procdump.ProcDump):
                 ext = ".key"
 
             if process:
-                file_name = "{0}-{1:x}{2}".format(process.UniqueProcessId, 
+                file_name = "{0}-{1:x}{2}".format(process.UniqueProcessId,
                                                   cert.obj_offset, ext)
             else:
                 file_name = "phys.{0:x}{1}".format(cert.obj_offset, ext)
@@ -257,12 +257,12 @@ class DumpCerts(procdump.ProcDump):
 
     def render_text(self, outfd, data):
 
-        self.table_header(outfd, [("Pid", "8"), 
-                                  ("Process", "16"), 
-                                  ("Address", "[addrpad]"), 
-                                  ("Type", "20"), 
-                                  ("Length", "8"), 
-                                  ("File", "24"), 
+        self.table_header(outfd, [("Pid", "8"),
+                                  ("Process", "16"),
+                                  ("Address", "[addrpad]"),
+                                  ("Type", "20"),
+                                  ("Length", "8"),
+                                  ("File", "24"),
                                   ("Subject", "")])
 
         for process, cert in data:
@@ -272,7 +272,7 @@ class DumpCerts(procdump.ProcDump):
                 ext = ".key"
 
             if process:
-                file_name = "{0}-{1:x}{2}".format(process.UniqueProcessId, 
+                file_name = "{0}-{1:x}{2}".format(process.UniqueProcessId,
                                                   cert.obj_offset, ext)
             else:
                 file_name = "phys.{0:x}{1}".format(cert.obj_offset, ext)
@@ -287,8 +287,8 @@ class DumpCerts(procdump.ProcDump):
                 openssl_string = cert.as_openssl(full_path)
                 parsed_subject = '/'.join([v[1] for v in self.get_parsed_fields(openssl_string)])
 
-            self.table_row(outfd, 
-                    process.UniqueProcessId if process else "-", 
-                    process.ImageFileName if process else "-", 
-                    cert.obj_offset, cert.obj_name, 
+            self.table_row(outfd,
+                    process.UniqueProcessId if process else "-",
+                    process.ImageFileName if process else "-",
+                    cert.obj_offset, cert.obj_name,
                     cert.Size, file_name, parsed_subject)

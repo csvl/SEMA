@@ -126,14 +126,14 @@ class VirusTotalAPI(object):
             results["normalized"] = []
 
             # Embed all VirusTotal results into the report.
-            for engine, signature in r.get("scans", {}).items():
+            for engine, signature in list(r.get("scans", {}).items()):
                 signature["normalized"] = self.normalize(signature["result"])
                 results["scans"][engine.replace(".", "_")] = signature
 
             # Normalize each detected variant in order to try to find the
             # exact malware family.
             norm_lower = []
-            for signature in results["scans"].values():
+            for signature in list(results["scans"].values()):
                 for normalized in signature["normalized"]:
                     if normalized.lower() not in norm_lower:
                         results["normalized"].append(normalized)

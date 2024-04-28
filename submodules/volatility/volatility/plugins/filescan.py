@@ -1,7 +1,7 @@
 # fileobjscan.py
 # Copyright 2009 Andreas Schuster <a.schuster@yendor.net>
 # Copyright (C) 2009-2013 Volatility Foundation
-# 
+#
 # This file is part of Volatility.
 #
 # Volatility is free software; you can redistribute it and/or modify
@@ -43,7 +43,7 @@ class PoolScanFile(poolscan.PoolScanner):
         self.pooltag = obj.VolMagic(address_space).FilePoolTag.v()
         size = 0x98 # self.address_space.profile.get_obj_size("_FILE_OBJECT")
 
-        self.checks = [ 
+        self.checks = [
                ('CheckPoolSize', dict(condition = lambda x: x >= size)),
                ('CheckPoolType', dict(paged = False, non_paged = True, free = True)),
                ('CheckPoolIndex', dict(value = lambda x : x < 5)),
@@ -107,13 +107,13 @@ class PoolScanDriver(poolscan.PoolScanner):
 
         self.struct_name = "_DRIVER_OBJECT"
         self.object_type = "Driver"
-        # due to the placement of the driver extension, we 
+        # due to the placement of the driver extension, we
         # use the top down approach instead of bottom-up.
         self.use_top_down = True
         self.pooltag = obj.VolMagic(address_space).DriverPoolTag.v()
         size = 0xf8 # self.address_space.profile.get_obj_size("_DRIVER_OBJECT")
 
-        self.checks = [ 
+        self.checks = [
                ('CheckPoolSize', dict(condition = lambda x: x >= size)),
                ('CheckPoolType', dict(paged = False, non_paged = True, free = True)),
                ('CheckPoolIndex', dict(value = lambda x : x < 5)),
@@ -182,7 +182,7 @@ class PoolScanSymlink(poolscan.PoolScanner):
         self.pooltag = obj.VolMagic(address_space).SymlinkPoolTag.v()
         size = 0x48 # self.address_space.profile.get_obj_size("_OBJECT_SYMBOLIC_LINK")
 
-        self.checks = [ 
+        self.checks = [
                ('CheckPoolSize', dict(condition = lambda x: x >= size)),
                ('CheckPoolType', dict(paged = True, non_paged = True, free = True)),
                ]
@@ -234,7 +234,7 @@ class SymLinkScan(common.AbstractScanCommand):
 
 class PoolScanMutant(poolscan.PoolScanner):
     """Pool scanner for mutex objects"""
-    
+
     def __init__(self, address_space, **kwargs):
         poolscan.PoolScanner.__init__(self, address_space, **kwargs)
 
@@ -243,7 +243,7 @@ class PoolScanMutant(poolscan.PoolScanner):
         self.pooltag = obj.VolMagic(address_space).MutexPoolTag.v()
         size = 0x40 # self.address_space.profile.get_obj_size("_KMUTANT")
 
-        self.checks = [ 
+        self.checks = [
                ('CheckPoolSize', dict(condition = lambda x: x >= size)),
                ('CheckPoolType', dict(paged = False, non_paged = True, free = True)),
                ('CheckPoolIndex', dict(value = lambda x : x < 5)),
@@ -257,7 +257,7 @@ class MutantScan(common.AbstractScanCommand):
     def __init__(self, config, *args, **kwargs):
         common.AbstractScanCommand.__init__(self, config, *args, **kwargs)
         config.add_option("SILENT", short_option = 's', default = False,
-                          action = 'store_true', 
+                          action = 'store_true',
                           help = 'Suppress less meaningful results')
 
     def unified_output(self, data):
@@ -328,12 +328,12 @@ class PoolScanProcess(poolscan.PoolScanner):
 
         self.struct_name = "_EPROCESS"
         self.object_type = "Process"
-        # this allows us to find terminated processes 
+        # this allows us to find terminated processes
         self.skip_type_check = True
         self.pooltag = obj.VolMagic(address_space).ProcessPoolTag.v()
         size = 0x1ae # self.address_space.profile.get_obj_size("_EPROCESS")
 
-        self.checks = [ 
+        self.checks = [
                 ('CheckPoolSize', dict(condition = lambda x: x >= size)),
                 ('CheckPoolType', dict(paged = False, non_paged = True, free = True)),
                 ('CheckPoolIndex', dict(value = lambda x : x < 5)),
@@ -355,22 +355,22 @@ class PSScan(common.AbstractScanCommand):
     meta_info['version'] = '0.1'
 
     def calculate(self):
-        # start with a physical space so we can find processes without a DTB 
+        # start with a physical space so we can find processes without a DTB
         addr_space = utils.load_as(self._config, astype = 'physical')
         meta = addr_space.profile.metadata
         win10 = (meta.get("major"), meta.get("minor")) == (6, 4)
 
-        # if the user selected virtual space or if we're on win10, switch 
-        # to a virtual kernel space 
+        # if the user selected virtual space or if we're on win10, switch
+        # to a virtual kernel space
         if self._config.VIRTUAL or win10:
-            addr_space = utils.load_as(self._config) 
+            addr_space = utils.load_as(self._config)
 
         return self.scan_results(addr_space)
 
     def render_dot(self, outfd, data):
         objects = set()
         links = set()
- 
+
         for eprocess in data:
             label = "{0} | {1} |".format(eprocess.UniqueProcessId,
                 eprocess.ImageFileName)
@@ -380,17 +380,17 @@ class PSScan(common.AbstractScanCommand):
             else:
                 label += "running"
                 options = ''
- 
+
             objects.add('pid{0} [label="{1}" shape="record" {2}];\n'.format(eprocess.UniqueProcessId,
                 label, options))
             links.add("pid{0} -> pid{1} [];\n".format(eprocess.InheritedFromUniqueProcessId,
                 eprocess.UniqueProcessId))
- 
+
         ## Now write the dot file
         outfd.write("digraph processtree { \ngraph [rankdir = \"TB\"];\n")
         for link in links:
             outfd.write(link)
- 
+
         for item in objects:
             outfd.write(item)
         outfd.write("}")

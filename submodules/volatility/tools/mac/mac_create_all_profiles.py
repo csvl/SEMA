@@ -20,13 +20,13 @@ import os, sys, shutil
 import subprocess
 
 def run_cmd(args, output_file = None):
-    """Run a command through subprocess. 
+    """Run a command through subprocess.
 
-    @param args: a list of arguments 
+    @param args: a list of arguments
     @param output_file: the process's stdout should be redirected here
     """
 
-    print "Running command: {0}".format(" ".join(args))
+    print("Running command: {0}".format(" ".join(args)))
     if output_file:
         stdout_handle = open(output_file, "w")
     else:
@@ -35,13 +35,13 @@ def run_cmd(args, output_file = None):
     p.wait()
     if output_file:
         stdout_handle.close()
-    print "  Retcode: {0}".format(p.returncode)
+    print("  Retcode: {0}".format(p.returncode))
 
 def generate_profile(temp_dir, volatility_dir, profile_dir, profile):
-    """Generate a profile. 
+    """Generate a profile.
 
     @param temp_dir: temporary working directory
-    @param volatility_dir: path to volatility installation 
+    @param volatility_dir: path to volatility installation
     @param profile_dir: where to put finished zip profiles
     @param profile: tuple of information for building the profile
     """
@@ -68,7 +68,7 @@ def generate_profile(temp_dir, volatility_dir, profile_dir, profile):
     new_dwarf = dwarf_info + ".conv"
     args = ["/usr/bin/python", convert_py, dwarf_info, new_dwarf]
     run_cmd(args)
-    
+
     vtypes_file = new_dwarf + ".vtypes"
     args = ["/usr/bin/python", convert_py, new_dwarf]
     run_cmd(args, output_file = vtypes_file)
@@ -80,7 +80,7 @@ def generate_profile(temp_dir, volatility_dir, profile_dir, profile):
     else:
         kernel = "/Volumes/KernelDebugKit/kernel"
     args = ["/usr/bin/dsymutil", "-s", "-arch", arch, kernel]
-    run_cmd(args, output_file = symbol_file)    
+    run_cmd(args, output_file = symbol_file)
 
     profile_name = osx_name + "_" + version
     if arch == "i386":
@@ -101,8 +101,8 @@ def generate_profile(temp_dir, volatility_dir, profile_dir, profile):
 
 def main():
     if len(sys.argv) != 5:
-        print "Usage: {0} <kit dir> <temp dir> <vol dir> <profile dir>".format(sys.argv[0])
-        return 
+        print("Usage: {0} <kit dir> <temp dir> <vol dir> <profile dir>".format(sys.argv[0]))
+        return
 
     profile_runs = []
 
@@ -140,7 +140,7 @@ def main():
             profile_runs.append((full_path, "x86_64", osx_name, version, build))
 
     for profile in profile_runs:
-        generate_profile(temp_dir = sys.argv[2], 
+        generate_profile(temp_dir = sys.argv[2],
                          volatility_dir = sys.argv[3],
                          profile_dir = sys.argv[4],
                          profile = profile)

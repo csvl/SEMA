@@ -11,7 +11,7 @@ import os
 import requests
 import socket
 import time
-import xmlrpclib
+import xmlrpc.client
 import zipfile
 
 from cuckoo.common.config import config, parse_options
@@ -155,7 +155,7 @@ class OldGuestManager(object):
         # Send the zip containing the analyzer to the agent running inside
         # the guest.
         try:
-            self.server.add_analyzer(xmlrpclib.Binary(zip_data))
+            self.server.add_analyzer(xmlrpc.client.Binary(zip_data))
         except socket.timeout:
             raise CuckooGuestError("{0}: guest communication timeout: unable "
                                    "to upload agent, check networking or try "
@@ -206,7 +206,7 @@ class OldGuestManager(object):
                         (options["target"], e)
                     )
 
-                data = xmlrpclib.Binary(file_data)
+                data = xmlrpc.client.Binary(file_data)
 
                 try:
                     self.server.add_malware(data, options["file_name"])
@@ -407,7 +407,7 @@ class GuestManager(object):
         config = [
             "[analysis]",
         ]
-        for key, value in options.items():
+        for key, value in list(options.items()):
             # Encode datetime objects the way xmlrpc encodes them.
             if isinstance(value, datetime.datetime):
                 config.append("%s = %s" % (key, value.strftime("%Y%m%dT%H:%M:%S")))

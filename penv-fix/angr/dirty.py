@@ -288,7 +288,7 @@ def x86g_dirtyhelper_CPUID_sse3(state, _):
 
     SET_ABCD(0x543, 0, 0, 0x8001bf)
     SET_ABCD(0x1, 0x72676e41, 0x21444955, 0x50432079, 0)
-    
+
     if state.arch.name == 'X86':
         SET_ABCD(0x763, 0x68706150, 0x69746e65, 0x444d4163, 1)
     elif state.arch.name == 'AMD64':

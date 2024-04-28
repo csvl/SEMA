@@ -73,7 +73,7 @@ class DeskScan(windowstations.WndScan):
                         str(thrd.ppi.Process.ImageFileName),
                         int(thrd.ppi.Process.UniqueProcessId),
                         int(thrd.ppi.Process.InheritedFromUniqueProcessId)])
-                        
+
 
     def render_text(self, outfd, data):
         seen = []
@@ -108,12 +108,12 @@ class DeskScan(windowstations.WndScan):
                     desktop.DeskInfo.pvDesktopBase,
                     desktop.DeskInfo.pvDesktopLimit,
                     ))
-                ## This is disabled until we bring in the heaps plugin 
+                ## This is disabled until we bring in the heaps plugin
                 #if self._config.VERBOSE:
                 #    granularity = desktop.obj_vm.profile.get_obj_size("_HEAP_ENTRY")
                 #    for entry in desktop.heaps():
                 #        outfd.write("  Alloc: {0:#x}, Size: {1:#x} Previous: {2:#x}\n".format(
-                #            entry.obj_offset + granularity, 
+                #            entry.obj_offset + granularity,
                 #            entry.Size, entry.PreviousSize,
                 #            ))
                 for thrd in desktop.threads():

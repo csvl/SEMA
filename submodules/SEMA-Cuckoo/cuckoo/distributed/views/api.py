@@ -56,7 +56,7 @@ def node_get(name=None):
     # In the "workers" mode we only report the names of each enabled node.
     if request.args.get("mode") == "workers":
         workers = []
-        for node in nodes.values():
+        for node in list(nodes.values()):
             if not node["enabled"]:
                 continue
 
@@ -147,7 +147,7 @@ def node_refresh(name):
         db.session.add(m)
 
     # Unlink older machines.
-    for machine in machines_existing.values():
+    for machine in list(machines_existing.values()):
         node.machines.remove(machine)
 
     db.session.commit()
@@ -384,7 +384,7 @@ def status_get():
     )
 
     diskspace = {}
-    for key, path in paths.items():
+    for key, path in list(paths.items()):
         if hasattr(os, "statvfs"):
             stats = os.statvfs(path)
             diskspace[key] = dict(
@@ -464,7 +464,7 @@ def stats_get(end_date=None, end_time=None):
         },
     }
 
-    handlers = stat_handlers.keys()
+    handlers = list(stat_handlers.keys())
     if request.args.get("include"):
         handlers = request.args.get("include").split(",")
         for handler in handlers:
@@ -510,7 +510,7 @@ def _summarize_task_uncompleted(end_date, steps, nodes):
     date"""
 
     result = {}
-    for step_name, step in steps.iteritems():
+    for step_name, step in steps.items():
         past = end_date - datetime.timedelta(
             minutes=step.get("step") * step.get("times")
         )
@@ -561,7 +561,7 @@ def _summarize_task_completed(end_date, steps, nodes):
     date"""
 
     result = {}
-    for step_name, step in steps.iteritems():
+    for step_name, step in steps.items():
         past = end_date - datetime.timedelta(
             minutes=step.get("step") * step.get("times")
         )
@@ -630,10 +630,10 @@ def _summarize_disk_usage(end_date, steps, nodes):
                     "total": val["total"]
                 }
                 for disk_n, val in
-                node_status.status.get("diskspace").iteritems()
+                node_status.status.get("diskspace").items()
             }
 
-    for step_name, step in steps.iteritems():
+    for step_name, step in steps.items():
         past = end_date - datetime.timedelta(
             minutes=step.get("step") * step.get("times")
         )
@@ -679,7 +679,7 @@ def _summarize_disk_usage(end_date, steps, nodes):
 
                 time_key = later.strftime("%Y-%m-%d %H:%M:%S")
                 current = results[step_name][node.name]["points"]
-                for st_name, val in status.get("diskspace").iteritems():
+                for st_name, val in status.get("diskspace").items():
                     storage_name = "%s_used" % st_name
 
                     if storage_name not in current:
@@ -711,7 +711,7 @@ def _summarize_vms_running(end_date, steps, nodes):
         if node_status:
             vm_count += node_status.status["machines"].get("total")
 
-    for step_name, step in steps.iteritems():
+    for step_name, step in steps.items():
         past = end_date - datetime.timedelta(
             minutes=step.get("step") * step.get("times")
         )
@@ -789,7 +789,7 @@ def _summarize_cpu_usage(end_date, steps, nodes):
 
     result = {}
 
-    for step_name, step in steps.iteritems():
+    for step_name, step in steps.items():
         past = end_date - datetime.timedelta(
             minutes=step.get("step") * step.get("times")
         )
@@ -857,7 +857,7 @@ def _summarize_ram_usage(end_date, steps, nodes):
 
     result = {}
 
-    for step_name, step in steps.iteritems():
+    for step_name, step in steps.items():
         past = end_date - datetime.timedelta(
             minutes=step.get("step") * step.get("times")
         )

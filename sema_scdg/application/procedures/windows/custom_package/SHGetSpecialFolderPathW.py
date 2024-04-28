@@ -90,5 +90,5 @@ class SHGetSpecialFolderPathW(angr.SimProcedure):
             self.state.memory.store(pszPath,self.state.solver.BVV("C:\\Users\\%USERNAME%\\Pictures".encode('utf-16le')))
         else:
             pass
-            
+
         return 0x1

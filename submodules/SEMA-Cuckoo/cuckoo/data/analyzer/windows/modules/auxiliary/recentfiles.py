@@ -56,7 +56,7 @@ class RecentFiles(Auxiliary):
         if not dirpath:
             return
 
-        for idx in xrange(random.randint(5, 10)):
+        for idx in range(random.randint(5, 10)):
             filename = random_string(10, random.randint(10, 20))
             ext = random.choice(self.extensions)
             filepath = os.path.join(dirpath, "%s.%s" % (filename, ext))

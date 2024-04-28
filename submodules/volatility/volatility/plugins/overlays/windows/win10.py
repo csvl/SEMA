@@ -28,7 +28,7 @@ This file provides support for Windows 10.
 
 import volatility.plugins.overlays.windows.windows as windows
 import volatility.obj as obj
-import volatility.win32.tasks as tasks 
+import volatility.win32.tasks as tasks
 import volatility.debug as debug
 import volatility.plugins.overlays.windows.win8 as win8
 from volatility.win32.rawreg import KEY_FLAGS
@@ -168,50 +168,50 @@ class ObHeaderCookieStore(object):
         self._cookie = None
 
     def cookie(self):
-        return self._cookie 
+        return self._cookie
 
     def findcookie(self, kernel_space):
-        """Find and read the nt!ObHeaderCookie value. 
+        """Find and read the nt!ObHeaderCookie value.
 
         On success, return True and save the cookie value in self._cookie.
-        On Failure, return False. 
+        On Failure, return False.
 
-        This method must be called before performing any tasks that require 
-        object header validation including handles, psxview (due to pspcid) 
-        and the object scanning plugins (psscan, etc). 
+        This method must be called before performing any tasks that require
+        object header validation including handles, psxview (due to pspcid)
+        and the object scanning plugins (psscan, etc).
 
         NOTE: this cannot be implemented as a volatility "magic" class,
-        because it must be persistent across various classes and sources. 
-        We don't want to recalculate the cookie value multiple times. 
+        because it must be persistent across various classes and sources.
+        We don't want to recalculate the cookie value multiple times.
         """
 
-        meta = kernel_space.profile.metadata 
+        meta = kernel_space.profile.metadata
         vers = (meta.get("major", 0), meta.get("minor", 0))
 
-        # this algorithm only applies to Windows 10 or greater 
+        # this algorithm only applies to Windows 10 or greater
         if vers < (6, 4):
-            return True 
+            return True
 
-        # prevent subsequent attempts from recalculating the existing value 
+        # prevent subsequent attempts from recalculating the existing value
         if self._cookie:
             return True
 
         if not has_distorm:
             debug.warning("distorm3 module is not installed")
-            return False 
+            return False
 
         kdbg = tasks.get_kdbg(kernel_space)
-        
+
         if not kdbg:
             debug.warning("Cannot find KDBG")
             return False
-        
-        nt_mod = None 
-        
+
+        nt_mod = None
+
         for mod in kdbg.modules():
-            nt_mod = mod 
-            break 
-            
+            nt_mod = mod
+            break
+
         if nt_mod == None:
             debug.warning("Cannot find NT module")
             return False
@@ -219,16 +219,16 @@ class ObHeaderCookieStore(object):
         addr = nt_mod.getprocaddress("ObGetObjectType")
         if addr == None:
             debug.warning("Cannot find nt!ObGetObjectType")
-            return False 
+            return False
 
-        # produce an absolute address by adding the DLL base to the RVA 
-        addr += nt_mod.DllBase 
+        # produce an absolute address by adding the DLL base to the RVA
+        addr += nt_mod.DllBase
         if not nt_mod.obj_vm.is_valid_address(addr):
             debug.warning("nt!ObGetObjectType at {0} is invalid".format(addr))
-            return False 
+            return False
 
-        # in theory...but so far we haven't tested 32-bits 
-        model = meta.get("memory_model")    
+        # in theory...but so far we haven't tested 32-bits
+        model = meta.get("memory_model")
         if model == "32bit":
             mode = distorm3.Decode32Bits
         else:
@@ -238,29 +238,29 @@ class ObHeaderCookieStore(object):
         ops = distorm3.Decompose(addr, data, mode, distorm3.DF_STOP_ON_RET)
         addr = None
 
-        # search backwards from the RET and find the MOVZX 
+        # search backwards from the RET and find the MOVZX
 
         if model == "32bit":
             # movzx ecx, byte ptr ds:_ObHeaderCookie
             for op in reversed(ops):
-                if (op.size == 7 and 
+                if (op.size == 7 and
                             'FLAG_DST_WR' in op.flags and
-                            len(op.operands) == 2 and 
-                            op.operands[0].type == 'Register' and 
-                            op.operands[1].type == 'AbsoluteMemoryAddress' and 
+                            len(op.operands) == 2 and
+                            op.operands[0].type == 'Register' and
+                            op.operands[1].type == 'AbsoluteMemoryAddress' and
                             op.operands[1].size == 8):
                     addr = op.operands[1].disp & 0xFFFFFFFF
                     break
         else:
-            # movzx ecx, byte ptr cs:ObHeaderCookie 
+            # movzx ecx, byte ptr cs:ObHeaderCookie
             for op in reversed(ops):
-                if (op.size == 7 and 
+                if (op.size == 7 and
                             'FLAG_RIP_RELATIVE' in op.flags and
-                            len(op.operands) == 2 and 
-                            op.operands[0].type == 'Register' and 
-                            op.operands[1].type == 'AbsoluteMemory' and 
+                            len(op.operands) == 2 and
+                            op.operands[0].type == 'Register' and
+                            op.operands[1].type == 'AbsoluteMemory' and
                             op.operands[1].size == 8):
-                    addr = op.address + op.size + op.operands[1].disp 
+                    addr = op.address + op.size + op.operands[1].disp
                     break
 
         if not addr:
@@ -281,7 +281,7 @@ class ObHeaderCookieStore(object):
         if not ObHeaderCookieStore._instance:
             ObHeaderCookieStore._instance = ObHeaderCookieStore()
 
-        return ObHeaderCookieStore._instance 
+        return ObHeaderCookieStore._instance
 
 class VolatilityCookie(obj.VolatilityMagic):
     """The Windows 10 Cookie Finder"""
@@ -321,14 +321,14 @@ class Win10Cookie(obj.ProfileModification):
         profile.object_classes.update({'VolatilityCookie': VolatilityCookie})
 
 class _OBJECT_HEADER_10(win8._OBJECT_HEADER):
-        
+
     @property
     def TypeIndex(self):
-        """Wrap the TypeIndex member with a property that decodes it 
+        """Wrap the TypeIndex member with a property that decodes it
         with the nt!ObHeaderCookie value."""
 
         cook = obj.VolMagic(self.obj_vm).ObHeaderCookie.v()
-        addr = self.obj_offset 
+        addr = self.obj_offset
         indx = int(self.m("TypeIndex"))
 
         return ((addr >> 8) ^ cook ^ indx) & 0xFF
@@ -522,7 +522,7 @@ class _OBJECT_HEADER_10_DD08DD42(_OBJECT_HEADER_10):
         58: 'VRegConfigurationContext',
         59: 'VirtualKey',
         }
-    
+
 class _OBJECT_HEADER_10_15063(_OBJECT_HEADER_10):
 
     type_map = {
@@ -587,7 +587,7 @@ class _OBJECT_HEADER_10_15063(_OBJECT_HEADER_10):
         60: 'DxgkCurrentDxgProcessObject',
         61: 'VRegConfigurationContext'
     	}
-    
+
 class _OBJECT_HEADER_10_16299(_OBJECT_HEADER_10):
 
     type_map = {
@@ -801,14 +801,14 @@ class _OBJECT_HEADER_10_18362(_OBJECT_HEADER_10):
     }
 
 class _HANDLE_TABLE_10_DD08DD42(win8._HANDLE_TABLE_81R264):
-    
+
     def decode_pointer(self, value):
-        
+
         value = value & 0xFFFFFFFFFFFFFFF8
         value = value >> self.DECODE_MAGIC
         if (value & (1 << 47)):
             value = value | 0xFFFF000000000000
-    
+
         return value
 
 class Win10ObjectHeader(obj.ProfileModification):
@@ -856,12 +856,12 @@ class Win10ObjectHeader(obj.ProfileModification):
 
         elif build >= 14393:
             header = _OBJECT_HEADER_10_DD08DD42
-            
+
             ## update the handle table here as well
             if metadata.get("memory_model") == "64bit":
                 profile.object_classes.update({
                     "_HANDLE_TABLE": _HANDLE_TABLE_10_DD08DD42})
-            
+
         elif build >= 10586:
             header = _OBJECT_HEADER_10_1AC738FB
         else:
@@ -869,31 +869,31 @@ class Win10ObjectHeader(obj.ProfileModification):
 
         profile.object_classes.update({"_OBJECT_HEADER": header})
 
-class WSLPicoModifcation(obj.ProfileModification): 
-    """Profile modification for Windows Subsystem for Linux, 
+class WSLPicoModifcation(obj.ProfileModification):
+    """Profile modification for Windows Subsystem for Linux,
     in particular the Pico process contexts"""
 
     before = ['WindowsOverlay']
     conditions = {'os': lambda x: x == 'windows',
                   'major': lambda x: x == 6,
-                  'minor': lambda x: x == 4, 
+                  'minor': lambda x: x == 4,
                   'memory_model': lambda x: x == '64bit'}
-                  
+
     def modification(self, profile):
-        
+
         build = profile.metadata.get("build", 0)
-        
+
         if build <= 14393:
             # offsets for anniversary update
             pico_context = {'_PICO_CONTEXT' : [ None, {
                 "Name": [ 0x178, ["_UNICODE_STRING"]]}]}
         else:
-            # offsets for creators & fall creators  
+            # offsets for creators & fall creators
             pico_context = {'_PICO_CONTEXT' : [ None, {
                 "Name": [ 0x180, ["_UNICODE_STRING"]]}]}
-        
+
         profile.vtypes.update(pico_context)
-        
+
         profile.merge_overlay({'_EPROCESS': [ None, {
             'PicoContext' : [ None, ['pointer', ['_PICO_CONTEXT']]],
             }]})
@@ -1015,7 +1015,7 @@ class Win10x86_14393(obj.Profile):
     _md_build = 14393
     _md_vtype_module = 'volatility.plugins.overlays.windows.win10_x86_9619274A_vtypes'
     _md_product = ["NtProductWinNt"]
-    
+
 class Win2016x64_14393(Win10x64_14393):
     """ A Profile for Windows Server 2016 x64 (10.0.14393.0 / 2016-07-16) """
     _md_memory_model = '64bit'
@@ -1095,7 +1095,7 @@ class Win10x64_15063(obj.Profile):
     _md_build = 15063
     _md_vtype_module = 'volatility.plugins.overlays.windows.win10_x64_15063_vtypes'
     _md_product = ["NtProductWinNt"]
-    
+
 class Win10x64_16299(obj.Profile):
     """ A Profile for Windows 10 x64 (10.0.16299.0 / 2017-09-22) """
     _md_memory_model = '64bit'

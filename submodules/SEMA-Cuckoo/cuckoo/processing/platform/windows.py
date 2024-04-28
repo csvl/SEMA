@@ -41,7 +41,7 @@ class MonitorProcessLog(list):
     def _api_CIFrameElement_CreateElement(self, event):
         """Lowercases the attribute keys."""
         attrs = {}
-        for key, value in event["arguments"]["attributes"].items():
+        for key, value in list(event["arguments"]["attributes"].items()):
             attrs[key.lower()] = value
 
         event["arguments"]["attributes"] = attrs
@@ -192,7 +192,7 @@ class MonitorProcessLog(list):
                 if r is not False:
                     yield event
 
-    def __nonzero__(self):
+    def __bool__(self):
         """Required for the JSON reporting module as otherwise the on-demand
         generated list of API calls would be seen as empty.
 
@@ -540,7 +540,7 @@ class RebootReconstructor(object):
     def parse_cmdline(self, command_line):
         """Extract the filepath and arguments from the full commandline."""
         components = shlex.split(
-            io.StringIO(unicode(command_line)), posix=False
+            io.StringIO(str(command_line)), posix=False
         )
         return components[0].strip('"'), components[1:]
 

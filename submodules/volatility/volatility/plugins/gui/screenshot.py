@@ -1,7 +1,7 @@
 # Volatility
 # Copyright (C) 2007-2013 Volatility Foundation
 # Copyright (C) 2010,2011,2012 Michael Hale Ligh <michael.ligh@mnin.org>
-# Copyright (C) 2009 Brendan Dolan-Gavitt 
+# Copyright (C) 2009 Brendan Dolan-Gavitt
 #
 # This file is part of Volatility.
 #
@@ -40,7 +40,7 @@ class Screenshot(windowstations.WndScan):
 
     def draw_text(self, draw, text, left, top, fill = "Black"):
         """Label windows in the screen shot"""
-        lines = text.split('\x0d\x0a') 
+        lines = text.split('\x0d\x0a')
         for line in lines:
             draw.text( (left, top), line, fill = fill)
             _, height = draw.textsize(line)
@@ -64,9 +64,9 @@ class Screenshot(windowstations.WndScan):
                     continue
                 seen.append(offset)
 
-                # The foreground window 
+                # The foreground window
                 win = desktop.DeskInfo.spwnd
-                
+
                 # Some desktops don't have any windows
                 if not win:
                     debug.warning("{0}\{1}\{2} has no windows\n".format(
@@ -82,8 +82,8 @@ class Screenshot(windowstations.WndScan):
                                         filter = lambda x : 'WS_VISIBLE' in str(x.style)):
                     draw.rectangle(win.rcWindow.get_tup(), outline = "Black", fill = "White")
                     draw.rectangle(win.rcClient.get_tup(), outline = "Black", fill = "White")
-                    
-                    ## Create labels for the windows 
+
+                    ## Create labels for the windows
                     self.draw_text(draw, str(win.strName or ''), win.rcWindow.left + 2, win.rcWindow.top)
 
                 file_name = "session_{0}.{1}.{2}.png".format(
@@ -96,7 +96,7 @@ class Screenshot(windowstations.WndScan):
                 try:
                     im.save(file_name, "PNG")
                     result = "Wrote {0}".format(file_name)
-                except SystemError, why:
+                except SystemError as why:
                     result = why
 
                 outfd.write("{0}\n".format(result))

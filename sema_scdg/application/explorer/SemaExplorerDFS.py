@@ -30,7 +30,7 @@ class SemaExplorerDFS(SemaExplorer):
     def config_logger(self):
         self.log_level = log_level
         self.log = log
-        
+
     def step(self, simgr, stash="active", **kwargs):
         try:
             simgr = simgr.step(stash=stash, **kwargs)
@@ -52,7 +52,7 @@ class SemaExplorerDFS(SemaExplorer):
 
         if len(self.fork_stack) > 0:
             self.log.info("fork_stack : " + str(len(self.fork_stack)) + " " + hex(simgr.active[0].addr) + " " + hex(simgr.active[1].addr))
-            
+
         # We detect fork for a state
         self.manage_fork(simgr)
 
@@ -70,7 +70,7 @@ class SemaExplorerDFS(SemaExplorer):
             )
             for m in range(moves):
                 self.take_longuest(simgr, "pause")
-        
+
         super().drop_excessed_loop(simgr)
         # If states end with errors, it is often worth investigating. Set DEBUG_ERROR to live debug
         # TODO : add a log file if debug error is not activated
@@ -86,5 +86,5 @@ class SemaExplorerDFS(SemaExplorer):
         super().excessed_loop_to_active(simgr)
 
         self.time_evaluation(simgr)
-       
+
         return simgr

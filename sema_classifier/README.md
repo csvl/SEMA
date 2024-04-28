@@ -12,7 +12,7 @@ Another classifier we use is the Support Vector Machine (`SVM`) with INRIA graph
 
 ### How to use ?
 
-Just run the script : 
+Just run the script :
 ```bash
 python3 SemaClassifier.py FOLDER/FILE
 

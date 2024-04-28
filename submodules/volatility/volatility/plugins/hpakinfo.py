@@ -22,13 +22,13 @@ import volatility.debug as debug
 
 class HPAKInfo(crashinfo.CrashInfo):
     """Info on an HPAK file"""
-    
-    target_as = ['HPAKAddressSpace'] 
-    
+
+    target_as = ['HPAKAddressSpace']
+
     def render_text(self, outfd, data):
-        
+
         header = data.get_header()
-        
+
         for section in header.Sections():
             outfd.write("Header:     {0}\n".format(section.Header))
             outfd.write("Length:     {0:#x}\n".format(section.Length))
@@ -38,17 +38,17 @@ class HPAKInfo(crashinfo.CrashInfo):
             outfd.write("Compressed: {0}\n".format(section.Compressed))
             outfd.write("Comp. Size: {0:#x}\n".format(section.CompressedSize))
             outfd.write("\n")
-            
+
 class HPAKExtract(HPAKInfo):
     """Extract physical memory from an HPAK file"""
-    
+
     def render_text(self, outfd, data):
-            
+
         if not self._config.OUTPUT_FILE:
             debug.error("You must supply --output-file")
-            
+
         data.convert_to_raw(outfd)
 
-        print "Compressed: {0}".format("Yes" if data.physmem.Compressed == 1 else "No")
-        print "Compressed Size: {0:#x}".format(data.physmem.CompressedSize)
-        print "Final Size: {0:#x}".format(data.physmem.Length)
+        print("Compressed: {0}".format("Yes" if data.physmem.Compressed == 1 else "No"))
+        print("Compressed Size: {0:#x}".format(data.physmem.CompressedSize))
+        print("Final Size: {0:#x}".format(data.physmem.Length))

@@ -10,10 +10,10 @@ try:
     from openpyxl.styles import Color, Fill, Style, PatternFill, Border, Side, Alignment, Protection, Font
     from openpyxl.cell import Cell
     from openpyxl import load_workbook
-    has_openpyxl = True 
+    has_openpyxl = True
 except ImportError:
     has_openpyxl = False
-    
+
 class XLSXRenderer(Renderer):
     def __init__(self, renderers_func, config):
         if not has_openpyxl:
@@ -24,13 +24,13 @@ class XLSXRenderer(Renderer):
         self._text_cell_renderers = None
         self._wb = Workbook(optimized_write = True)
         self._ws = self._wb.create_sheet()
-        
+
     def description(self):
         output = []
         for column in self._columns:
             output.append((column.name))
         return output
-        
+
     def _add_row(self, node, data):
         accumulator = data
         accumulator[node] = max(accumulator.values()) + 1
@@ -44,5 +44,5 @@ class XLSXRenderer(Renderer):
         self._columns = grid.columns
         self._text_cell_renderers = self._text_cell_renderers_func(self._columns)
         self._ws.append(self.description())
-        grid.visit(None, self._add_row, {None: 0}) 
+        grid.visit(None, self._add_row, {None: 0})
         self._wb.save(filename = self._config.OUTPUT_FILE)

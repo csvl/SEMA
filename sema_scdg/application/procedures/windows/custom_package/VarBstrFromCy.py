@@ -1,4 +1,4 @@
-import angr 
+import angr
 class VarBstrFromCy(angr.SimProcedure):
     # Define the function signature
     def run(self, cyIn, lcid, dwFlags, pbstrOut):

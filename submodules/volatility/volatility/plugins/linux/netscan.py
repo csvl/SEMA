@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 import struct, socket
 
@@ -43,9 +43,9 @@ class linux_netscan(linux_common.AbstractLinuxCommand):
     def check_socket_back_pointer(self, i):
         scomp = self.addr_space.address_compare(i.sk.v(), i.sk.sk_socket.sk.v()) == 0
         zcomp = i.sk.sk_socket.v() == 0x0
-           
+
         return scomp or zcomp
-     
+
     def check_pointers(self, i):
         ret = self.addr_space.profile.get_symbol_by_address("kernel", i.sk.sk_backlog_rcv.v()) != None
 
@@ -53,7 +53,7 @@ class linux_netscan(linux_common.AbstractLinuxCommand):
             ret = self.addr_space.profile.get_symbol_by_address("kernel", i.sk.sk_error_report.v()) != None
 
         return ret
-                  
+
     def check_proto(self, i):
         return i.protocol in ("TCP", "UDP", "IP")
 
@@ -75,7 +75,7 @@ class linux_netscan(linux_common.AbstractLinuxCommand):
             kernel_start = 0xffff880000000000
             pack_size    = 8
             pack_fmt     = "<Q"
-        
+
         checks = [self.check_family, self.check_proto, self.check_socket_back_pointer, self.check_pointers]
 
         destruct_offset = self.addr_space.profile.get_obj_offset("sock", "sk_destruct")
@@ -88,11 +88,11 @@ class linux_netscan(linux_common.AbstractLinuxCommand):
         s = "{ " + " ".join(["%.02x" % ord(v) for v in vals]) + " }"
 
         rules = yara.compile(sources = { 'n' : 'rule r1 {strings: $a = ' + s + ' condition: $a}' })
-        
-        scanner = malfind.DiscontigYaraScanner(rules = rules, address_space = self.addr_space) 
+
+        scanner = malfind.DiscontigYaraScanner(rules = rules, address_space = self.addr_space)
         for _, address in scanner.scan(start_offset = kernel_start):
             base_address = address - destruct_offset
-    
+
             i = obj.Object("inet_sock", offset = base_address, vm = self.addr_space)
 
             valid = True
@@ -105,8 +105,8 @@ class linux_netscan(linux_common.AbstractLinuxCommand):
                 state  = i.state if i.protocol == "TCP" else ""
                 family = i.sk.__sk_common.skc_family #pylint: disable-msg=W0212
 
-                sport = i.src_port 
-                dport = i.dst_port 
+                sport = i.src_port
+                dport = i.dst_port
                 saddr = i.src_addr
                 daddr = i.dst_addr
 
@@ -114,19 +114,7 @@ class linux_netscan(linux_common.AbstractLinuxCommand):
                     continue
 
                 yield (i, i.protocol, saddr, sport, daddr, dport, state)
-    
+
     def render_text(self, outfd, data):
         for (isock, proto, saddr, sport, daddr, dport, state) in data:
             outfd.write("{6:x} {0:8s} {1:<16}:{2:>5} {3:<16}:{4:>5} {5:<15s}\n".format(proto, saddr, sport, daddr, dport, state, isock.v()))
-
-   
-
-
-
-
-
-
-
-
-
-

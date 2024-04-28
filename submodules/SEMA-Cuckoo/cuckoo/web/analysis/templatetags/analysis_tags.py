@@ -15,7 +15,7 @@ def mongo_id(value):
         return value.get("_id", value)
 
     # Return value
-    return unicode(value)
+    return str(value)
 
 @register.filter
 def is_dict(value):

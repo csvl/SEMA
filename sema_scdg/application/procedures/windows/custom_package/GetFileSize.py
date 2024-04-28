@@ -29,4 +29,3 @@ class GetFileSize(angr.SimProcedure):
             self.state.solver.add(ret_val > 0)
             self.state.solver.add(ret_val < 0x100000)
             return ret_val
-

@@ -8,7 +8,7 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 
 
 class Process32First(angr.SimProcedure):
-        
+
     def run(self, hSnapshot, lppe):
         processentry = self.state.solver.BVV(0x0,296)
         self.state.memory.store(lppe, processentry)

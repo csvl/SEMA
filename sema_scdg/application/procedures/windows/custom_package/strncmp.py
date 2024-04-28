@@ -100,7 +100,7 @@ class strncmp(angr.SimProcedure):
                 self.state.add_constraints(result == rresult)
                 result = rresult
             return result, max_null_index
- 
+
     def run(
         self, a_addr, b_addr, limit, a_len=None, b_len=None, wchar=False, ignore_case=False
     ):  # pylint:disable=arguments-differ

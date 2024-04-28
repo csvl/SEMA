@@ -45,10 +45,10 @@ class Package(object):
     def package_files(self):
         """A list of files to upload to host.
         The list should be a list of tuples (<path on guest>, <name of file in package_files folder>).
-        (package_files is a folder that will be created in analysis folder). 
+        (package_files is a folder that will be created in analysis folder).
         """
         return None
-    
+
     def finish(self):
         """Finish run.
         If specified to do so, this method dumps the memory of

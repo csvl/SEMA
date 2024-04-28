@@ -96,12 +96,12 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 #                 self.state.add_constraints(result == rresult)
 #                 result = rresult
 #             return result, max_null_index
-    
+
 #     def run(self, haystack, needle):
 #         # Get the haystack and needle strings from the memory
 #         if haystack.symbolic or needle.symbolic:
 #             return haystack
-#         # haystack_strlen = self.inline_call(strlen, haystack) 
+#         # haystack_strlen = self.inline_call(strlen, haystack)
 #         # needle_strlen = self.inline_call(strlen, needle)
 #         # print(haystack_max_null_index)
 #         # print(needle_max_null_index)
@@ -109,14 +109,14 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 #         print(haystack_max_null_index)
 #         haystack_str = self.state.memory.load(haystack,size=haystack_max_null_index)
 #         print(haystack_str)
-        
+
 #         _, needle_max_null_index = self.strlen(needle)
 #         needle_str = self.state.memory.load(needle,size=needle_max_null_index)
 #         print(needle_max_null_index)
 #         print(needle_str)
 #         needle_str = self.state.solver.eval(needle_str,cast_to=bytes)
 #         print(needle_str)
-        
+
 #         if haystack_str.symbolic:
 #             print(hex(self.state.solver.eval(self.state.memory.load(haystack,size=haystack_max_null_index))))
 #             for i in range(needle_max_null_index):
@@ -129,7 +129,7 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 #             print(hex(self.state.solver.eval(self.state.memory.load(haystack,size=haystack_max_null_index))))
 #             return haystack
 #         haystack_str = self.state.solver.eval(haystack_str,cast_to=bytes)
- 
+
 #         # Find the needle in the haystack
 #         needle_index = haystack_str.find(needle_str)
 #         print(needle_index)
@@ -143,8 +143,8 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 
     #     if mainstring.symbolic or substring.symbolic:
     #         return mainstring
-        
-        
+
+
     #     #main_str = self.state.mem[mainstring].string.concrete
     #     sub_str = self.state.mem[substring].string.concrete
     #     chunk_size = None
@@ -154,9 +154,9 @@ lw.setLevel(os.environ["LOG_LEVEL"])
     #     r, c, i = self.state.memory.find(mainstring, sub_str, 16, max_symbolic_bytes=self.state.libc.max_symbolic_strstr, default=0, chunk_size=chunk_size)
     #     self.state.add_constraints(*c)
     #     lw.debug("... returning %s", r)
-    #     return r   
-        
-        
+    #     return r
+
+
         # if hasattr(main_str, "decode"):
         #     try:
         #         main_str = main_str.decode("utf-8")
@@ -167,7 +167,7 @@ lw.setLevel(os.environ["LOG_LEVEL"])
         #         sub_str = sub_str.decode("utf-8")
         #     except:
         #         sub_str = sub_str.decode("utf-8",errors="ignore")
-        
+
         # new_str = main_str + sub_str + "\0"
 
         # len_s = len(sub_str)
@@ -267,7 +267,7 @@ class strstr(angr.SimProcedure):
                 self.state.add_constraints(result == rresult)
                 result = rresult
             return result, max_null_index
-   
+
 
     def run(self, haystack_addr, needle_addr,haystack_strlen=None, needle_strlen=None):
         # strlen = angr.SIM_PROCEDURES['libc']['strlen']
@@ -331,5 +331,3 @@ class strstr(angr.SimProcedure):
         self.state.add_constraints(*c)
         lw.debug("... returning %s", r+needle_length)
         return r+needle_length
-    
-    

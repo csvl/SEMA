@@ -51,8 +51,8 @@ class CreateThread(angr.SimProcedure):
             new_state.stack_push(ret_addr)
             self.successors.add_successor(new_state, code_addr, new_state.solver.true, 'Ijk_Call')
             self.returns = False
-            
+
             threadId = self.state.solver.BVS("Thread_Id{}".format(self.display_name),  self.arch.bits)
             self.state.memory.store(lpThreadId, threadId)
-            
+
             return self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)

@@ -19,13 +19,13 @@ class CreateRemoteThread(angr.SimProcedure):
         dwCreationFlags,
         lpThreadId
     ):
-        
+
         if not self.state.globals["is_thread"]:
             # code_addr = self.state.solver.eval(lpStartAddress)
             lw.debug("IS THREAD")
             lw.debug(self.state.solver.eval(lpStartAddress))
             #self.state.regs.esp += 4 * 6
-            import pdb 
+            import pdb
             #pdb.set_trace()
             new_state = self.state.copy()
             _ = new_state.stack_pop()
@@ -58,8 +58,8 @@ class CreateRemoteThread(angr.SimProcedure):
             new_state.stack_push(ret_addr)
             self.successors.add_successor(new_state, code_addr, new_state.solver.true, 'Ijk_Call')
             self.returns = False
-            
+
             threadId = self.state.solver.BVS("Thread_Id{}".format(self.display_name),  self.arch.bits)
             self.state.memory.store(lpThreadId, threadId)
-            
+
             return self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)

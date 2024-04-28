@@ -27,7 +27,7 @@ class GDITimers(common.AbstractWindowsCommand, sessions.SessionsMixin):
 
     @staticmethod
     def is_valid_profile(profile):
-        version = (profile.metadata.get('major', 0), 
+        version = (profile.metadata.get('major', 0),
                    profile.metadata.get('minor', 0))
 
         return (profile.metadata.get('os', '') == 'windows' and
@@ -64,8 +64,8 @@ class GDITimers(common.AbstractWindowsCommand, sessions.SessionsMixin):
 
         for session, handle, timer in data:
 
-            # Get the process info from the object handle header if 
-            # available, otherwise from the timer object itself. 
+            # Get the process info from the object handle header if
+            # available, otherwise from the timer object itself.
             p = handle.Process or timer.pti.ppi.Process
             process = "{0}:{1}".format(p.ImageFileName, p.UniqueProcessId)
 

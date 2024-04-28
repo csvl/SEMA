@@ -63,10 +63,8 @@ class EventHooks(sessions.Sessions):
                     event_hook.idThread,
                     ))
 
-                ## Work out the WindowStation\Desktop path by the handle            
+                ## Work out the WindowStation\Desktop path by the handle
                 ## owner (thread or process)
 
                 outfd.write("ihmod: {0}\n".format(event_hook.ihmod))
                 outfd.write("\n")
-
-

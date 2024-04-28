@@ -45,15 +45,15 @@ class linux_plthook(linux_pslist.linux_pslist):
 
     def render_text(self, outfd, data):
         linux_common.set_plugin_members(self)
-        
-        self.table_header(outfd, [("Task", "10"), 
-                                  ("ELF Start", "[addrpad]"), 
+
+        self.table_header(outfd, [("Task", "10"),
+                                  ("ELF Start", "[addrpad]"),
                                   ("ELF Name", "24"),
                                   ("Symbol", "24"),
                                   ("Resolved Address", "[addrpad]"),
                                   ("H", "1"),
                                   ("Target Info", "")])
-            
+
         ignore = frozenset(self._config.IGNORE)
 
         for task in data:

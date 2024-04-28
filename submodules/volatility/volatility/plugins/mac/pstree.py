@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.plugins.mac.pstasks as pstasks
@@ -49,9 +49,9 @@ class mac_pstree(pstasks.mac_tasks):
         proc_name = "." * level + proc.p_comm
 
         outfd.write("{0:20s} {1:15s} {2:15s}\n".format(proc_name, str(proc.p_pid), str(proc.p_uid)))
-  
+
         self.procs_seen[proc.p_pid] = 1
-        
+
         proc = proc.p_children.lh_first
 
         while proc.is_valid():

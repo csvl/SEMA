@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import sys
@@ -30,7 +30,7 @@ import volatility.plugins.mac.common as common
 from volatility.renderers import TreeGrid
 from volatility.renderers.basic import Address
 
-from lsmod import mac_lsmod as mac_lsmod
+from .lsmod import mac_lsmod as mac_lsmod
 
 class mac_trustedbsd(mac_lsmod):
     """ Lists malicious trustedbsd policies """
@@ -49,7 +49,7 @@ class mac_trustedbsd(mac_lsmod):
         (kernel_symbol_addresses, kmods) = common.get_kernel_addrs(self)
 
         list_addr = self.addr_space.profile.get_symbol("_mac_policy_list")
-    
+
         plist = obj.Object("mac_policy_list", offset = list_addr, vm = self.addr_space)
         parray = obj.Object('Array', offset = plist.entries, vm = self.addr_space, targetType = 'mac_policy_list_element', count = plist.staticmax + 1)
 
@@ -66,9 +66,9 @@ class mac_trustedbsd(mac_lsmod):
             # walk each member of the struct
             for check in ops_members:
                 ptr = ops.__getattr__(check)
-               
+
                 if ptr.v() != 0 and ptr.is_valid():
-                    (good, module) = common.is_known_address_name(ptr, kernel_symbol_addresses, kmods) 
+                    (good, module) = common.is_known_address_name(ptr, kernel_symbol_addresses, kmods)
 
                     yield (good, check, module, name, ptr)
 

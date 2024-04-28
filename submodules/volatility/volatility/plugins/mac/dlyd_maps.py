@@ -21,11 +21,11 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
-import volatility.plugins.mac.pstasks as pstasks 
+import volatility.plugins.mac.pstasks as pstasks
 import volatility.plugins.mac.common as common
 from volatility.renderers import TreeGrid
 from volatility.renderers.basic import Address
@@ -35,7 +35,7 @@ class mac_dyld_maps(pstasks.mac_tasks):
 
     def unified_output(self, data):
         common.set_plugin_members(self)
-        
+
         return TreeGrid([("Pid", int),
                           ("Name", str),
                           ("Start", Address),
@@ -54,15 +54,15 @@ class mac_dyld_maps(pstasks.mac_tasks):
 
     def render_text(self, outfd, data):
         common.set_plugin_members(self)
-        self.table_header(outfd, [("Pid", "8"), 
+        self.table_header(outfd, [("Pid", "8"),
                           ("Name", "20"),
                           ("Start", "#018x"),
                           ("Map Name", "")])
 
         for proc in data:
             for map in proc.get_dyld_maps():
-                self.table_row(outfd, 
+                self.table_row(outfd,
                            str(proc.p_pid),
-                           proc.p_comm, 
+                           proc.p_comm,
                            map.imageLoadAddress,
                            map.imageFilePath)

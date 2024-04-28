@@ -28,14 +28,14 @@ def run_scdg():
     except:
         print(traceback.print_exc())
         return "Something went wrong"
-    
+
 # Respond to the request with a json object containing the return value of get_args
 @app.route('/scdg_args', methods=['GET'])
 def get_args_request():
     return jsonify(get_args())
 
 # Parse a json object corresponding to the argument received for the scdg.
-# Update the config file 
+# Update the config file
 def parse_json_request(user_data):
     for arg in user_data:
         if arg in config['explorer_arg']:
@@ -48,7 +48,7 @@ def parse_json_request(user_data):
         config.write(configfile)
 
 # Return a list containing all the available parameters of the SCDG as well as their group, default value and help message
-def get_args(): 
+def get_args():
     args_parser = ArgumentParserSCDG().parser
     args_list = [{}]
     is_mutually_exclusive = True
@@ -60,7 +60,7 @@ def get_args():
                 continue
             if len(args_list[-1]) == 3:
                 args_list.append({})
-            
+
             for action in group._group_actions:
                 group_name = group.title
                 if group_name not in args_list[-1]:

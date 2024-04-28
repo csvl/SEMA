@@ -22,7 +22,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 import os
 
@@ -52,25 +52,24 @@ class linux_librarydump(linux_pslist.linux_pslist):
         for task in data:
             if not task.mm:
                 continue
-   
+
             proc_as = task.get_process_address_space()
- 
+
             for vma in task.get_proc_maps():
                 if self._config.BASE and vma.vm_start != self._config.BASE:
                     continue
-            
+
                 elf_addr = vma.vm_start
 
                 buf = proc_as.zread(elf_addr, 4)
 
                 if buf != "\x7fELF":
                     continue
-            
+
                 file_path = linux_common.write_elf_file(self._config.DUMP_DIR, task, elf_addr)
 
                 self.table_row(outfd, task.obj_offset,
                                       task.comm,
                                       str(task.pid),
-                                      elf_addr, 
+                                      elf_addr,
                                       file_path)
-

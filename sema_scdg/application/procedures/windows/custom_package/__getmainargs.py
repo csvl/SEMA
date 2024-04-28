@@ -12,13 +12,13 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 #     def run(self, argc, argv, env, do_wildcard, start_info):
 #         # Obtain a handle to the current process
 #         # # malloc memory for argc and store the argument count in it
-#         # argc_mem = self.state.heap.malloc(4) 
+#         # argc_mem = self.state.heap.malloc(4)
 #         # #self.state.solver.add(argc == 5)
 #         # self.state.memory.store(argc_mem, argc, endness=self.arch.memory_endness)
 #         # #self.state.mem[argc].store(argc, endness=self.arch.memory_endness)
-        
-        
-        
+
+
+
 #         # # malloc memory for argv and store the argument values in it
 #         # argv_mem = self.state.heap.malloc(4 * argc)
 #         # for i, arg in enumerate(argv):
@@ -26,7 +26,7 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 #         #     self.state.memory.store(arg_mem,arg)
 #         #     self.state.memory.store(arg_mem+len(arg),0)
 #         #     self.state.memory.store(argv_mem + i * 4, arg_mem) # :argv_mem + (i + 1) * 4
-        
+
 #         # # malloc memory for env and store the environment variables in it
 #         # env_mem = self.state.heap.malloc(4 * len(env))
 #         # for i, e in enumerate(env):
@@ -34,7 +34,7 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 #         #     self.state.memory.store(env_var_mem, e)
 #         #     self.state.memory.store(env_var_mem+len(e),0)
 #         #     self.state.memory.store(env_mem + i * 4, env_var_mem) # :env_mem + (i + 1) * 4
-        
+
 #         # Return the value indicating success
 #         # argc = self.state.se.BVV(0, self.state.arch.bits)
 #         # argv = self.state.se.BVV(0, self.state.arch.bits)
@@ -52,7 +52,7 @@ class __getmainargs(angr.SimProcedure):
     def run(self, argc_p, argv_ppp, env_ppp, dowildcard, startupinfo_p):
         if any(map(self.state.solver.symbolic, [argc_p, argv_ppp, env_ppp])):
             raise angr.errors.SimProcedureError("__getmainargs cannot handle symbolic pointers")
-        
+
         lw.debug("argc_p: " + str(argc_p))
         lw.debug("argv_ppp: " + str(argv_ppp))
         lw.debug("env_ppp: " + str(env_ppp))
@@ -107,5 +107,3 @@ class __getmainargs(angr.SimProcedure):
 
 #         # Return to the normal control flow of the program
 #         return (argc_val, argv_val, env_val)
-    
-    

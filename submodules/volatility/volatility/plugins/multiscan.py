@@ -30,7 +30,7 @@ class MultiScan(common.AbstractScanCommand):
     def calculate(self):
         addr_space = utils.load_as(self._config)
 
-        version = (addr_space.profile.metadata.get("major", 0), 
+        version = (addr_space.profile.metadata.get("major", 0),
                    addr_space.profile.metadata.get("minor", 0))
 
         if version < (6, 0):
@@ -56,4 +56,4 @@ class MultiScan(common.AbstractScanCommand):
 
     def render_text(self, outfd, data):
         for objct in data:
-            print objct
+            print(objct)

@@ -12,7 +12,7 @@ class ColorDepthClusterer(Clusterer):
     def cluster(self, graph):
         for c in graph.get_clusters():
             self.color_clusters(graph, c)
-            
+
     def color_clusters(self, graph, c, level=0):
         c.style = "filled";
         c.fillcolor = self.palette[level % len(self.palette)];

@@ -50,7 +50,7 @@ dump_hdr = ""
 dump_hdr += "\x50\x41\x47\x45\x44\x55\x4D\x50\x0F\x00\x00\x00\x28\x0A\x00\x00"
 # 0x10
 dump_hdr += "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
-# 0x20  
+# 0x20
 dump_hdr += "\x4C\x01\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"
 # 0x30
 dump_hdr += "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x50\x41\x47\x45"
@@ -534,7 +534,7 @@ dump_hdr += "\x50\x41\x47\x45\x50\x41\x47\x45\x50\x41\x47\x45\x50\x41\x47\x45"
 dump_hdr += "\x50\x41\x47\x45\x50\x41\x47\x45\x50\x41\x47\x45\x50\x41\x47\x45"
 #0xf30
 dump_hdr += "\x50\x41\x47\x45\x50\x41\x47\x45\x50\x41\x47\x45\x50\x41\x47\x45"
-#0xf40 
+#0xf40
 dump_hdr += "\x50\x41\x47\x45\x50\x41\x47\x45\x50\x41\x47\x45\x50\x41\x47\x45"
 #0xf50
 dump_hdr += "\x50\x41\x47\x45\x50\x41\x47\x45\x50\x41\x47\x45\x50\x41\x47\x45"
@@ -542,9 +542,9 @@ dump_hdr += "\x50\x41\x47\x45\x50\x41\x47\x45\x50\x41\x47\x45\x50\x41\x47\x45"
 dump_hdr += "\x50\x41\x47\x45\x50\x41\x47\x45\x50\x41\x47\x45\x50\x41\x47\x45"
 # 0xf70
 dump_hdr += "\x50\x41\x47\x45\x50\x41\x47\x45\x50\x41\x47\x45\x50\x41\x47\x45"
-# 0xf80 
+# 0xf80
 dump_hdr += "\x50\x41\x47\x45\x50\x41\x47\x45\x01\x00\x00\x00\x50\x41\x47\x45"
-# 0xF90 
+# 0xF90
 dump_hdr += "\x50\x41\x47\x45\x01\x00\x00\x00\x10\x01\x00\x00\x00\x00\x00\x00"
 # 0xFA0
 dump_hdr += "\x00\x00\x00\x00\x00\x00\x00\x00\x50\x41\x47\x45\x00\x41\x47\x45"
@@ -572,11 +572,11 @@ pae_enabled = 0x01
 #
 #        if not addr_space.is_valid_address(task):
 #            continue
-#        
+#
 #        process_address_space = process_addr_space(addr_space, types, task, addr_space.base.fname)
 #        if process_address_space is None:
 #            continue
-#                            
+#
 #        peb = process_peb(addr_space, types, task)
 #
 #        try:
@@ -603,13 +603,13 @@ pae_enabled = 0x01
 #
 #def write_long_phys(value, member_list, hdr, types):
 #
-#    (offset, _current_type) = get_obj_offset(types, member_list) 
+#    (offset, _current_type) = get_obj_offset(types, member_list)
 #    new_hdr = hdr[:offset] + struct.pack('=I', value) + hdr[offset+4:]
 #    return new_hdr
-#    
+#
 #def write_long_long_phys(value, member_list, hdr, types):
 #
-#    (offset, _current_type) = get_obj_offset(types, member_list) 
+#    (offset, _current_type) = get_obj_offset(types, member_list)
 #    new_hdr = hdr[:offset] + struct.pack('=Q', value) + hdr[offset+8:]
 #    return new_hdr
 #
@@ -625,7 +625,7 @@ pae_enabled = 0x01
 #    PsLoadedModuleList = find_psloadedmodulelist(addr_space, types)
 #
 #    MmPfnDatabase = find_mmpfndatabase(addr_space, types)
-#   
+#
 #    KdDebuggerDataBlock = find_kddebuggerdatablock(addr_space, types)
 #
 #    NumberOfProcessors = find_numberprocessors(addr_space, types)
@@ -658,7 +658,7 @@ pae_enabled = 0x01
 #    MI.write("%s" % new_hdr)
 #
 #    FILEOPEN = open(filename, 'rb')
-# 
+#
 #    offset = 0
 #    end = os.path.getsize(filename)
 #
@@ -669,7 +669,7 @@ pae_enabled = 0x01
 #        MI.write("%s"%fdata)
 #        # progress.update(offset)
 #        offset += 0x1000
-#	 
+#
 #    print
 #
 #    FILEOPEN.close()

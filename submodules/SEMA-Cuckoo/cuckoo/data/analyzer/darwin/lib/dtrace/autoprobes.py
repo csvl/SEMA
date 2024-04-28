@@ -30,7 +30,7 @@ def read_definitions(fromfile):
         # Now convert the root dictionary to an array of dictionaries where
         # original keys become values for the "api" key.
         # FIXME(rodionovd): yes, I know, it should be an array..
-        return [dict({'api': k}, **v) for k, v in contents.iteritems()]
+        return [dict({'api': k}, **v) for k, v in contents.items()]
 
 def read_types(infile):
     """ Reads types definitions from a file. """
@@ -95,7 +95,7 @@ def typedefs_for_custom_structs(defs, types):
         for t in parent:
             description = type_description(t, types)
             if "struct" in description:
-                result |= deep_search_types(description["struct"].values(), types)
+                result |= deep_search_types(list(description["struct"].values()), types)
             result.add(dereference_type(t))
         return result
     # We will only generate typedefs for struct that are actually in use
@@ -103,12 +103,12 @@ def typedefs_for_custom_structs(defs, types):
     all_used_types = deep_search_types(obviously_used_types, types)
 
     struct_types = {
-        k:v for (k, v) in types.iteritems() if "struct" in v and k in all_used_types
+        k:v for (k, v) in types.items() if "struct" in v and k in all_used_types
     }
     typedefs = []
-    for (name, description) in struct_types.iteritems():
+    for (name, description) in struct_types.items():
         fields = []
-        for (f,t) in description["struct"].iteritems():
+        for (f,t) in description["struct"].items():
             fields.append("%s %s;" % (t, f))
         template = "typedef struct {\n\t%s\n} %s;\n\n"
         typedefs.append(template % ("\n\t".join(fields), name))
@@ -123,7 +123,7 @@ def arguments_section(args, types):
         return ""
     def serialize_arg(idx):
         return serialize_argument_at_idx(idx, args, "self->arg%d" % idx, types)
-    parts = [serialize_arg(i) for i in xrange(len(args))]
+    parts = [serialize_arg(i) for i in range(len(args))]
     return ("\n\t\t" + ", ".join(parts) + ",")
 
 def arguments_format_string(args, types):
@@ -154,7 +154,7 @@ def printf_format_for_type(t, types):
 def printf_format_for_struct(t, types):
     """ Returns a format string for printing the given struct type. """
     fields = []
-    for (name, argtype) in type_description(t, types)["struct"].items():
+    for (name, argtype) in list(type_description(t, types)["struct"].items()):
         printf_specifier = type_description(argtype, types).get("printf_specifier", None)
         if printf_specifier != None:
             fields.append("\""+name +"\"" + " : " + printf_specifier)
@@ -204,7 +204,7 @@ def serialize_struct_type(struct_type, accessor, types):
     else:
         memeber_operator = "->"
     structure = type_description(struct_type, types)["struct"]
-    for (field_name, field_type) in structure.iteritems():
+    for (field_name, field_type) in structure.items():
         fields.append(serialize_type(
             field_type,
             "((%s)(%s))" % (struct_type, accessor) + memeber_operator + field_name,
@@ -245,7 +245,7 @@ def push_on_stack_section(args):
     if len(args) == 0:
         return ""
     parts = ["self->deeplevel++;"]
-    for idx in xrange(len(args)):
+    for idx in range(len(args)):
         parts.append(
             """self->arguments_stack[self->deeplevel, \"arg%d\"] = self->arg%d;\n\tself->arg%d = arg%d;""" % (idx, idx, idx, idx)
         )
@@ -258,7 +258,7 @@ def pop_from_stack_section(args):
     if len(args) == 0:
         return ""
     parts = []
-    for idx in xrange(len(args)):
+    for idx in range(len(args)):
         parts.append("""self->arg%d = self->arguments_stack[self->deeplevel, \"arg%d\"];
 \tself->arguments_stack[self->deeplevel, \"arg%d\"] = 0;""" % (idx, idx, idx))
     parts.append("--self->deeplevel;")

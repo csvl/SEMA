@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -96,7 +96,3 @@ class linux_dmesg(linux_common.AbstractLinuxCommand):
 
         for buf in data:
             outfd.write("{0:s}\n".format(buf))
-
-
-
-

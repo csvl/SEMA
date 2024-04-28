@@ -1,6 +1,6 @@
 
 from ..base import *
-import networkx as nx 
+import networkx as nx
 import angr
 import itertools
 
@@ -10,7 +10,7 @@ class AngrCallstackKeyClusterer(Clusterer):
         self.visible = visible
 
     def cluster(self, graph):
-        
+
         for node in graph.nodes:
             key = node.obj.callstack_key
             cluster = graph.get_cluster(key)
@@ -24,7 +24,7 @@ class AngrCallstackKeyClusterer(Clusterer):
             if e.src.cluster and e.dst.cluster and e.src.cluster != e.dst.cluster:
                 if  e.meta['jumpkind'] == 'Ijk_Boring':
                     jgraph.add_edge(e.src.cluster.key, e.dst.cluster.key)
-        
+
         for n in jgraph.nodes():
             in_edges = list(jgraph.in_edges(n))
             if len(in_edges) == 1:
@@ -41,7 +41,7 @@ class AngrCallstackKeyClusterer(Clusterer):
             if e.src.cluster and e.dst.cluster and e.src.cluster != e.dst.cluster:
                 if  e.meta['jumpkind'] == 'Ijk_Call':
                     cgraph.add_edge(e.src.cluster.key, e.dst.cluster.key)
-        
+
         for n in cgraph.nodes():
             in_edges = cgraph.in_edges(n)
             if len(in_edges) == 1:
@@ -69,7 +69,7 @@ class AngrStructuredClusterer(Clusterer):
             for n in obj.nodes:
                 self.build(n, graph, cluster)
         elif type(obj).__name__ == 'SequenceNode':
-            cluster = graph.create_cluster(str(next(self.seq)), parent=parent_cluster, label=repr(obj))    
+            cluster = graph.create_cluster(str(next(self.seq)), parent=parent_cluster, label=repr(obj))
             for n in obj.nodes:
                 self.build(n, graph, cluster)
         elif type(obj).__name__ == 'CodeNode':
@@ -106,7 +106,7 @@ class AngrStructuredClusterer(Clusterer):
     def cluster(self, graph):
         self.build(self.struct, graph, None)
         to_remove = []
-        
+
         for n in graph.nodes:
             if n.obj in self.block_to_cluster:
                 cluster = self.block_to_cluster[n.obj]

@@ -297,7 +297,7 @@ tc_70a_vtypes_x64 = {
     'Pad' : [ 0x45, ['array', 3, ['unsigned char']]],
     } ],
 }
-    
+
 tc_71a_vtypes_x64 = {
   'UINT64_STRUCT' : [ 0x8, {
     'LowPart' : [ 0x0, ['unsigned long']],
@@ -389,7 +389,7 @@ tc_71a_vtypes_x64 = {
 #---------------------------------------------------------------------
 # TrueCryptPassphrase Plugin
 #---------------------------------------------------------------------
-            
+
 class TrueCryptPassphrase(common.AbstractWindowsCommand):
     """TrueCrypt Cached Passphrase Finder"""
 
@@ -401,14 +401,14 @@ class TrueCryptPassphrase(common.AbstractWindowsCommand):
 
     @staticmethod
     def scan_module(addr_space, module_base, min_length):
-        
-        dos_header = obj.Object("_IMAGE_DOS_HEADER", 
-                                offset = module_base, 
+
+        dos_header = obj.Object("_IMAGE_DOS_HEADER",
+                                offset = module_base,
                                 vm = addr_space)
 
         nt_header = dos_header.get_nt_header()
 
-        # Finding the PE data section 
+        # Finding the PE data section
         data_section = None
         for sec in nt_header.get_sections():
             if str(sec.Name) == ".data":
@@ -421,13 +421,13 @@ class TrueCryptPassphrase(common.AbstractWindowsCommand):
         base = sec.VirtualAddress + module_base
         size = sec.Misc.VirtualSize
 
-        # Looking for the Length member, DWORD-aligned 
-        ints = obj.Object("Array", targetType = "int", 
-                          offset = base, count = size / 4, 
+        # Looking for the Length member, DWORD-aligned
+        ints = obj.Object("Array", targetType = "int",
+                          offset = base, count = size / 4,
                           vm = addr_space)
-    
+
         for length in ints:
-            # Min and max passphrase lengths 
+            # Min and max passphrase lengths
             if length >= min_length and length <= 64:
                 offset = length.obj_offset + 4
                 passphrase = addr_space.read(offset, length)
@@ -437,10 +437,10 @@ class TrueCryptPassphrase(common.AbstractWindowsCommand):
                 chars = [c for c in passphrase if ord(c) >= 0x20 and ord(c) <= 0x7F]
                 if len(chars) != length:
                     continue
-                # At least three zero-bad bytes must follow 
+                # At least three zero-bad bytes must follow
                 if addr_space.read(offset + length, 3) != "\x00" * 3:
                     continue
-                yield offset, passphrase 
+                yield offset, passphrase
 
     def calculate(self):
         addr_space = utils.load_as(self._config)
@@ -469,8 +469,8 @@ class TrueCryptSummary(common.AbstractWindowsCommand):
     def calculate(self):
         addr_space = utils.load_as(self._config)
 
-        # we currently don't use this on x64 because for some reason the 
-        # x64 version actually doesn't create a DisplayVersion value 
+        # we currently don't use this on x64 because for some reason the
+        # x64 version actually doesn't create a DisplayVersion value
         memory_model = addr_space.profile.metadata.get('memory_model')
         if memory_model == '32bit':
             regapi = registryapi.RegistryApi(self._config)
@@ -481,8 +481,8 @@ class TrueCryptSummary(common.AbstractWindowsCommand):
             for subkey in regapi.reg_get_all_subkeys(None, key = x86key):
                 if str(subkey.Name) == "TrueCrypt":
                     subpath = x86key + "\\" + subkey.Name
-                    version = regapi.reg_get_value("software", 
-                                            key = subpath, 
+                    version = regapi.reg_get_value("software",
+                                            key = subpath,
                                             value = "DisplayVersion")
                     if version:
                         yield "Registry Version", "{0} Version {1}".format(
@@ -495,28 +495,28 @@ class TrueCryptSummary(common.AbstractWindowsCommand):
                         passphrase, offset)
 
         for proc in tasks.pslist(addr_space):
-            if str(proc.ImageFileName).lower() == "truecrypt.exe":     
+            if str(proc.ImageFileName).lower() == "truecrypt.exe":
                 yield "Process", "{0} at {1:#x} pid {2}".format(
                         proc.ImageFileName,
-                        proc.obj_offset, 
-                        proc.UniqueProcessId)   
+                        proc.obj_offset,
+                        proc.UniqueProcessId)
 
         scanner = svcscan.SvcScan(self._config)
         for service in scanner.calculate():
             name = str(service.ServiceName.dereference())
             if name == "truecrypt":
                 yield "Service", "{0} state {1}".format(
-                        name, 
+                        name,
                         service.State)
 
         for mod in modules.lsmod(addr_space):
             basename = str(mod.BaseDllName or '').lower()
             fullname = str(mod.FullDllName or '').lower()
-            if (basename.endswith("truecrypt.sys") or 
+            if (basename.endswith("truecrypt.sys") or
                         fullname.endswith("truecrypt.sys")):
                 yield "Kernel Module",  "{0} at {1:#x} - {2:#x}".format(
-                        mod.BaseDllName, 
-                        mod.DllBase, 
+                        mod.BaseDllName,
+                        mod.DllBase,
                         mod.DllBase + mod.SizeOfImage)
 
         scanner = filescan.SymLinkScan(self._config)
@@ -524,8 +524,8 @@ class TrueCryptSummary(common.AbstractWindowsCommand):
             object_header = symlink.get_object_header()
             if "TrueCryptVolume" in str(symlink.LinkTarget or ''):
                 yield "Symbolic Link", "{0} -> {1} mounted {2}".format(
-                        str(object_header.NameInfo.Name or ''), 
-                        str(symlink.LinkTarget or ''), 
+                        str(object_header.NameInfo.Name or ''),
+                        str(symlink.LinkTarget or ''),
                         str(symlink.CreationTime or ''))
 
         scanner = filescan.FileScan(self._config)
@@ -535,39 +535,39 @@ class TrueCryptSummary(common.AbstractWindowsCommand):
                 yield "File Object", "{0} at {1:#x}".format(
                         filename,
                         fileobj.obj_offset)
-        
+
         scanner = filescan.DriverScan(self._config)
         for driver in scanner.calculate():
-            object_header = driver.get_object_header() 
+            object_header = driver.get_object_header()
             driverext = driver.DriverExtension
             drivername = str(driver.DriverName or '')
             servicekey = str(driverext.ServiceKeyName or '')
-            if (drivername.endswith("truecrypt") or 
+            if (drivername.endswith("truecrypt") or
                         servicekey.endswith("truecrypt")):
                 yield "Driver", "{0} at {1:#x} range {2:#x} - {3:#x}".format(
-                        drivername, 
-                        driver.obj_offset, 
-                        driver.DriverStart, 
+                        drivername,
+                        driver.obj_offset,
+                        driver.DriverStart,
                         driver.DriverStart + driver.DriverSize)
                 for device in driver.devices():
                     header = device.get_object_header()
                     devname = str(header.NameInfo.Name or '')
                     type = devicetree.DEVICE_CODES.get(device.DeviceType.v())
                     yield "Device", "{0} at {1:#x} type {2}".format(
-                        devname or "<HIDDEN>", 
-                        device.obj_offset, 
+                        devname or "<HIDDEN>",
+                        device.obj_offset,
                         type or "UNKNOWN")
                     if type == "FILE_DEVICE_DISK":
                         data = addr_space.read(device.DeviceExtension, 2000)
                         ## the file-hosted container path. no other fields in
-                        ## the struct are character based, so we should not 
-                        ## hit false positives on this scan. 
+                        ## the struct are character based, so we should not
+                        ## hit false positives on this scan.
                         offset = data.find("\\\x00?\x00?\x00\\\x00")
                         if offset == -1:
                             container = "<HIDDEN>"
                         else:
-                            container = obj.Object("String", length = 255, 
-                                        offset = device.DeviceExtension + offset, 
+                            container = obj.Object("String", length = 255,
+                                        offset = device.DeviceExtension + offset,
                                         encoding = "utf16",
                                         vm = addr_space)
                         yield "Container", "Path: {0}".format(container)
@@ -585,26 +585,26 @@ class TrueCryptMaster(common.AbstractWindowsCommand):
 
     version_map = {
             # the most recent - released feb 2012
-            '7.1a' : {'32bit': tc_71a_vtypes_x86, '64bit': tc_71a_vtypes_x64}, 
-            # released july 2010. also supports 6.3a from 
+            '7.1a' : {'32bit': tc_71a_vtypes_x86, '64bit': tc_71a_vtypes_x64},
+            # released july 2010. also supports 6.3a from
             # november 2009, so its likely all versions between
             # 6.3a and 7.0a are supported by these vtypes
-            '7.0a' : {'32bit': tc_70a_vtypes_x86, '64bit': tc_70a_vtypes_x64}, 
+            '7.0a' : {'32bit': tc_70a_vtypes_x86, '64bit': tc_70a_vtypes_x64},
             }
-    
+
     def __init__(self, config, *args, **kwargs):
         common.AbstractWindowsCommand.__init__(self, config, *args, **kwargs)
         config.add_option('DUMP-DIR', short_option = 'D', default = None,
                         help = 'Directory in which to dump the keys')
-        config.add_option('VERSION', short_option = 'T', default = '7.1a', 
+        config.add_option('VERSION', short_option = 'T', default = '7.1a',
                         help = 'Truecrypt version string (default: 7.1a)')
 
     @staticmethod
     def apply_types(addr_space, ver):
-        """Apply the TrueCrypt types for a specific version of TC. 
+        """Apply the TrueCrypt types for a specific version of TC.
 
         @param addr_space: <volatility.BaseAddressSpace>
-        @param ver: <string> version 
+        @param ver: <string> version
         """
 
         mm_model = addr_space.profile.metadata.get('memory_model', '32bit')
@@ -614,20 +614,20 @@ class TrueCryptMaster(common.AbstractWindowsCommand):
             addr_space.profile.merge_overlay({
             'EXTENSION' : [ None, {
                 'wszVolume' : [ None, ['String', dict(length = 260, encoding = "utf16")]],
-            }], 
-            'CRYPTO_INFO_t' : [ None, { 
-                'mode' : [ None, ['Enumeration', dict(target = "long", 
-                            choices = {1: 'XTS', 
-                                       2: 'LWR', 
-                                       3: 'CBC', 
-                                       4: 'OUTER_CBC', 
+            }],
+            'CRYPTO_INFO_t' : [ None, {
+                'mode' : [ None, ['Enumeration', dict(target = "long",
+                            choices = {1: 'XTS',
+                                       2: 'LWR',
+                                       3: 'CBC',
+                                       4: 'OUTER_CBC',
                                        5: 'INNER_CBC'})]],
-                'ea' : [ None, ['Enumeration', dict(target = "long", 
-                            choices = {1: 'AES', 
-                                       2: 'SERPENT', 
-                                       3: 'TWOFISH', 
-                                       4: 'BLOWFISH', 
-                                       5: 'CAST', 
+                'ea' : [ None, ['Enumeration', dict(target = "long",
+                            choices = {1: 'AES',
+                                       2: 'SERPENT',
+                                       3: 'TWOFISH',
+                                       4: 'BLOWFISH',
+                                       5: 'CAST',
                                        6: 'TRIPLEDES'})]],
             }]})
             addr_space.profile.compile()
@@ -638,7 +638,7 @@ class TrueCryptMaster(common.AbstractWindowsCommand):
         addr_space = utils.load_as(self._config)
         self.apply_types(addr_space, self._config.VERSION)
         scanner = filescan.DriverScan(self._config)
-        for driver in scanner.calculate():    
+        for driver in scanner.calculate():
             drivername = str(driver.DriverName or '')
             if drivername.endswith("truecrypt"):
                 for device in driver.devices():
@@ -646,7 +646,7 @@ class TrueCryptMaster(common.AbstractWindowsCommand):
                     type = devicetree.DEVICE_CODES.get(code)
                     if type == 'FILE_DEVICE_DISK':
                         yield device
-        
+
     def render_text(self, outfd, data):
         for device in data:
             ext = device.DeviceExtension.dereference_as("EXTENSION")

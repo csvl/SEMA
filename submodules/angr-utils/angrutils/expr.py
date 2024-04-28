@@ -8,13 +8,13 @@ def get_signed_range(se, expr):
     size = expr.size()
     umin = umax = smin = smax = None
     if not sat_zero(se, expr):
-        try: 
+        try:
             umin = se.min(expr, extra_constraints=[claripy.Extract(size-1,size-1,expr) == 0])
             umax = se.max(expr, extra_constraints=[claripy.Extract(size-1,size-1,expr) == 0])
             return (umin, umax)
         except:
             pass
-        try: 
+        try:
             smin = -(1 << size) + se.min(expr, extra_constraints=[claripy.Extract(size-1,size-1,expr) == 1])
             smax = -(1 << size) + se.max(expr, extra_constraints=[claripy.Extract(size-1,size-1,expr) == 1])
             return (smin, smax)
@@ -22,7 +22,7 @@ def get_signed_range(se, expr):
             pass
         return None
     else:
-        try: 
+        try:
             umax = se.max(expr, extra_constraints=[claripy.Extract(size-1,size-1,expr) == 0])
             smin = 0
             try:

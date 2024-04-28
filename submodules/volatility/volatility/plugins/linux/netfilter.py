@@ -22,7 +22,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -44,22 +44,22 @@ class linux_netfilter(linux_common.AbstractLinuxCommand):
         # struct list_head nf_hooks[NFPROTO_NUMPROTO][NF_MAX_HOOKS]
         # NFPROTO_NUMPROTO = 12
         # NF_MAX_HOOKS = 7
-     
+
         nf_hooks_addr = self.addr_space.profile.get_symbol("nf_hooks")
 
         if nf_hooks_addr == None:
             debug.error("Unable to analyze NetFilter. It is either disabled or compiled as a module.")
 
         modules  = linux_lsmod.linux_lsmod(self._config).get_modules()
-         
+
         list_head_size = self.addr_space.profile.get_obj_size("list_head")
-        
+
         for outer in range(13):
             arr = nf_hooks_addr + (outer * (list_head_size * 8))
-           
+
             for inner in range(7):
                 list_head = obj.Object("list_head", offset = arr + (inner * list_head_size), vm = self.addr_space)
-        
+
                 for hook_ops in list_head.list_of_type("nf_hook_ops", "list"):
                     if self.is_known_address(hook_ops.hook.v(), modules):
                         hooked = "False"
@@ -84,4 +84,3 @@ class linux_netfilter(linux_common.AbstractLinuxCommand):
 
         for outer, inner, hook_addr, hooked in data:
             self.table_row(outfd, outer, inner, hook_addr, hooked)
-

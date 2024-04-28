@@ -1,4 +1,4 @@
-/* 
+/*
    Copyright (C) 2016 Cuckoo Foundation.
    This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
    see the file 'docs/LICENSE' for copying permission.
@@ -13,17 +13,17 @@
 
         margin-bottom: 0px;
         border: 0px;
-        border-radius: 0px;    
+        border-radius: 0px;
 
         &:first-child { border-bottom:0px; }
         &:nth-child(2) { border-top: 0px; }
 
         & > .panel-heading {
             background: #eee;
-            display: flex; 
+            display: flex;
 
-            .row { 
-                padding: 4px 12px; 
+            .row {
+                padding: 4px 12px;
                 div[class^="col-md-"] { padding-top: 4px; }
 
                 .col-md-8 {
@@ -31,8 +31,8 @@
                 }
             }
 
-            .col-md-4 { 
-                padding-left: 4px; 
+            .col-md-4 {
+                padding-left: 4px;
                 pre { padding: 6px; }
 
                 .glyphicon {
@@ -49,7 +49,7 @@
     pre {
         border-radius: 0px;
 
-        &.collapse { 
+        &.collapse {
             max-height: none !important;
             overflow: visible !important;
         }

@@ -1,5 +1,5 @@
 /*
-    @description  A function that takes in some headers as a string containing newlines. 
+    @description  A function that takes in some headers as a string containing newlines.
                   It will split the string on its newlines, and then will split it into
                   a key-value pair for easy deploying into HTML.
 
@@ -46,7 +46,7 @@ class HexView {
         // format if type is nog right, should be an object with different options,
         // if it's not an object, we'll assume the body is passed in completely
         if(typeof raw !== 'object') {
-            raw = { 
+            raw = {
                 'response': raw,
                 'request': ''
             };
@@ -99,7 +99,7 @@ class HexView {
         }
 
         this.el.find('.flex-tabs__tab .btn').bind('click', function(e) {
-            
+
             e.preventDefault();
 
             if(_this.locked) return;
@@ -114,7 +114,7 @@ class HexView {
                 propName = 'displayOutput';
             }
             if(action == 'mode') {
-                _this.displayMode = actionValue; 
+                _this.displayMode = actionValue;
                 propName = 'displayMode';
             }
             if(action == 'display') {
@@ -267,7 +267,7 @@ class RequestDisplay {
         this.el = el;
 
         // after loading, this property will be an instance of HexView
-        this.hex_view = undefined; 
+        this.hex_view = undefined;
 
         // flags
         this.isLoading = false;
@@ -318,7 +318,7 @@ class RequestDisplay {
     		} else {
     			_this.load($(this));
     		}
-    		
+
     	});
 
     }
@@ -349,7 +349,7 @@ class RequestDisplay {
     }
 
     /*
-		called by the load function when it ends, will process 
+		called by the load function when it ends, will process
 		the response and start opening the panel.
      */
     loadFinish(response, summaryElement) {
@@ -413,7 +413,7 @@ class RequestDisplay {
 
 }
 
-/* 
+/*
     class PacketDisplay
     @todo: unify the hex display body view to one class instead of defining two seperate
  */
@@ -466,7 +466,7 @@ class PacketDisplay {
 
             // load the data
             this.load(params, function(response) {
-                
+
                 var html = [];
 
                 for(var r in response) {
@@ -480,7 +480,7 @@ class PacketDisplay {
 
                     html.push(view);
                 }
-                
+
                 _this.container.empty();
 
                 html.forEach(function(partial) {

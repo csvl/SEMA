@@ -6,7 +6,7 @@
 import glob
 import os
 
-from _winreg import CreateKey, SetValueEx, CloseKey, REG_DWORD, REG_SZ
+from winreg import CreateKey, SetValueEx, CloseKey, REG_DWORD, REG_SZ
 
 from lib.api.process import Process
 from lib.common.decide import dump_memory
@@ -114,7 +114,7 @@ class Package(object):
         for rootkey, subkey, values in regkeys:
             key_handle = CreateKey(rootkey, subkey)
 
-            for key, value in values.items():
+            for key, value in list(values.items()):
                 if isinstance(value, str):
                     SetValueEx(key_handle, key, 0, REG_SZ, value)
                 elif isinstance(value, int):

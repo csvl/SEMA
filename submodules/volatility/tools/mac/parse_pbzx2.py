@@ -1,10 +1,10 @@
 #
-# parse_pbzx.py 
+# parse_pbzx.py
 #  Useful for extracting "Payload" files from newer Kernel Debug Kits
 #   you can then decompress that with cpio -i < Payload.part00.cpio.xz
 #
 # Taken from https://gist.github.com/pudquick/ff412bcb29c9c1fa4b8d
-# 
+#
 # Original notes:
 #
 # v2 pbzx stream handler
@@ -81,7 +81,7 @@ def parse_pbzx(pbzx_path):
 
 def main():
     result = parse_pbzx(sys.argv[1])
-    print "Now xz decompress the .xz chunks, then 'cat' them all together in order into a single new.cpio file"
- 
+    print("Now xz decompress the .xz chunks, then 'cat' them all together in order into a single new.cpio file")
+
 if __name__ == '__main__':
     main()

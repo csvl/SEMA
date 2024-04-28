@@ -2,7 +2,7 @@
 # This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
 # See the file 'docs/LICENSE' for copying permission.
 
-from _winreg import HKEY_CURRENT_USER
+from winreg import HKEY_CURRENT_USER
 
 from lib.common.abstracts import Package
 

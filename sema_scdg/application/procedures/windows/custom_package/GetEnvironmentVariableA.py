@@ -33,10 +33,10 @@ class GetEnvironmentVariableA(angr.SimProcedure):
                 ret = ret.encode("utf-8")
         else:
             ret = None
-            if self.state.has_plugin("plugin_env_var") : 
+            if self.state.has_plugin("plugin_env_var") :
                 self.state.plugin_env_var.env_var[name] = None
         lw.debug(ret)
-        if self.state.has_plugin("plugin_env_var"): 
+        if self.state.has_plugin("plugin_env_var"):
             self.state.plugin_env_var.env_var_requested[name] = ret
         return ret
 
@@ -55,7 +55,7 @@ class GetEnvironmentVariableA(angr.SimProcedure):
         #size = self.state.mem[nSize].int.concrete
         size = self.state.solver.eval(nSize)
         ret_len = size
-        
+
         var = self.get_str(lpName, size)
         # import pdb; pdb.set_trace()
         if var:

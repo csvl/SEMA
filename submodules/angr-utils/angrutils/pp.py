@@ -15,7 +15,7 @@ def pp(obj, **kwargs):
         return ast(obj, **kwargs)
     else:
         raise TypeError(type(obj))
-    
+
 def bbl_addrs(arr, delimiter=",", cols=10, fmtwidth=8, level=0):
     ret = ""
     for i in range(len(arr)):
@@ -34,7 +34,7 @@ def sim_state(state, delimiter=" -> ", cols=10, fmtwidth=8, level=0):
     trace.append(state.addr)
     ret += bbl_addrs(trace, delimiter=delimiter, level=level+1, cols=cols, fmtwidth=fmtwidth)
     return ret
-    
+
 def sim_manager(simgr, delimiter=" -> ", cols=10, fmtwidth=8, level=0):
     ret = "\t" * level + "sim_manager\n"
     for sname, stash in simgr.stashes.items():
@@ -46,7 +46,7 @@ def sim_manager(simgr, delimiter=" -> ", cols=10, fmtwidth=8, level=0):
 
 def ast(obj, level=0, last=True, inner=False, annotations=False, indent='\t'):
     def _ann_to_str(annotations):
-        return ",".join(map(str, annotations))    
+        return ",".join(map(str, annotations))
     def _par_to_str(param):
         if param is None:
             return 'None'
@@ -74,9 +74,9 @@ def ast(obj, level=0, last=True, inner=False, annotations=False, indent='\t'):
             for argidx in range(len(obj.args)):
                 arg = obj.args[argidx]
                 ret += ast(arg, level=level+1, last=argidx==len(obj.args)-1, annotations=annotations, inner=True, indent=indent)
-            ret += sp + ")" 
+            ret += sp + ")"
         else:
-            ret += ",".join(map(_par_to_str,obj.args)) + ")" 
+            ret += ",".join(map(_par_to_str,obj.args)) + ")"
         if annotations and hasattr(obj, 'annotations') and len(obj.annotations)>0:
             ret += "{{" + _ann_to_str(obj.annotations) + "}}"
         ret += ("," if not last else "") + (nl if inner else "")
@@ -92,11 +92,11 @@ def _ao(obj, level=0, arch=None):
     if obj is not None:
         s +=  str(obj.ast)
         if len(obj.tmp_deps) > 0:
-            s +=  " " + str(map(lambda x: "t%d" % x, obj.tmp_deps)) 
+            s +=  " " + str(map(lambda x: "t%d" % x, obj.tmp_deps))
         if len(obj.reg_deps) > 0:
-            s +=  " " + str(map(lambda x: _regname(x, arch), obj.reg_deps)) 
+            s +=  " " + str(map(lambda x: _regname(x, arch), obj.reg_deps))
     return s
-    
+
 def action(obj, level=0, arch=None):
     if obj.sim_procedure is not None:
         location = "%s()" % obj.sim_procedure
@@ -109,7 +109,7 @@ def action(obj, level=0, arch=None):
     s = "\t"*level + location + "\t"
     if obj.type == 'operation':
         tmpit = iter(obj.tmp_deps)
-        exprit = iter(obj.exprs)        
+        exprit = iter(obj.exprs)
         s += "operation\t%s" % (obj.op)
         for expr in exprit:
             s += "\te:["+str(expr.ast)
@@ -122,12 +122,12 @@ def action(obj, level=0, arch=None):
         s += obj.type
         s += "/" + obj.exit_type + " "
         s += "target:" + _ao(obj.target, arch=arch) + " "
-        s += "cond:" + _ao(obj.condition, arch=arch) 
+        s += "cond:" + _ao(obj.condition, arch=arch)
 
     elif obj.type == 'constraint':
         s += obj.type
         s += "cons:" + _ao(obj.constraint, arch=arch) + " "
-        s += "cond:" + _ao(obj.condition, arch=arch) 
+        s += "cond:" + _ao(obj.condition, arch=arch)
     else: #SimActionData
         s += obj.type
         s += "/%s(%s) " % ('r' if obj.action == 'read' else 'w', _ao(obj.size, arch=arch))
@@ -137,12 +137,12 @@ def action(obj, level=0, arch=None):
             s += str("t%d"%obj.tmp)
         else:
             s += "\ta:[" + _ao(obj.addr, arch=arch) + "]"
-            
+
         s += "\td:[" + _ao(obj.data, arch=arch) + "]"
         if len(obj._tmp_dep) > 0:
-            s +=  " _tmp_dep: " + str(map(lambda x: "t%d" % x, obj._tmp_dep)) 
+            s +=  " _tmp_dep: " + str(map(lambda x: "t%d" % x, obj._tmp_dep))
         if len(obj._reg_dep) > 0:
-            s +=  " _reg_dep: " + str(map(lambda x: _regname(x, arch), obj._reg_dep)) 
+            s +=  " _reg_dep: " + str(map(lambda x: _regname(x, arch), obj._reg_dep))
     return s
 
 def _mem(se, reg):# TODO: better handle 64bit
@@ -157,7 +157,7 @@ def _mem(se, reg):# TODO: better handle 64bit
             return "%08x..%08x" % (l,u) + " ; DEP: " + str(list(reg.variables))
     else:
         return "UNKNOWN " + type(reg)
-    
+
 def state(state, level=0, regs=True, stack=True, stackrange=[0,32], header=True):
     ret = ""
     x86_regs = ['eax', 'ebx', 'ecx', 'edx', 'esi', 'edi', 'ebp', 'esp', 'eip']
@@ -179,4 +179,3 @@ def state(state, level=0, regs=True, stack=True, stackrange=[0,32], header=True)
         for i in range(stackrange[0],stackrange[1],4):
             ret += "\t"*level + "%+03x: %08x %s\n" % (i, ba+i, _mem(state.se, state.memory.load(ba+i, inspect=False)))
     return ret
-

@@ -12,8 +12,8 @@ class recvcc(angr.SimProcedure):
         # simfd = self.state.posix.get_fd(s)
         # if simfd is None:
         #     return -1
-        
-        # # if length.symbolic:  
+
+        # # if length.symbolic:
         # #     pass
         # # else:
         # #     llength = 150 #self.state.solver.eval(length)
@@ -32,7 +32,7 @@ class recvcc(angr.SimProcedure):
             self.state.solver.add(ret_val != -1)
             self.state.solver.add(ret_val < 0x50)
             self.state.globals["n_buffer"] = self.state.globals["n_buffer"] + 1
-            return ret_val     
+            return ret_val
         elif  self.state.solver.eval(length) > 0x10:
             llength = self.state.solver.eval(length)
             print("llength: " + str(llength))

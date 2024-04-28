@@ -22,7 +22,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.plugins.linux.common as linux_common
@@ -42,17 +42,17 @@ class linux_list_raw(linux_common.AbstractLinuxCommand):
         backsize = self.profile.get_obj_size("socket")
         addr = sk + backsize
 
-        return obj.Object('inode', offset = addr, vm = self.addr_space) 
+        return obj.Object('inode', offset = addr, vm = self.addr_space)
 
     def _walk_net_spaces(self):
         offset = self.addr_space.profile.get_obj_offset("sock_common", "skc_node")
-        
+
         nslist_addr = self.addr_space.profile.get_symbol("net_namespace_list")
         nethead = obj.Object("list_head", offset = nslist_addr, vm = self.addr_space)
-            
+
         for net in nethead.list_of_type("net", "list"):
             node = net.packet.sklist.first.dereference().v()
-            
+
             sk = obj.Object("sock", offset = node - offset, vm = self.addr_space)
 
             while sk.is_valid():
@@ -62,7 +62,7 @@ class linux_list_raw(linux_common.AbstractLinuxCommand):
 
                 yield ino
 
-                sk = obj.Object("sock", offset = sk.sk_node.next - offset, vm = self.addr_space)
+                sk = obj.Object("sock", offset = sk.sk_node.__next__ - offset, vm = self.addr_space)
 
     def _fill_cache(self):
         for task in linux_pslist.linux_pslist(self._config).calculate():
@@ -71,11 +71,11 @@ class linux_list_raw(linux_common.AbstractLinuxCommand):
                 if type(filepath) == str and filepath.find("socket:[") != -1:
                     to_add = filp.dentry.d_inode.i_ino.v()
                     self.fd_cache[to_add] = [task, filp, fd, filepath]
-   
+
     def _find_proc_for_inode(self, inode):
         if self.fd_cache == {}:
             self._fill_cache()
-        
+
         inum = inode.i_ino.v()
 
         if inum in self.fd_cache:
@@ -85,13 +85,13 @@ class linux_list_raw(linux_common.AbstractLinuxCommand):
 
         return (task, fd, inum)
 
-    def __walk_hlist_node(self, node):    
+    def __walk_hlist_node(self, node):
         seen = set()
 
         offset = self.addr_space.profile.get_obj_offset("sock_common", "skc_node")
 
         nxt = node.next.dereference()
-        
+
         while nxt.is_valid() and nxt.obj_offset not in seen:
             ## Instantiate the object
             item = obj.Object(obj_type, offset = nxt.obj_offset - offset, vm = self.addr_space)
@@ -104,7 +104,7 @@ class linux_list_raw(linux_common.AbstractLinuxCommand):
 
     def _walk_packet_sklist(self):
         sklist_addr = self.addr_space.profile.get_symbol("packet_sklist")
-    
+
         sklist = obj.Object("hlist_head", offset = sklist_addr, vm = self.addr_space)
 
         for sk in self.__walk_hlist_node(sklist.first):
@@ -113,16 +113,16 @@ class linux_list_raw(linux_common.AbstractLinuxCommand):
     def calculate(self):
         linux_common.set_plugin_members(self)
 
-        sym_addr = self.addr_space.profile.get_symbol("packet_sklist") 
+        sym_addr = self.addr_space.profile.get_symbol("packet_sklist")
 
         # old kernels before namespaces
         if sym_addr:
             for inode in self._walk_packet_sklist():
-                yield self._find_proc_for_inode(inode) 
+                yield self._find_proc_for_inode(inode)
         else:
             for inode in self._walk_net_spaces():
                 yield self._find_proc_for_inode(inode)
-            
+
     def render_text(self, outfd, data):
 
         self.table_header(outfd, [("Process", "16"),

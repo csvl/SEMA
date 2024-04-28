@@ -6,7 +6,7 @@ from angr.sim_variable import SimRegisterVariable, SimMemoryVariable, SimTempora
 
 def safehex(val):
     return str(hex(val) if val != None else None)
-        
+
 class AngrCFGHead(Content):
     def __init__(self):
         super(AngrCFGHead, self).__init__('head', ['addr', 'func_addr', 'name', 'attributes'])
@@ -20,7 +20,7 @@ class AngrCFGHead(Content):
             attributes.append("SYSC")
         if node.no_ret:
             attributes.append("NORET")
-        
+
         n.content[self.name] = {
             'data': [{
                 'addr': {
@@ -30,13 +30,13 @@ class AngrCFGHead(Content):
                     'content': "({:#08x})".format(node.function_address),
                 },
                 'name': {
-                    'content': node.name, 
+                    'content': node.name,
                     'style':'B'
                 },
                 'attributes': {
                     'content': ' '.join(attributes)
                 }
-            }], 
+            }],
             'columns': self.get_columns()
         }
 
@@ -69,11 +69,11 @@ class AngrFGraphHead(Content):
         else:
             node_type = "Unhandled (%s)" % node.__class__
             node_color = "yellow"
-        
+
         if node_color:
             n.style = 'filled'
             n.fillcolor = node_color
-            
+
         n.content[self.name] = {
             'data': [{
                 'type': {
@@ -86,7 +86,7 @@ class AngrFGraphHead(Content):
                     'content': "{:#08x}".format(node.addr),
                     'style':'B'
                 },
-            }], 
+            }],
             'columns': self.get_columns()
         }
 
@@ -94,7 +94,7 @@ class AngrFGraphHead(Content):
 class AngrCGHead(Content):
     def __init__(self):
         super(AngrCGHead, self).__init__('head', ['name','addr'])
-        
+
     def gen_render(self, n):
         n.content[self.name] = {
             'data': [{
@@ -105,33 +105,33 @@ class AngrCGHead(Content):
                     'content': n.obj.name,
                     'style':'B'
                 }
-            }], 
+            }],
             'columns': self.get_columns()
         }
 
 class AngrCommonHead(Content):
     def __init__(self):
         super(AngrCommonHead, self).__init__('head', ['name'])
-        
+
     def gen_render(self, n):
         if hasattr(n.obj, 'name'):
             name = n.obj.name
         else:
             name = str(n.obj)
-        
+
         n.content[self.name] = {
             'data': [{
                 'name': {
                     'content': name
                 }
-            }], 
+            }],
             'columns': self.get_columns()
         }
 
 class AngrCommonTypeHead(Content):
     def __init__(self):
         super(AngrCommonTypeHead, self).__init__('headtype', ['name'])
-        
+
     def gen_render(self, n):
         node = n.obj
         n.content[self.name] = {
@@ -139,14 +139,14 @@ class AngrCommonTypeHead(Content):
                 'name': {
                     'content': str(type(node).__name__)
                 }
-            }], 
+            }],
             'columns': self.get_columns()
         }
 
 class AngrDDGLocationHead(Content):
     def __init__(self):
         super(AngrDDGLocationHead, self).__init__('head_location', ['name'])
-        
+
     def gen_render(self, n):
         node = n.obj
         label = None
@@ -160,7 +160,7 @@ class AngrDDGLocationHead(Content):
                 'name': {
                     'content': label
                 }
-            }], 
+            }],
             'columns': self.get_columns()
         }
 
@@ -168,7 +168,7 @@ class AngrDDGVariableHead(Content):
     def __init__(self, project=None):
         super(AngrDDGVariableHead, self).__init__('head_variable', ['name'])
         self.project = project
-        
+
     def gen_render(self, n):
         node = n.obj
         try:
@@ -192,25 +192,25 @@ class AngrDDGVariableHead(Content):
                 label = "UNKNOWN" + str(node.variable)
         except:
             label = "EXCEPTION"
-        
+
         n.content[self.name] = {
             'data': [{
                 'name': {
                     'content': label
                 }
-            }], 
+            }],
             'columns': self.get_columns()
         }
 
-    
+
 class AngrAsm(Content):
     def __init__(self, project):
         super(AngrAsm, self).__init__('asm', ['addr', 'mnemonic', 'operands'])
-        self.project = project        
+        self.project = project
 
     def gen_render(self, n):
         node = n.obj
-        
+
         #CFG
         if type(node).__name__ == 'CFGNode' or type(node).__name__ == 'CFGNodeA' or type(node).__name__ == 'CFGENode':
             is_syscall = node.is_syscall
@@ -289,11 +289,11 @@ class AngrAsm(Content):
 class AngrAIL(Content):
     def __init__(self, project):
         super(AngrAIL, self).__init__('ail', ['addr', 'stmt'])
-        self.project = project        
+        self.project = project
 
     def gen_render(self, n):
         node = n.obj
-        
+
         #CFG
         if not type(node).__name__ == 'Block':
             return
@@ -323,11 +323,11 @@ class AngrAIL(Content):
 class AngrVex(Content):
     def __init__(self, project):
         super(AngrVex, self).__init__('vex', ['addr', 'statement'])
-        self.project = project        
+        self.project = project
 
     def gen_render(self, n):
         node = n.obj
-        
+
         #CFG
         if type(node).__name__ == 'CFGNode' or type(node).__name__ == 'CFGNodeA' or type(node).__name__ == 'CFGENode':
             is_syscall = node.is_syscall
@@ -368,8 +368,8 @@ class AngrVex(Content):
             stmt_idx = None
         else:
             return
-            
-            
+
+
         if is_simprocedure or is_syscall:
             return None
 
@@ -402,15 +402,15 @@ class AngrVex(Content):
                     'align': 'LEFT'
                 }
             })
-                
+
         n.content[self.name] = {
             'data': data,
             'columns': self.get_columns(),
             'vex': vex
         }
-    
+
 class AngrCFGDebugInfo(Content):
-        
+
     def __init__(self):
         super(AngrCFGDebugInfo, self).__init__('debug_info', ['text'])
 
@@ -421,7 +421,7 @@ class AngrCFGDebugInfo(Content):
                 'content' : text
             }
         })
-        
+
     def gen_render(self, n):
         node = n.obj
 
@@ -491,14 +491,14 @@ class AngrKbFunctionDetails(Content):
             attrs.append("SIMPROC")
         if fn.is_syscall:
             attrs.append("SYSCALL")
-        
+
         if fn.has_return:
             attrs.append("HASRET")
         if fn.has_unresolved_calls:
             attrs.append("UNRES_CALLS")
         if fn.has_unresolved_jumps:
             attrs.append("UNRES_JUMPS")
-        
+
         if fn.returning == True:
             attrs.append("RET")
         elif fn.returning == False:
@@ -510,10 +510,10 @@ class AngrKbFunctionDetails(Content):
             attrs.append("BP_ON_STACK")
         if fn.retaddr_on_stack:
             attrs.append("RETADDR_ON_STACK")
-            
+
         attrs.append("SP_DELTA_"+str(fn.sp_delta))
-        
-        self.add_line(data, "attributes", " ".join(attrs))    
+
+        self.add_line(data, "attributes", " ".join(attrs))
 
         self.add_line(data, "num_arguments", str(fn.num_arguments))
         self.add_line(data, "arguments", str(fn.arguments))
@@ -531,12 +531,12 @@ class AngrKbFunctionDetails(Content):
         #self.add_line(data, "registers_read_afterwards", str(fn.registers_read_afterwards))
         #self.add_line(data, "get_call_return", str(fn.get_call_return(x)))
         #self.add_line(data, "get_call_target", str(fn.get_call_target(x)))
-        
+
         n.content[self.name] = {
             'data': data,
             'columns': self.get_columns(),
         }
 
 
-    # 'block_addrs_set', 'blocks', 'callable', 'code_constants', 'endpoints', 'get_node', 'graph', 'info', 'instruction_size', 'local_runtime_values', 'mark_nonreturning_calls_endpoints', 
+    # 'block_addrs_set', 'blocks', 'callable', 'code_constants', 'endpoints', 'get_node', 'graph', 'info', 'instruction_size', 'local_runtime_values', 'mark_nonreturning_calls_endpoints',
     # 'nodes', 'normalize', 'operations', 'runtime_values', 'startpoint', 'string_references', 'subgraph', 'transition_graph'

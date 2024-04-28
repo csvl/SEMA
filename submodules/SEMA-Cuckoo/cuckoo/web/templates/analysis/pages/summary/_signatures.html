@@ -26,7 +26,7 @@
                 <div class="cuckoo-analysis__panel--body collapse" id="signature_{{signature.name}}">
 
                     <table class="cuckoo-table">
-                        
+
                         {% for mark in signature.marks|sigsort %}
 
                             {% if mark.type == "call" %}
@@ -82,7 +82,7 @@
                     </tbody></table>
 
                 </div>
-            </section>            
+            </section>
         {% endfor %}
 
         {% if not report.analysis.signatures %}

@@ -7,7 +7,7 @@ import pyvex
 class AngrColorSimprocedures(NodeAnnotator):
     def __init__(self):
         super(AngrColorSimprocedures, self).__init__()
-    
+
     def annotate_node(self, node):
         if node.obj.is_simprocedure:
             if node.obj.simprocedure_name in ['PathTerminator','ReturnUnconstrained','UnresolvableTarget']:
@@ -25,7 +25,7 @@ class AngrColorExit(NodeAnnotator):
         if not node.obj.is_simprocedure:
             found = False
             for e in self.graph.edges:
-                if e.src == node:                
+                if e.src == node:
                     found = True
                     if 'jumpkind' in e.meta and e.meta['jumpkind'] == 'Ijk_Ret':
                         node.style = 'filled'
@@ -33,7 +33,7 @@ class AngrColorExit(NodeAnnotator):
             if not found:
                 node.style = 'filled'
                 node.fillcolor = '#ddffdd'
-            
+
 class AngrColorEntry(NodeAnnotator):
     def __init__(self):
         super(AngrColorEntry, self).__init__()
@@ -88,7 +88,7 @@ class AngrColorEdgesVex(EdgeAnnotator):
 
 
 class AngrPathAnnotator(EdgeAnnotator, NodeAnnotator):
-    
+
     def __init__(self, path):
         super(AngrPathAnnotator, self).__init__()
         self.path = path
@@ -96,17 +96,17 @@ class AngrPathAnnotator(EdgeAnnotator, NodeAnnotator):
 
     def set_graph(self, graph):
         super(AngrPathAnnotator, self).set_graph(graph)
-        self.vaddr = self.valid_addrs()        
+        self.vaddr = self.valid_addrs()
         ftrace = list(filter(lambda _: _ in self.vaddr, self.trace))
         self.edges_hit = set(zip(ftrace[:-1], ftrace[1:]))
-        
-            
+
+
     def valid_addrs(self):
         vaddr = set()
         for n in self.graph.nodes:
             vaddr.add(n.obj.addr)
         return vaddr
-        
+
     #TODO add caching
     #TODO not sure if this is valid
     def node_hit(self, node):
@@ -117,25 +117,25 @@ class AngrPathAnnotator(EdgeAnnotator, NodeAnnotator):
             ck = []
         ck.append(node.addr)
         rtrace = list(reversed(self.trace))
-        
+
         found = True
         si = 0
         for c in reversed(ck):
             if c == None:
                 break
-            try: 
+            try:
                 si = rtrace[si:].index(c)
             except:
                 found = False
                 break
         return found
-        
+
     def annotate_edge(self, edge):
         key = (edge.src.obj.addr, edge.dst.obj.addr)
         if key in self.edges_hit and self.node_hit(edge.src.obj) and self.node_hit(edge.dst.obj):
             edge.width = 3
             edge.color = 'red'
-    
+
     def annotate_node(self, node):
         if self.node_hit(node.obj):
             node.width = 3
@@ -150,13 +150,13 @@ class AngrBackwardSliceAnnotatorVex(ContentAnnotator):
 
     def register(self, content):
         content.add_column_before('taint')
-        
+
     def annotate_content(self, node, content):
         if node.obj.is_simprocedure or node.obj.is_syscall:
             return
 
-        st =  self.bs.chosen_statements[node.obj.addr]        
-        for k in range(len(content['data'])):                
+        st =  self.bs.chosen_statements[node.obj.addr]
+        for k in range(len(content['data'])):
             c = content['data'][k]
             if k in st:
                 c['addr']['style'] = 'B'
@@ -177,7 +177,7 @@ class AngrBackwardSliceAnnotatorAsm(ContentAnnotator):
 
     def register(self, content):
         content.add_column_before('taint')
-        
+
     def annotate_content(self, node, content):
         if node.obj.is_simprocedure or node.obj.is_syscall:
             return
@@ -187,14 +187,14 @@ class AngrBackwardSliceAnnotatorAsm(ContentAnnotator):
 
         #TODO
         vex = self.bs.project.factory.block(addr=node.obj.addr, size=node.obj.size).vex
-        
+
         caddr = None
         for j, s in enumerate(vex.statements):
             if isinstance(s, pyvex.stmt.IMark):
                 caddr = s.addr
             if j in st:
                 staddr.add(caddr)
-        
+
         for c in content['data']:
             if c['_addr'] in staddr:
                 c['addr']['style'] = 'B'
@@ -204,7 +204,7 @@ class AngrBackwardSliceAnnotatorAsm(ContentAnnotator):
                     'content':'[*]',
                     'style':'B'
                 }
-    
+
 
 
 class AngrColorDDGStmtEdges(EdgeAnnotator):
@@ -229,7 +229,7 @@ class AngrColorDDGStmtEdges(EdgeAnnotator):
             else:
                 edge.label = edge.meta['type']
                 edge.style = 'dotted'
-            
+
 class AngrColorDDGData(EdgeAnnotator, NodeAnnotator):
     def __init__(self,project=None, labels=False):
         super(AngrColorDDGData, self).__init__()
@@ -264,13 +264,13 @@ class AngrActionAnnotatorVex(ContentAnnotator):
         content.add_column_after('action_type')
         content.add_column_after('action_addr')
         content.add_column_after('action_data')
-        
+
     def annotate_content(self, node, content):
         from angr.state_plugins.sim_action import SimActionData
 
         if node.obj.is_simprocedure or node.obj.is_syscall:
             return
-        
+
         if len(node.obj.final_states) > 0:
             state = node.obj.final_states[0]
             for action in state.log.actions:
@@ -298,10 +298,10 @@ class AngrCodelocLogAnnotator(ContentAnnotator):
     def __init__(self, cllog):
         super(AngrCodelocLogAnnotator, self).__init__('vex')
         self.cllog = cllog
-        
+
     def register(self, content):
         content.add_column_after('log')
-        
+
     def annotate_content(self, node, content):
         if node.obj.is_simprocedure or node.obj.is_syscall:
             return
@@ -419,13 +419,10 @@ class AngrVariables(ContentAnnotator):
         for k in content['data']:
             ins = k['_ins']
             vars = vm.find_variables_by_insn(ins.address, 'memory')
-            if vars: 
+            if vars:
                 for var in vars:
                     if not 'variables' in k:
                         k['variables'] = {'content':''}
                     k['variables']['content'] += repr(var[0].name + (' (' + var[0].ident + ')' if self.debug else '') )
                     k['variables']['color'] = 'lightblue'
                     k['variables']['align'] = 'LEFT'
-
-
-

@@ -39,8 +39,8 @@ class LimeTypes(obj.ProfileModification):
             })
 
 class LimeAddressSpace(addrspace.AbstractRunBasedMemory):
-    """ 
-    Address space for Lime 
+    """
+    Address space for Lime
     """
     order = 2
 
@@ -78,4 +78,3 @@ class LimeAddressSpace(addrspace.AbstractRunBasedMemory):
             offset = offset + seg[2] + self.profile.get_obj_size("lime_header")
 
             header = obj.Object("lime_header", offset = offset, vm = self.base)
-

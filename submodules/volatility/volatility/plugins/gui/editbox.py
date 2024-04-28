@@ -212,8 +212,8 @@ class COMCTL_EDIT(obj.CType):
 
     def dump_meta(self, outfd):
         """Dumps the meta data of the control
-        
-        @param  outfd: 
+
+        @param  outfd:
         """
         outfd.write('nChars            : {}\n'.format(self.nChars))
         outfd.write('selStart          : {}\n'.format(self.selStart))
@@ -226,8 +226,8 @@ class COMCTL_EDIT(obj.CType):
 
     def dump_data(self, outfd):
         """Dumps the data of the control
-        
-        @param  outfd: 
+
+        @param  outfd:
         """
         outfd.write('{}\n'.format(self.get_text()))
 
@@ -251,7 +251,7 @@ class COMCTL_LISTBOX(obj.CType):
 
         return '<{0}(Text="{1}", Items={2}, Caret={3}>'.format(
             self.__class__.__name__, text, self.itemCount, self.caretPos)
-    
+
     def get_text(self, joiner='\n'):
         """Get the text from the control
 
@@ -288,13 +288,13 @@ class COMCTL_LISTBOX(obj.CType):
 
 def split_null_strings(data):
     """Splits a concatenation of null-terminated utf-16 strings
-    
+
     @param  data:
     """
-    
+
     strings = []
     start = 0
-    for i in xrange(0, len(data), 2):
+    for i in range(0, len(data), 2):
         if data[i] == '\x00' and data[i+1] == '\x00':
             strings.append(data[start:i])
             start = i+2
@@ -333,20 +333,20 @@ class Editbox(common.AbstractWindowsCommand):
         config.add_option('DUMP-DIR', short_option='D', default=None,
                           help='Save the found text to files in this folder',
                           action='store', type='str')
-        
+
         self.fake_32bit = False
 
     @staticmethod
     def apply_types(addr_space, meta=None):
         """Add the correct vtypes and classes for the profile
 
-        @param  addr_space:        
-        @param  meta: 
+        @param  addr_space:
+        @param  meta:
         """
 
         if not meta:
             meta = addr_space.profile.metadata
-        
+
         if meta['os'] == 'windows':
             if meta['major'] == 5:
                 if meta['memory_model'] == '32bit':
@@ -406,7 +406,7 @@ class Editbox(common.AbstractWindowsCommand):
                             if '!' in atom_class:
                                 comctl_class = atom_class.split('!')[-1].lower()
                                 if comctl_class in supported_controls:
-                                    
+
                                     # Do we need to fake being 32bit for Wow?
                                     if wnd.Process.IsWow64 and not self.fake_32bit:
                                         meta = addr_space.profile.metadata
@@ -416,7 +416,7 @@ class Editbox(common.AbstractWindowsCommand):
                                     elif not wnd.Process.IsWow64 and self.fake_32bit:
                                             self.apply_types(addr_space)
                                             self.fake_32bit = False
-                                            
+
                                     context = '{0}\\{1}\\{2}'.format(winsta.dwSessionId, winsta.Name, desktop.Name)
                                     task_vm = wnd.Process.get_process_address_space()
                                     wndextra_offset = wnd.v() + addr_space.profile.get_obj_size('tagWND')
@@ -430,7 +430,7 @@ class Editbox(common.AbstractWindowsCommand):
 
     def render_table(self, outfd, data):
         """Output the results as a table
-        
+
         @param  outfd: <file>
         @param  data: <generator>
         """
@@ -486,7 +486,7 @@ class Editbox(common.AbstractWindowsCommand):
 
     def render_text(self, outfd, data):
         """Output the results as a text report
-        
+
         @param  outfd: <file>
         @param  data: <generator>
         """

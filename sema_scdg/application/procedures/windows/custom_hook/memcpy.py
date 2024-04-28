@@ -27,6 +27,5 @@ class memcpy(angr.SimProcedure):
                           max_limit, conditional_size)
 
         lw.debug("Memcpy running with conditional_size %#x", conditional_size)
-        
-        return dst_addr
 
+        return dst_addr

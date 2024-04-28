@@ -8,9 +8,9 @@ import os
 import pkgutil
 import sys
 import traceback
-import urllib
-import urllib2
-import xmlrpclib
+import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error, urllib.parse
+import xmlrpc.client
 
 from lib.common.config import Config
 from lib.common.hashing import hash_file
@@ -157,7 +157,7 @@ class Macalyzer(object):
             self.log.error("Unable to upload dropped file at path \"%s\": %s", filepath, e)
 
 def _create_result_folders():
-    for _, folder in PATHS.items():
+    for _, folder in list(PATHS.items()):
         if os.path.exists(folder):
             continue
         try:
@@ -207,7 +207,7 @@ if __name__ == "__main__":
     finally:
         try:
             # Establish connection with the agent XMLRPC server.
-            server = xmlrpclib.Server("http://127.0.0.1:8000")
+            server = xmlrpc.client.Server("http://127.0.0.1:8000")
             server.complete(success, error, PATHS["root"])
         except Exception as e:
             # new agent
@@ -215,6 +215,6 @@ if __name__ == "__main__":
                 "status": "complete",
                 "description": success
             }
-            urllib2.urlopen(
-                "http://127.0.0.1:8000/status", urllib.urlencode(data)
+            urllib.request.urlopen(
+                "http://127.0.0.1:8000/status", urllib.parse.urlencode(data)
             )

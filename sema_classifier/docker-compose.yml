@@ -21,16 +21,12 @@ services:
     volumes:
       - ${PWD}/sema_classifier/:/sema-classifier
       - ${PWD}/submodules/SEMA-quickspan:/sema-classifier/application/submodules/SEMA-quickspan
-      - ${PWD}/submodules/bingraphvis:/sema-classifier/application/submodules/bingraphvis 
-      - ${PWD}/penv-fix/:/sema-classifier/application/penv-fix 
+      - ${PWD}/submodules/bingraphvis:/sema-classifier/application/submodules/bingraphvis
+      - ${PWD}/penv-fix/:/sema-classifier/application/penv-fix
       - ${PWD}/database/:/sema-classifier/application/database
       - ${PWD}/yara/:/sema-classifier/application/yara
       - /tmp/.X11-unix:/tmp/.X11-unix
     environment:
-      - DISPLAY=$(DISPLAY) 
+      - DISPLAY=$(DISPLAY)
     networks:
       - micro_network
-
-      
-
-  

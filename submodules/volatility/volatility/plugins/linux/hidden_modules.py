@@ -22,7 +22,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 import re
 
@@ -42,7 +42,7 @@ class linux_hidden_modules(linux_common.AbstractLinuxCommand):
         if addr_space.profile.get_symbol("module_addr_min"):
             min_addr_sym = obj.Object("unsigned long", offset = addr_space.profile.get_symbol("module_addr_min"), vm = addr_space)
             max_addr_sym = obj.Object("unsigned long", offset = addr_space.profile.get_symbol("module_addr_max"), vm = addr_space)
-        
+
         elif addr_space.profile.get_symbol("mod_tree"):
             skip_size    = addr_space.profile.get_obj_size("latch_tree_root")
             addr         = addr_space.profile.get_symbol("mod_tree")
@@ -55,25 +55,25 @@ class linux_hidden_modules(linux_common.AbstractLinuxCommand):
 
         min_addr = min_addr_sym & ~0xfff
         max_addr = (max_addr_sym & ~0xfff) + 0x1000
-        
+
         scan_buf = ""
         llen = max_addr - min_addr
-        
-        allfs = "\xff" * 4096 
-        
+
+        allfs = "\xff" * 4096
+
         memory_model = self.addr_space.profile.metadata.get('memory_model', '32bit')
         if memory_model == '32bit':
             minus_size = 4
         else:
             minus_size = 8
- 
+
         check_bufs = []
         replace_bufs = []
-        
+
         check_nums = [3000, 2800, 2700, 2500, 2300, 2100, 2000, 1500, 1300, 1200, 1024, 512, 256, 128, 96, 64, 48, 32, 24]
 
         for num in check_nums:
-            check_bufs.append("\x00" * num)        
+            check_bufs.append("\x00" * num)
             replace_bufs.append(("\xff" * (num-minus_size)) + "\x00" * minus_size)
 
         for page in range(min_addr, max_addr, 4096):
@@ -125,4 +125,3 @@ class linux_hidden_modules(linux_common.AbstractLinuxCommand):
 
         for module in data:
             self.table_row(outfd, module.obj_offset, str(module.name))
-

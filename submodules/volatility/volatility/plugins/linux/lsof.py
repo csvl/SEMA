@@ -55,5 +55,5 @@ class linux_lsof(linux_pslist.linux_pslist):
                                   ("Path", "")])
 
         for task in data:
-            for filp, fd in task.lsof(): 
+            for filp, fd in task.lsof():
                 self.table_row(outfd, Address(task.obj_offset), str(task.comm), task.pid, fd, linux_common.get_path(task, filp))

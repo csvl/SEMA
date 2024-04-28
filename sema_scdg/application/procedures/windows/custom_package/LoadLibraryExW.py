@@ -16,10 +16,10 @@ class LoadLibraryExW(LoadLibraryA):
         lib = self.state.mem[lib_ptr].wstring.concrete
 
         lib = str(lib).lower()
-        
+
         # if not lib or lib == "":
         #     return 0
-        
+
         # We will create a fake symbol to represent the handle to the library
         # Check first if we already did that before
         symb = proj.loader.find_symbol(lib)

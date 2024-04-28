@@ -3,7 +3,7 @@ KDIR ?= /lib/modules/3.5.0-23-generic/build
 
 -include version.mk
 
-all: dwarf 
+all: dwarf
 
 dwarf: module.c
 	$(MAKE) -C $(KDIR) CONFIG_DEBUG_INFO=y M="$(PWD)" modules

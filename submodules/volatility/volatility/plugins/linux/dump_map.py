@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import os.path
@@ -38,7 +38,7 @@ class linux_dump_map(linux_proc_maps.linux_proc_maps):
         self._config.add_option('DUMP-DIR', short_option = 'D', default = None, help = 'Output directory', action = 'store', type = 'str')
 
     def read_addr_range(self, task, start, end):
-        pagesize = 4096 
+        pagesize = 4096
 
         # set the as with our new dtb so we can read from userland
         proc_as = task.get_process_address_space()
@@ -50,29 +50,28 @@ class linux_dump_map(linux_proc_maps.linux_proc_maps):
             start = start + pagesize
 
     def render_text(self, outfd, data):
-        if (not self._config.DUMP_DIR or 
+        if (not self._config.DUMP_DIR or
                 not os.path.isdir(self._config.DUMP_DIR)):
             debug.error("Please specify an existing output dir (--dump-dir)")
 
-        self.table_header(outfd, [("Task", "10"), 
-                                  ("VM Start", "[addrpad]"), 
-                                  ("VM End", "[addrpad]"), 
-                                  ("Length", "[addr]"), 
+        self.table_header(outfd, [("Task", "10"),
+                                  ("VM Start", "[addrpad]"),
+                                  ("VM End", "[addrpad]"),
+                                  ("Length", "[addr]"),
                                   ("Path", "")])
 
         for (task, vma) in data:
             if not self._config.VMA or vma.vm_start == self._config.VMA:
                 file_name = "task.{0}.{1:#x}.vma".format(task.pid, vma.vm_start)
                 file_path = os.path.join(self._config.DUMP_DIR, file_name)
-                
+
                 outfile = open(file_path, "wb+")
                 for page in self.read_addr_range(task, vma.vm_start, vma.vm_end):
                     outfile.write(page)
                 outfile.close()
-                
-                self.table_row(outfd, task.pid, 
-                               vma.vm_start, 
-                               vma.vm_end, 
-                               vma.vm_end - vma.vm_start, 
-                               file_path)
 
+                self.table_row(outfd, task.pid,
+                               vma.vm_start,
+                               vma.vm_end,
+                               vma.vm_end - vma.vm_start,
+                               file_path)

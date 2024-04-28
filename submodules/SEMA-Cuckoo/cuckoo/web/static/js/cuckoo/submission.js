@@ -373,7 +373,7 @@ var Uploader = function () {
                         e.preventDefault();
                         var dropCallbackOutput = _self._drop_callback(_self, holder);
 
-                        // if this callback returns 'false', don't process the file directly. This 
+                        // if this callback returns 'false', don't process the file directly. This
                         // controls auto-uploading from the configuration. Developer can now
                         // embed an upload-trigger himself, if wanted.
                         if (dropCallbackOutput === false) return;
@@ -1796,7 +1796,7 @@ var TopSelect = function (_UserInputController2) {
 			// hook up interaction things
 			this.view.afterRender(function (controller) {
 
-				// this = html	
+				// this = html
 				// controller = interface base controller
 
 				$(this).find('input:radio').bind('change', function (e) {
@@ -2142,9 +2142,9 @@ var Form = function () {
 					this.fields[element.name] = element;
 					this.fields[element.name].form = this;
 
-					// this hooks a callback listener to a change event 
+					// this hooks a callback listener to a change event
 					// from an included field. if it triggers, it will trigger
-					// the form 'change' event. 
+					// the form 'change' event.
 					element.on('change', function () {
 						self.trigger('change', self.serialize());
 					});

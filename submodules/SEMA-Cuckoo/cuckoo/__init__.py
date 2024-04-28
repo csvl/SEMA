@@ -15,7 +15,7 @@ signatures = []
 # other plugins - of which multiple are in use at any time.
 plugins = {
     "auxiliary": auxiliary.plugins,
-    "machinery": machinery.plugins.values(),
+    "machinery": list(machinery.plugins.values()),
     "processing": processing.plugins,
     "reporting": reporting.plugins,
     "signatures": signatures,

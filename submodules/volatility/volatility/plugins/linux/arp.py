@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import socket
@@ -77,8 +77,8 @@ class linux_arp(linux_common.AbstractLinuxCommand):
             try:
                 hash_size = (1 << ntable.nht.hash_shift)
             except OverflowError:
-                return []        
-    
+                return []
+
             hash_table = ntable.nht.hash_buckets
 
         if not self.addr_space.is_valid_address(hash_table):

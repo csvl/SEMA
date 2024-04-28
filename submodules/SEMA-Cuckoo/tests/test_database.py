@@ -115,7 +115,7 @@ class DatabaseEngine(object):
         submit = self.d.view_submit(submit_id)
         assert submit.id == submit_id
         with pytest.raises(DetachedInstanceError):
-            print submit.tasks
+            print(submit.tasks)
 
         submit = self.d.view_submit(submit_id, tasks=True)
         assert len(submit.tasks) == 2

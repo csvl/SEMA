@@ -22,7 +22,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import re, os, struct
@@ -36,12 +36,12 @@ class linux_lsmod(linux_common.AbstractLinuxCommand):
     def __init__(self, config, *args, **kwargs):
 
         linux_common.AbstractLinuxCommand.__init__(self, config, *args, **kwargs)
-      
+
         self._config.add_option('SECTIONS', short_option = 'T', default = None, help = 'show section addresses', action = 'store_true')
         self._config.add_option('PARAMS', short_option = 'P', default = None, help = 'show module parameters', action = 'store_true')
         self._config.add_option('BASE', short_option = 'b', default = None, help = 'Dump driver with BASE address (in hex)', action = 'store', type = 'int')
         self._config.add_option('IDC', short_option = 'c', default = None, help = 'Path to IDC file to be created for module', action = 'store', type = 'str')
-        
+
 
     def _get_modules(self):
         if self._config.BASE:
@@ -58,7 +58,7 @@ class linux_lsmod(linux_common.AbstractLinuxCommand):
 
     def calculate(self):
         linux_common.set_plugin_members(self)
-        
+
         for module in self._get_modules():
             if self._config.PARAMS:
                 if not hasattr(module, "kp"):
@@ -81,8 +81,8 @@ class linux_lsmod(linux_common.AbstractLinuxCommand):
             if self._config.IDC:
                 fd = open(self._config.IDC, "w")
                 fd.write("#include <idc.idc>\nstatic main(void) {\n")
-                
-                for (sname, saddr) in module.get_symbols():             
+
+                for (sname, saddr) in module.get_symbols():
                     fd.write("   MakeDword(0x{0:08X});\n".format(saddr))
                     fd.write("   MakeName(0x{0:08X}, \"{1}\");\n".format(saddr, sname))
 
@@ -128,14 +128,14 @@ class linux_lsmod(linux_common.AbstractLinuxCommand):
 
 class linux_moddump(linux_common.AbstractLinuxCommand):
     """Extract loaded kernel modules"""
-    
+
     def __init__(self, config, *args, **kwargs):
         self.name_idx = 1
         self.idc_started = False
 
         linux_common.AbstractLinuxCommand.__init__(self, config, *args, **kwargs)
-        
-        config.add_option('DUMP-DIR', short_option = 'D', default = None,       
+
+        config.add_option('DUMP-DIR', short_option = 'D', default = None,
                       help = 'Directory in which to dump the files',
                       action = 'store', type = 'string')
         config.add_option('REGEX', short_option = 'r',
@@ -157,9 +157,9 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
                     mod_re = re.compile(self._config.REGEX, re.I)
                 else:
                     mod_re = re.compile(self._config.REGEX)
-            except re.error, e:
+            except re.error as e:
                 debug.error('Error parsing regular expression: {0}'.format(e))
-                
+
 
         if self._config.BASE:
             module_address = int(self._config.BASE)
@@ -173,7 +173,7 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
                     if not mod_re.search(str(module.name)):
                         continue
                 yield module
-    
+
     def _get_header_64(self, load_addr, sect_hdr_offset, num_sects):
         e_ident     = "\x7f\x45\x4c\x46\x02\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00"
         e_type      = "\x01\x00" # relocateble
@@ -191,7 +191,7 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
         e_shstrndx  = struct.pack("<H", num_sects)
 
         header = e_ident + e_type + e_machine + e_version + e_entry + e_phoff + e_shoff + e_flags
-    
+
         header = header + e_ehsize + e_phentsize + e_phnum + e_shentsize + e_shnum + e_shstrndx
 
         if len(header) != 64:
@@ -216,7 +216,7 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
         e_shstrndx  = struct.pack("<H", num_sects)
 
         header = e_ident + e_type + e_machine + e_version + e_entry + e_phoff + e_shoff + e_flags
-    
+
         header = header + e_ehsize + e_phentsize + e_phnum + e_shentsize + e_shnum + e_shstrndx
 
         if len(header) != 52:
@@ -227,14 +227,14 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
     # checked
     def _build_sections_list(self, module):
         sections = []
-        
+
         symtab_idx = -1
 
         for (i, sect) in enumerate(module.get_sections()):
             name = str(sect.sect_name)
 
             sections.append((name, sect.address.v()))
-                         
+
             if name == ".symtab":
                 symtab_idx = i
 
@@ -250,7 +250,7 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
     # 4) with the final list of name,address,size we can read the sections and populate the info in the file
     def _parse_sections(self, module):
         (orig_sections, symtab_idx) = self._build_sections_list(module)
-       
+
         if self.addr_space.profile.metadata.get('memory_model', '32bit') == '64bit':
             sect_bytes = 64
         else:
@@ -263,11 +263,11 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
             tmp_ents[address] = 1
 
         addrs = sorted(tmp_ents.keys())
-       
+
         sorted_ents = {}
         for (i, addr) in enumerate(addrs):
             sorted_ents[addr] = i
-        
+
         sect_sa = []
         # do this twice for now... just want the plugin working!
         for (i, (name, address)) in enumerate(orig_sections):
@@ -300,13 +300,13 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
             if name == ".symtab":
                 size         = str_size
                 section_data = str_section_data
-            else:  
+            else:
                 section_data = module.obj_vm.zread(address, size)
 
             updated_sections.append((name, address, size, sect_bytes, section_data))
-            
+
             sect_bytes = sect_bytes + size
-       
+
         return (updated_sections, symtab_idx, addrs[0])
 
     def _calc_sect_name_idx(self, name):
@@ -333,7 +333,7 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
             "SHT_LOUSER" : 0x80000000,
             "SHT_HIUSER" : 0xffffffff
         }
-         
+
         known_sections = {
             ".note.gnu.build-id" : "SHT_NOTE",
             ".text"              : "SHT_PROGBITS",
@@ -346,14 +346,14 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
             ".shstrtab"                 : "SHT_STRTAB",
             ".symtab"                   : "SHT_SYMTAB",
             ".strtab"                   : "SHT_STRTAB",
-            } 
+            }
 
         if name in known_sections:
             sect_type_name = known_sections[name]
             sect_type_val  = type_map[sect_type_name]
         else:
             sect_type_val = 1 # SHT_PROGBITS
-         
+
         if name.find(".rela.") != -1:
             sect_type_val = 4 # SHT_RELA
 
@@ -363,10 +363,10 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
     # special check certain other sections to try and ensure extra flags are added where needed
     def _calc_sect_flags(self, name):
         flags = 2 # SHF_ALLOC
-        
+
         if name == ".text":
             flags = flags | 4 # SHF_EXECINSTR
-        
+
         elif name in [".data", ".bss"]:
             flags = flags | 1 # SHF_WRITE
 
@@ -374,7 +374,7 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
 
     def _calc_link(self, name, strtab_idx, symtab_idx, sect_type):
         # looking for RELA sections
-        if name.find(".rela.") != -1: 
+        if name.find(".rela.") != -1:
             lnk = strtab_idx
 
         elif sect_type == 2: # strtab
@@ -387,7 +387,7 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
 
     def _calc_entsize(self, name, sect_type, bits):
         # looking for RELA sections
-        if name.find(".rela.") != -1: 
+        if name.find(".rela.") != -1:
             info = 24
 
         elif sect_type == 2: # symtab
@@ -399,7 +399,7 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
             info = 0
 
         return info
-    
+
     def _make_sect_header_64(self, name, address, size, file_off, strtab_idx, symtab_idx):
         int_sh_type = self._calc_sect_type(name)
 
@@ -410,13 +410,13 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
         sh_offset     = struct.pack("<Q", file_off)
         sh_size       = struct.pack("<Q", size)
         sh_link       = struct.pack("<I", self._calc_link(name, strtab_idx, symtab_idx, int_sh_type))
-        sh_info       = "\x00" * 4 
+        sh_info       = "\x00" * 4
         sh_addralign  = "\x01\x00\x00\x00\x00\x00\x00\x00"
         sh_entsize    = struct.pack("<Q", self._calc_entsize(name, int_sh_type, 64))
-   
+
         data = sh_name + sh_type + sh_flags + sh_addr + sh_offset + sh_size
         data = data + sh_link + sh_info + sh_addralign + sh_entsize
- 
+
         if len(data) != 64:
             debug.error("Broken section building! %d" % len(data))
 
@@ -432,13 +432,13 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
         sh_offset     = struct.pack("<I", file_off)
         sh_size       = struct.pack("<I", size)
         sh_link       = struct.pack("<I", self._calc_link(name, strtab_idx, symtab_idx, int_sh_type))
-        sh_info       = "\x00" * 4 
+        sh_info       = "\x00" * 4
         sh_addralign  = "\x01\x00\x00\x00"
         sh_entsize    = struct.pack("<I", self._calc_entsize(name, int_sh_type, 32))
-   
+
         data = sh_name + sh_type + sh_flags + sh_addr + sh_offset + sh_size
         data = data + sh_link + sh_info + sh_addralign + sh_entsize
- 
+
         if len(data) != 40:
             debug.error("Broken section building! %d" % len(data))
 
@@ -457,12 +457,12 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
         # put in our added section name + null terminator for section
         data = data + "\x00.shstrtab" + "\x00"
 
-        return data              
+        return data
 
     def _find_sec(self, sections_info, sym_addr):
         for sect in sections_info:
             (name, address, size) = sect
-            
+
             if address <= sym_addr < address + size:
                 return name
 
@@ -470,7 +470,7 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
 
     def _fix_sym_table(self, module, sections_info):
         all_sym_data = ""
-        
+
         first_name = False
 
         if self.addr_space.profile.metadata.get('memory_model', '32bit') == '64bit':
@@ -481,42 +481,42 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
             sym_type     = "elf32_sym"
             st_value_fmt = "<I"
             st_size_fmt  = "<I"
-              
+
         val_map      = {}
         name_idx_map = {}
         syms = obj.Object(theType="Array", targetType=sym_type, count=module.num_symtab, vm = module.obj_vm, offset = module.symtab)
         for (e, sym) in enumerate(syms):
             if sym.st_value > 0 and not module.obj_vm.profile.get_symbol_by_address("kernel", sym.st_value):
-                val_map[sym.st_value.v()] = self._find_sec(sections_info, sym.st_value) 
-                
+                val_map[sym.st_value.v()] = self._find_sec(sections_info, sym.st_value)
+
 
         for (i, sect) in enumerate(module.get_sections()):
             name_idx_map[str(sect.sect_name)] = (i + 1, sect.address) ### account for null segment
-      
+
         syms = obj.Object(theType="Array", targetType=sym_type, count=module.num_symtab, vm = module.obj_vm, offset = module.symtab)
         for sym in syms:
-            # fix absolute addresses  
+            # fix absolute addresses
             st_value_int = sym.st_value.v()
             if st_value_int > 0 and st_value_int in val_map:
                 secname = val_map[st_value_int]
                 if secname in name_idx_map:
                     sect_addr = name_idx_map[secname][1]
                     # LOOK_HERE
-                    st_value_sub  = st_value_int - sect_addr 
+                    st_value_sub  = st_value_int - sect_addr
                     st_value_full = st_value_int
-            
+
             else:
                 st_value_sub  = st_value_int
                 st_value_full = st_value_int
-            
+
             st_value = struct.pack(st_value_fmt, st_value_sub)
 
             #### fix bindings ####
-                
+
             # moved out of the sections part
             if sym.st_name > 0:
-                first_name = True   
-         
+                first_name = True
+
             if first_name:
                 bind = 1 # STB_GLOBAL
 
@@ -531,10 +531,10 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
 
                     # a .text. section but not relocations
                     if secname.find(".text") != -1 and secname.find(".rela") == -1:
-                        stype = 2 # STT_FUNC                        
+                        stype = 2 # STT_FUNC
                     else:
                         stype = 1 # STT_OBJECT
-            else: 
+            else:
                 bind  = 0 # STB_LOCAL
                 stype = 3 # STT_SECTION
 
@@ -542,7 +542,7 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
             t = stype & 0xf
             st_info = (b | t) & 0xff
             st_info = struct.pack("B", st_info)
-            
+
             #### fix indexes ####
             if sym.st_value > 0 and sym.st_value.v() in val_map:
                 secname = val_map[sym.st_value.v()]
@@ -561,11 +561,11 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
             # ones that aren't mangled
             st_name  = struct.pack("<I", sym.st_name)
             st_other = struct.pack("B", sym.st_other)
-            st_size  = struct.pack(st_size_fmt, sym.st_size)        
-   
-            if sym_type == "elf64_sym": 
+            st_size  = struct.pack(st_size_fmt, sym.st_size)
+
+            if sym_type == "elf64_sym":
                 sec_all = st_name + st_info + st_other + st_shndx + st_value + st_size
-                sec_len = 24 
+                sec_len = 24
 
             else:
                 sec_all = st_name + st_value + st_size + st_info + st_other + st_shndx
@@ -574,13 +574,13 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
             if len(sec_all) != sec_len:
                 debug.error("Invalid section length: %d" % len(sec_all))
 
-            all_sym_data = all_sym_data + sec_all        
+            all_sym_data = all_sym_data + sec_all
 
         return all_sym_data
 
     def _get_module_data(self, module):
         (updated_sections, symtab_idx, load_addr) = self._parse_sections(module)
-        
+
         if self.addr_space.profile.metadata.get('memory_model', '32bit') == '64bit':
             hdr_sz = 64
             sect_sz = 64
@@ -595,12 +595,12 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
         section_headers = self._null_sect_hdr(sect_sz)
         section_data    = ""
 
-        strtab_idx = len(updated_sections) 
+        strtab_idx = len(updated_sections)
 
         for (i, (name, address, size, file_off, sect_data)) in enumerate(updated_sections):
             section_headers = section_headers + _make_sect_header(name, address, size, file_off, strtab_idx, symtab_idx)
-            
-            section_data    = section_data + sect_data              
+
+            section_data    = section_data + sect_data
 
             last_file_off = file_off
             last_sec_sz   = len(sect_data)
@@ -616,10 +616,10 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
 
         # we stick it at the end
         num_sects  = len(updated_sections) + 1
-            
+
         header = _get_header(load_addr - hdr_sz, hdr_sz + len(section_data), num_sects)
 
-        return header + section_data + section_headers 
+        return header + section_data + section_headers
 
     def get_module_data(self, module):
         return self._get_module_data(module)
@@ -627,13 +627,12 @@ class linux_moddump(linux_common.AbstractLinuxCommand):
     def render_text(self, outfd, data):
         if not self._config.DUMP_DIR:
             debug.error("You must supply a --dump-dir output directory")
-        
+
         for module in data:
-            ## TODO: pass module.name through a char sanitizer 
+            ## TODO: pass module.name through a char sanitizer
             file_name = "{0}.{1:#x}.lkm".format(module.name, module.obj_offset)
             mod_file = open(os.path.join(self._config.DUMP_DIR, file_name), 'wb')
             mod_data = self.get_module_data(module)
             mod_file.write(mod_data)
             mod_file.close()
             outfd.write("Wrote {0} bytes to {1}\n".format(len(mod_data), file_name))
-

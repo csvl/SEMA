@@ -1,334 +1,334 @@
 {
   "GetAcceptExSockaddrs": {
-    "cc": "__cdecl", 
-    "returns": "void", 
-    "returns_float": false, 
-    "name": "GetAcceptExSockaddrs", 
+    "cc": "__cdecl",
+    "returns": "void",
+    "returns_float": false,
+    "name": "GetAcceptExSockaddrs",
     "arguments": [
       {
-        "type": " PVOID", 
-        "name": "lpOutputBuffer", 
+        "type": " PVOID",
+        "name": "lpOutputBuffer",
         "is_float": false
-      }, 
+      },
       {
-        "type": " DWORD", 
-        "name": "dwReceiveDataLength", 
+        "type": " DWORD",
+        "name": "dwReceiveDataLength",
         "is_float": false
-      }, 
+      },
       {
-        "type": " DWORD", 
-        "name": "dwLocalAddressLength", 
+        "type": " DWORD",
+        "name": "dwLocalAddressLength",
         "is_float": false
-      }, 
+      },
       {
-        "type": " DWORD", 
-        "name": "dwRemoteAddressLength", 
+        "type": " DWORD",
+        "name": "dwRemoteAddressLength",
         "is_float": false
-      }, 
+      },
       {
-        "type": " struct**", 
-        "name": "LocalSockaddr", 
+        "type": " struct**",
+        "name": "LocalSockaddr",
         "is_float": false
-      }, 
+      },
       {
-        "type": " LPINT", 
-        "name": "LocalSockaddrLength", 
+        "type": " LPINT",
+        "name": "LocalSockaddrLength",
         "is_float": false
-      }, 
+      },
       {
-        "type": " struct**", 
-        "name": "RemoteSockaddr", 
+        "type": " struct**",
+        "name": "RemoteSockaddr",
         "is_float": false
-      }, 
+      },
       {
-        "type": " LPINT", 
-        "name": "RemoteSockaddrLength", 
+        "type": " LPINT",
+        "name": "RemoteSockaddrLength",
         "is_float": false
       }
     ]
-  }, 
+  },
   "1": {
-    "cc": "__cdecl", 
-    "returns": "BOOL", 
-    "returns_float": false, 
-    "name": "AcceptEx", 
+    "cc": "__cdecl",
+    "returns": "BOOL",
+    "returns_float": false,
+    "name": "AcceptEx",
     "arguments": [
       {
-        "type": " SOCKET", 
-        "name": "sListenSocket", 
+        "type": " SOCKET",
+        "name": "sListenSocket",
         "is_float": false
-      }, 
+      },
       {
-        "type": " SOCKET", 
-        "name": "sAcceptSocket", 
+        "type": " SOCKET",
+        "name": "sAcceptSocket",
         "is_float": false
-      }, 
+      },
       {
-        "type": " PVOID", 
-        "name": "lpOutputBuffer", 
+        "type": " PVOID",
+        "name": "lpOutputBuffer",
         "is_float": false
-      }, 
+      },
       {
-        "type": " DWORD", 
-        "name": "dwReceiveDataLength", 
+        "type": " DWORD",
+        "name": "dwReceiveDataLength",
         "is_float": false
-      }, 
+      },
       {
-        "type": " DWORD", 
-        "name": "dwLocalAddressLength", 
+        "type": " DWORD",
+        "name": "dwLocalAddressLength",
         "is_float": false
-      }, 
+      },
       {
-        "type": " DWORD", 
-        "name": "dwRemoteAddressLength", 
+        "type": " DWORD",
+        "name": "dwRemoteAddressLength",
         "is_float": false
-      }, 
+      },
       {
-        "type": " LPDWORD", 
-        "name": "lpdwBytesReceived", 
+        "type": " LPDWORD",
+        "name": "lpdwBytesReceived",
         "is_float": false
-      }, 
+      },
       {
-        "type": " LPOVERLAPPED", 
-        "name": "lpOverlapped", 
+        "type": " LPOVERLAPPED",
+        "name": "lpOverlapped",
         "is_float": false
       }
     ]
-  }, 
+  },
   "AcceptEx": {
-    "cc": "__cdecl", 
-    "returns": "BOOL", 
-    "returns_float": false, 
-    "name": "AcceptEx", 
+    "cc": "__cdecl",
+    "returns": "BOOL",
+    "returns_float": false,
+    "name": "AcceptEx",
     "arguments": [
       {
-        "type": " SOCKET", 
-        "name": "sListenSocket", 
+        "type": " SOCKET",
+        "name": "sListenSocket",
         "is_float": false
-      }, 
+      },
       {
-        "type": " SOCKET", 
-        "name": "sAcceptSocket", 
+        "type": " SOCKET",
+        "name": "sAcceptSocket",
         "is_float": false
-      }, 
+      },
       {
-        "type": " PVOID", 
-        "name": "lpOutputBuffer", 
+        "type": " PVOID",
+        "name": "lpOutputBuffer",
         "is_float": false
-      }, 
+      },
       {
-        "type": " DWORD", 
-        "name": "dwReceiveDataLength", 
+        "type": " DWORD",
+        "name": "dwReceiveDataLength",
         "is_float": false
-      }, 
+      },
       {
-        "type": " DWORD", 
-        "name": "dwLocalAddressLength", 
+        "type": " DWORD",
+        "name": "dwLocalAddressLength",
         "is_float": false
-      }, 
+      },
       {
-        "type": " DWORD", 
-        "name": "dwRemoteAddressLength", 
+        "type": " DWORD",
+        "name": "dwRemoteAddressLength",
         "is_float": false
-      }, 
+      },
       {
-        "type": " LPDWORD", 
-        "name": "lpdwBytesReceived", 
+        "type": " LPDWORD",
+        "name": "lpdwBytesReceived",
         "is_float": false
-      }, 
+      },
       {
-        "type": " LPOVERLAPPED", 
-        "name": "lpOverlapped", 
+        "type": " LPOVERLAPPED",
+        "name": "lpOverlapped",
         "is_float": false
       }
     ]
-  }, 
+  },
   "TransmitFile": {
-    "cc": "__cdecl", 
-    "returns": "BOOL", 
-    "returns_float": false, 
-    "name": "TransmitFile", 
+    "cc": "__cdecl",
+    "returns": "BOOL",
+    "returns_float": false,
+    "name": "TransmitFile",
     "arguments": [
       {
-        "type": " SOCKET", 
-        "name": "hSocket", 
+        "type": " SOCKET",
+        "name": "hSocket",
         "is_float": false
-      }, 
+      },
       {
-        "type": " HANDLE", 
-        "name": "hFile", 
+        "type": " HANDLE",
+        "name": "hFile",
         "is_float": false
-      }, 
+      },
       {
-        "type": " DWORD", 
-        "name": "nNumberOfBytesToWrite", 
+        "type": " DWORD",
+        "name": "nNumberOfBytesToWrite",
         "is_float": false
-      }, 
+      },
       {
-        "type": " DWORD", 
-        "name": "nNumberOfBytesPerSend", 
+        "type": " DWORD",
+        "name": "nNumberOfBytesPerSend",
         "is_float": false
-      }, 
+      },
       {
-        "type": " LPOVERLAPPED", 
-        "name": "lpOverlapped", 
+        "type": " LPOVERLAPPED",
+        "name": "lpOverlapped",
         "is_float": false
-      }, 
+      },
       {
-        "type": " LPTRANSMIT_FILE_BUFFERS", 
-        "name": "lpTransmitBuffers", 
+        "type": " LPTRANSMIT_FILE_BUFFERS",
+        "name": "lpTransmitBuffers",
         "is_float": false
-      }, 
+      },
       {
-        "type": " DWORD", 
-        "name": "dwReserved", 
+        "type": " DWORD",
+        "name": "dwReserved",
         "is_float": false
       }
     ]
-  }, 
+  },
   "53": {
-    "cc": "__cdecl", 
-    "returns": "BOOL", 
-    "returns_float": false, 
-    "name": "TransmitFile", 
+    "cc": "__cdecl",
+    "returns": "BOOL",
+    "returns_float": false,
+    "name": "TransmitFile",
     "arguments": [
       {
-        "type": " SOCKET", 
-        "name": "hSocket", 
+        "type": " SOCKET",
+        "name": "hSocket",
         "is_float": false
-      }, 
+      },
       {
-        "type": " HANDLE", 
-        "name": "hFile", 
+        "type": " HANDLE",
+        "name": "hFile",
         "is_float": false
-      }, 
+      },
       {
-        "type": " DWORD", 
-        "name": "nNumberOfBytesToWrite", 
+        "type": " DWORD",
+        "name": "nNumberOfBytesToWrite",
         "is_float": false
-      }, 
+      },
       {
-        "type": " DWORD", 
-        "name": "nNumberOfBytesPerSend", 
+        "type": " DWORD",
+        "name": "nNumberOfBytesPerSend",
         "is_float": false
-      }, 
+      },
       {
-        "type": " LPOVERLAPPED", 
-        "name": "lpOverlapped", 
+        "type": " LPOVERLAPPED",
+        "name": "lpOverlapped",
         "is_float": false
-      }, 
+      },
       {
-        "type": " LPTRANSMIT_FILE_BUFFERS", 
-        "name": "lpTransmitBuffers", 
+        "type": " LPTRANSMIT_FILE_BUFFERS",
+        "name": "lpTransmitBuffers",
         "is_float": false
-      }, 
+      },
       {
-        "type": " DWORD", 
-        "name": "dwReserved", 
+        "type": " DWORD",
+        "name": "dwReserved",
         "is_float": false
       }
     ]
-  }, 
+  },
   "54": {
-    "cc": "__cdecl", 
-    "returns": "int", 
-    "returns_float": false, 
-    "name": "WSARecvEx", 
+    "cc": "__cdecl",
+    "returns": "int",
+    "returns_float": false,
+    "name": "WSARecvEx",
     "arguments": [
       {
-        "type": " SOCKET", 
-        "name": "s", 
+        "type": " SOCKET",
+        "name": "s",
         "is_float": false
-      }, 
+      },
       {
-        "type": " char*", 
-        "name": "buf", 
+        "type": " char*",
+        "name": "buf",
         "is_float": false
-      }, 
+      },
       {
-        "type": " int", 
-        "name": "len", 
+        "type": " int",
+        "name": "len",
         "is_float": false
-      }, 
+      },
       {
-        "type": " int*", 
-        "name": "flags", 
+        "type": " int*",
+        "name": "flags",
         "is_float": false
       }
     ]
-  }, 
+  },
   "4": {
-    "cc": "__cdecl", 
-    "returns": "void", 
-    "returns_float": false, 
-    "name": "GetAcceptExSockaddrs", 
+    "cc": "__cdecl",
+    "returns": "void",
+    "returns_float": false,
+    "name": "GetAcceptExSockaddrs",
     "arguments": [
       {
-        "type": " PVOID", 
-        "name": "lpOutputBuffer", 
+        "type": " PVOID",
+        "name": "lpOutputBuffer",
         "is_float": false
-      }, 
+      },
       {
-        "type": " DWORD", 
-        "name": "dwReceiveDataLength", 
+        "type": " DWORD",
+        "name": "dwReceiveDataLength",
         "is_float": false
-      }, 
+      },
       {
-        "type": " DWORD", 
-        "name": "dwLocalAddressLength", 
+        "type": " DWORD",
+        "name": "dwLocalAddressLength",
         "is_float": false
-      }, 
+      },
       {
-        "type": " DWORD", 
-        "name": "dwRemoteAddressLength", 
+        "type": " DWORD",
+        "name": "dwRemoteAddressLength",
         "is_float": false
-      }, 
+      },
       {
-        "type": " struct**", 
-        "name": "LocalSockaddr", 
+        "type": " struct**",
+        "name": "LocalSockaddr",
         "is_float": false
-      }, 
+      },
       {
-        "type": " LPINT", 
-        "name": "LocalSockaddrLength", 
+        "type": " LPINT",
+        "name": "LocalSockaddrLength",
         "is_float": false
-      }, 
+      },
       {
-        "type": " struct**", 
-        "name": "RemoteSockaddr", 
+        "type": " struct**",
+        "name": "RemoteSockaddr",
         "is_float": false
-      }, 
+      },
       {
-        "type": " LPINT", 
-        "name": "RemoteSockaddrLength", 
+        "type": " LPINT",
+        "name": "RemoteSockaddrLength",
         "is_float": false
       }
     ]
-  }, 
+  },
   "WSARecvEx": {
-    "cc": "__cdecl", 
-    "returns": "int", 
-    "returns_float": false, 
-    "name": "WSARecvEx", 
+    "cc": "__cdecl",
+    "returns": "int",
+    "returns_float": false,
+    "name": "WSARecvEx",
     "arguments": [
       {
-        "type": " SOCKET", 
-        "name": "s", 
+        "type": " SOCKET",
+        "name": "s",
         "is_float": false
-      }, 
+      },
       {
-        "type": " char*", 
-        "name": "buf", 
+        "type": " char*",
+        "name": "buf",
         "is_float": false
-      }, 
+      },
       {
-        "type": " int", 
-        "name": "len", 
+        "type": " int",
+        "name": "len",
         "is_float": false
-      }, 
+      },
       {
-        "type": " int*", 
-        "name": "flags", 
+        "type": " int*",
+        "name": "flags",
         "is_float": false
       }
     ]

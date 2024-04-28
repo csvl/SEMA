@@ -10,7 +10,7 @@
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details. 
+# General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
@@ -34,9 +34,9 @@ class mac_strings(strings.Strings, mac_common.AbstractMacCommand):
 
         :param      addr_space | <addrspace.AbstractVirtualAddressSpace>
 
-        :returns    <list> 
+        :returns    <list>
         """
-       
+
         tasks = mac_tasks.mac_tasks(self._config).calculate()
 
         try:
@@ -49,11 +49,11 @@ class mac_strings(strings.Strings, mac_common.AbstractMacCommand):
         return tasks
 
     @classmethod
-    def get_modules(cls, addr_space):    
-        """Enumerate the kernel modules. 
+    def get_modules(cls, addr_space):
+        """Enumerate the kernel modules.
 
         :param      addr_space | <addrspace.AbstractVirtualAddressSpace>
-        
+
         :returns    <tuple>
         """
 
@@ -62,18 +62,18 @@ class mac_strings(strings.Strings, mac_common.AbstractMacCommand):
         modules = mac_lsmod.mac_lsmod(config).calculate()
         mods = dict((mask(mod.address), mod) for mod in modules)
         mod_addrs = sorted(mods.keys())
-         
+
         return (mods, mod_addrs)
 
     @classmethod
     def find_module(cls, modlist, mod_addrs, addr_space, vpage):
-        """Determine which module owns a virtual page. 
+        """Determine which module owns a virtual page.
 
         :param      modlist     | <list>
                     mod_addrs   | <list>
                     addr_space  | <addrspace.AbstractVirtualAddressSpace>
-                    vpage       | <int> 
-        
+                    vpage       | <int>
+
         :returns    <module> || None
         """
 
@@ -94,7 +94,7 @@ class mac_strings(strings.Strings, mac_common.AbstractMacCommand):
         """Get the name of a kernel module.
 
         :param      module      | <module>
-        
+
         :returns    <str>
         """
 
@@ -102,11 +102,10 @@ class mac_strings(strings.Strings, mac_common.AbstractMacCommand):
 
     @classmethod
     def get_task_pid(cls, task):
-        """Get the PID of a process. 
+        """Get the PID of a process.
 
         :param      task   | <task>
-        
+
         :returns    <int>
         """
         return task.p_pid
- 

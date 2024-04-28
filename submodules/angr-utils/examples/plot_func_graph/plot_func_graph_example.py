@@ -13,4 +13,3 @@ def analyze(b, name):
 if __name__ == "__main__":
     proj = angr.Project("../samples/1.6.26-libjsound.so", load_options={'auto_load_libs':False, 'main_opts':{'base_addr':0}})
     analyze(proj, "libjsound")
-

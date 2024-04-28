@@ -19,4 +19,3 @@ for path in sys.path:
         datas.append((os.path.join(path, "distorm3", "distorm3.dll"), "."))
     if os.path.exists(os.path.join(path, "distorm3", "libdistorm3.so")):
         datas.append((os.path.join(path, "distorm3", "libdistorm3.so"), "."))
-

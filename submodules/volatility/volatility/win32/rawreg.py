@@ -105,12 +105,12 @@ def read_sklist(sk):
                 continue
 
             ssk = obj.Object("_CM_KEY_INDEX", ssk_off, sk.obj_vm)
-            
+
             # this protects against a cycle seen in win10x86_14393 where
             # one of a key's subkey entries pointed back at itself
             if ssk == sk:
                 break
-                
+
             for i in read_sklist(ssk):
                 yield i
 
@@ -157,7 +157,7 @@ def value_data(val):
         big_data = obj.Object("_CM_BIG_DATA", val.Data, val.obj_vm)
         valdata = ""
         thelist = []
-        if not big_data.Count or big_data.Count > 0x80000000: 
+        if not big_data.Count or big_data.Count > 0x80000000:
             thelist = []
         else:
             for i in range(big_data.Count):
@@ -166,7 +166,7 @@ def value_data(val):
                 if not val.obj_vm.is_valid_address(chunk_addr):
                     continue
                 thelist.append(chunk_addr)
-        
+
         for chunk in thelist:
             amount_to_read = min(BIG_DATA_MAGIC, datalen)
             chunk_data = val.obj_vm.read(chunk, amount_to_read)

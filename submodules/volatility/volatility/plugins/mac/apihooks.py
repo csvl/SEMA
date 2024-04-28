@@ -21,11 +21,11 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
-import volatility.plugins.mac.pstasks as pstasks 
+import volatility.plugins.mac.pstasks as pstasks
 import volatility.plugins.mac.common as common
 from volatility.renderers import TreeGrid
 from volatility.renderers.basic import Address
@@ -39,11 +39,11 @@ class mac_apihooks(pstasks.mac_tasks):
         self.mapping_cache = {}
 
         pstasks.mac_tasks.__init__(self, config, *args, **kwargs)
-  
+
     def _is_api_hooked(self, sym_addr, proc_as):
-        hook_type = None 
-        addr = None    
-        counter   = 1 
+        hook_type = None
+        addr = None
+        counter   = 1
         prev_op = None
 
         if self.profile.metadata.get('memory_model', '32bit') == '32bit':
@@ -52,22 +52,22 @@ class mac_apihooks(pstasks.mac_tasks):
             mode = distorm3.Decode64Bits
 
         data = proc_as.read(sym_addr, 24)
-    
+
         for op in distorm3.Decompose(sym_addr, data, mode):
             if not op or not op.valid:
                 continue
 
             if op.mnemonic == "JMP":
                 hook_type = "JMP"
-                addr = 0 # default in case we cannot extract               
+                addr = 0 # default in case we cannot extract
 
                 # check for a mov reg, addr; jmp reg;
                 if prev_op and prev_op.mnemonic == "MOV" and prev_op.operands[0].type == 'Register' and op.operands[0].type == 'Register':
                     prev_name = prev_op.operands[0].name
-                    
+
                     # same register
                     if prev_name == op.operands[0].name:
-                        addr = prev_op.operands[1].value                        
+                        addr = prev_op.operands[1].value
 
                 else:
                     addr = op.operands[0].value
@@ -86,7 +86,7 @@ class mac_apihooks(pstasks.mac_tasks):
 
                 elif prev_op.mnemonic == "MOV" and prev_op.operands[0].type == 'Register' and  prev_op.operands[1].type == 'Register':
                     break
-                
+
                 hook_type = "RET"
                 addr = sym_addr
 
@@ -108,18 +108,18 @@ class mac_apihooks(pstasks.mac_tasks):
 
     def _fill_mapping_cache(self, proc):
         proc_as = proc.get_process_address_space()
-            
+
         self.mapping_cache[proc.v()] = {}
-            
+
         ranges = []
 
         for mapping in proc.get_dyld_maps():
-            m = obj.Object("macho_header", offset = mapping.imageLoadAddress, vm = proc_as)        
-        
+            m = obj.Object("macho_header", offset = mapping.imageLoadAddress, vm = proc_as)
+
             for seg in m.segments():
                 ranges.append((mapping.imageFilePath, seg.vmaddr, seg.vmaddr + seg.vmsize))
 
-        self.mapping_cache[proc.v()] = ranges 
+        self.mapping_cache[proc.v()] = ranges
 
     def _find_mapping(self, proc, addr):
         ret =  None
@@ -134,7 +134,7 @@ class mac_apihooks(pstasks.mac_tasks):
                 ret = (path, start, end)
                 break
 
-        return ret 
+        return ret
 
     def _find_mapping_proc_maps(self, proc, addr):
         ret = None
@@ -144,7 +144,7 @@ class mac_apihooks(pstasks.mac_tasks):
                 ret = (mapping.get_path(), mapping.start, mapping.end)
 
         return ret
-    
+
     def calculate(self):
         common.set_plugin_members(self)
 
@@ -160,7 +160,7 @@ class mac_apihooks(pstasks.mac_tasks):
 
                 needed_libraries = {}
                 for n in macho.needed_libraries():
-                    needed_libraries[n] = 1 
+                    needed_libraries[n] = 1
 
                 for (name, addr) in macho.imports():
                     is_lazy       = False
@@ -179,13 +179,13 @@ class mac_apihooks(pstasks.mac_tasks):
                         # the address points to a bogus (non-mapped region)
                         vma_path = "<UNKNOWN>"
                         vma_start = addr
-                        vma_end = addr  
+                        vma_end = addr
 
                     addr_mapping = vma_path
 
                     # non-resolved symbols
                     if vma_start <= mapping.imageLoadAddress <= vma_end:
-                        is_lazy = True                        
+                        is_lazy = True
                     else:
                         is_ptr_hooked = not addr_mapping in needed_libraries
 
@@ -194,9 +194,9 @@ class mac_apihooks(pstasks.mac_tasks):
                         if is_ptr_hooked:
                             if proc.task.shared_region.sr_base_address <= addr <= proc.task.shared_region.sr_base_address + proc.task.shared_region.sr_size:
                                 is_ptr_hooked = False
-    
+
                         if not is_ptr_hooked:
-                            is_api_hooked = self._is_api_hooked(addr,  proc_as)  
+                            is_api_hooked = self._is_api_hooked(addr,  proc_as)
                             if is_api_hooked:
                                 (hook_type, hook_addr) = is_api_hooked
 
@@ -256,8 +256,8 @@ class mac_apihooks(pstasks.mac_tasks):
                                   ("Hook Type", "6"),
                                   ("Hook Addr", "[addrpad]"),
                                   ("Hook Library", ""),
-                                 ])       
- 
+                                 ])
+
         for (task, name, addr, is_lazy, is_ptr_hooked, is_api_hooked, hook_type, hook_addr, addr_mapping) in data:
             if is_lazy:
                 is_lazy = "True"

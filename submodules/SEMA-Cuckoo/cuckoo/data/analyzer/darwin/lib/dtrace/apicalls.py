@@ -10,8 +10,8 @@ from subprocess import Popen
 from collections import namedtuple
 from tempfile import NamedTemporaryFile
 
-from autoprobes import generate_probes
-from common import sanitize_path, path_for_script, filelines, current_directory
+from .autoprobes import generate_probes
+from .common import sanitize_path, path_for_script, filelines, current_directory
 
 apicall = namedtuple("apicall", "api args retval timestamp pid ppid tid errno")
 
@@ -97,7 +97,7 @@ def _stringify_args(args):
     In case of integers, it's a hex string. Other types are converted with str() """
     new_args = []
     for item in args:
-        if isinstance(item, (int, long)):
+        if isinstance(item, int):
             new_args.append("%#lx" % item)
         else:
             new_args.append(str(item))

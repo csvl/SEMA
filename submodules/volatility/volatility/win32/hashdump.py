@@ -117,7 +117,7 @@ def find_control_set(sysaddr):
     for v in rawreg.values(csselect):
         if v.Name == "Current":
             return v.Data
-            
+
     return 1
 
 def get_bootkey(sysaddr):
@@ -329,7 +329,7 @@ def dump_hashes(sysaddr, samaddr):
                     lmhash = empty_lm
                 if not nthash:
                     nthash = empty_nt
-                ## temporary fix to prevent UnicodeDecodeError backtraces 
+                ## temporary fix to prevent UnicodeDecodeError backtraces
                 ## however this can cause truncated user names as a result
                 name = get_user_name(user)
                 if name is not None:

@@ -5,7 +5,7 @@
 
 import time
 import logging
-import StringIO
+import io
 from threading import Thread
 
 from lib.common.abstracts import Auxiliary
@@ -62,7 +62,7 @@ class Screenshots(Auxiliary, Thread):
             img_counter += 1
 
             # workaround as PIL can't write to the socket file object :(
-            tmpio = StringIO.StringIO()
+            tmpio = io.StringIO()
             img_current.save(tmpio, format="PNG")
             tmpio.seek(0)
 

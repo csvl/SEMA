@@ -19,16 +19,16 @@
 #
 
 """
-@author:       The Volatility Foundation 
+@author:       The Volatility Foundation
 @license:      GNU General Public License 2.0
 @contact:      awalters@4tphi.net
 
-This file provides support for Windows Vista. 
+This file provides support for Windows Vista.
 """
 
 #pylint: disable-msg=C0111
 
-import windows
+from . import windows
 import volatility.debug as debug #pylint: disable-msg=W0611
 import volatility.obj as obj
 
@@ -55,7 +55,7 @@ class _TOKEN(windows._TOKEN):
     def privileges(self):
         """Generator for privileges.
 
-        @yields a tuple (value, present, enabled, default). 
+        @yields a tuple (value, present, enabled, default).
         """
         for i in range(0, 64):
             bit_position = 1 << i
@@ -111,8 +111,8 @@ class VistaObjectClasses(obj.ProfileModification):
                   }
 
     def modification(self, profile):
-        profile.object_classes.update({'_ETHREAD'    : _ETHREAD, 
-                                       '_POOL_HEADER': _POOL_HEADER, 
+        profile.object_classes.update({'_ETHREAD'    : _ETHREAD,
+                                       '_POOL_HEADER': _POOL_HEADER,
                                        '_TOKEN': _TOKEN,
                                        'wchar': windows._UNICODE_STRING})
 

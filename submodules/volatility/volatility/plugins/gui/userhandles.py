@@ -1,5 +1,5 @@
 # Volatility
-# Copyright (C) 2007-2013 Volatility Foundation 
+# Copyright (C) 2007-2013 Volatility Foundation
 # Copyright (C) 2010,2011,2012 Michael Hale Ligh <michael.ligh@mnin.org>
 #
 # This file is part of Volatility.

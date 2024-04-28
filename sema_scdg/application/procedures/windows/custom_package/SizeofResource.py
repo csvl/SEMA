@@ -15,10 +15,9 @@ class SizeofResource(angr.SimProcedure):
                 lw.debug(hex(self.state.plugin_resources.resources[self.state.solver.eval(hResInfo)]["size"]))
                 return self.state.plugin_resources.resources[self.state.solver.eval(hResInfo)]["size"]
             else:
-                return 0x20 
+                return 0x20
                 # self.state.solver.BVS(
                 #         "retval_{}".format(self.display_name), self.arch.bits
                 #     )
         else :
             lw.warning("The procedure SizeofRessource is using the plugin plugin_ressources which is not activated")
-        

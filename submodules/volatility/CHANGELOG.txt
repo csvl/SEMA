@@ -4,7 +4,7 @@ As of Volatility 2.4, all changes are now tracked on the GitHub site:
 
 https://github.com/volatilityfoundation/volatility
 
-Volatility 2.0-2.3: all changes were tracked on the Google Code site: 
+Volatility 2.0-2.3: all changes were tracked on the Google Code site:
 
 http://code.google.com/p/volatility/source/list
 
@@ -66,7 +66,7 @@ http://code.google.com/p/volatility/source/list
         forensics/x86.py
     Description:
       Added more robustness to the x86 address space. This time
-      it focused on PAE.  Certain samples were reading outside of 
+      it focused on PAE.  Certain samples were reading outside of
       the physical address space. Thanks to Brendan Dolan-Gavitt for patch.
 
 03.17.2009    Volatility-1.3.1    awalters
@@ -86,7 +86,7 @@ http://code.google.com/p/volatility/source/list
 	forensics/win32/scan.py
     Description:
       Added new offsets to network to handle new driver. Updated scan2
-      and scan as well to support new pool allocation size. Thanks to Brendan 
+      and scan as well to support new pool allocation size. Thanks to Brendan
       Dolan-Gavitt.
 
 02.22.2009    Volatility-1.3.1    awalters
@@ -98,7 +98,7 @@ http://code.google.com/p/volatility/source/list
 
 02.05.2009    Volatility-1.3.1    awalters
     * Update: Handle parsing
-    * Files: 
+    * Files:
         forensics/win32/handles.py
 	vmodules.py
     Description:
@@ -127,8 +127,8 @@ http://code.google.com/p/volatility/source/list
     Description:
       Plugins creators are now able to express an inheritance order
       associated with an object. The default is the Profile objects.
-      This fixes a problem associated with collisions.  Thanks to 
-      Cameron C Caffee for the bug report and thanks to Brendan 
+      This fixes a problem associated with collisions.  Thanks to
+      Cameron C Caffee for the bug report and thanks to Brendan
       Dolan-Gavitt and Michael Cohen for insightful discussions.
 
 12.10.2008    Volatility-1.3.1    awalters
@@ -171,7 +171,7 @@ http://code.google.com/p/volatility/source/list
       Description:
         Added more checks in print_entry_keys for invalid pages.
 	Some of the key path was crossing page boundaries so more
-	checks needed to be added. Thanks to Christian Herndler 
+	checks needed to be added. Thanks to Christian Herndler
 	for the bug report.
 
 11.22.2008    Volatility-1.3.1    awalters
@@ -189,7 +189,7 @@ http://code.google.com/p/volatility/source/list
     * Files:
         forensics/win32/registry.py
       Description:
-        print_entry_keys has been updated to check that KeyControlBlock 
+        print_entry_keys has been updated to check that KeyControlBlock
 	is a valid address. Thanks to Christian Herndler for the bug
 	report and Brendan Dolan-Gavitt for the bug fix.
 
@@ -208,8 +208,8 @@ http://code.google.com/p/volatility/source/list
 	forensics/win32/registry.py
 	vmodules.py
       Description:
-         Added more checks for invalid pages while processing the 
-	 object directory. Thanks to Christian Herndler for the bug 
+         Added more checks for invalid pages while processing the
+	 object directory. Thanks to Christian Herndler for the bug
 	 report.
 
 11.03.2008    Volatility-1.3.1    awalters
@@ -304,7 +304,7 @@ http://code.google.com/p/volatility/source/list
       Description:
         Updated the vad modules to handle
 	invalid addresses in low memory situations.
-	Thanks to Bryan D. Payne for sending in 
+	Thanks to Bryan D. Payne for sending in
 	a bug report.
 
 6.23.2008     Volatility-1.3    awalters
@@ -321,7 +321,7 @@ http://code.google.com/p/volatility/source/list
     * Update: Ident info
     * Files:
         forensics/win32/tasks.py
-	vutils.py 
+	vutils.py
       Description:
         Updated ident command so that it correctly
 	finds the version of XP, now that we have
@@ -346,7 +346,7 @@ http://code.google.com/p/volatility/source/list
         Added code to catch the cases when we encounter
 	invalid page directories.  Thanks to both Angelo Cavallini
 	and Brendan Dolan-Gavitt for reporting this bug.
-        
+
 6.8.2008      Volatility-1.3    awalters
     * Update: potential bad string characters (unicode escaping)
     * Files:
@@ -359,10 +359,10 @@ http://code.google.com/p/volatility/source/list
 
 6.8.2008      Volatility-1.3    awalters
     * Update: psscan2 check_dtb
-    * Files: 
-        forensics/win32/scan2.py 
+    * Files:
+        forensics/win32/scan2.py
       Description:
-        Added a check from psscan to psscan2 in the 
+        Added a check from psscan to psscan2 in the
 	check_dtb constraint to make sure the DTB
 	had a value. Thanks Andreas Schuster!
 
@@ -397,8 +397,8 @@ http://code.google.com/p/volatility/source/list
 	vutils.py
       Description:
         Added a new object model to make navigating the data
-	structures more intuitive. All future modules will be 
-	transition to use this new model. Thanks to Brendan 
+	structures more intuitive. All future modules will be
+	transition to use this new model. Thanks to Brendan
 	Dolan-Gavitt for all his help!
 
 5.14.2008     Volatility-1.3    awalters
@@ -410,12 +410,12 @@ http://code.google.com/p/volatility/source/list
         memory_plugins/example1.py
         memory_plugins/example2.py
       Description:
-        Added an entirely new plugin infrastructure.  Now it is 
+        Added an entirely new plugin infrastructure.  Now it is
         possible to load the commands dynamically just by adding
         them to the correct directory.  This will allow people
-        to support their own modules. This work is based on a 
-        similar registry implementation found in PyFlag. 
-        Thanks to Michael Cohen and David Collett for the great 
+        to support their own modules. This work is based on a
+        similar registry implementation found in PyFlag.
+        Thanks to Michael Cohen and David Collett for the great
         work they have done and help getting this code integrated.
 
 5.13.2008     Volatility-1.3    awalters
@@ -449,9 +449,9 @@ http://code.google.com/p/volatility/source/list
       Description:
           Added an entirely new OO scanning infrastructure. This allows
           for extremely fast scanning and easier scanning across the
-          logical address spaces.  As part of this we also ported the 
+          logical address spaces.  As part of this we also ported the
           scanning modules over to the new infrastructure. Thanks to
-          Michael Cohen and Andreas Schuster for the help and ideas 
+          Michael Cohen and Andreas Schuster for the help and ideas
           to get this working!
 
 5.7.2008      Volatility-1.3    awalters
@@ -483,7 +483,7 @@ http://code.google.com/p/volatility/source/list
           forensics/win32/handles.py
       Description:
           During testing Brendan found a bug when processing object types.
-	  It would have been possible to enumerate KeyedEvents. Thanks 
+	  It would have been possible to enumerate KeyedEvents. Thanks
 	  Brendan Dolan-Gavitt!
 
 4.28.2008     Volatility-1.3    awalters
@@ -495,7 +495,7 @@ http://code.google.com/p/volatility/source/list
           vtypes.py
       Description:
           Added a new module that will allow an analyst to dump the open
-          registry keys found in the object table.  Thanks to 
+          registry keys found in the object table.  Thanks to
           Brendan Dolan-Gavitt for his contributions!
 
 4.27.2008     Volatility-1.3    awalters
@@ -555,7 +555,7 @@ http://code.google.com/p/volatility/source/list
       Files:
         forensics/object.py
       Description:
-        Modified get_obj_offset to support arrays of non-builtin types.  
+        Modified get_obj_offset to support arrays of non-builtin types.
 	Thanks Brendan Dolan-Gavitt!
 
 2.27.2008     Volatility-1.2.3pre  awalters
@@ -563,7 +563,7 @@ http://code.google.com/p/volatility/source/list
       Files:
         forensics/win32/modules.py
       Description:
-        Traversing the module list should not stop when it reaches a None but 
+        Traversing the module list should not stop when it reaches a None but
 	continue to the next module
 
 2.27.2008     Volatility-1.2.3pre  awalters
@@ -574,7 +574,7 @@ http://code.google.com/p/volatility/source/list
       Description:
         is_valid_address was failing to check if addr was None. This was found
 	by analyzing hiberfile images. Thanks to Brendan Dolan-Gavitt and
-	Andreas Schuster for helping me find the problem! 
+	Andreas Schuster for helping me find the problem!
 
 2.25.2008     Volatility-1.2.3pre  awalters
 
@@ -617,7 +617,7 @@ http://code.google.com/p/volatility/source/list
 	Thanks Andreas Schuster.
 
 11.27.2007    Volatility-1.2.2pre  awalters
-    
+
     * Optimization: find_dtb
       Files:
         forensics/win32/tasks.py
@@ -630,7 +630,7 @@ http://code.google.com/p/volatility/source/list
       Files:
         vmodules.py
       Description:
-        Dumps a processes address space. Thanks Eoghan Casey. 
+        Dumps a processes address space. Thanks Eoghan Casey.
 
 09.20.2007    Volatility-1.2pre    awalters
 
@@ -640,16 +640,16 @@ http://code.google.com/p/volatility/source/list
         forensics/win32/scan.py
         forensics/win32/globals.py
       Description:
-        Performs a linear scan for memory resident Windows modules. Contributed         by Andreas Schuster. 
+        Performs a linear scan for memory resident Windows modules. Contributed         by Andreas Schuster.
     * New Module: memmap
       Files:
         vmodules.py
         forensics/x86.py
       Description:
-        Provides a map of the virtual to physical address translations within 
-        a particular address space.  Based on similar tools by Andreas 
+        Provides a map of the virtual to physical address translations within
+        a particular address space.  Based on similar tools by Andreas
         Schuster (memdump.pl) and Brendan Dolan-Gavitt (memdump.py).
-    * New Module: dmpchk 
+    * New Module: dmpchk
       Files:
         vmodules.py
         forensics/win32/crash_addrspace.py
@@ -660,12 +660,12 @@ http://code.google.com/p/volatility/source/list
         forensics/x86.py
         forensics/win32/crash_addrspace.py
       Description:
-        Provides the ability to use crash dumps as input to Volatility. This is 
-	accomplished through the use of stackable address spaces. Contributions 
+        Provides the ability to use crash dumps as input to Volatility. This is
+	accomplished through the use of stackable address spaces. Contributions
 	from Andreas Schuster.
     * New Feature: get_available_pages()
       Files:
-        forensics/x86.py 
+        forensics/x86.py
       Description:
         This functions allows an investigator to find all available pages within        a particular address space.  Thanks Brendan Dolan-Gavitt.
     * New Feature: zread()
@@ -686,4 +686,3 @@ http://code.google.com/p/volatility/source/list
     * Bug fixes in network and socket modules
     * Removed symbol dependencies
     * Multiprocessor support
-

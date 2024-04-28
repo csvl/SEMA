@@ -13,15 +13,15 @@ class settings(object):
 
 def init_settings():
     s = {}
-    execfile(cwd("distributed", "settings.py"), s)
+    exec(compile(open(cwd("distributed", "settings.py"), "rb").read(), cwd("distributed", "settings.py"), 'exec'), s)
 
-    for key, value in s.items():
+    for key, value in list(s.items()):
         if key.startswith("_"):
             continue
 
         setattr(settings, key, value)
 
-class StatsCache(object):
+class StatsCache(object, metaclass=Singleton):
     """Used to cache values. Values are stored under a group name. This
     group name contains keys which a datetime strings rounded to a step size.
     The key can contain a given str prefix. A step size is an int representing
@@ -29,8 +29,6 @@ class StatsCache(object):
 
     Cache entries will be cleared after max_cached_days have passed.
     """
-
-    __metaclass__ = Singleton
     dt_ftm = "%Y-%m-%d %H:%M:%S"
     max_cache_days = 60
 

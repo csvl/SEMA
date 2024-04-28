@@ -2,7 +2,7 @@
 
 Orig | Found 0 | Found 1
 --- | --- | ---
-![orig][orig] | ![found_0][found_0] | ![found_1][found_1] 
+![orig][orig] | ![found_0][found_0] | ![found_1][found_1]
 
 Found 2| Looping 0 | Looping 1
 --- | --- | ---

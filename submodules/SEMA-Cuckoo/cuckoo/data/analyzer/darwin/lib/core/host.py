@@ -10,7 +10,7 @@ import bson
 from os import path
 from datetime import datetime
 from subprocess import check_output, CalledProcessError
-from filetimes import dt_to_filetime
+from .filetimes import dt_to_filetime
 
 log = logging.getLogger(__name__)
 

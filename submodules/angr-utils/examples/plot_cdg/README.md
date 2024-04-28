@@ -18,4 +18,3 @@ CFG | CDG
 
 [cfg_simple]: https://i.imgur.com/QwyHktr.png
 [cdg_simple]: https://i.imgur.com/ZKrh1z1.png
-

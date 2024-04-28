@@ -21,21 +21,21 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
-import common
+from . import common
 from volatility.renderers import TreeGrid
 from volatility.renderers.basic import Address
 
 class mac_check_syscalls(common.AbstractMacCommand):
     """ Checks to see if system call table entries are hooked """
- 
+
     def __init__(self, config, *args, **kwargs):
         common.AbstractMacCommand.__init__(self, config, *args, **kwargs)
         self._config.add_option('syscall-indexes', short_option = 'i', default = None, help = 'Path to unistd_{32,64}.h from the target machine', action = 'store', type = 'str')
-   
+
     def _parse_handler_names(self):
         index_names = {}
 
@@ -61,7 +61,7 @@ class mac_check_syscalls(common.AbstractMacCommand):
 
     def calculate(self):
         common.set_plugin_members(self)
-        
+
         if self._config.SYSCALL_INDEXES:
             index_names = self._parse_handler_names()
         else:
@@ -91,7 +91,7 @@ class mac_check_syscalls(common.AbstractMacCommand):
                     sym_name = "N/A"
 
             yield (table_addr, "SyscallTable", i, ent_addr, sym_name, hooked)
- 
+
     def unified_output(self, data):
         return TreeGrid([("Table Name", str),
                          ("Index", int),
@@ -122,4 +122,3 @@ class mac_check_syscalls(common.AbstractMacCommand):
                 status = "HOOKED"
 
             self.table_row(outfd, table_name, i, call_addr, sym_name, status)
-

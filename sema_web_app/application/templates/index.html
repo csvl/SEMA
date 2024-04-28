@@ -21,7 +21,7 @@
 
          if (document.addEventListener)
             document.addEventListener("DOMContentLoaded", function(){
-               alreadyrunflag=1; ready(); 
+               alreadyrunflag=1; ready();
             }, false)
          else if (document.all && !window.opera){
             document.write('<script type="text/javascript" id="contentloadtag" defer="defer" src="javascript:void(0)"><\/script>')
@@ -39,7 +39,7 @@
          }
 
          function ready() {
-            
+
             //timedCount();
          }
 
@@ -117,7 +117,7 @@
                   $('#collapse3 :input').css('background-color','grey');
                }
             });
-            
+
             var progress_class = $('.progress');
             var progress_bar = $('.progress-bar');
             var submitter = $('.submitter');
@@ -136,7 +136,7 @@
                            progress_class.css('display','none');
                            $('#rainbowContainer').css('display','none');
                            $('#rainbowContainer2').css('display','none');
-                           
+
                            submitter.attr("disabled", false);
                            nyanCat.setPercent(0);
                            return false;
@@ -174,7 +174,7 @@
                      window.clearInterval(intervalId);
                   }
                 }, 30000); //TODO stop
-               
+
            }
            check_progress()
          });
@@ -464,7 +464,7 @@
                            <div class="card-header" id="heading3">
                              <a class="btn btn-link" data-bs-toggle="collapse" href="#collapse3" aria-expanded="false" aria-controls="collapse3" role="button">
                                  <i class="fas fa-chart-bar me-1"></i>
-                             </a> 
+                             </a>
                               SEMA Federated Learning (TODO)
                               <div class="col-xl-6">
                                  <div class="form-check form-switch" style="right: 5%;position: absolute;top: 30%;">
@@ -475,14 +475,14 @@
                            </div>
                            <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordion">
                              <div class="card-body implem">
-                                
+
                              </div>
                          </div>
                         </div>
                      </div>
                      <button class="btn btn-primary pull-right submitter" style="position: relative;margin-top: 1%;">Start Experiments</button>
                   </div>
-                  
+
                </form>
                <footer class="py-4 bg-light mt-auto">
                   <div class="container-fluid px-4">

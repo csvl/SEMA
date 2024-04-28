@@ -26,5 +26,3 @@ class RtlGetVersion(angr.SimProcedure):
         dwPlatformId = self.state.solver.BVV(2,self.state.arch.bits) # VER_PLATFORM_WIN32_NT: 2 ->  Windows 7, Windows Server 2008, Windows Vista, Windows Server 2003, Windows XP, or Windows 2000.
         self.state.memory.store(lpVersionInformation+(4*ulong), dwPlatformId, endness=self.arch.memory_endness)
         return 0x0
-
-    

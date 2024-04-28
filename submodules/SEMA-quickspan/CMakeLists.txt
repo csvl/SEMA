@@ -16,14 +16,14 @@ find_package(OpenMP)
 if (OPENMP_FOUND)
   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
 endif()
- 
+
 # configure a header file to pass some of the CMake settings
 # to the source code
 configure_file(
   "${PROJECT_SOURCE_DIR}/config.h.in"
   "${PROJECT_SOURCE_DIR}/include/config.h"
   )
- 
+
 # add the binary tree to the search path for include files
 # so that we will find TutorialConfig.h
 set(QUICKSPAN_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/include")

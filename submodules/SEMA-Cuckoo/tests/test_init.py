@@ -56,7 +56,7 @@ class TestInit(object):
         os.environ["VIRTUAL_ENV"] = venv
 
     def test_venv_new_unicode(self):
-        set_cwd(tempfile.mkdtemp(u"a\u202eb"))
+        set_cwd(tempfile.mkdtemp("a\u202eb"))
         write_supervisor_conf(None)
 
     def test_cuckoo_init(self):
@@ -358,11 +358,11 @@ def test_all_config_written():
 
             kw["config"] = lookup_config
 
-            for key, value in kw.items():
+            for key, value in list(kw.items()):
                 if key == "config":
                     continue
 
-                for key2, value2 in value.items():
+                for key2, value2 in list(value.items()):
                     value[key2] = LookupDict(value2)
                     value[key2].parents = [key, key2]
 
@@ -372,15 +372,15 @@ def test_all_config_written():
         p.Template = Template
         write_cuckoo_conf(cfg)
 
-    print cfg["cuckoo"]
+    print(cfg["cuckoo"])
     # Force port was removed/now unused for backwards compatibility
     cfg["cuckoo"]["resultserver"].pop("force_port", None)
 
     # Pool size is a hidden option for now
     cfg["cuckoo"]["resultserver"].pop("pool_size", None)
-    for key, value in cfg.items():
-        for key2, value2 in value.items():
-            for key3, value3 in value2.items():
+    for key, value in list(cfg.items()):
+        for key2, value2 in list(value.items()):
+            for key3, value3 in list(value2.items()):
                 assert "%s:%s:%s" % (key, key2, key3) in lookups
 
     assert sorted(lookups) == sorted(set(lookups))

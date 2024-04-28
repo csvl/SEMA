@@ -23,13 +23,13 @@ import volatility.plugins.linux.common as linux_common
 
 class LiMEInfo(linux_common.AbstractLinuxCommand):
     """Dump Lime file format information"""
-    
+
     target_as = ['LimeAddressSpace']
-    
+
     def calculate(self):
         """Determines the address space"""
         linux_common.set_plugin_members(self)
-        
+
         result = None
         adrs = self.addr_space
         while adrs:
@@ -43,9 +43,9 @@ class LiMEInfo(linux_common.AbstractLinuxCommand):
         return result
 
     def render_text(self, outfd, data):
-        self.table_header(outfd, [("Memory Start", "[addrpad]"), 
+        self.table_header(outfd, [("Memory Start", "[addrpad]"),
                                   ("Memory End", "[addrpad]"),
                                   ("Size", "[addrpad]")])
-        
+
         for seg in data.runs:
             self.table_row(outfd, seg[0], seg[0] + seg[2] - 1, seg[2])

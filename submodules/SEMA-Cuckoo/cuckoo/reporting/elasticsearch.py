@@ -2,7 +2,7 @@
 # This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
 # See the file 'docs/LICENSE' for copying permission.
 
-from __future__ import absolute_import
+
 
 import datetime
 import json
@@ -123,7 +123,7 @@ class ElasticSearch(Report):
                 new_signature["marks"] = []
                 for mark in signature["marks"]:
                     new_mark = {}
-                    for k, v in mark.iteritems():
+                    for k, v in mark.items():
                         if k != "call" and type(v) == dict:
                             # If marks is a dictionary we need to explicitly define it for the ES mapping
                             # this is in the case that a key in marks is sometimes a string and sometimes a dictionary

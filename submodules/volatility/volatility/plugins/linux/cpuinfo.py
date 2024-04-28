@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.plugins.linux.common as linux_common
@@ -43,7 +43,7 @@ class linux_cpuinfo(linux_common.AbstractLinuxIntelCommand):
             func = self.get_info_single
 
         else:
-            raise AttributeError, "Unable to get CPU info for memory capture"
+            raise AttributeError("Unable to get CPU info for memory capture")
 
         for (i, cpu) in func():
             yield i, cpu.x86_vendor_id, cpu.x86_model_id
@@ -62,7 +62,7 @@ class linux_cpuinfo(linux_common.AbstractLinuxIntelCommand):
 
         for i, cpu in self.walk_per_cpu_var("cpu_info", "cpuinfo_x86"):
             yield i, cpu
-            
+
     def get_per_cpu_symbol(self, sym_name, module = "kernel"):
         """
         In 2.6.3x, Linux changed how the symbols for per_cpu variables were named
@@ -93,7 +93,7 @@ class linux_cpuinfo(linux_common.AbstractLinuxIntelCommand):
             bmap = obj.Object("unsigned long", offset = cpu_present_mask_addr, vm = self.addr_space)
 
         else:
-            raise AttributeError, "Unable to determine number of online CPUs for memory capture"
+            raise AttributeError("Unable to determine number of online CPUs for memory capture")
 
         cpus = []
         for i in range(32):

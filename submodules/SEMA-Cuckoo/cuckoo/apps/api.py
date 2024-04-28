@@ -496,7 +496,7 @@ def files_view(md5=None, sha256=None, sample_id=None):
         return json_error(404, "File not found")
 
     tasks = sorted(
-        list(map(lambda t: t.id, db.list_tasks(sample_id=sample.id)))
+        list([t.id for t in db.list_tasks(sample_id=sample.id)])
     )
     response["sample"] = sample.to_dict()
     response["sample"]["tasks"] = tasks
@@ -570,7 +570,7 @@ def cuckoo_status():
     )
 
     diskspace = {}
-    for key, path in paths.items():
+    for key, path in list(paths.items()):
         if hasattr(os, "statvfs") and os.path.isdir(path):
             stats = os.statvfs(path)
             diskspace[key] = dict(

@@ -44,7 +44,7 @@ NPM Executables
 While in the `cuckoo/web/src` directory (or the directory where package.json is located) you can run the following commands:
 
 
-``gulp`` OR ``npm start`` 
+``gulp`` OR ``npm start``
     runs build processes and starts watcher
 
 

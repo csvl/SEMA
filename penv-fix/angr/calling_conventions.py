@@ -1183,8 +1183,8 @@ class SimCCMicrosoftAMD64(SimCC):
     FP_ARG_REGS = ['xmm0', 'xmm1', 'xmm2', 'xmm3']
     STACKARG_SP_DIFF = 8 # Return address is pushed on to stack by call
     STACKARG_SP_BUFF = 32 # 32 bytes of shadow stack space
-    # The x64 ABI considers the registers RAX, RCX, RDX, R8, R9, R10, R11, and XMM0-XMM5 volatile. 
-    # When present, the upper portions of YMM0-YMM15 and ZMM0-ZMM15 are also volatile. 
+    # The x64 ABI considers the registers RAX, RCX, RDX, R8, R9, R10, R11, and XMM0-XMM5 volatile.
+    # When present, the upper portions of YMM0-YMM15 and ZMM0-ZMM15 are also volatile.
     # On AVX512VL, the ZMM, YMM, and XMM registers 16-31 are also volatile. When AMX support is present, the TMM tile registers are volatile. Consider volatile registers destroyed on function calls unless otherwise safety-provable by analysis such as whole program optimization.
     # The x64 ABI considers registers RBX, RBP, RDI, RSI, RSP, R12, R13, R14, R15, and XMM6-XMM15 nonvolatile. They must be saved and restored by a function that uses them.
     CALLER_SAVED_REGS = [ 'rax', 'rcx', 'rdx', 'r8', 'r9', 'r10', 'r11', 'rax', 'xmm0', 'xmm1', 'xmm2', 'xmm3', 'xmm4', 'xmm5']

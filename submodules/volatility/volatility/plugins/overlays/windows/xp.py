@@ -64,5 +64,3 @@ class WinXPSP3x86(obj.Profile):
     _md_memory_model = '32bit'
     _md_vtype_module = 'volatility.plugins.overlays.windows.xp_sp3_x86_vtypes'
     _md_product = ["NtProductWinNt"]
-
-

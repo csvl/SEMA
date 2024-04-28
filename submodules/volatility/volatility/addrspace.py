@@ -27,7 +27,7 @@
 @contact:      awalters@4tphi.com
 @organization: Volatility Foundation
 
-   Alias for all address spaces 
+   Alias for all address spaces
 
 """
 
@@ -89,7 +89,7 @@ class BaseAddressSpace(object):
     def _set_profile(self, profile_name):
         ## Load the required profile
         if profile_name == None:
-            raise ASAssertionError, "You must set a profile!"
+            raise ASAssertionError("You must set a profile!")
         if profile_name in PROFILES:
             ret = PROFILES[profile_name]
         else:
@@ -98,9 +98,9 @@ class BaseAddressSpace(object):
                 ret = profs[profile_name]()
                 PROFILES[profile_name] = ret
             else:
-                raise ASAssertionError, "Invalid profile " + profile_name + " selected"
+                raise ASAssertionError("Invalid profile " + profile_name + " selected")
         if not self.is_valid_profile(ret):
-            raise ASAssertionError, "Incompatible profile " + profile_name + " selected"
+            raise ASAssertionError("Incompatible profile " + profile_name + " selected")
         return ret
 
     def is_valid_profile(self, profile): #pylint: disable-msg=W0613
@@ -109,13 +109,13 @@ class BaseAddressSpace(object):
 
     def as_assert(self, assertion, error = None):
         """Duplicate for the assert command (so that optimizations don't disable them)
-        
+
            It had to be called as_assert, since assert is a keyword
         """
         if not assertion:
             if error == None:
                 error = "Instantiation failed for unspecified reason"
-            raise ASAssertionError, error
+            raise ASAssertionError(error)
 
     def __eq__(self, other):
         return (self.__class__ == other.__class__ and
@@ -172,10 +172,10 @@ class BaseAddressSpace(object):
         return cls.address_compare(a, b) == 0
 
     def physical_space(self):
-        """Return the underlying physical layer, if there is one. 
+        """Return the underlying physical layer, if there is one.
 
-        This cycles through the base address spaces and returns 
-        the first one that's not an ancestor of a virtual space. 
+        This cycles through the base address spaces and returns
+        the first one that's not an ancestor of a virtual space.
         """
         b = self.base
 
@@ -344,7 +344,7 @@ class AbstractRunBasedMemory(AbstractDiscreteAllocMemory):
         return [start, size]
 
     def write(self, phys_addr, buf):
-        """This is mostly for support of raw2dmp so that 
+        """This is mostly for support of raw2dmp so that
         it can modify the kernel CONTEXT after the crash
         dump has been written to disk"""
 

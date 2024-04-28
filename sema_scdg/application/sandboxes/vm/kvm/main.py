@@ -6,7 +6,7 @@ def main() -> int:
     """Echo the input arguments to standard output"""
     # python3 main.py win7
     filename = sys.argv[1]
-    kvm = KVMInterface(filename, filename+"_file", config_vol="config/vol.xml", config_pool="config/pool.xml", 
+    kvm = KVMInterface(filename, filename+"_file", config_vol="config/vol.xml", config_pool="config/pool.xml",
                        config="config/win7.xml", create_vm=False, image="/var/lib/libvirt/images/en_windows_7_ultimate_x64_dvd.iso")
     kvm.start_vm()
     time.sleep(10)

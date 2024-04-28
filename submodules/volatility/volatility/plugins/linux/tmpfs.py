@@ -37,7 +37,7 @@ class linux_tmpfs(linux_common.AbstractLinuxCommand):
         linux_common.AbstractLinuxCommand.__init__(self, config, *args, **kwargs)
         config.add_option('DUMP-DIR', short_option = 'D', default = None, help = 'output directory for recovered files', action = 'store', type = 'str')
         config.add_option('SB', short_option = 'S', default = None, help = 'superblock to process, see -L', action = 'store', type = 'int')
-        
+
         config.remove_option("LISTFILES")
         config.add_option('LIST_SBS', short_option = 'L', default = None, help = 'list avaiable tmpfs superblocks', action = 'store_true')
 
@@ -110,7 +110,7 @@ class linux_tmpfs(linux_common.AbstractLinuxCommand):
         we need this b/c we have a bunch of 'super_block' structs
         but no method that I could find maps a super_block to its vfs_mnt
         which is needed to figure out where the super_block is mounted
-    
+
         This function returns a hash table of hash[sb] = path
         '''
 
@@ -136,7 +136,7 @@ class linux_tmpfs(linux_common.AbstractLinuxCommand):
 
             if sb_idx >= len(tmpfs_sbs):
                 debug.error("Invalid superblock number given. Please use the -L option to determine valid numbers.")
-        
+
             root_dentry = tmpfs_sbs[sb_idx][0].s_root
             self.walk_sb(root_dentry)
 
@@ -154,4 +154,3 @@ class linux_tmpfs(linux_common.AbstractLinuxCommand):
     def render_text(self, outfd, data):
         for (i, path) in data:
             outfd.write("{0:d} -> {1}\n".format(i, path))
-

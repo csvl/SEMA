@@ -92,7 +92,7 @@ class JsonFormatter(logging.Formatter):
             "message": record.getMessage(),
         }
         base = logging.makeLogRecord({})
-        for key, value in record.__dict__.items():
+        for key, value in list(record.__dict__.items()):
             if key not in base.__dict__:
                 d[key] = value
         return json.dumps(d)
@@ -189,7 +189,7 @@ def logger(message, *args, **kwargs):
     record.message = record.getMessage()
     record.__dict__.update(kwargs)
 
-    for key, value in _loggers.items():
+    for key, value in list(_loggers.items()):
         if logfile and key == logfile:
             value.handle(record)
         if logfile is None and key.endswith(".json"):

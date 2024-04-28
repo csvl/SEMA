@@ -5,7 +5,7 @@ import os
 import subprocess
 import time
 import shlex
-# import cuckoo #python 2.7 
+# import cuckoo #python 2.7
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -29,7 +29,7 @@ class CuckooInterface(SandBoxInterface):
             import libvirt
             if False:
                 conf= ROOT_DIR + "/vm/kvm/config/win7.xml"
-                image="/var/lib/libvirt/images/en_windows_7_ultimate_x64_dvd.iso" 
+                image="/var/lib/libvirt/images/en_windows_7_ultimate_x64_dvd.iso"
                 self.win_name="win7"
             else:
                 conf= ROOT_DIR + "/vm/kvm/config/win10.xml"
@@ -41,13 +41,13 @@ class CuckooInterface(SandBoxInterface):
             if guestos == "linux":
                 conf= ROOT_DIR + "/vm/kvm/config/ub18.xml"
                 self.home_dir = "/home/user/"
-            self.vm = KVMInterface(name, name+"_filename", config_vol=conf_vol, config_pool=conf_pool, 
+            self.vm = KVMInterface(name, name+"_filename", config_vol=conf_vol, config_pool=conf_pool,
                                    config=conf, create_vm=create_vm, image=image,
                                    guestos=self.guestos)
-            
+
         elif ossys == "windows":
             self.vm = VirtualBoxInterface() # TODO
-        
+
     def udpdate_conf(self):
         file = open(ROOT_DIR + "/.cuckoo/conf/qemu_template.conf",mode='r')
         # read all lines at once
@@ -91,7 +91,7 @@ class CuckooInterface(SandBoxInterface):
     def start_analysis(self,file):
         cmd =  "bash " + ROOT_DIR + "/start_analysis_cuckoo.sh "
         rc = subprocess.call(cmd,shell=True, executable='/bin/bash')
-        
+
         # Note: the following command is now integrated directly in avatar target
         filet = open(ROOT_DIR + "/gdb-script/connect_template.gdb",mode='r')
         gdb_conf = filet.read()
@@ -116,6 +116,3 @@ class CuckooInterface(SandBoxInterface):
     def get_address(self):
         # TODO
         return 0x85b853
-
-
-        

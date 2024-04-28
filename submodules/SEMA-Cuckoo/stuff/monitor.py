@@ -7,14 +7,14 @@ import io
 import os
 import sys
 import tarfile
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 URL = "https://github.com/cuckoosandbox/community/archive/%s.tar.gz"
 
 if __name__ == "__main__":
     if not os.path.lexists("cuckoo/data/monitor/latest"):
-        print "Usage: python %s <branch> <hash>" % sys.argv[0]
-        print "This script must be run from Cuckoo repository root!"
+        print(("Usage: python %s <branch> <hash>" % sys.argv[0]))
+        print ("This script must be run from Cuckoo repository root!")
         exit(1)
 
     branch, hash_ = "master", None
@@ -31,15 +31,15 @@ if __name__ == "__main__":
 
     # No hash could be determined?
     if hash_ is None:
-        print "Usage: python %s <branch> <hash>" % sys.argv[0]
+        print(("Usage: python %s <branch> <hash>" % sys.argv[0]))
         exit(1)
 
     monitor = "cuckoo/data/monitor/%s" % hash_
     if not os.path.exists(monitor):
         os.mkdir(monitor)
 
-    print "Fetching Cuckoo Community archive, this may take a little while."
-    r = urllib2.urlopen(URL % branch).read()
+    print ("Fetching Cuckoo Community archive, this may take a little while.")
+    r = urllib.request.urlopen(URL % branch).read()
     t = tarfile.TarFile.open(fileobj=io.BytesIO(r), mode="r:gz")
 
     # Root directory name.
@@ -48,8 +48,8 @@ if __name__ == "__main__":
     # Extract all files for this monitor hash.
     for info in t.getmembers():
         if info.name.startswith("%s/data/monitor/%s/" % (root, hash_)):
-            print "Extracting..", info.name
+            print(("Extracting..", info.name))
             filepath = "%s/%s" % (monitor, os.path.basename(info.name))
             open(filepath, "wb").write(t.extractfile(info).read())
 
-    print "You're good to go now!"
+    print ("You're good to go now!")

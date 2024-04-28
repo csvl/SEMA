@@ -21,11 +21,11 @@
 
 import time
 import volatility.debug as debug
-import urlparse
+import urllib.parse
 import volatility.addrspace as addrspace
 
 # TODO: Remove this once we no longer support old/broken versions of urlparse (2.6.2)
-check = urlparse.urlsplit("firewire://method/0")
+check = urllib.parse.urlsplit("firewire://method/0")
 urlparse_broken = False
 if check[1] != 'method':
     urlparse_broken = True
@@ -51,7 +51,7 @@ class FWRaw1394(object):
             return True, "Valid"
         except IndexError:
             return False, "Firewire node " + str(self.node) + " on bus " + str(self.bus) + " was not accessible"
-        except IOError, e:
+        except IOError as e:
             return False, "Firewire device IO error - " + str(e)
         return False, "Unknown Error occurred"
 
@@ -85,8 +85,8 @@ class FWForensic1394(object):
                 self._device.open()
             # The device requires time to settle before it can be used
             return True, "Valid"
-        except IOError, e:
-            print repr(e)
+        except IOError as e:
+            print((repr(e)))
             return False, "Forensic1394 returned an exception: " + str(e)
         return False, "Unknown Error occurred"
 
@@ -106,7 +106,7 @@ class FirewireAddressSpace(addrspace.BaseAddressSpace):
     def __init__(self, base, config, **kargs):
         self.as_assert(base == None, 'Must be first Address Space')
         try:
-            (scheme, netloc, path, _, _, _) = urlparse.urlparse(config.LOCATION)
+            (scheme, netloc, path, _, _, _) = urllib.parse.urlparse(config.LOCATION)
             self.as_assert(scheme == 'firewire', 'Not a firewire URN')
             if urlparse_broken:
                 if path.startswith('//') and path[2:].find('/') > 0:
@@ -138,7 +138,7 @@ class FirewireAddressSpace(addrspace.BaseAddressSpace):
 
     def _intervals(self, exclusions, start, end, accumulator):
         """Accepts a sorted list of intervals and a start and end
-        
+
            This will return a list of intervals between start and end
            that does not contain any of the intervals in the list of exclusions.
         """
@@ -171,7 +171,7 @@ class FirewireAddressSpace(addrspace.BaseAddressSpace):
 
     def read(self, offset, length):
         """Reads a specified size in bytes from the current offset
-        
+
            Fills any excluded holes with zeros (so in that sense, similar to zread)
         """
         ints = self.intervals(offset, length)
@@ -185,14 +185,14 @@ class FirewireAddressSpace(addrspace.BaseAddressSpace):
                     # I'm not sure why, but sometimes readdata comes out longer than the requested size
                     # We just truncate it to the right length
                     output = output[:datstart - offset] + readdata[:datlen] + output[(datstart - offset) + datlen:]
-        except IOError, e:
-            print repr(e)
+        except IOError as e:
+            print((repr(e)))
             raise RuntimeError("Failed to read from firewire device")
         self.as_assert(len(output) == length, "Firewire read lengths failed to match")
         return output
 
     def zread(self, offset, length):
-        """ Delegate padded reads to normal read, since errors reading 
+        """ Delegate padded reads to normal read, since errors reading
             the physical address should probably be reported back to the user
         """
         return self.read(offset, length)

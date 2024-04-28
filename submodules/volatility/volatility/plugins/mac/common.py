@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import os
@@ -57,11 +57,11 @@ class AbstractMacCommand(commands.Command):
 
 def is_in_kernel_or_module(handler, ktext_start, ktext_end, kmods):
     # see if this handler is in a known location
-    good = 0 
+    good = 0
     module = "UNKNOWN"
 
     if ktext_start <= handler <= ktext_end:
-        good = 1     
+        good = 1
         module = "__kernel__"
     elif kmods != []:
         # see if the address fits in any of the known modules
@@ -85,7 +85,7 @@ def get_handler_name(kaddr_info, handler):
 
     elif ktext_start <= handler <= ktext_end:
         module = "__kernel__"
-    
+
     elif kmods != []:
         # see if the address fits in any of the known modules
         for (start, end, name) in kmods:
@@ -97,11 +97,11 @@ def get_handler_name(kaddr_info, handler):
 
 def is_known_address_name(handler, kernel_symbol_addresses, kmods):
     # see if this handler is in a known location
-    good = 0 
+    good = 0
     module = "UNKNOWN"
 
     if handler in kernel_symbol_addresses:
-        good = 1     
+        good = 1
         module = "__kernel__"
     elif kmods != []:
         # see if the address fits in any of the known modules
@@ -114,12 +114,12 @@ def is_known_address_name(handler, kernel_symbol_addresses, kmods):
     return (good, module)
 
 def is_64bit_capable(addr_space):
-    """Test if the AS is capable of doing 64-bits. 
+    """Test if the AS is capable of doing 64-bits.
 
-    @returns True if 64-bit capable. 
+    @returns True if 64-bit capable.
     """
     x86_64_flag_addr = addr_space.profile.get_symbol("_x86_64_flag")
-    
+
     # this symbol no longer exists in 10.9 / Mavericks
     # this is most likely b/c all Macs are 64 bit by 10.9
     if x86_64_flag_addr:
@@ -132,56 +132,56 @@ def is_64bit_capable(addr_space):
 
 def get_kernel_function_addrs(obj_ref):
     import volatility.plugins.mac.lsmod as lsmod
-    
+
     kernel_symbol_addresses = obj_ref.profile.get_all_function_addresses()
 
    # TODO -- make sure more stringent and parse each kext in-memory so we only allow whitelist from .text
-    kmods = [(kmod.address, kmod.address + kmod.m('size'), kmod.name) for kmod in lsmod.mac_lsmod(obj_ref._config).calculate() if str(kmod.name) != "com.apple.kpi.unsupported"] 
+    kmods = [(kmod.address, kmod.address + kmod.m('size'), kmod.name) for kmod in lsmod.mac_lsmod(obj_ref._config).calculate() if str(kmod.name) != "com.apple.kpi.unsupported"]
 
     return (kernel_symbol_addresses, kmods)
 
 def get_kernel_addrs_start_end(obj_ref):
     import volatility.plugins.mac.lsmod as lsmod
-   
+
     s = obj_ref.profile.get_symbol("_vm_kernel_stext")
-    e = obj_ref.profile.get_symbol("_vm_kernel_etext") 
+    e = obj_ref.profile.get_symbol("_vm_kernel_etext")
 
     if s == None:
         s = obj_ref.profile.get_symbol("_stext")
-       
+
     if e == None:
-        e = obj_ref.profile.get_symbol("_etext") 
-    
+        e = obj_ref.profile.get_symbol("_etext")
+
     start = obj.Object("unsigned long", offset = s, vm = obj_ref.addr_space)
     end   = obj.Object("unsigned long", offset = e, vm = obj_ref.addr_space)
 
     # module addresses, tuple of (start, end)
     # TODO -- make sure more stringent and parse each kext in-memory so we only allow whitelist from .text
-    kmods = [(kmod.address.v(), kmod.address.v() + kmod.m('size'), kmod.name) for kmod in lsmod.mac_lsmod(obj_ref._config).calculate() if str(kmod.name) != "com.apple.kpi.unsupported"] 
+    kmods = [(kmod.address.v(), kmod.address.v() + kmod.m('size'), kmod.name) for kmod in lsmod.mac_lsmod(obj_ref._config).calculate() if str(kmod.name) != "com.apple.kpi.unsupported"]
 
     return (start, end, kmods)
 
 def get_handler_name_addrs(obj_ref):
     import volatility.plugins.mac.lsmod as lsmod
-   
+
     s = obj_ref.profile.get_symbol("_vm_kernel_stext")
-    e = obj_ref.profile.get_symbol("_vm_kernel_etext") 
+    e = obj_ref.profile.get_symbol("_vm_kernel_etext")
 
     if s == None:
         s = obj_ref.profile.get_symbol("_stext")
-       
+
     if e == None:
-        e = obj_ref.profile.get_symbol("_etext") 
-    
+        e = obj_ref.profile.get_symbol("_etext")
+
     start = obj.Object("unsigned long", offset = s, vm = obj_ref.addr_space)
     end   = obj.Object("unsigned long", offset = e, vm = obj_ref.addr_space)
 
     # module addresses, tuple of (start, end)
     # TODO -- make sure more stringent and parse each kext in-memory so we only allow whitelist from .text
-    kmods = [(kmod.address.v(), kmod.address.v() + kmod.m('size'), kmod.name) for kmod in lsmod.mac_lsmod(obj_ref._config).calculate() if str(kmod.name) != "com.apple.kpi.unsupported"] 
+    kmods = [(kmod.address.v(), kmod.address.v() + kmod.m('size'), kmod.name) for kmod in lsmod.mac_lsmod(obj_ref._config).calculate() if str(kmod.name) != "com.apple.kpi.unsupported"]
 
     kernel_symbol_addresses = obj_ref.profile.get_all_function_addresses()
-    
+
     return (obj_ref, kernel_symbol_addresses, start, end, kmods)
 
 def get_kernel_addrs(obj_ref):
@@ -189,10 +189,10 @@ def get_kernel_addrs(obj_ref):
     # all the known addresses in the kernel
     # TODO -- make more stringent and get only symbols from .text
     kernel_symbol_addresses = obj_ref.profile.get_all_addresses()
-    
+
     # module addresses, tuple of (start, end)
     # TODO -- make sure more stringent and parse each kext in-memory so we only allow whitelist from .text
-    kmods = [(kmod.address.v(), kmod.address.v() + kmod.m('size'), kmod.name) for kmod in lsmod.mac_lsmod(obj_ref._config).calculate() if str(kmod.name) != "com.apple.kpi.unsupported"] 
+    kmods = [(kmod.address.v(), kmod.address.v() + kmod.m('size'), kmod.name) for kmod in lsmod.mac_lsmod(obj_ref._config).calculate() if str(kmod.name) != "com.apple.kpi.unsupported"]
 
     return (kernel_symbol_addresses, kmods)
 
@@ -205,9 +205,9 @@ def get_string(addr, addr_space, maxlen = 256):
     for n in name:
         if ord(n) == 0:
             break
-        ret = ret + n 
+        ret = ret + n
 
-    return ret 
+    return ret
 
 # account for c++ symbol name mangling
 def get_cpp_sym(name, profile):
@@ -219,27 +219,25 @@ def get_cpp_sym(name, profile):
 
 def write_vnode_to_file(vnode, file_path):
     fd = open(file_path, "wb")
-    wrote = 0 
+    wrote = 0
 
     for (offset, page) in vnode.get_contents():
         fd.seek(offset)
-        fd.write(page) 
-        wrote = wrote + len(page)            
+        fd.write(page)
+        wrote = wrote + len(page)
 
     fd.close()
 
     return wrote
 
 def write_macho_file(out_dir, proc, exe_address):
-    exe_contents = proc.get_macho(exe_address)     
- 
+    exe_contents = proc.get_macho(exe_address)
+
     file_name = "task.{0}.{1:#x}.dmp".format(proc.p_pid, exe_address)
     file_path = os.path.join(out_dir, file_name)
 
     outfile = open(file_path, "wb+")
-    outfile.write(exe_contents)            
+    outfile.write(exe_contents)
     outfile.close()
 
     return file_path
-
-

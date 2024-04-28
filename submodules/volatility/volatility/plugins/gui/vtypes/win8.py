@@ -18,7 +18,7 @@
 # along with Volatility.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import volatility.obj as obj 
+import volatility.obj as obj
 import volatility.plugins.gui.constants as consts
 import volatility.plugins.gui.win32k_core as win32k_core
 import volatility.plugins.gui.vtypes.win7_sp0_x86_vtypes_gui as win7_sp0_x86_vtypes_gui
@@ -61,7 +61,7 @@ class Win8x86Gui(obj.ProfileModification):
 
             ## _EnumClipboardFormats
             ## mov     ecx, [esi+30h]
-            'pClipBase' : [ 0x30, ['pointer', ['array', lambda x : x.cNumClipFormats, ['tagCLIP']]]], 
+            'pClipBase' : [ 0x30, ['pointer', ['array', lambda x : x.cNumClipFormats, ['tagCLIP']]]],
 
             ## xxxEmptyClipboard
             ## mov     eax, [ebx+34h]
@@ -118,7 +118,7 @@ class Win8x86Gui(obj.ProfileModification):
             ### xxxCreateDesktopEx2
             ## add     eax, 58h
             ## mov     [eax+4], eax
-            ## mov     [eax], eax    
+            ## mov     [eax], eax
             'PtiList': [0x58, ['_LIST_ENTRY']],
             }],
 
@@ -146,11 +146,11 @@ class Win8x64Gui(obj.ProfileModification):
 
         profile.merge_overlay({
 
-            'tagWINDOWSTATION': [ None, { 
+            'tagWINDOWSTATION': [ None, {
             ## _EnumClipboardFormats
             ## mov     rcx, [rdi+60h]
             ## test    rcx, rcx
-            'pClipBase' : [ 0x60, ['pointer', ['array', lambda x : x.cNumClipFormats, ['tagCLIP']]]], 
+            'pClipBase' : [ 0x60, ['pointer', ['array', lambda x : x.cNumClipFormats, ['tagCLIP']]]],
 
             ## xxxEmptyClipboard
             ## mov     ebp, [rbx+68h]
@@ -163,7 +163,7 @@ class Win8x64Gui(obj.ProfileModification):
 
             ## xxxCreateWindowStation
             ## add     rcx, 88h
-            ## call    CreateGlobalAtomTable 
+            ## call    CreateGlobalAtomTable
             'pGlobalAtomTable': [ 0x88, ['pointer', ['void']]],
             }],
 
@@ -185,7 +185,7 @@ class Win8x64Gui(obj.ProfileModification):
 
             ### xxxCreateDesktopEx2
             ## add     rax, 0A0h
-            ## mov     [rax+8], rax 
+            ## mov     [rax+8], rax
             'PtiList': [0xA0, ['_LIST_ENTRY']],
             }],
 

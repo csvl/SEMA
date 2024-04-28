@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -46,22 +46,22 @@ class linux_check_creds(linux_pslist.linux_pslist):
         for task in tasks:
 
             cred_addr = task.cred.v()
-            
+
             if not cred_addr in creds:
                 creds[cred_addr] = []
-                
+
             creds[cred_addr].append(task.pid)
-    
+
         yield creds
-            
+
     def unified_output(self, data):
         return TreeGrid([("PIDs", str)],
                         self.generator(data))
 
     def generator(self, data):
-        # print out processes that are sharing cred structures              
+        # print out processes that are sharing cred structures
         for htable in data:
-            for (addr, pids) in htable.items():
+            for (addr, pids) in list(htable.items()):
                 if len(pids) > 1:
                     pid_str = ""
                     for pid in pids:
@@ -71,11 +71,11 @@ class linux_check_creds(linux_pslist.linux_pslist):
                     yield(0, [str(pid_str)])
 
     def render_text(self, outfd, data):
-        self.table_header(outfd, [("PIDs", "8")]) 
-                    
-        # print out processes that are sharing cred structures              
+        self.table_header(outfd, [("PIDs", "8")])
+
+        # print out processes that are sharing cred structures
         for htable in data:
-            for (addr, pids) in htable.items():
+            for (addr, pids) in list(htable.items()):
                 if len(pids) > 1:
                     pid_str = ""
                     for pid in pids:

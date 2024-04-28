@@ -21,7 +21,7 @@
 
          if (document.addEventListener)
             document.addEventListener("DOMContentLoaded", function(){
-               alreadyrunflag=1; ready(); 
+               alreadyrunflag=1; ready();
             }, false)
          else if (document.all && !window.opera){
             document.write('<script type="text/javascript" id="contentloadtag" defer="defer" src="javascript:void(0)"><\/script>')
@@ -39,7 +39,7 @@
          }
 
          function ready() {
-            
+
             //timedCount();
          }
 
@@ -74,7 +74,7 @@
                   requiredCheckboxes_test.attr('required', 'required');
                }
             });
-            
+
             var progress_class = $('.progress');
             var progress_bar = $('.progress-bar');
             var submitter = $('.submitter');
@@ -93,7 +93,7 @@
                            progress_class.css('display','none');
                            $('#rainbowContainer').css('display','none');
                            $('#rainbowContainer2').css('display','none');
-                           
+
                            submitter.attr("disabled", false);
                            nyanCat.setPercent(0);
                            return false;
@@ -131,7 +131,7 @@
                      window.clearInterval(intervalId);
                   }
                 }, 30000); //TODO stop
-               
+
            }
            check_progress()
          });
@@ -254,7 +254,7 @@
                      </div>
                      <button class="btn btn-primary pull-right submitter" style="position: relative;margin-top: 1%;">Start download</button>
                   </div>
-                  
+
                </form>
                <footer class="py-4 bg-light mt-auto">
                   <div class="container-fluid px-4">

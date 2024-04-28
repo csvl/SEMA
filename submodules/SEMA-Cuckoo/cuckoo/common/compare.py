@@ -21,17 +21,17 @@ def behavior_categories_percent(calls):
 def combine_behavior_percentages(stats):
     # get all categories present
     cats = set()
-    for v in stats.values():
-        for v2 in v.values():
+    for v in list(stats.values()):
+        for v2 in list(v.values()):
             cats |= set(v2.keys())
 
     sums = {}
     for tid in stats:
         sums[tid] = {}
         for cat in cats:
-            sums[tid][cat] = sum(j.get(cat, 0) for j in stats[tid].values())
+            sums[tid][cat] = sum(j.get(cat, 0) for j in list(stats[tid].values()))
 
-    totals = dict((k, sum(v.values())) for k, v in sums.items())
+    totals = dict((k, sum(v.values())) for k, v in list(sums.items()))
 
     percentages = {}
     for tid in stats:
@@ -90,7 +90,7 @@ def helper_percentages_mongo(results_db, tid1, tid2, ignore_categories=["misc"])
             for coid in pdoc["calls"]:
                 chunk = results_db.calls.find_one({"_id": coid}, {"calls.category": 1})
                 category_counts = behavior_categories_percent(chunk["calls"])
-                for cat, count in category_counts.items():
+                for cat, count in list(category_counts.items()):
                     if cat in ignore_categories:
                         continue
 

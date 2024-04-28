@@ -4,7 +4,7 @@
 
 import os
 
-from _winreg import HKEY_CURRENT_USER
+from winreg import HKEY_CURRENT_USER
 
 from lib.common.abstracts import Package
 

@@ -52,12 +52,12 @@ class DWARFParser(object):
     def resolve(self, memb):
         """Lookup anonymouse member and replace it with a well known one."""
         # Reference to another type
-        
+
         if isinstance(memb, str) and memb.startswith('<'):
             try:
                 resolved = self.id_to_name[memb[1:]]
             except:
-                resolved = 0 
+                resolved = 0
 
             ret = self.resolve(resolved)
 
@@ -71,11 +71,11 @@ class DWARFParser(object):
 
     def fix_typedefs(self):
         tmp_types = self.vtypes.copy()
-        
-        for vname,vdata in tmp_types.items():
+
+        for vname,vdata in list(tmp_types.items()):
             if vname.startswith("__unnamed_"):
                 statement_id = vname.split("_")[3]
-                
+
                 if statement_id in self.typedefs:
                     tmp_types[self.typedefs[statement_id]] = vdata
                 else:
@@ -208,7 +208,7 @@ class DWARFParser(object):
             self.name_stack[-1][1] = name
             self.id_to_name[statement_id] = [name]
 
-            
+
             # If it's just a forward declaration, we want the name around,
             # but there won't be a size
             if 'AT_declaration' not in data:
@@ -277,11 +277,11 @@ class DWARFParser(object):
 
         elif kind == 'TAG_member' and parent_kind == 'TAG_structure_type':
             name = data.get('AT_name', "__unnamed_%s" % statement_id)
-            
+
             off = self.get_offset(data)
 
             if 'AT_bit_size' in data and ('AT_bit_offset' in data or 'AT_data_bit_offset' in data):
-               
+
                 if 'AT_bit_offset' in data:
                     stbit = int(data['AT_bit_offset'])
                     edbit = stbit + int(data['AT_bit_size'])
@@ -290,11 +290,11 @@ class DWARFParser(object):
                     edbit = full_size - edbit
                     stbit, edbit = edbit, stbit
                     assert stbit < edbit
-                 
-                # high sierra + 
+
+                # high sierra +
                 else:
-                    stbit = int(data['AT_data_bit_offset'], 16) 
-              
+                    stbit = int(data['AT_data_bit_offset'], 16)
+
                     off = stbit / 8
                     stbit = stbit % 8
 
@@ -312,7 +312,7 @@ class DWARFParser(object):
             off = self.get_offset(data)
 
             if 'AT_bit_size' in data and ('AT_bit_offset' in data or 'AT_data_bit_offset' in data):
-            
+
                 if 'AT_bit_offset' in data:
                     stbit = int(data['AT_bit_offset'])
                     edbit = stbit + int(data['AT_bit_size'])
@@ -321,16 +321,16 @@ class DWARFParser(object):
                     edbit = full_size - edbit
                     stbit, edbit = edbit, stbit
                     assert stbit < edbit
-                 
-                # high sierra + 
+
+                # high sierra +
                 else:
-                    stbit = int(data['AT_data_bit_offset'], 16) 
-                 
+                    stbit = int(data['AT_data_bit_offset'], 16)
+
                     off = stbit / 8
                     stbit = stbit % 8
-                 
-                    edbit = stbit + int(data['AT_bit_size'], 16) 
-               
+
+                    edbit = stbit + int(data['AT_bit_size'], 16)
+
                 memb_tp = ['BitField', dict(start_bit = stbit, end_bit = edbit)]
             else:
                 memb_tp = data['AT_type']
@@ -389,7 +389,7 @@ class DWARFParser(object):
             self.vtypes = self.resolve_refs()
             self.all_vtypes.update(self.vtypes)
         if self.vars:
-            self.vars = dict(((k, self.resolve(v)) for k, v in self.vars.items()))
+            self.vars = dict(((k, self.resolve(v)) for k, v in list(self.vars.items())))
             self.all_vars.update(self.vars)
         if self.local_vars:
             self.local_vars = [ (name, lineno, decl_file, self.resolve(tp)) for
@@ -403,7 +403,7 @@ class DWARFParser(object):
             changed = False
             s = set()
             for m in self.all_vtypes:
-                for t in self.all_vtypes[m][1].values():
+                for t in list(self.all_vtypes[m][1].values()):
                     s.add(self.get_deepest(t))
             for m in self.all_vars:
                 s.add(self.get_deepest(self.all_vars[m][1]))
@@ -419,7 +419,7 @@ class DWARFParser(object):
                 d = self.get_deepest(memb)
                 if d in self.enums:
                     sz = self.enums[d][0]
-                    vals = dict((v, k) for k, v in self.enums[d][1].items())
+                    vals = dict((v, k) for k, v in list(self.enums[d][1].items()))
                     self.all_vtypes[t][1][m] = self.deep_replace(
                         memb, [d],
                         ['Enumeration', dict(target = 'int', choices = vals)]
@@ -429,19 +429,19 @@ class DWARFParser(object):
 
     def print_output(self):
         self.finalize()
-        print "mac_types = {"
+        print ("mac_types = {")
 
         for t in self.all_vtypes:
-            print "  '%s': [ %#x, {" % (t, self.all_vtypes[t][0])
+            print(("  '%s': [ %#x, {" % (t, self.all_vtypes[t][0])))
             for m in sorted(self.all_vtypes[t][1], key=lambda m: self.all_vtypes[t][1][m][0]):
-                print "    '%s': [%#x, %s]," % (m, self.all_vtypes[t][1][m][0], self.all_vtypes[t][1][m][1])
-            print "}],"
-        print "}"
-        print
-        print "mac_gvars = {"
+                print(("    '%s': [%#x, %s]," % (m, self.all_vtypes[t][1][m][0], self.all_vtypes[t][1][m][1])))
+            print ("}],")
+        print ("}")
+        print()
+        print ("mac_gvars = {")
         for v in sorted(self.all_vars, key=lambda v: self.all_vars[v][0]):
-            print "  '%s': [%#010x, %s]," % (v, self.all_vars[v][0], self.all_vars[v][1])
-        print "}"
+            print(("  '%s': [%#010x, %s]," % (v, self.all_vars[v][0], self.all_vars[v][1])))
+        print ("}")
 
 def parse_dwarf():
 
@@ -455,7 +455,7 @@ def parse_dwarf():
 
     #for k in parser.wtf:
     #    print k
-                
+
 def write_line(outfile, level, id, name):
 
     outfile.write("<%s><%s><%s> " % (level, id, name))
@@ -465,7 +465,7 @@ def convert_file(mac_file, outfile):
     '''
     5 spaces, level 1
     0x00000428:     TAG_typedef [15]
-    
+
     9 spaces, level 2, (struct member)
     0x00000446:         TAG_member [30]
 
@@ -477,11 +477,11 @@ def convert_file(mac_file, outfile):
     re_compiles = ["<BAD COMPILE>"]
     parse_depth = 27
     string_idx  = 5
-    for i in range(1, parse_depth):       
+    for i in range(1, parse_depth):
         s = r'^(0x[0-9a-fA-F]+):\s{' + "%d" % string_idx  + r'}(\w+)\s'
         re_compiles.append(re.compile(s))
         string_idx = string_idx + 4
-    
+
     at_re     = re.compile(r'^\s+(\w+)\((.+)')
 
     level = 0
@@ -496,7 +496,7 @@ def convert_file(mac_file, outfile):
         if line.find("-------------") != -1:
             level = 0
             continue
-            
+
         if line.find("File:") != -1:
             level = 0
             continue
@@ -504,14 +504,14 @@ def convert_file(mac_file, outfile):
         if line.find(".debug_info") != -1:
             level = 0
             continue
-        
+
         if line.find("Compile Unit:") != -1:
             level = 0
             continue
 
         if line.find("TAG_compile_unit") != -1:
             outfile.write("<1><999999999999999><TAG_compile_unit> ")
-            level = 1 
+            level = 1
             continue
 
         # new declaration
@@ -519,7 +519,7 @@ def convert_file(mac_file, outfile):
             line_wrote = False
             for check_idx in range(1, parse_depth):
                 re_check = re_compiles[check_idx]
-                
+
                 matchobj = re_check.match(line)
                 if matchobj:
                     (id, name) = matchobj.groups()
@@ -532,7 +532,7 @@ def convert_file(mac_file, outfile):
                     break
 
             if not line_wrote:
-                print "State machine broken! level 0! %s" % line
+                print(("State machine broken! level 0! %s" % line))
                 sys.exit(1)
 
         # can either be: new declaration
@@ -545,14 +545,14 @@ def convert_file(mac_file, outfile):
                 (id, name) = m.groups()
                 id = "%d" % int(id, 16)
                 level = 2
-                
+
                 # <1><41><DW_TAG_structure_type>
                 outfile.write("<%s><%s><%s> " % (level, id, name))
 
             elif a:
                 (name, val) = a.groups()
 
-                #DW_AT_byte_size<2> 
+                #DW_AT_byte_size<2>
 
                 val = val[:-2]
 
@@ -604,16 +604,14 @@ def main():
 
     if len(sys.argv) == 3:
 
-        print "converting file"
+        print ("converting file")
         mac_file = open(sys.argv[1], "r")
         outfile = open(sys.argv[2], "w")
         convert_file(mac_file, outfile)
         outfile.close()
 
     else:
-        parse_dwarf()     
+        parse_dwarf()
 
 if __name__ == "__main__":
     main()
-        
- 

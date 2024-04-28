@@ -24,7 +24,7 @@ parser.add_argument("out",help="Outfile name (csv)",default='out-'+datetime.now(
 
 
 #'autoit', 'delf', 'FeakerStealer', 'gandcrab', 'lamer', 'NetWire', 'nitol', 'RedLineStealer', 'RemcosRAT', 'sfone', 'shiz', 'sillyp2p', 'simbot', 'Sodinokibi', 'stormattack', 'sytro', 'upatre', 'wabot', 'bancteian', 'ircbot'
-FAMILY = ['clean'] # 
+FAMILY = ['clean'] #
 
 args = parser.parse_args()
 with open(args.out, 'w') as outfile:
@@ -38,7 +38,7 @@ with open(args.out, 'w') as outfile:
             test_path = args.dir_input+'/'+family+'_1200/test/'
             if os.path.isdir(test_path):
                 print("Current directory classified "+test_path)
-                
+
                 #Iterate through samples of the family to classify
                 for test_input in os.listdir(test_path):
                     row = []
@@ -46,12 +46,12 @@ with open(args.out, 'w') as outfile:
                     row.append(family)
                     score = []
                     fam_tar = []
-                   
+
                     #Iterate through signature to test in order to classify samples
                     for sig in os.listdir(args.dir_sig):
-                    
+
                         os.system('python3 calculate_sim.py '+test_path+test_input+' '+args.dir_sig+'/'+sig)
-                        
+
                         f = open('res.txt','r')
                         line = f.readline()
                         f.close()
@@ -60,13 +60,13 @@ with open(args.out, 'w') as outfile:
                             score.append(float(temp[2]))
                         except:
                             score.append(0)
-                        
+
                         fam_tar.append(sig.split('_')[-1][:-3])
                         try:
                             os.remove('res.txt')
                         except:
                             pass
-                    
+
                     max_score = max(score)
                     best_fam = fam_tar[score.index(max_score)]
                     row.append(best_fam)

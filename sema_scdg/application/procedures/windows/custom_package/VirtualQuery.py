@@ -9,10 +9,10 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 
 class VirtualQuery(angr.SimProcedure):
     def run(self, lpAddress, lpBuffer, dwLength):
-    
+
         return self.state.solver.BVS("retval_{}".format(self.display_name),self.arch.bits)
         pvoid = 4 if self.state.arch.bits == 32 else 8
-                
+
         # Get the addresses of the structure fields
         BaseAddress_ptr = lpBuffer + pvoid # TODO use ulong
         AllocationBase_ptr = BaseAddress_ptr + pvoid
@@ -22,7 +22,7 @@ class VirtualQuery(angr.SimProcedure):
         State = RegionSize + 4
         Protect = State + 4
         Type = Protect + 4
-        
+
         self.state.mem[BaseAddress_ptr].size_t = self.state.solver.BVS("BaseAddress_ptr_{}".format(self.display_name),self.arch.bits)
         self.state.mem[AllocationBase_ptr].size_t = self.state.solver.BVS("AllocationBase_ptr_{}".format(self.display_name),self.arch.bits)
         self.state.mem[AllocationProtect].dword = self.state.solver.BVS("AllocationProtect_{}".format(self.display_name),32)

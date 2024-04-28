@@ -22,7 +22,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -42,7 +42,7 @@ class linux_route_cache(linux_common.AbstractLinuxCommand):
         linux_common.set_plugin_members(self)
 
         mask_addr = self.addr_space.profile.get_symbol("rt_hash_mask")
-        
+
         if mask_addr == None:
             debug.error("This plugin does not support this profile. The Linux routing cache was deleted in 3.6.x. See: https://git.kernel.org/cgit/linux/kernel/git/torvalds/linux.git/commit/?id=89aef8921bfbac22f00e04f8450f6e447db13e42")
 
@@ -59,7 +59,7 @@ class linux_route_cache(linux_common.AbstractLinuxCommand):
                 continue
 
             while rth:
- 
+
                 # FIXME: Consider using kernel version metadata rather than checking hasattr
                 if hasattr(rth, 'u'):
                     dst = rth.u.dst
@@ -84,16 +84,16 @@ class linux_route_cache(linux_common.AbstractLinuxCommand):
         if self._config.RESOLVE:
             self.table_header(outfd, [("Interface", "16"),
                                   ("Destination", "20"),
-                                  ("Dest Name", "30"), 
+                                  ("Dest Name", "30"),
                                   ("Gateway", "")])
         else:
             self.table_header(outfd, [("Interface", "16"),
                                   ("Destination", "20"),
                                   ("Gateway", "")])
-   
+
         for (name, dest, gw) in data:
             if self._config.RESOLVE:
-                
+
                 host = str(dest.cast("IpAddress"))
                 try:
                     host = socket.gethostbyaddr(host)
@@ -102,8 +102,7 @@ class linux_route_cache(linux_common.AbstractLinuxCommand):
                     host = ""
                 except socket.gaierror:
                     host = ""
-                
-                self.table_row(outfd, name, dest.cast("IpAddress"), host, gw.cast("IpAddress"))
-            else:        
-                self.table_row(outfd, name, dest.cast("IpAddress"), gw.cast("IpAddress"))
 
+                self.table_row(outfd, name, dest.cast("IpAddress"), host, gw.cast("IpAddress"))
+            else:
+                self.table_row(outfd, name, dest.cast("IpAddress"), gw.cast("IpAddress"))

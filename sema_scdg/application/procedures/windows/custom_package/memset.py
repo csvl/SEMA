@@ -21,7 +21,7 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 #                 value = 0x0
 #             else:
 #                 value = 0x0 # self.state.solver.eval(val) # TODO make loop -> SHITTY solution of SERENA (pair programming)
-#             #ptr = claripy.BVV(value,length*8) 
+#             #ptr = claripy.BVV(value,length*8)
 #             # ptr = claripy.BVV(0x0,length*8)
 #             # self.state.memory.store(dest, ptr)
 #             ptr = claripy.BVV(0x0, self.state.solver.eval(length)*8)

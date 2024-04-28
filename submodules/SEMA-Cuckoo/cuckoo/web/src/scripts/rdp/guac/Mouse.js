@@ -24,7 +24,7 @@ var Guacamole = Guacamole || {};
  * the given element are automatically populated with handlers that translate
  * mouse events into a non-browser-specific event provided by the
  * Guacamole.Mouse instance.
- * 
+ *
  * @constructor
  * @param {Element} element The Element to use to provide mouse events.
  */
@@ -62,18 +62,18 @@ Guacamole.Mouse = function(element) {
      * The current mouse state. The properties of this state are updated when
      * mouse events fire. This state object is also passed in as a parameter to
      * the handler of any mouse events.
-     * 
+     *
      * @type {Guacamole.Mouse.State}
      */
     this.currentState = new Guacamole.Mouse.State(
-        0, 0, 
+        0, 0,
         false, false, false, false, false
     );
 
     /**
      * Fired whenever the user presses a mouse button down over the element
      * associated with this Guacamole.Mouse.
-     * 
+     *
      * @event
      * @param {Guacamole.Mouse.State} state The current mouse state.
      */
@@ -82,7 +82,7 @@ Guacamole.Mouse = function(element) {
     /**
      * Fired whenever the user releases a mouse button down over the element
      * associated with this Guacamole.Mouse.
-     * 
+     *
      * @event
      * @param {Guacamole.Mouse.State} state The current mouse state.
      */
@@ -91,7 +91,7 @@ Guacamole.Mouse = function(element) {
     /**
      * Fired whenever the user moves the mouse over the element associated with
      * this Guacamole.Mouse.
-     * 
+     *
      * @event
      * @param {Guacamole.Mouse.State} state The current mouse state.
      */
@@ -100,7 +100,7 @@ Guacamole.Mouse = function(element) {
     /**
      * Fired whenever the mouse leaves the boundaries of the element associated
      * with this Guacamole.Mouse.
-     * 
+     *
      * @event
      */
 	this.onmouseout = null;
@@ -268,7 +268,7 @@ Guacamole.Mouse = function(element) {
         // Otherwise, assume legacy mousewheel event and line scrolling
         else
             delta = e.detail * guac_mouse.PIXELS_PER_LINE;
-        
+
         // Update overall delta
         scroll_delta += delta;
 
@@ -367,7 +367,7 @@ Guacamole.Mouse = function(element) {
      * hotspot coordinates. This affects styling of the element backing this
      * Guacamole.Mouse only, and may fail depending on browser support for
      * setting the mouse cursor.
-     * 
+     *
      * If setting the local cursor is desired, it is up to the implementation
      * to do something else, such as use the software cursor built into
      * Guacamole.Display, if the local cursor cannot be set.
@@ -396,17 +396,17 @@ Guacamole.Mouse = function(element) {
 
 /**
  * Simple container for properties describing the state of a mouse.
- * 
+ *
  * @constructor
  * @param {Number} x The X position of the mouse pointer in pixels.
  * @param {Number} y The Y position of the mouse pointer in pixels.
- * @param {Boolean} left Whether the left mouse button is pressed. 
- * @param {Boolean} middle Whether the middle mouse button is pressed. 
- * @param {Boolean} right Whether the right mouse button is pressed. 
+ * @param {Boolean} left Whether the left mouse button is pressed.
+ * @param {Boolean} middle Whether the middle mouse button is pressed.
+ * @param {Boolean} right Whether the right mouse button is pressed.
  * @param {Boolean} up Whether the up mouse button is pressed (the fourth
- *                     button, usually part of a scroll wheel). 
+ *                     button, usually part of a scroll wheel).
  * @param {Boolean} down Whether the down mouse button is pressed (the fifth
- *                       button, usually part of a scroll wheel). 
+ *                       button, usually part of a scroll wheel).
  */
 Guacamole.Mouse.State = function(x, y, left, middle, right, up, down) {
 
@@ -455,7 +455,7 @@ Guacamole.Mouse.State = function(x, y, left, middle, right, up, down) {
     this.up = up;
 
     /**
-     * Whether the down mouse button is currently pressed. This is the fifth 
+     * Whether the down mouse button is currently pressed. This is the fifth
      * mouse button, associated with downward scrolling of the mouse scroll
      * wheel.
      * @type {Boolean}
@@ -467,14 +467,14 @@ Guacamole.Mouse.State = function(x, y, left, middle, right, up, down) {
      * element and clientX/clientY coordinates (commonly available within event
      * objects). Position is translated from clientX/clientY (relative to
      * viewport) to element-relative coordinates.
-     * 
+     *
      * @param {Element} element The element the coordinates should be relative
      *                          to.
      * @param {Number} clientX The X coordinate to translate, viewport-relative.
      * @param {Number} clientY The Y coordinate to translate, viewport-relative.
      */
     this.fromClientPosition = function(element, clientX, clientY) {
-    
+
         guac_state.x = clientX - element.offsetLeft;
         guac_state.y = clientY - element.offsetTop;
 
@@ -488,7 +488,7 @@ Guacamole.Mouse.State = function(x, y, left, middle, right, up, down) {
         }
 
         // Element ultimately depends on positioning within document body,
-        // take document scroll into account. 
+        // take document scroll into account.
         if (parent) {
             var documentScrollLeft = document.body.scrollLeft || document.documentElement.scrollLeft;
             var documentScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
@@ -503,10 +503,10 @@ Guacamole.Mouse.State = function(x, y, left, middle, right, up, down) {
 
 /**
  * Provides cross-browser relative touch event translation for a given element.
- * 
+ *
  * Touch events are translated into mouse events as if the touches occurred
  * on a touchpad (drag to push the mouse pointer, tap to click).
- * 
+ *
  * @constructor
  * @param {Element} element The Element to use to provide touch events.
  */
@@ -540,11 +540,11 @@ Guacamole.Mouse.Touchpad = function(element) {
      * The current mouse state. The properties of this state are updated when
      * mouse events fire. This state object is also passed in as a parameter to
      * the handler of any mouse events.
-     * 
+     *
      * @type {Guacamole.Mouse.State}
      */
     this.currentState = new Guacamole.Mouse.State(
-        0, 0, 
+        0, 0,
         false, false, false, false, false
     );
 
@@ -553,7 +553,7 @@ Guacamole.Mouse.Touchpad = function(element) {
      * as part of a "click" gesture initiated by the user by tapping one
      * or more fingers over the touchpad element, as part of a "scroll"
      * gesture initiated by dragging two fingers up or down, etc.
-     * 
+     *
      * @event
      * @param {Guacamole.Mouse.State} state The current mouse state.
      */
@@ -564,7 +564,7 @@ Guacamole.Mouse.Touchpad = function(element) {
      * as part of a "click" gesture initiated by the user by tapping one
      * or more fingers over the touchpad element, as part of a "scroll"
      * gesture initiated by dragging two fingers up or down, etc.
-     * 
+     *
      * @event
      * @param {Guacamole.Mouse.State} state The current mouse state.
      */
@@ -573,7 +573,7 @@ Guacamole.Mouse.Touchpad = function(element) {
     /**
      * Fired whenever the user moves the mouse by dragging their finger over
      * the touchpad element.
-     * 
+     *
      * @event
      * @param {Guacamole.Mouse.State} state The current mouse state.
      */
@@ -595,12 +595,12 @@ Guacamole.Mouse.Touchpad = function(element) {
     var click_release_timeout = null;
 
     element.addEventListener("touchend", function(e) {
-        
+
         e.preventDefault();
-            
+
         // If we're handling a gesture AND this is the last touch
         if (gesture_in_progress && e.touches.length === 0) {
-            
+
             var time = new Date().getTime();
 
             // Get corresponding mouse button
@@ -634,12 +634,12 @@ Guacamole.Mouse.Touchpad = function(element) {
                 // Delay mouse up - mouse up should be canceled if
                 // touchstart within timeout.
                 click_release_timeout = window.setTimeout(function() {
-                    
+
                     // Fire button up event
                     guac_touchpad.currentState[button] = false;
                     if (guac_touchpad.onmouseup)
                         guac_touchpad.onmouseup(guac_touchpad.currentState);
-                    
+
                     // Gesture now over
                     gesture_in_progress = false;
 
@@ -964,7 +964,7 @@ Guacamole.Mouse.Touchscreen = function(element) {
     /**
      * Begins a new gesture at the location of the first touch in the given
      * touch event.
-     * 
+     *
      * @private
      * @param {TouchEvent} e The touch event beginning this new gesture.
      */
@@ -978,7 +978,7 @@ Guacamole.Mouse.Touchscreen = function(element) {
     /**
      * End the current gesture entirely. Wait for all touches to be done before
      * resuming gesture detection.
-     * 
+     *
      * @private
      */
     function end_gesture() {

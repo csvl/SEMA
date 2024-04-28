@@ -225,9 +225,9 @@ class TestWebInterface(object):
         l.return_value = True
         readreq = client.get("/analysis/1/control/tunnel/?read:%s:0" % key)
         assert readreq.status_code == 200
-        assert len(readreq.streaming_content.next()) > 0
+        assert len(next(readreq.streaming_content)) > 0
         # second read with read lock will be end marker
-        assert readreq.streaming_content.next() == "0.;"
+        assert next(readreq.streaming_content) == "0.;"
 
         # read without read lock for normal reading
         l.return_value = False
@@ -805,7 +805,7 @@ class TestWebInterface(object):
         r = client.post(
             "/analysis/api/tasks/info/",
             json.dumps({
-                "task_ids": range(100),
+                "task_ids": list(range(100)),
             }),
             "application/json",
             HTTP_X_REQUESTED_WITH="XMLHttpRequest"
@@ -1025,7 +1025,7 @@ class TestWebInterfaceFeedback(object):
         def get_error2(kw):
             buf = io.BytesIO()
             z = zipfile.ZipFile(buf, "w")
-            for key, value in kw.items():
+            for key, value in list(kw.items()):
                 z.writestr(key, value)
             z.close()
             return get_error(buf.getvalue())

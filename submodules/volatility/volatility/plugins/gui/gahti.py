@@ -55,7 +55,7 @@ class Gahti(sessions.Sessions):
         for session in data:
             gahti = session.find_gahti()
             if gahti:
-                for i, h in handle_types.items():
+                for i, h in list(handle_types.items()):
                     yield (0,
                                     [str(session.SessionId),
                                      str(h),

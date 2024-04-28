@@ -105,7 +105,7 @@ class KDBGScan(common.AbstractWindowsCommand):
     @cache.CacheDecorator(lambda self: "tests/kdbgscan/kdbg={0}".format(self._config.KDBG))
     def calculate(self):
         """Determines the address space"""
-        profilelist = [ p.__name__ for p in registry.get_plugin_classes(obj.Profile).values() ]
+        profilelist = [ p.__name__ for p in list(registry.get_plugin_classes(obj.Profile).values()) ]
 
         encrypted_kdbg_profiles = []
         proflens = {}
@@ -117,17 +117,17 @@ class KDBGScan(common.AbstractWindowsCommand):
             if buf.profile.metadata.get('os', 'unknown') == 'windows':
                 proflens[p] = str(obj.VolMagic(buf).KDBGHeader)
                 maxlen = max(maxlen, len(proflens[p]))
-                if (buf.profile.metadata.get('memory_model', '64bit') == '64bit' and 
-                            (buf.profile.metadata.get('major', 0), 
+                if (buf.profile.metadata.get('memory_model', '64bit') == '64bit' and
+                            (buf.profile.metadata.get('major', 0),
                             buf.profile.metadata.get('minor', 0)) >= (6, 2)):
                     encrypted_kdbg_profiles.append(p)
-                    
+
         self._config.update('PROFILE', origprofile)
         # keep track of the number of potential KDBGs we find
         count = 0
 
         if origprofile not in encrypted_kdbg_profiles:
-            scanner = KDBGScanner(needles = proflens.values())
+            scanner = KDBGScanner(needles = list(proflens.values()))
 
             aspace = utils.load_as(self._config, astype = 'any')
 
@@ -152,8 +152,8 @@ class KDBGScan(common.AbstractWindowsCommand):
                         yield p, kdbg
             self._config.update('PROFILE', origprofile)
 
-        # only perform the special win8/2012 scan if we didn't find 
-        # any others and if a virtual x64 address space is available 
+        # only perform the special win8/2012 scan if we didn't find
+        # any others and if a virtual x64 address space is available
         if count == 0:
             if origprofile in encrypted_kdbg_profiles:
                 encrypted_kdbg_profiles = [origprofile]
@@ -162,7 +162,7 @@ class KDBGScan(common.AbstractWindowsCommand):
                 aspace = utils.load_as(self._config, astype = 'any')
                 if hasattr(aspace, 'vtop'):
                     for kdbg in obj.VolMagic(aspace).KDBG.generate_suggestions():
-                        yield profile, kdbg 
+                        yield profile, kdbg
 
     def render_text(self, outfd, data):
         """Renders the KPCR values as text"""
@@ -178,7 +178,7 @@ class KDBGScan(common.AbstractWindowsCommand):
                         kdbg.obj_vm.profile.metadata.get('memory_model', '32bit'),
                         ))
 
-            # Will spaces with vtop always have a dtb also? 
+            # Will spaces with vtop always have a dtb also?
             has_vtop = hasattr(kdbg.obj_native_vm, 'vtop')
 
             # Always start out with the virtual and physical offsets
@@ -198,7 +198,7 @@ class KDBGScan(common.AbstractWindowsCommand):
                 outfd.write("{0:<30}: {1:#x}\n".format("Wait always", kdbg.wait_always))
 
             # These fields can be gathered without dereferencing
-            # any pointers, thus they're available always 
+            # any pointers, thus they're available always
             outfd.write("{0:<30}: {1}\n".format("KDBG owner tag check", str(kdbg.is_valid())))
             outfd.write("{0:<30}: {1}\n".format("Profile suggestion (KDBGHeader)", profile))
             verinfo = kdbg.dbgkd_version64()
@@ -208,7 +208,7 @@ class KDBGScan(common.AbstractWindowsCommand):
                     verinfo.MinorVersion))
 
             # Print details only available when a DTB can be found
-            # and we have an AS with vtop. 
+            # and we have an AS with vtop.
             if has_vtop:
                 outfd.write("{0:<30}: {1}\n".format("Service Pack (CmNtCSDVersion)", kdbg.ServicePack))
                 outfd.write("{0:<30}: {1}\n".format("Build string (NtBuildLab)", kdbg.NtBuildLab.dereference()))
@@ -257,4 +257,3 @@ class KDBGScan(common.AbstractWindowsCommand):
                 outfd.write("{0:<30}: {1:#x}\n".format("KernelBase", kdbg.KernBase))
 
             outfd.write("\n")
-

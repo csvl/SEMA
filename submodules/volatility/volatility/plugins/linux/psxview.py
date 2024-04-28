@@ -52,13 +52,13 @@ class linux_psxview(linux_common.AbstractLinuxCommand):
         return [self.addr_space.vtop(x.obj_offset) for x in linux_pslist_cache.linux_pslist_cache(self._config).calculate()]
 
     def _get_task_parents(self):
-        if self.addr_space.profile.obj_has_member("task_struct", "real_parent"): 
-            ret = [self.addr_space.vtop(x.real_parent.v()) for x in linux_pslist.linux_pslist(self._config).calculate()] 
+        if self.addr_space.profile.obj_has_member("task_struct", "real_parent"):
+            ret = [self.addr_space.vtop(x.real_parent.v()) for x in linux_pslist.linux_pslist(self._config).calculate()]
         else:
             ret = [self.addr_space.vtop(x.parent.v()) for x in linux_pslist.linux_pslist(self._config).calculate()]
 
         return ret
-    
+
     def _get_thread_leaders(self):
         return [self.addr_space.vtop(x.group_leader.v()) for x in linux_pidhashtable.linux_pidhashtable(self._config).calculate()]
 
@@ -68,7 +68,7 @@ class linux_psxview(linux_common.AbstractLinuxCommand):
     def calculate(self):
         linux_common.set_plugin_members(self)
         phys_addr_space = utils.load_as(self._config, astype = 'physical')
-        
+
         ps_sources = {}
 
         # The keys are names of process sources

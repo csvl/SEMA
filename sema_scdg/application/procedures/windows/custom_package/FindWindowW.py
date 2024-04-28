@@ -12,7 +12,7 @@ class FindWindowW(angr.SimProcedure):
         if hasattr(lib, "decode"):
             lib = lib.decode("utf-16-le")
         return lib
-        
+
     def run(
         self,
         lpClassName,

@@ -57,7 +57,7 @@ def spCreateProcessW(application_name, command_line, process_attributes,
 
     if environment:
         environment = "\x00".join(
-            "%s=%s" % (k, v) for k, v in environment.items()
+            "%s=%s" % (k, v) for k, v in list(environment.items())
         ) + "\x00\x00"
 
     si = STARTUPINFO()
@@ -301,7 +301,7 @@ class Process(object):
         is32bit = self.is32bit(path=path)
 
         if source:
-            if isinstance(source, (int, long)) or source.isdigit():
+            if isinstance(source, int) or source.isdigit():
                 inject_is32bit = self.is32bit(pid=int(source))
             else:
                 inject_is32bit = self.is32bit(process_name=source)
@@ -326,7 +326,7 @@ class Process(object):
             argv += ["--curdir", curdir]
 
         if source:
-            if isinstance(source, (int, long)) or source.isdigit():
+            if isinstance(source, int) or source.isdigit():
                 argv += ["--from", "%s" % source]
             else:
                 argv += ["--from-process", source]
@@ -336,7 +336,7 @@ class Process(object):
 
         try:
             output = subprocess_checkoutput(argv, env)
-            self.pid, self.tid = map(int, output.split())
+            self.pid, self.tid = list(map(int, output.split()))
         except subprocess.CalledProcessError as e:
             log.error(
                 "Failed to execute process from path %r with "
@@ -509,7 +509,7 @@ class Process(object):
             "trigger": (trigger or "").encode("utf8"),
         }
 
-        for key, value in lines.items():
+        for key, value in list(lines.items()):
             os.write(fd, "%s=%s\n" % (key, value))
 
         os.close(fd)

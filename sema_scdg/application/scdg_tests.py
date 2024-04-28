@@ -4,6 +4,8 @@ import configparser
 import networkx as nx
 import matplotlib.pyplot as plt
 import pandas as pd
+import warnings
+warnings.filterwarnings("ignore" , category=ResourceWarning)
 
 sys.path.insert(0, '/sema-scdg/application/')
 
@@ -96,7 +98,7 @@ class TestSCDG(unittest.TestCase):
 
     def test_REST_scdg_args(self):
         scdg_args = get_args()
-        expected_result = [{'expl_method': 
+        expected_result = [{'expl_method':
                             [{'name': 'DFS', 'help': 'Depth First Search', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
                               {'name': 'BFS', 'help': 'Breadth First Search', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
                               {'name': 'CDFS', 'help': 'Custom Depth First Search (Default)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
@@ -104,69 +106,69 @@ class TestSCDG(unittest.TestCase):
                               {'name': 'DBFS', 'help': 'TODO', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
                               {'name': 'SDFS', 'help': 'TODO', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
                               {'name': 'SCDFS', 'help': 'TODO', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True}],
-                            'graph_output': 
+                            'graph_output':
                                 [{'name': 'gs', 'help': '.GS format', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
                                 {'name': 'json', 'help': '.JSON format', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True}],
-                            'packing_type': 
+                            'packing_type':
                                 [{'name': 'symbion', 'help': 'Concolic unpacking method (linux | windows [in progress])', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
                                 {'name': 'unipacker', 'help': 'Emulation unpacking method (windows only)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True}]},
-                        {'log_level': 
-                            [{'name': 'INFO', 'help': 'Info, warning and error logs', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True}, 
-                             {'name': 'DEBUG', 'help': 'All logs and debug logs', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True}, 
-                             {'name': 'WARNING', 'help': 'Only Warning and error logs', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True}, 
-                             {'name': 'ERROR', 'help': 'no log', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True}], 
-                        'Packed malware': 
+                        {'log_level':
+                            [{'name': 'INFO', 'help': 'Info, warning and error logs', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
+                             {'name': 'DEBUG', 'help': 'All logs and debug logs', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
+                             {'name': 'WARNING', 'help': 'Only Warning and error logs', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
+                             {'name': 'ERROR', 'help': 'no log', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True}],
+                        'Packed malware':
                             [{'name': 'is_packed', 'help': 'Is the binary packed ? (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
                             {'name': 'concrete_target_is_local', 'help': 'Use a local GDB server instead of using cuckoo (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}],
-                        'SCDG exploration techniques parameters': 
-                            [{'name': 'jump_it', 'help': 'Number of iteration allowed for a symbolic loop (default : 3) ', 'type': "<class 'int'>", 'default': 3, 'is_mutually_exclusive': False}, 
-                             {'name': 'max_in_pause_stach', 'help': 'Number of states allowed in pause stash (default : 200)', 'type': "<class 'int'>", 'default': 200, 'is_mutually_exclusive': False}, 
-                             {'name': 'max_step', 'help': 'Maximum number of steps allowed for a state (default : 50 000)', 'type': "<class 'int'>", 'default': 50000, 'is_mutually_exclusive': False}, 
-                             {'name': 'max_end_state', 'help': 'Number of deadended state required to stop (default : 600)', 'type': "<class 'int'>", 'default': 600, 'is_mutually_exclusive': False}, 
-                             {'name': 'max_simul_state', 'help': 'Number of simultaneous states we explore with simulation manager (default : 5)', 'type': "<class 'int'>", 'default': 5, 'is_mutually_exclusive': False}]}, 
-                        {'Binary parameters': 
+                        'SCDG exploration techniques parameters':
+                            [{'name': 'jump_it', 'help': 'Number of iteration allowed for a symbolic loop (default : 3) ', 'type': "<class 'int'>", 'default': 3, 'is_mutually_exclusive': False},
+                             {'name': 'max_in_pause_stach', 'help': 'Number of states allowed in pause stash (default : 200)', 'type': "<class 'int'>", 'default': 200, 'is_mutually_exclusive': False},
+                             {'name': 'max_step', 'help': 'Maximum number of steps allowed for a state (default : 50 000)', 'type': "<class 'int'>", 'default': 50000, 'is_mutually_exclusive': False},
+                             {'name': 'max_end_state', 'help': 'Number of deadended state required to stop (default : 600)', 'type': "<class 'int'>", 'default': 600, 'is_mutually_exclusive': False},
+                             {'name': 'max_simul_state', 'help': 'Number of simultaneous states we explore with simulation manager (default : 5)', 'type': "<class 'int'>", 'default': 5, 'is_mutually_exclusive': False}]},
+                        {'Binary parameters':
                             [{'name': 'n_args', 'help': 'Number of symbolic arguments given to the binary (default : 0)', 'type': "<class 'int'>", 'default': 1, 'is_mutually_exclusive': False},
-                             {'name': 'loop_counter_concrete', 'help': 'How many times a loop can loop (default : 10240)', 'type': "<class 'int'>", 'default': 10240, 'is_mutually_exclusive': False}], 
-                        'RATs custom parameters': 
-                            [{'name': 'count_block_enable', 'help': 'Count block (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}, 
-                             {'name': 'sim_file', 'help': 'Create SimFile with binary  TODO (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}, 
-                             {'name': 'plugin_track_command', 'help': 'Track command loop of RATs  (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}, 
-                             {'name': 'plugin_ioc_report', 'help': 'produces and IoC report  (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}, 
-                             {'name': 'plugin_hooks', 'help': 'activates the hooks for time-consuming functions  (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}], 
-                        'SCDG creation parameter': 
-                            [{'name': 'min_size', 'help': 'Minimum size required for a trace to be used in SCDG (default : 3)', 'type': "<class 'int'>", 'default': 3, 'is_mutually_exclusive': False}, 
-                             {'name': 'disjoint_union', 'help': 'Do we merge traces or use disjoint union ? (default : merge)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}, 
-                             {'name': 'not_comp_args', 'help': 'Do we compare arguments to add new nodes when building graph ? (default : comparison enabled)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}, 
-                             {'name': 'three_edges', 'help': 'Do we use the three-edges strategy ? (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}, 
-                             {'name': 'not_ignore_zero', 'help': 'Do we ignore zero when building graph ? (default : Discard zero)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}, 
-                             {'name': 'keep_inter_SCDG', 'help': 'keep intermediate SCDG in file  (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}, 
-                             {'name': 'eval_time', 'help': 'Keep intermediate SCDG in file  (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}]}, 
-                        {'Thread parameter': 
-                            [{'name': 'pre_run_thread', 'help': 'TODO (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}, 
-                             {'name': 'runtime_run_thread', 'help': 'TODO (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}, 
-                             {'name': 'post_run_thread', 'help': 'TODO (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}], 
-                        'Global parameter': 
-                            [{'name': 'approximate', 'help': 'Symbolic approximation (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}, 
-                             {'name': 'fast_main', 'help': 'Jump directly to the main method of the binary', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}, 
-                             {'name': 'timeout', 'help': 'Timeout in seconds before ending extraction (default : 1000)', 'type': "<class 'int'>", 'default': 1000, 'is_mutually_exclusive': False}, 
-                             {'name': 'string_resolve', 'help': 'Do we try to resolv references of string (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}, 
-                             {'name': 'exp_dir', 'help': ' Name of the output directory', 'type': 'None', 'default': 'Test', 'is_mutually_exclusive': False}, 
-                             {'name': 'print_syscall', 'help': 'Verbose output indicating syscalls  (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}, 
-                             {'name': 'family', 'help': 'family of the malware (default : Unknown)', 'type': 'None', 'default': 'Unknown', 'is_mutually_exclusive': False}, 
+                             {'name': 'loop_counter_concrete', 'help': 'How many times a loop can loop (default : 10240)', 'type': "<class 'int'>", 'default': 10240, 'is_mutually_exclusive': False}],
+                        'RATs custom parameters':
+                            [{'name': 'count_block_enable', 'help': 'Count block (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
+                             {'name': 'sim_file', 'help': 'Create SimFile with binary  TODO (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
+                             {'name': 'plugin_track_command', 'help': 'Track command loop of RATs  (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
+                             {'name': 'plugin_ioc_report', 'help': 'produces and IoC report  (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
+                             {'name': 'plugin_hooks', 'help': 'activates the hooks for time-consuming functions  (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}],
+                        'SCDG creation parameter':
+                            [{'name': 'min_size', 'help': 'Minimum size required for a trace to be used in SCDG (default : 3)', 'type': "<class 'int'>", 'default': 3, 'is_mutually_exclusive': False},
+                             {'name': 'disjoint_union', 'help': 'Do we merge traces or use disjoint union ? (default : merge)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
+                             {'name': 'not_comp_args', 'help': 'Do we compare arguments to add new nodes when building graph ? (default : comparison enabled)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
+                             {'name': 'three_edges', 'help': 'Do we use the three-edges strategy ? (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
+                             {'name': 'not_ignore_zero', 'help': 'Do we ignore zero when building graph ? (default : Discard zero)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
+                             {'name': 'keep_inter_SCDG', 'help': 'keep intermediate SCDG in file  (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
+                             {'name': 'eval_time', 'help': 'Keep intermediate SCDG in file  (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}]},
+                        {'Thread parameter':
+                            [{'name': 'pre_run_thread', 'help': 'TODO (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
+                             {'name': 'runtime_run_thread', 'help': 'TODO (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
+                             {'name': 'post_run_thread', 'help': 'TODO (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}],
+                        'Global parameter':
+                            [{'name': 'approximate', 'help': 'Symbolic approximation (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
+                             {'name': 'fast_main', 'help': 'Jump directly to the main method of the binary', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
+                             {'name': 'timeout', 'help': 'Timeout in seconds before ending extraction (default : 1000)', 'type': "<class 'int'>", 'default': 1000, 'is_mutually_exclusive': False},
+                             {'name': 'string_resolve', 'help': 'Do we try to resolv references of string (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
+                             {'name': 'exp_dir', 'help': ' Name of the output directory', 'type': 'None', 'default': 'Test', 'is_mutually_exclusive': False},
+                             {'name': 'print_syscall', 'help': 'Verbose output indicating syscalls  (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
+                             {'name': 'family', 'help': 'family of the malware (default : Unknown)', 'type': 'None', 'default': 'Unknown', 'is_mutually_exclusive': False},
                              {'name': 'binary_path', 'help': 'Name of the binary to analyze', 'type': 'None', 'default': None, 'is_mutually_exclusive': False}]}]
         self.assertEqual(scdg_args, expected_result)
-        
+
 
     def test_REST_scdg_parse_args(self):
-        web_app_input = {'scdg_enable': 'scdg_enable', 'expl_method': 'CDFS', 'graph_output': 'gs', 
-                'is_packed': 'false', 'concrete_target_is_local': 'false', 
-                'jump_it': '3', 'max_in_pause_stach': '200', 'max_step': '50000', 
-                'max_end_state': '600', 'max_simul_state': '10', 'log_level': 'WARNING', 
-                'n_args': '1', 'loop_counter_concrete': '10240', 'count_block_enable': 'false', 
-                'sim_file': 'false', 'plugin_track_command': 'false', 'plugin_ioc_report': 'false', 'plugin_hooks': 'false', 
-                'min_size': '3', 'disjoint_union': 'false', 'not_comp_args': 'false', 'three_edges': 'false', 
-                'not_ignore_zero': 'false', 'keep_inter_SCDG': 'false', 'eval_time': 'false', 'approximate': 'false', 
-                'fast_main': 'false', 'timeout': '1000', 'string_resolve': 'true', 'exp_dir': 'Test', 'print_syscall': 'false', 
+        web_app_input = {'scdg_enable': 'scdg_enable', 'expl_method': 'CDFS', 'graph_output': 'gs',
+                'is_packed': 'false', 'concrete_target_is_local': 'false',
+                'jump_it': '3', 'max_in_pause_stach': '200', 'max_step': '50000',
+                'max_end_state': '600', 'max_simul_state': '10', 'log_level': 'WARNING',
+                'n_args': '1', 'loop_counter_concrete': '10240', 'count_block_enable': 'false',
+                'sim_file': 'false', 'plugin_track_command': 'false', 'plugin_ioc_report': 'false', 'plugin_hooks': 'false',
+                'min_size': '3', 'disjoint_union': 'false', 'not_comp_args': 'false', 'three_edges': 'false',
+                'not_ignore_zero': 'false', 'keep_inter_SCDG': 'false', 'eval_time': 'false', 'approximate': 'false',
+                'fast_main': 'false', 'timeout': '1000', 'string_resolve': 'true', 'exp_dir': 'Test', 'print_syscall': 'false',
                 'family': 'Unknown', 'binary_path': 'test/test', 'pre_run_thread': 'false', 'runtime_run_thread': 'false', 'post_run_thread': 'false'}
         parse_json_request(web_app_input)
         file = config.read(sys.argv[1])
@@ -268,7 +270,7 @@ def compare_graphs(graph1_path, graph2_path, csv_path1, csv_path2, exploration_t
         print("The graphs are isomorphic")
         return True
     else:
-        # Checking that the binary has been explored completely, 
+        # Checking that the binary has been explored completely,
         # if not it is impossible to tell if the difference is due to how far the program went or to the correctness of it.
         dataset1 = pd.read_csv(csv_path1, delimiter=";")
         dataset1 = pd.DataFrame(dataset1)
@@ -281,7 +283,7 @@ def compare_graphs(graph1_path, graph2_path, csv_path1, csv_path2, exploration_t
         dataset2 = dataset2[["filename", "exploration time"]]
         binary_name2 = os.path.basename(graph2_path)
         binary_data2 = dataset2.loc[dataset2['filename'] == binary_name2]
- 
+
         if (binary_data1.iloc[0]['exploration time'] >= exploration_timeout or binary_data2.iloc[0]['exploration time'] >= exploration_timeout):
             print("One or the two versions could not explore the binary entirely, impossible to compare the graphs")
             print("The binary has been ignored for the test")

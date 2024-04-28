@@ -31,11 +31,11 @@ class VerQueryValueW(angr.SimProcedure):
 
         # read the memory pointed to by lpSubBlock
         sub_block_str = self.state.mem[lpSubBlock_addr].wstring.concrete.strip('\\')
-        
+
         word_size = 2
         dword_size = 4
-        VS_FIXEDFILEINFO_size = dword_size*13 
-        
+        VS_FIXEDFILEINFO_size = dword_size*13
+
         # check if we're retrieving the root block
         if sub_block_str == '':
             # get the VS_FIXEDFILEINFO structure
@@ -87,7 +87,7 @@ class VerQueryValueW(angr.SimProcedure):
             # self.state.memory.store(lplpBuffer_addr + dword_size*10, self.state.solver.BVV(structure['dwFileSubtype'], self.state.arch.bits))
             # self.state.memory.store(lplpBuffer_addr + dword_size*11, self.state.solver.BVV(structure['dwFileDateMS'], self.state.arch.bits))
             # self.state.memory.store(lplpBuffer_addr + dword_size*12, self.state.solver.BVV(structure['dwFileDateLS'], self.state.arch.bits))
-           
+
             self.state.memory.store(lplpBuffer_addr,                 structure['dwSignature'])
             self.state.memory.store(lplpBuffer_addr + dword_size,    structure['dwStrucVersion'])
             self.state.memory.store(lplpBuffer_addr + dword_size*2,  structure['dwFileVersionMS'])
@@ -102,7 +102,7 @@ class VerQueryValueW(angr.SimProcedure):
             self.state.memory.store(lplpBuffer_addr + dword_size*11, structure['dwFileDateMS'])
             self.state.memory.store(lplpBuffer_addr + dword_size*12, structure['dwFileDateLS'])
             # self.state.memory.store(puLen_addr, dword_size*12)
-            
+
             # self.state.mem[lplpBuffer_addr].dword = structure['dwSignature']
             # self.state.mem[lplpBuffer_addr + dword_size].dword = structure['dwStrucVersion']
             # self.state.mem[lplpBuffer_addr + dword_size*2].dword = structure['dwFileVersionMS']
@@ -116,9 +116,9 @@ class VerQueryValueW(angr.SimProcedure):
             # self.state.mem[lplpBuffer_addr + dword_size*10].dword = structure['dwFileSubtype']
             # self.state.mem[lplpBuffer_addr + dword_size*11].dword = structure['dwFileDateMS']
             # self.state.mem[lplpBuffer_addr + dword_size*12].dword = structure['dwFileDateLS']
-            
+
             self.state.mem[puLen_addr].dword = dword_size*13
-            
+
             return 0x1
 
         # check if we're retrieving the translation array

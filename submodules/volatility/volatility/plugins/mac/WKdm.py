@@ -1,12 +1,12 @@
-# 
-# Python port of WKdm compression  / decompression by 
+#
+# Python port of WKdm compression  / decompression by
 # Golden G. Richard III (@nolaforensix, golden@arcanealloy.com)
 # December 2013
 #
 # For compression and decompression of 4K pages.
 #
 # Based loosely on WKdm.c, by:
-# 
+#
 # *  Paul Wilson -- wilson@cs.utexas.edu
 # *  Scott F. Kaplan -- sfkaplan@cs.utexas.edu
 # *  September 1997
@@ -26,7 +26,7 @@
 import math
 
 class WKdm:
-    
+
     ##################################################################
     ##################################################################
     # DO NOT CHANGE THESE: Correct operation depends on 4K page size
@@ -37,7 +37,7 @@ class WKdm:
     PAGE_SIZE_IN_WORDS	      = 1024
     PAGE_SIZE_IN_BYTES	      = 4096
     DICTIONARY_SIZE_IN_WORDS  = 16
-    HEADER_SIZE_IN_WORDS      = 3                      
+    HEADER_SIZE_IN_WORDS      = 3
     TAGS_AREA_OFFSET_IN_WORDS = HEADER_SIZE_IN_WORDS
     TAGS_AREA_SIZE_IN_WORDS   = 64
     NUM_LOW_BITS	      = 10
@@ -60,23 +60,23 @@ class WKdm:
     # Only zero maps to zero.  The rest of the table is the result of
     # appending 17 randomizations of the multiples of 4 from 4 to 56.
     ##################################################################
-    HASH_LOOKUP_TABLE_CONTENTS = [ 
-        0, 52,  8, 56, 16, 12, 28, 20,  4, 36, 48, 24, 44, 40, 32, 60, 
-        8, 12, 28, 20,  4, 60, 16, 36, 24, 48, 44, 32, 52, 56, 40, 12, 
-        8, 48, 16, 52, 60, 28, 56, 32, 20, 24, 36, 40, 44,  4,  8, 40, 
-        60, 32, 20, 44,  4, 36, 52, 24, 16, 56, 48, 12, 28, 16,  8, 40, 
-        36, 28, 32, 12,  4, 44, 52, 20, 24, 48, 60, 56, 40, 48,  8, 32, 
-        28, 36,  4, 44, 20, 56, 60, 24, 52, 16, 12, 12,  4, 48, 20,  8, 
-        52, 16, 60, 24, 36, 44, 28, 56, 40, 32, 36, 20, 24, 60, 40, 44, 
-        52, 16, 32,  4, 48,  8, 28, 56, 12, 28, 32, 40, 52, 36, 16, 20, 
-        48,  8,  4, 60, 24, 56, 44, 12,  8, 36, 24, 28, 16, 60, 20, 56, 
-        32, 40, 48, 12,  4, 44, 52, 44, 40, 12, 56,  8, 36, 24, 60, 28, 
-        48,  4, 32, 20, 16, 52, 60, 12, 24, 36,  8,  4, 16, 56, 48, 44, 
-        40, 52, 32, 20, 28, 32, 12, 36, 28, 24, 56, 40, 16, 52, 44,  4, 
-        20, 60,  8, 48, 48, 52, 12, 20, 32, 44, 36, 28,  4, 40, 24,  8, 
-        56, 60, 16, 36, 32,  8, 40,  4, 52, 24, 44, 20, 12, 28, 48, 56, 
-        16, 60,  4, 52, 60, 48, 20, 16, 56, 44, 24,  8, 40, 12, 32, 28, 
-        36, 24, 32, 12,  4, 20, 16, 60, 36, 28,  8, 52, 40, 48, 44, 56  
+    HASH_LOOKUP_TABLE_CONTENTS = [
+        0, 52,  8, 56, 16, 12, 28, 20,  4, 36, 48, 24, 44, 40, 32, 60,
+        8, 12, 28, 20,  4, 60, 16, 36, 24, 48, 44, 32, 52, 56, 40, 12,
+        8, 48, 16, 52, 60, 28, 56, 32, 20, 24, 36, 40, 44,  4,  8, 40,
+        60, 32, 20, 44,  4, 36, 52, 24, 16, 56, 48, 12, 28, 16,  8, 40,
+        36, 28, 32, 12,  4, 44, 52, 20, 24, 48, 60, 56, 40, 48,  8, 32,
+        28, 36,  4, 44, 20, 56, 60, 24, 52, 16, 12, 12,  4, 48, 20,  8,
+        52, 16, 60, 24, 36, 44, 28, 56, 40, 32, 36, 20, 24, 60, 40, 44,
+        52, 16, 32,  4, 48,  8, 28, 56, 12, 28, 32, 40, 52, 36, 16, 20,
+        48,  8,  4, 60, 24, 56, 44, 12,  8, 36, 24, 28, 16, 60, 20, 56,
+        32, 40, 48, 12,  4, 44, 52, 44, 40, 12, 56,  8, 36, 24, 60, 28,
+        48,  4, 32, 20, 16, 52, 60, 12, 24, 36,  8,  4, 16, 56, 48, 44,
+        40, 52, 32, 20, 28, 32, 12, 36, 28, 24, 56, 40, 16, 52, 44,  4,
+        20, 60,  8, 48, 48, 52, 12, 20, 32, 44, 36, 28,  4, 40, 24,  8,
+        56, 60, 16, 36, 32,  8, 40,  4, 52, 24, 44, 20, 12, 28, 48, 56,
+        16, 60,  4, 52, 60, 48, 20, 16, 56, 44, 24,  8, 40, 12, 32, 28,
+        36, 24, 32, 12,  4, 20, 16, 60, 36, 28,  8, 52, 40, 48, 44, 56
     ]
 
 
@@ -89,7 +89,7 @@ class WKdm:
     # starting at index dest_start.  NOTE: Pad the input with zeroes
     # to a multiple of four words, or else.
     ##################################################################
-    def WK_pack_2bits(self, 
+    def WK_pack_2bits(self,
                       source_buf,
                       source_end,
                       dest_buf,
@@ -99,7 +99,7 @@ class WKdm:
         k = source_end
 
         src_next = 0
-        
+
         # loop to repeatedly grab four input words and pack it into 1
         # output word.
         while src_next < source_end:
@@ -109,12 +109,12 @@ class WKdm:
             temp |= (source_buf[src_next+3] << 6)
             dest_buf[dest_start] = temp
 
-            dest_start += 1     
+            dest_start += 1
             src_next += 4
 
         return dest_start
 
-        
+
     ###################################################################
     # WK_pack_4bits(): Pack an even number of words holding 4-bit
     # patterns in the low bits of each byte into half as many
@@ -123,27 +123,27 @@ class WKdm:
     # written into the dest_buf starting at index dest_start.
     # NOTE: Pad the input with zeroes to an even number of words,
     # or else.
-    ################################################################## 
-    def WK_pack_4bits(self, 
+    ##################################################################
+    def WK_pack_4bits(self,
                       source_buf,
                       source_end,
-                      dest_buf, 
+                      dest_buf,
                       dest_start):
         src_next = 0
-  
+
         # loop to repeatedly grab two input words and pack it into 1
         # output word.
         while src_next < source_end:
             temp = source_buf[src_next]
             temp |= (source_buf[src_next+1] << 4)
             dest_buf[dest_start] = temp
-            
-            dest_start += 1     
+
+            dest_start += 1
             src_next += 2
 
         return dest_start
 
-    
+
     ###################################################################
     # WK_pack_3_tenbits(): Pack a sequence of three ten bit items
     # into one word. Data in the source_buf is used starting at
@@ -151,15 +151,15 @@ class WKdm:
     # is written into the dest_buf starting at index dest_start.
     # NOTE: Pad out the input with zeroes to an even number of
     # words, or else.
-    ################################################################### 
+    ###################################################################
     def WK_pack_3_tenbits(self,
                           source_buf,
                           source_end,
                           dest_buf,
                           dest_start):
-        
+
         src_next = 0
-            
+
         # loop to repeatedly grab three input words and pack it into 1
         # output word.
         while src_next < source_end:
@@ -167,14 +167,14 @@ class WKdm:
             temp |= (source_buf[src_next+1] << 10)
             temp |= (source_buf[src_next+2] << 20)
             dest_buf[dest_start] = temp
-            
-            dest_start += 1     
+
+            dest_start += 1
             src_next += 3
-            
+
         return dest_start
 
-    
-     ################################################################### 
+
+     ###################################################################
      # WK_unpack_2bits(): Take any number of words containing 16
      # two-bit values and unpack them into four times as many words
      # containg those two bit values as bytes (with the low two
@@ -182,15 +182,15 @@ class WKdm:
      # from input_buf starting at index input_start and up to but
      # not including input_end.  Unpacked data is placed in
      # output_buf.
-     ################################################################### 
+     ###################################################################
     def WK_unpack_2bits(self,
                         input_buf,
                         input_start,
                         input_end,
                         output_buf):
-        
+
         output_next = 0
-            
+
         # loop to repeatedly grab one input word and unpack it into
         # 4 output words.
         while input_start < input_end:
@@ -199,14 +199,14 @@ class WKdm:
             output_buf[output_next+1] = (temp >> 2) & self.TWO_BITS_PACKING_MASK
             output_buf[output_next+2] = (temp >> 4) & self.TWO_BITS_PACKING_MASK
             output_buf[output_next+3] = (temp >> 6) & self.TWO_BITS_PACKING_MASK
-            
+
             output_next += 4
             input_start += 1
-            
+
         return output_next
 
 
-    ################################################################### 
+    ###################################################################
     # WK_unpack_4bits(): Unpack four bits consumes any number of
     # words holding 8 4-bit values per word, and unpacks them into
     # twice as many words, with each value in a separate byte.
@@ -214,7 +214,7 @@ class WKdm:
     # the result). Data is read from input_buf starting at index
     # input_start and up to but not including input_end.  Unpacked
     # data is placed in output_buf.
-    ################################################################### 
+    ###################################################################
     def WK_unpack_4bits(self,
                         input_buf,
                         input_start,
@@ -228,20 +228,20 @@ class WKdm:
         while input_start < input_end:
             temp = input_buf[input_start]
             output_buf[output_next] = temp & self.FOUR_BITS_PACKING_MASK
-            output_buf[output_next+1] = (temp >> 4) & self.FOUR_BITS_PACKING_MASK        
+            output_buf[output_next+1] = (temp >> 4) & self.FOUR_BITS_PACKING_MASK
 
             output_next += 2
             input_start += 1
 
         return output_next
 
-        
-    ################################################################### 
+
+    ###################################################################
     # WK_unpack_3_tenbits(): Unpack three 10-bit items from the
     # low 30 bits of any number of 32-bit words. Data is read from
     # input_buf starting at index input_start and up to but not
     # including input_end.  Unpacked data is placed in output_buf.
-    ################################################################### 
+    ###################################################################
     def WK_unpack_3_tenbits(self,
                             input_buf,
                             input_start,
@@ -264,13 +264,13 @@ class WKdm:
         return output_next
 
 
-    ################################################################### 
+    ###################################################################
     # WKdm_compress(): Compress a src_buf containing num_input_words
     # 32-bit words into a dest_buf of 32-bit words.  Returns size of
     # dest_buf or -1 if the compression budget (expressed in bytes) is
     # exceeeded, which also results in undefined contents in dest_buf.
-    ################################################################### 
-    def WKdm_compress(self, 
+    ###################################################################
+    def WKdm_compress(self,
                       src_buf,
                       dest_buf,
                       num_input_words,
@@ -280,15 +280,15 @@ class WKdm:
         hashLookupTable = self.HASH_LOOKUP_TABLE_CONTENTS
 
         # update compression budget based on fixed overhead
-        compression_budget -= (self.HEADER_SIZE_IN_WORDS + 
+        compression_budget -= (self.HEADER_SIZE_IN_WORDS +
                                self.TAGS_AREA_SIZE_IN_WORDS) * self.WORD_SIZE_IN_BYTES
 
-        # arrays that hold output data in intermediate form during modeling 
-        # and whose contents are packed into the actual output after modeling 
+        # arrays that hold output data in intermediate form during modeling
+        # and whose contents are packed into the actual output after modeling
 
-        tempTagsArray = [0] * 300                # tags for everything          
-        tempQPosArray = [0] * 300                # queue positions for matches  
-        tempLowBitsArray = [0] * 1200            # low bits for partial matches 
+        tempTagsArray = [0] * 300                # tags for everything
+        tempQPosArray = [0] * 300                # queue positions for matches
+        tempLowBitsArray = [0] * 1200            # low bits for partial matches
 
         # boundary_tmp will be used for keeping track of what's where in
         # the compressed page during packing
@@ -296,7 +296,7 @@ class WKdm:
         boundary_tmp=0
 
         next_full_patt = 0                   # index into dest_buf
-        next_tag = 0                         # index into tempTagsArray 
+        next_tag = 0                         # index into tempTagsArray
         next_qp = 0                          # index into tempQPosArray
         next_low_bits = 0                    # index into tempLowBitsArray
         next_input_word = 0                  # index into src_buf
@@ -306,7 +306,7 @@ class WKdm:
             dictionary[i] = 1
 
         # process all input words
-        next_full_patt = self.TAGS_AREA_OFFSET_IN_WORDS + self.TAGS_AREA_SIZE_IN_WORDS 
+        next_full_patt = self.TAGS_AREA_OFFSET_IN_WORDS + self.TAGS_AREA_SIZE_IN_WORDS
         while next_input_word < num_input_words:
             input_word = src_buf[next_input_word]
             dict_location = hashLookupTable[(input_word >> 10) & 0xFF] / 4
@@ -353,7 +353,7 @@ class WKdm:
         # with this area has already been deducted.
 
         boundary_tmp = self.WK_pack_2bits(tempTagsArray,
-                                          next_tag / 4,                                         
+                                          next_tag / 4,
                                           dest_buf,
                                           self.TAGS_AREA_OFFSET_IN_WORDS)
 
@@ -365,8 +365,8 @@ class WKdm:
         next_qp = int(math.ceil(next_qp / 4.0))
 
         # Pad the array with zeros to avoid corrupting real packed
-        # values. 
-        
+        # values.
+
         while (next_qp < endQPosArray):
             tempQPosArray[next_qp] = 0
             next_qp += 1
@@ -381,7 +381,7 @@ class WKdm:
                                           endQPosArray,
                                           dest_buf,
                                           next_full_patt)
-        
+
         # Record (in the header) where packing queue positions stopped,
         # which is where packing of low bits will start.
 
@@ -394,12 +394,12 @@ class WKdm:
         endLowBitsArray = int(math.ceil(next_low_bits / 3.0)) * 3
 
         # Pad the array with zeros to avoid corrupting real packed
-        # values. 
+        # values.
 
         while (next_low_bits < endLowBitsArray):
             tempLowBitsArray[next_low_bits] = 0
             next_low_bits += 1
-            
+
         # check compression budget and fail immediately if exhausted
         compression_budget -= (endLowBitsArray / 3) * self.WORD_SIZE_IN_BYTES
         if compression_budget < 0:
@@ -415,12 +415,12 @@ class WKdm:
         return boundary_tmp
 
 
-    ################################################################### 
+    ###################################################################
     # WKdm_decompress(): Decompress a src_buf containing 32-bit words
     # into a dest_buf of 32-bit words.  Returns size of decompressed
     # buffer or -1 on decompression error (in which case the
     # dest_buf contents are undefined).
-    ###################################################################  
+    ###################################################################
     def WKdm_decompress (self,
                          src_buf,
                          dest_buf):
@@ -428,12 +428,12 @@ class WKdm:
         dictionary = [0] * self.DICTIONARY_SIZE_IN_WORDS
         hashLookupTable = self.HASH_LOOKUP_TABLE_CONTENTS
 
-        # arrays that hold output data in intermediate form during modeling 
-        # and whose contents are packed into the actual output after modeling 
+        # arrays that hold output data in intermediate form during modeling
+        # and whose contents are packed into the actual output after modeling
 
-        tempTagsArray = [0] * 300        # tags for everything          
-        tempQPosArray = [0] * 300        # queue positions for matches  
-        tempLowBitsArray = [0] * 1200    # low bits for partial matches 
+        tempTagsArray = [0] * 300        # tags for everything
+        tempQPosArray = [0] * 300        # queue positions for matches
+        tempLowBitsArray = [0] * 1200    # low bits for partial matches
 
         # initialize dictionary
 
@@ -447,17 +447,17 @@ class WKdm:
                                  tempTagsArray)
 
             self.WK_unpack_4bits(src_buf,
-                                 src_buf[0], 
+                                 src_buf[0],
                                  src_buf[1],
                                  tempQPosArray)
 
             self.WK_unpack_3_tenbits(src_buf,
                                      src_buf[1],
-                                     src_buf[2], 
+                                     src_buf[2],
                                      tempLowBitsArray)
 
             next_tag = 0                                                                     # index into tempTagsArray
-            tags_area_end = self.PAGE_SIZE_IN_WORDS 
+            tags_area_end = self.PAGE_SIZE_IN_WORDS
             next_qp = 0                                                                      # index into tempQPosArray
             next_low_bits = 0                                                                # index into tempLowBitsArray
             next_full_word = self.TAGS_AREA_OFFSET_IN_WORDS + self.TAGS_AREA_SIZE_IN_WORDS   # index into src_buf
@@ -475,14 +475,14 @@ class WKdm:
                 elif tag == self.PARTIAL_TAG:
                     dict_location = (tempQPosArray[next_qp / 4] & self.SINGLE_BYTE_MASKS[next_qp % 4]) >> (((next_qp) % 4) * 8)
                     temp = dictionary[dict_location]
-                    # strip out low bits 
+                    # strip out low bits
                     temp = ((temp >> self.NUM_LOW_BITS) << self.NUM_LOW_BITS)
-                    # add in stored low bits from temp array 
+                    # add in stored low bits from temp array
                     temp = temp | tempLowBitsArray[next_low_bits]
                     next_low_bits += 1
                     # replace old value in dict
-                    dictionary[dict_location] = temp   
-                    dest_buf[next_output] = temp                     # and echo it to output 
+                    dictionary[dict_location] = temp
+                    dest_buf[next_output] = temp                     # and echo it to output
                     next_qp += 1
                 elif tag == self.MISS_TAG:
                     missed_word = src_buf[next_full_word]
@@ -501,7 +501,7 @@ class WKdm:
         except:
             return -1
 
-    
+
 ###########################################################
 ###########################################################
 # testing area
@@ -516,14 +516,14 @@ import time
 
 def main():
 
-    
+
     NUMBER_OF_ITERATIONS=1000
     w = WKdm()
 
 #     src_buf_asm = [0]  * (w.PAGE_SIZE_IN_WORDS+100)
 #     dest_buf_asm = [0] * (w.PAGE_SIZE_IN_WORDS+100)
 
-    
+
     src_buf = [0]  * (w.PAGE_SIZE_IN_WORDS+100)
     dest_buf = [0] * (w.PAGE_SIZE_IN_WORDS+100)
     t=0
@@ -541,22 +541,9 @@ def main():
         t += w.WKdm_compress(src_buf, dest_buf, w.PAGE_SIZE_IN_WORDS, 4096)
         t += w.WKdm_decompress(dest_buf, src_buf)
     total = time.time() - before
-    
-    print "Python timing: " + str(NUMBER_OF_ITERATIONS / total) + " compression / decompression pairs per second."
+
+    print("Python timing: " + str(NUMBER_OF_ITERATIONS / total) + " compression / decompression pairs per second.")
 
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-
-
-
-
-

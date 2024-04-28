@@ -75,7 +75,7 @@ class SemaExplorer(ExplorationTechnique):
 
         self.scdg_graph = scdg_graph
         self.call_sim = call_sim
-        
+
         self.scdg_fin = []
         self.dict_addr_vis = set()
 
@@ -298,7 +298,7 @@ class SemaExplorer(ExplorationTechnique):
                 id_cur = simgr.unconstrained[-1].globals["id"]
                 self.log.info(f"End of the trace number {str(id_cur)} unconstrained")
             self.unconstrained = len(simgr.unconstrained)
-            
+
     def manage_error(self, simgr):
         """
         Manages and logs errors encountered during symbolic execution.
@@ -485,7 +485,7 @@ class SemaExplorer(ExplorationTechnique):
                 self.check_fork_split(prev_id, found_jmp_table, state_fork1)
             else:
                 self.id = self.id - 1
-                       
+
     def complete(self, simgr):
         """
         Checks if the symbolic execution is finished by checking the timeout value, the number of state in the active stash and the number of state in the deadended stash

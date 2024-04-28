@@ -13,9 +13,9 @@ import struct
 import sys
 import threading
 import traceback
-import urllib
-import urllib2
-import xmlrpclib
+import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error, urllib.parse
+import xmlrpc.client
 import zipfile
 
 from lib.api.process import Process
@@ -123,7 +123,7 @@ class Files(object):
     def dump_files(self):
         """Dump all pending files."""
         while self.files:
-            self.delete_file(self.files.keys()[0])
+            self.delete_file(list(self.files.keys())[0])
 
 class ProcessList(object):
     def __init__(self):
@@ -850,8 +850,8 @@ if __name__ == "__main__":
         # Report that we're finished. First try with the XML RPC thing and
         # if that fails, attempt the new Agent.
         try:
-            server = xmlrpclib.Server("http://127.0.0.1:8000")
+            server = xmlrpc.client.Server("http://127.0.0.1:8000")
             server.complete(success, error, "unused_path")
         except Exception as e:
-            urllib2.urlopen("http://127.0.0.1:8000/status",
-                            urllib.urlencode(data)).read()
+            urllib.request.urlopen("http://127.0.0.1:8000/status",
+                            urllib.parse.urlencode(data)).read()

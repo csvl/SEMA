@@ -6,7 +6,7 @@ very fast parallel implementation for gSpan algorithm in data mining with many t
 
 ## Features
 
-***quickSpan*** has gained 35x speedup in comparison to [Yan's](https://www.cs.ucsb.edu/~xyan/software/gSpan.htm) original implementation with multi-threading, even 1-6 times faster with a single thread. It also reduces more than 100 folds memory usage, which make it feasible to be adopted on personal computers.  
+***quickSpan*** has gained 35x speedup in comparison to [Yan's](https://www.cs.ucsb.edu/~xyan/software/gSpan.htm) original implementation with multi-threading, even 1-6 times faster with a single thread. It also reduces more than 100 folds memory usage, which make it feasible to be adopted on personal computers.
 
 ***quickSpan*** is ***fast***:
 
@@ -23,7 +23,7 @@ very fast parallel implementation for gSpan algorithm in data mining with many t
 
 ***quickSpan*** is ***correct***:
 
-1. We ran experiment for `extern/data/Compound_422` and `extern/data/Chemical_340` with minimal support from 0.1 to 0.9, and the results are exactly the same as Yan's gSpan-64. 
+1. We ran experiment for `extern/data/Compound_422` and `extern/data/Chemical_340` with minimal support from 0.1 to 0.9, and the results are exactly the same as Yan's gSpan-64.
 
 ## Install
 
@@ -40,13 +40,13 @@ very fast parallel implementation for gSpan algorithm in data mining with many t
     mkdir build && cd build
     cmake ..
     make
-    
+
 ## Usage
 
 Run an example:
 
-    ./build/gspan -input_file extern/data/gs/Chemical_340 -support 0.2 
-    
+    ./build/gspan -input_file extern/data/gs/Chemical_340 -support 0.2
+
 Arguments help:
 
     ./build/gspan -help
@@ -114,7 +114,7 @@ In the following table, :hourglass: denotes a timeout and :boom: denotes a crash
 
 |Data set name            |Support         |gBolt   |GLP          |quickSpan      |quickSpan1      |SFS        |
 |-------------------------|----------------|--------|-------------|---------------|----------------|-----------|
-|BrainNet ADHD            |0.10            |0.27    |1.77         |0.11           |0.13            |:hourglass:|   
+|BrainNet ADHD            |0.10            |0.27    |1.77         |0.11           |0.13            |:hourglass:|
 |                         |0.15            |0.27    |0.14         |0.10           |0.03            |:hourglass:|
 |                         |0.20            |0.28    |0.07         |0.08           |0.02            |:hourglass:|
 |                         |0.50            |0.13    |0.07         |0.07           |0.02            |:hourglass:|
@@ -164,5 +164,3 @@ In the following table, :hourglass: denotes a timeout and :boom: denotes a crash
 |                         |0.20            |:boom:  |:boom:       |88.08(293.15)  |85.86(288.75)   |:hourglass:|
 |                         |0.50            |:boom:  |:boom:       |87.22(292.51)  |86.58(289.31)   |:hourglass:|
 |                         |1.00            |:boom:  |:hourglass:  |88.11(292.68)  |84.24(295.06)   |:hourglass:|
-
-

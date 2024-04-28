@@ -365,7 +365,7 @@ class TestProcessingTasks(object):
     @mock.patch("cuckoo.apps.apps.process_task")
     def test_process_task_range_range(self, p):
         mkdir(cwd(analysis=3))
-        for x in xrange(10, 101):
+        for x in range(10, 101):
             mkdir(cwd(analysis=x))
         process_task_range("3,5,10-100")
         assert p.call_count == 92  # 101-10+1
@@ -389,7 +389,7 @@ class TestProcessingTasks(object):
                 "custom": None,
             })
 
-        for x in xrange(10, 101):
+        for x in range(10, 101):
             p.assert_any_call({
                 "id": x,
                 "category": "file",

@@ -12,7 +12,7 @@ class IsWow64Process(angr.SimProcedure):
         hProcess,
         Wow64Process
     ):
-        
+
         wow = self.state.solver.BVS(
                 "Wow_64_process_{}".format(self.display_name),  self.arch.bits
             )

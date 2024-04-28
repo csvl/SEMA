@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 import volatility.obj as obj
 import volatility.plugins.mac.pslist as pslist
@@ -44,11 +44,10 @@ class mac_tasks(pslist.mac_pslist):
                 seen[task.obj_offset] = 0
 
                 if task.bsd_info:
-                    proc = task.bsd_info.dereference_as("proc") 
+                    proc = task.bsd_info.dereference_as("proc")
                     yield proc
             else:
                 if seen[task.obj_offset] > 3:
                     break
 
                 seen[task.obj_offset] = seen[task.obj_offset] + 1
-

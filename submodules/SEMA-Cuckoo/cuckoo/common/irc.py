@@ -4,7 +4,7 @@
 # This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
 # See the file 'docs/LICENSE' for copying permission.
 
-import cStringIO
+import io
 import re
 import logging
 
@@ -39,7 +39,7 @@ class ircMessage(object):
         @buf: tcp stream data
         """
         try:
-            f = cStringIO.StringIO(buf)
+            f = io.StringIO(buf)
             lines = f.readlines()
         except Exception:
             log.error("Failed reading tcp stream buffer")

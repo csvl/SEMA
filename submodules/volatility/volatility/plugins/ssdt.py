@@ -42,27 +42,27 @@ from volatility.renderers.basic import Address
 def find_tables(nt_base, start_addr, vm):
     """
     This function finds the RVAs to KeServiceDescriptorTable
-    and KeServiceDescriptorTableShadow in the NT module. 
+    and KeServiceDescriptorTableShadow in the NT module.
 
     @param start_addr: virtual address of KeAddSystemServiceTable
-    @param vm: kernel address space 
+    @param vm: kernel address space
 
     We're looking for two instructions like this:
 
     //if (KeServiceDescriptorTable[i].Base)
-    4B 83 BC 1A 40 88 2A 00 00    cmp qword ptr [r10+r11+2A8840h], 0 
+    4B 83 BC 1A 40 88 2A 00 00    cmp qword ptr [r10+r11+2A8840h], 0
     //if (KeServiceDescriptorTableShadow[i].Base)
     4B 83 BC 1A 80 88 2A 00 00    cmp qword ptr [r10+r11+2A8880h], 0
 
-    In the example, 2A8840h is the RVA of KeServiceDescriptorTable 
+    In the example, 2A8840h is the RVA of KeServiceDescriptorTable
     and 2A8880h is the RVA of KeServiceDescriptorTableShadow. The
     exported KeAddSystemServiceTable is a very small function (about
-    120 bytes at the most) and the two instructions appear very 
-    early, which reduces the possibility of false positives. 
+    120 bytes at the most) and the two instructions appear very
+    early, which reduces the possibility of false positives.
 
-    If distorm3 is installed, we use it to decompose instructions 
+    If distorm3 is installed, we use it to decompose instructions
     in x64 format. If distorm3 is not available, we use Volatility's
-    object model as a very simple and generic instruction parser. 
+    object model as a very simple and generic instruction parser.
     """
     service_tables = []
 
@@ -77,7 +77,7 @@ def find_tables(nt_base, start_addr, vm):
     if use_distorm:
         data = vm.zread(start_addr, function_size)
         for op in distorm3.DecomposeGenerator(start_addr, data, distorm3.Decode64Bits):
-            # Stop decomposing if we reach the function end 
+            # Stop decomposing if we reach the function end
             if op.flowControl == 'FC_RET':
                 break
             # Looking for a 9-byte CMP instruction whose first operand
@@ -100,7 +100,7 @@ def find_tables(nt_base, start_addr, vm):
         # The variations assume (which happens to be correct on all OS)
         # that volatile registers are used in the CMP QWORD instruction.
         # All combinations of volatile registers (rax, rcx, rdx, r8-r11)
-        # will result in one of the variations in this list. 
+        # will result in one of the variations in this list.
         ops_list = [
             "\x4B\x83\xBC", # r10, r11
             "\x48\x83\xBC", # rax, rcx
@@ -140,14 +140,14 @@ class SSDT(common.AbstractWindowsCommand):
 
         if addr_space.profile.metadata.get('memory_model', '32bit') == '32bit':
             # Gather up all SSDTs referenced by threads
-            print "[x86] Gathering all referenced SSDTs from KTHREADs..."
+            print("[x86] Gathering all referenced SSDTs from KTHREADs...")
             for proc in tasks.pslist(addr_space):
                 for thread in proc.ThreadListHead.list_of_type("_ETHREAD", "ThreadListEntry"):
                     ssdt_obj = thread.Tcb.ServiceTable.dereference_as('_SERVICE_DESCRIPTOR_TABLE')
                     ssdts.add(ssdt_obj)
         else:
-            print "[x64] Gathering all referenced SSDTs from KeAddSystemServiceTable..."
-            # The NT module always loads first 
+            print("[x64] Gathering all referenced SSDTs from KeAddSystemServiceTable...")
+            # The NT module always loads first
             ntos = list(modules.lsmod(addr_space))[0]
             func_rva = ntos.getprocaddress("KeAddSystemServiceTable")
             if func_rva == None:
@@ -162,14 +162,14 @@ class SSDT(common.AbstractWindowsCommand):
 
         for ssdt_obj in ssdts:
             for i, desc in enumerate(ssdt_obj.Descriptors):
-                # Apply some extra checks - KiServiceTable should reside in kernel memory and ServiceLimit 
+                # Apply some extra checks - KiServiceTable should reside in kernel memory and ServiceLimit
                 # should be greater than 0 but not unbelievably high
                 if not desc.is_valid() or desc.ServiceLimit <= 0 or desc.ServiceLimit >= 2048 or desc.KiServiceTable <= 0x80000000:
                     break
                 else:
                     tables.add((i, desc.KiServiceTable.v(), desc.ServiceLimit.v()))
 
-        print "Finding appropriate address space for tables..."
+        print("Finding appropriate address space for tables...")
         tables_with_vm = []
         procs = list(tasks.pslist(addr_space))
         for idx, table, n in tables:
@@ -218,16 +218,16 @@ class SSDT(common.AbstractWindowsCommand):
             num_entries = int(n)
             for i in range(n):
                 if bits32:
-                    # These are absolute function addresses in kernel memory. 
+                    # These are absolute function addresses in kernel memory.
                     syscall_addr = obj.Object('address', table + (i * 4), vm).v()
                 else:
                     # These must be signed long for x64 because they are RVAs relative
-                    # to the base of the table and can be negative. 
+                    # to the base of the table and can be negative.
                     offset = obj.Object('long', table + (i * 4), vm).v()
                     if offset == None:
                         continue
 
-                    # The offset is the top 20 bits of the 32 bit number. 
+                    # The offset is the top 20 bits of the 32 bit number.
                     syscall_addr = table + (offset >> 4)
                 try:
                     syscall_name = syscalls[idx][i]
@@ -241,41 +241,41 @@ class SSDT(common.AbstractWindowsCommand):
                     syscall_modname = "UNKNOWN"
 
                 if not self._config.VERBOSE:
-                    yield (0, [table_name, table_offset, num_entries, Address(idx * 0x1000 + i), 
+                    yield (0, [table_name, table_offset, num_entries, Address(idx * 0x1000 + i),
                             Address(syscall_addr), str(syscall_name), str(syscall_modname)])
 
                 ## check for inline hooks if in --verbose mode, we're analyzing
-                ## an x86 model system and the sycall_mod is available 
-                if (self._config.VERBOSE and 
-                            addr_space.profile.metadata.get('memory_model', '32bit') == '32bit' and 
+                ## an x86 model system and the sycall_mod is available
+                if (self._config.VERBOSE and
+                            addr_space.profile.metadata.get('memory_model', '32bit') == '32bit' and
                             syscall_mod is not None):
 
                         ## leverage this static method from apihooks
-                        ret = apihooks.ApiHooks.check_inline(va = syscall_addr, addr_space = vm, 
-                                                mem_start = syscall_mod.DllBase, 
+                        ret = apihooks.ApiHooks.check_inline(va = syscall_addr, addr_space = vm,
+                                                mem_start = syscall_mod.DllBase,
                                                 mem_end = syscall_mod.DllBase + syscall_mod.SizeOfImage)
                         ## could not analyze the memory
                         if ret == None:
-                            yield (0, [table_name, table_offset, num_entries, Address(idx * 0x1000 + i), 
-                                    Address(syscall_addr), str(syscall_name), str(syscall_modname), 
+                            yield (0, [table_name, table_offset, num_entries, Address(idx * 0x1000 + i),
+                                    Address(syscall_addr), str(syscall_name), str(syscall_modname),
                                     Address(0), "NotInline"])
-                            continue 
+                            continue
                         (hooked, data, dest_addr) = ret
                         ## the function isn't hooked
                         if not hooked:
-                            yield (0, [table_name, table_offset, num_entries, Address(idx * 0x1000 + i), 
-                                    Address(syscall_addr), str(syscall_name), str(syscall_modname), 
+                            yield (0, [table_name, table_offset, num_entries, Address(idx * 0x1000 + i),
+                                    Address(syscall_addr), str(syscall_name), str(syscall_modname),
                                     Address(0), "NotInline"])
-                            continue 
+                            continue
                         ## we found a hook, try to resolve the hooker. no mask required because
                         ## we currently only work on x86 anyway
                         hook_mod = tasks.find_module(mods, mod_addrs, dest_addr)
-                        if hook_mod: 
+                        if hook_mod:
                             hook_name = hook_mod.BaseDllName
                         else:
                             hook_name = "UNKNOWN"
-                        ## report it now 
-                        yield (0, [table_name, table_offset, num_entries, Address(idx * 0x1000 + i), 
+                        ## report it now
+                        yield (0, [table_name, table_offset, num_entries, Address(idx * 0x1000 + i),
                                 Address(syscall_addr), str(syscall_name), str(syscall_modname),
                                 Address(dest_addr), str(hook_name)])
 
@@ -290,16 +290,16 @@ class SSDT(common.AbstractWindowsCommand):
             outfd.write("SSDT[{0}] at {1:x} with {2} entries\n".format(idx, table, n))
             for i in range(n):
                 if bits32:
-                    # These are absolute function addresses in kernel memory. 
+                    # These are absolute function addresses in kernel memory.
                     syscall_addr = obj.Object('address', table + (i * 4), vm).v()
                 else:
                     # These must be signed long for x64 because they are RVAs relative
-                    # to the base of the table and can be negative. 
+                    # to the base of the table and can be negative.
                     offset = obj.Object('long', table + (i * 4), vm).v()
                     if offset == None:
                         continue
 
-                    # The offset is the top 20 bits of the 32 bit number. 
+                    # The offset is the top 20 bits of the 32 bit number.
                     syscall_addr = table + (offset >> 4)
                 try:
                     syscall_name = syscalls[idx][i]
@@ -318,28 +318,28 @@ class SSDT(common.AbstractWindowsCommand):
                                                                    syscall_modname))
 
                 ## check for inline hooks if in --verbose mode, we're analyzing
-                ## an x86 model system and the sycall_mod is available 
-                if (self._config.VERBOSE and 
-                            addr_space.profile.metadata.get('memory_model', '32bit') == '32bit' and 
+                ## an x86 model system and the sycall_mod is available
+                if (self._config.VERBOSE and
+                            addr_space.profile.metadata.get('memory_model', '32bit') == '32bit' and
                             syscall_mod is not None):
 
                         ## leverage this static method from apihooks
-                        ret = apihooks.ApiHooks.check_inline(va = syscall_addr, addr_space = vm, 
-                                                mem_start = syscall_mod.DllBase, 
+                        ret = apihooks.ApiHooks.check_inline(va = syscall_addr, addr_space = vm,
+                                                mem_start = syscall_mod.DllBase,
                                                 mem_end = syscall_mod.DllBase + syscall_mod.SizeOfImage)
                         ## could not analyze the memory
                         if ret == None:
-                            continue 
+                            continue
                         (hooked, data, dest_addr) = ret
                         ## the function isn't hooked
                         if not hooked:
-                            continue 
+                            continue
                         ## we found a hook, try to resolve the hooker. no mask required because
                         ## we currently only work on x86 anyway
                         hook_mod = tasks.find_module(mods, mod_addrs, dest_addr)
-                        if hook_mod: 
+                        if hook_mod:
                             hook_name = hook_mod.BaseDllName
                         else:
                             hook_name = "UNKNOWN"
-                        ## report it now 
+                        ## report it now
                         outfd.write("  ** INLINE HOOK? => {0:#x} ({1})\n".format(dest_addr, hook_name))

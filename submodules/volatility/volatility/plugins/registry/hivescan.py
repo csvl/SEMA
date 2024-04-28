@@ -27,7 +27,7 @@
 
 #pylint: disable-msg=C0111
 
-import volatility.utils as utils 
+import volatility.utils as utils
 import volatility.poolscan as poolscan
 import volatility.plugins.common as common
 import volatility.plugins.bigpagepools as bigpools
@@ -42,7 +42,7 @@ class PoolScanHive(poolscan.PoolScanner):
         self.struct_name = "_CMHIVE"
         self.pooltag = "CM10"
         size = self.address_space.profile.get_obj_size("_CMHIVE")
-        self.checks = [ 
+        self.checks = [
                    ('CheckPoolSize', dict(condition = lambda x: x >= size)),
                    ]
 

@@ -141,11 +141,11 @@ class Privs(taskmods.DllList):
                                   self.generator(data))
 
     def render_text(self, outfd, data):
-        self.table_header(outfd, [("Pid", "8"), 
-                                  ("Process", "16"), 
+        self.table_header(outfd, [("Pid", "8"),
+                                  ("Process", "16"),
                                   ("Value", "6"),
-                                  ("Privilege", "36"), 
-                                  ("Attributes", "24"), 
+                                  ("Privilege", "36"),
+                                  ("Attributes", "24"),
                                   ("Description", "")])
 
         if self._config.REGEX:
@@ -153,20 +153,20 @@ class Privs(taskmods.DllList):
 
         for task in data:
             for value, present, enabled, default in task.get_token().privileges():
-                # Skip privileges whose bit positions cannot be 
-                # translated to a privilege name 
+                # Skip privileges whose bit positions cannot be
+                # translated to a privilege name
                 try:
                     name, desc = PRIVILEGE_INFO[int(value)]
                 except KeyError:
-                    continue 
+                    continue
                 # If we're operating in silent mode, only print privileges
-                # that have been explicitly enabled by the process or that 
-                # appear to have been DKOM'd via Ceasar's proposed attack. 
+                # that have been explicitly enabled by the process or that
+                # appear to have been DKOM'd via Ceasar's proposed attack.
                 if self._config.SILENT:
                     if not ((enabled and not default) or (enabled and not present)):
-                        continue 
+                        continue
 
-                # Set the attributes 
+                # Set the attributes
                 attributes = []
                 if present:
                     attributes.append("Present")
@@ -177,7 +177,7 @@ class Privs(taskmods.DllList):
 
                 if self._config.REGEX:
                     if not priv_re.search(name):
-                        continue 
+                        continue
 
                 self.table_row(outfd, task.UniqueProcessId, task.ImageFileName,
                                value, name, ",".join(attributes), desc)

@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import struct, string
@@ -38,7 +38,7 @@ bash_vtypes = {
     'timestamp': [0x4, ['pointer', ['String', dict(length = 1024)]]],
     'data': [0x8, ['pointer', ['void']]],
     }],
-    
+
     'bash64_hist_entry': [ 24, {
     'line': [0, ['pointer', ['String', dict(length = 1024)]]],
     'timestamp': [8, ['pointer', ['String', dict(length = 1024)]]],
@@ -50,34 +50,34 @@ class _mac_hist_entry(obj.CType):
     """A class for history entries"""
 
     def is_valid(self):
-        line_addr = self.line_ptr()        
-        time_addr = self.time_ptr() 
- 
-        if (not obj.CType.is_valid(self) or  
-                    not self.obj_vm.is_valid_address(line_addr) or 
+        line_addr = self.line_ptr()
+        time_addr = self.time_ptr()
+
+        if (not obj.CType.is_valid(self) or
+                    not self.obj_vm.is_valid_address(line_addr) or
                     not self.obj_vm.is_valid_address(time_addr)):
             return False
 
         ts = self.obj_vm.read(time_addr, 256)
         if not ts:
             return False
-    
+
         idx = ts.find("\x00")
         if idx != -1:
             ts = ts[:idx]
 
-        # At this point in time, the epoc integer size will 
-        # never be less than 10 characters, and the stamp is 
-        # always preceded by a pound/hash character. 
+        # At this point in time, the epoc integer size will
+        # never be less than 10 characters, and the stamp is
+        # always preceded by a pound/hash character.
         if len(ts) < 10 or str(ts)[0] != "#":
             return False
 
         # The final check is to make sure the entire string
-        # is composed of numbers. Try to convert to an int. 
+        # is composed of numbers. Try to convert to an int.
         try:
             int(str(ts)[1:])
         except ValueError:
-            return False 
+            return False
 
         return True
 
@@ -87,7 +87,7 @@ class _mac_hist_entry(obj.CType):
         if buf:
             idx = buf.find("\x00")
             if idx != -1:
-                buf = buf[:idx]  
+                buf = buf[:idx]
 
             ret = "".join([c for c in buf if c in string.printable])
         else:
@@ -100,17 +100,17 @@ class _mac_hist_entry(obj.CType):
         # Get the string and remove the leading "#" from the timestamp
         time_addr = self.time_ptr()
         ts = self.obj_vm.read(time_addr, 256)
-        ts = ts[1:] 
+        ts = ts[1:]
         idx = ts.find("\x00")
         if idx != -1:
             ts = ts[:idx]
- 
+
         # Convert the string into an integer (number of seconds)
         return int(ts)
 
     def time_object(self):
         nsecs = self.time_as_integer
-        # Build a timestamp object from the integer 
+        # Build a timestamp object from the integer
         time_val = struct.pack("<I", nsecs)
         time_buf = addrspace.BufferAddressSpace(self.obj_vm.get_config(), data = time_val)
         time_obj = obj.Object("UnixTimeStamp", offset = 0, vm = time_buf, is_utc = True)
@@ -146,18 +146,18 @@ class MacBashTypes(obj.ProfileModification):
 class mac_bash(mac_tasks.mac_tasks):
     """Recover bash history from bash process memory"""
 
-    def __init__(self, config, *args, **kwargs): 
+    def __init__(self, config, *args, **kwargs):
         mac_tasks.mac_tasks.__init__(self, config, *args, **kwargs)
-        self._config.add_option('SCAN_ALL', short_option = 'A', default = False, help = 'scan all processes, not just those named bash', action = 'store_true')    
+        self._config.add_option('SCAN_ALL', short_option = 'A', default = False, help = 'scan all processes, not just those named bash', action = 'store_true')
 
     def unified_output(self, data):
-    
-        return TreeGrid([("Pid", int), 
+
+        return TreeGrid([("Pid", int),
                             ("Name", str),
                             ("Command Time", str),
                             ("Command", str),
                             ], self.generator(data))
-                            
+
     def generator(self, data):
         for task in data:
             if not (self._config.SCAN_ALL or str(task.p_comm) == "bash"):
@@ -172,16 +172,16 @@ class mac_bash(mac_tasks.mac_tasks):
                     ])
 
     def render_text(self, outfd, data):
-        self.table_header(outfd, [("Pid", "8"), 
+        self.table_header(outfd, [("Pid", "8"),
                                   ("Name", "20"),
                                   ("Command Time", "30"),
                                   ("Command", ""),])
-                                    
+
         for task in data:
             if not (self._config.SCAN_ALL or str(task.p_comm) == "bash"):
                 continue
-            
+
             for hist_entry in task.bash_history_entries():
-                self.table_row(outfd, task.p_pid, task.p_comm, 
-                           hist_entry.time_object(), 
+                self.table_row(outfd, task.p_pid, task.p_comm,
+                           hist_entry.time_object(),
                            hist_entry.line())

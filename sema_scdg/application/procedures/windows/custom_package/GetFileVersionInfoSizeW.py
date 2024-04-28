@@ -15,7 +15,7 @@ class GetFileVersionInfoSizeW(angr.SimProcedure):
         # dwLen = self.state.solver.BVS("dwLen{}".format(self.display_name),self.state.arch.bits)
         # self.state.solver.add(dwLen >= 1)
         # self.state.solver.add(dwLen <= 128)
-        
+
         # lpdata
         # typedef struct {
         # WORD             wLength;
@@ -27,8 +27,8 @@ class GetFileVersionInfoSizeW(angr.SimProcedure):
         # WORD             Padding2;
         # WORD             Children;
         # } VS_VERSIONINFO;
-        
+
         word_size = 2
         dword_size = 4
-        VS_FIXEDFILEINFO_size = dword_size*13 
+        VS_FIXEDFILEINFO_size = dword_size*13
         return VS_FIXEDFILEINFO_size + 6*word_size + len("VS_VERSION_INFO".encode("utf-16-le"))

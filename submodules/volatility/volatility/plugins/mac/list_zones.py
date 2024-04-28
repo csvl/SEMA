@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -41,7 +41,7 @@ class mac_list_zones(common.AbstractMacCommand):
 
             while zone:
                 yield zone
-                zone = zone.next_zone       
+                zone = zone.next_zone
         else:
             zone_ptr = self.addr_space.profile.get_symbol("_zone_array")
             zone_arr = obj.Object(theType="Array", targetType="zone", vm = self.addr_space, count = 256, offset = zone_ptr)
@@ -49,7 +49,7 @@ class mac_list_zones(common.AbstractMacCommand):
             for zone in zone_arr:
                 if zone.is_valid():
                     yield zone
-    
+
     def unified_output(self, data):
         return TreeGrid([("Name", str),
                          ("Active Count", int),
@@ -60,7 +60,7 @@ class mac_list_zones(common.AbstractMacCommand):
     def generator(self, data):
         for zone in data:
             name = zone.zone_name.dereference().replace(" ", ".")
-    
+
             # sum_count was introduced in 10.8.x
             # do not want to overlay as 0 b/c we mess up subtraction
             sum_count = "N/A"
@@ -77,7 +77,7 @@ class mac_list_zones(common.AbstractMacCommand):
         self.table_header(outfd, [("Name", "30"), ("Active Count", ">10"), ("Free Count", ">10"), ("Element Size", ">10")])
         for zone in data:
             name = zone.zone_name.dereference().replace(" ", ".")
-    
+
             # sum_count was introduced in 10.8.x
             # do not want to overlay as 0 b/c we mess up subtraction
             sum_count = "N/A"

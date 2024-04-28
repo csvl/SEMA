@@ -24,7 +24,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import distorm3
@@ -61,17 +61,17 @@ class mac_check_syscall_shadow(common.AbstractMacCommand):
                         #compare actual sysent tbl address to the one in the instruction, calculated per distorm3 INSTRUCTION_GET_RIP_TARGET
 
                         op_sysent_ptr = obj.Object('Pointer', offset = (op.address + op.operands[1].disp + op.size), vm = self.addr_space)
- 
+
                         if sysents_addr != op_sysent_ptr.v():
-                            print "not same: %x | %x" % (sysents_addr, op_sysent_ptr.v())
+                            print("not same: %x | %x" % (sysents_addr, op_sysent_ptr.v()))
                             yield (op_sysent_ptr.v(), func, op)
- 
+
                 elif model == "32bit":
                     #LEA EAX, [EAX*8+0x82ef20]
                     if op.mnemonic == 'LEA' and op.operands[0].type == 'Register' and op.operands[0].name in ['EDI','EAX'] and distorm3.Registers[op.operands[1].index] == "EAX" and op.operands[1].scale == 8:
                         if op.operands[1].disp != sysents_addr:
                             shadowtbl_addr = op.operands[1].disp
-                            yield (shadowtbl_addr, func, op) 
+                            yield (shadowtbl_addr, func, op)
                             break
                     #CMP EAX, 0x82ef20
                     elif op.mnemonic == 'CMP' and op.operands[0].type == 'Register' and op.operands[0].name in ['EDI','EAX'] and prev_op.mnemonic in ['LEA','MOV'] and self.addr_space.is_valid_address(op.operands[1].value) == True:
@@ -84,7 +84,7 @@ class mac_check_syscall_shadow(common.AbstractMacCommand):
                         if op.operands[1].value != sysents_addr:
                             shadowtbl_addr = op.operands[1].value
                             yield (shadowtbl_addr, func, op)
- 
+
                 prev_op = op
 
     def calculate(self):
@@ -96,7 +96,7 @@ class mac_check_syscall_shadow(common.AbstractMacCommand):
             distorm_mode = distorm3.Decode32Bits
         else:
             distorm_mode = distorm3.Decode64Bits
-        
+
         for (shadowtbl_addr, func, op) in self.shadowedSyscalls(model, distorm_mode, self.addr_space.profile.get_symbol("_sysent")):
             yield (shadowtbl_addr, func, op)
 
@@ -115,7 +115,7 @@ class mac_check_syscall_shadow(common.AbstractMacCommand):
                 ])
 
     def render_text(self, outfd, data):
-        self.table_header(outfd, 
+        self.table_header(outfd,
                           [("Hooked Function", "30"),
                           ("Hook Address", "[addrpad]"),
                           ("Instruction", "")])

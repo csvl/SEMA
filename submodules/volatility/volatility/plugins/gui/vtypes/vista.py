@@ -32,9 +32,9 @@ class Vista2008x64GuiVTypes(obj.ProfileModification):
                   'minor': lambda x: x == 0}
 
     def modification(self, profile):
-        # Enough stayed the same between Vista/2008 and Windows 7, 
+        # Enough stayed the same between Vista/2008 and Windows 7,
         ## so we can re-use the Windows 7 types. This is a bit unconventional
-        ## because we typically when we re-use, we do it forward (i.e. use 
+        ## because we typically when we re-use, we do it forward (i.e. use
         ## an older OS's types for a newer OS). However since the win32k.sys
         ## vtypes were never public until Windows 7, we're re-using backward.
         profile.vtypes.update(win7_sp0_x64_vtypes_gui.win32k_types)

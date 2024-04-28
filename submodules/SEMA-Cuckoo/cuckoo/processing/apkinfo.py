@@ -32,7 +32,7 @@ class ApkInfo(Processing):
     def _apk_files(self, apk):
         """Return a list of files in the APK."""
         ret = []
-        for fname, filetype in apk.get_files_types().items():
+        for fname, filetype in list(apk.get_files_types().items()):
             buf = apk.zip.read(fname)
             ret.append({
                 "name": fname,

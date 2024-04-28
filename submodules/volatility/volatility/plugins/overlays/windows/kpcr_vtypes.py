@@ -32,20 +32,20 @@ class _KPCROnx86(obj.CType):
             yield i, entry
 
     def get_kdbg(self):
-        """Find this CPUs KDBG. 
+        """Find this CPUs KDBG.
 
         Please note the KdVersionBlock pointer is NULL on
-        all KPCR structures except the one for the first CPU. 
+        all KPCR structures except the one for the first CPU.
         In some cases on x64, even the first CPU has a NULL
-        KdVersionBlock, so this is really a hit-or-miss. 
+        KdVersionBlock, so this is really a hit-or-miss.
         """
         DebuggerDataList = self.KdVersionBlock.dereference_as("_DBGKD_GET_VERSION64").DebuggerDataList
-    
-        # DebuggerDataList is a pointer to unsigned long on x86 
-        # and a pointer to unsigned long long on x64. The first 
-        # dereference() dereferences the pointer, and the second 
+
+        # DebuggerDataList is a pointer to unsigned long on x86
+        # and a pointer to unsigned long long on x64. The first
+        # dereference() dereferences the pointer, and the second
         # dereference() dereferences the unsigned long or long long
-        # as the actual KDBG address. 
+        # as the actual KDBG address.
         return DebuggerDataList.dereference().dereference_as("_KDDEBUGGER_DATA64")
 
     @property
@@ -65,7 +65,7 @@ class _KPCROnx64(_KPCROnx86):
 
     @property
     def GDT(self):
-        return self.GdtBase 
+        return self.GdtBase
 
 class KPCRProfileModification(obj.ProfileModification):
     before = ['WindowsObjectClasses']
@@ -82,6 +82,6 @@ class KPCRProfileModification(obj.ProfileModification):
         profile.object_classes.update({'_KPCR': kpcr_class})
 
         profile.merge_overlay({
-            '_KPRCB': [ None, { 
-            'VendorString': [ None, ['String', dict(length = 13)]], 
+            '_KPRCB': [ None, {
+            'VendorString': [ None, ['String', dict(length = 13)]],
             }]})

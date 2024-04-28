@@ -203,7 +203,7 @@ class CuckooFeedbackObject(object):
         """Return a list of all files of interest from an analysis."""
         ret = []
         for name in self.export_files:
-            if isinstance(name, basestring):
+            if isinstance(name, str):
                 filepath = os.path.join(dirpath, name)
                 if os.path.isfile(filepath):
                     ret.append((name, filepath))

@@ -39,5 +39,5 @@ class SemaExplorerManager():
             self.expl_tech = SemaExplorerSDFS(
                 simgr, exp_dir, nameFileShort, scdg_graph, call_sim, proj
             )
-            
+
         return self.expl_tech

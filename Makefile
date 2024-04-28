@@ -8,7 +8,7 @@ build-web-app:
 
 build-scdg:
 	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
-	docker buildx build --rm --cache-from sema-scdg:latest -t sema-scdg -f sema_scdg/Dockerfile .	
+	docker buildx build --rm --cache-from sema-scdg:latest -t sema-scdg -f sema_scdg/Dockerfile .
 
 pull-scdg:
 	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
@@ -47,7 +47,7 @@ run-scdg-service:
 
 run-toolchain:
 	DOCKER_BUILDKIT=0 docker compose -f docker-compose.deploy.yml up
-	
+
 stop-toolchain:
 	docker compose -f docker-compose.deploy.yml down
 

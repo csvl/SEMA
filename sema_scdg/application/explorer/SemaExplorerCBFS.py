@@ -47,7 +47,7 @@ class SemaExplorerCBFS(SemaExplorer):
 
         while simgr.active:
             self.pause_stash.append(simgr.active.pop())
-            
+
         while (
             len(simgr.stashes["new_addr"]) > 0
             and len(simgr.active) < self.max_simul_state
@@ -56,7 +56,7 @@ class SemaExplorerCBFS(SemaExplorer):
             self.log.info("Hey new addr !")
         while len(simgr.active) < self.max_simul_state and len(self.pause_stash) > 0:
             simgr.active.append(self.pause_stash.popleft())
-    
+
     def manage_stashes(self, simgr):
         # Remove state which performed more jump than the limit allowed
         super().remove_exceeded_jump(simgr)
@@ -75,7 +75,7 @@ class SemaExplorerCBFS(SemaExplorer):
                 to_stash="new_addr",
                 filter_func=lambda s: s.globals["id"] in id_to_stash,
             )
-            if s.addr < s.project.loader.main_object.min_addr: # s.addr > s.project.loader.main_object.max_addr or 
+            if s.addr < s.project.loader.main_object.min_addr: # s.addr > s.project.loader.main_object.max_addr or
                 self.timeout = 0 # TODO
 
         self.new_addr_priority(simgr)
@@ -118,7 +118,7 @@ class SemaExplorerCBFS(SemaExplorer):
         super().excessed_step_to_active(simgr)
 
         super().excessed_loop_to_active(simgr)
-    
+
     def step(self, simgr, stash="active", **kwargs):
         try:
             simgr = simgr.step(stash=stash, **kwargs)

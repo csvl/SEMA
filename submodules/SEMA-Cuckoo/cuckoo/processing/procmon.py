@@ -27,7 +27,7 @@ class ProcmonLog(list):
                 entry[child.tag] = child.text
             yield entry
 
-    def __nonzero__(self):
+    def __bool__(self):
         # For documentation on this please refer to MonitorProcessLog.
         return True
 

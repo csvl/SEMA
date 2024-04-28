@@ -20,7 +20,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -165,7 +165,7 @@ profiles = [
 
 collisions_10_13_4 = {
     "MacHighSierra_10_13_4_17E202x64" : "root:xnu-4570.51.2~1/RELEASE_X86_64",
-    "MacHighSierra_10_13_1_17B35ax64" : "root:xnu-4570.51.1~2/RELEASE_X86_64", 
+    "MacHighSierra_10_13_1_17B35ax64" : "root:xnu-4570.51.1~2/RELEASE_X86_64",
 }
 
 collisions_10_8_5 = {
@@ -193,7 +193,7 @@ class catfishScan(scan.BaseScanner):
     def __init__(self, needles = None):
         self.needles = needles
         self.checks = [ ("MultiStringFinderCheck", {'needles':needles}) ]
-        scan.BaseScanner.__init__(self) 
+        scan.BaseScanner.__init__(self)
 
     def scan(self, address_space, offset = 0, maxlen = None):
         for offset in scan.BaseScanner.scan(self, address_space, offset, maxlen):
@@ -207,49 +207,49 @@ class mac_get_profile(common.AbstractMacCommand):
     def check_address(profile, ver_addr, aspace):
         ret = None
         sig = "Darwin Kernel"
-        
+
         if ver_addr > 0xffffffff:
             ver_addr = ver_addr - 0xffffff8000000000
         elif ver_addr > 0xc0000000:
             ver_addr = ver_addr - 0xc0000000
 
         ver_buf = aspace.read(ver_addr, 128)
-        
+
         if ver_buf and ver_buf.startswith(sig):
             ret = profile
-            
+
             for collision_set in collision_sets:
                 # check if profile is within a collision set
                 if profile in collision_set:
                     # if it is, then walk all profiles in that set to find the proper one
-                    for test_profile, test_string in collision_set.items():
+                    for test_profile, test_string in list(collision_set.items()):
                         if ver_buf.find(test_string) != -1:
                             ret = test_profile
                             break
 
-                    # no need to keep looking if we found the profile in a collision set already      
+                    # no need to keep looking if we found the profile in a collision set already
                     break
 
         return ret
 
     @staticmethod
     def guess_profile(aspace):
-        """Main interface to guessing Mac profiles. 
-        
-        Args: 
+        """Main interface to guessing Mac profiles.
+
+        Args:
             aspace: a physical address space.
-            
+
         Returns:
-            Tuple containing the profile name and 
-            shift address. 
-            
+            Tuple containing the profile name and
+            shift address.
+
             On failure, it implicitly returns None.
         """
- 
+
         for data in profiles:
             ret = mac_get_profile.check_address(data[0], data[1], aspace)
             if ret:
-                return ret, 0 
+                return ret, 0
 
         # didn't find a direct translation, so look for KASLR kernels
         scanner = catfishScan(needles = ["Catfish \x00\x00"])
@@ -262,14 +262,14 @@ class mac_get_profile(common.AbstractMacCommand):
                      (lowglo % 0xFFFFFF80))
 
                 ver_addr += shift_address
-                
+
                 ret = mac_get_profile.check_address(profile, ver_addr, aspace)
-                if ret:    
+                if ret:
                     return ret, shift_address
 
     def calculate(self):
         aspace = utils.load_as(self._config, astype = 'physical')
-        
+
         result = mac_get_profile.guess_profile(aspace)
 
         if result:
@@ -288,7 +288,7 @@ class mac_get_profile(common.AbstractMacCommand):
                 str(profile),
                 Address(shift),
                 ])
-                    
+
     def render_text(self, outfd, data):
         self.table_header(outfd, [("Profile", "50"), ("Shift Address", "[addrpad]")])
 

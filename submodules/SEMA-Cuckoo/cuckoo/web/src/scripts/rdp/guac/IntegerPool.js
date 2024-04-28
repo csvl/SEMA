@@ -22,7 +22,7 @@ var Guacamole = Guacamole || {};
 /**
  * Integer pool which returns consistently increasing integers while integers
  * are in use, and previously-used integers when possible.
- * @constructor 
+ * @constructor
  */
 Guacamole.IntegerPool = function() {
 
@@ -50,7 +50,7 @@ Guacamole.IntegerPool = function() {
     /**
      * Returns the next available integer in the pool. If possible, a previously
      * used integer will be returned.
-     * 
+     *
      * @return {Number} The next available integer.
      */
     this.next = function() {
@@ -66,7 +66,7 @@ Guacamole.IntegerPool = function() {
 
     /**
      * Frees the given integer, allowing it to be reused.
-     * 
+     *
      * @param {Number} integer The integer to free.
      */
     this.free = function(integer) {

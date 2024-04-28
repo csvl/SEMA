@@ -20,7 +20,7 @@ def _read_consolidate(r):
 def consolidate_reverse_exprs(initial_state):
     """
     Tries to simplify the Reverse(Extract(Reverse())) pattern in expressions.
-    
+
     NOTE: Experimental! Maybe not working correctly, use it with care!
     """
     initial_state.inspect.b('mem_read', when=angr.BP_AFTER, action=_read_consolidate)

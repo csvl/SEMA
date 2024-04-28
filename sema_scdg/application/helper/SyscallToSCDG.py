@@ -25,7 +25,7 @@ class SyscallToSCDG:
     }
 
     ## --- Functions where strings could/shoud be resolved with number of the argument -- ##
- 
+
     FUNCTION_STRING = {
         "open": 0,
         "fopen": 0,
@@ -175,7 +175,7 @@ class SyscallToSCDG:
             str: The decoded string.
         """
         return string.decode("utf-8") if hasattr(string, "decode") else string
-        
+
     def add_call(self, state):
         """
         Add a syscall call to the SCDG based on the state.
@@ -225,7 +225,7 @@ class SyscallToSCDG:
                 self.call_sim.syscall_found[key_name] = self.call_sim.syscall_found[key_name] + 1
             self.log.info(f"Syscall found:  {str(name)}{str(args)}")
 
-        if args:   
+        if args:
             name_to_check =  self.scdg[id][-1]["name"]
             possibilities = { "writev": "write", "readv":"read", "socketcall": "" }
             if name_to_check == name:
@@ -337,7 +337,7 @@ class SyscallToSCDG:
         Returns:
             str: The decoded string argument if applicable.
         """
-        if (self.string_resolv and callee_arg and args[i] != 0 and 
+        if (self.string_resolv and callee_arg and args[i] != 0 and
             ("LPCTSTR" in callee_arg[i]["type"]
             or "LPTSTR" in callee_arg[i]["type"]
             or "PTSTR" in callee_arg[i]["type"]
@@ -349,7 +349,7 @@ class SyscallToSCDG:
                 string = state.mem[args[i]].wstring.concrete
             else:
                 string = state.mem[args[i]].string.concrete
-        
+
             args[i] = self.__decode_string(string)
         return args[i]
 
@@ -366,7 +366,7 @@ class SyscallToSCDG:
         Returns:
             str: The decoded string argument if applicable.
         """
-        if (self.string_resolv and callee_arg and args[i] != 0 
+        if (self.string_resolv and callee_arg and args[i] != 0
             and ("LPCSTR" in callee_arg[i]["type"]
             or "LPSTR" in callee_arg[i]["type"]
             or "const char*" in callee_arg[i]["type"]
@@ -377,7 +377,7 @@ class SyscallToSCDG:
             string = state.mem[args[i]].string.concrete
             args[i] = self.__decode_string(string)
         return args[i]
-    
+
     def if_wstring_call(self, state, callee_arg, args, i):
         """
         Check and decode wide string arguments if string resolution is enabled.
@@ -391,8 +391,8 @@ class SyscallToSCDG:
         Returns:
             str: The decoded wide string argument if applicable.
         """
-        if (self.string_resolv and callee_arg and args[i] != 0 and 
-            ("LPCWSTR" in callee_arg[i]["type"] 
+        if (self.string_resolv and callee_arg and args[i] != 0 and
+            ("LPCWSTR" in callee_arg[i]["type"]
             or "LPWSTR" in callee_arg[i]["type"]
             or "wchar_t*const" in callee_arg[i]["type"]
             or "OLECHAR" in callee_arg[i]["type"]
@@ -401,7 +401,7 @@ class SyscallToSCDG:
             or "LPCWCH" in callee_arg[i]["type"]
         )):
             string = state.mem[args[i]].wstring.concrete
-        
+
             args[i] = self.__decode_string(string)
         return args[i]
 
@@ -502,7 +502,7 @@ class SyscallToSCDG:
                 self.scdg[id].append(dic)
 
             return
-        
+
     def __check_syscall_string(self, syscall, state, args, dic):
         """
         Check and decode string arguments based on the syscall type.
@@ -545,7 +545,7 @@ class SyscallToSCDG:
                             else:
                                 dic["ref_str"] = {(index_str + 1): arg_str}
         return args, dic
-    
+
     def add_addr_call(self, state):
         """
         Add the current instruction address to the list of addresses in the global state.

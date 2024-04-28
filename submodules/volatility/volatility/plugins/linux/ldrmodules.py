@@ -22,7 +22,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -46,7 +46,7 @@ class linux_ldrmodules(linux_pslist.linux_pslist):
     def generator(self, data):
         for task in data:
             for vm_start, vma_name, pmaps, dmaps in task.ldrmodules():
-                yield (0, [int(task.pid), 
+                yield (0, [int(task.pid),
                     str(task.comm),
                     Address(vm_start),
                     str(vma_name),
@@ -57,15 +57,15 @@ class linux_ldrmodules(linux_pslist.linux_pslist):
         self.table_header(outfd, [("Pid", "8"),
                                   ("Name", "16"),
                                   ("Start", "#018x"),
-                                  ("File Path", "50"),                    
+                                  ("File Path", "50"),
                                   ("Kernel", "6"),
-                                  ("Libc", "6"), 
-                                ]) 
+                                  ("Libc", "6"),
+                                ])
 
         for task in data:
             for vm_start, vma_name, pmaps, dmaps in task.ldrmodules():
-                self.table_row(outfd, 
-                    task.pid, 
+                self.table_row(outfd,
+                    task.pid,
                     str(task.comm),
                     vm_start,
                     vma_name,

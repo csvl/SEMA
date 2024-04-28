@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -46,7 +46,7 @@ class mac_orphan_threads(pstasks.mac_tasks):
 
     def generator(self, data):
         (kstart, kend, kmods) = common.get_kernel_addrs_start_end(self)
-        
+
         for proc in data:
             for thread in proc.threads():
                 start = thread.continuation
@@ -63,10 +63,10 @@ class mac_orphan_threads(pstasks.mac_tasks):
                             mapping = map.get_path()
                             if mapping == "":
                                 mapping = map.get_special_path()
-                       
-                            good  = 1 
+
+                            good  = 1
                             start = map.links.start
- 
+
                 if good:
                     status = "OK"
                 else:
@@ -79,7 +79,7 @@ class mac_orphan_threads(pstasks.mac_tasks):
                         idx = name_buf.find("\x00")
                         if idx != -1:
                             name_buf = name_buf[:idx]
-                        
+
                         name = name_buf
 
                 yield(0, [
@@ -90,7 +90,7 @@ class mac_orphan_threads(pstasks.mac_tasks):
                     str(name),
                     str(status),
                     ])
- 
+
     def render_text(self, outfd, data):
         common.set_plugin_members(self)
 
@@ -101,9 +101,9 @@ class mac_orphan_threads(pstasks.mac_tasks):
                                   ("Name", "40"),
                                   ("Status", ""),
                                  ])
- 
+
         (kstart, kend, kmods) = common.get_kernel_addrs_start_end(self)
-        
+
         for proc in data:
             for thread in proc.threads():
                 start = thread.continuation
@@ -118,7 +118,7 @@ class mac_orphan_threads(pstasks.mac_tasks):
                             mapping = map.get_path()
                             if mapping == "":
                                 mapping = map.get_special_path()
-                            good  = 1 
+                            good  = 1
                             start = map.links.start
 
                 status = "UNKNOWN"
@@ -132,7 +132,7 @@ class mac_orphan_threads(pstasks.mac_tasks):
                         idx = name_buf.find("\x00")
                         if idx != -1:
                             name_buf = name_buf[:idx]
-                        
+
                         name = name_buf
 
                 self.table_row(outfd, proc.p_pid, proc.p_comm, start, mapping, name, status)

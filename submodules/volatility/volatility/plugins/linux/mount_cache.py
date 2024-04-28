@@ -41,7 +41,7 @@ class linux_mount_cache(linux_mount.linux_mount):
 
     def _get_filesystem_types(self):
         all_fs = {}
-        
+
         fs_ptr = obj.Object("Pointer", offset = self.addr_space.profile.get_symbol("file_systems"), vm = self.addr_space)
         file_systems = fs_ptr.dereference_as("file_system_type")
 
@@ -50,19 +50,19 @@ class linux_mount_cache(linux_mount.linux_mount):
         while fs.is_valid():
             fsname = obj.Object("String", offset = fs.name, vm = self.addr_space, length=256)
             all_fs[str(fsname)] = fs
-            fs = fs.next
+            fs = fs.__next__
 
         return all_fs
 
     def calculate(self):
         linux_common.set_plugin_members(self)
-        
+
         fs_types = self._get_filesystem_types()
-    
+
         # newer kernels
         if self.profile.has_type("mount"):
             mnttype = "mount"
-        
+
             cache = linux_slabinfo(self._config).get_kmem_cache(mnttype, self._config.UNALLOCATED)
 
             for task in linux_pslist.linux_pslist(self._config).calculate():
@@ -75,10 +75,9 @@ class linux_mount_cache(linux_mount.linux_mount):
 
         for mnt in cache:
             ret = self._parse_mnt(mnt, ns, fs_types)
-                    
+
             if ret:
                 (mnt_sb, dev_name, path, fstype, rr, mnt_string) = ret
 
                 if not (dev_name == "devtmpfs" and path == "/"):
                     yield (mnt_sb, dev_name, path, fstype, rr, mnt_string)
-

@@ -17,7 +17,7 @@ pypy3 SemaSCDG.py configs/config.ini
 ```
 
 The parameters are put in a configuration file : `configs/config.ini`
-Feel free to modify it or create new configuration files to run different experiments. 
+Feel free to modify it or create new configuration files to run different experiments.
 To restore the default values of `config.ini` do :
 ```bash
 python3 restore_defaults.py
@@ -87,14 +87,14 @@ Global parameter:
   is_packed                     Is the binary packed ? (default : False, not yet supported)
   timeout                       Timeout in seconds before ending extraction (default : 600)
   string_resolve                Do we try to resolv references of string (default : True)
-  log_level                     Level of log, can be INFO, DEBUG, WARNING, ERROR (default : INFO) 
+  log_level                     Level of log, can be INFO, DEBUG, WARNING, ERROR (default : INFO)
   family                        Family of the malware (default : Unknown)
   exp_dir                       Name of the directory to save SCDG extracted (default : Default)
   binary_path                   Relative path to the binary or directory (has to be in the database folder)
-  fast_main                     Jump directly into the main function 
-  
+  fast_main                     Jump directly into the main function
+
 Plugins:
-  plugin_env_var          Enable the env_var plugin 
+  plugin_env_var          Enable the env_var plugin
   plugin_locale_info      Enable the locale_info plugin
   plugin_resources        Enable the resources plugin
   plugin_widechar         Enable the widechar plugin
@@ -138,7 +138,7 @@ There is a jupyter notebook providing a tutorial on how to use the scdg. To laun
 make run-scdg
 ```
 
-Then, inside the docker, run 
+Then, inside the docker, run
 ```bash
 jupyter notebook --ip=0.0.0.0 --port=5001 --no-browser --allow-root --NotebookApp.token=''
 ```

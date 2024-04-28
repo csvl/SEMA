@@ -4,7 +4,7 @@ These are the sources of the datasets contained in this directory:
 (from https://github.com/shiruipan/graph_datasets )
 **Description:**
 
-BrainNet Functional Brain Network Analysis Data are constructed from the whole brain functional magnetic res- onance image (fMRI) atlas [6]. The purpose of the study is to map brain as a network (or a graph) where each node corresponds to a region of Interest (ROI) and the edge indicates correlations between two ROIs. In our experiments, we use functional parcellation results, CC200, from [6], which parcellate each brain into 200 regions of interest. In order to discover relationships between ROIs, the mean values of each ROI are recorded with respect to certain voxel time courses. By using Pearson correlations between two time courses, we can calculate correlation between two ROIs, and a graph is constructed by connecting ROIs whose correlations is higher than a threshold value. For ADHD and HI tasks, the functional response is real values, so we discretize the functional response to binary values by using a simple threshold. 
+BrainNet Functional Brain Network Analysis Data are constructed from the whole brain functional magnetic res- onance image (fMRI) atlas [6]. The purpose of the study is to map brain as a network (or a graph) where each node corresponds to a region of Interest (ROI) and the edge indicates correlations between two ROIs. In our experiments, we use functional parcellation results, CC200, from [6], which parcellate each brain into 200 regions of interest. In order to discover relationships between ROIs, the mean values of each ROI are recorded with respect to certain voxel time courses. By using Pearson correlations between two time courses, we can calculate correlation between two ROIs, and a graph is constructed by connecting ROIs whose correlations is higher than a threshold value. For ADHD and HI tasks, the functional response is real values, so we discretize the functional response to binary values by using a simple threshold.
 
 Number of Datasets: **3**
 
@@ -22,7 +22,7 @@ If you used this dataset, please cite the following papers:
 1. C. Borgelt and M. R. Berthold, “Mining molecular fragments: Finding relevant substructures of molecules,” 2002 IEEE International Conference on Data Mining. IEEE, 2002, pp. 51–58.
 1. S. Pan, J. Wu, and X. Zhu, “Cogboost: Boosting for fast cost-sensitive graph classification,” IEEE Transactions on Knowledge and Data Engineering, 2015.
 1. S. Pan, J. Wu, X. Zhu, and C. Zhang, “Graph ensemble boosting for imbalanced noisy graph stream classification,” IEEE Transactions on Cybernetic, 2015.
-1. S. Pan, X. Zhu, C. Zhang, and P. S. Yu, “Graph stream classification using labeled and unlabeled graphs,” in Proc. of ICDE. IEEE, 2013. 
+1. S. Pan, X. Zhu, C. Zhang, and P. S. Yu, “Graph stream classification using labeled and unlabeled graphs,” in Proc. of ICDE. IEEE, 2013.
 1. S. Pan, J. Wu, X. Zhu, G. Long, and C. Zhang. "Task Sensitive Feature Exploration and Learning for Multi-Task Graph Classification."  IEEE Trans. Cybernetics (TCYB) 47(3): 744-758 (2017).
 1. R. Craddock, C. James, P. Holtzheimer, X. Hu, and H. Mayberg, “A whole brain fmri atlas generated via spatially constrained spectral clustering,” Human Brain Mapping, vol. 33, 2012.
 1. S. Pan, J. Wu, X. Zhu, G. Long, C. Zhang. "Finding the best not the most: regularized loss minimization subgraph selection for graph classification." Pattern Recognition (PR) 48(11): 3783-3796 (2015)
@@ -39,7 +39,7 @@ These were in the original gBolt repository, will check the gSpan paper to see w
 (from https://github.com/shiruipan/graph_datasets )
 **Description:**
 
-The DBLP dataset consists of bibliography data in computer science. Each record in DBLP is associated with a number of attributes such as abstract, authors, year, venue, title, and reference ID. To build a graph stream, we select a list of conferences (as shown in Table I) and use the papers published in these conferences (in chronological order) to form a binary-class graph stream. The classification task is to predict whether a paper belongs to DBDM (database and data mining) or CVPR (computer vision and pattern recognition) field, by using the references and the title of each paper. 
+The DBLP dataset consists of bibliography data in computer science. Each record in DBLP is associated with a number of attributes such as abstract, authors, year, venue, title, and reference ID. To build a graph stream, we select a list of conferences (as shown in Table I) and use the papers published in these conferences (in chronological order) to form a binary-class graph stream. The classification task is to predict whether a paper belongs to DBDM (database and data mining) or CVPR (computer vision and pattern recognition) field, by using the references and the title of each paper.
 
 Number of Datasets: **1**
 
@@ -66,12 +66,12 @@ Not sure where these come from but I read something about mutagen benchmarks bei
 ---------------- NIC_*.gs: NCI Anti-cancer activity prediction data (NCI)----
 (from https://github.com/shiruipan/graph_datasets )
 
-**Description:** 
+**Description:**
 
-The NCI graph datasets are commonly used as the benchmark for graph classification. Each NCI dataset belongs to a bioassay task for anticancer activity prediction, where each chemical compound is represented as a graph, with atoms representing nodes and bonds as edges. A chemical compound is positive if it is active against the corresponding cancer, or negative otherwise.  Table 1 summarizes the NCI graph data we download from PubChem. We have removed disconnected graphs and graphs with unexpected atoms (some graphs have atoms represented as `*`) in the original graphs. Columns 2-3 show the number of positive and total number of graphs in each dataset, and Columns 4-5 indicate the average number of nodes and edges in each dataset, respectively. 
+The NCI graph datasets are commonly used as the benchmark for graph classification. Each NCI dataset belongs to a bioassay task for anticancer activity prediction, where each chemical compound is represented as a graph, with atoms representing nodes and bonds as edges. A chemical compound is positive if it is active against the corresponding cancer, or negative otherwise.  Table 1 summarizes the NCI graph data we download from PubChem. We have removed disconnected graphs and graphs with unexpected atoms (some graphs have atoms represented as `*`) in the original graphs. Columns 2-3 show the number of positive and total number of graphs in each dataset, and Columns 4-5 indicate the average number of nodes and edges in each dataset, respectively.
 
 Number of Datasets: **18 (9 imbalanced + 9 balanced data)**
- 
+
 **Full Dataset:**
 
 The full datasets of NCI graphs can be downloaded here (**[NCI_full.zip](https://github.com/shiruipan/graph_datasets/blob/master/Graph_Repository/NCI_full.zip?raw=true)**), which are naturally imbalanced and ideal benchmark for imbalanced or cost-sensitive graph classification. We have considered cost-sensitive graph classification in [2], and graph stream classification in [3][4][5].

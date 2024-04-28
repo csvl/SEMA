@@ -22,7 +22,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -40,5 +40,4 @@ class linux_proc_maps_rb(linux_proc_maps.linux_proc_maps):
         for task in tasks:
             if task.mm:
                 for vma in task.get_proc_maps_rb():
-                    yield task, vma            
-
+                    yield task, vma

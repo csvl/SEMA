@@ -139,10 +139,10 @@ def logo():
                          \\_.-'._i__i__i_.'
                                \"\"\"\"\"\"\"\"\"""")
 
-    print(color(random.choice(logos), random.randrange(31, 37)))
-    print
-    print(" Cuckoo Sandbox %s" % yellow(version))
+    print((color(random.choice(logos), random.randrange(31, 37))))
+    print()
+    print((" Cuckoo Sandbox %s" % yellow(version)))
     print(" www.cuckoosandbox.org")
     print(" Copyright (c) 2010-2018")
-    print
+    print()
     sys.stdout.flush()

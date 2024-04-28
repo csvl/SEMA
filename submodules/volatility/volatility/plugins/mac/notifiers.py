@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -34,13 +34,13 @@ class mac_notifiers(lsmod.mac_lsmod):
     """ Detects rootkits that add hooks into I/O Kit (e.g. LogKext) """
 
     def _struct_or_class(self, type_name):
-        """Return the name of a structure or class. 
+        """Return the name of a structure or class.
 
-        More recent versions of OSX define some types as 
+        More recent versions of OSX define some types as
         classes instead of structures, so the naming is
-        a little different.   
+        a little different.
         """
-        if self.addr_space.profile.vtypes.has_key(type_name):
+        if type_name in self.addr_space.profile.vtypes:
             return type_name
         else:
             return type_name + "_class"
@@ -56,9 +56,9 @@ class mac_notifiers(lsmod.mac_lsmod):
         if gnotifications.count > 1024:
             return
 
-        ents = obj.Object('Array', offset = gnotifications.dictionary, 
-                          vm = self.addr_space, 
-                          targetType = self._struct_or_class("dictEntry"), 
+        ents = obj.Object('Array', offset = gnotifications.dictionary,
+                          vm = self.addr_space,
+                          targetType = self._struct_or_class("dictEntry"),
                           count = gnotifications.count)
 
         # walk the current set of notifications
@@ -73,14 +73,14 @@ class mac_notifiers(lsmod.mac_lsmod):
             if valset == None or valset.count > 1024:
                 continue
 
-            notifiers_ptrs = obj.Object('Array', offset = valset.array, 
-                                        vm = self.addr_space, 
-                                        targetType = 'Pointer', 
+            notifiers_ptrs = obj.Object('Array', offset = valset.array,
+                                        vm = self.addr_space,
+                                        targetType = 'Pointer',
                                         count = valset.count)
- 
+
             if notifiers_ptrs == None:
                 continue
- 
+
             for ptr in notifiers_ptrs:
                 notifier = ptr.dereference_as(self._struct_or_class("_IOServiceNotifier"))
 
@@ -92,7 +92,7 @@ class mac_notifiers(lsmod.mac_lsmod):
                     continue
 
                 # this is the function that handles whatever the notification is for
-                # this should be only in the kernel or in one of the known IOKit 
+                # this should be only in the kernel or in one of the known IOKit
                 # drivers for the specific kernel
                 handler = notifier.handler.v()
 
@@ -109,18 +109,18 @@ class mac_notifiers(lsmod.mac_lsmod):
         matches = []
 
         if notifier.matching.count > 1024:
-            return matches  
- 
-        ents = obj.Object('Array', offset = notifier.matching.dictionary, 
-                          vm = self.addr_space, 
-                          targetType = self._struct_or_class("dictEntry"), 
+            return matches
+
+        ents = obj.Object('Array', offset = notifier.matching.dictionary,
+                          vm = self.addr_space,
+                          targetType = self._struct_or_class("dictEntry"),
                           count = notifier.matching.count)
 
         for ent in ents:
             if ent == None or ent.value == None:
                 continue
- 
-            match = ent.value.dereference_as(self._struct_or_class("OSString"))        
+
+            match = ent.value.dereference_as(self._struct_or_class("OSString"))
             if len(str(match)) > 0:
                 matches.append(str(match))
 
@@ -151,7 +151,7 @@ class mac_notifiers(lsmod.mac_lsmod):
                 ])
 
     def render_text(self, outfd, data):
-        self.table_header(outfd, [("Key", "30"), 
+        self.table_header(outfd, [("Key", "30"),
                                   ("Matches", "40"),
                                   ("Handler", "[addrpad]"),
                                   ("Module", "40"),

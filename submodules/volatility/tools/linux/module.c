@@ -155,7 +155,7 @@ struct fn_hash {
   struct fn_zone    *fn_zone_list;
 } fn_hash;
 
-struct fib_alias 
+struct fib_alias
 {
     struct list_head        fa_list;
     struct fib_info         *fa_info;
@@ -168,7 +168,7 @@ struct fib_alias
 #endif
 };
 
-struct fib_node 
+struct fib_node
 {
     struct hlist_node       fn_hash;
     struct list_head        fn_alias;
@@ -241,7 +241,7 @@ struct module_kobject module_kobject;
 #if LINUX_VERSION_CODE >= KERNEL_VERSION(4,2,0)
 // we can't get the defintion of mod_tree_root directly
 // because it is declared in module.c as a static struct
-// the latch_tree_root struct has the variables we want 
+// the latch_tree_root struct has the variables we want
 // immediately after it though
 
 #include <linux/rbtree_latch.h>
@@ -425,15 +425,15 @@ struct kmem_list3 {
 
 struct kmem_list3 kmem_list3;
 
-struct slab {         
+struct slab {
      struct list_head list;
      unsigned long colouroff;
      void *s_mem;            /* including colour offset */
      unsigned int inuse;     /* num of objs active in slab */
      unsigned int free;
-     unsigned short nodeid;          
+     unsigned short nodeid;
  };
- 
+
 struct slab slab;
 #endif
 
@@ -627,4 +627,3 @@ struct mount {
 #endif
 
 struct resource resource;
-

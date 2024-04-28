@@ -21,13 +21,13 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 ### based entirely on keychaindump from volafox
 
 import volatility.obj as obj
-import volatility.plugins.mac.pstasks as pstasks 
+import volatility.plugins.mac.pstasks as pstasks
 import volatility.plugins.mac.common as common
 from volatility.renderers import TreeGrid
 
@@ -56,7 +56,7 @@ class mac_keychaindump(pstasks.mac_tasks):
 
                 for address in range(map.start, map.end, ptr_sz):
                     signature = obj.Object("unsigned int", offset = address, vm = proc_as)
-            
+
                     if not signature or signature != 0x18:
                         continue
 
@@ -64,7 +64,7 @@ class mac_keychaindump(pstasks.mac_tasks):
 
                     if map.start <= key_buf_ptr < map.end:
                         yield proc_as, key_buf_ptr
-                                                    
+
     def unified_output(self, data):
         return TreeGrid([("Key", str),
                          ], self.generator(data))
@@ -88,4 +88,3 @@ class mac_keychaindump(pstasks.mac_tasks):
 
             key = "".join('%02X'%ord(k) for k in key_buf)
             self.table_row(outfd, key)
-

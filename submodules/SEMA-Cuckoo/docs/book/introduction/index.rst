@@ -13,4 +13,3 @@ in malware analysis.
     what
     license
     community
-

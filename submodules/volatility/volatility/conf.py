@@ -33,7 +33,7 @@ system:
 
    - Autoconf must be able to set things like the python path (in case
      pyflag is installed to a different prefix)
-     
+
    - Users must be able to configure the installed system for their
    specific requirements.
 
@@ -65,9 +65,9 @@ configuration information:
 
    - Finally a conf table in each case is used to provide a per case
    configuration
-   
+
 """
-import ConfigParser
+import configparser
 import optparse
 import os
 import sys
@@ -81,7 +81,7 @@ class PyFlagOptionParser(optparse.OptionParser):
     def _process_args(self, largs, rargs, values):
         try:
             return optparse.OptionParser._process_args(self, largs, rargs, values)
-        except (optparse.BadOptionError, optparse.OptionValueError), err:
+        except (optparse.BadOptionError, optparse.OptionValueError) as err:
             if self.final:
                 raise err
 
@@ -177,25 +177,25 @@ class ConfObject(object):
 
         for f in self._filenames:
             try:
-                conf_parser = ConfigParser.ConfigParser()
+                conf_parser = configparser.ConfigParser()
                 conf_parser.read(f)
 
                 for k, v in conf_parser.items('DEFAULT'):
                     ## Absolute parameters are protected from
                     ## configuration files:
-                    if k in self._absolute.keys():
+                    if k in list(self._absolute.keys()):
                         continue
 
                     try:
                         v = eval(v, self.g_dict)
-                    except Exception, _e:
+                    except Exception as _e:
                         pass
 
                     ## update the configured options
                     self.cnf_opts[k] = v
 
             except IOError:
-                print "Unable to open {0}".format(f)
+                print("Unable to open {0}".format(f))
 
         ConfObject._filename = filename
 
@@ -256,7 +256,7 @@ class ConfObject(object):
                         try:
                             opt.metavar = "{0}".format((getattr(self, opt.dest) or
                                                         opt.dest.upper()))
-                        except Exception, _e:
+                        except Exception as _e:
                             pass
 
                     self.optparser.print_help()
@@ -266,7 +266,7 @@ class ConfObject(object):
 
             ## Set the cache invalidators on the cache now:
             import volatility.cache as cache
-            for k, v in self.cache_invalidators.items():
+            for k, v in list(self.cache_invalidators.items()):
                 cache.CACHE.invalidate_on(k, v)
 
     def remove_option(self, option):

@@ -30,8 +30,8 @@ def plot_cfg(cfg, fname, format="png", state=None, asminst=False, vexinst=False,
     if color_depth:
         vis.add_clusterer(AngrCallstackKeyClusterer())
         vis.add_clusterer(ColorDepthClusterer(palette='greens'))
-    vis.set_output(DotOutput(fname, format=format))    
-    vis.process(cfg.graph) 
+    vis.set_output(DotOutput(fname, format=format))
+    vis.process(cfg.graph)
 
 def plot_func_graph(project, graph, fname, format="png", asminst=True, ailinst=True, vexinst=False, structure=None, color_depth=False):
     vis = AngrVisFactory().default_func_graph_pipeline(project, asminst=asminst, ailinst=ailinst, vexinst=vexinst)
@@ -40,7 +40,7 @@ def plot_func_graph(project, graph, fname, format="png", asminst=True, ailinst=T
         if color_depth:
             vis.add_clusterer(ColorDepthClusterer(palette='greens'))
     vis.set_output(DotOutput(fname, format=format))
-    vis.process(graph) 
+    vis.process(graph)
 
 #Note: method signature may be changed in the future
 def plot_structured_graph(project, structure, fname, format="png", asminst=True, ailinst=True, vexinst=False, color_depth=False):
@@ -54,7 +54,7 @@ def plot_cg(kb, fname, format="png", verbose=False, filter=None):
     vis = AngrVisFactory().default_cg_pipeline(kb, verbose=verbose)
     vis.set_output(DotOutput(fname, format=format))
     vis.process(kb, filter)
-    
+
 def plot_cdg(cfg, cdg, fname, format="png", pd_edges=False, cg_edges=True, remove_fakeret=True):
     vis = AngrVisFactory().default_cfg_pipeline(cfg, asminst=True, vexinst=False, color_edges=False)
     if remove_fakeret:
