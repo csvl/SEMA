@@ -9,7 +9,7 @@ class ExpandEnvironmentStringsW(angr.SimProcedure):
             lw.debug("lpSrc not resolvable")
             lpDst = lpSrc
             return nSize
-            
+
         src.replace("%ProgramFiles%","C:\\Program Files")
         src.replace("%windir%", "C:\\Windows")
         l = len(src)

@@ -13,7 +13,7 @@ class PluginEnvVar(angr.SimStatePlugin):
         self.wenv_var_requested = {}
         self.stop_flag = False
         self.dict_calls = {}
-        
+
         self.windows_env_vars = {
             "ALLUSERSPROFILE": "C:\\ProgramData\\",
             "APPDATA": "C:\\Users\\ElNiak\\AppData\\Roaming\\",
@@ -45,7 +45,7 @@ class PluginEnvVar(angr.SimStatePlugin):
             "TMP": "C:\\Users\\ElNiak\\AppData\\Local\\Temp\\",
             "USERPROFILE": "C:\\Users\\ElNiak\\",
             "windir": "C:\\Windows",
-            
+
             "QT_NO_CPU_FEATURE":"", # rdrand
             "UNICODEMAP_JP":"unicode-ascii",
             "QT_LOGGING_TO_CONSOLE":"0",
@@ -64,13 +64,13 @@ class PluginEnvVar(angr.SimStatePlugin):
             "QT_PLUGIN_PATH":"C:\\Users\\ElNiak\\QTPlugin\\",
             "QT_MESSAGE_PATTERN": "", #"[%{time yyyyMMdd h:mm:ss.zzz t} %{if-debug}D%{endif}%{if-info}I%{endif}%{if-warning}W%{endif}%{if-critical}C%{endif}%{if-fatal}F%{endif}] %{file}:%{line} - %{message}\0\0"
         }
-        
+
     def setup_plugin(self):
-        self.env_block = self.state.heap.malloc(32767) 
+        self.env_block = self.state.heap.malloc(32767)
         for i in range(32767):
             c = self.state.solver.BVS("c_env_block{}".format(i), 8)
             self.state.memory.store(self.env_block + i, c)
-            
+
         env_var_str = b""
         env_var_wstr = b""
         for env_var in self.windows_env_vars.keys():
@@ -83,12 +83,12 @@ class PluginEnvVar(angr.SimStatePlugin):
             # wenv_var_val += (windows_env_vars[env_var] + "\x00\x00")
             #wenv_var_str += wenv_var_val.encode("utf-16-le")
             self.wenv_var[env_var.upper()] = self.windows_env_vars[env_var].encode("utf-16-le")
-        
+
         env_var_bv = self.state.solver.BVV(env_var_str)
         self.state.memory.store(self.env_block, env_var_bv)
         env_var_wbv = self.state.solver.BVV(env_var_wstr)
         self.state.memory.store(self.env_block, env_var_wbv)
-            
+
     def update_dic(self, call_name):
         if call_name in self.dict_calls:
             if self.dict_calls[call_name] > 5:
@@ -98,7 +98,7 @@ class PluginEnvVar(angr.SimStatePlugin):
                 self.dict_calls[call_name] = self.dict_calls[call_name] + 1
         else:
             self.dict_calls[call_name] = 1
-    
+
     # TODO improve
     def ending_state(self, simgr):
         total_env_var = {}
@@ -120,7 +120,7 @@ class PluginEnvVar(angr.SimStatePlugin):
                     if sstate.plugin_env_var.wenv_var_requested[key] not in total_env_var[key]:
                         total_env_var[key].append(str(sstate.plugin_env_var.wenv_var_requested[key]))
         return total_env_var
-    
+
     @angr.SimStatePlugin.memo
     def copy(self, memo):
         p = PluginEnvVar()
@@ -134,6 +134,6 @@ class PluginEnvVar(angr.SimStatePlugin):
         p.env_var_requested = self.env_var_requested.copy()
         p.wenv_var_requested = self.wenv_var_requested.copy()
         return p
-    
+
     def merge(self):
         pass

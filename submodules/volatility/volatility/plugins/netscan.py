@@ -30,8 +30,8 @@ import volatility.plugins.overlays.windows.tcpip_vtypes as tcpip_vtypes
 from volatility.renderers import TreeGrid
 from volatility.renderers.basic import Address
 
-# Python's socket.AF_INET6 is 0x1e but Microsoft defines it 
-# as a constant value of 0x17 in their source code. Thus we 
+# Python's socket.AF_INET6 is 0x1e but Microsoft defines it
+# as a constant value of 0x17 in their source code. Thus we
 # need Microsoft's since that's what is found in memory.
 AF_INET = 2
 AF_INET6 = 0x17
@@ -41,7 +41,7 @@ inaddr_any = utils.inet_ntop(socket.AF_INET, '\0' * 4)
 inaddr6_any = utils.inet_ntop(socket.AF_INET6, '\0' * 16)
 
 #--------------------------------------------------------------------------------
-# pool scanners 
+# pool scanners
 #--------------------------------------------------------------------------------
 
 class PoolScanUdpEndpoint(poolscan.PoolScanner):
@@ -87,7 +87,7 @@ class PoolScanTcpEndpoint(poolscan.PoolScanner):
                    ]
 
 #--------------------------------------------------------------------------------
-# object classes 
+# object classes
 #--------------------------------------------------------------------------------
 
 class _TCP_LISTENER(obj.CType):
@@ -104,13 +104,13 @@ class _TCP_LISTENER(obj.CType):
     def dual_stack_sockets(self):
         """Handle Windows dual-stack sockets"""
 
-        # If this pointer is valid, the socket is bound to 
-        # a specific IP address. Otherwise, the socket is 
-        # listening on all IP addresses of the address family. 
+        # If this pointer is valid, the socket is bound to
+        # a specific IP address. Otherwise, the socket is
+        # listening on all IP addresses of the address family.
         local_addr = self.LocalAddr.dereference()
 
-        # Note the remote address is always INADDR_ANY or 
-        # INADDR6_ANY for sockets. The moment a client 
+        # Note the remote address is always INADDR_ANY or
+        # INADDR6_ANY for sockets. The moment a client
         # connects to the listener, a TCP_ENDPOINT is created
         # and that structure contains the remote address.
         if local_addr != None:
@@ -154,10 +154,10 @@ class _TCP_ENDPOINT(_TCP_LISTENER):
     def is_valid(self):
         if not obj.CType.is_valid(self):
             return False
-  
+
         if self.AddressFamily not in (AF_INET, AF_INET6):
             return False
- 
+
         if (self.State.v() not in tcpip_vtypes.TCP_STATE_ENUM or
                     (not self.LocalAddress and (not self.Owner or
                     self.Owner.UniqueProcessId == 0 or
@@ -170,11 +170,11 @@ class _UDP_ENDPOINT(_TCP_LISTENER):
     """Class for objects found in UdpA pools"""
 
 class _LOCAL_ADDRESS(obj.CType):
-	
+
 	@property
 	def inaddr(self):
 		return self.pData.dereference().dereference()
-		
+
 class _LOCAL_ADDRESS_WIN10_UDP(obj.CType):
 
 	@property
@@ -182,7 +182,7 @@ class _LOCAL_ADDRESS_WIN10_UDP(obj.CType):
 		return self.pData.dereference()
 
 #--------------------------------------------------------------------------------
-# profile modifications 
+# profile modifications
 #--------------------------------------------------------------------------------
 
 class NetscanObjectClasses(obj.ProfileModification):
@@ -204,7 +204,7 @@ class NetscanObjectClasses(obj.ProfileModification):
             })
 
 #--------------------------------------------------------------------------------
-# netscan plugin 
+# netscan plugin
 #--------------------------------------------------------------------------------
 
 class Netscan(common.AbstractScanCommand):
@@ -265,12 +265,12 @@ class Netscan(common.AbstractScanCommand):
                 pid = int(net_object.Owner.UniqueProcessId)
                 owner = str(net_object.Owner.ImageFileName)
 
-            yield (0, 
-                [Address(net_object.obj_offset), 
-                str(proto), 
+            yield (0,
+                [Address(net_object.obj_offset),
+                str(proto),
                 lendpoint,
-                rendpoint, 
-                str(state), 
+                rendpoint,
+                str(state),
                 pid,
                 owner,
                 str(net_object.CreateTime or '')])

@@ -10,7 +10,7 @@ class GetFileVersionInfoW(angr.SimProcedure):
         if self.state.solver.symbolic(dwLen):
             dwLen = self.state.solver.Unconstrained("dwLen", self.state.arch.bits)
         # Return a symbolic value of type BOOL
-        
+
         # lpdata
         # typedef struct {
         # WORD             wLength;
@@ -22,11 +22,11 @@ class GetFileVersionInfoW(angr.SimProcedure):
         # WORD             Padding2;
         # WORD             Children;
         # } VS_VERSIONINFO;
-        
+
         word_size = 2
         dword_size = 4
-        VS_FIXEDFILEINFO_size = dword_size*13 
-        
+        VS_FIXEDFILEINFO_size = dword_size*13
+
         VS_VERSIONINFO = {
             'wLength': VS_FIXEDFILEINFO_size + 6*word_size + len("VS_VERSION_INFO".encode("utf-16-le")), # 0xFEEF04BD,
             'wValueLength': VS_FIXEDFILEINFO_size, # 0xFEEF04BD,
@@ -36,7 +36,7 @@ class GetFileVersionInfoW(angr.SimProcedure):
             'Padding2': self.state.solver.BVS("Children{}".format(self.display_name),16), # 0xFEEF04BD,
             'Children': self.state.solver.BVS("Children{}".format(self.display_name),16), # 0xFEEF04BD,
         }
-        
+
         VS_FIXEDFILEINFO = {
                 'dwSignature': self.state.solver.BVS("dwSignature{}".format(self.display_name),32), # 0xFEEF04BD,
                 'dwStrucVersion': self.state.solver.BVS("dwStrucVersion{}".format(self.display_name),32), # 0x00010000,
@@ -53,17 +53,17 @@ class GetFileVersionInfoW(angr.SimProcedure):
                 'dwFileDateLS': self.state.solver.BVS("dwFileDateLS{}".format(self.display_name),32), #  0x00000000
         }
         lplpBuffer_addr = self.state.solver.eval(lpData)
-        
+
         self.state.mem[lplpBuffer_addr].word = VS_VERSIONINFO['wLength']
         self.state.mem[lplpBuffer_addr + word_size].word = VS_VERSIONINFO['wValueLength']
         self.state.mem[lplpBuffer_addr + word_size*2].word = VS_VERSIONINFO['wType']
         self.state.memory.store(lplpBuffer_addr + word_size*3, VS_VERSIONINFO['szKey'])
         #self.state.mem[lplpBuffer_addr + word_size*3].wstring = VS_VERSIONINFO['szKey']
-        
+
         self.state.solver.add(VS_VERSIONINFO['Padding1'] == 0)
-        
+
         self.state.mem[lplpBuffer_addr + word_size*3 + len("VS_VERSION_INFO".encode("utf-16-le"))].word = VS_VERSIONINFO['Padding1']
-        
+
         self.state.mem[lplpBuffer_addr + word_size*4 + len("VS_VERSION_INFO".encode("utf-16-le"))].dword = VS_FIXEDFILEINFO['dwSignature']
         self.state.mem[lplpBuffer_addr + word_size*4 + len("VS_VERSION_INFO".encode("utf-16-le")) + dword_size].dword = VS_FIXEDFILEINFO['dwStrucVersion']
         self.state.mem[lplpBuffer_addr + word_size*4 + len("VS_VERSION_INFO".encode("utf-16-le")) + dword_size*2].dword = VS_FIXEDFILEINFO['dwFileVersionMS']
@@ -77,10 +77,10 @@ class GetFileVersionInfoW(angr.SimProcedure):
         self.state.mem[lplpBuffer_addr + word_size*4 + len("VS_VERSION_INFO".encode("utf-16-le")) + dword_size*10].dword = VS_FIXEDFILEINFO['dwFileSubtype']
         self.state.mem[lplpBuffer_addr + word_size*4 + len("VS_VERSION_INFO".encode("utf-16-le")) + dword_size*11].dword = VS_FIXEDFILEINFO['dwFileDateMS']
         self.state.mem[lplpBuffer_addr + word_size*4 + len("VS_VERSION_INFO".encode("utf-16-le")) + dword_size*12].dword = VS_FIXEDFILEINFO['dwFileDateLS']
-        
+
         self.state.solver.add(VS_VERSIONINFO['Padding2'] == 0)
         self.state.mem[lplpBuffer_addr + word_size*4 + len("VS_VERSION_INFO".encode("utf-16-le")) + dword_size*13].word = VS_VERSIONINFO['Padding2']
         self.state.mem[lplpBuffer_addr + word_size*5 + len("VS_VERSION_INFO".encode("utf-16-le")) + dword_size*13].word = VS_VERSIONINFO['Children']
-       
-            
+
+
         return 0x1 #self.state.solver.Unconstrained("bResult", 8)

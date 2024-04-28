@@ -83,7 +83,7 @@ class quickSpan {
   }
 
  private:
-  
+
   typedef map<struct dfs_code_t, Projection, struct dfs_code_project_compare_t> ProjectionMap;
   typedef map<struct dfs_code_t, Projection, struct dfs_code_backward_compare_t> ProjectionMapBackward;
   typedef map<struct dfs_code_t, Projection, struct dfs_code_forward_compare_t> ProjectionMapForward;

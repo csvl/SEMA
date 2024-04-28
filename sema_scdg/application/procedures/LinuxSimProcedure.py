@@ -103,7 +103,7 @@ class LinuxSimProcedure(CustomSimProcedure):
                     self.log.info(lib_part)
                     ord_part = part_names[1]
                     self.log.info(ord_part)
-    
+
     # Hooking method for the custom package
     def custom_hook_linux_symbols(self, proj):
         """
@@ -141,7 +141,7 @@ class LinuxSimProcedure(CustomSimProcedure):
             )
             return True
         return False
-    
+
     def load_syscall_table(self, proj):
         """
         Loads the syscall table using the Linux loader in the project.
@@ -149,5 +149,3 @@ class LinuxSimProcedure(CustomSimProcedure):
         This function initializes the system call table by loading it from the project using the Linux loader.
         """
         self.system_call_table = self.linux_loader.load_table(proj)
-
-            

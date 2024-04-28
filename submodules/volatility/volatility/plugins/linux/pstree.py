@@ -48,8 +48,8 @@ class linux_pstree(linux_pslist.linux_pslist):
         self.procs = OrderedDict()
         for task in data:
             self.recurse_task(task, 0, 0,self.procs)
-        
-        for offset,name,level,pid,ppid,uid,euid,gid in self.procs.values():
+
+        for offset,name,level,pid,ppid,uid,euid,gid in list(self.procs.values()):
             if offset:
                 yield(0,[Address(offset),
                          str(name),
@@ -68,7 +68,7 @@ class linux_pstree(linux_pslist.linux_pslist):
         :param level: depth from the root task
         :param procs: dictionnary that we fill
         """
-        if not procs.has_key(task.pid.v()):
+        if task.pid.v() not in procs:
             if task.mm:
                 proc_name = task.comm
             else:
@@ -82,8 +82,7 @@ class linux_pstree(linux_pslist.linux_pslist):
         outfd.write("{0:20s} {1:15s} {2:15s}\n".format("Name", "Pid", "Uid"))
         for task in data:
             self.recurse_task(task, 0, 0, self.procs)
-        
-        for offset,_,proc_name,pid,_,uid,_,_ in self.procs.values():
-            if offset:
-                outfd.write("{0:20s} {1:15s} {2:15s}\n".format(proc_name, str(pid), str(uid or '')))    
 
+        for offset,_,proc_name,pid,_,uid,_,_ in list(self.procs.values()):
+            if offset:
+                outfd.write("{0:20s} {1:15s} {2:15s}\n".format(proc_name, str(pid), str(uid or '')))

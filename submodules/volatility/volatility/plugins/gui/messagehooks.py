@@ -25,7 +25,7 @@ import volatility.plugins.gui.constants as consts
 import volatility.plugins.gui.sessions as sessions
 
 # Offsets to (_catomSysTableEntries, _aatomSysLoaded) in win32k.sys. We use
-# this for translating the ihmod value into a fully-qualified DLL path name 
+# this for translating the ihmod value into a fully-qualified DLL path name
 # used by messagehooks and eventhooks plugins. If the values for your system
 # aren't in the list, the plugins will still work, but the names of the Hook
 # Module will not be available.
@@ -34,8 +34,8 @@ message_offsets_x86 = [
       (0x001aaea0, 0x001aae60), # 5.1.2600.6033 (XP SP3)
       (0x001ac640, 0x001ac600), # 5.1.2600.6149 (XP)
       (0x001a9400, 0x001a93c0), # 5.1.2600.5512 (XP SP3)
-      (0x001a9220, 0x001a91e0), # 5.1.2600.3335 (XP SP2) 
-      (0x001a6f00, 0x001a6ec0), # 5.1.2600.2180 (XP SP2)    
+      (0x001a9220, 0x001a91e0), # 5.1.2600.3335 (XP SP2)
+      (0x001a6f00, 0x001a6ec0), # 5.1.2600.2180 (XP SP2)
       (0x001a0338, 0x001a03c0), # ? (W2K3 SP0)
       (0x001b5600, 0x001b55c0), # 5.2.3790.4980 (W2K3 SP2)
       (0x001b1440, 0x001b1400), # 5.2.3790.1830 (W2K3 SP1)
@@ -62,14 +62,14 @@ class MessageHooks(atoms.Atoms, sessions.SessionsMixin):
     """List desktop and thread window message hooks"""
 
     def calculate(self):
-        # Get all the atom tables and window stations 
+        # Get all the atom tables and window stations
         atom_tables = dict((atom_table, winsta)
             for (atom_table, winsta)
             in atoms.Atoms(self._config).calculate())
 
         # Unique window stations
         window_stations = [
-                winsta for winsta in atom_tables.values()
+                winsta for winsta in list(atom_tables.values())
                 if winsta]
 
         for winsta in window_stations:
@@ -79,25 +79,25 @@ class MessageHooks(atoms.Atoms, sessions.SessionsMixin):
         """
         Translate an atom into an atom name.
 
-        @param winsta: a tagWINDOWSTATION in the proper 
-        session space 
+        @param winsta: a tagWINDOWSTATION in the proper
+        session space
 
         @param atom_tables: a dictionary with _RTL_ATOM_TABLE
         instances as the keys and owning window stations as
-        the values. 
+        the values.
 
-        @param index: the index into the atom handle table. 
+        @param index: the index into the atom handle table.
         """
 
         # First check the default atoms
-        if consts.DEFAULT_ATOMS.has_key(atom_id):
+        if atom_id in consts.DEFAULT_ATOMS:
             return consts.DEFAULT_ATOMS[atom_id].Name
 
         # A list of tables to search. The session atom tables
-        # have priority and will be searched first. 
+        # have priority and will be searched first.
         table_list = [
                 table for (table, window_station)
-                in atom_tables.items() if window_station == None
+                in list(atom_tables.items()) if window_station == None
                 ]
         table_list.append(winsta.AtomTable)
 
@@ -105,7 +105,7 @@ class MessageHooks(atoms.Atoms, sessions.SessionsMixin):
         ## AS pool tag scanning, and there's no good way (afaik)
         ## to associate the table with its session. Thus if more
         ## than one session has atoms with the same id but different
-        ## values, then we could possibly select the wrong one. 
+        ## values, then we could possibly select the wrong one.
         for table in table_list:
             atom = table.find_atom(atom_id)
             if atom:
@@ -116,32 +116,32 @@ class MessageHooks(atoms.Atoms, sessions.SessionsMixin):
     def translate_hmod(self, winsta, atom_tables, index):
         """
         Translate an ihmod (index into a handle table) into
-        an atom. This requires locating the win32k!_aatomSysLoaded 
-        symbol. If the  symbol cannot be found, we'll just report 
-        back the ihmod value. 
+        an atom. This requires locating the win32k!_aatomSysLoaded
+        symbol. If the  symbol cannot be found, we'll just report
+        back the ihmod value.
 
-        @param winsta: a tagWINDOWSTATION in the proper 
-        session space 
+        @param winsta: a tagWINDOWSTATION in the proper
+        session space
 
         @param atom_tables: a dictionary with _RTL_ATOM_TABLE
         instances as the keys and owning window stations as
-        the values. 
+        the values.
 
-        @param index: the index into the atom handle table. 
+        @param index: the index into the atom handle table.
         """
 
         # No need to translate these
         if index == -1:
             return "(Current Module)"
 
-        # To get an _MM_SESSION_SPACE we first start with a 
-        # kernel AS and walk processes. 
+        # To get an _MM_SESSION_SPACE we first start with a
+        # kernel AS and walk processes.
         kernel_space = utils.load_as(self._config)
 
         session = self.find_session_space(
                 kernel_space, winsta.dwSessionId)
 
-        # Report back the ihmod value if we fail 
+        # Report back the ihmod value if we fail
         if not session:
             return hex(index)
 
@@ -150,7 +150,7 @@ class MessageHooks(atoms.Atoms, sessions.SessionsMixin):
         else:
             message_offsets = message_offsets_x64
 
-        # Iterate over the possible offsets for win32k globals 
+        # Iterate over the possible offsets for win32k globals
         for (count_offset, table_offset) in message_offsets:
 
             # This is _catomSysTableEntries
@@ -158,9 +158,9 @@ class MessageHooks(atoms.Atoms, sessions.SessionsMixin):
                             offset = session.Win32KBase + count_offset,
                             vm = session.obj_vm)
 
-            # We fail for this offset if the count is unreadable, 
+            # We fail for this offset if the count is unreadable,
             # its greater than 32, or its less than the requested
-            # handle table index. 
+            # handle table index.
             if (count == None or count == 0 or count > 32 or
                     count <= index):
                 continue
@@ -170,16 +170,16 @@ class MessageHooks(atoms.Atoms, sessions.SessionsMixin):
                 offset = session.Win32KBase + table_offset,
                 count = count, vm = session.obj_vm)
 
-            # Our last sanity check is that the number of valid 
-            # atoms equals the claimed number of atoms. This check 
+            # Our last sanity check is that the number of valid
+            # atoms equals the claimed number of atoms. This check
             # is currently commented out because on at least one image
             # (shylock.dmp), the count is 3 but there are only 2 valid
-            # atoms, thus we end up skipping it. 
+            # atoms, thus we end up skipping it.
             #valid_entries = len([atom for atom in atoms if atom != 0])
             #if count != valid_entries:
             #    continue
 
-            # We can stop after finding a potential atom 
+            # We can stop after finding a potential atom
             atom_id = atomlist[index]
 
             # Attempt to translate the atom into a module name
@@ -187,7 +187,7 @@ class MessageHooks(atoms.Atoms, sessions.SessionsMixin):
             if module:
                 return module
 
-        # Report back the ihmod value if we fail 
+        # Report back the ihmod value if we fail
         return hex(index)
 
     def render_text(self, outfd, data):

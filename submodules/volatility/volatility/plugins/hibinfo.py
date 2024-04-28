@@ -42,8 +42,8 @@ class HibInfo(common.AbstractWindowsCommand):
 
                 peb = obj.NoneObject("Cannot locate a valid PEB")
 
-                # Find the PEB by cycling through processes. This method works 
-                # on all versions of Windows x86 and x64. 
+                # Find the PEB by cycling through processes. This method works
+                # on all versions of Windows x86 and x64.
                 for task in tasks.pslist(addr_space):
                     if task.Peb:
                         peb = task.Peb

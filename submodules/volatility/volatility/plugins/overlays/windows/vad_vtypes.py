@@ -66,7 +66,7 @@ class VadTraverser(obj.CType):
 
         # add this node to those that have been visited
         visited.add(self.obj_offset)
- 
+
         # traverse children
         for c in self.LeftChild.traverse(visited = visited, depth = depth + 1):
             yield c
@@ -106,7 +106,7 @@ class VadTagModification(obj.ProfileModification):
 
     def modification(self, profile):
 
-        version = (profile.metadata.get("major", 0), 
+        version = (profile.metadata.get("major", 0),
                    profile.metadata.get("minor", 0))
 
         model = profile.metadata.get("memory_model", "32bit")
@@ -120,7 +120,7 @@ class VadTagModification(obj.ProfileModification):
             '_MMVAD_SHORT': [ None, {
                 'Tag': [offset , ['String', dict(length = 4)]],
             }],
-            '_MMVAD': [ None, { 
+            '_MMVAD': [ None, {
                 'Tag': [offset , ['String', dict(length = 4)]],
             }]}
 
@@ -149,7 +149,7 @@ class VadTagModification(obj.ProfileModification):
         profile.merge_overlay(overlay)
 
 #----------------------------------------------------------------------
-# Windows XP 
+# Windows XP
 #----------------------------------------------------------------------
 
 class _MMVAD_SHORT_XP(VadTraverser):
@@ -168,7 +168,7 @@ class _MMVAD_SHORT_XP(VadTraverser):
 
     @property
     def Length(self):
-        return ((self.EndingVpn + 1) << 12) - self.Start 
+        return ((self.EndingVpn + 1) << 12) - self.Start
 
     @property
     def VadFlags(self):
@@ -194,9 +194,9 @@ class _MMVAD_LONG_XP(_MMVAD_XP):
 class WinXPx86Vad(obj.ProfileModification):
 
     before = ["WindowsOverlay"]
-    conditions = {"os": lambda x: x == "windows", 
-                  "major": lambda x: x == 5, 
-                  "minor": lambda x: x == 1, 
+    conditions = {"os": lambda x: x == "windows",
+                  "major": lambda x: x == 5,
+                  "minor": lambda x: x == 1,
                   "memory_model": lambda x: x == "32bit"}
 
     def modification(self, profile):
@@ -212,20 +212,20 @@ class WinXPx86Vad(obj.ProfileModification):
             })
 
 #----------------------------------------------------------------------
-# Windows 2003 
+# Windows 2003
 #----------------------------------------------------------------------
 
 class _MMVAD_SHORT_2003(_MMVAD_SHORT_XP):
 
     @property
     def Parent(self):
-        return obj.Object("_MMADDRESS_NODE", 
-                    vm = self.obj_vm, 
-                    offset = self.u1.Parent.v() & ~0x3, 
+        return obj.Object("_MMADDRESS_NODE",
+                    vm = self.obj_vm,
+                    offset = self.u1.Parent.v() & ~0x3,
                     parent = self.obj_parent)
 
 class _MMVAD_2003(_MMVAD_SHORT_2003):
-    
+
     @property
     def ControlArea(self):
         return self.m('ControlArea')
@@ -245,8 +245,8 @@ class _MM_AVL_TABLE(obj.CType):
 class Win2003x86Vad(obj.ProfileModification):
 
     before = ["WindowsOverlay"]
-    conditions = {"os": lambda x: x == "windows", 
-                  "major": lambda x: x == 5, 
+    conditions = {"os": lambda x: x == "windows",
+                  "major": lambda x: x == 5,
                   "minor": lambda x: x == 2}
 
     def modification(self, profile):
@@ -263,7 +263,7 @@ class Win2003x86Vad(obj.ProfileModification):
 #----------------------------------------------------------------------
 
 class _MMVAD_VISTA(_MMVAD_SHORT_2003):
-    
+
     @property
     def ControlArea(self):
         return self.Subsection.ControlArea
@@ -278,8 +278,8 @@ class _MMVAD_LONG_VISTA(_MMVAD_VISTA):
 class VistaVad(obj.ProfileModification):
 
     before = ["WindowsOverlay"]
-    conditions = {"os": lambda x: x == "windows", 
-                  "major": lambda x: x == 6, 
+    conditions = {"os": lambda x: x == "windows",
+                  "major": lambda x: x == 6,
                   "minor": lambda x: (x == 0 or x == 1)}
 
     def modification(self, profile):
@@ -314,9 +314,9 @@ class _MMVAD_SHORT_WIN8(_MM_AVL_NODE):
 
     @property
     def Parent(self):
-        return obj.Object("_MM_AVL_NODE", 
-                    vm = self.obj_vm, 
-                    offset = self.VadNode.u1.Parent.v() & ~0x3, 
+        return obj.Object("_MM_AVL_NODE",
+                    vm = self.obj_vm,
+                    offset = self.VadNode.u1.Parent.v() & ~0x3,
                     parent = self.obj_parent)
 
     @property
@@ -337,7 +337,7 @@ class _MMVAD_SHORT_WIN8(_MM_AVL_NODE):
 
     @property
     def Length(self):
-        return self.End - self.Start 
+        return self.End - self.Start
 
     @property
     def LeftChild(self):
@@ -356,7 +356,7 @@ class _MMVAD_WIN8(_MM_AVL_NODE):
     @property
     def Start(self):
         return self.Core.Start
-    
+
     @property
     def End(self):
         return self.Core.End
@@ -364,7 +364,7 @@ class _MMVAD_WIN8(_MM_AVL_NODE):
     @property
     def VadFlags(self):
         return self.Core.VadFlags
-    
+
     @property
     def CommitCharge(self):
         return self.Core.CommitCharge
@@ -379,7 +379,7 @@ class _MMVAD_WIN8(_MM_AVL_NODE):
 
     @property
     def Length(self):
-        return self.End - self.Start 
+        return self.End - self.Start
 
     @property
     def LeftChild(self):
@@ -392,12 +392,12 @@ class _MMVAD_WIN8(_MM_AVL_NODE):
 class Win8Vad(obj.ProfileModification):
 
     before = ["WindowsOverlay"]
-    conditions = {"os": lambda x: x == "windows", 
-                  "major": lambda x: x == 6, 
+    conditions = {"os": lambda x: x == "windows",
+                  "major": lambda x: x == 6,
                   "minor": lambda x: x == 2}
 
     def modification(self, profile):
-    
+
         profile.object_classes.update({
             '_MMVAD': _MMVAD_WIN8,
             '_MMVAD_SHORT': _MMVAD_SHORT_WIN8,
@@ -428,7 +428,7 @@ class _RTL_BALANCED_NODE(VadTraverser):
     def LeftChild(self):
         return self.Left
 
-    @property 
+    @property
     def RightChild(self):
         return self.Right
 
@@ -436,9 +436,9 @@ class _MMVAD_SHORT_WIN81(_RTL_BALANCED_NODE):
 
     @property
     def Parent(self):
-        return obj.Object("_RTL_BALANCED_NODE", 
-                    vm = self.obj_vm, 
-                    offset = self.VadNode.ParentValue.v() & ~0x3, 
+        return obj.Object("_RTL_BALANCED_NODE",
+                    vm = self.obj_vm,
+                    offset = self.VadNode.ParentValue.v() & ~0x3,
                     parent = self.obj_parent)
 
     @property
@@ -448,7 +448,7 @@ class _MMVAD_SHORT_WIN81(_RTL_BALANCED_NODE):
     @property
     def End(self):
         return ((self.EndingVpn + 1) << 12) - 1
-        
+
     @property
     def VadFlags(self):
         return self.u.VadFlags
@@ -459,7 +459,7 @@ class _MMVAD_SHORT_WIN81(_RTL_BALANCED_NODE):
 
     @property
     def Length(self):
-        return self.End - self.Start 
+        return self.End - self.Start
 
     @property
     def LeftChild(self):
@@ -488,7 +488,7 @@ class _MMVAD_WIN81(_MMVAD_SHORT_WIN81):
     @property
     def Start(self):
         return self.Core.Start
-    
+
     @property
     def End(self):
         return self.Core.End
@@ -496,7 +496,7 @@ class _MMVAD_WIN81(_MMVAD_SHORT_WIN81):
     @property
     def VadFlags(self):
         return self.Core.VadFlags
-    
+
     @property
     def CommitCharge(self):
         return self.Core.CommitCharge
@@ -511,7 +511,7 @@ class _MMVAD_WIN81(_MMVAD_SHORT_WIN81):
 
     @property
     def Length(self):
-        return self.End - self.Start 
+        return self.End - self.Start
 
     @property
     def LeftChild(self):
@@ -524,21 +524,20 @@ class _MMVAD_WIN81(_MMVAD_SHORT_WIN81):
 class Win81Vad(obj.ProfileModification):
 
     before = ["WindowsOverlay"]
-    conditions = {"os": lambda x: x == "windows", 
-                  "major": lambda x: x == 6, 
+    conditions = {"os": lambda x: x == "windows",
+                  "major": lambda x: x == 6,
                   "minor": lambda x: x >= 3}
 
     def modification(self, profile):
-    
+
         if profile.metadata.get("memory_model") == "32bit":
             short_vad = _MMVAD_SHORT_WIN81
         else:
             short_vad = _MMVAD_SHORT_WIN81_64
-    
+
         profile.object_classes.update({
             '_MMVAD': _MMVAD_WIN81,
             '_MMVAD_SHORT': short_vad,
             '_RTL_AVL_TREE': _RTL_AVL_TREE,
             '_RTL_BALANCED_NODE': _RTL_BALANCED_NODE,
             })
-

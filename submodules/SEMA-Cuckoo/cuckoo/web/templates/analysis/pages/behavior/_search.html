@@ -3,7 +3,7 @@ $(function () {
 	$('#search button[type=submit]').on('click', function(event) {
 		action = $('form#search').attr('action');
 		data = $('form#search').serialize();
-		
+
 		CuckooWeb.post(action, data, function (data) {
 			$('#search-results').html(data);
 		});

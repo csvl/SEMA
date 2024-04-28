@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import os
@@ -34,11 +34,11 @@ class mac_list_files(common.AbstractMacCommand):
 
     def __init__(self, config, *args, **kwargs):
         common.AbstractMacCommand.__init__(self, config, *args, **kwargs)
-        
-        self._config.add_option('SHOW_ORPHANS', 
-            short_option = 's', 
-            default = False, 
-            help = 'Show orphans (vnodes without a parent)', 
+
+        self._config.add_option('SHOW_ORPHANS',
+            short_option = 's',
+            default = False,
+            help = 'Show orphans (vnodes without a parent)',
             action = 'store_true')
 
     @staticmethod
@@ -55,12 +55,12 @@ class mac_list_files(common.AbstractMacCommand):
             loop_vnodes.add(vnode)
 
             vnode = vnode.v_mntvnodes.tqe_next.dereference()
-        
+
         return loop_vnodes
 
     @staticmethod
     def list_files(config):
-    
+
         plugin = mac_mount.mac_mount(config)
         mounts = plugin.calculate()
         vnodes = {}
@@ -68,7 +68,7 @@ class mac_list_files(common.AbstractMacCommand):
         loop_vnodes = set()
 
         seen = set()
-        ## build an initial table of all vnodes 
+        ## build an initial table of all vnodes
         for mount in mounts:
             loop_vnodes = mac_list_files.walk_vnodelist(mount.mnt_vnodelist, loop_vnodes)
 
@@ -84,79 +84,79 @@ class mac_list_files(common.AbstractMacCommand):
 
         for vnode in loop_vnodes:
             while vnode:
-                ## abort here to prevent going in a loop 
+                ## abort here to prevent going in a loop
                 if vnode.obj_offset in vnodes:
                     break
-                 
-                ## its ok to call the slower full_path() 
-                ## here because its only done for root 
+
+                ## its ok to call the slower full_path()
+                ## here because its only done for root
                 ## nodes which is only a couple per system
                 if int(vnode.v_flag) & 1:
                     name  = vnode.full_path()
-                
+
                     entry = [name, None, vnode]
                     vnodes[vnode.obj_offset] = entry
                 else:
                     name = vnode.v_name.dereference()
                     parent = vnode.v_parent.dereference()
-                
+
                     if parent:
-                        par_offset = parent.obj_offset 
-                    else: 
+                        par_offset = parent.obj_offset
+                    else:
                         if config.SHOW_ORPHANS:
                             par_offset = None
                         else:
                             vnode = vnode.v_mntvnodes.tqe_next.dereference()
                             vnodes[vnode.obj_offset] = [None, None, vnode]
                             continue
-            
+
                     entry = [name, par_offset, vnode]
                     vnodes[vnode.obj_offset] = entry
-                    
-                vnode = vnode.v_mntvnodes.tqe_next.dereference() 
 
-        ## account for vnodes that aren't in the list but are 
-        ## referenced from other vnode's v_parent pointers 
-        for key, val in vnodes.items():
-            name, parent, vnode = val    
-            
+                vnode = vnode.v_mntvnodes.tqe_next.dereference()
+
+        ## account for vnodes that aren't in the list but are
+        ## referenced from other vnode's v_parent pointers
+        for key, val in list(vnodes.items()):
+            name, parent, vnode = val
+
             if not name or not parent:
                 continue
-                
-            parent = obj.Object("vnode", 
-                offset = parent, 
+
+            parent = obj.Object("vnode",
+                offset = parent,
                 vm = vnode.obj_vm)
-                
+
             while parent:
                 if parent.obj_offset in vnodes:
                     break
 
                 name = parent.v_name.dereference()
                 next_parent = parent.v_parent.dereference()
-            
+
                 if next_parent:
-                    par_offset = next_parent.obj_offset 
-                else: 
+                    par_offset = next_parent.obj_offset
+                else:
                     par_offset = None
-        
+
                 entry = [str(name), par_offset, parent]
                 vnodes[parent.obj_offset] = entry
-               
-                parent = next_parent  
-        
+
+                parent = next_parent
+
         ## build the full paths for all directories
-        for key, val in vnodes.items():
+        for key, val in list(vnodes.items()):
             name, parent, vnode = val
 
             ## we can't have unnamed files or directories
             if not name:
                 continue
-    
+
             if not vnode.is_dir():
                 continue
-  
+
             name = str(name)
-            
+
             if parent in parent_vnodes:
                 full_path = parent_vnodes[parent] + "/" + name
             else:
@@ -167,44 +167,44 @@ class mac_list_files(common.AbstractMacCommand):
                     seen_subs.add(parent)
 
                     entry = vnodes.get(parent)
-                
-                    ## a vnode's parent wasn't found or 
-                    ## we reached the root directory 
+
+                    ## a vnode's parent wasn't found or
+                    ## we reached the root directory
                     if not entry:
                         break
-                    
+
                     name, parent, _vnode = entry
                     if not name:
                         break
-                    
+
                     paths.append(str(name))
-                
-                ## build the path in reverse order 
+
+                ## build the path in reverse order
                 full_path = "/".join(reversed(paths))
-                
+
             parent_vnodes[key] = full_path
 
-        ## link everything up with their parents 
-        for val in vnodes.values():
+        ## link everything up with their parents
+        for val in list(vnodes.values()):
             name, parent, vnode = val
-            
+
             if not name:
                 continue
-           
+
             name = str(name)
- 
-            entry = parent_vnodes.get(parent) 
+
+            entry = parent_vnodes.get(parent)
             if not entry:
                 yield vnode, name
             else:
                 full_path = entry + "/" + name
-                
+
                 ## add a leading slash if one doesn't exist
                 if full_path[0] != "/":
                     full_path = "/" + full_path
-                    
-                ## otherwise in some cases we may have double 
-                ## slashes so reduce that down to just one 
+
+                ## otherwise in some cases we may have double
+                ## slashes so reduce that down to just one
                 elif full_path[0:2] == "//":
                     full_path = full_path[1:]
 
@@ -213,11 +213,11 @@ class mac_list_files(common.AbstractMacCommand):
     def calculate(self):
         common.set_plugin_members(self)
         config = self._config
-        
+
         for result in mac_list_files.list_files(config):
             yield result
 
     def render_text(self, outfd, data):
         self.table_header(outfd, [("Offset (V)", "[addrpad]"), ("File Path", "")])
         for vnode, path in data:
-            self.table_row(outfd, vnode.obj_offset, path)    
+            self.table_row(outfd, vnode.obj_offset, path)

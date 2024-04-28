@@ -7,7 +7,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 /*
-    @description  A function that takes in some headers as a string containing newlines. 
+    @description  A function that takes in some headers as a string containing newlines.
                   It will split the string on its newlines, and then will split it into
                   a key-value pair for easy deploying into HTML.
 
@@ -370,7 +370,7 @@ var RequestDisplay = function () {
         }
 
         /*
-        called by the load function when it ends, will process 
+        called by the load function when it ends, will process
         the response and start opening the panel.
          */
 
@@ -446,7 +446,7 @@ var RequestDisplay = function () {
     return RequestDisplay;
 }();
 
-/* 
+/*
     class PacketDisplay
     @todo: unify the hex display body view to one class instead of defining two seperate
  */

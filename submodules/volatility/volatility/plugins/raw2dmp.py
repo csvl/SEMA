@@ -29,8 +29,8 @@ class Raw2dmp(imagecopy.ImageCopy):
 
     def calculate(self):
 
-        config = self._config 
-        output = self._config.OUTPUT_IMAGE 
+        config = self._config
+        output = self._config.OUTPUT_IMAGE
 
         return self.convert_to_crash(config, output)
 
@@ -60,7 +60,7 @@ class Raw2dmp(imagecopy.ImageCopy):
         if not kdbg:
             raise RuntimeError("Couldn't find KDBG block. Wrong profile?")
 
-        # Scanning the memory region near KDDEBUGGER_DATA64 for 
+        # Scanning the memory region near KDDEBUGGER_DATA64 for
         # DBGKD_GET_VERSION64
         dbgkd = kdbg.dbgkd_version64()
         if not dbgkd:
@@ -96,13 +96,13 @@ class Raw2dmp(imagecopy.ImageCopy):
         header.MachineImageType = dbgkd.MachineType
         headerspace.write(header.DumpType.obj_offset, "\x01\x00\x00\x00")
 
-        # Find the number of processors 
+        # Find the number of processors
         header.NumberProcessors = len(list(kdbg.kpcrs()))
 
-        # In MS crash dumps, SystemTime will not be set. It will 
-        # represent the "Debug session time:".  We are 
+        # In MS crash dumps, SystemTime will not be set. It will
+        # represent the "Debug session time:".  We are
         # using the member to represent the time the sample was
-        # collected. 
+        # collected.
         header.SystemTime = kuser.SystemTime.as_windows_timestamp()
 
         # Zero out the BugCheck members
@@ -112,14 +112,14 @@ class Raw2dmp(imagecopy.ImageCopy):
         header.BugCheckCodeParameter[2] = 0x00000000
         header.BugCheckCodeParameter[3] = 0x00000000
 
-        # Set the sample run information. We used to take the sum of the size 
-        # of all runs, but that assumed the base layer was raw. In the case 
-        # of base layers such as ELF64 core dump or any other run-based address 
+        # Set the sample run information. We used to take the sum of the size
+        # of all runs, but that assumed the base layer was raw. In the case
+        # of base layers such as ELF64 core dump or any other run-based address
         # space that may have holes for device memory, that would fail because
         # any runs after the first hole would then be at the wrong offset.
         last_run = list(pspace.get_available_addresses())[-1]
         num_pages = (last_run[0] + last_run[1]) / 0x1000
-            
+
         header.PhysicalMemoryBlockBuffer.NumberOfRuns = 0x00000001
         header.PhysicalMemoryBlockBuffer.NumberOfPages = num_pages
         header.PhysicalMemoryBlockBuffer.Run[0].BasePage = 0x0000000000000000
@@ -137,26 +137,26 @@ class Raw2dmp(imagecopy.ImageCopy):
 
         # Yield the header
         yield 0, headerlen, headerspace.read(0, headerlen)
-    
+
         # Write the main body
         for s, l in pspace.get_available_addresses():
             for i in range(s, s + l, blocksize):
                 len_to_read = min(blocksize, s + l - i)
                 yield i + headerlen, len_to_read, pspace.read(i, len_to_read)
 
-        # Reset the config so volatility opens the crash dump 
-        config.LOCATION = "file://" + output 
+        # Reset the config so volatility opens the crash dump
+        config.LOCATION = "file://" + output
 
-        # Crash virtual space 
+        # Crash virtual space
         crash_vspace = utils.load_as(config)
 
         # The KDBG in the new crash dump
         crash_kdbg = obj.VolMagic(crash_vspace).KDBG.v()
 
-        # The KPCR for the first CPU 
+        # The KPCR for the first CPU
         kpcr = list(crash_kdbg.kpcrs())[0]
-        
-        # Set the CPU CONTEXT properly for the architecure 
+
+        # Set the CPU CONTEXT properly for the architecure
         if memory_model == "32bit":
             kpcr.PrcbData.ProcessorState.ContextFrame.SegGs = 0x00
             kpcr.PrcbData.ProcessorState.ContextFrame.SegCs = 0x08
@@ -170,9 +170,8 @@ class Raw2dmp(imagecopy.ImageCopy):
             kpcr.Prcb.ProcessorState.ContextFrame.SegDs = 0x2b
             kpcr.Prcb.ProcessorState.ContextFrame.SegEs = 0x2b
             kpcr.Prcb.ProcessorState.ContextFrame.SegFs = 0x53
-            kpcr.Prcb.ProcessorState.ContextFrame.SegSs = 0x18   
+            kpcr.Prcb.ProcessorState.ContextFrame.SegSs = 0x18
 
         # Write the decoded KDBG block so Windbg can interpret it properly
         if hasattr(kdbg, 'block_encoded') and kdbg.block_encoded:
             crash_vspace.write(crash_kdbg.obj_offset, kdbg.obj_vm.data)
-        

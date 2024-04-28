@@ -25,7 +25,7 @@ import volatility.obj as obj
 import volatility.registry as registry
 
 #--------------------------------------------------------------------------------
-# A multi-concurrent pool scanner 
+# A multi-concurrent pool scanner
 #--------------------------------------------------------------------------------
 
 class MultiPoolScanner(object):
@@ -63,14 +63,14 @@ class MultiPoolScanner(object):
                 for needle in self.needles:
                     for addr in utils.iterfind(data, needle):
                         # this scanner yields the matched pool tag as well as
-                        # the offset, to save the caller from having to perform 
+                        # the offset, to save the caller from having to perform
                         # another .read() just to see which tag was matched
                         yield data[addr:addr+4], addr + current_offset
 
                 current_offset += min(constants.SCAN_BLOCKSIZE, l)
 
 #--------------------------------------------------------------------------------
-# The main interface / API for concurrent scans 
+# The main interface / API for concurrent scans
 #--------------------------------------------------------------------------------
 
 class MultiScanInterface(object):
@@ -78,24 +78,24 @@ class MultiScanInterface(object):
     in a single pass through an address space."""
 
     def __init__(self, addr_space, scanners = [], scan_virtual = False, show_unalloc = False, use_top_down = False, start_offset = None, max_length = None):
-        """An interface into the multiple concurrent pool scanner. 
+        """An interface into the multiple concurrent pool scanner.
 
         @param addr_space: a Volatility address space
-        
-        @param scanners: a list of PoolScanner classes to scan for. 
 
-        @param scan_virtual: True to scan in virtual/kernel space 
+        @param scanners: a list of PoolScanner classes to scan for.
+
+        @param scan_virtual: True to scan in virtual/kernel space
         or False to scan at the physical layer.
 
         @param show_unalloc: True to skip unallocated objects whose
-        _OBJECT_TYPE structure are 0xbad0b0b0. 
+        _OBJECT_TYPE structure are 0xbad0b0b0.
 
         @param use_topdown: True to carve objects out of the pool using
         the top-down approach or False to use the bottom-up trick.
 
-        @param start_offset: the starting offset to begin scanning. 
+        @param start_offset: the starting offset to begin scanning.
 
-        @param max_length: the size in bytes to scan from the start. 
+        @param max_length: the size in bytes to scan from the start.
         """
 
         self.scanners = scanners
@@ -109,11 +109,11 @@ class MultiScanInterface(object):
         self.pool_alignment = obj.VolMagic(self.address_space).PoolAlignment.v()
 
     def _check_pool_size(self, check, pool_header):
-        """An alternate to the existing CheckPoolSize class. 
+        """An alternate to the existing CheckPoolSize class.
 
-        This prevents us from create a second copy of the 
-        _POOL_HEADER object which is quite unnecessary. 
-        
+        This prevents us from create a second copy of the
+        _POOL_HEADER object which is quite unnecessary.
+
         @param check: a dictionary of arguments for the check
 
         @param pool_header: the target _POOL_HEADER to check
@@ -125,11 +125,11 @@ class MultiScanInterface(object):
         return condition(block_size * self.pool_alignment)
 
     def _check_pool_type(self, check, pool_header):
-        """An alternate to the existing CheckPoolType class. 
+        """An alternate to the existing CheckPoolType class.
 
-        This prevents us from create a second copy of the 
-        _POOL_HEADER object which is quite unnecessary. 
-        
+        This prevents us from create a second copy of the
+        _POOL_HEADER object which is quite unnecessary.
+
         @param check: a dictionary of arguments for the check
 
         @param pool_header: the target _POOL_HEADER to check
@@ -138,7 +138,7 @@ class MultiScanInterface(object):
         try:
             paged = check["paged"]
         except KeyError:
-            paged = False 
+            paged = False
 
         try:
             non_paged = check["non_paged"]
@@ -148,18 +148,18 @@ class MultiScanInterface(object):
         try:
             free = check["free"]
         except KeyError:
-            free = False 
+            free = False
 
-        return ((non_paged and pool_header.NonPagedPool) or 
-                    (free and pool_header.FreePool) or 
+        return ((non_paged and pool_header.NonPagedPool) or
+                    (free and pool_header.FreePool) or
                     (paged and pool_header.PagedPool))
 
     def _check_pool_index(self, check, pool_header):
-        """An alternate to the existing CheckPoolIndex class. 
+        """An alternate to the existing CheckPoolIndex class.
 
-        This prevents us from create a second copy of the 
-        _POOL_HEADER object which is quite unnecessary. 
-        
+        This prevents us from create a second copy of the
+        _POOL_HEADER object which is quite unnecessary.
+
         @param check: a dictionary of arguments for the check
 
         @param pool_header: the target _POOL_HEADER to check
@@ -172,14 +172,14 @@ class MultiScanInterface(object):
             return pool_header.PoolIndex == check["value"]
 
     def _run_all_checks(self, checks, pool_header):
-        """Execute all constraint checks. 
+        """Execute all constraint checks.
 
-        @param checks: a dictionary with check names as keys and 
-        another dictionary of arguments as the values. 
+        @param checks: a dictionary with check names as keys and
+        another dictionary of arguments as the values.
 
         @param pool_header: the target _POOL_HEADER to check
 
-        @returns False if any checks fail, otherwise True. 
+        @returns False if any checks fail, otherwise True.
         """
 
         for check, args in checks:
@@ -195,7 +195,7 @@ class MultiScanInterface(object):
             else:
                 custom_check = registry.get_plugin_classes(scan.ScannerCheck)[check](pool_header.obj_vm, **args)
                 return custom_check.check(pool_header.PoolTag.obj_offset)
-        
+
         return True
 
     def scan(self):
@@ -213,25 +213,25 @@ class MultiScanInterface(object):
             cookie = obj.VolMagic(space).ObHeaderCookie.v()
 
         # create instances of the various scanners linked
-        # to the desired address space 
+        # to the desired address space
         scanners = [scanner(space) for scanner in self.scanners]
 
         # extract the initial pool tags as the list of needles
         needles = dict((scanner.pooltag, scanner) for scanner in scanners)
 
-        # an instance of the multi pool scanner 
+        # an instance of the multi pool scanner
         scanner = MultiPoolScanner(needles = [scanner.pooltag for scanner in scanners])
 
         pool_tag_offset = space.profile.get_obj_offset("_POOL_HEADER", "PoolTag")
-    
-        for tag, offset in scanner.scan(address_space = space, 
-                                   offset = self.start_offset, 
+
+        for tag, offset in scanner.scan(address_space = space,
+                                   offset = self.start_offset,
                                    maxlen = self.max_length):
 
-            # a pool header at this offset but native kernel space 
-            pool = obj.Object("_POOL_HEADER", 
-                              offset = offset - pool_tag_offset, 
-                              vm = space, 
+            # a pool header at this offset but native kernel space
+            pool = obj.Object("_POOL_HEADER",
+                              offset = offset - pool_tag_offset,
+                              vm = space,
                               native_vm = self.address_space)
 
             # retrieve the scanner object from the tag
@@ -240,24 +240,24 @@ class MultiScanInterface(object):
             # pass the pool header to the checks
             if not self._run_all_checks(checks = scanobj.checks,
                                         pool_header = pool):
-                continue 
+                continue
 
             # we use these approaches per scanner or if the user specifies
             use_top_down = scanobj.use_top_down or self.use_top_down
             skip_type_check = scanobj.skip_type_check or self.show_unalloc
 
-            result = pool.get_object(struct_name = scanobj.struct_name, 
-                                     object_type = scanobj.object_type, 
-                                     use_top_down = use_top_down, 
+            result = pool.get_object(struct_name = scanobj.struct_name,
+                                     object_type = scanobj.object_type,
+                                     use_top_down = use_top_down,
                                      skip_type_check = skip_type_check)
 
             if scanobj.padding > 0:
-                result = obj.Object(scanobj.struct_name, 
+                result = obj.Object(scanobj.struct_name,
                                     offset = result.obj_offset + scanobj.padding,
                                     vm = result.obj_vm,
                                     native_vm = result.obj_native_vm)
 
-            # let the object determine if its valid or not 
+            # let the object determine if its valid or not
             if result.is_valid():
                 yield result
 
@@ -274,7 +274,7 @@ class PoolScanner(object):
         # the name of a structure which exists in the pool (i.e. _EPROCESS)
         self.struct_name = ""
 
-        # an executive object type name (i.e. File, Mutant) 
+        # an executive object type name (i.e. File, Mutant)
         self.object_type = ""
 
         # use the top down approach (otherwise the bottom-up)
@@ -283,16 +283,16 @@ class PoolScanner(object):
         # show unallocated objects (0xbad0b0b0)
         self.skip_type_check = False
 
-        # the four-byte ASCII pool tag 
+        # the four-byte ASCII pool tag
         self.pooltag = None
 
-        # a list of checks to be performed in the supplied order 
+        # a list of checks to be performed in the supplied order
         self.checks = []
 
-        # number of bytes between the end of the pool header and 
+        # number of bytes between the end of the pool header and
         # start of the structure contained within. currently only
-        # used for atom tables. 
-        self.padding = 0 
+        # used for atom tables.
+        self.padding = 0
 
 ## The following are checks for pool scanners.
 
@@ -350,44 +350,44 @@ class CheckPoolSize(scan.ScannerCheck):
 class SinglePoolScanner(scan.BaseScanner):
 
     def object_offset(self, found, address_space):
-        """ 
+        """
         The name of this function "object_offset" can be misleading depending
         on how its used. Even before removing the preambles (r1324), it may not
         always return the offset of an object. Here are the rules:
 
-        If you subclass PoolScanner and do not override this function, it 
+        If you subclass PoolScanner and do not override this function, it
         will return the offset of _POOL_HEADER. If you do override this function,
-        it should be used to calculate and return the offset of your desired 
-        object within the pool. Thus there are two different ways it can be done. 
+        it should be used to calculate and return the offset of your desired
+        object within the pool. Thus there are two different ways it can be done.
 
-        Example 1. 
+        Example 1.
 
-        For an example of subclassing PoolScanner and not overriding this function, 
-        see filescan.PoolScanFile. In this case, the plugin (filescan.FileScan) 
-        treats the offset returned by this function as the start of _POOL_HEADER 
-        and then works out the object from the bottom up: 
+        For an example of subclassing PoolScanner and not overriding this function,
+        see filescan.PoolScanFile. In this case, the plugin (filescan.FileScan)
+        treats the offset returned by this function as the start of _POOL_HEADER
+        and then works out the object from the bottom up:
 
             for offset in PoolScanFile().scan(address_space):
                 pool_obj = obj.Object("_POOL_HEADER", vm = address_space,
                      offset = offset)
                 ##
                 ## Work out objects base here
-                ## 
+                ##
 
-        Example 2. 
+        Example 2.
 
-        For an example of subclassing PoolScanner and overriding this function, 
+        For an example of subclassing PoolScanner and overriding this function,
         see filescan.PoolScanProcess. In this case, the "work" described above is
         done here (in the sublcassed object_offset). Thus in the plugin (filescan.PSScan)
-        it can directly instantiate _EPROCESS from the offset we return. 
+        it can directly instantiate _EPROCESS from the offset we return.
 
             for offset in PoolScanProcess().scan(address_space):
                 eprocess = obj.Object('_EPROCESS', vm = address_space,
                         native_vm = kernel_as, offset = offset)
         """
 
-        ## Subtract the offset of the PoolTag member to get the start 
-        ## of _POOL_HEADER. This is done because PoolScanners search 
+        ## Subtract the offset of the PoolTag member to get the start
+        ## of _POOL_HEADER. This is done because PoolScanners search
         ## for the PoolTag.
         return found - self.buffer.profile.get_obj_offset('_POOL_HEADER', 'PoolTag')
 

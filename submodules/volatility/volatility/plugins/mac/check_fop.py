@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 import volatility.obj   as obj
 import volatility.utils as utils
@@ -41,9 +41,9 @@ class mac_check_fop(common.AbstractMacCommand):
         table_size = obj.Object("unsigned int", offset = table_size_ptr, vm = self.addr_space)
 
         table_ptr = self.addr_space.profile.get_symbol("_vfstbllist")
-        table = obj.Object(theType = "Array", targetType = "vfstable", offset = table_ptr, count = table_size, vm = self.addr_space) 
-        vfs_op_members = self.profile.types['vfsops'].keywords["members"].keys()
-        
+        table = obj.Object(theType = "Array", targetType = "vfstable", offset = table_ptr, count = table_size, vm = self.addr_space)
+        vfs_op_members = list(self.profile.types['vfsops'].keywords["members"].keys())
+
         if "vfs_reserved" in vfs_op_members:
             vfs_op_members.remove("vfs_reserved")
 
@@ -69,7 +69,7 @@ class mac_check_fop(common.AbstractMacCommand):
 
                 if ptr == 0:
                     continue
-                
+
                 (module, handler_sym) = common.get_handler_name(kaddr_info, ptr)
 
                 yield (vfs.v(), name, ptr, module, handler_sym)
@@ -91,7 +91,7 @@ class mac_check_fop(common.AbstractMacCommand):
 
             vdesc_arr = obj.Object(theType = "Array", targetType = "vnodeopv_entry_desc", offset = vnodeopv_desc.opv_desc_ops, count = 64, vm = self.addr_space)
 
-            for vdesc in vdesc_arr: 
+            for vdesc in vdesc_arr:
                 ptr = vdesc.opve_impl.v()
                 if ptr == 0:
                     break
@@ -103,24 +103,24 @@ class mac_check_fop(common.AbstractMacCommand):
                         name = name[:idx]
                 else:
                     name = "<INVALID NAME>"
-                    
+
                 name = table_name + "/" + name
 
                 (module, handler_sym) = common.get_handler_name(kaddr_info, ptr)
 
-                yield (vdesc.v(), name, ptr, module, handler_sym)  
+                yield (vdesc.v(), name, ptr, module, handler_sym)
 
     def calculate(self):
         common.set_plugin_members(self)
-        
+
         kaddr_info = common.get_handler_name_addrs(self)
 
         funcs = [self._walk_opv_desc, self._walk_vfstbllist]
 
         for func in funcs:
             for (vfs_ptr, name, ptr, module, handler_sym) in func(kaddr_info):
-                yield (vfs_ptr, name, ptr, module, handler_sym) 
-    
+                yield (vfs_ptr, name, ptr, module, handler_sym)
+
     def render_text(self, outfd, data):
         self.table_header(outfd, [("Offset", "[addrpad]"),
                           ("Name", "48"),
@@ -130,4 +130,3 @@ class mac_check_fop(common.AbstractMacCommand):
 
         for (vfs_addr, name, handler, module, handler_sym) in data:
             self.table_row(outfd, vfs_addr, name, handler, module, handler_sym)
-

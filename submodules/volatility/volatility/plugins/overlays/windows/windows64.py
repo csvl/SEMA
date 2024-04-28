@@ -71,11 +71,11 @@ class Windows64Overlay(obj.ProfileModification):
             'DebuggerDataList' : [ None, ['pointer', ['unsigned long long']]],
             }]})
 
-        # In some auto-generated vtypes, the DTB is an array of 2 unsigned longs 
+        # In some auto-generated vtypes, the DTB is an array of 2 unsigned longs
         # (for x86) or an array of 2 unsigned long long (for x64). We have an overlay
         # in windows.windows_overlay which sets the DTB to a single unsigned long,
-        # but we do not want that bleeding through to the x64 profiles. Instead we 
-        # want the x64 DTB to be a single unsigned long long. 
+        # but we do not want that bleeding through to the x64 profiles. Instead we
+        # want the x64 DTB to be a single unsigned long long.
         profile.merge_overlay({'_KPROCESS' : [ None, {
             'DirectoryTableBase' : [ None, ['unsigned long long']],
             }]})
@@ -104,7 +104,7 @@ class WinPeb32(obj.ProfileModification):
             "_LIST_ENTRY": "LIST_ENTRY32",
         }
 
-        for name, member in members.items():
+        for name, member in list(members.items()):
             datatype = member[1][0]
 
             if datatype in mapping:
@@ -118,11 +118,11 @@ class WinPeb32(obj.ProfileModification):
 
         # find the equivalent 32-bit profile to this 64-bit profile.
         # the prof._md_build + 1 accounts for a poor decision we made
-        # a while back where we added + 1 to the build number for 
-        # server-based profiles as a method to distinguish between 
-        # client vs server in a plugin. 
+        # a while back where we added + 1 to the build number for
+        # server-based profiles as a method to distinguish between
+        # client vs server in a plugin.
         profile_32bit = None
-        for prof in profiles.values():
+        for prof in list(profiles.values()):
             if (prof._md_os == "windows" and
                             prof._md_major == meta.get("major") and
                             prof._md_minor == meta.get("minor") and

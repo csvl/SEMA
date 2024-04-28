@@ -64,7 +64,7 @@ def enumerate_plugins(dirpath, module_prefix, namespace, class_,
             continue
 
         namespace[subclass.__name__] = subclass
-        for key, value in attributes.items():
+        for key, value in list(attributes.items()):
             setattr(subclass, key, value)
 
         plugins.append(subclass)

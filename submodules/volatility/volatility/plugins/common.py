@@ -34,25 +34,25 @@ class AbstractWindowsCommand(commands.Command):
 
 class AbstractScanCommand(AbstractWindowsCommand):
     """A command built to provide the common options that
-    should be available to Volatility's various scanning 
-    plugins."""    
+    should be available to Volatility's various scanning
+    plugins."""
 
-    # This is a list of scanners to use 
+    # This is a list of scanners to use
     scanners = []
 
     def __init__(self, config, *args, **kwargs):
         AbstractWindowsCommand.__init__(self, config, *args, **kwargs)
         config.add_option("VIRTUAL", short_option = "V", default = False,
-                          action = "store_true", 
+                          action = "store_true",
                           help = "Scan virtual space instead of physical")
         config.add_option("SHOW-UNALLOCATED", short_option = "W", default = False,
-                          action = "store_true", 
+                          action = "store_true",
                           help = "Skip unallocated objects (e.g. 0xbad0b0b0)")
-        config.add_option("START", short_option = "A", default = None, 
-                          action = "store", type = "int", 
+        config.add_option("START", short_option = "A", default = None,
+                          action = "store", type = "int",
                           help = "The starting address to begin scanning")
-        config.add_option("LENGTH", short_option = "G", default = None, 
-                          action = "store", type = "int", 
+        config.add_option("LENGTH", short_option = "G", default = None,
+                          action = "store", type = "int",
                           help = "Length (in bytes) to scan from the starting address")
 
     def calculate(self):
@@ -65,15 +65,15 @@ class AbstractScanCommand(AbstractWindowsCommand):
         return "Offset(V)" if self._config.VIRTUAL else "Offset(P)"
 
     def scan_results(self, addr_space):
-        use_top_down = (addr_space.profile.metadata.get("major", 0) == 6 
+        use_top_down = (addr_space.profile.metadata.get("major", 0) == 6
                         and addr_space.profile.metadata.get("minor") >= 2)
 
-        multiscan = poolscan.MultiScanInterface(addr_space = addr_space, 
+        multiscan = poolscan.MultiScanInterface(addr_space = addr_space,
                                 scanners = self.scanners,
-                                scan_virtual = self._config.VIRTUAL, 
+                                scan_virtual = self._config.VIRTUAL,
                                 show_unalloc = self._config.SHOW_UNALLOCATED,
                                 use_top_down = use_top_down,
-                                start_offset = self._config.START, 
+                                start_offset = self._config.START,
                                 max_length = self._config.LENGTH)
 
         return multiscan.scan()

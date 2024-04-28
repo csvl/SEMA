@@ -70,9 +70,9 @@ class ProcDump(taskmods.DllList):
                 of.seek(offset)
                 of.write(code)
             result = "OK: {0}".format(dump_file)
-        except ValueError, ve:
+        except ValueError as ve:
             result = "Error: {0}".format(ve)
-        except exceptions.SanityCheckException, ve:
+        except exceptions.SanityCheckException as ve:
             result = "Error: {0} Try -u/--unsafe".format(ve)
         finally:
             of.close()
@@ -136,7 +136,7 @@ class ProcDump(taskmods.DllList):
             if task_space == None:
                 result = "Error: Cannot acquire process AS"
             elif task.Peb == None:
-                # we must use m() here, because any other attempt to 
+                # we must use m() here, because any other attempt to
                 # reference task.Peb will try to instantiate the _PEB
                 result = "Error: PEB at {0:#x} is unavailable (possibly due to paging)".format(task.m('Peb'))
             elif task_space.vtop(task.Peb.ImageBaseAddress) == None:

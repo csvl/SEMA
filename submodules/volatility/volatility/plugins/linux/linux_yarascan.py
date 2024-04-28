@@ -20,7 +20,7 @@
 import volatility.plugins.malware.malfind as malfind
 import volatility.plugins.linux.pslist as pslist
 import volatility.plugins.linux.common as linux_common
-import volatility.utils as utils 
+import volatility.utils as utils
 import volatility.debug as debug
 import re
 
@@ -56,7 +56,7 @@ class linux_yarascan(malfind.YaraScan):
 
     def filter_tasks(self):
         tasks = pslist.linux_pslist(self._config).calculate()
-        if self._config.PID is not None:        
+        if self._config.PID is not None:
             try:
                 pidlist = [int(p) for p in self._config.PID.split(',')]
             except ValueError:
@@ -66,53 +66,53 @@ class linux_yarascan(malfind.YaraScan):
             if len(pids) == 0:
                 debug.error("Cannot find PID {0}. If its terminated or unlinked, use psscan and then supply --offset=OFFSET".format(self._config.PID))
             return pids
-        
-        if self._config.NAME is not None:        
+
+        if self._config.NAME is not None:
             try:
                 name_re = re.compile(self._config.NAME, re.I)
             except re.error:
                 debug.error("Invalid name {0}".format(self._config.NAME))
-            
+
             names = [t for t in tasks if name_re.search(str(t.comm))]
             if len(names) == 0:
                 debug.error("Cannot find name {0}. If its terminated or unlinked, use psscan and then supply --offset=OFFSET".format(self._config.NAME))
             return names
 
         return tasks
-   
+
     def calculate(self):
-    
+
         ## we need this module imported
         if not has_yara:
             debug.error("Please install Yara from https://plusvic.github.io/yara/")
-            
+
         ## leveraged from the windows yarascan plugin
         rules = self._compile_rules()
-            
-        ## set the linux plugin address spaces 
+
+        ## set the linux plugin address spaces
         linux_common.set_plugin_members(self)
-    
+
         if self._config.KERNEL:
             ## the start of kernel memory taken from VolatilityLinuxIntelValidAS
             if self.addr_space.profile.metadata.get('memory_model', '32bit') == "32bit":
                 kernel_start = 0xc0000000
             else:
                 kernel_start = 0xffffffff80000000
-            
+
             scanner = malfind.DiscontigYaraScanner(rules = rules,
                                                    address_space = self.addr_space)
-                                                   
+
             for hit, address in scanner.scan(start_offset = kernel_start):
                 yield (None, address - self._config.REVERSE, hit,
                         scanner.address_space.zread(address - self._config.REVERSE, self._config.SIZE))
         else:
             tasks = self.filter_tasks()
-            for task in tasks: 
+            for task in tasks:
                 scanner = VmaYaraScanner(task = task, rules = rules)
                 for hit, address in scanner.scan():
                     yield (task, address - self._config.REVERSE, hit,
                                 scanner.address_space.zread(address - self._config.REVERSE, self._config.SIZE))
-    
+
     def render_text(self, outfd, data):
         for task, address, hit, buf in data:
             if task:
@@ -120,6 +120,6 @@ class linux_yarascan(malfind.YaraScan):
                     task.comm, task.pid, hit.rule, address))
             else:
                 outfd.write("[kernel] rule {0} addr {1:#x}\n".format(hit.rule, address))
-            
+
             outfd.write("".join(["{0:#010x}  {1:<48}  {2}\n".format(
                 address + o, h, ''.join(c)) for o, h, c in utils.Hexdump(buf)]))

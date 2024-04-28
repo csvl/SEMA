@@ -22,7 +22,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import os
@@ -45,13 +45,13 @@ class mac_recover_filesystem(mac_common.AbstractMacCommand):
             # currently can only fix metadata of HFS files
             if vnode.v_tag != 16:
                 return
-            
+
             cnode = vnode.v_data.dereference_as("cnode")
 
             ents = path.split("/")
             out_path = os.path.join(self._config.DUMP_DIR, *ents)
 
-            os.chmod(out_path, cnode.c_attr.ca_mode & 00777)
+            os.chmod(out_path, cnode.c_attr.ca_mode & 0o0777)
             os.chown(out_path, cnode.c_attr.ca_uid, cnode.c_attr.ca_gid)
             os.utime(out_path, (cnode.c_attr.ca_atime, cnode.c_attr.ca_mtime))
 
@@ -62,14 +62,14 @@ class mac_recover_filesystem(mac_common.AbstractMacCommand):
 
             # this is the ..namedfork/rsrc files. We currently skip those
             if os.path.exists(out_path) and os.path.isdir(out_path):
-                shutil.rmtree(out_path) 
+                shutil.rmtree(out_path)
 
             if out_path.endswith("..namedfork/rsrc"):
                 ret = 0
             else:
-                mac_common.write_vnode_to_file(vnode, out_path)             
+                mac_common.write_vnode_to_file(vnode, out_path)
                 ret = 1
-        
+
         elif vnode.is_dir():
             ret = 1
         else:
@@ -96,7 +96,7 @@ class mac_recover_filesystem(mac_common.AbstractMacCommand):
 
     def calculate(self):
         mac_common.set_plugin_members(self)
-        
+
         num_files = 0
 
         if (not self._config.DUMP_DIR or not os.path.isdir(self._config.DUMP_DIR)):
@@ -113,6 +113,5 @@ class mac_recover_filesystem(mac_common.AbstractMacCommand):
         yield num_files
 
     def render_text(self, outfd, data):
-        for (num_files) in data: 
+        for (num_files) in data:
             outfd.write("Recovered %d files\n" % num_files)
-

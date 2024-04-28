@@ -21,9 +21,9 @@ class ProcessMemory(Processing):
         i = open(process["file"], "rb")
         o = open(process["file"].replace(".dmp", ".py"), "wb")
 
-        print>>o, "from idaapi import add_segm, mem2base, autoMark, AU_CODE"
-        print>>o, "from idaapi import set_processor_type, SETPROC_ALL"
-        print>>o, "set_processor_type('80386r', SETPROC_ALL)"
+        print("from idaapi import add_segm, mem2base, autoMark, AU_CODE", file=o)
+        print("from idaapi import set_processor_type, SETPROC_ALL", file=o)
+        print("set_processor_type('80386r', SETPROC_ALL)", file=o)
 
         for idx, region in enumerate(process["regions"]):
             i.seek(region["offset"])
@@ -41,15 +41,15 @@ class ProcessMemory(Processing):
                 section = "rdata_%d" % idx
                 type_ = "DATA"
 
-            print>>o, "add_segm(0, %s, %s, '%s', '%s')" % (
+            print("add_segm(0, %s, %s, '%s', '%s')" % (
                 region["addr"], region["end"], section, type_
-            )
-            print>>o, "mem2base('%s'.decode('base64'), %s)" % (
+            ), file=o)
+            print("mem2base('%s'.decode('base64'), %s)" % (
                 i.read(region["size"]).encode("base64").replace("\n", ""),
                 region["addr"]
-            )
+            ), file=o)
             if type_ == "CODE":
-                print>>o, "autoMark(%s, AU_CODE)" % region["addr"]
+                print("autoMark(%s, AU_CODE)" % region["addr"], file=o)
 
     def _fixup_pe_header(self, pe):
         """Fix the PE header from an in-memory representation to an
@@ -163,7 +163,7 @@ class ProcessMemory(Processing):
                 dump_path = os.path.join(self.pmemory_path, dmp)
                 dump_file = File(dump_path)
 
-                pid, num = map(int, re.findall("(\\d+)", dmp))
+                pid, num = list(map(int, re.findall("(\\d+)", dmp)))
 
                 regions = []
                 for region in roach.procmem(dump_path).regions:

@@ -17,7 +17,7 @@ import re
 import socket
 import struct
 import tempfile
-import urlparse
+import urllib.parse
 
 from cuckoo.common.abstracts import Processing
 from cuckoo.common.config import config
@@ -490,7 +490,7 @@ class Pcap(object):
                 netloc += ":" + str(entry["port"])
 
             entry["data"] = convert_to_printable(tcpdata)
-            url = urlparse.urlunparse(("http", netloc, http.uri,
+            url = urllib.parse.urlunparse(("http", netloc, http.uri,
                                        None, None, None))
             entry["uri"] = convert_to_printable(url)
             entry["body"] = convert_to_printable(http.body)
@@ -555,7 +555,7 @@ class Pcap(object):
 
     def _process_smtp(self):
         """Process SMTP flow."""
-        for conn, data in self.smtp_flow.iteritems():
+        for conn, data in self.smtp_flow.items():
             # Detect new SMTP flow.
             if data.startswith(("EHLO", "HELO")):
                 self.smtp_requests.append({"dst": conn, "raw": data})
@@ -709,9 +709,9 @@ class Pcap(object):
         self.results["tcp"] = [conn_from_flowtuple(i) for i in self.tcp_connections]
         self.results["udp"] = [conn_from_flowtuple(i) for i in self.udp_connections]
         self.results["icmp"] = self.icmp_requests
-        self.results["http"] = self.http_requests.values()
+        self.results["http"] = list(self.http_requests.values())
         self.results["tls"] = self.tls_keys
-        self.results["dns"] = self.dns_requests.values()
+        self.results["dns"] = list(self.dns_requests.values())
         self.results["smtp"] = self.smtp_requests
         self.results["irc"] = self.irc_requests
         self.results["dns_servers"] = list(set(self.dns_servers))
@@ -721,7 +721,7 @@ class Pcap(object):
         # Report each IP/port combination as a dead host if we've had to retry
         # at least 3 times to connect to it and if no successful connections
         # were detected throughout the analysis.
-        for (ip, port), count in self.dead_hosts.items():
+        for (ip, port), count in list(self.dead_hosts.items()):
             if count < 3 or (ip, port) in self.alive_hosts:
                 continue
 
@@ -993,7 +993,7 @@ class SortCap(object):
         self.f and self.f.close()
         self.fd = None
 
-    def next(self):
+    def __next__(self):
         rp = next(self.fditer)
         if rp is None:
             return None
@@ -1076,7 +1076,7 @@ def packets_for_stream(fobj, offset):
     the same connection."""
     pcap = dpkt.pcap.Reader(fobj)
     pcapiter = iter(pcap)
-    ts, raw = pcapiter.next()
+    ts, raw = next(pcapiter)
 
     fobj.seek(offset)
     for p in next_connection_packets(pcapiter, linktype=pcap.datalink()):

@@ -37,9 +37,9 @@ class BitmapDmpVTypes(obj.ProfileModification):
                 'Signature' : [ 0x0, ['array', 4, ['unsigned char']]],
                 'ValidDump' : [ 0x4, ['array', 4, ['unsigned char']]],
                 'DumpOptions' : [ 0x8, ['unsigned long long']],
-                'HeaderSize' : [ 0x20, ['unsigned long long']],  
-                'BitmapSize' : [ 0x28, ['unsigned long long']],  
-                'Pages' : [ 0x30, ['unsigned long long']], 
+                'HeaderSize' : [ 0x20, ['unsigned long long']],
+                'BitmapSize' : [ 0x28, ['unsigned long long']],
+                'Pages' : [ 0x30, ['unsigned long long']],
                 'Buffer' : [ 0x38, ['array', lambda x: (x.BitmapSize+7) / 0x8, ['unsigned char']]],
                 'Buffer2' : [ 0x38, ['array', lambda x: (x.BitmapSize + 31) / 32, ['unsigned long']]],
             } ],
@@ -52,7 +52,7 @@ class WindowsCrashDumpSpace64BitMap(crash.WindowsCrashDumpSpace32):
     dumpsig = 'PAGEDU64'
     headertype = "_DMP_HEADER64"
     headerpages = 0x13
-    bitmaphdroffset = 0x2000 
+    bitmaphdroffset = 0x2000
 
     def __init__(self, base, config, **kwargs):
         ## We must have an AS below us
@@ -67,7 +67,7 @@ class WindowsCrashDumpSpace64BitMap(crash.WindowsCrashDumpSpace32):
         self.header = obj.Object(self.headertype, 0, base)
 
         # This address space supports Windows Bitmap crash dump files
-        # which, based on empirical tests, have a DumpType of 0x5.  
+        # which, based on empirical tests, have a DumpType of 0x5.
         self.as_assert((self.header.DumpType == 5), "Unsupported dump format")
 
         # Instantiate the Summary/Full Bitmap header
@@ -79,7 +79,7 @@ class WindowsCrashDumpSpace64BitMap(crash.WindowsCrashDumpSpace32):
         self.bitmaphdr2 = obj.Object('_FULL_DUMP64', vm = bufferas, offset = 0)
 
         firstbit = None                         # First bit in a run
-        firstoffset = 0                         # File offset of first bit 
+        firstoffset = 0                         # File offset of first bit
         lastbit = None                          # Last bit in a run
         lastbitseen = 0                         # Most recent bit processed
         offset = self.bitmaphdr2.HeaderSize     # Size of file headers
@@ -98,7 +98,7 @@ class WindowsCrashDumpSpace64BitMap(crash.WindowsCrashDumpSpace32):
             else:
                  wordoffset = i * 32
                  for j in range(0, 32):
-                     BitAddr = wordoffset + j 
+                     BitAddr = wordoffset + j
                      ByteOffset = BitAddr >> 3
                      ByteAddress = (self.bitmaphdr2.Buffer[ByteOffset])
                      ShiftCount = (BitAddr & 0x7)

@@ -48,7 +48,7 @@ class XP2003x86BaseVTypes(obj.ProfileModification):
             'cNumClipFormats' : [ 0x30, ['unsigned int']],
             'iClipSerialNumber' : [ 0x34, ['unsigned int']],
             'iClipSequenceNumber' : [ 0x38, ['unsigned int']],
-            #'spwndClipboardListener' : [ 0x3C, ['pointer', ['tagWND']]], 
+            #'spwndClipboardListener' : [ 0x3C, ['pointer', ['tagWND']]],
             'pGlobalAtomTable' : [ 0x40, ['pointer', ['void']]],
             }],
             ## This is defined in Windows 7
@@ -194,7 +194,7 @@ class XP2003x64BaseVTypes(obj.ProfileModification):
     def modification(self, profile):
 
         profile.vtypes.update({
-            'tagWINDOWSTATION' : [ 0x90, { # !poolfind Wind is 100h 
+            'tagWINDOWSTATION' : [ 0x90, { # !poolfind Wind is 100h
             'dwSessionId' : [ 0x0, ['unsigned long']],
             'rpwinstaNext' : [ 0x8, ['pointer64', ['tagWINDOWSTATION']]], # FreeWindowStation
             'rpdeskList' : [ 0x10, ['pointer64', ['tagDESKTOP']]],
@@ -210,7 +210,7 @@ class XP2003x64BaseVTypes(obj.ProfileModification):
             'pGlobalAtomTable' : [ 0x70, ['pointer64', ['void']]],
             }],
 
-            # From Windows 7 
+            # From Windows 7
             'tagCLIP' : [ 0x18, {
             'fmt' : [ 0x0, ['Enumeration', dict(target = 'unsigned long', choices = consts.CLIPBOARD_FORMAT_ENUM)]],
             'hData' : [ 0x8, ['pointer64', ['void']]],
@@ -230,7 +230,7 @@ class XP2003x64BaseVTypes(obj.ProfileModification):
             'tagTHREADINFO' : [ None, {
             'pEThread' : [ 0x00, ['pointer', ['_ETHREAD']]],
             'ppi' : [ 0x68, ['pointer64', ['tagPROCESSINFO']]], # xxxSetThreadDesktop
-            #'pq' : [ 0x30, ['pointer', ['tagQ']]], 
+            #'pq' : [ 0x30, ['pointer', ['tagQ']]],
             'pDeskInfo' : [ 0x90, ['pointer64', ['tagDESKTOPINFO']]], # xxxDesktopThread
             'PtiLink' : [ 0x160, ['_LIST_ENTRY']],
             'fsHooks' : [ 0x138, ['unsigned long']], # xxxSetThreadDesktop, CheckWHFBits
@@ -341,4 +341,3 @@ class XP2003x64BaseVTypes(obj.ProfileModification):
             'fLastHookHung' : [ 0x58, ['BitField', dict(start_bit = 7, end_bit = 8, native_type = 'long')]],
             }],
         })
-

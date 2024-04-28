@@ -21,7 +21,7 @@ import re
 import volatility.obj as obj
 import volatility.plugins.mac.common as common
 import volatility.utils as utils
-import volatility.plugins.mac.pstasks as pstasks 
+import volatility.plugins.mac.pstasks as pstasks
 from volatility.renderers import TreeGrid
 
 class mac_calendar(pstasks.mac_tasks):
@@ -43,17 +43,17 @@ class mac_calendar(pstasks.mac_tasks):
             data = self.addr_space.read(page, size)
             if not data:
                 continue
-            
+
             for offset in utils.iterfind(data, "local_"):
-                event = obj.Object("String", 
-                                    offset = page + offset, 
-                                    vm = self.addr_space, encoding = "utf8", 
+                event = obj.Object("String",
+                                    offset = page + offset,
+                                    vm = self.addr_space, encoding = "utf8",
                                     length = 512)
                 if "ACCEPTED" not in str(event):
                     continue
 
-                # determine where the next field starts 
-                field_len = len("local_") + guid_length 
+                # determine where the next field starts
+                field_len = len("local_") + guid_length
                 next_field = str(event)[field_len:]
 
                 # the next field is either a description or GUID
@@ -65,7 +65,7 @@ class mac_calendar(pstasks.mac_tasks):
                 else:
                     description = next_field[:match.start()]
                     last_field = next_field[match.start() + guid_length:]
-                
+
                 location = last_field.split("ACCEPTED")[0]
 
                 if (description, location) in seen:
@@ -86,8 +86,8 @@ class mac_calendar(pstasks.mac_tasks):
                 continue
 
             space = proc.get_process_address_space()
-            for map in proc.get_proc_maps():    
-                # only read/write without filebacks 
+            for map in proc.get_proc_maps():
+                # only read/write without filebacks
                 if not (map.get_perms() == "rw-" and not map.get_path()):
                     continue
                 pages = (map.links.end - map.links.start) / 4096
@@ -95,22 +95,22 @@ class mac_calendar(pstasks.mac_tasks):
                     start = map.links.start + i * 4096
                     data = space.zread(start, 4096)
                     for match in guid_re2.finditer(data):
-                        event = obj.Object("String", vm = space, length = 128, 
+                        event = obj.Object("String", vm = space, length = 128,
                                         offset = start + match.start() + 40 + 40, )
                         yield proc, "", event
-                        
+
     def unified_output(self, data):
 
-        return TreeGrid([("Source", str), 
+        return TreeGrid([("Source", str),
                           ("Type", str),
                           ("Description", str),
                           ("Event", str),
                           ],self.generator(data))
-                          
+
     def generator(self, data):
 
-        for proc, description, event in data:       
-    
+        for proc, description, event in data:
+
             if proc == None:
                 tp = "Local"
                 source = "(Kernel)"
@@ -118,20 +118,20 @@ class mac_calendar(pstasks.mac_tasks):
                 tp = "Other"
                 source = "{0}({1})".format(proc.p_comm, proc.p_pid)
 
-            yield (0, [ 
+            yield (0, [
                         str(source),
-                        str(tp), 
+                        str(tp),
                         str(description),
                         str(event),
                         ])
 
     def render_text(self, outfd, data):
-        self.table_header(outfd, [("Source", "16"), 
+        self.table_header(outfd, [("Source", "16"),
                           ("Type", "8"),
                           ("Description", "26"),
                           ("Event", "")])
 
-        for proc, description, event in data:       
+        for proc, description, event in data:
             if proc == None:
                 tp = "Local"
                 source = "(Kernel)"
@@ -139,7 +139,6 @@ class mac_calendar(pstasks.mac_tasks):
                 tp = "Other"
                 source = "{0}({1})".format(proc.p_comm, proc.p_pid)
 
-            self.table_row(outfd, source, tp, 
+            self.table_row(outfd, source, tp,
                         description or "(None)",
                         event)
-

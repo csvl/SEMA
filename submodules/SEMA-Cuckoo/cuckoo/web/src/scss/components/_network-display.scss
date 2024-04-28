@@ -33,12 +33,12 @@
 
 		}
 
-		@include cuckoo-theme('cyborg') { 
-			background-color: $cyborg_panel_color; 
+		@include cuckoo-theme('cyborg') {
+			background-color: $cyborg_panel_color;
 			border-color: $cyborg_border_color;
 		}
 
-		@include cuckoo-theme('night') { 
+		@include cuckoo-theme('night') {
 			background-color: #191919;
 			border-color: #101010;
 		}
@@ -51,8 +51,8 @@
 		overflow: hidden;
 		transition: height 250ms ease-out;
 
-		&.active { 
-			height: 43px; 
+		&.active {
+			height: 43px;
 		}
 
 	}
@@ -121,7 +121,7 @@
 
 			&-long-arrow-right {
 				font-size: 36px;
-				margin: 0 10px; 
+				margin: 0 10px;
 				color: #D0D0D0;
 			}
 
@@ -216,8 +216,8 @@
 
 			.fa, .url { color: $cyborg_secundary_color; }
 
-			.fa-long-arrow-right { 
-				color: $cyborg_primary_color; 
+			.fa-long-arrow-right {
+				color: $cyborg_primary_color;
 				text-shadow: 0px 1px 0px lighten($cyborg_border_color, 5);
 			}
 
@@ -241,7 +241,7 @@
 
 			.fa, .url { color: $night_text_color; }
 
-			.fa-long-arrow-right { 
+			.fa-long-arrow-right {
 				color: #111;
 			}
 
@@ -390,7 +390,7 @@
 
 			/*
 				This class allows two fields to live next to each other,
-				without breaking the layout. That means that fields within 
+				without breaking the layout. That means that fields within
 				a group will follow each others height. This avoid weird-looking
 				containers.
 			 */
@@ -640,8 +640,8 @@
 				top: -7px;
 			    left: 50%;
 			    margin-left: -7px;
-				width: 0; 
-				height: 0; 
+				width: 0;
+				height: 0;
 				border-left: 7px solid transparent;
 				border-right: 7px solid transparent;
 				border-bottom: 7px solid #e5e5e5;
@@ -674,7 +674,7 @@
 			border-color: $cyborg_border_color;
 
 			.destination-address {
-				background-color: lighten($cyborg_panel_color, 10);	
+				background-color: lighten($cyborg_panel_color, 10);
 				border-color: lighten($cyborg_panel_color, 10);
 
 				&:before {
@@ -722,7 +722,7 @@
 			border-color: #151515;
 
 			.destination-address {
-				background-color: #333;	
+				background-color: #333;
 				border-color: #151515;
 
 				&:before {

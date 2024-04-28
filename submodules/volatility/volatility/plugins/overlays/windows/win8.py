@@ -46,22 +46,22 @@ except:
     has_distorm = False
 
 class _HANDLE_TABLE32(windows._HANDLE_TABLE):
-    """A class for 32-bit Windows 8 handle tables"""    
+    """A class for 32-bit Windows 8 handle tables"""
 
     @property
     def HandleCount(self):
-        """The Windows 8 / 2012 handle table does not have a 
-        HandleCount member, so we fake it. 
+        """The Windows 8 / 2012 handle table does not have a
+        HandleCount member, so we fake it.
 
         Alternately, we could return len(self.handles()) and
-        show a valid number in pslist, however pslist would 
+        show a valid number in pslist, however pslist would
         be much slower than normal.
         """
 
         return 0
 
     def get_item(self, entry, handle_value = 0):
-        """Returns the OBJECT_HEADER of the associated handle. 
+        """Returns the OBJECT_HEADER of the associated handle.
         The parent is the _HANDLE_TABLE_ENTRY so that an object
         can be linked to its GrantedAccess.
         """
@@ -69,19 +69,19 @@ class _HANDLE_TABLE32(windows._HANDLE_TABLE):
         if entry.InfoTable == 0:
             return obj.NoneObject("LeafHandleValue pointer is invalid")
 
-        return obj.Object("_OBJECT_HEADER", 
-                          offset = entry.InfoTable & ~7, 
-                          vm = self.obj_vm, 
-                          parent = entry, 
+        return obj.Object("_OBJECT_HEADER",
+                          offset = entry.InfoTable & ~7,
+                          vm = self.obj_vm,
+                          parent = entry,
                           handle_value = handle_value)
 
 class _HANDLE_TABLE64(_HANDLE_TABLE32):
-    """A class for 64-bit Windows 8 / 2012 handle tables"""   
+    """A class for 64-bit Windows 8 / 2012 handle tables"""
 
     DECODE_MAGIC = 0x13
 
     def decode_pointer(self, value):
-        """Decode a pointer like SAR. Since Python does not 
+        """Decode a pointer like SAR. Since Python does not
         have an operator for shift arithmetic, we implement
         one ourselves.
         """
@@ -94,7 +94,7 @@ class _HANDLE_TABLE64(_HANDLE_TABLE32):
             return value | 0xFFFF000000000000
 
     def get_item(self, entry, handle_value = 0):
-        """Returns the OBJECT_HEADER of the associated handle. 
+        """Returns the OBJECT_HEADER of the associated handle.
         The parent is the _HANDLE_TABLE_ENTRY so that an object
         can be linked to its GrantedAccess.
         """
@@ -102,14 +102,14 @@ class _HANDLE_TABLE64(_HANDLE_TABLE32):
         if entry.LowValue == 0:
             return obj.NoneObject("LowValue pointer is invalid")
 
-        return obj.Object("_OBJECT_HEADER", 
-                          offset = self.decode_pointer(entry.LowValue), 
-                          vm = self.obj_vm, 
-                          parent = entry, 
+        return obj.Object("_OBJECT_HEADER",
+                          offset = self.decode_pointer(entry.LowValue),
+                          vm = self.obj_vm,
+                          parent = entry,
                           handle_value = handle_value)
 
 class _HANDLE_TABLE_81R264(_HANDLE_TABLE64):
-    """A class for 64-bit Windows 8.1 / 2012 R2 handle tables"""   
+    """A class for 64-bit Windows 8.1 / 2012 R2 handle tables"""
     DECODE_MAGIC = 0x10
 
 class _PSP_CID_TABLE32(_HANDLE_TABLE32):
@@ -129,10 +129,10 @@ class _PSP_CID_TABLE64(_HANDLE_TABLE64):
         body_offset = self.obj_vm.profile.get_obj_offset("_OBJECT_HEADER", "Body")
         head_offset = self.decode_pointer(entry.LowValue) - body_offset
 
-        return obj.Object("_OBJECT_HEADER", 
-                          offset = head_offset, 
-                          vm = self.obj_vm, 
-                          parent = entry, 
+        return obj.Object("_OBJECT_HEADER",
+                          offset = head_offset,
+                          vm = self.obj_vm,
+                          parent = entry,
                           handle_value = handle_value)
 
 class _PSP_CID_TABLE_81R264(_PSP_CID_TABLE64):
@@ -196,7 +196,7 @@ class _OBJECT_HEADER(win7._OBJECT_HEADER):
                 44: 'FilterConnectionPort',
                 45: 'FilterCommunicationPort',
                 46: 'PcwObject',
-                47: 'DxgkSharedResource', 
+                47: 'DxgkSharedResource',
                 48: 'DxgkSharedSyncObject',
             }
 
@@ -355,7 +355,7 @@ class Win8x86SyscallVTypes(obj.ProfileModification):
 
     def modification(self, profile):
         # Same as 2003, which basically just means there are
-        # only two SSDT tables by default. 
+        # only two SSDT tables by default.
         profile.vtypes.update(ssdt_vtypes.ssdt_vtypes_2003)
 
 class Win8ObjectClasses(obj.ProfileModification):
@@ -366,7 +366,7 @@ class Win8ObjectClasses(obj.ProfileModification):
 
     def modification(self, profile):
 
-        memory_model = profile.metadata.get("memory_model", "32bit") 
+        memory_model = profile.metadata.get("memory_model", "32bit")
         major = profile.metadata.get("major", 0)
         minor = profile.metadata.get("minor", 0)
 
@@ -463,7 +463,7 @@ class Win81U1x64(obj.Profile):
     _md_os = 'windows'
     _md_major = 6
     _md_minor = 3
-    _md_build = 17031 
+    _md_build = 17031
     _md_vtype_module = 'volatility.plugins.overlays.windows.win81_u1_x64_vtypes'
     _md_product = ["NtProductWinNt"]
 
@@ -473,6 +473,6 @@ class Win81U1x86(obj.Profile):
     _md_os = 'windows'
     _md_major = 6
     _md_minor = 3
-    _md_build = 17031 
+    _md_build = 17031
     _md_vtype_module = 'volatility.plugins.overlays.windows.win81_u1_x86_vtypes'
     _md_product = ["NtProductWinNt"]

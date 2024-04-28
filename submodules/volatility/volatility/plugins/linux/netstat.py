@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import socket
@@ -33,7 +33,7 @@ from volatility.renderers import TreeGrid
 
 class linux_netstat(linux_pslist.linux_pslist):
     """Lists open sockets"""
-    
+
     def __init__(self, config, *args, **kwargs):
         linux_pslist.linux_pslist.__init__(self, config, *args, **kwargs)
         self._config.add_option('IGNORE_UNIX', short_option = 'U', default = None, help = 'ignore unix sockets', action = 'store_true')
@@ -82,13 +82,13 @@ class linux_netstat(linux_pslist.linux_pslist):
                               str(name),
                               ])
             # its a socket!
-            
+
     def render_text(self, outfd, data):
         linux_common.set_plugin_members(self)
 
         if not self.addr_space.profile.has_type("inet_sock"):
             # ancient (2.6.9) centos kernels do not have inet_sock in debug info
-            raise AttributeError, "Given profile does not have inet_sock, please file a bug if the kernel version is > 2.6.11"
+            raise AttributeError("Given profile does not have inet_sock, please file a bug if the kernel version is > 2.6.11")
 
         for task in data:
             for ents in task.netstat():
@@ -99,5 +99,3 @@ class linux_netstat(linux_pslist.linux_pslist):
                 elif ents[0] == 1 and not self._config.IGNORE_UNIX:
                     (name, inum) = ents[1]
                     outfd.write("UNIX {0:<8d} {1:>17s}/{2:<5d} {3:s}\n".format(inum, task.comm, task.pid, name))
-        
-

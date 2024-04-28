@@ -17,38 +17,38 @@ class MapViewOfFile(angr.SimProcedure):
             simfd =  self.state.posix.get_fd(self.state.globals["files_fd"][hFileMappingObject]) #self.state.posix.get_fd(hFile)
         else:
             simfd = None
-        
+
         size = self.state.solver.eval(dwNumberOfBytesToMap) #simfd.size()
         lw.debug(size)
-        
+
         addr = self.allocate_memory(size)
-        
+
         access = self.state.solver.eval(dwDesiredAccess)
         access & (1 << 31) or (access & (1 << 16))
         access & (1 << 30)
         access & (1 << 29)
         access & (1 << 28)
-        
+
         # prots = self.state.solver.eval_upto(dwDesiredAccess, 2)
         # if len(prots) != 1:
         #     raise angr.errors.SimValueError("MapViewOfFile can't handle symbolic flProtect")
         # prot = prots[0]
         # angr_prot = convert_prot(prot)
-        
+
         # Get the file offset
         file_offset = (self.state.solver.eval(dwFileOffsetHigh) << 32) + self.state.solver.eval(dwFileOffsetLow)
-            
+
         self.state.memory.map_region(addr, size, access, init_zero=True)
-        
+
         saved_pos = simfd.tell()
         simfd.seek(self.state.solver.eval(file_offset), whence="start")
         data, _ = simfd.read_data(size)
         simfd.seek(saved_pos, whence="start")
         lw.debug(data)
         self.state.memory.store(addr, data)
-        
+
         return addr
-        
+
 
     def allocate_memory(self,size):
         addr = self.state.heap.mmap_base
@@ -60,7 +60,7 @@ class MapViewOfFile(angr.SimProcedure):
         self.state.heap.mmap_base = new_base
 
         return addr
-    
+
 def convert_prot(prot):
     """
     Convert from a windows memory protection constant to an angr bitmask
@@ -91,4 +91,3 @@ def deconvert_prot(prot):
     if prot in (2, 6):
         raise angr.errors.SimValueError("Invalid memory protection for windows process")
     return [0x01, 0x02, None, 0x04, 0x10, 0x20, None, 0x40][prot]
-

@@ -12,7 +12,7 @@ log = logging.getLogger()
 
 def create_folders():
     """Create folders in PATHS."""
-    for name, folder in PATHS.items():
+    for name, folder in list(PATHS.items()):
         if os.path.exists(folder):
             continue
 

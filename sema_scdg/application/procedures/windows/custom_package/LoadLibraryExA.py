@@ -9,7 +9,7 @@ lw.setLevel(os.environ["LOG_LEVEL"])
 from procedures.WindowsSimProcedure import WindowsSimProcedure
 
 class LoadLibraryExA(angr.SimProcedure):
-    def run(self, lib_ptr, flag1, flag2):        
+    def run(self, lib_ptr, flag1, flag2):
         call_sim = WindowsSimProcedure()
         proj = self.state.project
         try:

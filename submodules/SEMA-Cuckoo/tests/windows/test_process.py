@@ -24,7 +24,7 @@ def test_execute_correct_logging():
 
     handlers = logging.getLogger().handlers[:]
     init_logging()
-    Process().execute(u"unicodefile\u202ethatdoesnotexist")
+    Process().execute("unicodefile\u202ethatdoesnotexist")
     logging.getLogger().handlers = handlers
 
     c, _ = s.accept()
@@ -68,9 +68,9 @@ def test_is32bit_process():
 def test_exec_unicode():
     # This isn't possible by default on Python 2.7, however, since we patch
     # the subprocess internals, we make it work. Test that it actually works.
-    with open(u"uni\u1234.bat", "wb") as f:
+    with open("uni\u1234.bat", "wb") as f:
         f.write("echo test > uni-hello.txt")
-    assert not subprocess.call(["cmd.exe", "/c", u"uni\u1234.bat"])
+    assert not subprocess.call(["cmd.exe", "/c", "uni\u1234.bat"])
     assert open("uni-hello.txt", "rb").read().strip() == "test"
 
 def test_parent_pid():

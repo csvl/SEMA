@@ -28,7 +28,7 @@ class NtQuerySystemInformation(angr.SimProcedure):
                 "System_process_info_{}".format(self.display_name), 184 * 8
             )
             self.state.memory.store(system_information, sysinfo, endness=archinfo.Endness.LE)
-            
+
         if class_type == 0: #SystemProcessorInformation
             sysinfo = self.state.solver.BVS(
                 "System_basic_info_{}".format(self.display_name), 44 * 8

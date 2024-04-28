@@ -1,7 +1,7 @@
 from .base import *
 
 #TODO
-# refactor sources: handle lookup, type-specific properties 
+# refactor sources: handle lookup, type-specific properties
 # change AngrXXX transformers to generic ones
 
 class AddTransitionEdges(Transformer):
@@ -13,8 +13,8 @@ class AddTransitionEdges(Transformer):
         lookup = {}
         for n in graph.nodes:
             lookup[n.obj] = n
-        
-        
+
+
         for c, d in enumerate(self.transitions):
             s = d[0]
             d = d[1]
@@ -31,7 +31,7 @@ class AddTransitionEdges(Transformer):
                 graph.add_node(dd)
             else:
                 dd = lookup[d]
-    
+
             graph.add_edge(Edge(ss, dd, color="purple", label=str(c)))
 
 class AngrAddEdges(Transformer):
@@ -48,15 +48,15 @@ class AngrAddEdges(Transformer):
         lookup = {}
         for n in graph.nodes:
             lookup[n.obj] = n
-        
+
         for s,t in self.graph.edges():
             #TODO option to add missing nodes (?)
-            try: 
+            try:
                 if self.reverse:
                     ss,tt = lookup[t],lookup[s]
                 else:
                     ss,tt = lookup[s],lookup[t]
-                
+
                 graph.add_edge(Edge(ss, tt, color=self.color, label=self.label, style=self.style, width=self.width, weight=self.weight))
             except:
                 #FIXME WARN
@@ -66,6 +66,6 @@ class AngrFilterNodes(Transformer):
     def __init__(self, node_filter):
         self.node_filter = node_filter
         pass
-        
+
     def transform(self, graph):
         graph.filter_nodes(self.node_filter)

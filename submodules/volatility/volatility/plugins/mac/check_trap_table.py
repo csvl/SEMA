@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -33,23 +33,23 @@ class mac_check_trap_table(common.AbstractMacCommand):
     """ Checks to see if mach trap table entries are hooked """
 
     def _set_vtypes(self):
-        x86_10_vtypes = { 
+        x86_10_vtypes = {
             'mach_trap' : [ 16, {
                 'mach_trap_function': [ 4, ['pointer', ['void']]]
                 }]}
-        x86_other_vtypes = { 
+        x86_other_vtypes = {
             'mach_trap' : [ 8, {
                 'mach_trap_function': [ 4, ['pointer', ['void']]]
                 }]}
-        x64_10_vtypes = { 
+        x64_10_vtypes = {
             'mach_trap' : [ 40, {
                 'mach_trap_function': [ 8, ['pointer', ['void']]]
                 }]}
-        x64_13_vtypes = { 
+        x64_13_vtypes = {
             'mach_trap' : [ 32, {
                 'mach_trap_function': [ 8, ['pointer', ['void']]]
                 }]}
-        x64_other_vtypes = { 
+        x64_other_vtypes = {
             'mach_trap' : [ 16, {
                 'mach_trap_function': [ 8, ['pointer', ['void']]]
                 }]}
@@ -95,14 +95,14 @@ class mac_check_trap_table(common.AbstractMacCommand):
                 continue
 
             hooked = ent_addr not in sym_addrs
-            
+
             if hooked == False:
                 sym_name = self.profile.get_symbol_by_address("kernel", ent_addr)
             else:
                 sym_name = "HOOKED"
 
             yield (table_addr, "TrapTable", i, ent_addr, sym_name, hooked)
- 
+
     def unified_output(self, data):
         return TreeGrid([("Table Name", str),
                         ("Index", int),
@@ -120,9 +120,9 @@ class mac_check_trap_table(common.AbstractMacCommand):
                 ])
 
     def render_text(self, outfd, data):
-        self.table_header(outfd, [("Table Name", "15"), 
-                                  ("Index", "6"), 
-                                  ("Address", "[addrpad]"), 
+        self.table_header(outfd, [("Table Name", "15"),
+                                  ("Index", "6"),
+                                  ("Address", "[addrpad]"),
                                   ("Symbol", "<50")])
 
         for (_, table_name, i, call_addr, sym_name, _) in data:

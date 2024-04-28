@@ -1,4 +1,4 @@
-/* 
+/*
    Copyright (C) 2016 Cuckoo Foundation.
    This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
    see the file 'docs/LICENSE' for copying permission.
@@ -33,7 +33,7 @@
         transition: outline-offset .1s ease-in-out, background-color .1s linear;
 
         &.hover {
-            outline-offset: -20px; 
+            outline-offset: -20px;
         }
     }
 
@@ -62,8 +62,8 @@
     }
 
     .fail {
-        background: #c00; 
-        padding: 2px; 
+        background: #c00;
+        padding: 2px;
         color: #fff;
     }
 
@@ -79,8 +79,8 @@
         color: #6e8e91;
 
         strong {
-            color: #4e6658; 
-            text-decoration: underline; 
+            color: #4e6658;
+            text-decoration: underline;
             cursor: pointer;
         }
     }
@@ -97,10 +97,10 @@
 
     progress {
 
-        background: #f3f3f3; 
-        height: 20px; 
-        margin: auto; 
-        width: 50%; 
+        background: #f3f3f3;
+        height: 20px;
+        margin: auto;
+        width: 50%;
         display: inherit;
 
         &::-webkit-progress-bar { background: #f3f3f3; }
@@ -141,8 +141,8 @@
             opacity: 0;
             transition: opacity 100ms ease-in;
 
-            &::-webkit-progress-bar { 
-                background: #f3f3f3; 
+            &::-webkit-progress-bar {
+                background: #f3f3f3;
             }
 
             &::-webkit-progress-value {
@@ -297,14 +297,14 @@
                 padding: 0 20px;
                 white-space: normal;
 
-                strong { 
-                    color: inherit; 
-                    text-decoration: none; 
+                strong {
+                    color: inherit;
+                    text-decoration: none;
                 }
 
-                small { 
+                small {
                     font-weight: 400;
-                    display: block; 
+                    display: block;
                     margin: 10px 0;
                 }
 
@@ -450,10 +450,10 @@
 
 #tab-hash {
 
-    textarea { 
+    textarea {
         width: 700px;
         margin-left: -175px;
-        margin-bottom: 20px; 
+        margin-bottom: 20px;
     }
 
 }

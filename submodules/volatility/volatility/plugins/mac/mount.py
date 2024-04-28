@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -41,27 +41,27 @@ class mac_mount(common.AbstractMacCommand):
         while mount:
             yield mount
             mount = mount.mnt_list.tqe_next
-        
+
     def unified_output(self, data):
         return TreeGrid ([
-                        ("Device", str), 
-                        ("Mount Point", str), 
+                        ("Device", str),
+                        ("Mount Point", str),
                         ("Type", str),
-                        ], 
+                        ],
                          self.generator(data))
-                         
+
     def generator(self, data):
         for mount in data:
             yield(0, [
-                    str(mount.mnt_vfsstat.f_mntonname), 
-                    str(mount.mnt_vfsstat.f_mntfromname), 
+                    str(mount.mnt_vfsstat.f_mntonname),
+                    str(mount.mnt_vfsstat.f_mntfromname),
                     str(mount.mnt_vfsstat.f_fstypename),
                     ])
 
     def render_text(self, outfd, data):
         self.table_header(outfd, [("Device", "30"), ("Mount Point", "60"), ("Type", "")])
         for mount in data:
-            self.table_row(outfd, 
-                           mount.mnt_vfsstat.f_mntonname, 
-                           mount.mnt_vfsstat.f_mntfromname, 
+            self.table_row(outfd,
+                           mount.mnt_vfsstat.f_mntonname,
+                           mount.mnt_vfsstat.f_mntfromname,
                            mount.mnt_vfsstat.f_fstypename)

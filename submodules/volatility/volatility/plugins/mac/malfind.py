@@ -22,7 +22,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -47,7 +47,7 @@ class mac_malfind(mac_pstasks.mac_tasks):
 
             for map in task.get_proc_maps():
                 if map.is_suspicious():
-                    fname = map.get_path()                    
+                    fname = map.get_path()
                     prots = map.get_perms()
 
                     content = proc_as.zread(map.start, 64)
@@ -69,10 +69,5 @@ class mac_malfind(mac_pstasks.mac_tasks):
                         ["{0:#x} {1:<16} {2}".format(o, h, i)
                         for o, i, h in malfind.Disassemble(content, map.start, bits = bits)
                         ]))
-                
+
                     outfd.write("\n\n")
-
-       
-
-
- 

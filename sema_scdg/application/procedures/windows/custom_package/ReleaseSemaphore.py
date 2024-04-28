@@ -1,4 +1,4 @@
-import angr 
+import angr
 
 class ReleaseSemaphore(angr.SimProcedure):
     def run(self, hSemaphore, lReleaseCount, lpPreviousCount):

@@ -110,7 +110,7 @@ class Command(object):
                     self._config.update("PROFILE", "WinXPSP2x86")
                 else:
                     debug.error("You must set a profile!")
-           
+
             if self._config.PROFILE not in profs:
                 debug.error("Invalid profile " + self._config.PROFILE + " selected")
             if not self.is_valid_profile(profs[self._config.PROFILE]()):
@@ -126,7 +126,7 @@ class Command(object):
             out_file = '{0}_{1}.txt'.format(time.strftime('%Y%m%d%H%M%S'), plugin_name) if self._config.OUTPUT_FILE == '.' else self._config.OUTPUT_FILE
             if os.path.exists(out_file):
                 debug.error("File " + out_file + " already exists.  Cowardly refusing to overwrite it...")
-            print 'Outputting to: {0}'.format(out_file)
+            print('Outputting to: {0}'.format(out_file))
             outfd = open(out_file, 'wb')
         else:
             outfd = sys.stdout
@@ -141,7 +141,7 @@ class Command(object):
                     _a, b = x.split("_", 1)
                     result.append(b)
 
-            print "Plugin {0} is unable to produce output in format {1}. Supported formats are {2}. Please send a feature request".format(self.__class__.__name__, self._config.OUTPUT, result)
+            print("Plugin {0} is unable to produce output in format {1}. Supported formats are {2}. Please send a feature request".format(self.__class__.__name__, self._config.OUTPUT, result))
             return
 
         func(outfd, data)
@@ -284,47 +284,47 @@ class Command(object):
     def render_greptext(self, outfd, data):
         try:
             self._render(outfd, GrepTextRenderer(self.text_cell_renderers, sort_column = self.text_sort_column), data)
-        except NotImplementedError, why:
+        except NotImplementedError as why:
             debug.error(why)
-        except TypeError, why:
+        except TypeError as why:
             debug.error(why)
 
     def render_json(self, outfd, data):
         try:
             self._render(outfd, JSONRenderer(), data)
-        except NotImplementedError, why:
+        except NotImplementedError as why:
             debug.error(why)
-        except TypeError, why:
+        except TypeError as why:
             debug.error(why)
 
     def render_sqlite(self, outfd, data):
         try:
             self._render(outfd, SqliteRenderer(self.__class__.__name__, self._config), data)
-        except NotImplementedError, why:
+        except NotImplementedError as why:
             debug.error(why)
-        except TypeError, why:
+        except TypeError as why:
             debug.error(why)
 
     def render_dot(self, outfd, data):
         try:
             self._render(outfd, DotRenderer(self.text_cell_renderers, self._config), data)
-        except NotImplementedError, why:
+        except NotImplementedError as why:
             debug.error(why)
-        except TypeError, why:
+        except TypeError as why:
             debug.error(why)
 
     def render_html(self, outfd, data):
         try:
             self._render(outfd, HTMLRenderer(), data)
-        except NotImplementedError, why:
+        except NotImplementedError as why:
             debug.error(why)
-        except TypeError, why:
+        except TypeError as why:
             debug.error(why)
 
     def render_xlsx(self, outfd, data):
         try:
             self._render(outfd, XLSXRenderer(self.text_cell_renderers, self._config), data)
-        except NotImplementedError, why:
+        except NotImplementedError as why:
             debug.error(why)
-        except TypeError, why:
+        except TypeError as why:
             debug.error(why)

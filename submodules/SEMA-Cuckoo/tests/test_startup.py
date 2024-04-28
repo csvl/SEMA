@@ -108,7 +108,7 @@ def test_modules_init_once(p):
         pass
 
     l = []
-    for x in xrange(5):
+    for x in range(5):
         l.append(mock.MagicMock(__name__="name"))
 
     a, b, c, d, e = l
@@ -558,7 +558,7 @@ class TestYaraIntegration(object):
 
     @pytest.mark.xfail
     def test_unicode(self):
-        set_cwd(tempfile.mkdtemp(u"\u202e"))
+        set_cwd(tempfile.mkdtemp("\u202e"))
         cuckoo_create()
         init_yara()
         assert len(list(File.yara_rules["binaries"])) == 5
@@ -619,7 +619,7 @@ def test_tmp_permissions_false():
             }
         }
     })
-    os.chmod(dirpath, 0400)
+    os.chmod(dirpath, 0o400)
     assert not ensure_tmpdir()
 
 def test_light_startup():

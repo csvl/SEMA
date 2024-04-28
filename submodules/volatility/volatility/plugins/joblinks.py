@@ -32,9 +32,9 @@ class JobLinks(taskmods.DllList):
     """ Print process job link information"""
     def __init__(self, config, *args, **kwargs):
         taskmods.DllList.__init__(self, config, *args, **kwargs)
-        config.add_option("PHYSICAL-OFFSET", short_option = 'P', 
-                          default = False, cache_invalidator = False, 
-                          help = "Display physical offsets instead of virtual", 
+        config.add_option("PHYSICAL-OFFSET", short_option = 'P',
+                          default = False, cache_invalidator = False,
+                          help = "Display physical offsets instead of virtual",
                           action = "store_true")
 
     def unified_output(self, data):
@@ -76,9 +76,9 @@ class JobLinks(taskmods.DllList):
                     "(Original Process)"])
 
                 for item in job.ProcessListHead.list_of_type("_EPROCESS", "JobLinks"):
-                    if not self._config.PHYSICAL_OFFSET: 
-                        offset = item.obj_offset    
-                    else:       
+                    if not self._config.PHYSICAL_OFFSET:
+                        offset = item.obj_offset
+                    else:
                         offset = item.obj_vm.vtop(item.obj_offset)
                     path = str(item.ImageFileName)
                     if item.Peb:
@@ -114,7 +114,7 @@ class JobLinks(taskmods.DllList):
                            ("Term", ">6"),
                            ("JobLink", ">8"),
                            ("Process", "")]
-                          ) 
+                          )
         for task in data:
             job = task.Job.dereference()
             if job:
@@ -137,9 +137,9 @@ class JobLinks(taskmods.DllList):
                     "(Original Process)")
 
                 for item in job.ProcessListHead.list_of_type("_EPROCESS", "JobLinks"):
-                    if not self._config.PHYSICAL_OFFSET: 
-                        offset = item.obj_offset                
-                    else:                    
+                    if not self._config.PHYSICAL_OFFSET:
+                        offset = item.obj_offset
+                    else:
                         offset = item.obj_vm.vtop(item.obj_offset)
                     self.table_row(outfd,
                         offset,

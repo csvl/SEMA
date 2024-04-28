@@ -151,7 +151,7 @@ class Win2003SP2x86(obj.Profile):
     _md_major = 5
     _md_minor = 2
     # This is a fake build number. See the comment in Win2003SP0x86
-    _md_build = 3791 
+    _md_build = 3791
     _md_memory_model = '32bit'
     _md_vtype_module = 'volatility.plugins.overlays.windows.win2003_sp2_x86_vtypes'
     _md_product = ["NtProductLanManNt", "NtProductServer"]
@@ -184,4 +184,3 @@ class WinXPSP1x64(Win2003SP1x64):
 class WinXPSP2x64(Win2003SP2x64):
     """ A Profile for Windows XP SP2 x64 """
     _md_product = ["NtProductWinNt"]
-

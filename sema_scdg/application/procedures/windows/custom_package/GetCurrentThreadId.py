@@ -1,5 +1,5 @@
 import angr
-from angr.sim_type import SimTypeNum 
+from angr.sim_type import SimTypeNum
 
 class GetCurrentThreadId(angr.SimProcedure):
     def run(self):

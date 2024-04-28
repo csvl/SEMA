@@ -64,7 +64,7 @@ class GraphBuilder:
     def __set_graph_parameters(self, mapping, odir, family):
         """
         Set parameters for the next graph to be built.
-        
+
         Args:
             mapping: Name of the file for the mapping to use.
             odir: Output directory for the graph.
@@ -123,11 +123,11 @@ class GraphBuilder:
                 self.id_map = self.id_map + 1
         except:
             pass # todo
-        
+
     def build(self, stashes_content, mapping, odir, family):
         """
         Build the system call dependency graph using the list representing the syscalls and the mapping.
-        
+
         Args:
             stashes_content: Content of the stashes.
             mapping: Name of the file for the mapping to use.
@@ -139,7 +139,7 @@ class GraphBuilder:
             self.__build_graph(stashes_content, graph_output="gs")
             self.__build_graph(stashes_content, graph_output="json", gv = False)
         else :
-            self.__build_graph(stashes_content, graph_output=self.graph_output)        
+            self.__build_graph(stashes_content, graph_output=self.graph_output)
 
 
     def __build_links(self, trace, graph, dico={}):
@@ -188,7 +188,7 @@ class GraphBuilder:
                 self.id = self.id + 1
         self.__update_trace(contribution)
         return dico
-    
+
     def __update_trace(self, contribution):
         """
         Update trace metrics based on the contribution.

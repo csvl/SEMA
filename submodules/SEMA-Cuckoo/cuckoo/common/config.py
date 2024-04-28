@@ -3,7 +3,7 @@
 # This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
 # See the file 'docs/LICENSE' for copying permission.
 
-import ConfigParser
+import configparser
 import click
 import os
 import logging
@@ -41,10 +41,10 @@ class Int(Type):
     """Integer Type Definition class."""
 
     def parse(self, value):
-        if isinstance(value, (int, long)):
+        if isinstance(value, int):
             return value
 
-        if isinstance(value, basestring) and value.isdigit():
+        if isinstance(value, str) and value.isdigit():
             return int(value)
 
     def check(self, value):
@@ -70,7 +70,7 @@ class String(Type):
         if self.allow_empty and not value:
             return True
 
-        return isinstance(value, basestring)
+        return isinstance(value, str)
 
     def emit(self, value):
         return value or ""
@@ -936,23 +936,23 @@ class Config(object):
         @param cfg: configuration file path.
         """
         env = {}
-        for key, value in os.environ.items():
+        for key, value in list(os.environ.items()):
             if key.startswith("CUCKOO_"):
                 env[key] = value
 
         env["CUCKOO_CWD"] = cwd()
         env["CUCKOO_APP"] = os.environ.get("CUCKOO_APP", "")
-        config = ConfigParser.ConfigParser(env)
+        config = configparser.ConfigParser(env)
 
         self.env_keys = []
-        for key in env.keys():
+        for key in list(env.keys()):
             self.env_keys.append(key.lower())
 
         self.sections = {}
 
         try:
             config.read(cfg or cwd("conf", "%s.conf" % file_name))
-        except ConfigParser.ParsingError as e:
+        except configparser.ParsingError as e:
             raise CuckooConfigurationError(
                 "There was an error reading in the $CWD/conf/%s.conf "
                 "configuration file. Most likely there are leading "
@@ -975,7 +975,7 @@ class Config(object):
 
             try:
                 items = config.items(section)
-            except ConfigParser.InterpolationMissingOptionError as e:
+            except configparser.InterpolationMissingOptionError as e:
                 log.error("Missing environment variable(s): %s", e)
                 raise CuckooConfigurationError(
                     "Missing environment variable: %s" % e
@@ -1062,12 +1062,12 @@ class Config(object):
             )
 
             ret[config_name] = {}
-            for section, values in cfg.sections.items():
+            for section, values in list(cfg.sections.items()):
                 ret[config_name][section] = {}
                 types = cfg.get_section_types(
                     config_name, section, loose=loose
                 ) or {}
-                for key, value in values.items():
+                for key, value in list(values.items()):
                     if sanitize and key in types and types[key].sanitize:
                         value = "*"*8
 

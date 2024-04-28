@@ -19,7 +19,7 @@ class GetModuleHandleW(angr.SimProcedure):
 
     def run(self, lib_ptr):
         call_sim = WindowsSimProcedure()
-            
+
         if lib_ptr.symbolic:
             lw.debug("Symbolic lib")
             return self.state.solver.BVS(

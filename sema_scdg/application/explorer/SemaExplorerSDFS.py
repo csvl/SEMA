@@ -34,7 +34,7 @@ class SemaExplorerSDFS(SemaExplorer):
     def config_logger(self):
         self.log_level = log_level
         self.log = log
-        
+
     def execute_concretely(self, simgr, proj, sdfs):
         if len(simgr.stashes["ExcessLoop"]) > 0:
             state = simgr.stashes["ExcessLoop"][0]
@@ -67,7 +67,7 @@ class SemaExplorerSDFS(SemaExplorer):
             simgr.remove_technique(tech)
             simgr.use_technique(sdfs)
             exploration = simgr.run()
-            
+
     def step(self, simgr, stash="active", **kwargs):
         try:
             simgr = simgr.step(stash=stash, **kwargs)
@@ -90,7 +90,7 @@ class SemaExplorerSDFS(SemaExplorer):
 
         if len(self.fork_stack) > 0:
             self.log.info("fork_stack : " + str(len(self.fork_stack)) + " " + hex(simgr.active[0].addr) + " " + hex(simgr.active[1].addr))
-        
+
         simgr.move("active", "found", lambda s: s.addr == self.find)
 
         # We detect fork for a state
@@ -101,9 +101,9 @@ class SemaExplorerSDFS(SemaExplorer):
 
         # Manage ended state
         super().manage_deadended(simgr)
-        
+
         #super().execute_concretely(simgr, self.proj, self)
-            
+
         # If limit of simultaneous state is not reached and we have some states available in pause stash
         if len(simgr.stashes["pause"]) > 0 and len(simgr.active) < self.max_simul_state:
             moves = min(
@@ -112,7 +112,7 @@ class SemaExplorerSDFS(SemaExplorer):
             )
             for m in range(moves):
                 super().take_longuest(simgr, "pause")
-        
+
         super().drop_excessed_loop(simgr)
 
         # If states end with errors, it is often worth investigating. Set DEBUG_ERROR to live debug
@@ -123,11 +123,11 @@ class SemaExplorerSDFS(SemaExplorer):
 
         for vis in simgr.active:
             self.dict_addr_vis.add(str(super().check_constraint(vis, vis.history.jump_target)))
-            
+
         super().excessed_step_to_active(simgr)
 
         super().excessed_loop_to_active(simgr)
 
         super().time_evaluation(simgr)
-        
+
         return simgr

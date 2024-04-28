@@ -13,7 +13,7 @@ import glob
 
 
 import json
-import os 
+import os
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
@@ -21,7 +21,7 @@ try:
     from clogging.CustomFormatter import CustomFormatter
 except:
     from ...clogging.CustomFormatter import CustomFormatter
-       
+
 
 class DLDataset(torch.utils.data.Dataset):
     def __init__(self, rootpath:str, mappath:str, apipath:str,vector_size:int):
@@ -45,10 +45,10 @@ class DLDataset(torch.utils.data.Dataset):
             dirname,name = self.get_label(fname)
             self.data.append((fname,dirname))
             classes.add(dirname)
-            
+
         self._classes = sorted(list(classes))
         self.load_data()
-        
+
     def load_data(self):
         self.log.info(f"Loading data from {self.rootdir}")
         bar = progressbar.ProgressBar(max_value=len(self.data))
@@ -63,7 +63,7 @@ class DLDataset(torch.utils.data.Dataset):
             seq = torch.from_numpy(seq).float()
             self.seq_data.append(seq.to(device))
             bar.update(index+1)
-        bar.finish()    
+        bar.finish()
         self.data= data
         self.y = np.zeros((len(self.data), len(self._classes)))
         for index in range(len(self.data)):
@@ -72,14 +72,14 @@ class DLDataset(torch.utils.data.Dataset):
                 l = self._classes.index(label)
                 self.y[index][l] = 1.0
         self.y = torch.from_numpy(self.y).float().to(device)
-    
+
     def __getitem__(self, index:int):
         if index < len(self.data) and index >=0:
             return self.seq_data[index].view(1,-1, self.vector_size*2), self.y[index].view(1,-1),self.data[index]
-        
+
     def __len__(self):
         return len(self.data)
-    
+
     def read_map(self,fname):
         f =open(fname)
         apimap = list()
@@ -95,7 +95,7 @@ class DLDataset(torch.utils.data.Dataset):
         dirname = os.path.basename(os.path.dirname(fname))
         dname = dirname.split("_")[0]
         return dname, name
-        
+
     def init_vector_model(self,vector_size =10, apiname = "APInameseq.txt",mappath = "mapping.txt"):
         model = self.api2vector(apiname,vector_size) # os.path.join(dir_path, apiname)
         apimap = self.read_map(mappath) #os.path.join(dir_path, mappath)
@@ -130,7 +130,7 @@ class DLDataset(torch.utils.data.Dataset):
             v+=wv[traces[i]]
         v = v/len(traces)
         return v
-        
+
     def gs2seqvector(self,fname,apimap,wv):
         G= self.read_gs(fname)
         seq = None
@@ -175,7 +175,7 @@ class DLDataset(torch.utils.data.Dataset):
             G.append((V,E))
         f.close()
         return G
-        
+
     def encode_gs(self,E,V):
         code = list()
         for v1,v2 in E:
@@ -183,7 +183,7 @@ class DLDataset(torch.utils.data.Dataset):
             x = np.array(list(c))
             code.append((x=='1').astype(float))
         return np.array(code)
-        
+
     @property
     def classes(self):
         return self._classes
@@ -201,4 +201,3 @@ class DLDataset(torch.utils.data.Dataset):
             y = self.target_transform(idx)
             return seq.reshape(1,-1, self.vector_size), y.reshape(1,-1)
     """
-        

@@ -75,7 +75,7 @@ class VolatilityAPI(object):
         self.osprofile = osprofile
         self.config = None
         self.addr_space = None
-        self.profiles = registry.get_plugin_classes(obj.Profile).keys()
+        self.profiles = list(registry.get_plugin_classes(obj.Profile).keys())
         self.init_config()
 
     def get_dtb(self):
@@ -138,7 +138,7 @@ class VolatilityAPI(object):
             "write": False
         }
 
-        for key, value in base_conf.items():
+        for key, value in list(base_conf.items()):
             self.config.update(key, value)
 
         # Deal with Volatility support for KVM/qemu memory dump.
@@ -726,7 +726,7 @@ class VolatilityAPI(object):
 
             # For each base address with a mapped file, print info on
             # the other PEB lists to spot discrepancies.
-            for base in mapped_files.keys():
+            for base in list(mapped_files.keys()):
                 # Does the base address exist in the PEB DLL lists?
                 load_mod = inloadorder.get(base, None)
                 init_mod = ininitorder.get(base, None)
@@ -1046,7 +1046,7 @@ class VolatilityManager(object):
         """Filter out masked stuff. Keep tainted stuff."""
         new = {}
 
-        for akey in old.keys():
+        for akey in list(old.keys()):
             new[akey] = {"config": old[akey]["config"], "data": []}
             do_filter = config("memory:%s:filter" % akey)
             new[akey]["config"]["filter"] = do_filter

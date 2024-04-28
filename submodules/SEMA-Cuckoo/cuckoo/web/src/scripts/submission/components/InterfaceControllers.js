@@ -71,7 +71,7 @@ class UserInputView {
 	setupModel(model) {
 
 		if(!this.model) {
-			this.model = model;	
+			this.model = model;
 		}  else {
 			for(var prop in model) {
 				this.model[prop] = model[prop];
@@ -168,10 +168,10 @@ class UserInputController {
 
 	trigger(event, data) {
 		let self = this;
-		if(!this.events.hasOwnProperty(event)) return;	
+		if(!this.events.hasOwnProperty(event)) return;
 		this.events[event].forEach(function(fn) {
 			fn.call(self, data);
-		});	
+		});
 
 		return this;
 	}
@@ -302,7 +302,7 @@ class TopSelect extends UserInputController {
 		// hook up interaction things
 		this.view.afterRender(function(controller) {
 
-			// this = html	
+			// this = html
 			// controller = interface base controller
 
 			$(this).find('input:radio').bind('change', function(e) {
@@ -432,7 +432,7 @@ class ToggleList extends UserInputController {
 			});
 
 			if(self.config.extraOptions) {
-				self.initialiseExtraOptions();	
+				self.initialiseExtraOptions();
 			}
 
 			self.initialised = true;
@@ -447,7 +447,7 @@ class ToggleList extends UserInputController {
 		this.value[name] = val;
 
 		if(this.initialised) {
-			this.trigger('change', this.getValue());	
+			this.trigger('change', this.getValue());
 		}
 	}
 
@@ -606,10 +606,10 @@ class Form {
 
 		let self = this;
 
-		if(!this.events.hasOwnProperty(event)) return;	
+		if(!this.events.hasOwnProperty(event)) return;
 		this.events[event].forEach(function(fn) {
 			fn.call(self, data);
-		});	
+		});
 
 		return this;
 	}
@@ -629,12 +629,12 @@ class Form {
 			});
 		} else {
 			if(element instanceof UserInputController || element instanceof Split) {
-				this.fields[element.name] = element;	
+				this.fields[element.name] = element;
 				this.fields[element.name].form = this;
 
-				// this hooks a callback listener to a change event 
+				// this hooks a callback listener to a change event
 				// from an included field. if it triggers, it will trigger
-				// the form 'change' event. 
+				// the form 'change' event.
 				element.on('change', function() {
 					self.trigger('change', self.serialize());
 				});
@@ -690,7 +690,7 @@ class Form {
 				});
 			}
 		}
-		
+
 		return ret;
 	}
 

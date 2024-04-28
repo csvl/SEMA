@@ -18,7 +18,7 @@ class GetUserDefaultLCID(angr.SimProcedure):
         # # Set the return value
         # self.state.memory.store(
         #     self.arg(0),
-            
+
         # )
         # self.state.globals['last_error'] = 0
         return claripy.BVV(lcid_int, self.state.arch.bits)

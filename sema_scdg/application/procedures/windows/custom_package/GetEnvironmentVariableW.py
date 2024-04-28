@@ -26,8 +26,8 @@ class GetEnvironmentVariableW(GetEnvironmentVariableA):
                 ret = ret.encode("utf-16-le")
         else:
             ret = None
-            if self.state.has_plugin("plugin_env_var") : 
+            if self.state.has_plugin("plugin_env_var") :
                 self.state.plugin_env_var.env_var[name] = None
-        if self.state.has_plugin("plugin_env_var") : 
+        if self.state.has_plugin("plugin_env_var") :
             self.state.plugin_env_var.env_var_requested[name] = ret
         return ret

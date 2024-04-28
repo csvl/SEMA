@@ -6,7 +6,7 @@ import pandas as pd
 class classifier():
     def __init__(self,name):
         self.name = name
-        
+
     # Classify malware use the model
     # in : path = list of samples to classify
     def classify(data):
@@ -14,12 +14,12 @@ class classifier():
     # Train the model
     def train(path):
         pass
-        
+
 
 class Gspan_classifier(classifier):
     def __init__(self,path,threshold=0.45):
         super().__init__('Gspan')
-        
+
         if '/' not in path:
             path = path +'/'
         self.path_sig = path+'sig/'
@@ -30,7 +30,7 @@ class Gspan_classifier(classifier):
         self.class_only = True
         self.predictions = []
         self.predictions_clean = []
-        
+
         try:
             os.mkdir(path)
             os.mkdir(self.path_sig)
@@ -38,30 +38,30 @@ class Gspan_classifier(classifier):
             os.mkdir(self.path_clean)
         except:
             pass
-        
-        
+
+
     def add_clean(self,path):
         for clean_file in glob.glob(path+"/*") :
-            name = clean_file.split("/")[-1]        
+            name = clean_file.split("/")[-1]
             os.system("cp "+clean_file+" "+self.path_clean+name)
-            
-            
+
+
     def train(self,path):
-        
+
         # Go through each directory
         for family_dir in glob.glob(path+"/*"):
-            
+
             family_name = family_dir.split('/')[-1].split('_')[0]
             print(family_name)
             self.family.append(family_name)
             graph_test = random.sample(glob.glob(family_dir+"/*"), (len(glob.glob(family_dir+"/*"))//4)+1)
-            
+
             id_graph = 0
             res = open(self.path_sig+family_name+'_merge.gs','w')
             out_name = self.path_sig+family_name+'_sig.gs'
             os.mkdir(self.path_test+family_name)
             for malware_file in glob.glob(family_dir+"/*") :
-                
+
                 if malware_file in graph_test:
                     os.system("cp "+malware_file+" "+self.path_test+family_name)
                 else :
@@ -77,13 +77,13 @@ class Gspan_classifier(classifier):
                     f.close()
             res.close()
             os.system('build/gspan --input_file '+self.path_sig+family_name+'_merge.gs'+' --output_file '+out_name+' --pattern --biggest_subgraphs 5 --threads 5 --timeout 1 --support 0.75')
-            
+
             #We know have /sig feed with merge of .gs  and /test with some samples
-            
-                               
+
+
             files = []
             for i in range(5):
-                if os.path.isfile(out_name+'.t'+str(i)):        
+                if os.path.isfile(out_name+'.t'+str(i)):
                     file = open(out_name+'.t'+str(i),'r')
                     files.append(file)
 
@@ -120,7 +120,7 @@ class Gspan_classifier(classifier):
                 sig.write(''.join(l for l in buf_temp_f[id_max]))
                 len_file[id_max] = -1
             sig.close()
-        
+
     def evaluate(self):
         predictions = []
         for family in self.family:
@@ -129,19 +129,19 @@ class Gspan_classifier(classifier):
             for test_input in glob.glob(self.path_test+family+'/*'):
                 score = []
                 fam_tar = []
-               
+
                 #Iterate through signature to test in order to classify samples
                 for signature in glob.glob(self.path_sig+'*_sig.gs'):
-                    
+
                     try:
                         sim = self._calculate_sim(test_input,signature)
                         score.append(sim)
                     except:
                         score.append(0)
-                    
+
                     #fam_tar.append(re.findall(r"(?<=\/).*(?=_)",signature.split('/')[-1])[0])
                     fam_tar.append(signature.split('/')[-1].split('_')[0])
-                
+
                 max_score = [i for i, x in enumerate(score) if x == max(score)]
                 print(max_score)
                 print(score)
@@ -164,16 +164,16 @@ class Gspan_classifier(classifier):
             fam_tar = []
             #Iterate through signature to test in order to classify samples
             for signature in glob.glob(self.path_sig+'*_sig.gs'):
-                
+
                 try:
                     sim = self._calculate_sim(test_input,signature)
                     score.append(sim)
                 except:
                     score.append(0)
-                
+
                 #fam_tar.append(re.findall(r"(?<=\/).*(?=_)",signature.split('/')[-1])[0])
                 fam_tar.append(signature.split('/')[-1].split('_')[0])
-            
+
             max_score = [i for i, x in enumerate(score) if x == max(score)]
             print(max_score)
             print(score)
@@ -186,7 +186,7 @@ class Gspan_classifier(classifier):
                 predictions.append(["clean","clean",score[max_score[0]]])
         self.predictions_clean = predictions
         return predictions
-    
+
     def _calculate_sim(self,in_file,sig):
         N_GRAPH = 5
         tab_similarity = [0 for index in range(N_GRAPH)]
@@ -244,7 +244,7 @@ class Gspan_classifier(classifier):
                 else :
                     pass
             len_edges.append(0)
-            
+
 
 
             res2.close()
@@ -261,28 +261,28 @@ class Gspan_classifier(classifier):
             os.remove('temp.gs')
             os.remove('temp2.gs.t0')
             return max(tab_similarity)
-    
+
 
     def get_stat_classifier(self,target='class'):
-        
+
         if target == 'class' and not self.predictions:
             print('Need to classify first\n')
             return
         elif target == 'detect' and not self.predictions_clean:
             print('Need to classify cleanwares first\n')
-            return    
+            return
         elif target not in ['class','clean']:
             print('Not valid target\n')
             return
         else :
             pass
-        
+
         dico ={self.family[i]: i for i in range(len(self.family))}
         sample_per_family = [0 for i in range(len(self.family))]
         tp = [0 for i in range(len(self.family))]
         fp = [0 for i in range(len(self.family))]
         conf_matrix = [[0 for i in range(len(self.family))] for i in range(len(self.family))]
-        
+
         for i in range(len(self.predictions)):
             tab = self.predictions[i]
             sample_per_family[dico[tab[1]]] += 1
@@ -291,7 +291,7 @@ class Gspan_classifier(classifier):
             else :
                 fp[dico[tab[0]]] += 1
             conf_matrix[dico[tab[1]]][dico[tab[0]]] += 1
-        
+
         total_sample = sum(sample_per_family)
         precision = []
         recall = []
@@ -302,7 +302,7 @@ class Gspan_classifier(classifier):
                 precision = precision + [0]
             if sample_per_family[i] !=0:
                 recall = recall + [(tp[i]/sample_per_family[i])*sample_per_family[i]/total_sample]
-            else : 
+            else :
                 recall = recall + [0]
         precision = sum(precision)
         recall = sum(recall)
@@ -310,7 +310,7 @@ class Gspan_classifier(classifier):
         print("Precision obtained : "+str(precision))
         print("Recall obtained : "+str(recall))
         print("Fscore obtained : "+str(fscore))
-        
+
         figsize = (10,7)
         fontsize=9
         fig = plt.figure(figsize=figsize)
@@ -324,4 +324,3 @@ class Gspan_classifier(classifier):
         plt.ylabel('True label')
         plt.xlabel('Predicted label')
         plt.show()
-

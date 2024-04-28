@@ -21,7 +21,7 @@ var Guacamole = Guacamole || {};
 
 /**
  * Abstract stream which can receive data.
- * 
+ *
  * @constructor
  * @param {Guacamole.Client} client The client owning this stream.
  * @param {Number} index The index of this stream.
@@ -43,7 +43,7 @@ Guacamole.OutputStream = function(client, index) {
     /**
      * Fired whenever an acknowledgement is received from the server, indicating
      * that a stream operation has completed, or an error has occurred.
-     * 
+     *
      * @event
      * @param {Guacamole.Status} status The status of the operation.
      */
@@ -51,7 +51,7 @@ Guacamole.OutputStream = function(client, index) {
 
     /**
      * Writes the given base64-encoded data to this stream as a blob.
-     * 
+     *
      * @param {String} data The base64-encoded data to send.
      */
     this.sendBlob = function(data) {

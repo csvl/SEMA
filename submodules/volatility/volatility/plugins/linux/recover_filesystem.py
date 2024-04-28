@@ -22,7 +22,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import os
@@ -41,36 +41,36 @@ class linux_recover_filesystem(linux_common.AbstractLinuxCommand):
 
     def _fix_metadata(self, file_path, file_dentry):
         inode = file_dentry.d_inode
-        
+
         if inode and inode.is_valid():
             ents = file_path.split("/")
             out_path = os.path.join(self._config.DUMP_DIR, *ents)
 
-            os.chmod(out_path, inode.i_mode & 00777)
+            os.chmod(out_path, inode.i_mode & 0o0777)
             os.chown(out_path, inode.uid, inode.gid)
             os.utime(out_path, (inode.i_atime.tv_sec, inode.i_mtime.tv_sec))
 
     def _write_file(self, ff, file_path, file_dentry):
         inode = file_dentry.d_inode
-        
+
         if inode and inode.is_valid() and not inode.is_dir():
             ents = file_path.split("/")
             out_path = os.path.join(self._config.DUMP_DIR, *ents)
 
             try:
                 fd = open(out_path, "wb")
-            except IOError, e:
+            except IOError as e:
                 debug.warning("Unable to process file: %s : %s" % (out_path, str(e)))
                 return
-                
+
             for page in ff.get_file_contents(inode):
-                fd.write(page)  
-            
+                fd.write(page)
+
             fd.close()
-            
+
     def _make_path(self, file_path, file_dentry):
         inode = file_dentry.d_inode
-        
+
         if inode.is_dir():
             ents = file_path.split("/")
         else:
@@ -85,7 +85,7 @@ class linux_recover_filesystem(linux_common.AbstractLinuxCommand):
 
     def calculate(self):
         linux_common.set_plugin_members(self)
-        
+
         num_files = 0
 
         if (not self._config.DUMP_DIR or not os.path.isdir(self._config.DUMP_DIR)):
@@ -103,6 +103,5 @@ class linux_recover_filesystem(linux_common.AbstractLinuxCommand):
         yield num_files
 
     def render_text(self, outfd, data):
-        for (num_files) in data: 
+        for (num_files) in data:
             outfd.write("Recovered %d files\n" % num_files)
-

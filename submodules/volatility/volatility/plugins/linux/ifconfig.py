@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.plugins.linux.common as linux_common
@@ -56,7 +56,7 @@ class linux_ifconfig(linux_common.AbstractLinuxCommand):
         promisc  = str(net_dev.promisc)
 
         in_dev = obj.Object("in_device", offset = net_dev.ip_ptr, vm = self.addr_space)
-        
+
         for dev in in_dev.devices():
             ip_addr = dev.ifa_address.cast('IpAddress')
             name    = dev.ifa_label
@@ -71,14 +71,14 @@ class linux_ifconfig(linux_common.AbstractLinuxCommand):
 
         elif self.addr_space.profile.get_symbol("dev_base"):
             func = self._get_devs_base
-   
+
         else:
             debug.error("Unable to determine ifconfig information")
- 
+
         for net_dev in func():
             for (name, ip_addr, mac_addr, promisc) in self._gather_net_dev_info(net_dev):
-                yield (name, ip_addr, mac_addr, promisc) 
-        
+                yield (name, ip_addr, mac_addr, promisc)
+
     def unified_output(self, data):
         return TreeGrid([("Interface", str),
                        ("IP", str),

@@ -19,7 +19,7 @@ class MultiByteToWideChar(angr.SimProcedure):
     ):
         CodePage = self.state.solver.eval(CodePage)
         cchWideChar = self.state.solver.eval(cchWideChar)
-        
+
         if CodePage == 0xfdea:
             try:
                 string = self.state.mem[lpMultiByteStr].wstring.concrete
@@ -33,7 +33,7 @@ class MultiByteToWideChar(angr.SimProcedure):
             except:
                 lw.warning("Cannot resolve lpMultiByteStr")
                 return 0
-        
+
         length = len(string) + 1
         if cchWideChar == 0:
             return length

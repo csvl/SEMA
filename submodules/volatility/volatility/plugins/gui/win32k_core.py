@@ -34,8 +34,8 @@ class _MM_SESSION_SPACE(obj.CType):
     """A class for session spaces"""
 
     def processes(self):
-        """Generator for processes in this session. 
-    
+        """Generator for processes in this session.
+
         A process is always associated with exactly
         one session.
         """
@@ -46,95 +46,95 @@ class _MM_SESSION_SPACE(obj.CType):
 
     @property
     def Win32KBase(self):
-        """Get the base address of the win32k.sys as mapped 
-        into this session's memory. 
+        """Get the base address of the win32k.sys as mapped
+        into this session's memory.
 
-        Since win32k.sys is always the first image to be 
+        Since win32k.sys is always the first image to be
         mapped, we can just grab the first list entry.
 
         Update: we no longer use the session image list, because
         it seems to have gone away in Win8/2012."""
-        
+
         for mod in modules.lsmod(self.obj_vm):
             if str(mod.BaseDllName or '').lower() == "win32k.sys":
                 return mod.DllBase
         return obj.Object("Cannot find win32k.sys base address")
 
     def images(self):
-        """Generator for images (modules) loaded into 
+        """Generator for images (modules) loaded into
         this session's space"""
 
         metadata = self.obj_vm.profile.metadata
         version = (metadata.get("major", 0), metadata.get("minor", 0))
 
         if version >= (6, 2):
-            raise StopIteration 
+            raise StopIteration
         else:
             for i in self.ImageList.list_of_type("_IMAGE_ENTRY_IN_SESSION", "Link"):
                 yield i
 
     def _section_chunks(self, sec_name):
-        """Get the win32k.sys section as an array of 
-        32-bit unsigned longs. 
+        """Get the win32k.sys section as an array of
+        32-bit unsigned longs.
 
-        @param sec_name: name of the PE section in win32k.sys 
-        to search for. 
+        @param sec_name: name of the PE section in win32k.sys
+        to search for.
 
-        @returns all chunks on a 4-byte boundary. 
+        @returns all chunks on a 4-byte boundary.
         """
-        
+
         dos_header = obj.Object("_IMAGE_DOS_HEADER",
                 offset = self.Win32KBase, vm = self.obj_vm)
-                
+
         if dos_header:
             try:
                 nt_header = dos_header.get_nt_header()
-        
+
                 sections = [
                     sec for sec in nt_header.get_sections()
                     if str(sec.Name) == sec_name
                     ]
-        
-                # There should be exactly one section 
+
+                # There should be exactly one section
                 if sections:
                     desired_section = sections[0]
                     return obj.Object("Array", targetType = "unsigned long",
-                                        offset = desired_section.VirtualAddress + dos_header.obj_offset, 
-                                        count = desired_section.Misc.VirtualSize / 4, 
+                                        offset = desired_section.VirtualAddress + dos_header.obj_offset,
+                                        count = desired_section.Misc.VirtualSize / 4,
                                         vm = self.obj_vm)
             except ValueError:
-                ## This catches PE header parsing exceptions 
+                ## This catches PE header parsing exceptions
                 pass
-                
+
         ## Don't try to read an address that doesn't exist
         if not self.Win32KBase:
             return []
 
         ## In the rare case when win32k.sys PE header is paged or corrupted
         ## thus preventing us from parsing the sections, use the fallback
-        ## mechanism of just reading 5 MB (max size of win32k.sys) from the 
-        ## base of the kernel module. 
-        data = self.obj_vm.zread(self.Win32KBase, 0x500000) 
-        
+        ## mechanism of just reading 5 MB (max size of win32k.sys) from the
+        ## base of the kernel module.
+        data = self.obj_vm.zread(self.Win32KBase, 0x500000)
+
         ## Fill a Buffer AS with the zread data and set its base to win32k.sys
-        ## so we can still instantiate an Array and have each chunk at the 
+        ## so we can still instantiate an Array and have each chunk at the
         ## correct offset in virtual memory.
-        buffer_as = addrspace.BufferAddressSpace(conf.ConfObject(), 
-                                            data = data, 
+        buffer_as = addrspace.BufferAddressSpace(conf.ConfObject(),
+                                            data = data,
                                             base_offset = self.Win32KBase)
-                            
-        return obj.Object("Array", targetType = "unsigned long", 
-                          offset = self.Win32KBase, 
-                          count = len(data) / 4, 
+
+        return obj.Object("Array", targetType = "unsigned long",
+                          offset = self.Win32KBase,
+                          count = len(data) / 4,
                           vm = buffer_as)
 
     def find_gahti(self):
-        """Find this session's gahti. 
+        """Find this session's gahti.
 
-        This can potentially be much faster by searching for 
-        '\0' * sizeof(tagHANDLETYPEINFO) instead 
+        This can potentially be much faster by searching for
+        '\0' * sizeof(tagHANDLETYPEINFO) instead
         of moving on a dword aligned boundary through
-        the section. 
+        the section.
         """
 
         for chunk in self._section_chunks(".rdata"):
@@ -146,10 +146,10 @@ class _MM_SESSION_SPACE(obj.CType):
 
             ## The sanity check here is based on the fact that the first entry
             ## in the gahti is always for TYPE_FREE. The fnDestroy pointer will
-            ## be NULL, the alloc tag will be an empty string, and the creation 
+            ## be NULL, the alloc tag will be an empty string, and the creation
             ## flags will be zero. We also then check the alloc tag of the first
-            ## USER handle type which should be Uswd (TYPE_WINDOW). 
-            ## Update: fnDestroy is no longer NULL for TYPE_FREE on Win8/2012. 
+            ## USER handle type which should be Uswd (TYPE_WINDOW).
+            ## Update: fnDestroy is no longer NULL for TYPE_FREE on Win8/2012.
             if  (str(gahti.types[0].dwAllocTag) == '' and
                     gahti.types[0].bObjectCreateFlags == 0 and
                     str(gahti.types[1].dwAllocTag) == "Uswd"):
@@ -158,22 +158,22 @@ class _MM_SESSION_SPACE(obj.CType):
         return obj.NoneObject("Cannot find win32k!_gahti")
 
     def find_shared_info(self):
-        """Find this session's tagSHAREDINFO structure. 
+        """Find this session's tagSHAREDINFO structure.
 
-        This structure is embedded in win32k's .data section, 
-        (i.e. not in dynamically allocated memory). Thus we 
-        iterate over each DWORD-aligned possibility and treat 
-        it as a tagSHAREDINFO until the sanity checks are met. 
+        This structure is embedded in win32k's .data section,
+        (i.e. not in dynamically allocated memory). Thus we
+        iterate over each DWORD-aligned possibility and treat
+        it as a tagSHAREDINFO until the sanity checks are met.
         """
 
         for chunk in self._section_chunks(".data"):
             # If the base of the value is paged
             if not chunk.is_valid():
                 continue
-            # Treat it as a shared info struct 
+            # Treat it as a shared info struct
             shared_info = obj.Object("tagSHAREDINFO",
                 offset = chunk.obj_offset, vm = self.obj_vm)
-            # Sanity check it 
+            # Sanity check it
             try:
                 if shared_info.is_valid():
                     return shared_info
@@ -192,7 +192,7 @@ class tagSHAREDINFO(obj.CType):
             return False
 
         # The kernel's version of tagSHAREDINFO should always have
-        # a zeroed-out shared delta member. 
+        # a zeroed-out shared delta member.
         if self.ulSharedDelta != 0:
             return False
 
@@ -200,10 +200,10 @@ class tagSHAREDINFO(obj.CType):
         if not self.psi.is_valid():
             return False
 
-        # Annoying check, but required for some samples 
+        # Annoying check, but required for some samples
         # whose psi is a valid pointer, but cbHandleTable
-        # cannot be read due to objects that cross page 
-        # boundaries. 
+        # cannot be read due to objects that cross page
+        # boundaries.
         if self.psi.cbHandleTable == None:
             return False
 
@@ -212,13 +212,13 @@ class tagSHAREDINFO(obj.CType):
 
         # The final check is that the total size in bytes of the handle
         # table is equal to the size of a _HANDLEENTRY multiplied by the
-        # number of _HANDLEENTRY structures. 
+        # number of _HANDLEENTRY structures.
         return (self.psi.cbHandleTable /
                     self.obj_vm.profile.get_obj_size("_HANDLEENTRY")
                 == self.psi.cHandleEntries)
 
     def handles(self, filters = None):
-        """Carve handles from the shared info block. 
+        """Carve handles from the shared info block.
 
         @param filters: a list of callables that perform
         checks and return True if the handle should be
@@ -236,7 +236,7 @@ class tagSHAREDINFO(obj.CType):
         for i, h in enumerate(hnds):
 
             # Sanity check the handle value if the handle Object
-            # has not been freed. 
+            # has not been freed.
             if not h.Free:
                 if h.phead.h != (h.wUniq << 16) | (0xFFFF & i):
                     continue
@@ -256,11 +256,11 @@ class _HANDLEENTRY(obj.CType):
     """A for USER handle entries"""
 
     def reference_object(self):
-        """Reference the object this handle represents. 
+        """Reference the object this handle represents.
 
         If the object's type is not in our map, we don't know
         what type of object to instantiate so its filled with
-        obj.NoneObject() instead. 
+        obj.NoneObject() instead.
         """
 
         object_map = dict(TYPE_WINDOW = "tagWND",
@@ -336,13 +336,13 @@ class tagWINDOWSTATION(obj.CType, windows.ExecutiveObjectMixin):
 
     @property
     def LastRegisteredViewer(self):
-        """The EPROCESS of the last registered 
+        """The EPROCESS of the last registered
         clipboard viewer"""
         return self.spwndClipViewer.head.pti.ppi.Process
 
     @property
     def AtomTable(self):
-        """This atom table belonging to this window 
+        """This atom table belonging to this window
         station object"""
         return self.pGlobalAtomTable.dereference_as("_RTL_ATOM_TABLE")
 
@@ -353,9 +353,9 @@ class tagWINDOWSTATION(obj.CType, windows.ExecutiveObjectMixin):
 
     @property
     def Name(self):
-        """Get the window station name. 
+        """Get the window station name.
 
-        Since window stations are securable objects, 
+        Since window stations are securable objects,
         and are managed by the same object manager as
         processes, threads, etc, there is an object
         header which stores the name.
@@ -373,7 +373,7 @@ class tagWINDOWSTATION(obj.CType, windows.ExecutiveObjectMixin):
 
         # Include this object in the results
         yield self
-        # Now walk the singly-linked list 
+        # Now walk the singly-linked list
         nextwinsta = self.rpwinstaNext.dereference()
         while nextwinsta.is_valid() and nextwinsta.v() != 0:
             yield nextwinsta
@@ -411,28 +411,28 @@ class tagDESKTOP(tagWINDOWSTATION):
     def hook_params(self):
         """ Parameters for the hooks() method.
 
-        These are split out into a function so it can be 
+        These are split out into a function so it can be
         subclassed by tagTHREADINFO.
         """
         return (self.DeskInfo.fsHooks, self.DeskInfo.aphkStart)
 
     def hooks(self):
-        """Generator for tagHOOK info. 
-        
+        """Generator for tagHOOK info.
+
         Hooks are carved using the same algorithm, but different
         starting points for desktop hooks and thread hooks. Thus
         the algorithm is presented in this function and the starting
         point is acquired by calling hook_params (which is then sub-
-        classed by tagTHREADINFO. 
+        classed by tagTHREADINFO.
         """
 
         (fshooks, aphkstart) = self.hook_params()
 
-        # Convert the WH_* index into a bit position for the fsHooks fields 
+        # Convert the WH_* index into a bit position for the fsHooks fields
         WHF_FROM_WH = lambda x: (1 << x + 1)
 
         for pos, (name, value) in enumerate(consts.MESSAGE_TYPES):
-            # Is the bit for this WH_* value set ? 
+            # Is the bit for this WH_* value set ?
             if fshooks & WHF_FROM_WH(value):
                 hook = aphkstart[pos].dereference()
                 for hook in hook.traverse():
@@ -441,8 +441,8 @@ class tagDESKTOP(tagWINDOWSTATION):
     def windows(self, win, filter = lambda x: True, level = 0): #pylint: disable-msg=W0622
         """Traverses windows in their Z order, bottom to top.
 
-        @param win: an HWND to start. Usually this is the desktop 
-        window currently in focus. 
+        @param win: an HWND to start. Usually this is the desktop
+        window currently in focus.
 
         @param filter: a callable (usually lambda) to use for filtering
         the results. See below for examples:
@@ -458,7 +458,7 @@ class tagDESKTOP(tagWINDOWSTATION):
         filter = lambda x : x.head.pti.pEThread.Cid.UniqueThread == 0x1020
 
         # only print visible windows
-        filter = lambda x : 'WS_VISIBLE' not in x.get_flags() 
+        filter = lambda x : 'WS_VISIBLE' not in x.get_flags()
         """
         seen = set()
         wins = []
@@ -471,7 +471,7 @@ class tagDESKTOP(tagWINDOWSTATION):
             cur = cur.spwndNext.dereference()
         while wins:
             cur = wins.pop()
-            if not filter(cur):
+            if not list(filter(cur)):
                 continue
 
             yield cur, level
@@ -492,7 +492,7 @@ class tagDESKTOP(tagWINDOWSTATION):
     def traverse(self):
         """Generator for next desktops in the list"""
 
-        # Include this object in the results 
+        # Include this object in the results
         yield self
         # Now walk the singly-linked list
         nextdesk = self.rpdeskNext.dereference()
@@ -535,10 +535,10 @@ class tagWND(obj.CType):
 
     def _get_flags(self, member, flags):
 
-        if flags.has_key(member):
+        if member in flags:
             return flags[member]
 
-        return ','.join([n for (n, v) in flags.items() if member & v == v])
+        return ','.join([n for (n, v) in list(flags.items()) if member & v == v])
 
     @property
     def style(self):
@@ -561,15 +561,15 @@ class tagCLIPDATA(obj.CType):
     """A class for clipboard objects"""
 
     def as_string(self, fmt):
-        """Format the clipboard data as a string. 
+        """Format the clipboard data as a string.
 
-        @param fmt: the clipboard format. 
+        @param fmt: the clipboard format.
 
         Note: we cannot simply override __str__ for this
-        purpose, because the clipboard format is not a member 
-        of (or in a parent-child relationship with) the 
-        tagCLIPDATA structure, so we must pass it in as 
-        an argument. 
+        purpose, because the clipboard format is not a member
+        of (or in a parent-child relationship with) the
+        tagCLIPDATA structure, so we must pass it in as
+        an argument.
         """
 
         if fmt == "CF_UNICODETEXT":
@@ -611,10 +611,10 @@ class tagEVENTHOOK(obj.CType):
     def dwFlags(self):
         """Event hook flags need special handling so we can't use vtypes"""
 
-        # First we shift the value 
+        # First we shift the value
         f = self.m('dwFlags') >> 1
 
-        flags = [name for (val, name) in consts.EVENT_FLAGS.items() if f & val == val]
+        flags = [name for (val, name) in list(consts.EVENT_FLAGS.items()) if f & val == val]
 
         return '|'.join(flags)
 
@@ -635,9 +635,9 @@ class _RTL_ATOM_TABLE(tagWINDOWSTATION):
 
     @property
     def NumBuckets(self):
-        """Dynamically retrieve the number of atoms in the hash table. 
+        """Dynamically retrieve the number of atoms in the hash table.
         First we take into account the offset from the current profile
-        but if it fails and the profile is Win7SP1x64 then we auto set 
+        but if it fails and the profile is Win7SP1x64 then we auto set
         it to the value found in the recently patched versions.
 
         This is a temporary fix until we have support better support
@@ -647,17 +647,17 @@ class _RTL_ATOM_TABLE(tagWINDOWSTATION):
             return self.m('NumBuckets')
 
         profile = self.obj_vm.profile
-        meta = profile.metadata 
+        meta = profile.metadata
         major = meta.get('major', 0)
         minor = meta.get('minor', 0)
         build = meta.get('build', 0)
         vers = (major, minor, build)
-        
+
         if meta.get('memory_model') != '64bit' or vers != (6, 1, 7601):
             return self.m('NumBuckets')
 
         ## its 0x58 on the patched versions and 0x18 on the non-patched versions
-        ## so we just add 0x40 here to make up the difference 
+        ## so we just add 0x40 here to make up the difference
         offset = profile.get_obj_offset("_RTL_ATOM_TABLE", "NumBuckets")
         number = obj.Object("unsigned long", offset = self.obj_offset + offset + 0x40, vm = self.obj_vm)
 
@@ -665,7 +665,7 @@ class _RTL_ATOM_TABLE(tagWINDOWSTATION):
 
     def atoms(self):
         """Carve all atoms out of this atom table"""
-        # The default hash buckets should be 0x25 
+        # The default hash buckets should be 0x25
         for bkt in self.Buckets:
             seen = []
             cur = bkt.dereference()
@@ -677,18 +677,18 @@ class _RTL_ATOM_TABLE(tagWINDOWSTATION):
                 cur = cur.HashLink.dereference()
 
     def find_atom(self, atom_to_find):
-        """Find an atom by its ID. 
+        """Find an atom by its ID.
 
         @param atom_to_find: the atom ID (ushort) to find
 
-        @returns an _RTL_ATOM_TALE_ENTRY object 
+        @returns an _RTL_ATOM_TALE_ENTRY object
         """
 
-        # Use the cached results if they exist 
+        # Use the cached results if they exist
         if self.atom_cache:
             return self.atom_cache.get(atom_to_find.v(), None)
 
-        # Build the atom cache 
+        # Build the atom cache
         self.atom_cache = dict(
                 (atom.Atom.v(), atom) for atom in self.atoms())
 
@@ -703,9 +703,9 @@ class _RTL_ATOM_TABLE_ENTRY(obj.CType):
         return self.Flags == 1
 
     def is_string_atom(self):
-        """Returns True if the atom is a string atom 
-        based on its atom ID. 
-        
+        """Returns True if the atom is a string atom
+        based on its atom ID.
+
         A string atom has ID 0xC000 - 0xFFFF
         """
         return self.Atom >= 0xC000 and self.Atom <= 0xFFFF
@@ -751,7 +751,7 @@ class Win32KCoreClasses(obj.ProfileModification):
             })
 
 class Win32KGahtiVType(obj.ProfileModification):
-    """Apply a vtype for win32k!gahti. Adjust the number of 
+    """Apply a vtype for win32k!gahti. Adjust the number of
     handles according to the OS version"""
 
     conditions = {'os': lambda x: x == 'windows'}
@@ -760,7 +760,7 @@ class Win32KGahtiVType(obj.ProfileModification):
 
         version = (profile.metadata.get('major', 0), profile.metadata.get('minor', 0))
 
-        ## Windows 7 and above 
+        ## Windows 7 and above
         if version >= (6, 1):
             num_handles = len(consts.HANDLE_TYPE_ENUM_SEVEN)
         else:
@@ -860,7 +860,7 @@ class XP2003x64TimerVType(obj.ProfileModification):
             }]})
 
 class Win32Kx86VTypes(obj.ProfileModification):
-    """Applies to all x86 windows profiles. 
+    """Applies to all x86 windows profiles.
 
     These are vtypes not included in win32k.sys PDB.
     """
@@ -902,7 +902,7 @@ class Win32Kx86VTypes(obj.ProfileModification):
         })
 
 class Win32Kx64VTypes(obj.ProfileModification):
-    """Applies to all x64 windows profiles. 
+    """Applies to all x64 windows profiles.
 
     These are vtypes not included in win32k.sys PDB.
     """
@@ -961,7 +961,3 @@ class XPx86SessionOverlay(obj.ProfileModification):
             '_MM_SESSION_SPACE': [ None, {
             'ResidentProcessCount': [ 0x248, ['long']], # nt!MiDereferenceSession
             }]})
-
-
-
-

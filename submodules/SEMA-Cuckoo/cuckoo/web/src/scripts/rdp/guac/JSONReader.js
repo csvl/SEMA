@@ -24,7 +24,7 @@ var Guacamole = Guacamole || {};
  * received blobs into a JavaScript object by appending them to each other, in
  * order, and decoding the result as JSON. Note that this object will overwrite
  * any installed event handlers on the given Guacamole.InputStream.
- * 
+ *
  * @constructor
  * @param {Guacamole.InputStream} stream
  *     The stream that JSON will be read from.
@@ -97,7 +97,7 @@ Guacamole.JSONReader = function guacamoleJSONReader(stream) {
 
     /**
      * Fired once for every blob of data received.
-     * 
+     *
      * @event
      * @param {Number} length
      *     The number of characters received.

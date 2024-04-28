@@ -13,7 +13,7 @@ class OpenreilVisFactory(object):
             vis.add_content(OpenreilAsm())
         if reilinst:
             vis.add_content(OpenreilREIL())
-        
+
         vis.add_edge_annotator(OpenreilColorEdgesAsm())
 
         return vis

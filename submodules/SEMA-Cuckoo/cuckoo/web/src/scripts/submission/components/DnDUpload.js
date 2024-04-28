@@ -42,7 +42,7 @@ class Uploader {
     constructor(options) {
 
         let _self = this;
-        
+
         this.options = $.extend({
 
             target: null,
@@ -96,15 +96,15 @@ class Uploader {
                         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="43" viewBox="0 0 50 43">
                             <path d="M48.4 26.5c-.9 0-1.7.7-1.7 1.7v11.6h-43.3v-11.6c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v13.2c0 .9.7 1.7 1.7 1.7h46.7c.9 0 1.7-.7 1.7-1.7v-13.2c0-1-.7-1.7-1.7-1.7zm-24.5 6.1c.3.3.8.5 1.2.5.4 0 .9-.2 1.2-.5l10-11.6c.7-.7.7-1.7 0-2.4s-1.7-.7-2.4 0l-7.1 8.3v-25.3c0-.9-.7-1.7-1.7-1.7s-1.7.7-1.7 1.7v25.3l-7.1-8.3c-.7-.7-1.7-.7-2.4 0s-.7 1.7 0 2.4l10 11.6z"/>
                         </svg>
-    
+
                         <input type="file" name="files[]" id="file" class="holder_input" data-multiple-caption="{count} files selected" multiple="">
                         <label for="file" id="info">
                             <strong>Choose files</strong>
                             <span class="box__dragndrop"> or drag them here</span>.
                         </label>
-    
+
                         <button type="submit" class="holder_button">Upload</button>
-    
+
                         <progress id="uploadprogress" min="0" max="100" value="0">0</progress>
                     </div>
                 </form>
@@ -191,7 +191,7 @@ class Uploader {
                 $(_self._selectors["form"]).submit();
 
             }
-            
+
         });
 
         // do our own thing when the form is submitted
@@ -240,7 +240,7 @@ class Uploader {
                     e.preventDefault();
                     var dropCallbackOutput = _self._drop_callback(_self, holder);
 
-                    // if this callback returns 'false', don't process the file directly. This 
+                    // if this callback returns 'false', don't process the file directly. This
                     // controls auto-uploading from the configuration. Developer can now
                     // embed an upload-trigger himself, if wanted.
                     if(dropCallbackOutput === false)

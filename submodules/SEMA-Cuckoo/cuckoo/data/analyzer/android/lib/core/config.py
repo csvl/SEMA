@@ -3,12 +3,12 @@
 # See the file 'docs/LICENSE' for copying permission.
 # Originally contributed by Check Point Software Technologies, Ltd.
 
-import ConfigParser
+import configparser
 
 class Config:
     def __init__(self, cfg):
         """@param cfg: configuration file."""
-        config = ConfigParser.ConfigParser(allow_no_value=True)
+        config = configparser.ConfigParser(allow_no_value=True)
         config.read(cfg)
 
         for section in config.sections():

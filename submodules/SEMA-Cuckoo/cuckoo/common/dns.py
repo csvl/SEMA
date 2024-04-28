@@ -50,7 +50,7 @@ def with_timeout(func, args=(), kwargs={}):
         def run(self):
             try:
                 self.result = func(*args, **kwargs)
-            except Exception, e:
+            except Exception as e:
                 self.error = e
 
     it = ResultThread()

@@ -15,7 +15,7 @@ class ArgumentParserClassifier:
             type=float,
             default=0.45,
         )
-        
+
         self.group_gspan = self.parser.add_argument_group('Gspan options') # TODO add description
         self.group_gspan.add_argument(
             "--biggest_subgraph",
@@ -35,7 +35,7 @@ class ArgumentParserClassifier:
             type=int,
             default=3,
         )
-        
+
         self.group_dl = self.parser.add_argument_group('Deep Learning options')
         self.group_dl.add_argument(
             "--epoch",
@@ -60,7 +60,7 @@ class ArgumentParserClassifier:
             help="Only for deep learning model: Size of the vector used (default: 4)",
             type=int,
             default=4,
-        )                            
+        )
         self.group_dl.add_argument(
             "--batch_size",
             help="Only for deep learning model: Batch size for the model (default: 1)",
@@ -74,43 +74,43 @@ class ArgumentParserClassifier:
             "--classification",
             help="By malware family",
             action="store_true",
-            
+
         )
         self.group_global_expl.add_argument(
             "--detection",
             help="Cleanware vs Malware",
             action="store_true",
-            
+
         )
-        
-        
+
+
         self.group_cl = self.parser.add_mutually_exclusive_group() # required=True
         self.group_cl.title = 'classifier_used'
         self.group_cl.add_argument(
             "--wl",
             help="TODO",
             action="store_true",
-            
+
         )
         self.group_cl.add_argument(
             "--inria",
             help="TODO",
             action="store_true",
-            
+
         )
         self.group_cl.add_argument(
             "--dl",
             help="TODO",
             action="store_true",
-            
+
         )
         self.group_cl.add_argument(
             "--gspan",
             help="TODO",
             action="store_true",
-            
+
         )
-        
+
         # TODO dynamic
         self.group_familly = self.parser.add_argument_group('Malware familly')
         self.group_familly.add_argument(
@@ -177,10 +177,10 @@ class ArgumentParserClassifier:
             "--RemcosRAT",
             action="store_false",
         )
-        
-        
+
+
         self.group = self.parser.add_argument_group('Global parameter')
-        self.group.add_argument( # TODO 
+        self.group.add_argument( # TODO
             "--verbose_classifier",
             help="Verbose output during train/classification  (default : False)",
             action="store_true",
@@ -196,8 +196,8 @@ class ArgumentParserClassifier:
             type=int,
             default=multiprocessing.cpu_count(),
         )
-        
-        self.group.add_argument("binary_signatures", 
+
+        self.group.add_argument("binary_signatures",
                                 help="Name of the folder containing binary'signatures to analyze")
 
     def update_tool(self, tcw, args):

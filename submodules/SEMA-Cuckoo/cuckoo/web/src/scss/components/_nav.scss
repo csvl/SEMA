@@ -1,17 +1,17 @@
-/* 
+/*
    Copyright (C) 2016 Cuckoo Foundation.
    This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
    see the file 'docs/LICENSE' for copying permission.
  */
 
 .nav {
-	
+
 	& > li {
 		& > a {
 			&:hover {
 				text-decoration: none;
 			    cursor:pointer;
-			    background-color: #eee;		
+			    background-color: #eee;
 
 			    &.btn-primary {
 					background-color: #337ab7;
@@ -27,8 +27,8 @@
 		&:focus,
 		&:hover {
 			color: #4c4c4c;
-    		background-color: #eee;		
+    		background-color: #eee;
 		}
 	}
-	
+
 }

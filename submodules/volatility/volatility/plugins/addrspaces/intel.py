@@ -117,16 +117,16 @@ class IA32PagedMemory(paged.AbstractWritablePagedMemory):
 
     def is_writeable(self, entry):
         return entry & (1 << 1) == (1 << 1)
-        
+
     def is_dirty(self, entry):
         return entry & (1 << 6) == (1 << 6)
-        
+
     def is_nx(self, entry):
         return False
-        
+
     def is_accessed(self, entry):
         return entry & (1 << 5) == (1 << 5)
-        
+
     def is_copyonwrite(self, entry):
         return entry & (1 << 9) == (1 << 9)
 
@@ -188,7 +188,7 @@ class IA32PagedMemory(paged.AbstractWritablePagedMemory):
             entry = self.read_long_phys(pgd_curr)
             pgd_curr = pgd_curr + 4
             if self.entry_present(entry) and self.page_size_flag(entry):
-                if with_pte: 
+                if with_pte:
                     yield (entry, start, 0x400000)
                 else:
                     yield (start, 0x400000)
@@ -198,7 +198,7 @@ class IA32PagedMemory(paged.AbstractWritablePagedMemory):
                     pte_entry = self.read_long_phys(pte_curr)
                     pte_curr = pte_curr + 4
                     if self.entry_present(pte_entry):
-                        if with_pte: 
+                        if with_pte:
                             yield (pte_entry, start + j * 0x1000, 0x1000)
                         else:
                             yield (start + j * 0x1000, 0x1000)

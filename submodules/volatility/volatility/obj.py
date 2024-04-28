@@ -29,11 +29,12 @@
 
 #pylint: disable-msg=C0111,W0613
 import sys
+from functools import reduce
 if __name__ == '__main__':
     sys.path.append(".")
     sys.path.append("..")
 
-import cPickle as pickle # pickle implementation must match that in volatility.cache
+import pickle as pickle # pickle implementation must match that in volatility.cache
 import struct, copy, operator
 import volatility.debug as debug
 import volatility.fmtspec as fmtspec
@@ -97,7 +98,7 @@ class NoneObject(object):
         spec = fmtspec.FormatSpec(string = formatspec, altform = False, formtype = 's', fill = "-", align = ">")
         return format('-', str(spec))
 
-    def next(self):
+    def __next__(self):
         raise StopIteration()
 
     def __getattr__(self, attr):
@@ -109,7 +110,7 @@ class NoneObject(object):
     def __bool__(self):
         return False
 
-    def __nonzero__(self):
+    def __bool__(self):
         return False
 
     def __eq__(self, other):
@@ -128,7 +129,7 @@ class NoneObject(object):
     def __int__(self):
         return -1
 
-    # These must be defined explicitly, 
+    # These must be defined explicitly,
     # due to the way new style objects bypass __getattribute__ for speed
     # See http://docs.python.org/reference/datamodel.html#new-style-special-lookup
     __add__ = __call__
@@ -260,7 +261,7 @@ class BaseObject(object):
         except AttributeError:
             pass
 
-    def __nonzero__(self):
+    def __bool__(self):
         """ This method is called when we test the truth value of an
         Object. In volatility we consider an object to have True truth
         value only when its a valid object. Its possible for example
@@ -277,7 +278,7 @@ class BaseObject(object):
 
         or if X is None: .....
 
-        the later form is not going to work when X is a NoneObject. 
+        the later form is not going to work when X is a NoneObject.
         """
         result = self.obj_vm.is_valid_address(self.obj_offset)
         return result
@@ -348,7 +349,7 @@ class BaseObject(object):
 
         ## Introspect the kwargs for the constructor and store in the dict
         try:
-            for arg in self.__init__.func_code.co_varnames:
+            for arg in self.__init__.__code__.co_varnames:
                 if (arg not in result and
                     arg not in "self parent profile args".split()):
                     result[arg] = self.__dict__[arg]
@@ -450,7 +451,7 @@ class NativeType(BaseObject, NumericProxyMixIn):
         # to avoid integer boundaries when doing __rand__ proxying
         # (see issue 265)
         if isinstance(val, int):
-            val = long(val)
+            val = int(val)
 
         return val
 
@@ -521,7 +522,7 @@ class Pointer(NativeType):
     def cdecl(self):
         return "Pointer {0}".format(self.v())
 
-    def __nonzero__(self):
+    def __bool__(self):
         return bool(self.is_valid())
 
     def __repr__(self):
@@ -572,7 +573,7 @@ class Void(NativeType):
     def d(self):
         return "Void[{0} {1}] (0x{2:08X})".format(self.__class__.__name__, self.obj_name or '', self.v())
 
-    def __nonzero__(self):
+    def __bool__(self):
         return bool(self.dereference())
 
 class Array(BaseObject):
@@ -649,7 +650,7 @@ class Array(BaseObject):
         ## Check for slice object
         if isinstance(pos, slice):
             start, stop, step = pos.indices(self.count)
-            return [self[i] for i in xrange(start, stop, step)]
+            return [self[i] for i in range(start, stop, step)]
 
         # Handle negative values
         if pos >= self.count or pos <= -self.count:
@@ -703,7 +704,7 @@ class CType(BaseObject):
                                      self.obj_offset)
     def d(self):
         result = self.__repr__() + "\n"
-        for k in self.members.keys():
+        for k in list(self.members.keys()):
             result += " {0} -\n {1}\n".format(k, self.m(k))
 
         return result
@@ -714,7 +715,7 @@ class CType(BaseObject):
         # Ensure that proxied offsets are converted to longs
         # to avoid integer boundaries when doing __rand__ proxying
         # (see issue 265)
-        return long(self.obj_offset)
+        return int(self.obj_offset)
 
     def m(self, attr):
         if attr in self.members:
@@ -742,7 +743,7 @@ class CType(BaseObject):
 
         try:
             result = cls(offset = offset, vm = self.obj_vm, parent = self, name = attr, native_vm = self.obj_native_vm)
-        except InvalidOffsetError, e:
+        except InvalidOffsetError as e:
             return NoneObject(str(e))
 
         return result
@@ -753,9 +754,9 @@ class CType(BaseObject):
     def __setattr__(self, attr, value):
         """Change underlying members"""
         # Special magic to allow initialization
-        if not self.__dict__.has_key('_CType__initialized'):  # this test allows attributes to be set in the __init__ method
+        if '_CType__initialized' not in self.__dict__:  # this test allows attributes to be set in the __init__ method
             return BaseObject.__setattr__(self, attr, value)
-        elif self.__dict__.has_key(attr):       # any normal attributes are handled normally
+        elif attr in self.__dict__:       # any normal attributes are handled normally
             return BaseObject.__setattr__(self, attr, value)
         else:
             obj = self.m(attr)
@@ -789,7 +790,7 @@ class VolatilityMagic(BaseObject):
 
     def v(self):
         # We explicitly want to check for None,
-        # in case the user wants a value 
+        # in case the user wants a value
         # that gives not self.value = True
         if self.value is None:
             return self.get_best_suggestion()
@@ -801,12 +802,12 @@ class VolatilityMagic(BaseObject):
 
     def get_suggestions(self):
         """Returns a list of possible suggestions for the value
-        
-           These should be returned in order of likelihood, 
+
+           These should be returned in order of likelihood,
            since the first one will be taken as the best suggestion
-           
+
            This is also to avoid a complete scan of the memory address space,
-           since 
+           since
         """
         if self.value:
             yield self.value
@@ -830,7 +831,7 @@ def VolMagic(vm):
 
 #### This must live here, otherwise there are circular dependency issues
 ##
-## The Profile relies on several classes in obj.py, because  
+## The Profile relies on several classes in obj.py, because
 ## it needs to parse legacy list formats into appropriate types
 ## Leaving a deprecated obj.Profile object would create a circular dependency
 ##
@@ -892,8 +893,8 @@ class Profile(object):
         self.compile()
 
     def load_vtypes(self):
-        """ Identifies the module from which to load the vtypes 
-        
+        """ Identifies the module from which to load the vtypes
+
             Eventually this could do the importing directly, and avoid having
             the profiles loaded in memory all at once.
         """
@@ -930,9 +931,9 @@ class Profile(object):
                     raise RuntimeError("Duplicate profile modification name {0} found".format(modname))
                 mods[instance.__class__.__name__] = instance
 
-        # Run through the modifications in dependency order 
+        # Run through the modifications in dependency order
         self._mods = []
-        for modname in self._resolve_mod_dependencies(mods.values()):
+        for modname in self._resolve_mod_dependencies(list(mods.values())):
             mod = mods.get(modname, None)
             # We check for invalid/mistyped modification names, AbstractModifications should be caught by this too
             if not mod:
@@ -944,26 +945,26 @@ class Profile(object):
                 mod.modification(self)
 
     def compile(self):
-        """ Compiles the vtypes, overlays, object_classes, etc into a types dictionary 
-        
-            We populate as we go, so that _list_to_type can refer to existing classes 
-            rather than Curry everything.  If the compile fails, the profile will be 
+        """ Compiles the vtypes, overlays, object_classes, etc into a types dictionary
+
+            We populate as we go, so that _list_to_type can refer to existing classes
+            rather than Curry everything.  If the compile fails, the profile will be
             left in a bad/unusable state
         """
 
         # Load the native types
         self.types = {}
-        for nt, value in self.native_types.items():
+        for nt, value in list(self.native_types.items()):
             if type(value) == list:
                 self.types[nt] = Curry(NativeType, nt, format_string = value[1])
 
         # Go through the vtypes, creating the stubs for object creation at
         # a later point by the Object factory
-        for name in self.vtypes.keys():
+        for name in list(self.vtypes.keys()):
             self.types[name] = self._convert_members(name)
 
         # Add in any object_classes that had no defined members, for completeness
-        for name in self.object_classes.keys():
+        for name in list(self.object_classes.keys()):
             if name not in self.types:
                 self.types[name] = Curry(self.object_classes[name], name)
 
@@ -985,10 +986,10 @@ class Profile(object):
         yield cls
 
     def _get_dummy_obj(self, name):
-        """ Returns a dummy object/profile for use in determining size 
+        """ Returns a dummy object/profile for use in determining size
             and offset of substructures.  This is done since profile are
             effectively a compiled language, so reading the value from
-            self.vtypes may not be accurate. 
+            self.vtypes may not be accurate.
         """
         class dummy(object):
             profile = self
@@ -1028,7 +1029,7 @@ class Profile(object):
 
     def merge_overlay(self, overlay):
         """Applies an overlay to the profile's vtypes"""
-        for k, v in overlay.items():
+        for k, v in list(overlay.items()):
             if k not in self.vtypes:
                 debug.warning("Overlay structure {0} not present in vtypes".format(k))
             else:
@@ -1052,20 +1053,20 @@ class Profile(object):
 
             Basically if overlay has None in any slot it gets applied from vtype.
 
-            We make extensive use of copy.deepcopy to ensure we don't modify the 
+            We make extensive use of copy.deepcopy to ensure we don't modify the
             original variables.  Some of the calls may not be necessary (specifically
             the return of type_member and overlay) but this saves us the concern that
             things will get changed later and have a difficult-to-track down knock-on
             effect.
         """
-        # If we've been called without an overlay, 
+        # If we've been called without an overlay,
         # the end result should be a complete copy of the type_member
         if not overlay:
             return copy.deepcopy(type_member)
 
         if isinstance(type_member, dict):
             result = copy.deepcopy(type_member)
-            for k, v in overlay.items():
+            for k, v in list(overlay.items()):
                 if k not in type_member:
                     result[k] = v
                 else:
@@ -1089,7 +1090,7 @@ class Profile(object):
         return result
 
     def _resolve_mod_dependencies(self, mods):
-        """ Resolves the modification dependencies, providing an ordered list 
+        """ Resolves the modification dependencies, providing an ordered list
             of all modifications whose only dependencies are in earlier lists
         """
         # Convert the before/after to a directed graph
@@ -1102,23 +1103,23 @@ class Profile(object):
                 data[a] = data.get(a, set([])).union(set([mod.__class__.__name__]))
 
         # Ignore self dependencies
-        for k, v in data.items():
+        for k, v in list(data.items()):
             v.discard(k)
 
         # Fill out any items not in the original data list, as having no dependencies
-        extra_items_in_deps = reduce(set.union, data.values()) - set(data.keys())
+        extra_items_in_deps = reduce(set.union, list(data.values())) - set(data.keys())
         for item in extra_items_in_deps:
             data.update({item:set()})
 
         while True:
             # Pull out all the items with no dependencies
-            nodeps = set([item for item, dep in data.items() if not dep])
+            nodeps = set([item for item, dep in list(data.items()) if not dep])
             # If there's none left then we're done
             if not nodeps:
                 break
             result.append(sorted(nodeps))
             # Any items we just returned, remove from all dependencies
-            for item, dep in data.items():
+            for item, dep in list(data.items()):
                 if item not in nodeps:
                     data[item] = (dep - nodeps)
                 else:
@@ -1147,7 +1148,7 @@ class Profile(object):
             if type(kwargs) == dict:
                 ## We have a list of the form [ ClassName, dict(.. args ..) ]
                 return Curry(Object, theType = typeList[0], name = name, **kwargs)
-        except (TypeError, IndexError), _e:
+        except (TypeError, IndexError) as _e:
             pass
 
         ## This is of the form [ 'void' ]
@@ -1224,11 +1225,11 @@ class Profile(object):
 
             The specification list has the form specified by self._list_to_type() above.
 
-            We return an object that is a CType or has been overridden by object_classes. 
+            We return an object that is a CType or has been overridden by object_classes.
         """
         size, raw_members = self.vtypes.get(cname)
         members = {}
-        for k, v in raw_members.items():
+        for k, v in list(raw_members.items()):
             if callable(v):
                 members[k] = v
             elif v[0] == None:
@@ -1253,13 +1254,13 @@ class ProfileModification(object):
     def check(self, profile):
         """ Returns True or False as to whether the Modification should be applied """
         result = True
-        for k, v in self.conditions.items():
+        for k, v in list(self.conditions.items()):
             result = result and v(profile.metadata.get(k, None))
         return result
 
     def dependencies(self, profile):
-        """ Returns a list of modifications that should go before this, 
-            and modifications that need to be after this 
+        """ Returns a list of modifications that should go before this,
+            and modifications that need to be after this
         """
         return self.before, self.after
 

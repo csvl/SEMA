@@ -18,7 +18,7 @@
 # along with Volatility.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import volatility.obj as obj 
+import volatility.obj as obj
 
 class Win10x86_Gui(obj.ProfileModification):
 
@@ -31,8 +31,8 @@ class Win10x86_Gui(obj.ProfileModification):
 
     def modification(self, profile):
         build = profile.metadata.get('build', 0)
-    
-        if build >= 15063:    
+
+        if build >= 15063:
             profile.merge_overlay({
                 'tagDESKTOP': [None, {
                     'rpdeskNext': [0x10, ['pointer', ['tagDESKTOP']]],
@@ -66,8 +66,8 @@ class Win10x64_Gui(obj.ProfileModification):
 
     def modification(self, profile):
         build = profile.metadata.get('build', 0)
-    
-        if build >= 15063:    
+
+        if build >= 15063:
             profile.merge_overlay({
                 'tagDESKTOP': [None, {
                     'rpdeskNext': [0x20, ['pointer64', ['tagDESKTOP']]],
@@ -77,10 +77,10 @@ class Win10x64_Gui(obj.ProfileModification):
                 }],
                 'tagTHREADINFO': [None, {
                     'ppi': [0x190, ['pointer', ['tagPROCESSINFO']]],
-                     # zzzSetDesktop 
+                     # zzzSetDesktop
                      # mov [rbx+1B8h], rax
                      # lea rax, [rbx+2C8h]
-                     # lea rcx, [rdi+0A8h] => int 29h 
+                     # lea rcx, [rdi+0A8h] => int 29h
                     'PtiLink': [0x2c8, ['_LIST_ENTRY']],
                 }],
                 'tagWND': [None, {

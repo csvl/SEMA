@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -58,7 +58,7 @@ class mac_threads_simple(pstasks.mac_tasks):
                     handler = module
                 else:
                     handler = proc.find_map_path(func_addr)
-                
+
                 yield(0, [
                     int(proc.p_pid),
                     str(proc.p_comm),
@@ -77,7 +77,7 @@ class mac_threads_simple(pstasks.mac_tasks):
                                   ("Start Function", "[addrpad]"),
                                   ("Function Map", ""),
                                  ])
- 
+
         kaddr_info = common.get_handler_name_addrs(self)
         for proc in data:
             for th in proc.threads():
@@ -90,9 +90,8 @@ class mac_threads_simple(pstasks.mac_tasks):
                     handler = module
                 else:
                     handler = proc.find_map_path(func_addr)
-                
-                self.table_row(outfd, proc.p_pid, proc.p_comm, 
-                    th.start_time(), 
-                    th.sched_pri, 
+
+                self.table_row(outfd, proc.p_pid, proc.p_comm,
+                    th.start_time(),
+                    th.sched_pri,
                     func_addr, handler)
-   

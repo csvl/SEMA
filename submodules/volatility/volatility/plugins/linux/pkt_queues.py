@@ -64,7 +64,7 @@ class linux_pkt_queues(linux_netstat.linux_netstat):
 
                 wrote = wrote + pkt_len
 
-            sk_buff = sk_buff.next
+            sk_buff = sk_buff.__next__
 
         if wrote:
             yield "Wrote {0:d} bytes to {1:s}".format(wrote, fname)

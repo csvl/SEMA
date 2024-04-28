@@ -71,7 +71,7 @@ Guacamole.OnScreenKeyboard = function(layout) {
 
     /**
      * Adds a CSS class to an element.
-     * 
+     *
      * @private
      * @function
      * @param {Element} element
@@ -94,7 +94,7 @@ Guacamole.OnScreenKeyboard = function(layout) {
 
     /**
      * Removes a CSS class from an element.
-     * 
+     *
      * @private
      * @function
      * @param {Element} element
@@ -120,7 +120,7 @@ Guacamole.OnScreenKeyboard = function(layout) {
 
                     // Otherwise, allow
                     return match;
-                    
+
                 }
             );
         }
@@ -164,7 +164,7 @@ Guacamole.OnScreenKeyboard = function(layout) {
      * @param {Number} height
      *     The height of the element, in arbitrary units, relative to other
      *     ScaledElements.
-     *     
+     *
      * @param {Boolean} [scaleFont=false]
      *     Whether the line height and font size should be scaled as well.
      */
@@ -185,7 +185,7 @@ Guacamole.OnScreenKeyboard = function(layout) {
          * @type {Number}
          */
          this.height = height;
- 
+
         /**
          * Resizes the associated element, updating its dimensions according to
          * the given pixels per unit.
@@ -308,10 +308,10 @@ Guacamole.OnScreenKeyboard = function(layout) {
 
                 // Activate modifier if not pressed
                 if (!originalKeysym) {
-                    
+
                     addClass(keyboard, modifierClass);
                     modifierKeysyms[key.modifier] = key.keysym;
-                    
+
                     // Send key event
                     if (osk.onkeydown)
                         osk.onkeydown(key.keysym);
@@ -323,7 +323,7 @@ Guacamole.OnScreenKeyboard = function(layout) {
 
                     removeClass(keyboard, modifierClass);
                     delete modifierKeysyms[key.modifier];
-                    
+
                     // Send key event
                     if (osk.onkeyup)
                         osk.onkeyup(originalKeysym);
@@ -405,7 +405,7 @@ Guacamole.OnScreenKeyboard = function(layout) {
 
     /**
      * Fired whenever the user presses a key on this Guacamole.OnScreenKeyboard.
-     * 
+     *
      * @event
      * @param {Number} keysym The keysym of the key being pressed.
      */
@@ -413,7 +413,7 @@ Guacamole.OnScreenKeyboard = function(layout) {
 
     /**
      * Fired whenever the user releases a key on this Guacamole.OnScreenKeyboard.
-     * 
+     *
      * @event
      * @param {Number} keysym The keysym of the key being released.
      */
@@ -438,7 +438,7 @@ Guacamole.OnScreenKeyboard = function(layout) {
      * Resizes all elements within this Guacamole.OnScreenKeyboard such that
      * the width is close to but does not exceed the specified width. The
      * height of the keyboard is determined based on the width.
-     * 
+     *
      * @param {Number} width The width to resize this Guacamole.OnScreenKeyboard
      *                       to, in pixels.
      */
@@ -469,13 +469,13 @@ Guacamole.OnScreenKeyboard = function(layout) {
      *     The object defining the behavior of the key having the given name,
      *     which may be the title of the key (a string), the keysym (a number),
      *     a single Key object, or an array of Key objects.
-     *     
+     *
      * @returns {Guacamole.OnScreenKeyboard.Key[]}
      *     An array of all keys associated with the given name.
      */
     var asKeyArray = function asKeyArray(name, object) {
 
-        // If already an array, just coerce into a true Key[] 
+        // If already an array, just coerce into a true Key[]
         if (object instanceof Array) {
             var keys = [];
             for (var i=0; i < object.length; i++) {
@@ -574,7 +574,7 @@ Guacamole.OnScreenKeyboard = function(layout) {
      * structure object provided. If a name is provided, an additional CSS
      * class, prepended with "guac-keyboard-", will be added to the top-level
      * element.
-     * 
+     *
      * If the layout structure object is an array, all elements within that
      * array will be recursively appended as children of a group, and the
      * top-level element will be given the CSS class "guac-keyboard-group".
@@ -592,7 +592,7 @@ Guacamole.OnScreenKeyboard = function(layout) {
      * first be transformed into the C-style hexadecimal literal for the
      * Unicode codepoint of that character. For example, the key "A" would
      * become "guac-keyboard-key-0x41".
-     * 
+     *
      * If the layout structure object is a number, a gap of that size will be
      * inserted. The gap will be given the CSS class "guac-keyboard-gap", and
      * will be scaled according to the same size units as each key.
@@ -646,7 +646,7 @@ Guacamole.OnScreenKeyboard = function(layout) {
 
         }
 
-        // If a number, create as a gap 
+        // If a number, create as a gap
         else if (typeof object === 'number') {
 
             // Add gap class
@@ -868,7 +868,7 @@ Guacamole.OnScreenKeyboard.Layout = function(template) {
  * @param {Guacamole.OnScreenKeyboard.Key|Object} template
  *     The object whose identically-named properties will be used to initialize
  *     the properties of this key.
- *     
+ *
  * @param {String} [name]
  *     The name to use instead of any name provided within the template, if
  *     any. If omitted, the name within the template will be used, assuming the
@@ -924,7 +924,7 @@ Guacamole.OnScreenKeyboard.Key = function(template, name) {
      * the names of keys; both the "RightShift" and "LeftShift" keys may set
      * the "shift" modifier, for example. By default, the key will affect no
      * modifiers.
-     * 
+     *
      * @type {String}
      */
     this.modifier = template.modifier;

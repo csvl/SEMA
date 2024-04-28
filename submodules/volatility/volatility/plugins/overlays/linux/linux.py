@@ -65,7 +65,7 @@ class LinuxPermissionFlags(basic.Flags):
     def __str__(self):
         result = []
         value = self.v()
-        keys = self.bitmap.keys()
+        keys = list(self.bitmap.keys())
         keys.sort()
         for k in keys:
             if value & (1 << self.bitmap[k]):
@@ -77,7 +77,7 @@ class LinuxPermissionFlags(basic.Flags):
 
     def is_flag(self, flag):
         return self.v() & (1 << self.bitmap[flag])
-    
+
     def is_executable(self):
         return self.is_flag('x')
 
@@ -121,7 +121,7 @@ linux_overlay = {
         'IA32ValidAS'  :  [ 0x0, ['VolatilityLinuxIntelValidAS']],
         'AMD64ValidAS'  :  [ 0x0, ['VolatilityLinuxIntelValidAS']],
         }],
-    'vm_area_struct' : [ None, { 
+    'vm_area_struct' : [ None, {
         'vm_flags' : [ None, ['LinuxPermissionFlags', {'bitmap': {'r': 0, 'w': 1, 'x': 2}}]],
         'vm_end'    : [ None , ['unsigned long']],
         'vm_start'  : [ None , ['unsigned long']],
@@ -141,14 +141,14 @@ def parse_system_map(data, module):
     sys_map[module] = {}
 
     mem_model = None
-    arch = "x86"    
+    arch = "x86"
 
     # get the system map
     for line in data.splitlines():
         (str_addr, symbol_type, symbol) = line.strip().split()
 
         try:
-            sym_addr = long(str_addr, 16)
+            sym_addr = int(str_addr, 16)
 
         except ValueError:
             continue
@@ -162,10 +162,10 @@ def parse_system_map(data, module):
         sys_map[module][symbol].append([sym_addr, symbol_type])
 
     mem_model = str(len(str_addr) * 4) + "bit"
-   
+
     if mem_model == "64bit" and arch == "x86":
         arch = "x64"
- 
+
     return arch, mem_model, sys_map
 
 def LinuxProfileFactory(profpkg):
@@ -244,19 +244,19 @@ def LinuxProfileFactory(profpkg):
                     done = False
                     while not done:
                         if any(member.startswith('__unnamed_') for member in vtypesvar[candidate][members_index]):
-                            for member in vtypesvar[candidate][members_index].keys():
+                            for member in list(vtypesvar[candidate][members_index].keys()):
                                 if member.startswith('__unnamed_'):
                                     member_type = vtypesvar[candidate][members_index][member][types_index][0]
                                     location = vtypesvar[candidate][members_index][member][offset_index]
                                     vtypesvar[candidate][members_index].update(vtypesvar[member_type][members_index])
-                                    for name in vtypesvar[member_type][members_index].keys():
+                                    for name in list(vtypesvar[member_type][members_index].keys()):
                                         vtypesvar[candidate][members_index][name][offset_index] += location
                                     del vtypesvar[candidate][members_index][member]
                             # Don't update done because we'll need to check if any
                             # of the newly imported types need merging
                         else:
                             done = True
-            except KeyError, e:
+            except KeyError as e:
                 import pdb
                 pdb.set_trace()
                 raise exceptions.VolatilityException("Inconsistent linux profile - unable to look up " + str(e))
@@ -269,12 +269,12 @@ def LinuxProfileFactory(profpkg):
             vtypesvar = dwarf.DWARFParser(dwarfdata).finalize()
             self._merge_anonymous_members(vtypesvar)
             self.vtypes.update(vtypesvar)
-            debug.debug("{2}: Found dwarf file {0} with {1} symbols".format(f.filename, len(vtypesvar.keys()), profilename))
+            debug.debug("{2}: Found dwarf file {0} with {1} symbols".format(f.filename, len(list(vtypesvar.keys())), profilename))
 
         def load_sysmap(self):
             """Loads up the system map data"""
-            arch, _memmodel, sysmapvar = parse_system_map(sysmapdata, "kernel") 
-            debug.debug("{2}: Found system file {0} with {1} symbols".format(f.filename, len(sysmapvar.keys()), profilename))
+            arch, _memmodel, sysmapvar = parse_system_map(sysmapdata, "kernel")
+            debug.debug("{2}: Found system file {0} with {1} symbols".format(f.filename, len(list(sysmapvar.keys())), profilename))
 
             self.sys_map.update(sysmapvar)
 
@@ -288,7 +288,7 @@ def LinuxProfileFactory(profpkg):
             if module in symtable:
                 mod = symtable[module]
 
-                for (name, addrs) in mod.items():
+                for (name, addrs) in list(mod.items()):
                     addr = addrs[0][0]
                     if self.virtual_shift and addr:
                         addr = addr + self.virtual_shift
@@ -305,7 +305,7 @@ def LinuxProfileFactory(profpkg):
             # returns a hash table for quick looks
             # the main use of this function is to see if an address is known
             symbols = self.get_all_symbols(module)
-            
+
             ret = {}
 
             for _name, addr in symbols:
@@ -319,7 +319,7 @@ def LinuxProfileFactory(profpkg):
 
             mod = symtable[module]
 
-            for (name, addrs) in mod.items():
+            for (name, addrs) in list(mod.items()):
 
                 for (addr, addr_type) in addrs:
                     if sym_address == addr + self.virtual_shift:
@@ -329,10 +329,10 @@ def LinuxProfileFactory(profpkg):
             return ret
 
         def get_symbol_by_address(self, module, sym_address):
-            key = "%s|%d" % (module, sym_address) 
-        
+            key = "%s|%d" % (module, sym_address)
+
             if key in self.sym_addr_cache:
-                ret = self.sym_addr_cache[key] 
+                ret = self.sym_addr_cache[key]
             else:
                 ret = self._get_symbol_by_address(module, sym_address)
                 self.sym_addr_cache[key] = ret
@@ -343,7 +343,7 @@ def LinuxProfileFactory(profpkg):
             symtable = self.sys_map
 
             if module in symtable:
-                ret = symtable[module].keys()
+                ret = list(symtable[module].keys())
             else:
                 debug.error("get_all_symbol_names called on non-existent module")
 
@@ -361,7 +361,7 @@ def LinuxProfileFactory(profpkg):
 
             addrs = self.get_all_addresses(module = module)
 
-            for addr in addrs.keys():
+            for addr in list(addrs.keys()):
 
                 if table_addr < addr < high_addr:
                     high_addr = addr
@@ -370,20 +370,20 @@ def LinuxProfileFactory(profpkg):
 
         def get_symbol(self, sym_name, nm_type = "", module = "kernel"):
             """Gets a symbol out of the profile
-            
+
             sym_name -> name of the symbol
             nm_tyes  -> types as defined by 'nm' (man nm for examples)
             module   -> which module to get the symbol from, default is kernel, otherwise can be any name seen in 'lsmod'
-    
+
             This fixes a few issues from the old static hash table method:
-            1) Conflicting symbols can be handled, if a symbol is found to conflict on any profile, 
+            1) Conflicting symbols can be handled, if a symbol is found to conflict on any profile,
                then the plugin will need to provide the nm_type to differentiate, otherwise the plugin will be errored out
             2) Can handle symbols gathered from modules on disk as well from the static kernel
-    
+
             symtable is stored as a hash table of:
-            
+
             symtable[module][sym_name] = [(symbol address, symbol type), (symbol addres, symbol type), ...]
-    
+
             The function has overly verbose error checking on purpose...
             """
 
@@ -543,9 +543,9 @@ class hlist_node(obj.CType):
                 nxt = item.m(member).pprev.dereference().dereference()
 
 
-    def __nonzero__(self):
+    def __bool__(self):
         ## List entries are valid when both Flinks and Blink are valid
-        return bool(self.next) or bool(self.pprev)
+        return bool(self.__next__) or bool(self.pprev)
 
     def __iter__(self):
         return self.list_of_type(self.obj_parent.obj_name, self.obj_name)
@@ -585,10 +585,10 @@ class list_head(obj.CType):
             else:
                 nxt = item.m(member).prev.dereference()
 
-    
-    def __nonzero__(self):
+
+    def __bool__(self):
         ## List entries are valid when both Flinks and Blink are valid
-        return bool(self.next) or bool(self.prev)
+        return bool(self.__next__) or bool(self.prev)
 
     def __iter__(self):
         return self.list_of_type(self.obj_parent.obj_name, self.obj_name)
@@ -628,9 +628,9 @@ class hlist_bl_node(obj.CType):
             else:
                 nxt = item.m(member).prev.dereference()
 
-    def __nonzero__(self):
+    def __bool__(self):
         ## List entries are valid when both Flinks and Blink are valid
-        return bool(self.next) or bool(self.prev)
+        return bool(self.__next__) or bool(self.prev)
 
     def __iter__(self):
         return self.list_of_type(self.obj_parent.obj_name, self.obj_name)
@@ -705,7 +705,7 @@ class module_sect_attr(obj.CType):
         else:
             name = self.name.dereference_as("String", length = 255)
 
-        return str(name)       
+        return str(name)
 
 class sock(obj.CType):
     @property
@@ -727,10 +727,10 @@ class inet_sock(obj.CType):
         if 0 <= state < len(linux_flags.tcp_states):
             ret = linux_flags.tcp_states[state]
         else:
-            ret = "" 
+            ret = ""
 
         return ret
-    
+
     @property
     def src_port(self):
         if hasattr(self, "sport"):
@@ -743,7 +743,7 @@ class inet_sock(obj.CType):
     @property
     def dst_port(self):
         if hasattr(self, "sk") and hasattr(self.sk, "__sk_common") and hasattr(self.sk.__sk_common, "skc_portpair"):
-            return socket.htons(self.sk.__sk_common.skc_portpair & 0xffff) #pylint: disable-msg=W0212  
+            return socket.htons(self.sk.__sk_common.skc_portpair & 0xffff) #pylint: disable-msg=W0212
         elif hasattr(self, "dport"):
             return socket.htons(self.dport)
         elif hasattr(self, "inet_dport"):
@@ -800,7 +800,7 @@ class tty_ldisc(obj.CType):
         return ret
 
 class in_device(obj.CType):
-    
+
     def devices(self):
         cur = self.ifa_list
         while cur != None and cur.is_valid():
@@ -808,24 +808,24 @@ class in_device(obj.CType):
             cur = cur.ifa_next
 
 class net_device(obj.CType):
-    
+
     @property
-    def mac_addr(self):        
+    def mac_addr(self):
         macaddr = "00:00:00:00:00:00"
 
-        if self.members.has_key("perm_addr"):
+        if "perm_addr" in self.members:
             hwaddr = self.perm_addr
             macaddr = ":".join(["{0:02x}".format(x) for x in hwaddr][:6])
-        
+
         if macaddr == "00:00:00:00:00:00":
             if type(self.dev_addr) == volatility.obj.Pointer:
                 addr = self.dev_addr.v()
             else:
                 addr = self.dev_addr.obj_offset
-    
+
             hwaddr = self.obj_vm.zread(addr, 6)
             macaddr = ":".join(["{0:02x}".format(ord(x)) for x in hwaddr][:6])
-                        
+
         return macaddr
 
     @property
@@ -833,7 +833,7 @@ class net_device(obj.CType):
         return self.flags & 0x100 == 0x100 # IFF_PROMISC
 
 class module_struct(obj.CType):
-    @property   
+    @property
     def module_core(self):
         if hasattr(self, "core_layout"):
             ret = self.m("core_layout").m("base")
@@ -848,7 +848,7 @@ class module_struct(obj.CType):
             ret = self.m("init_layout").m("base")
         else:
             ret = self.m("module_init")
-    
+
         return ret
 
     @property
@@ -859,7 +859,7 @@ class module_struct(obj.CType):
             ret = self.m("init_size")
 
         return ret
- 
+
     @property
     def init_text_size(self):
         if hasattr(self, "init_layout"):
@@ -868,8 +868,8 @@ class module_struct(obj.CType):
             ret = self.m("init_text_size")
 
         return ret
- 
-    @property 
+
+    @property
     def core_text_size(self):
         if hasattr(self, "core_layout"):
             ret = self.m("core_layout").m("text_size")
@@ -877,8 +877,8 @@ class module_struct(obj.CType):
             ret = self.m("core_text_size")
 
         return ret
-    
-    @property 
+
+    @property
     def core_size(self):
         if hasattr(self, "core_layout"):
             ret = self.m("core_layout").m("size")
@@ -886,7 +886,7 @@ class module_struct(obj.CType):
             ret = self.m("core_size")
 
         return ret
-   
+
 
     def _get_sect_count(self, grp):
         arr = obj.Object(theType = 'Array', offset = grp.attrs, vm = self.obj_vm, targetType = 'Pointer', count = 25)
@@ -906,7 +906,7 @@ class module_struct(obj.CType):
         attrs = obj.Object(theType = 'Array', offset = self.sect_attrs.attrs.obj_offset, vm = self.obj_vm, targetType = 'module_sect_attr', count = num_sects)
 
         for attr in attrs:
-            yield attr        
+            yield attr
 
     def get_param_val(self, param, _over = 0):
         ints = {
@@ -984,7 +984,7 @@ class module_struct(obj.CType):
 
         params = ""
         param_array = obj.Object(theType = 'Array', offset = self.kp, vm = self.obj_vm, targetType = 'kernel_param', count = self.num_kp)
-        
+
         for param in param_array:
             val = self.get_param_val(param)
             params = params + "{0}={1} ".format(param.name.dereference_as("String", length = 255), val)
@@ -999,7 +999,7 @@ class module_struct(obj.CType):
         else:
             struct_name = "elf32_sym"
 
-        syms = obj.Object(theType = "Array", targetType = struct_name, offset = self.symtab, count = self.num_symtab + 1, vm = self.obj_vm)           
+        syms = obj.Object(theType = "Array", targetType = struct_name, offset = self.symtab, count = self.num_symtab + 1, vm = self.obj_vm)
 
         for sym_struct in syms:
             sym_name_addr = self.strtab + sym_struct.st_name
@@ -1007,7 +1007,7 @@ class module_struct(obj.CType):
             sym_name = self.obj_vm.read(sym_name_addr, 64)
             if not sym_name:
                 continue
-            
+
             idx = sym_name.index("\x00")
             if idx != -1:
                 sym_name = sym_name[:idx]
@@ -1025,7 +1025,7 @@ class module_struct(obj.CType):
                 ret = sym_name
                 break
 
-        return ret    
+        return ret
 
     def get_symbol(self, wanted_sym_name):
         ret = None
@@ -1035,8 +1035,8 @@ class module_struct(obj.CType):
                 ret = sym_addr
                 break
 
-        return ret       
-   
+        return ret
+
     @property
     def symtab(self):
         if hasattr(self, "kallsyms"):
@@ -1044,8 +1044,8 @@ class module_struct(obj.CType):
         else:
             ret = self.m("symtab")
 
-        return ret 
- 
+        return ret
+
     @property
     def num_symtab(self):
         if hasattr(self, "kallsyms"):
@@ -1053,7 +1053,7 @@ class module_struct(obj.CType):
         else:
             ret = self.m("num_symtab").v()
 
-        return ret   
+        return ret
 
     def is_valid(self):
         valid = False
@@ -1061,7 +1061,7 @@ class module_struct(obj.CType):
         if self.state.v() in [0, 1, 2] and \
            self.core_size >= 1 and self.core_size <= 1000000 and \
            self.core_text_size >= 1 and self.core_text_size <= 1000000:
-        
+
             s = self.obj_vm.read(self.name.obj_offset, 64)
             if s:
                 idx = s.find("\x00")
@@ -1095,7 +1095,7 @@ class vm_area_struct(obj.CType):
 
             valid = False
 
-        return valid           
+        return valid
 
     def vm_name(self, task):
         if self.vm_file:
@@ -1131,14 +1131,14 @@ class vm_area_struct(obj.CType):
         0x00002000 : "VM_LOCKED",
         0x00004000 : "VM_IO",
         0x00008000 : "VM_SEQ_READ",
-        0x00010000 : "VM_RAND_READ",        
-        0x00020000 : "VM_DONTCOPY", 
+        0x00010000 : "VM_RAND_READ",
+        0x00020000 : "VM_DONTCOPY",
         0x00040000 : "VM_DONTEXPAND",
         0x00080000 : "VM_RESERVED",
         0x00100000 : "VM_ACCOUNT",
         0x00200000 : "VM_NORESERVE",
         0x00400000 : "VM_HUGETLB",
-        0x00800000 : "VM_NONLINEAR",        
+        0x00800000 : "VM_NONLINEAR",
         0x01000000 : "VM_MAPPED_COP__VM_HUGEPAGE",
         0x02000000 : "VM_INSERTPAGE",
         0x04000000 : "VM_ALWAYSDUMP",
@@ -1155,27 +1155,27 @@ class vm_area_struct(obj.CType):
         for mask in sorted(self.extended_flags.keys()):
             if flags & mask == mask:
                 fstr = fstr + self.extended_flags[mask] + "|"
- 
+
         if len(fstr) != 0:
             fstr = fstr[:-1]
 
         return fstr
 
     def protection(self):
-        return self._parse_perms(self.vm_flags.v() & 0b1111) 
+        return self._parse_perms(self.vm_flags.v() & 0b1111)
 
     def flags(self):
         return self._parse_perms(self.vm_flags.v())
 
     # used by malfind
     def is_suspicious(self):
-        ret = False        
+        ret = False
 
         flags_str  = self.protection()
-      
+
         if flags_str.find("VM_READ|VM_WRITE|VM_EXEC") != -1:
-            ret = True 
-            
+            ret = True
+
         elif flags_str == "VM_READ|VM_EXEC" and not self.vm_file:
             ret = True
 
@@ -1184,7 +1184,7 @@ class vm_area_struct(obj.CType):
     def info(self, task):
         if self.vm_file:
             pgoff = self.vm_pgoff << 12
-            
+
             inode = self.vm_file.dentry.d_inode
             if inode and inode.is_valid():
                 major, minor = inode.i_sb.major, inode.i_sb.minor
@@ -1199,7 +1199,7 @@ class vm_area_struct(obj.CType):
         if fname == "Anonymous Mapping":
             fname = ""
 
-        return fname, major, minor, ino, pgoff 
+        return fname, major, minor, ino, pgoff
 
 class kobject(obj.CType):
     def reference_count(self):
@@ -1220,7 +1220,7 @@ class task_struct(obj.CType):
             ret = self.cred.is_valid()
 
         return ret
-    
+
     @property
     def comm(self):
         c = self.m("comm")
@@ -1231,8 +1231,8 @@ class task_struct(obj.CType):
         rmnt    = self.fs.get_root_mnt()
         pdentry = self.fs.get_pwd_dentry()
         pmnt    = self.fs.get_pwd_mnt()
-          
-        path = linux_common.do_get_path(rdentry, rmnt, pdentry, pmnt) 
+
+        path = linux_common.do_get_path(rdentry, rmnt, pdentry, pmnt)
 
         if path == []:
             path = ""
@@ -1247,7 +1247,7 @@ class task_struct(obj.CType):
 
         if proc_as == None:
             return ret
-  
+
         elf_hdr = obj.Object("elf_hdr", offset = elf_addr, vm = proc_as)
 
         if not elf_hdr.is_valid():
@@ -1273,7 +1273,7 @@ class task_struct(obj.CType):
                 continue
 
             sects[start] = real_size
- 
+
         last_end = -1
 
         for start in sorted(sects.keys()):
@@ -1343,8 +1343,8 @@ class task_struct(obj.CType):
         return ret
 
     def bash_hash_entries(self):
-        nbuckets_offset = self.obj_vm.profile.get_obj_offset("_bash_hash_table", "nbuckets") 
-        
+        nbuckets_offset = self.obj_vm.profile.get_obj_offset("_bash_hash_table", "nbuckets")
+
         proc_as = self.get_process_address_space()
         if proc_as == None:
             return
@@ -1352,28 +1352,28 @@ class task_struct(obj.CType):
         for off in self.search_process_memory(["\x40\x00\x00\x00"], heap_only=True):
             # test the number of buckets
             htable = obj.Object("_bash_hash_table", offset = off - nbuckets_offset, vm = proc_as)
-            
+
             for ent in htable:
-                yield ent            
+                yield ent
 
     def ldrmodules(self):
         proc_maps = {}
         dl_maps   = {}
         seen_starts = {}
 
-        proc_as = self.get_process_address_space()        
+        proc_as = self.get_process_address_space()
         if proc_as == None:
             return
 
         # get libraries from proc_maps
         for vma in self.get_proc_maps():
             sig = proc_as.read(vma.vm_start, 4)
-            
+
             if sig == "\x7fELF":
                 flags = str(vma.vm_flags)
-       
+
                 if flags in ["rw-", "r--"]:
-                    continue 
+                    continue
 
                 fname = vma.vm_name(self)
 
@@ -1383,7 +1383,7 @@ class task_struct(obj.CType):
                 start = vma.vm_start.v()
 
                 proc_maps[start]   = fname
-                seen_starts[start] = 1   
+                seen_starts[start] = 1
 
         # get libraries from userland
         for so in self.get_libdl_maps():
@@ -1397,8 +1397,8 @@ class task_struct(obj.CType):
 
         for start in seen_starts:
             vm_name = ""
-            
-            if start in proc_maps:    
+
+            if start in proc_maps:
                 pmaps = "True"
                 vm_name = proc_maps[start]
             else:
@@ -1406,7 +1406,7 @@ class task_struct(obj.CType):
 
             if start in dl_maps:
                 dmaps = "True"
-                
+
                 # we prefer the name from proc_maps as it is within kernel memory
                 if vm_name == "":
                     vm_name = dl_maps[start]
@@ -1418,19 +1418,19 @@ class task_struct(obj.CType):
     def plt_hook_info(self):
         elfs = dict()
         task_proc_maps = list(self.get_proc_maps())
-        
+
         for elf, elf_start, elf_end, soname, needed in self.elfs():
             elfs[(self, soname)] = (elf, elf_start, elf_end, needed)
 
-        for k, v in elfs.iteritems():
+        for k, v in elfs.items():
             task, soname = k
             elf, elf_start, elf_end, needed = v
-          
+
             if elf._get_typename("hdr") == "elf32_hdr":
                 elf_arch = 32
             else:
                 elf_arch = 64
-         
+
             needed_expanded = set([soname])
             if (task, None) in elfs:
                 needed_expanded.add(None)
@@ -1455,7 +1455,7 @@ class task_struct(obj.CType):
                     symbol_name = "<N/A>"
 
                 offset = reloc.r_offset
-               
+
                 if offset < elf_start:
                     offset = elf_start + offset
 
@@ -1463,7 +1463,7 @@ class task_struct(obj.CType):
                     addr = obj.Object("unsigned int", offset = offset, vm = elf.obj_vm)
                 else:
                     addr = obj.Object("unsigned long long", offset = offset, vm = elf.obj_vm)
-                
+
                 match = False
                 for dep in needed_expanded:
                     _, dep_start, dep_end, _ = elfs[(task, dep)]
@@ -1475,30 +1475,30 @@ class task_struct(obj.CType):
                 for i in task_proc_maps:
                     if addr >= i.vm_start and addr < i.vm_end:
                         vma = i
-                        break                    
+                        break
                 if vma:
                     if vma.vm_file:
                         hookdesc = linux_common.get_path(task, vma.vm_file)
                     else:
                         hookdesc = '[{0:x}:{1:x},{2}]'.format(vma.vm_start, vma.vm_end, vma.vm_flags)
- 
+
                 if hookdesc == "":
                         hookdesc = 'invalid memory'
-                
+
                 if match != False:
                     if match == soname:
                         hookdesc = '[RTLD_LAZY]'
-                    hooked = False 
-                
+                    hooked = False
+
                 else:
                     hooked = True
 
                 yield soname, elf, elf_start, elf_end, addr, symbol_name, hookdesc, hooked
-    
+
     def _is_api_hooked(self, sym_addr, proc_as):
-        hook_type = None 
-        addr = None    
-        counter   = 1 
+        hook_type = None
+        addr = None
+        counter   = 1
         prev_op = None
 
         if self.obj_vm.profile.metadata.get('memory_model', '32bit') == '32bit':
@@ -1507,22 +1507,22 @@ class task_struct(obj.CType):
             mode = distorm3.Decode64Bits
 
         data = proc_as.read(sym_addr, 24)
-    
+
         for op in distorm3.Decompose(sym_addr, data, mode):
             if not op or not op.valid:
                 continue
 
             if op.mnemonic == "JMP":
                 hook_type = "JMP"
-                addr = 0 # default in case we cannot extract               
+                addr = 0 # default in case we cannot extract
 
                 # check for a mov reg, addr; jmp reg;
                 if prev_op and prev_op.mnemonic == "MOV" and prev_op.operands[0].type == 'Register' and op.operands[0].type == 'Register':
                     prev_name = prev_op.operands[0].name
-                    
+
                     # same register
                     if prev_name == op.operands[0].name:
-                        addr = prev_op.operands[1].value                        
+                        addr = prev_op.operands[1].value
 
                 else:
                     addr = op.operands[0].value
@@ -1541,7 +1541,7 @@ class task_struct(obj.CType):
 
                 elif prev_op.mnemonic == "MOV" and prev_op.operands[0].type == 'Register' and  prev_op.operands[1].type == 'Register':
                     break
-                
+
                 hook_type = "RET"
                 addr = sym_addr
 
@@ -1562,25 +1562,25 @@ class task_struct(obj.CType):
         return ret
 
     def _get_hooked_name(self, addr):
-        hook_vma = None        
+        hook_vma = None
         hookdesc = "<Unknown mapping>"
 
         for i in self.get_proc_maps():
             if addr >= i.vm_start and addr < i.vm_end:
                 hook_vma = i
-                break          
-          
+                break
+
         if hook_vma:
             if hook_vma.vm_file:
                 hookdesc = linux_common.get_path(self, hook_vma.vm_file)
             else:
                 hookdesc = '[{0:x}:{1:x},{2}]'.format(hook_vma.vm_start, hook_vma.vm_end, hook_vma.vm_flags)
-        
+
         return (hook_vma, hookdesc)
 
     def apihook_info(self):
         for soname, elf, elf_start, elf_end, addr, symbol_name, _, plt_hooked in self.plt_hook_info():
-               
+
             is_hooked = self._is_api_hooked(addr, elf.obj_vm)
 
             if is_hooked:
@@ -1602,8 +1602,8 @@ class task_struct(obj.CType):
         # Keep a bucket of history objects so we can order them
         history_entries = []
 
-        # Brute force the history list of an address isn't provided 
-        ts_offset = proc_as.profile.get_obj_offset("_hist_entry", "timestamp") 
+        # Brute force the history list of an address isn't provided
+        ts_offset = proc_as.profile.get_obj_offset("_hist_entry", "timestamp")
 
         # Are we dealing with 32 or 64-bit pointers
         if proc_as.profile.metadata.get('memory_model', '32bit') == '32bit':
@@ -1613,23 +1613,23 @@ class task_struct(obj.CType):
 
         bang_addrs = []
 
-        # Look for strings that begin with pound/hash on the process heap 
+        # Look for strings that begin with pound/hash on the process heap
         for ptr_hash in self.search_process_memory(["#"], heap_only = True):
-            # Find pointers to this strings address, also on the heap 
+            # Find pointers to this strings address, also on the heap
             bang_addrs.append(struct.pack(pack_format, ptr_hash))
 
-        for (idx, ptr_string) in enumerate(self.search_process_memory(bang_addrs, heap_only = True)):   
-            # Check if we found a valid history entry object 
-            hist = obj.Object("_hist_entry", 
-                              offset = ptr_string - ts_offset, 
+        for (idx, ptr_string) in enumerate(self.search_process_memory(bang_addrs, heap_only = True)):
+            # Check if we found a valid history entry object
+            hist = obj.Object("_hist_entry",
+                              offset = ptr_string - ts_offset,
                               vm = proc_as)
 
             if hist.is_valid():
                 history_entries.append(hist)
-                       
+
         # Report everything we found in order
         for hist in sorted(history_entries, key = attrgetter('time_as_integer')):
-            yield hist              
+            yield hist
 
     def _dynamic_env(self, proc_as, pack_format, addr_sz):
         # preload address 0
@@ -1638,14 +1638,14 @@ class task_struct(obj.CType):
         for vma in self.get_proc_maps():
             if not (vma.vm_file and str(vma.vm_flags) == "rw-"):
                 continue
-            
+
             fname = vma.info(self)[0]
 
             if fname.find("ld") == -1 and (not fname.endswith(("/bin/bash", "/bin/dash", "/bin/sh"))):
                 continue
 
             env_start = 0
-       
+
             vma_start = int(vma.vm_start)
             vma_end = int(vma.vm_end)
             vma_len = vma_end - vma_start
@@ -1676,7 +1676,7 @@ class task_struct(obj.CType):
                         # single char name, =
                         if nullidx >= eqidx:
                             env_start = addr
-            
+
             if env_start == 0:
                 continue
 
@@ -1696,44 +1696,44 @@ class task_struct(obj.CType):
 
                         if idx == -1 or eqidx == -1 or idx < eqidx:
                             continue
-                    
+
                         good_varstr = varstr
                         break
-                
-                    if good_varstr:        
+
+                    if good_varstr:
                         good_varstr = good_varstr[:idx]
 
                         key = good_varstr[:eqidx]
                         val = good_varstr[eqidx+1:]
-                        
-                        yield (key, val) 
+
+                        yield (key, val)
                     else:
                         break
 
     def _shell_variables(self, proc_as, pack_format, addr_sz):
         # preload cache with address 0
         ptr_cache = {0 : 1}
-            
-        nbuckets_offset = self.obj_vm.profile.get_obj_offset("_bash_hash_table", "nbuckets") 
+
+        nbuckets_offset = self.obj_vm.profile.get_obj_offset("_bash_hash_table", "nbuckets")
 
         bash_was_last = False
         for vma in self.get_proc_maps():
             if vma.vm_file:
                 fname = vma.info(self)[0]
-       
+
                 if fname.endswith(("/bin/bash", "/bin/dash", "/bin/sh")):
                     bash_was_last = True
                 else:
                     bash_was_last = False
-            
-            # we are looking for the bss of bash 
+
+            # we are looking for the bss of bash
             if vma.vm_file or str(vma.vm_flags) != "rw-":
                 continue
-            
-            # we are looking for the bss of bash 
+
+            # we are looking for the bss of bash
             if bash_was_last == False:
                 continue
-        
+
             vma_start = int(vma.vm_start)
             vma_end = int(vma.vm_end)
             vma_len = vma_end - vma_start
@@ -1741,7 +1741,7 @@ class task_struct(obj.CType):
 
             for off in range(0, vma_len - addr_sz, 4):
                 ptr_test = vma_data[off:off+addr_sz]
-                
+
                 ptr = struct.unpack(pack_format, ptr_test)[0]
                 if ptr in ptr_cache:
                     continue
@@ -1753,15 +1753,15 @@ class task_struct(obj.CType):
                     continue
 
                 ptr2 = struct.unpack(pack_format, ptr_test2)[0]
-                
+
                 test = proc_as.read(ptr2 + 4, 4)
                 if not test or test != "\x40\x00\x00\x00":
                     continue
 
                 htable = obj.Object("_bash_hash_table", offset = ptr2, vm = proc_as)
-                
+
                 for ent in htable:
-                    key = str(ent.key.dereference())    
+                    key = str(ent.key.dereference())
                     val = str(ent.data.dereference_as("_envdata").value.dereference())
 
                     yield key, val
@@ -1770,10 +1770,10 @@ class task_struct(obj.CType):
 
     def bash_environment(self):
         proc_as = self.get_process_address_space()
-        # In cases when mm is an invalid pointer 
+        # In cases when mm is an invalid pointer
         if not proc_as:
             return
-        
+
         if str(self.comm) not in ["sh", "dash", "bash"]:
             return
 
@@ -1786,7 +1786,7 @@ class task_struct(obj.CType):
             addr_sz = 8
 
         for key, val in self._dynamic_env(proc_as, pack_format, addr_sz):
-            yield key, val        
+            yield key, val
 
         for key, val in self._shell_variables(proc_as, pack_format, addr_sz):
             yield key, val
@@ -1799,7 +1799,7 @@ class task_struct(obj.CType):
 
         # mem corruption check
         if max_fds > 500000:
-            return 
+            return
 
         for i in range(max_fds):
             if fds[i]:
@@ -1817,8 +1817,8 @@ class task_struct(obj.CType):
     def netstat(self):
         sfop = self.obj_vm.profile.get_symbol("socket_file_ops")
         dfop = self.obj_vm.profile.get_symbol("sockfs_dentry_operations")
-        
-        for (filp, fdnum) in self.lsof(): 
+
+        for (filp, fdnum) in self.lsof():
             if filp.f_op == sfop or filp.dentry.d_op == dfop:
                 iaddr = filp.dentry.d_inode
                 skt = self.SOCKET_I(iaddr)
@@ -1840,12 +1840,12 @@ class task_struct(obj.CType):
                         yield (1, (name, iaddr.i_ino))
 
                     elif family in (socket.AF_INET, socket.AF_INET6, 10, 30):
-                        sport = inet_sock.src_port 
-                        dport = inet_sock.dst_port 
+                        sport = inet_sock.src_port
+                        dport = inet_sock.dst_port
                         saddr = inet_sock.src_addr
                         daddr = inet_sock.dst_addr
 
-                        yield (socket.AF_INET, (inet_sock, inet_sock.protocol, saddr, sport, daddr, dport, state)) 
+                        yield (socket.AF_INET, (inet_sock, inet_sock.protocol, saddr, sport, daddr, dport, state))
 
     def get_process_address_space(self):
         ## If we've got a NoneObject, return it maintain the reason
@@ -1861,7 +1861,7 @@ class task_struct(obj.CType):
             process_as = self.obj_vm.__class__(
                 self.obj_vm.base, self.obj_vm.get_config(), dtb = directory_table_base)
 
-        except AssertionError, _e:
+        except AssertionError as _e:
             return obj.NoneObject("Unable to get process AS")
 
         process_as.name = "Process {0}".format(self.pid)
@@ -1871,8 +1871,8 @@ class task_struct(obj.CType):
     def get_libdl_maps(self):
         proc_as = self.get_process_address_space()
         if proc_as == None:
-            return       
- 
+            return
+
         found_list = False
 
         for vma in self.get_proc_maps():
@@ -1921,14 +1921,14 @@ class task_struct(obj.CType):
             val = vma.v()
             if val in seen:
                 break
-           
+
             if not vma.is_valid():
                 break
- 
+
             yield vma
 
             seen[val] = 1
-   
+
     def _walk_rb(self, rb):
         if not rb.is_valid():
              return
@@ -1941,27 +1941,27 @@ class task_struct(obj.CType):
 
         for vma in self._walk_rb(rb.rb_left):
             yield vma
- 
+
         for vma in self._walk_rb(rb.rb_right):
             yield vma
 
-    # based on find_vma in mm/mmap.c 
+    # based on find_vma in mm/mmap.c
     def get_proc_maps_rb(self):
         vmas = {}
         rb = self.mm.mm_rb.rb_node
 
         for vma in self._walk_rb(rb):
             vmas[vma.vm_start] = vma
- 
-        for key in sorted(vmas.iterkeys()):
+
+        for key in sorted(vmas.keys()):
             yield vmas[key]
 
     def search_process_memory(self, s, heap_only = False):
 
-        # Allow for some overlap in case objects are 
-        # right on page boundaries 
+        # Allow for some overlap in case objects are
+        # right on page boundaries
         overlap = 1024
-        
+
         # Make sure s in a list. This allows you to search for
         # multiple strings at once, without changing the API.
         if type(s) != list:
@@ -1998,7 +1998,7 @@ class task_struct(obj.CType):
             return
 
         for vma in self.get_proc_maps():
-            elf = obj.Object("elf_hdr", offset = vma.vm_start, vm = proc_as) 
+            elf = obj.Object("elf_hdr", offset = vma.vm_start, vm = proc_as)
 
             if not elf.is_valid():
                 continue
@@ -2007,18 +2007,18 @@ class task_struct(obj.CType):
             dt_soname = None
             dt_strtab = None
             dt_needed = []
-             
+
             #### Walk pt_load and gather ranges
             for phdr in elf.program_headers():
                 if not phdr.is_valid():
-                    continue                         
-               
+                    continue
+
                 if str(phdr.p_type) == 'PT_LOAD':
                     pt_loads.append((phdr.p_vaddr, phdr.p_vaddr + phdr.p_memsz))
 
                 if str(phdr.p_type) != 'PT_DYNAMIC':
-                    continue                   
-             
+                    continue
+
                 for dsec in phdr.dynamic_sections():
                     if dsec.d_tag == 5:
                         dt_strtab = dsec.d_ptr
@@ -2028,9 +2028,9 @@ class task_struct(obj.CType):
 
                     elif dsec.d_tag == 1:
                         dt_needed.append(dsec.d_ptr)
-           
+
                 break
-                 
+
             if dt_strtab == None or dt_needed == []:
                 continue
 
@@ -2044,19 +2044,19 @@ class task_struct(obj.CType):
 
                     if len(buf) > 0:
                         needed.append(buf)
-            
-            soname = ""     
+
+            soname = ""
             if dt_soname:
                 soname = proc_as.read(dt_strtab + dt_soname, 256)
                 if soname:
                     idx = soname.find("\x00")
                     if idx != -1:
                         soname = soname[:idx]
-            
+
             if not soname or len(soname) == 0:
                 soname = linux_common.get_path(self, vma.vm_file)
 
-            if pt_loads: 
+            if pt_loads:
                 (elf_start, elf_end) = (min(s[0] for s in pt_loads), max(s[1] for s in pt_loads))
             else:
                 continue
@@ -2074,7 +2074,7 @@ class task_struct(obj.CType):
 
     def TICK_NSEC(self):
         HZ = 1000
-        CLOCK_TICK_RATE = 1193182 
+        CLOCK_TICK_RATE = 1193182
 
         return self.SH_DIV(1000000 * 1000, self.ACTHZ(CLOCK_TICK_RATE, HZ), 8)
 
@@ -2102,27 +2102,27 @@ class task_struct(obj.CType):
         boot_time = secs + (nsecs / linux_common.nsecs_per / 100)
 
         return boot_time
-        
+
     def get_task_start_time(self):
         if hasattr(self, "real_start_time"):
             start_time = self.real_start_time
         else:
             start_time = self.start_time
 
-        if type(start_time) == volatility.obj.NativeType and type(start_time.v()) == long:
+        if type(start_time) == volatility.obj.NativeType and type(start_time.v()) == int:
             start_time = linux_common.vol_timespec(start_time.v() / 0x989680 / 100, 0)
 
         start_secs = start_time.tv_sec + (start_time.tv_nsec / linux_common.nsecs_per / 100)
 
         boot_time =  self.get_boot_time()
-       
+
         if boot_time != -1:
             sec = boot_time + start_secs
 
-            # convert the integer as little endian 
+            # convert the integer as little endian
             try:
                 data = struct.pack("<I", sec)
-            except struct.error, e:
+            except struct.error as e:
                 # in case we exceed 0 <= number <= 4294967295
                 return 0
 
@@ -2130,10 +2130,10 @@ class task_struct(obj.CType):
             dt = obj.Object("UnixTimeStamp", offset = 0, vm = bufferas, is_utc = True)
         else:
             dt = None
-        
+
         return dt
 
-    def psenv(self): 
+    def psenv(self):
         if self.mm:
             # set the as with our new dtb so we can read from userland
             proc_as = self.get_process_address_space()
@@ -2142,16 +2142,16 @@ class task_struct(obj.CType):
 
             start = self.mm.env_start.v()
 
-            size_to_read = self.mm.env_end.v() - start + 10 
+            size_to_read = self.mm.env_end.v() - start + 10
 
             if 4 < size_to_read < 4096:
                 args = proc_as.read(start, size_to_read)
                 if args:
-                    for vals in args.split("\x00"): 
+                    for vals in args.split("\x00"):
                         ents = vals.split("=")
 
                         if len(ents) == 2:
-                            yield ents[0], ents[1]        
+                            yield ents[0], ents[1]
 
     def get_environment(self):
         env = ""
@@ -2189,7 +2189,7 @@ class task_struct(obj.CType):
         else:
             # kernel thread
             name = "[" + self.comm + "]"
-    
+
         if len(name) > 1 and name[-1] == " ":
             name = name[:-1]
 
@@ -2238,7 +2238,7 @@ class super_block(obj.CType):
     @property
     def major(self):
         return self.s_dev >> 20
-        
+
     @property
     def minor(self):
         return self.s_dev & ((1 << 20) - 1)
@@ -2246,7 +2246,7 @@ class super_block(obj.CType):
 class inode(obj.CType):
     @property
     def uid(self):
-        
+
         try:
             ret = int(self.i_uid)
         except TypeError:
@@ -2256,17 +2256,17 @@ class inode(obj.CType):
 
     @property
     def gid(self):
-        
+
         try:
             ret = int(self.i_gid)
         except TypeError:
             ret = int(self.i_gid.val)
         return ret
-    
+
     def is_dir(self):
         """Mimic the S_ISDIR macro"""
         return self.i_mode & linux_flags.S_IFMT == linux_flags.S_IFDIR
-    
+
     def is_reg(self):
         """Mimic the S_ISREG macro"""
         return self.i_mode & linux_flags.S_IFMT == linux_flags.S_IFREG
@@ -2277,24 +2277,24 @@ class timespec(obj.CType):
         time_val = struct.pack("<I", self.tv_sec)
         time_buf = addrspace.BufferAddressSpace(self.obj_vm.get_config(), data = time_val)
         time_obj = obj.Object("UnixTimeStamp", offset = 0, vm = time_buf, is_utc = True)
-        
+
         return time_obj
 
 class dentry(obj.CType):
     def get_partial_path(self):
-        """ we can't get the full path b/c we 
+        """ we can't get the full path b/c we
         do not have a ref to the vfsmnt """
 
         path = []
         name = ""
         dentry = self
-    
+
         while dentry and dentry != dentry.d_parent:
             name = dentry.d_name.name.dereference_as("String", length = 255)
             if name.is_valid():
                 path.append(str(name))
             dentry = dentry.d_parent
-    
+
         path.reverse()
         str_path = "/".join([p for p in path])
         return str_path
@@ -2315,7 +2315,7 @@ class swapperScan(scan.BaseScanner):
     def __init__(self, needles = None):
         self.needles = needles
         self.checks = [ ("MultiStringFinderCheck", {'needles':needles}) ]
-        scan.BaseScanner.__init__(self) 
+        scan.BaseScanner.__init__(self)
 
     def scan(self, address_space, offset = 0, maxlen = None):
         for offset in scan.BaseScanner.scan(self, address_space, offset, maxlen):
@@ -2329,7 +2329,7 @@ class VolatilityDTB(obj.VolatilityMagic):
         profile = self.obj_vm.profile
         config = self.obj_vm.get_config()
         tbl    = self.obj_vm.profile.sys_map["kernel"]
-        
+
         if profile.metadata.get('memory_model', '32bit') == "32bit":
             sym     = "swapper_pg_dir"
             shifts  = [0xc0000000]
@@ -2337,37 +2337,37 @@ class VolatilityDTB(obj.VolatilityMagic):
             fmt     = "<I"
         else:
             sym     = "init_level4_pgt"
-            # >= 4.13 
+            # >= 4.13
             if not sym in tbl:
                 sym = "init_top_pgt"
-                
-            shifts  = [0xffffffff80000000, 0xffffffff80000000 - 0x1000000, 0xffffffff7fe00000]       
+
+            shifts  = [0xffffffff80000000, 0xffffffff80000000 - 0x1000000, 0xffffffff7fe00000]
             read_sz = 8
             fmt     = "<Q"
-       
+
         if config.PHYSICAL_SHIFT and not config.VIRTUAL_SHIFT:
-            debug.error("You must specifiy both the virtual and physical shift.") 
+            debug.error("You must specifiy both the virtual and physical shift.")
         elif not config.PHYSICAL_SHIFT and config.VIRTUAL_SHIFT:
-            debug.error("You must specifiy both the virtual and physical shift.") 
+            debug.error("You must specifiy both the virtual and physical shift.")
         elif config.PHYSICAL_SHIFT and config.VIRTUAL_SHIFT:
             physical_shift_address = config.PHYSICAL_SHIFT
             virtual_shift_address = config.VIRTUAL_SHIFT
         else:
             physical_shift_address = self.obj_vm.profile.physical_shift
-            virtual_shift_address  = self.obj_vm.profile.virtual_shift    
+            virtual_shift_address  = self.obj_vm.profile.virtual_shift
 
         good_dtb = -1
-            
+
         init_task_addr = tbl["init_task"][0][0] + virtual_shift_address
         dtb_sym_addr   = tbl[sym][0][0] + virtual_shift_address
         files_sym_addr = tbl["init_files"][0][0] + virtual_shift_address
-       
+
         comm_offset   = profile.get_obj_offset("task_struct", "comm")
         pid_offset    = profile.get_obj_offset("task_struct", "pid")
         state_offset  = profile.get_obj_offset("task_struct", "state")
-        files_offset  = profile.get_obj_offset("task_struct", "files") 
+        files_offset  = profile.get_obj_offset("task_struct", "files")
         mm_offset     = profile.get_obj_offset("task_struct", "active_mm")
-        
+
         # this appeared around 2.6.24, which we only need it for samples with KASLR, which came much later
         try:
             sched_class_offset = profile.get_obj_offset("task_struct", "sched_class")
@@ -2380,16 +2380,16 @@ class VolatilityDTB(obj.VolatilityMagic):
 
         if physical_shift_address != 0 and virtual_shift_address != 0:
             good_dtb = (dtb_sym_addr - shifts[0] - virtual_shift_address) + physical_shift_address
-            self.obj_vm.profile.physical_shift = physical_shift_address 
+            self.obj_vm.profile.physical_shift = physical_shift_address
             self.obj_vm.profile.virtual_shift  = virtual_shift_address
 
         if good_dtb == -1:
             for shift in shifts:
                 sym_addr = dtb_sym_addr - shift
-           
+
                 read_addr = init_task_addr - shift + comm_offset
 
-                buf = pas.read(read_addr, 12)        
+                buf = pas.read(read_addr, 12)
                 if buf:
                     idx = buf.find("swapper")
                     if idx == 0:
@@ -2409,11 +2409,11 @@ class VolatilityDTB(obj.VolatilityMagic):
                 if pas.read(swapper_address + pid_offset, 4) != "\x00\x00\x00\x00":
                     continue
 
-                tmp_physical_shift = swapper_address - (init_task_addr - shifts[0]) 
+                tmp_physical_shift = swapper_address - (init_task_addr - shifts[0])
                 if tmp_physical_shift & 0xfff != 0x000:
                     continue
 
-                good_dtb = (dtb_sym_addr - shifts[0] + 0) + tmp_physical_shift 
+                good_dtb = (dtb_sym_addr - shifts[0] + 0) + tmp_physical_shift
 
                 if pas.zread(good_dtb, 8) != "\x00\x00\x00\x00\x00\x00\x00\x00":
                     continue
@@ -2421,7 +2421,7 @@ class VolatilityDTB(obj.VolatilityMagic):
                 if sched_class_offset != -1:
                     sched_class_val = pas.read(swapper_address + sched_class_offset, read_sz)
                     sched_class_addr = struct.unpack(fmt, sched_class_val)[0]
- 
+
                     if (sched_class_addr & 0xfff) != (idle_class_addr & 0xfff):
                         continue
 
@@ -2432,7 +2432,7 @@ class VolatilityDTB(obj.VolatilityMagic):
 
                 self.obj_vm.profile.physical_shift = tmp_physical_shift
                 self.obj_vm.profile.virtual_shift  = tmp_virtual_shift
- 
+
                 break
 
         yield good_dtb
@@ -2447,10 +2447,10 @@ class VolatilityLinuxIntelValidAS(obj.VolatilityMagic):
         if self.obj_vm.profile.metadata.get('memory_model', '32bit') == "32bit":
             shifts = [0xc0000000]
         else:
-            shifts = [0xffffffff80000000, 0xffffffff80000000 - 0x1000000, 0xffffffff7fe00000]       
+            shifts = [0xffffffff80000000, 0xffffffff80000000 - 0x1000000, 0xffffffff7fe00000]
 
         ret = False
-           
+
         phys  = self.obj_vm.vtop(init_task_addr)
         if phys == None:
             return
@@ -2469,7 +2469,7 @@ class VolatilityLinuxARMValidAS(obj.VolatilityMagic):
     def generate_suggestions(self):
 
         init_task_addr = self.obj_vm.profile.get_symbol("init_task")
-        do_fork_addr   = self.obj_vm.profile.get_symbol("do_fork") 
+        do_fork_addr   = self.obj_vm.profile.get_symbol("do_fork")
 
         if not do_fork_addr or not init_task_addr:
             return
@@ -2480,7 +2480,7 @@ class VolatilityLinuxARMValidAS(obj.VolatilityMagic):
             shift = 0xc0000000
         else:
             shift = 0xffffffff80000000
-            
+
         task_paddr = self.obj_vm.vtop(init_task_addr)
         fork_paddr = self.obj_vm.vtop(do_fork_addr)
 
@@ -2523,7 +2523,7 @@ class LinuxObjectClasses(obj.ProfileModification):
             'desc_struct' : desc_struct,
             'page': page,
             'LinuxPermissionFlags': LinuxPermissionFlags,
-            'super_block' : super_block, 
+            'super_block' : super_block,
             'inode' : inode,
             'dentry' : dentry,
             'timespec' : timespec,
@@ -2570,9 +2570,9 @@ class page(obj.CType):
                 mem_map_ptr = 0xffffea0000000000
         else:
             debug.error("phys_addr_of_page: Unable to determine physical address of page. NUMA is not supported at this time.\n")
-        
+
         phys_offset = (self.obj_offset - mem_map_ptr) / self.obj_vm.profile.get_obj_size("page")
-        
+
         phys_offset = phys_offset << 12
 
         return phys_offset
@@ -2656,10 +2656,5 @@ class LinuxGate64Overlay(obj.ProfileModification):
     before = ['BasicObjectClasses'] # , 'LinuxVTypes']
 
     def modification(self, profile):
-        if profile.has_type("gate_struct64"): 
+        if profile.has_type("gate_struct64"):
             profile.object_classes.update({'gate_struct64' : gate_struct64})
-
-
-
-
-

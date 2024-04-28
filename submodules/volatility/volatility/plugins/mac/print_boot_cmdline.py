@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -37,10 +37,10 @@ class mac_print_boot_cmdline(common.AbstractMacCommand):
 
         pe_state_addr = self.addr_space.profile.get_symbol("_PE_state")
         pe_state = obj.Object("PE_state", offset = pe_state_addr, vm = self.addr_space)
-        bootargs = pe_state.bootArgs.dereference_as("boot_args")      
- 
+        bootargs = pe_state.bootArgs.dereference_as("boot_args")
+
         yield bootargs.CommandLine
- 
+
     def unified_output(self, data):
         return TreeGrid([("Command Line", str),
                          ], self.generator(data))

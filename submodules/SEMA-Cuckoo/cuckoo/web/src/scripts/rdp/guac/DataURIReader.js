@@ -24,7 +24,7 @@ var Guacamole = Guacamole || {};
  * received blobs as a single data URI built over the course of the stream.
  * Note that this object will overwrite any installed event handlers on the
  * given Guacamole.InputStream.
- * 
+ *
  * @constructor
  * @param {Guacamole.InputStream} stream
  *     The stream that data will be read from.

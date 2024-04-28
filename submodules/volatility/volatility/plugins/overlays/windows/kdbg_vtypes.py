@@ -29,7 +29,7 @@ class _KDDEBUGGER_DATA64(obj.CType):
     @property
     def ServicePack(self):
         """Get the service pack number. This is something
-        like 0x100 for SP1, 0x200 for SP2 etc. 
+        like 0x100 for SP1, 0x200 for SP2 etc.
         """
         csdresult = obj.Object("unsigned long", offset = self.CmNtCSDVersion, vm = self.obj_native_vm)
         return (csdresult >> 8) & 0xffffffff
@@ -66,8 +66,8 @@ class _KDDEBUGGER_DATA64(obj.CType):
         return self.dbgkd_find_version64(pages_to_scan = 16)
 
     def dbgkd_find_version64(self, pages_to_scan):
-        """Scan backwards from the base of KDBG to find the 
-        _DBGKD_GET_VERSION64. We have a winner when kernel 
+        """Scan backwards from the base of KDBG to find the
+        _DBGKD_GET_VERSION64. We have a winner when kernel
         base addresses and process list head match."""
 
         # Account for address masking differences in x86 and x64
@@ -101,10 +101,10 @@ class _KDDEBUGGER_DATA64(obj.CType):
         return obj.NoneObject("Cannot find _DBGKD_GET_VERSION64")
 
     def kpcrs(self):
-        """Generator for KPCRs referenced by this KDBG. 
+        """Generator for KPCRs referenced by this KDBG.
 
-        These are returned in the order in which the 
-        processors were registered. 
+        These are returned in the order in which the
+        processors were registered.
         """
 
         if self.obj_native_vm.profile.metadata.get('memory_model', '32bit') == '32bit':
@@ -116,8 +116,8 @@ class _KDDEBUGGER_DATA64(obj.CType):
 
         for p in cpu_array:
 
-            # Terminate the loop if an item in the array is 
-            # invalid (ie paged) or if the pointer is NULL. 
+            # Terminate the loop if an item in the array is
+            # invalid (ie paged) or if the pointer is NULL.
             if p == None or p == 0:
                 break
 
@@ -151,32 +151,32 @@ class KDBGObjectClass(obj.ProfileModification):
             '_KDDEBUGGER_DATA64': [ None, {
             'NtBuildLab': [ None, ['pointer', ['String', dict(length = 32)]]],
             'KiProcessorBlock': [ None, ['pointer', ['array', max_processors, ['pointer', ['_KPRCB']]]]],
-            'PsActiveProcessHead': [ None, ['pointer', ['_LIST_ENTRY']]], 
-            'PsLoadedModuleList': [ None, ['pointer', ['_LIST_ENTRY']]], 
-            'MmUnloadedDrivers' : [ None, ['pointer', ['pointer', ['array', lambda x : x.MmLastUnloadedDriver.dereference(), ['_UNLOADED_DRIVER']]]]], 
-            'MmLastUnloadedDriver' : [ None, ['pointer', ['unsigned int']]], 
+            'PsActiveProcessHead': [ None, ['pointer', ['_LIST_ENTRY']]],
+            'PsLoadedModuleList': [ None, ['pointer', ['_LIST_ENTRY']]],
+            'MmUnloadedDrivers' : [ None, ['pointer', ['pointer', ['array', lambda x : x.MmLastUnloadedDriver.dereference(), ['_UNLOADED_DRIVER']]]]],
+            'MmLastUnloadedDriver' : [ None, ['pointer', ['unsigned int']]],
             }]})
 
 class UnloadedDriverVTypes(obj.ProfileModification):
     """Add the unloaded driver structure definitions"""
 
-    conditions = {'os': lambda x: x == "windows"} 
+    conditions = {'os': lambda x: x == "windows"}
 
     def modification(self, profile):
 
         if profile.metadata.get("memory_model", "32bit") == "32bit":
-            vtypes = {'_UNLOADED_DRIVER' : [ 24, { 
-                    'Name' : [ 0, ['_UNICODE_STRING']], 
-                    'StartAddress' : [ 8, ['address']], 
-                    'EndAddress' : [ 12, ['address']], 
-                    'CurrentTime' : [ 16, ['WinTimeStamp', {}]], 
+            vtypes = {'_UNLOADED_DRIVER' : [ 24, {
+                    'Name' : [ 0, ['_UNICODE_STRING']],
+                    'StartAddress' : [ 8, ['address']],
+                    'EndAddress' : [ 12, ['address']],
+                    'CurrentTime' : [ 16, ['WinTimeStamp', {}]],
                     }]}
         else:
-            vtypes = {'_UNLOADED_DRIVER' : [ 40, { 
-                    'Name' : [ 0, ['_UNICODE_STRING']], 
-                    'StartAddress' : [ 16, ['address']], 
-                    'EndAddress' : [ 24, ['address']], 
-                    'CurrentTime' : [ 32, ['WinTimeStamp', {}]], 
+            vtypes = {'_UNLOADED_DRIVER' : [ 40, {
+                    'Name' : [ 0, ['_UNICODE_STRING']],
+                    'StartAddress' : [ 16, ['address']],
+                    'EndAddress' : [ 24, ['address']],
+                    'CurrentTime' : [ 32, ['WinTimeStamp', {}]],
                     }]}
 
         profile.vtypes.update(vtypes)

@@ -67,7 +67,7 @@ for sig_index in range(N_GRAPH):
         else :
             pass
     len_edges.append(0)
-    
+
 
 
     res2.close()
@@ -83,8 +83,8 @@ for sig_index in range(N_GRAPH):
     len_edges=[]
     os.remove('temp.gs')
     os.remove('temp2.gs.t0')
-    
-    
+
+
 print(tab_similarity)
 result_sim.write(args.input.split('/')[-1])
 result_sim.write('\t')

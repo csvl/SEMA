@@ -27,12 +27,12 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
         self.flag = False
         self.nberror = 0
         self.new_addr_stash = "new_addr"
-    
+
     def config_logger(self):
         self.log_level = os.environ["LOG_LEVEL"]
         self.log = logging.getLogger("SemaExplorerAnotherCDFS")
         self.log.setLevel(self.log_level)
-        
+
     def setup(self, simgr):
         super().setup(simgr)
         self.pause_stash = deque()
@@ -64,7 +64,7 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
         super().excessed_step_to_active(simgr)
 
         super().excessed_loop_to_active(simgr)
-    
+
     def step(self, simgr, stash="active", **kwargs):
         try:
             simgr = simgr.step(stash=stash, **kwargs)
@@ -76,7 +76,7 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
             # fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
             self.log.warning(exc_type, exc_obj)
             exit(-1)
-            
+
         super().build_snapshot(simgr)
 
         if len(self.fork_stack) > 0 or len(simgr.deadended) > self.deadended or len(simgr.errored) > self.nberror:
@@ -91,7 +91,7 @@ class SemaExplorerAnotherCDFS(SemaExplorer):
 
         # Manage ended state
         super().manage_deadended(simgr)
-        
+
         if len(simgr.active) > 1 and self.flag:
             l1 = simgr.active[0].solver.constraints
             l2 = simgr.active[1].solver.constraints

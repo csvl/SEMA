@@ -104,7 +104,7 @@ def upgrade():
             )
             old_type.drop(op.get_bind(), checkfirst=False)
 
-            for old_status, new_status in mapping.items():
+            for old_status, new_status in list(mapping.items()):
                 op.execute(
                     "UPDATE tasks SET status = '%s' WHERE status = '%s'" %
                     (new_status, old_status)
@@ -126,7 +126,7 @@ def upgrade():
                 "tasks", "status", existing_type=old_type, type_=tmp_type
             )
 
-            for old_status, new_status in mapping.items():
+            for old_status, new_status in list(mapping.items()):
                 op.execute(
                     "UPDATE tasks SET status = '%s' WHERE status = '%s'" %
                     (new_status, old_status)
@@ -229,17 +229,17 @@ def upgrade():
 def mongo_upgrade():
     """Migrate mongodb schema and data."""
     if mongo.init():
-        print "Starting MongoDB migration."
+        print("Starting MongoDB migration.")
         mongo.connect()
 
         # Check for schema version and create it.
         if "cuckoo_schema" in mongo.db.collection_names():
-            print "Mongo schema version not expected"
+            print("Mongo schema version not expected")
             sys.exit()
         else:
             mongo.db.cuckoo_schema.save({"version": mongo_revision})
     else:
-        print "Mongo reporting module not enabled, skipping mongo migration."
+        print("Mongo reporting module not enabled, skipping mongo migration.")
 
 def downgrade():
     pass

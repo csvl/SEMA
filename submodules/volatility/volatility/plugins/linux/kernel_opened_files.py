@@ -45,7 +45,7 @@ class linux_kernel_opened_files(linux_common.AbstractLinuxCommand):
             dentry = obj.Object("dentry", offset = node.v() - hash_offset, vm = self.addr_space)
             cnt = cnt + 1
             last_node = node
-            node = dentry.d_hash.next
+            node = dentry.d_hash.__next__
 
     def _walk_node_node(self, node):
         last_node = None
@@ -57,7 +57,7 @@ class linux_kernel_opened_files(linux_common.AbstractLinuxCommand):
 
             cnt = cnt + 1
             last_node = node
-            node = node.next
+            node = node.__next__
 
     def _walk_node(self, node):
         last_node = None

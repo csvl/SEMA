@@ -28,58 +28,58 @@ class Envars(taskmods.DllList):
 
     def __init__(self, config, *args, **kwargs):
         taskmods.DllList.__init__(self, config, *args, **kwargs)
-        config.add_option("SILENT", short_option = 's', 
+        config.add_option("SILENT", short_option = 's',
                           default = False,
-                          help = "Suppress common and non-persistent variables", 
+                          help = "Suppress common and non-persistent variables",
                           action = "store_true")
 
     def _get_silent_vars(self):
         """Enumerate persistent & common variables.
-        
-        This function collects the global (all users) and 
-        user-specific environment variables from the 
+
+        This function collects the global (all users) and
+        user-specific environment variables from the
         registry. Any variables in a process env block that
         does not exist in the persistent list was explicitly
         set with the SetEnvironmentVariable() API.
         """
-    
+
         values = []
 
         regapi = registryapi.RegistryApi(self._config)
         ccs = regapi.reg_get_currentcontrolset()
-        
-        ## The global variables 
+
+        ## The global variables
         for value, _ in regapi.reg_yield_values(
-                            hive_name = 'system', 
+                            hive_name = 'system',
                             key = '{0}\\Control\\Session Manager\\Environment'.format(ccs)):
             values.append(value)
 
-        ## The user-specific variables 
+        ## The user-specific variables
         regapi.reset_current()
         for value, _ in regapi.reg_yield_values(
                             hive_name = 'ntuser.dat', key = 'Environment'):
             values.append(value)
 
-        ## The volatile user variables 
+        ## The volatile user variables
         for value, _ in regapi.reg_yield_values(
                             hive_name = 'ntuser.dat', key = 'Volatile Environment'):
             values.append(value)
 
         ## These are variables set explicitly but are
-        ## common enough to ignore safely. 
-        values.extend(["ProgramFiles", "CommonProgramFiles", "SystemDrive", 
-                "SystemRoot", "ProgramData", "PUBLIC", "ALLUSERSPROFILE", 
-                "COMPUTERNAME", "SESSIONNAME", "USERNAME", "USERPROFILE", 
-                "PROMPT", "USERDOMAIN", "AppData", "CommonFiles", "CommonDesktop", 
-                "CommonProgramGroups", "CommonStartMenu", "CommonStartUp", 
-                "Cookies", "DesktopDirectory", "Favorites", "History", "NetHood", 
-                "PersonalDocuments", "RecycleBin", "StartMenu", "Templates", 
-                "AltStartup", "CommonFavorites", "ConnectionWizard", 
-                "DocAndSettingRoot", "InternetCache", "windir", "Path", "HOMEDRIVE", 
-                "PROCESSOR_ARCHITECTURE", "NUMBER_OF_PROCESSORS", "ProgramFiles(x86)", 
-                "CommonProgramFiles(x86)", "CommonProgramW6432", "PSModulePath", 
-                "PROCESSOR_IDENTIFIER", "FP_NO_HOST_CHECK", "LOCALAPPDATA", "TMP", 
-                "ProgramW6432", 
+        ## common enough to ignore safely.
+        values.extend(["ProgramFiles", "CommonProgramFiles", "SystemDrive",
+                "SystemRoot", "ProgramData", "PUBLIC", "ALLUSERSPROFILE",
+                "COMPUTERNAME", "SESSIONNAME", "USERNAME", "USERPROFILE",
+                "PROMPT", "USERDOMAIN", "AppData", "CommonFiles", "CommonDesktop",
+                "CommonProgramGroups", "CommonStartMenu", "CommonStartUp",
+                "Cookies", "DesktopDirectory", "Favorites", "History", "NetHood",
+                "PersonalDocuments", "RecycleBin", "StartMenu", "Templates",
+                "AltStartup", "CommonFavorites", "ConnectionWizard",
+                "DocAndSettingRoot", "InternetCache", "windir", "Path", "HOMEDRIVE",
+                "PROCESSOR_ARCHITECTURE", "NUMBER_OF_PROCESSORS", "ProgramFiles(x86)",
+                "CommonProgramFiles(x86)", "CommonProgramW6432", "PSModulePath",
+                "PROCESSOR_IDENTIFIER", "FP_NO_HOST_CHECK", "LOCALAPPDATA", "TMP",
+                "ProgramW6432",
                 ])
 
         return values
@@ -100,7 +100,7 @@ class Envars(taskmods.DllList):
             for var, val in task.environment_variables():
                 if self._config.SILENT:
                     if var in silent_vars:
-                        continue 
+                        continue
                 yield (0, [int(task.UniqueProcessId),
                         str(task.ImageFileName),
                         Address(task.Peb.ProcessParameters.Environment),
@@ -124,10 +124,10 @@ class Envars(taskmods.DllList):
             for var, val in task.environment_variables():
                 if self._config.SILENT:
                     if var in silent_vars:
-                        continue 
+                        continue
                 self.table_row(outfd,
                     task.UniqueProcessId,
                     task.ImageFileName,
-                    task.Peb.ProcessParameters.Environment, 
+                    task.Peb.ProcessParameters.Environment,
                     var, val
                     )

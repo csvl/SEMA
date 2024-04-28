@@ -614,7 +614,7 @@ class TestVirtualbox(object):
 
         with mock.patch("cuckoo.machinery.virtualbox.Popen") as p:
             p.side_effect = p1, p2
-            self.m.dump_memory("label", u"mem\u202eory.dmp")
+            self.m.dump_memory("label", "mem\u202eory.dmp")
         task_log_stop(1)
 
     def test_enable_vrde(self):

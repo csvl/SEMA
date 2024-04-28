@@ -17,7 +17,7 @@ class Serializer(object):
     """Serialize a query result object."""
     def to_dict(self):
         ret = {}
-        for key in inspect(self).attrs.keys():
+        for key in list(inspect(self).attrs.keys()):
             ret[key] = getattr(self, key)
         return ret
 

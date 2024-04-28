@@ -143,6 +143,6 @@ class Package(object):
         self.touched_files.add(filepath)
 
 def _string_to_bool(raw):
-    if not isinstance(raw, basestring):
+    if not isinstance(raw, str):
         raise Exception("Unexpected input: not a string :/")
     return raw.lower() in ("yes", "true", "t", "1")

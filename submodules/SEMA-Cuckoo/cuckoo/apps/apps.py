@@ -65,7 +65,7 @@ def fetch_community(branch="master", force=False, filepath=None):
     members = t.getmembers()
 
     directory = members[0].name.split("/")[0]
-    for tarfolder, outfolder in folders.items():
+    for tarfolder, outfolder in list(folders.items()):
         mkdir(cwd(outfolder))
 
         # E.g., "community-master/modules/signatures".
@@ -138,7 +138,7 @@ def submit_tasks(target, options, package, custom, owner, timeout, priority,
 
     if is_baseline:
         if remote:
-            print "Remote baseline support has not yet been implemented."
+            print("Remote baseline support has not yet been implemented.")
             return
 
         task_id = db.add_baseline(timeout, owner, machine, memory)
@@ -146,7 +146,7 @@ def submit_tasks(target, options, package, custom, owner, timeout, priority,
         return
 
     if is_url and is_unique:
-        print "URL doesn't have --unique support yet."
+        print("URL doesn't have --unique support yet.")
         return
 
     if is_url:
@@ -164,9 +164,9 @@ def submit_tasks(target, options, package, custom, owner, timeout, priority,
                 )
                 yield "URL", url, r.json()["task_id"]
             except Exception as e:
-                print "%s: unable to submit URL: %s" % (
+                print("%s: unable to submit URL: %s" % (
                     bold(red("Error")), e
-                )
+                ))
     else:
         files = []
         for path in target:
@@ -177,9 +177,9 @@ def submit_tasks(target, options, package, custom, owner, timeout, priority,
 
         for filepath in files:
             if not os.path.getsize(filepath):
-                print "%s: sample %s (skipping file)" % (
+                print("%s: sample %s (skipping file)" % (
                     bold(yellow("Empty")), filepath
-                )
+                ))
                 continue
 
             if maxcount is not None:
@@ -210,9 +210,9 @@ def submit_tasks(target, options, package, custom, owner, timeout, priority,
                 )
                 yield "File", filepath, r.json()["task_id"]
             except Exception as e:
-                print "%s: unable to submit file: %s" % (
+                print("%s: unable to submit file: %s" % (
                     bold(red("Error")), e
-                )
+                ))
                 continue
 
 def process(target, copy_path, task):
@@ -285,7 +285,7 @@ def process_task_range(tasks):
             if not start.isdigit() or not end.isdigit():
                 log.warning("Invalid range provided: %s", entry)
                 continue
-            task_ids.extend(range(int(start), int(end)+1))
+            task_ids.extend(list(range(int(start), int(end)+1)))
         elif entry:
             log.warning("Invalid range provided: %s", entry)
 
@@ -533,7 +533,7 @@ def migrate_cwd():
         os.remove(cwd("monitor", "latest"))
 
     modified, outdated, deleted = [], [], []
-    for filename, hashes in hashes.items():
+    for filename, hashes in list(hashes.items()):
         if not os.path.exists(cwd(filename)):
             if hashes[-1] != "0"*40:
                 outdated.append(filename)

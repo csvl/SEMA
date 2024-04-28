@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -53,7 +53,7 @@ class mac_lsof(pstasks.mac_tasks):
                                   ("File Descriptor", "6"),
                                   ("File Path", ""),
                                  ])
- 
+
         for proc in data:
             for (_, filepath, fd) in proc.lsof():
                 if filepath:

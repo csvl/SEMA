@@ -8,7 +8,7 @@
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details. 
+# General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
@@ -18,11 +18,11 @@
 @author:       Cem Gurkok
 @license:      GNU General Public License 2.0 or later
 @contact:      cemgurkok@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
-import common
+from . import common
 import volatility.commands as commands
 import distorm3
 import volatility.plugins.mac.check_sysctl as check_sysctl
@@ -36,7 +36,7 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
     def __init__(self, config, *args, **kwargs):
         self.addr_space = None
         commands.Command.__init__(self, config, *args, **kwargs)
-        
+
         self._config.add_option("CHECKKEXTS", short_option = 'X', default = False,
                           cache_invalidator = False, help = "Check all kext functions in the kext's symbol table for hooking, including kernel symbol table", action = "store_true")
         self._config.add_option("CHECKKERNEL", short_option = 'K', default = False,
@@ -52,7 +52,7 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
         section_struct = 'macho64_section'
         nlist_struct = 'macho64_nlist'
         LC_SEGMENT = 0x19 # x64
-    
+
         if fmodel == '32bit':
             mach_header_struct = 'macho32_header'
             segment_command_struct = 'macho32_segment_command'
@@ -72,7 +72,7 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
                     if str(kmod.name) == kext_name:
                         kext_addr = kmod.address
                         break
-                    kmod = kmod.next
+                    kmod = kmod.__next__
                 if kext_addr == None:
                     yield
         elif kext_obj != None:
@@ -83,7 +83,7 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
         seg_offset = mh.obj_offset + self.addr_space.profile.get_obj_size(mach_header_struct)
 
         linkedit_vmaddr = 0 # the first struct nlist is here
-        symtab_symoff = 0 # specifies the offset in the file to the symbol table 
+        symtab_symoff = 0 # specifies the offset in the file to the symbol table
         symtab_stroff = 0 # specifies the offset in the file to the string table
         symbol_cnt = 0
         linkedit_fileoffset = 0
@@ -91,7 +91,7 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
         text_sect_num = 0
         sect_cnt = 0
 
-        for i in xrange(0, mh.ncmds):
+        for i in range(0, mh.ncmds):
             seg = obj.Object(segment_command_struct, offset = seg_offset, vm = self.addr_space)
             if seg.cmd == 0x19 and seg.segname and str(seg.segname) == "__LINKEDIT":
                 linkedit_vmaddr = seg.vmaddr
@@ -106,7 +106,7 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
             # only looking at LC_SEGMENT for sections
             if seg.cmd == LC_SEGMENT:
                 # loop thru segment's sections to locate __TEXT segment's __text section number, used to determine executable code
-                for j in xrange(0, seg.nsects):
+                for j in range(0, seg.nsects):
                     sect_cnt += 1
                     sect = obj.Object(section_struct, offset = seg_offset + self.addr_space.profile.get_obj_size(segment_command_struct) + (self.addr_space.profile.get_obj_size(section_struct) * j), vm = self.addr_space)
                     sect_name = "".join(map(str, str(sect.sectname))).strip(' \t\r\n\0')
@@ -123,7 +123,7 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
             sym = obj.Object(nlist_struct, offset = linkedit_vmaddr + symbol_offset  + (i * self.addr_space.profile.get_obj_size(nlist_struct)), vm = self.addr_space)
             sym_addr = sym.n_strx + linkedit_vmaddr + string_offset
             sym_name = obj.Object('String', offset = sym_addr, vm = self.addr_space, length = 256)
-            
+
             if sym_name.is_valid():
                 if onlyFunctions:
                     if sym.n_sect == text_sect_num:
@@ -145,12 +145,12 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
         kmod = kmodaddr.dereference_as("kmod_info")
         while kmod.is_valid():
             kexts.append(kmod)
-            kmod = kmod.next
-       
+            kmod = kmod.__next__
+
         for kext in kexts:
             if addr >= kext.address and addr <= (kext.address + kext.m('size')):
                 return kext.name
-        
+
         return "UNKNOWN"
 
     def isCallReferenceModified(self, model, distorm_mode, func_addr, kernel_syms, kmods):
@@ -189,7 +189,7 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
                     if model == '32bit':
                         const = op.operands[0].disp & 0xFFFFFFFF
                         d = obj.Object("unsigned int", offset = const, vm = self.addr_space)
-                    else: 
+                    else:
                         const = op.operands[0].disp
                         d = obj.Object("unsigned long long", offset = const, vm = self.addr_space)
                     if self.outside_module(d, kernel_syms, kmods):
@@ -206,7 +206,7 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
                         break
             n += 1
 
-        # filtering out false positives due to structs, you can tweak this as needed 
+        # filtering out false positives due to structs, you can tweak this as needed
         if d and self.outside_module(d, kernel_syms, kmods) == True and str(ops[n+1].mnemonic) not in ["DB 0xff", "ADD", "XCHG", "OUTS"]:
             modified = True
 
@@ -232,7 +232,7 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
                             op.operands[1].type == "Register" and op.operands[0].name == "RBP" and op.operands[1].name == "RSP" and
                             prev_op.mnemonic == "PUSH" and len(prev_op.operands) == 1 and prev_op.operands[0].type == "Register" and prev_op.operands[0].name == "RBP"):
                         pass
-                    elif (prev_op.mnemonic == "PUSH" and len(prev_op.operands) == 1 and prev_op.operands[0].type == "Register" and prev_op.operands[0].name == "RBP" and 
+                    elif (prev_op.mnemonic == "PUSH" and len(prev_op.operands) == 1 and prev_op.operands[0].type == "Register" and prev_op.operands[0].name == "RBP" and
                           op.mnemonic == "PUSH" and len(op.operands) == 1 and op.operands[0].type == "Register" and op.operands[0].name in ["RSP","RBX","R12","R13","R14","R15"]):
                         # Registers preserved across calls, http://people.freebsd.org/~lstewart/references/amd64.pdf
                         pass
@@ -249,7 +249,7 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
     # This produces too many false positives so its modified to check if the call
     # is to a known module or a kernel symbol
     def outside_module(self, addr, kernel_syms, kmods):
-        (good, _) = common.is_known_address_name(addr, kernel_syms, kmods) 
+        (good, _) = common.is_known_address_name(addr, kernel_syms, kmods)
 
         return not good
 
@@ -287,7 +287,7 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
                     if model == '32bit':
                         const = op.operands[0].disp & 0xFFFFFFFF
                         d = obj.Object("unsigned int", offset = const, vm = addr_space)
-                    else: 
+                    else:
                         const = op.operands[0].disp
                         d = obj.Object("unsigned long long", offset = const, vm = addr_space)
                     if self.outside_module(d, kernel_syms, kmods):
@@ -312,7 +312,7 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
                         if model == '32bit':
                             const = op.operands[0].disp & 0xFFFFFFFF
                             d = obj.Object("unsigned int", offset = const, vm = addr_space)
-                        else: 
+                        else:
                             const = op.operands[0].disp
                             d = obj.Object("long long", offset = const, vm = addr_space)
                         if self.outside_module(d, kernel_syms, kmods):
@@ -351,9 +351,9 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
                 break
             n += 1
 
-        # filtering out false positives due to structs, you can tweak this as needed 
+        # filtering out false positives due to structs, you can tweak this as needed
         if d and self.outside_module(d, kernel_syms, kmods) == True and str(ops[n+1].mnemonic) not in ["DB 0xff", "ADD", "XCHG", "OUTS"]:
-            inlined = True            
+            inlined = True
 
         return (inlined, d)
 
@@ -361,7 +361,7 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
         common.set_plugin_members(self)
 
         (kernel_symbol_addresses, kmod) = common.get_kernel_function_addrs(self)
-        
+
         model = self.addr_space.profile.metadata.get('memory_model', 0)
         if model == '32bit':
             distorm_mode = distorm3.Decode32Bits
@@ -377,8 +377,8 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
         k_end = k_start + kmodk.m('size')
 
         ####### STEP 1 - CHECK SYSTEM CALL INLINE HOOKS ############
- 
-        # get syscall table      
+
+        # get syscall table
         nsysent = obj.Object("int", offset = self.addr_space.profile.get_symbol("_nsysent"), vm = self.addr_space)
         sysents = obj.Object(theType = "Array", offset = self.addr_space.profile.get_symbol("_sysent"), vm = self.addr_space, count = nsysent, targetType = "sysent")
 
@@ -388,7 +388,7 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
         for (i, sysent) in enumerate(sysents):
             ent_addr = sysent.sy_call.v()
             hooked  = ent_addr not in sym_addrs # using check_syscalls method
-            inlined, dst_addr = self.isInlined(model, distorm_mode, ent_addr, kernel_symbol_addresses, [kmodk]) 
+            inlined, dst_addr = self.isInlined(model, distorm_mode, ent_addr, kernel_symbol_addresses, [kmodk])
             prolog_inlined = self.isPrologInlined(model, distorm_mode, ent_addr)
             if hooked == True or inlined == True or prolog_inlined == True:
                 if dst_addr != None:
@@ -413,9 +413,9 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
                         # add to list
                         list_syscall_names.append(ent_name)
                         dict_syscall_funcs[ent_name] = sysent
-    
 
-        ####### STEP 2 - KERNEL & KEXTS ############### 
+
+        ####### STEP 2 - KERNEL & KEXTS ###############
 
         # get symbols from kext __TEXT in memory rather than file
         kext_addr_list = []
@@ -423,14 +423,14 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
         # get kernel address
         kmod = obj.Object("kmod_info", offset = self.addr_space.profile.get_symbol("_g_kernel_kmod_info"), vm = self.addr_space)
         kext_addr_list.append((kmod.address.v(), kmod.address + kmod.m('size'), '__kernel__'))
-        
-        # get other kext addresses 
+
+        # get other kext addresses
         p = self.addr_space.profile.get_symbol("_kmod")
         kmodaddr = obj.Object("Pointer", offset = p, vm = self.addr_space)
         kmod = kmodaddr.dereference_as("kmod_info")
         while kmod.is_valid():
             kext_addr_list.append((kmod.address.v(), kmod.address + kmod.m('size'), kmod.name))
-            kmod = kmod.next
+            kmod = kmod.__next__
 
         # loop thru kexts
         for kext_address, kext_end, kext_name in kext_addr_list:
@@ -449,7 +449,7 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
                         hook_kext = self.findKextWithAddress(dst_addr)
                     else:
                         hook_kext = kext_name
-                   
+
                     yield ("SymbolsTable", '-', func_addr, False, modified, False, '-', hook_kext)
 
                 inlined, dst_addr = self.isInlined(model, distorm_mode, func_addr, kernel_symbol_addresses, kext_addr_list)
@@ -457,7 +457,7 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
                     if dst_addr != None:
                         hook_kext = self.findKextWithAddress(dst_addr)
                     else:
-                        hook_kext = kext_name 
+                        hook_kext = kext_name
                     yield ("SymbolsTable", '-', func_addr, False, inlined, False, '-', hook_kext)
 
         ########## STEP 3 - TRAP TABLE ###############
@@ -469,15 +469,15 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
             if hooked == True or 'dtrace' in sym_name:
                 kext = self.findKextWithAddress(call_addr)
                 yield ("TrapTable", i, call_addr, hooked, False, False, '-', kext)
-            
+
             else:
-                inlined, dst_addr = self.isInlined(model, distorm_mode, call_addr, kernel_symbol_addresses, [kmodk]) 
-                if inlined: 
+                inlined, dst_addr = self.isInlined(model, distorm_mode, call_addr, kernel_symbol_addresses, [kmodk])
+                if inlined:
                     if dst_addr != None:
                         hook_kext = self.findKextWithAddress(dst_addr)
                     else:
-                        hook_kext = kext_name 
-                    
+                        hook_kext = kext_name
+
                     yield ("TrapTable", '-', func_addr, False, inlined, False, '-', hook_kext)
                 else:
                     modified, dst_addr = self.isCallReferenceModified(model, distorm_mode, call_addr, kernel_symbol_addresses, [kmodk])
@@ -487,7 +487,7 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
                             hook_kext = self.findKextWithAddress(dst_addr)
                         else:
                             hook_kext = kext_name
-                       
+
                         yield ("TrapTable", '-', func_addr, False, modified, False, '-', hook_kext)
 
     def unified_output(self, data):
@@ -564,4 +564,3 @@ class mac_apihooks_kernel(common.AbstractMacCommand):
                 txt_shadowed = "-"
 
             self.table_row(outfd, table_name, i, call_addr, sym_name, txt_inlined, txt_shadowed, perms, kext)
-

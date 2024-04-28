@@ -78,5 +78,3 @@ class AngrVisFactory(object):
         if type:
             vis.add_content(AngrCommonTypeHead())
         return vis
-    
-    

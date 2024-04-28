@@ -23,17 +23,17 @@ l = logging.getLogger(name=__name__)
 # DWORD    nFileIndexHigh;
 # DWORD    nFileIndexLow;
 # } BY_HANDLE_FILE_INFORMATION, *PBY_HANDLE_FILE_INFORMATION, *LPBY_HANDLE_FILE_INFORMATION;
-        
 
-FileInformation = namedtuple('FileInformation', ('dwFileAttributes', 
-                                                'ftCreationTime_dwLowDateTime'  , 'ftCreationTime_dwHighDateTime', 
-                                                'ftLastAccessTime_dwLowDateTime', 'ftLastAccessTime_dwHighDateTime', 
-                                                'ftLastWriteTime_dwLowDateTime' , 'ftLastWriteTime_dwHighDateTime', 
-                                                'dwVolumeSerialNumber', 
+
+FileInformation = namedtuple('FileInformation', ('dwFileAttributes',
+                                                'ftCreationTime_dwLowDateTime'  , 'ftCreationTime_dwHighDateTime',
+                                                'ftLastAccessTime_dwLowDateTime', 'ftLastAccessTime_dwHighDateTime',
+                                                'ftLastWriteTime_dwLowDateTime' , 'ftLastWriteTime_dwHighDateTime',
+                                                'dwVolumeSerialNumber',
                                                 'nFileSizeHigh',
-                                                'nFileSizeLow', 
-                                                'nNumberOfLinks', 
-                                                'nFileIndexHigh', 
+                                                'nFileSizeLow',
+                                                'nNumberOfLinks',
+                                                'nFileIndexHigh',
                                                 'nFileIndexLow'))
 
 max_fds = 8192

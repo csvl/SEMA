@@ -341,14 +341,14 @@ class Droidmon(Processing):
 
     def keyCleaner(self, d):
         if type(d) is dict:
-            for key, value in d.iteritems():
+            for key, value in d.items():
                 d[key] = self.keyCleaner(value)
                 if '.' in key:
                     d[key.replace('.', '_')] = value
                     del(d[key])
             return d
         if type(d) is list:
-            return map(self.keyCleaner, d)
+            return list(map(self.keyCleaner, d))
         if type(d) is tuple:
             return tuple(map(self.keyCleaner, d))
         return d
@@ -383,7 +383,7 @@ class Droidmon(Processing):
             else:
                 self.droidmon["error"].append("Unhandled: %r" % line)
 
-        for key, value in self.droidmon.items():
+        for key, value in list(self.droidmon.items()):
             results[key] = list(value)
 
         return results

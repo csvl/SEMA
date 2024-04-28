@@ -28,7 +28,7 @@ fi
 if [ "$MODE" != "python3" ] && [ "$MODE" != "pypy3" ]; then
   echo "-m argument can either be python3 or pypy3 only"
   echo "$usage" >&2; exit 1
-fi 
+fi
 
 end=$(($#-3))
 for n in $(seq 1 $end); do

@@ -199,7 +199,7 @@ LOGGING = {
 }
 
 # Import local settings.
-execfile(cwd("web", "local_settings.py"), globals(), locals())
+exec(compile(open(cwd("web", "local_settings.py"), "rb").read(), cwd("web", "local_settings.py"), 'exec'), globals(), locals())
 
 class InvalidString(str):
     def __mod__(self, other):

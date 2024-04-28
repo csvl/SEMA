@@ -14,7 +14,7 @@ try:
 except:
     from ...clogging.CustomFormatter import CustomFormatter
     from ..Classifier import Classifier
-       
+
 
 RANDOM_SEED=np.random.seed(10)
 
@@ -40,7 +40,7 @@ class Encoder(nn.Module):
         x, (hidden_n, cell_n) = self.rnn1(x)
         x, (hidden_n, cell_n) = self.rnn2(x)
         return hidden_n.reshape((x.shape[0], self.embedding_dim))
-    
+
 
 class Decoder(nn.Module):
     def __init__(self,  input_dim=64, n_features=1): # TODO custom parameter
@@ -59,7 +59,7 @@ class Decoder(nn.Module):
             num_layers=1,
             batch_first=True
         )
-        
+
         self.dense = nn.Linear(n_features,n_features)
 
     def forward(self, x,seq_len):
@@ -118,7 +118,7 @@ class DLClassifier(nn.Module):
         n_classes = len(classes)
         self.n_classes = n_classes
         n_hidden = 2*n_features # TODO
-        self.RNN = RecurrentAutoencoder(n_features, embedding_dim).to(device)        
+        self.RNN = RecurrentAutoencoder(n_features, embedding_dim).to(device)
         self.mCNN = nn.ModuleList([mClassifier(embedding_dim) for i in range(n_classes)]).to(device)
         self.L = nn.Softmax(dim=1).to(device)
 
@@ -130,7 +130,7 @@ class DLClassifier(nn.Module):
         with torch.no_grad():
             _,y = self._evaluate(x)
             return y
-            
+
     def _evaluate(self, x):
         x1, x2 = self.RNN(x)
         out = [self.mCNN[i](x1) for i in range(self.n_classes)]
@@ -154,4 +154,3 @@ class DLClassifier(nn.Module):
             return self.classes.index(label)
         else:
             return -1
-

@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -42,7 +42,7 @@ class mac_dump_file(common.AbstractMacCommand):
 
         outfile   = self._config.outfile
         vnode_off = self._config.FILE_OFFSET
-        
+
         if not outfile:
             debug.error("You must specify an output file (-O/--outfile)")
 
@@ -54,8 +54,7 @@ class mac_dump_file(common.AbstractMacCommand):
         wrote = common.write_vnode_to_file(vnode, outfile)
 
         yield vnode_off, outfile, wrote
- 
+
     def render_text(self, outfd, data):
         for (vnode_off, outfile, wrote) in data:
             outfd.write("Wrote {0} bytes to {1} from vnode at address {2:x}\n".format(wrote, outfile, vnode_off))
-

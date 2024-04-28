@@ -3,7 +3,7 @@
 # This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
 # See the file 'docs/LICENSE' for copying permission.
 
-from __future__ import print_function
+
 
 import errno
 import gevent.pool
@@ -164,7 +164,7 @@ class FileUpload(ProtocolHandler):
         if self.version and self.version >= 2:
             # NB: filepath is only used as metadata
             filepath = self.handler.read_newline()
-            pids = map(int, self.handler.read_newline().split())
+            pids = list(map(int, self.handler.read_newline().split()))
         else:
             filepath, pids = None, []
 
@@ -363,9 +363,8 @@ class GeventResultServerWorker(gevent.server.StreamServer):
         ctx.command = command
         return klass(task_id, ctx, version)
 
-class ResultServer(object):
+class ResultServer(object, metaclass=Singleton):
     """Manager for the ResultServer worker and task state."""
-    __metaclass__ = Singleton
 
     def __init__(self):
         ip = config("cuckoo:resultserver:ip")

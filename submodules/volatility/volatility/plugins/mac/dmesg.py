@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -29,12 +29,12 @@ import volatility.plugins.mac.common as common
 
 class mac_dmesg(common.AbstractMacCommand):
     """ Prints the kernel debug buffer """
-    
+
     def calculate(self):
         common.set_plugin_members(self)
 
         msgbuf_ptr = obj.Object("Pointer", offset = self.addr_space.profile.get_symbol("_msgbufp"), vm = self.addr_space)
-        msgbufp = msgbuf_ptr.dereference_as("msgbuf") 
+        msgbufp = msgbuf_ptr.dereference_as("msgbuf")
 
         bufx = msgbufp.msg_bufx
         size = msgbufp.msg_size
@@ -43,7 +43,7 @@ class mac_dmesg(common.AbstractMacCommand):
         if bufc[bufx] == 0 and bufc[0] != 0:
             ## FIXME: can we do this without get_string?
             buf = common.get_string(bufc, self.addr_space)
-        else:     
+        else:
             if bufx > size:
                 bufx = 0
 

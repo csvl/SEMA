@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -33,7 +33,7 @@ class mac_version(common.AbstractMacCommand):
     def calculate(self):
         common.set_plugin_members(self)
         yield obj.Object("String", offset = self.addr_space.profile.get_symbol("_version"), vm = self.addr_space, length = 256)
- 
+
     def render_text(self, outfd, data):
         for version in data:
             outfd.write("{0}\n".format(version))

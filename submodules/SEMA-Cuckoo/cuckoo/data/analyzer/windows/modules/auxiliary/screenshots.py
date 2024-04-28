@@ -4,7 +4,7 @@
 # See the file 'docs/LICENSE' for copying permission.
 
 import logging
-import StringIO
+import io
 import threading
 import time
 
@@ -69,7 +69,7 @@ class Screenshots(threading.Thread, Auxiliary):
             img_counter += 1
 
             # workaround as PIL can't write to the socket file object :(
-            tmpio = StringIO.StringIO()
+            tmpio = io.StringIO()
             img_current.save(tmpio, format="JPEG")
             tmpio.seek(0)
 

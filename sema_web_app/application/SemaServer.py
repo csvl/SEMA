@@ -21,7 +21,7 @@ from npf_web_extension.app import export
 
 class SemaServer:
     ROOTPATH = os.getcwd()
-    
+
     app = Flask(__name__, static_folder='static')
     app.secret_key = 'super secret key' # TODO
     app.config['SESSION_TYPE'] = 'filesystem'
@@ -29,38 +29,38 @@ class SemaServer:
     app.config['APPLICATION_ROOT'] = 'templates/'
     app.debug = True
     app.jinja_env.filters['json'] = lambda v: Markup(json.dumps(v)) # not safe
-    
-    
+
+
     # enable CORS
     CORS(app, resources={r'/*': {'origins': '*'}})
-    
+
     #Ask the SCDG microservice for available parameters and returns them
-    def init_classifier_args(self):  
+    def init_classifier_args(self):
         """Do an API call to the sema-classifier container to get the arguments to put on the index page"""
         response = requests.get('http://sema-classifier:5002/classifier_args')
         return response.json()
-    
+
     #Ask the SCDG microservice for available parameters and returns them
-    def init_scdg_args(self):  
+    def init_scdg_args(self):
         """Do an API call to the sema-scdg container to get the arguments to put on the index page"""
         response = requests.get('http://sema-scdg:5001/scdg_args')
         return response.json()
-          
+
     def __init__(self):
         self.log = SemaServer.app.logger
-        
+
         # List that contains a dictionary containing all the arguments, it is then used
         # to generate dynamically the UI
         # Each element of the list is a HTML row that contains as element the associated dictionary
-        
+
         # Init actions_scdg with current arguments available in ArgParser
         SemaServer.actions_scdg = self.init_scdg_args()
         self.log.info("SCDG arguments retreived")
-        
+
         # Init actions_classifier with current arguments available in ArgParser
         SemaServer.actions_classifier = self.init_classifier_args()
         self.log.info("Classifier arguments retreived")
-        
+
         SemaServer.exps = []
         SemaServer.download_thread = None
         SemaServer.malware_to_download = 0
@@ -73,7 +73,7 @@ class SemaServer:
     def add_header(r):
         """
         It sets the cache control headers to prevent caching
-        
+
         :param r: The response object
         :return: the response object with the headers added.
         """
@@ -93,14 +93,14 @@ class SemaServer:
         :return: a redirect to the index.html page.
         """
         return redirect('index.html', code =302)
-    
+
     #TODO : make the nyan cat works
     # @app.route('/progress-scdg', methods = ['GET', 'POST'])
     # def progress():
     #     response = requests.get('http://sema-scdg:5001/progress')
     #     return str(response.content)
     #     return str(SemaServer.sema.tool_scdg.current_exps)
-    
+
     # @app.route('/iteration-scdg', methods = ['GET', 'POST'])
     # def iteration():
     #     return
@@ -131,7 +131,7 @@ class SemaServer:
 
             ##
             # Here we start the experiments
-            ##  
+            ##
             if "scdg_enable" in request.form:
                 #Send request to SCDG microservices to start an SCDG with the parameters specified in scdg_args
                 response = requests.post('http://sema-scdg:5001/run_scdg', json=scdg_args)
@@ -140,26 +140,26 @@ class SemaServer:
             if "class_enable" in request.form:
                 response = requests.post('http://sema-classifier:5002/run_classifier', json=class_args)
                 SemaServer.app.logger.info(str(response.content))
-            
-        return render_template('index.html', 
-                            actions_scdg=SemaServer.actions_scdg, 
+
+        return render_template('index.html',
+                            actions_scdg=SemaServer.actions_scdg,
                             actions_classifier=SemaServer.actions_classifier,
                             progress=0)
-            
+
     # def manage_exps(args):
     #     while len(SemaServer.exps) > 0:
     #         elem = SemaServer.exps.pop(0)
-    #         elem.start()  
-    #         elem.join()  
-    
+    #         elem.start()
+    #         elem.join()
+
     # @app.route('/directory/<int:directory>/file/<path:file>')
     # def send_file(directory,file):
     #     return send_from_directory(SemaServer.sema_res_dir + str(directory), file)
-    
+
     # @app.route('/key/<string:implem>')
     # def send_key(implem):
     #     return send_from_directory(SemaServer.key_path, implem)
-    
+
     # def download_malware(tags, limit, db):
     #     SemaServer.malware_to_download = 0
     #     for tag in tags:
@@ -174,7 +174,7 @@ class SemaServer:
     #                         SemaServer.malware_to_download += 1
     #                 except:
     #                     pass
-    #     SemaServer.malware_to_downloaded = 0      
+    #     SemaServer.malware_to_downloaded = 0
     #     for tag in tags:
     #         db_path = "src/" + db + '/' + tag +  "/"
     #         try:
@@ -184,7 +184,7 @@ class SemaServer:
     #         res = requests.post("https://mb-api.abuse.ch/api/v1/", data = {'query': 'get_siginfo', 'signature': tag, 'limit': limit})
     #         #SemaServer.log.info(res.json())
     #         try:
-    #             for i in res.json()['data']: 
+    #             for i in res.json()['data']:
     #                 try:
     #                     if "exe" in i["tags"] or "elf" in i["tags"]:
     #                         SemaServer.malware_to_downloaded += 1
@@ -213,19 +213,19 @@ class SemaServer:
     #                                 if len(out) > 0:
     #                                     SemaServer.log.info("Removed Mono/.Net")
     #                                     os.remove(file)
-    #                                     continue                        
+    #                                     continue
     #                                 SemaServer.log.info(out)
     #                                 out = os.popen('file ' + file + " | grep \"RAR self-extracting archive\"").read()
     #                                 if len(out) > 0:
     #                                     SemaServer.log.info("Removed RAR self-extracting archive")
     #                                     os.remove(file)
-    #                                     continue                        
+    #                                     continue
     #                                 SemaServer.log.info(out)
     #                                 out = os.popen('file ' + file + " | grep PE32+").read()
     #                                 if len(out) > 0:
     #                                     SemaServer.log.info("Removed PE32+") # TODO parameter
     #                                     os.remove(file)
-    #                                     continue                        
+    #                                     continue
     #                                 SemaServer.log.info(out)
     #                                 with open(file, 'rb') as f:
     #                                     # matches = SemaServer.rules_pe_x86.match(data=f.read())
@@ -263,17 +263,17 @@ class SemaServer:
     #                     SemaServer.log.info(e)
     #         except Exception as e:
     #             SemaServer.log.info(e) # TODO
-    #     SemaServer.malware_to_downloaded = 0 
-    #     SemaServer.malware_to_download = 0 
+    #     SemaServer.malware_to_downloaded = 0
+    #     SemaServer.malware_to_download = 0
     #     if SemaServer.download_thread:
     #         SemaServer.download_thread.join()
-        
+
     # @app.route('/downloader.html', methods = ['GET', 'POST'])
     # def serve_download():
     #     if request.method == 'POST':
     #         SemaServer.download_thread = threading.Thread(target=SemaServer.download_malware, args=([request.form['TAG'].split(' '), request.form['max_sample'], request.form['db']])).start()
     #     return render_template('downloader.html')
-    
+
     # @app.route('/results.html', methods = ['GET', 'POST'])
     # def serve_results():
     #     """
@@ -284,7 +284,7 @@ class SemaServer:
     #     SemaServer.log.info(SemaServer.sema_res_dir)
     #     SemaServer.log.info(os.listdir(SemaServer.sema_res_dir))
     #     nb_exp = len(os.listdir(SemaServer.sema_res_dir))
-        
+
     #     summary = {}
     #     default_page = 0
     #     page = request.args.get('page', default_page)
@@ -308,9 +308,9 @@ class SemaServer:
     #         items_page = paginator.page(default_page)
     #     except EmptyPage:
     #         items_page = paginator.page(paginator.num_pages)
-        
+
     #     scdgs = {}
-        
+
     #     try:
     #         scdg_params = json.loads(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg_conf.json').read())
     #         summary["scdg_used"] = True
@@ -318,15 +318,15 @@ class SemaServer:
     #     except:
     #         scdg_params = {}
     #         summary["scdg_used"] = False
-        
-    #     try:    
+
+    #     try:
     #         class_params = json.loads(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/class_conf.json').read())
     #         summary["class_used"] = True
     #         summary["date"] = os.path.getctime(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/class_conf.json')
     #     except:
     #         class_params = {}
     #         summary["class_used"] = False
-        
+
     #     summary["family_cnt"] = 0
     #     summary["sample_cnt"] = 0
     #     for subdir in os.listdir(SemaServer.sema_res_dir + str(nb_exp-int(page))):
@@ -347,10 +347,10 @@ class SemaServer:
     #                             scdgs[subdir][malware_id]["log"] = open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/' + subdir + '/' + malware  + '/' + file,"r").read() #.close()
     #     # scdg_logs = json.loads(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg_conf.json').read())
     #     # class_logs = json.loads(open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.json').read())
-        
+
     #     if os.path.isfile(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg.csv'):
     #         df_csv_scdg = pd.read_csv(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/scdg.csv',sep=";")
-                  
+
     #         print(list(df_csv_scdg.drop("filename", axis=1).drop("Syscall found", axis=1).drop("Libraries", axis=1).columns))
     #         print(df_csv_scdg.drop("filename", axis=1).drop("Syscall found", axis=1).drop("Libraries", axis=1).to_csv())
     #         print(df_csv_scdg[["filename", "CPU architecture"]].to_csv(index=False))
@@ -365,16 +365,16 @@ class SemaServer:
     #             "data": df_csv_scdg.drop("Syscall found", axis=1).drop("Libraries", axis=1).to_csv(index=False)
     #             },
     #             {
-    #             "id": str(uuid.uuid4()), 
+    #             "id": str(uuid.uuid4()),
     #             "name": "Experiences syscall view",
-    #             "parameters": ["filename", "family"], 
+    #             "parameters": ["filename", "family"],
     #             "measurements": ["Number Syscall found"], # , "Total number of blocks",'Number Syscall found'
     #             "data": df_csv_scdg.drop("Syscall found", axis=1).drop("Libraries", axis=1).to_csv(index=False)
     #             },
     #             {
-    #             "id": str(uuid.uuid4()), 
+    #             "id": str(uuid.uuid4()),
     #             "name": "Dataset view",
-    #             "parameters": ["filename"], 
+    #             "parameters": ["filename"],
     #             "measurements": ["OS", "CPU architecture", "family","Binary position-independent"], # , "Total number of blocks",'Number Syscall found'
     #             "data": df_csv_scdg[["filename", "CPU architecture","OS", "family", "Binary position-independent"]].to_csv(index=False)
     #             },
@@ -394,10 +394,10 @@ class SemaServer:
     #             # """, # Raw data in csv format
     #         # }
     #         export(configurationData, output)
-        
+
     #         with open(output, 'r') as f:
     #             df_csv_content = f.read()
-                
+
     #         # configurationData = {
     #         #     "id": df_csv_scdg['Syscall found'], # Must be unique
     #         #     "name": "Experience Syscall found global view",
@@ -406,28 +406,28 @@ class SemaServer:
     #         #     "data": ""
     #         # }
     #         # export(configurationData, output)
-        
+
     #         # with open(output, 'r') as f:
     #         #     df_csv_content = f.read()
-                
+
     #     else:
     #         df_csv_scdg = pd.DataFrame()
     #         df_csv_content = ""
-            
+
     #     if os.path.isfile(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.csv'):
-    #         df_csv_classifier = pd.read_csv(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.csv',sep=";") 
+    #         df_csv_classifier = pd.read_csv(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.csv',sep=";")
     #     else:
     #         df_csv_classifier = pd.DataFrame()
-            
+
     #     if os.path.isfile(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.log'):
     #         log_csv_classifier = open(SemaServer.sema_res_dir + str(nb_exp-int(page)) + '/classifier.log').read()
     #     else:
     #         log_csv_classifier = ""
-        
+
     #     SemaServer.current_exp = SemaServer.sema_res_dir + str(nb_exp-int(page))
     #     exp_dir = os.listdir(SemaServer.current_exp)
-       
-    #     # Get page number from request, 
+
+    #     # Get page number from request,
     #     # default to first page
     #     # try:
     #     #     binary_fc       = open(plantuml_file_png, 'rb').read()  # fc aka file_content
@@ -438,12 +438,12 @@ class SemaServer:
     #     #     base64_utf8_str = ''
     #     #     ext = 'png'
     #     # dataurl = f'data:image/{ext};base64,{base64_utf8_str}'
-        
+
     #     SemaServer.log.info(items_page)
     #     SemaServer.log.info(paginator)
-    
-        
-    #     return render_template('results.html', 
+
+
+    #     return render_template('results.html',
     #                        items_page=items_page,
     #                        nb_exp=nb_exp,
     #                        page=int(page),
@@ -466,12 +466,12 @@ class SemaServer:
     #     :return: the upload function.
     #     """
     #     nb_exp = len(os.listdir(SemaServer.sema_res_dir)) - 2
-        
+
     #     SemaServer.log.info(request.form)
-        
+
     #     summary = {}
     #     df_csv = pd.read_csv(SemaServer.sema_res_dir + 'data.csv',parse_dates=['date'])
-        
+
     #     df_simplify_date = df_csv
     #     df_simplify_date['date'] = df_csv['date'].dt.strftime('%d/%m/%Y')
     #     df_date_min_max = df_simplify_date['date'].agg(['min', 'max'])
@@ -482,26 +482,26 @@ class SemaServer:
     #     SemaServer.log.info(df_nb_date)
     #     minimum_date = df_date_min_max["min"]
     #     maximum_date = df_date_min_max["max"]
-                
+
     #     subdf = None
     #     #if len(request.form) >= 0:
     #     for key in request.form:
     #         pass
-        
+
     #     if subdf is not None:
     #         df_csv = subdf
-            
+
     #     # csv_text = df_csv.to_csv()
-        
+
     #     output = "df_csv.html"
     #     export(df_csv, output)
-            
-    #     return render_template('result-global.html', 
+
+    #     return render_template('result-global.html',
     #                        nb_exp=nb_exp,
     #                        current_exp=SemaServer.current_exp,
     #                        summary=summary,
     #                        csv_text=csv_text,
-    #                        server_tests=SemaServer.server_tests, 
+    #                        server_tests=SemaServer.server_tests,
     #                        client_tests=SemaServer.client_tests,
     #                        implems=SemaServer.implems,
     #                        min_date=None,
@@ -510,13 +510,13 @@ class SemaServer:
     #                        df_dates=list(df_dates))
 
 
- 
+
     def run(self):
         SemaServer.app.run(host='0.0.0.0', port=5000, use_reloader=True)  #, processes=4
-        
+
 def main():
     sema = SemaServer()
     sema.run()
-    
+
 if __name__ == '__main__':
     main()

@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -32,7 +32,7 @@ from volatility.renderers.basic import Address
 # based on sysctl_sysctl_debug_dump_node
 class mac_check_sysctl(common.AbstractMacCommand):
     """ Checks for unknown sysctl handlers """
-    
+
     # returns the value for known, hardcoded-sysctls, otherwise ""
     def _parse_global_variable_sysctls(self, name):
         known_sysctls = {
@@ -58,7 +58,7 @@ class mac_check_sysctl(common.AbstractMacCommand):
             sysctl_list = sysctl_list.dereference_as("sysctl_oid_list")
 
         sysctl = sysctl_list.slh_first
-        
+
         # skip the head entry if new list (recursive call)
         if r:
             sysctl = sysctl.oid_link.sle_next
@@ -78,7 +78,7 @@ class mac_check_sysctl(common.AbstractMacCommand):
             elif ctltype == 'CTLTYPE_NODE':
                 if sysctl.oid_handler == 0:
                     for info in self._process_sysctl_list(sysctl.oid_arg1, r = 1):
-                        yield info 
+                        yield info
                 val = "Node"
             elif ctltype in ['CTLTYPE_INT', 'CTLTYPE_QUAD', 'CTLTYPE_OPAQUE']:
                 val = sysctl.oid_arg1.dereference()
@@ -91,12 +91,12 @@ class mac_check_sysctl(common.AbstractMacCommand):
             yield (sysctl, name, val)
 
             sysctl = sysctl.oid_link.sle_next
-    
+
     def calculate(self):
         common.set_plugin_members(self)
-            
+
         (kernel_symbol_addresses, kmods) = common.get_kernel_addrs(self)
-    
+
         sysctl_children_addr = self.addr_space.profile.get_symbol("_sysctl__children")
 
         sysctl_list = obj.Object("sysctl_oid_list", offset = sysctl_children_addr, vm = self.addr_space)
@@ -106,7 +106,7 @@ class mac_check_sysctl(common.AbstractMacCommand):
                 continue
 
             (is_known, module_name) = common.is_known_address_name(sysctl.oid_handler.v(), kernel_symbol_addresses, kmods)
-            
+
             if is_known:
                 status = "OK"
             else:
@@ -139,20 +139,20 @@ class mac_check_sysctl(common.AbstractMacCommand):
 
     def render_text(self, outfd, data):
         self.table_header(outfd, [
-                                  ("Name", "30"), 
-                                  ("Number", "8"), 
-                                  ("Perms", "6"), 
-                                  ("Handler", "[addrpad]"), 
+                                  ("Name", "30"),
+                                  ("Number", "8"),
+                                  ("Perms", "6"),
+                                  ("Handler", "[addrpad]"),
                                   ("Value", "20"),
                                   ("Module", "40"),
                                   ("Status", "5")])
 
         for (sysctl, name, val, is_known, module_name, status) in data:
-            self.table_row(outfd, 
-               name, 
-               sysctl.oid_number, 
+            self.table_row(outfd,
+               name,
+               sysctl.oid_number,
                sysctl.get_perms(),
-               sysctl.oid_handler, 
+               sysctl.oid_handler,
                val,
                module_name,
                status)

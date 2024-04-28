@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 import datetime
 import volatility.obj as obj
@@ -34,26 +34,26 @@ class mac_route(common.AbstractMacCommand):
     def _get_table(self, tbl):
         rnh = tbl #obj.Object("radix_node", offset=tbl.v(), vm=self.addr_space)
         rn = rnh.rnh_treetop
-       
-        seen = set() 
+
+        seen = set()
         while rn.is_valid() and rn.rn_bit >= 0:
             if rn.v() in seen:
                 break
             seen.add(rn.v())
 
             rn = rn.rn_u.rn_node.rn_L
-            
+
         rnhash = {}
 
         while rn.is_valid():
             base = rn
-            
+
             if rn in rnhash:
                 break
 
             rnhash[rn] = 1
 
-            seen = set() 
+            seen = set()
             while rn.is_valid() and rn.rn_parent.rn_u.rn_node.rn_R == rn and rn.rn_flags & 2 == 0:
                 if rn.v() in seen:
                     break
@@ -87,7 +87,7 @@ class mac_route(common.AbstractMacCommand):
 
             if rn.rn_flags & 2 != 0:
                 break
-            
+
     def calculate(self):
         common.set_plugin_members(self)
 
@@ -106,7 +106,7 @@ class mac_route(common.AbstractMacCommand):
 
     def unified_output(self, data):
 
-        return TreeGrid([("Source IP", str), 
+        return TreeGrid([("Source IP", str),
                         ("Dest. IP", str),
                         ("Name", str),
                         ("Sent", int),
@@ -118,32 +118,32 @@ class mac_route(common.AbstractMacCommand):
     def generator(self, data):
         for rt in data:
             yield (0, [
-                    str(rt.source_ip), 
+                    str(rt.source_ip),
                     str(rt.dest_ip),
                     str(rt.name),
                     int(rt.sent),
                     int(rt.rx),
-                    str(rt.get_time()), 
+                    str(rt.get_time()),
                     int(rt.expire()),
                     int(rt.delta),
-                    ])    
+                    ])
 
     def render_text(self, outfd, data):
-        self.table_header(outfd, [("Source IP", "24"), 
-                                  ("Dest. IP", "24"), 
-                                  ("Name", "^10"), 
+        self.table_header(outfd, [("Source IP", "24"),
+                                  ("Dest. IP", "24"),
+                                  ("Name", "^10"),
                                   ("Sent", "^18"),
-                                  ("Recv", "^18"), 
-                                  ("Time", "^30"), 
-                                  ("Exp.", "^10"), 
+                                  ("Recv", "^18"),
+                                  ("Time", "^30"),
+                                  ("Exp.", "^10"),
                                   ("Delta", "")])
 
         for rt in data:
-            self.table_row(outfd, 
-                           rt.source_ip, 
+            self.table_row(outfd,
+                           rt.source_ip,
                            rt.dest_ip,
                            rt.name,
-                           rt.sent, rt.rx, 
-                           rt.get_time(), 
-                           rt.expire(), 
+                           rt.sent, rt.rx,
+                           rt.get_time(),
+                           rt.expire(),
                            rt.delta)

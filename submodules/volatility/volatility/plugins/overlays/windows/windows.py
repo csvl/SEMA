@@ -79,9 +79,9 @@ windows_overlay = {
     'TimeZoneBias' : [ None, ['WinTimeStamp', {}]],
     }],
 
-    # The DTB is really an array of 2 ULONG_PTR but we only need the first one 
-    # which is the value loaded into CR3. The second one, according to procobj.c 
-    # of the wrk-v1.2, contains the PTE that maps something called hyper space. 
+    # The DTB is really an array of 2 ULONG_PTR but we only need the first one
+    # which is the value loaded into CR3. The second one, according to procobj.c
+    # of the wrk-v1.2, contains the PTE that maps something called hyper space.
     '_KPROCESS' : [ None, {
     'DirectoryTableBase' : [ None, ['unsigned long']],
     }],
@@ -158,9 +158,9 @@ class ExecutiveObjectMixin(object):
     """
 
     def get_object_header(self):
-        return obj.Object("_OBJECT_HEADER", vm = self.obj_vm, 
-                        offset = self.obj_offset - 
-                        self.obj_vm.profile.get_obj_offset("_OBJECT_HEADER", "Body"), 
+        return obj.Object("_OBJECT_HEADER", vm = self.obj_vm,
+                        offset = self.obj_offset -
+                        self.obj_vm.profile.get_obj_offset("_OBJECT_HEADER", "Body"),
                         native_vm = self.obj_native_vm)
 
 class _UNICODE_STRING(obj.CType):
@@ -178,7 +178,7 @@ class _UNICODE_STRING(obj.CType):
         """
         data = self.dereference()
         if data:
-            return unicode(data)
+            return str(data)
         return data
 
     def dereference(self):
@@ -192,7 +192,7 @@ class _UNICODE_STRING(obj.CType):
     def proxied(self, _name):
         return str(self)
 
-    def __nonzero__(self):
+    def __bool__(self):
         ## Unicode strings are valid if they point at a valid memory
         return bool(self.Buffer and self.Length.v() > 0 and self.Length.v() <= 1024)
 
@@ -203,7 +203,7 @@ class _UNICODE_STRING(obj.CType):
         return str(self.v().encode("utf8", "ignore"))
 
     def __unicode__(self):
-        return unicode(self.dereference())
+        return str(self.dereference())
 
     def __len__(self):
         return len(self.dereference())
@@ -212,7 +212,7 @@ class _LIST_ENTRY(obj.CType):
     """ Adds iterators for _LIST_ENTRY types """
     def get_next_entry(self, member):
         return self.m(member).dereference()
-    
+
     def list_of_type(self, type, member, forward = True, head_sentinel = True):
         if not self.is_valid():
             return
@@ -248,7 +248,7 @@ class _LIST_ENTRY(obj.CType):
             else:
                 nxt = item.m(member).get_next_entry("Blink")
 
-    def __nonzero__(self):
+    def __bool__(self):
         ## List entries are valid when both Flinks and Blink are valid
         return bool(self.Flink) or bool(self.Blink)
 
@@ -290,7 +290,7 @@ class WinTimeStamp(obj.NativeType):
         value = self.as_windows_timestamp()
         return self.windows_to_unix_time(value)
 
-    def __nonzero__(self):
+    def __bool__(self):
         return self.v() != 0
 
     def __str__(self):
@@ -302,7 +302,7 @@ class WinTimeStamp(obj.NativeType):
             if self.is_utc:
                 # Only do dt.replace when dealing with UTC
                 dt = dt.replace(tzinfo = timefmt.UTC())
-        except ValueError, e:
+        except ValueError as e:
             return obj.NoneObject("Datetime conversion failure: " + str(e))
         return dt
 
@@ -325,7 +325,7 @@ class DosDate(obj.NativeType):
         value = self.as_dos_timestamp()
         return self.dos_to_unix_time(value)
 
-    def __nonzero__(self):
+    def __bool__(self):
         return self.v() != 0
 
     def __str__(self):
@@ -337,7 +337,7 @@ class DosDate(obj.NativeType):
             if self.is_utc:
                 # Only do dt.replace when dealing with UTC
                 dt = dt.replace(tzinfo = timefmt.UTC())
-        except ValueError, e:
+        except ValueError as e:
             return obj.NoneObject("Datetime conversion failure: " + str(e))
         return dt
 
@@ -349,8 +349,8 @@ class DosDate(obj.NativeType):
         return "-"
 
     def dos_to_unix_time(self, dosdate):
-        """  
-        Every previous conversion algorithm takes in two unsigned shorts separately.  
+        """
+        Every previous conversion algorithm takes in two unsigned shorts separately.
         We're not doing that here, but instead getting those shorts from an unsigned int (dosdate)
 
         dosdate: 4 bytes little endian converted to:
@@ -411,14 +411,14 @@ class _EPROCESS(obj.CType, ExecutiveObjectMixin):
         if process_as == None:
             return obj.NoneObject("Unable to create process AS")
 
-        # get the address but don't dereference 
+        # get the address but don't dereference
         ptr = obj.Object("address", offset = self.Wow64Process.v(), vm = process_as)
 
-        # make sure the validity check happens with a process AS 
+        # make sure the validity check happens with a process AS
         if not ptr.is_valid():
             return obj.NoneObject("The Wow64Process pointer is not valid in process AS")
 
-        # windows 10 
+        # windows 10
         if process_as.profile.has_type("_EWOW64PROCESS"):
             return ptr.cast("_EWOW64PROCESS").Peb.dereference_as("_PEB32")
 
@@ -426,9 +426,9 @@ class _EPROCESS(obj.CType, ExecutiveObjectMixin):
         elif process_as.profile.has_type("_WOW64_PROCESS"):
             return ptr.cast("_WOW64_PROCESS").Wow64.dereference_as("_PEB32")
 
-        # everything else 
+        # everything else
         else:
-            return ptr.cast("_PEB32") 
+            return ptr.cast("_PEB32")
 
     def get_process_address_space(self):
         """ Gets a process address space for a task given in _EPROCESS """
@@ -436,7 +436,7 @@ class _EPROCESS(obj.CType, ExecutiveObjectMixin):
 
         try:
             process_as = self.obj_vm.__class__(self.obj_vm.base, self.obj_vm.get_config(), dtb = directory_table_base)
-        except AssertionError, _e:
+        except AssertionError as _e:
             return obj.NoneObject("Unable to get process AS")
 
         process_as.name = "Process {0}".format(self.UniqueProcessId)
@@ -471,12 +471,12 @@ class _EPROCESS(obj.CType, ExecutiveObjectMixin):
     def get_token(self):
         """Return the process's TOKEN object if its valid"""
 
-        # The dereference checks if the address is valid  
-        # and returns obj.NoneObject if it fails 
+        # The dereference checks if the address is valid
+        # and returns obj.NoneObject if it fails
         token = self.Token.dereference_as("_TOKEN")
 
-        # This check fails if the above dereference failed 
-        # or if any of the _TOKEN specific validity tests failed. 
+        # This check fails if the above dereference failed
+        # or if any of the _TOKEN specific validity tests failed.
         if token.is_valid():
             return token
 
@@ -504,21 +504,21 @@ class _EPROCESS(obj.CType, ExecutiveObjectMixin):
 
     @property
     def ImageFileName(self):
-        """Return the image's file name if its a normal 
-        Windows process. If its a Pico process (WSL) 
+        """Return the image's file name if its a normal
+        Windows process. If its a Pico process (WSL)
         then derive the name from the PicoContext."""
-         
+
         # more often than not, its a normal windows process
-        # so give this priority before we even check WSL 
+        # so give this priority before we even check WSL
         name = self.m("ImageFileName")
-        
+
         # WSL requires x64 but strangely the x86 types still
         # contain PicoContext, but in those cases it always
         # seems to be zeroed out
-        if (len(name) == 0 and 
+        if (len(name) == 0 and
                 hasattr(self, "PicoContext") and self.PicoContext.is_valid()):
             name = self.PicoContext.Name
-        
+
         return name
 
     @property
@@ -539,20 +539,20 @@ class _EPROCESS(obj.CType, ExecutiveObjectMixin):
         Generator for MMVADs that match specific
         metadata.
 
-        @param vad_filter: a callable that is passed the 
+        @param vad_filter: a callable that is passed the
         current MMVAD and applies tests to the MMVAD struct
-        members or nested struct members. 
+        members or nested struct members.
 
         @param skip_max_commit: boolean, if true then VADs
         for Wow64 processes with the MM_MAX_COMMIT flag set
-        will not be yielded. 
+        will not be yielded.
 
         @yields a tuple (mmvad, address_space). Where mmvad is
-        the MMVAD object in kernel AS and address_space 
-        is the process address space. 
+        the MMVAD object in kernel AS and address_space
+        is the process address space.
         """
 
-        # We absolutely need a process AS. If this 
+        # We absolutely need a process AS. If this
         # fails then all else fails
         process_space = self.get_process_address_space()
         if not process_space:
@@ -565,7 +565,7 @@ class _EPROCESS(obj.CType, ExecutiveObjectMixin):
                 continue
 
             # Skip Wow64 MM_MAX_COMMIT range
-            if skip_max_commit: 
+            if skip_max_commit:
                 if self.IsWow64 and vad.CommitCharge == max_commit and vad.End > 0x7fffffff:
                     continue
                 elif vad.Length > 0x7f000000000: # see issue #70
@@ -579,22 +579,22 @@ class _EPROCESS(obj.CType, ExecutiveObjectMixin):
 
     def search_process_memory(self, s, vad_filter = None):
         """
-        Search memory for a simple byte string. 
-        
+        Search memory for a simple byte string.
+
         FIXME: as of 2.3 this parameter can also be a list to
-        search for mutliple strings concurrently. The 
-        single string will be deprecated in 3.0. 
+        search for mutliple strings concurrently. The
+        single string will be deprecated in 3.0.
 
         @param s: the string to search for.
 
-        @returns every occurrance of the string 
+        @returns every occurrance of the string
         in process memory (as absolute address).
         """
 
-        # Allow for some overlap in case objects are 
-        # right on page boundaries 
+        # Allow for some overlap in case objects are
+        # right on page boundaries
         overlap = 1024
-        
+
         # Make sure s in a list. This allows you to search for
         # multiple strings at once, without changing the API.
         if type(s) != list:
@@ -619,34 +619,34 @@ class _EPROCESS(obj.CType, ExecutiveObjectMixin):
     def _injection_filter(self, vad):
         """
         This is a callback that's executed by get_vads()
-        when searching for injected code / hidden DLLs. 
+        when searching for injected code / hidden DLLs.
 
-        This looks for private allocations that are committed, 
-        memory-resident, non-empty (not all zeros) and with an 
-        original protection that includes write and execute. 
+        This looks for private allocations that are committed,
+        memory-resident, non-empty (not all zeros) and with an
+        original protection that includes write and execute.
 
-        It is important to note that protections are applied at 
+        It is important to note that protections are applied at
         the allocation granularity (page level). Thus the original
         protection might not be the current protection, and it
-        also might not apply to all pages in the VAD range. 
+        also might not apply to all pages in the VAD range.
 
         @param vad: an MMVAD object.
 
         @returns: True if the MMVAD looks like it might
-        contain injected code. 
+        contain injected code.
         """
         protect = vadinfo.PROTECT_FLAGS.get(vad.VadFlags.Protection.v(), "")
         write_exec = "EXECUTE" in protect and "WRITE" in protect
 
-        # The Write/Execute check applies to everything 
+        # The Write/Execute check applies to everything
         if not write_exec:
             return False
 
-        # This is a typical VirtualAlloc'd injection 
+        # This is a typical VirtualAlloc'd injection
         if vad.VadFlags.PrivateMemory == 1 and vad.Tag == "VadS":
             return True
 
-        # This is a stuxnet-style injection 
+        # This is a stuxnet-style injection
         if (vad.VadFlags.PrivateMemory == 0 and
                 protect != "PAGE_EXECUTE_WRITECOPY"):
             return True
@@ -655,13 +655,13 @@ class _EPROCESS(obj.CType, ExecutiveObjectMixin):
 
     def _mapped_file_filter(self, vad):
         """
-        This is a callback that's executed by get_vads() 
-        when searching for memory-mapped files. 
+        This is a callback that's executed by get_vads()
+        when searching for memory-mapped files.
 
         @param vad: an MMVAD object.
 
         @returns: True if the MMVAD looks like it might
-        contain a mapped file. 
+        contain a mapped file.
         """
         try:
             return vad.VadFlags.PrivateMemory == 0 and vad.ControlArea
@@ -669,11 +669,11 @@ class _EPROCESS(obj.CType, ExecutiveObjectMixin):
             return False
 
     def environment_variables(self):
-        """Generator for environment variables. 
+        """Generator for environment variables.
 
         The PEB points to our env block - a series of null-terminated
-        unicode strings. Each string cannot be more than 0x7FFF chars. 
-        End of the list is a quad-null. 
+        unicode strings. Each string cannot be more than 0x7FFF chars.
+        End of the list is a quad-null.
         """
 
         # Address of the environment block
@@ -689,10 +689,10 @@ class _EPROCESS(obj.CType, ExecutiveObjectMixin):
         s = obj.Object("String", offset = block, vm = process_space,
             encoding = 'utf16', length = 0x7FFF)
 
-        # The terminator is a quad null 
+        # The terminator is a quad null
         while len(s):
-            if s.count(u"=") == 1:
-                yield s.split(u"=")
+            if s.count("=") == 1:
+                yield s.split("=")
             # Scan forward the length of this string plus the null
             next_offset = s.obj_offset + ((len(s) + 1) * 2)
             s = obj.Object("String", offset = next_offset,
@@ -711,14 +711,14 @@ class _EPROCESS(obj.CType, ExecutiveObjectMixin):
         if not (str(name) == "System" and self.UniqueProcessId == 4):
             if self.CreateTime.v() == 0:
                 return False
-                
+
             ctime = self.CreateTime.as_datetime()
             if ctime == None:
                 return False
 
             if not (1998 < ctime.year < 2030):
                 return False
-                
+
         # NT pids are divisible by 4
         if self.UniqueProcessId % 4 != 0:
             return False
@@ -729,7 +729,7 @@ class _EPROCESS(obj.CType, ExecutiveObjectMixin):
         # check for all 0s besides the PCID entries
         if self.Pcb.DirectoryTableBase & ~0xfff == 0:
             return False
-    
+
         list_head = self.ThreadListHead
         kernel = 0x80000000
 
@@ -767,20 +767,20 @@ class _TOKEN(obj.CType):
     def privileges(self):
         """Generator for privileges.
 
-        @yields a tuple (value, present, enabled, default). 
+        @yields a tuple (value, present, enabled, default).
 
-        We only yield 'present' here for consistency with 
-        the Vista+ privileges() generator. In the XP/2003 
+        We only yield 'present' here for consistency with
+        the Vista+ privileges() generator. In the XP/2003
         case, values will never be reported unless they're
         present (thus we hard-code it to True) but Vista+
         can be optional due to DKOM.
         """
-        # The max size check originates from code seen in the 
-        # DisplayPrivileges function of windbg's exts.dll 
+        # The max size check originates from code seen in the
+        # DisplayPrivileges function of windbg's exts.dll
         if self.PrivilegeCount < 1024:
             # This is a pointer to an array of _LUID_AND_ATTRIBUTES
             for luid in self.Privileges.dereference():
-                # The Attributes member is a flag 
+                # The Attributes member is a flag
                 enabled = luid.Attributes & 2 != 0
                 default = luid.Attributes & 1 != 0
                 yield luid.Luid.LowPart, True, enabled, default
@@ -808,8 +808,8 @@ class _ETHREAD(obj.CType, ExecutiveObjectMixin):
         if self.Cid.UniqueProcess.v() != 0 and self.StartAddress == 0:
             return False
 
-        # win8 _KTHREAD doesn't have this member 
-        if (hasattr(self.Tcb, 'SuspendSemaphore') and 
+        # win8 _KTHREAD doesn't have this member
+        if (hasattr(self.Tcb, 'SuspendSemaphore') and
                 self.Tcb.SuspendSemaphore.Header.Size != 0x05 and
                 self.Tcb.SuspendSemaphore.Header.Type != 0x05):
            return False
@@ -821,16 +821,16 @@ class _ETHREAD(obj.CType, ExecutiveObjectMixin):
         return True
 
 class _HANDLE_TABLE(obj.CType):
-    """ A class for _HANDLE_TABLE. 
-    
-    This used to be a member of _EPROCESS but it was isolated per issue 
-    91 so that it could be subclassed and used to service other handle 
+    """ A class for _HANDLE_TABLE.
+
+    This used to be a member of _EPROCESS but it was isolated per issue
+    91 so that it could be subclassed and used to service other handle
     tables, such as the _KDDEBUGGER_DATA64.PspCidTable.
     """
 
     def get_item(self, entry, handle_value = 0):
         """Returns the OBJECT_HEADER of the associated handle. The parent
-        is the _HANDLE_TABLE_ENTRY so that an object can be linked to its 
+        is the _HANDLE_TABLE_ENTRY so that an object can be linked to its
         GrantedAccess.
         """
         return entry.Object.dereference_as("_OBJECT_HEADER", parent = entry, handle_value = handle_value)
@@ -840,7 +840,7 @@ class _HANDLE_TABLE(obj.CType):
         and iterates over them.
         """
 
-        # The counts below are calculated by taking the size of a page and dividing 
+        # The counts below are calculated by taking the size of a page and dividing
         # by the size of the data type contained within the page. For more information
         # see http://blogs.technet.com/b/markrussinovich/archive/2009/09/29/3283844.aspx
         if level > 0:
@@ -871,13 +871,13 @@ class _HANDLE_TABLE(obj.CType):
                     depth += 1
                 else:
 
-                    # All handle values are multiples of four, on both x86 and x64. 
+                    # All handle values are multiples of four, on both x86 and x64.
                     handle_multiplier = 4
-                    # Calculate the starting handle value for this level. 
+                    # Calculate the starting handle value for this level.
                     handle_level_base = depth * count * handle_multiplier
                     # The size of a handle table entry.
                     handle_entry_size = self.obj_vm.profile.get_obj_size("_HANDLE_TABLE_ENTRY")
-                    # Finally, compute the handle value for this object. 
+                    # Finally, compute the handle value for this object.
                     handle_value = ((entry.obj_offset - offset) /
                                    (handle_entry_size / handle_multiplier)) + handle_level_base
 
@@ -937,7 +937,7 @@ class _OBJECT_HEADER(obj.CType):
 
     def __init__(self, *args, **kwargs):
         # Usually we don't add members to objects like this, but its an
-        # exception due to lack of better options. See Issue #135. 
+        # exception due to lack of better options. See Issue #135.
         self.HandleValue = kwargs.get("handle_value", 0)
         obj.CType.__init__(self, *args, **kwargs)
         # Create accessors for optional headers
@@ -984,7 +984,7 @@ class _OBJECT_HEADER(obj.CType):
         return True
 
 class _OBJECT_SYMBOLIC_LINK(obj.CType, ExecutiveObjectMixin):
-    """A symbolic link object"""    
+    """A symbolic link object"""
 
     def is_valid(self):
         return obj.CType.is_valid(self) and self.LinkTarget.v()
@@ -1042,7 +1042,7 @@ class VolatilityKPCR(obj.VolatilityMagic):
     """A scanner for KPCR data within an address space"""
 
     def __init__(self, *args, **kwargs):
-        # Remove the value kwarg since overlaying one 
+        # Remove the value kwarg since overlaying one
         # on the other would give the value precedence
         kwargs.pop('value', None)
         obj.VolatilityMagic.__init__(self, *args, **kwargs)
@@ -1093,7 +1093,7 @@ class VolatilityIA32ValidAS(obj.VolatilityMagic):
                 yield True
                 raise StopIteration
 
-        except addrspace.ASAssertionError, _e:
+        except addrspace.ASAssertionError as _e:
             pass
         debug.debug("Failed to pass the Moyix Valid IA32 AS test", 3)
 
@@ -1155,8 +1155,8 @@ class _POOL_HEADER(obj.CType):
 
     # the maximum size of optional object headers that may
     # exist in an allocation below the pool header but above
-    # the actual executive object. 
-    MAX_PREAMBLE = 0x60 
+    # the actual executive object.
+    MAX_PREAMBLE = 0x60
 
     @property
     def FreePool(self):
@@ -1176,21 +1176,21 @@ class _POOL_HEADER(obj.CType):
         """
 
         if not object_type:
-            return obj.Object(struct_name, vm = self.obj_vm, 
+            return obj.Object(struct_name, vm = self.obj_vm,
                         offset = self.obj_offset +
-                        self.obj_vm.profile.get_obj_size("_POOL_HEADER"), 
+                        self.obj_vm.profile.get_obj_size("_POOL_HEADER"),
                         native_vm = self.obj_native_vm)
 
         pool_alignment = obj.VolMagic(self.obj_vm).PoolAlignment.v()
 
-        the_object = obj.Object(struct_name, vm = self.obj_vm, 
-                        offset = (self.obj_offset + self.BlockSize * pool_alignment - 
+        the_object = obj.Object(struct_name, vm = self.obj_vm,
+                        offset = (self.obj_offset + self.BlockSize * pool_alignment -
                         common.pool_align(self.obj_vm, struct_name, pool_alignment)),
                         native_vm = self.obj_native_vm)
 
         header = the_object.get_object_header()
 
-        if (skip_type_check or 
+        if (skip_type_check or
                     header.get_object_type() == object_type):
             return the_object
         else:
@@ -1206,16 +1206,16 @@ class _POOL_HEADER(obj.CType):
         earlier versions of windows.
         """
 
-        # we start after the pool header 
+        # we start after the pool header
         start_offset = self.obj_offset + self.obj_vm.profile.get_obj_size("_POOL_HEADER")
 
-        # allocations containing only one structure 
+        # allocations containing only one structure
         if not object_type:
-            return obj.Object(object_name, offset = start_offset, 
-                              vm = self.obj_vm, 
+            return obj.Object(object_name, offset = start_offset,
+                              vm = self.obj_vm,
                               native_vm = self.obj_native_vm)
 
-        # pool aligned boundary 
+        # pool aligned boundary
         pool_alignment = obj.VolMagic(self.obj_vm).PoolAlignment.v()
 
         # maximum distance to search
@@ -1223,11 +1223,11 @@ class _POOL_HEADER(obj.CType):
 
         for addr in range(start_offset, end_offset, pool_alignment):
 
-            header = obj.Object("_OBJECT_HEADER", offset = addr,    
-                                vm = self.obj_vm, 
+            header = obj.Object("_OBJECT_HEADER", offset = addr,
+                                vm = self.obj_vm,
                                 native_vm = self.obj_native_vm)
 
-            if (header.is_valid() and 
+            if (header.is_valid() and
                         header.get_object_type() == object_type):
 
                 the_object = header.dereference_as(object_name)
@@ -1236,22 +1236,22 @@ class _POOL_HEADER(obj.CType):
 
         return obj.NoneObject("Cannot find object")
 
-    def get_object(self, struct_name, object_type = None, use_top_down = False, skip_type_check = False): 
+    def get_object(self, struct_name, object_type = None, use_top_down = False, skip_type_check = False):
         """Get the windows object contained within this pool
-        using whichever method is best for the target OS. 
+        using whichever method is best for the target OS.
 
         @param struct_name: the name of the structure to cast
         such as _EPROCESS.
 
         @param object_type: the name of the executive object.
         If there is no executive object in the pool allocation,
-        then this can be None. 
+        then this can be None.
 
-        @param use_top_down: specify the technique we use to 
-        find the object within the pool allocation. 
+        @param use_top_down: specify the technique we use to
+        find the object within the pool allocation.
 
-        @param skip_type_check: specify if we skip unallocated 
-        objects or return them. 
+        @param skip_type_check: specify if we skip unallocated
+        objects or return them.
         """
 
         if use_top_down:
@@ -1259,11 +1259,11 @@ class _POOL_HEADER(obj.CType):
         else:
             return self.get_object_bottom_up(struct_name, object_type, skip_type_check)
 
-import crash_vtypes
-import hibernate_vtypes
-import kdbg_vtypes
-import tcpip_vtypes
-import ssdt_vtypes
+from . import crash_vtypes
+from . import hibernate_vtypes
+from . import kdbg_vtypes
+from . import tcpip_vtypes
+from . import ssdt_vtypes
 
 class WindowsOverlay(obj.ProfileModification):
     conditions = {'os': lambda x: x == 'windows'}
@@ -1339,7 +1339,7 @@ class HandleTableEntryPreWin8(obj.ProfileModification):
 
     def modification(self, profile):
 
-        version = (profile.metadata.get('major', 0), 
+        version = (profile.metadata.get('major', 0),
                    profile.metadata.get('minor', 0))
 
         if version <= (6, 1):
@@ -1356,15 +1356,15 @@ class PoolTagModification(obj.ProfileModification):
     def modification(self, profile):
         profile.object_classes.update({'VolMagicPoolTag': VolMagicPoolTag})
 
-        # win8 / 2012 pool tags are not protected 
-        if (profile.metadata.get('major', 0) == 6 and 
+        # win8 / 2012 pool tags are not protected
+        if (profile.metadata.get('major', 0) == 6 and
                     profile.metadata.get('minor', 0) >= 2):
             protected = False
         else:
             protected = True
 
         profile.merge_overlay({
-            'VOLATILITY_MAGIC': [ None, { 
+            'VOLATILITY_MAGIC': [ None, {
             'ProcessPoolTag': [ 0x0, ['VolMagicPoolTag', dict(tag = "Proc", protected = protected)]],
             'MutexPoolTag': [ 0x0, ['VolMagicPoolTag', dict(tag = "Muta", protected = protected)]],
             'SymlinkPoolTag': [ 0x0, ['VolMagicPoolTag', dict(tag = "Symb", protected = protected)]],

@@ -21,11 +21,11 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
-import volatility.plugins.mac.pstasks as pstasks 
+import volatility.plugins.mac.pstasks as pstasks
 import volatility.plugins.mac.common as common
 from volatility.renderers import TreeGrid
 from volatility.renderers.basic import Address
@@ -68,7 +68,7 @@ class mac_proc_maps(pstasks.mac_tasks):
 
 
     def render_text(self, outfd, data):
-        self.table_header(outfd, [("Pid", "8"), 
+        self.table_header(outfd, [("Pid", "8"),
                           ("Name", "20"),
                           ("Start", "#018x"),
                           ("End", "#018x"),
@@ -80,9 +80,9 @@ class mac_proc_maps(pstasks.mac_tasks):
             if path == "":
                 path = map.get_special_path()
 
-            self.table_row(outfd, 
-                           str(proc.p_pid), proc.p_comm, 
-                           map.links.start, 
-                           map.links.end, 
-                           map.get_perms(), 
+            self.table_row(outfd,
+                           str(proc.p_pid), proc.p_comm,
+                           map.links.start,
+                           map.links.end,
+                           map.get_perms(),
                            path)

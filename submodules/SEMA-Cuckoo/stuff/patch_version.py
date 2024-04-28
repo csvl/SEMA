@@ -7,7 +7,7 @@ import sys
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print "Usage: python %s <setup.py> <version>" % sys.argv[0]
+        print("Usage: python %s <setup.py> <version>" % sys.argv[0])
         exit(1)
 
     # Patches the version="..." string in setup.py.

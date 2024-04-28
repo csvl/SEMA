@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 # Volatility
-# 
+#
 # Authors:
 # AAron Walters <awalters@4tphi.net>
 # Mike Auty <mike.auty@gmail.com>
@@ -38,7 +38,7 @@ except ImportError:
 
 def find_files(topdirs, py = False):
     """Lists all python files under any topdir from the topdirs lists.
-    
+
        Returns an appropriate list for data_files,
        with source and destination directories the same"""
     ret = []
@@ -70,7 +70,7 @@ opts['packages'] = ["volatility",
                     "volatility.plugins.gui.vtypes",
                     "volatility.plugins.linux",
                     "volatility.plugins.registry",
-                    "volatility.plugins.malware", 
+                    "volatility.plugins.malware",
                     "volatility.plugins.mac"]
 opts['data_files'] = find_files(['contrib'], py = True) + find_files(['tools'])
 

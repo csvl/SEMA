@@ -506,7 +506,7 @@ def createservicesid(svc):
     dec = list()
     for i in range(5):
         ## The use of struct here is OK. It doesn't make much sense
-        ## to leverage obj.Object inside this loop. 
+        ## to leverage obj.Object inside this loop.
         dec.append(struct.unpack('<I', sha[i * 4 : i * 4 + 4])[0])
     return 'S-1-5-80-' + '-'.join([str(n) for n in dec])
 
@@ -525,13 +525,13 @@ class GetServiceSids(common.AbstractWindowsCommand):
         if currentcs == None:
             currentcs = "ControlSet001"
 
-        #set the services root. 
+        #set the services root.
         regapi.set_current('system')
         debug.debug("Getting Services and calculating SIDs....")
         services = regapi.reg_get_key('system', currentcs + '\\' + 'Services')
         if services:
             for s in rawreg.subkeys(services):
-                if s.Name not in servicesids.values():
+                if s.Name not in list(servicesids.values()):
                     sid = createservicesid(str(s.Name))
                     yield sid, str(s.Name)
         for sid in servicesids:

@@ -417,13 +417,12 @@ class AlembicVersion(Base):
 
     version_num = Column(String(32), nullable=False, primary_key=True)
 
-class Database(object):
+class Database(object, metaclass=Singleton):
     """Analysis queue database.
 
     This class handles the creation of the database user for internal queue
     management. It also provides some functions for interacting with it.
     """
-    __metaclass__ = Singleton
 
     def __init__(self, schema_check=True, echo=False):
         """
@@ -1099,7 +1098,7 @@ class Database(object):
         task.submit_id = submit_id
 
         if tags:
-            if isinstance(tags, basestring):
+            if isinstance(tags, str):
                 for tag in tags.split(","):
                     if tag.strip():
                         task.tags.append(self._get_or_create(
@@ -1108,13 +1107,13 @@ class Database(object):
 
             if isinstance(tags, (tuple, list)):
                 for tag in tags:
-                    if isinstance(tag, basestring) and tag.strip():
+                    if isinstance(tag, str) and tag.strip():
                         task.tags.append(self._get_or_create(
                             session, Tag, name=tag.strip()
                         ))
 
         if clock:
-            if isinstance(clock, basestring):
+            if isinstance(clock, str):
                 try:
                     task.clock = datetime.datetime.strptime(clock, "%m-%d-%Y %H:%M:%S")
                 except ValueError:

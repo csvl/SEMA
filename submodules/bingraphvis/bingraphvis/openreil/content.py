@@ -8,13 +8,13 @@ class OpenreilCFGHead(Content):
         super(OpenreilCFGHead, self).__init__('head', ['addr'])
 
     def gen_render(self, n):
-        
+
         n.content[self.name] = {
             'data': [{
                 'addr': {
                     'content': "{:#08x}".format(n.obj.item.ir_addr[0])
                 }
-            }], 
+            }],
             'columns': self.get_columns()
         }
 
@@ -29,7 +29,7 @@ class OpenreilAsm(Content):
         for ins in n.obj.item:
             if not ins.has_attr(pyopenreil.IR.IATTR_ASM):
                 continue
-            
+
             mnem, args = ins.get_attr(pyopenreil.IR.IATTR_ASM)
             data.append({
                 'addr': {
@@ -47,9 +47,9 @@ class OpenreilAsm(Content):
                 '_ins': ins,
                 '_addr': ins.ir_addr()[0]
             })
-        
+
         n.content[self.name] = {
-            'data': data, 
+            'data': data,
             'columns': self.get_columns()
         }
 
@@ -89,12 +89,8 @@ class OpenreilREIL(Content):
                 '_ins': ins,
                 '_addr': ins.ir_addr()
             })
-        
+
         n.content[self.name] = {
-            'data': data, 
+            'data': data,
             'columns': self.get_columns()
         }
-
-
-
-

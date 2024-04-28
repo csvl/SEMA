@@ -7,7 +7,7 @@ import itertools
 import logging
 import random
 
-from _winreg import HKEY_LOCAL_MACHINE, REG_SZ, REG_MULTI_SZ, REG_BINARY
+from winreg import HKEY_LOCAL_MACHINE, REG_SZ, REG_MULTI_SZ, REG_BINARY
 
 from lib.common.abstracts import Auxiliary
 from lib.common.rand import random_integer, random_string
@@ -128,7 +128,7 @@ class Disguise(Auxiliary):
             if value is None:
                 continue
 
-            for k, v in keywords.items():
+            for k, v in list(keywords.items()):
                 value = value.replace(k, v)
 
             set_regkey(HKEY_LOCAL_MACHINE, regkey, key, REG_BINARY, value)
@@ -143,12 +143,12 @@ class Disguise(Auxiliary):
             "QEMU Virtual CPU version 2.0.0": "Intel(R) Core(TM) i7 CPU @3GHz",
         }
 
-        for idx in xrange(32):
+        for idx in range(32):
             value = query_value(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\%d" % idx, "ProcessorNameString")
             if value is None:
                 continue
 
-            for k, v in keywords.items():
+            for k, v in list(keywords.items()):
                 value = value.replace(k, v)
 
             set_regkey(HKEY_LOCAL_MACHINE, "HARDWARE\\DESCRIPTION\\System\\CentralProcessor\\%d" % idx,

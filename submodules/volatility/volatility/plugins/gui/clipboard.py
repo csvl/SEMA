@@ -42,17 +42,17 @@ class Clipboard(common.AbstractWindowsCommand, sessions.SessionsMixin):
         # Dictionary of session USER objects by handle
         session_handles = {}
 
-        # If various objects cannot be found or associated, 
+        # If various objects cannot be found or associated,
         # we'll return none objects
         e0 = obj.NoneObject("Unknown tagCLIPDATA")
         e1 = obj.NoneObject("Unknown tagWINDOWSTATION")
         e2 = obj.NoneObject("Unknown tagCLIP")
 
-        # Handle type filter 
+        # Handle type filter
         filters = [lambda x : str(x.bType) == "TYPE_CLIPDATA"]
 
-        # Load tagCLIPDATA handles from all sessions 
-        for sid, session in sesses.items():
+        # Load tagCLIPDATA handles from all sessions
+        for sid, session in list(sesses.items()):
             handles = {}
             shared_info = session.find_shared_info()
             if not shared_info:
@@ -62,24 +62,24 @@ class Clipboard(common.AbstractWindowsCommand, sessions.SessionsMixin):
                 handles[int(handle.phead.h)] = handle
             session_handles[sid] = handles
 
-        # Each WindowStation 
+        # Each WindowStation
         for wndsta in windowstations.WndScan(self._config).calculate():
             session = sesses.get(int(wndsta.dwSessionId), None)
-            # The session is unknown 
+            # The session is unknown
             if not session:
                 continue
             handles = session_handles.get(int(session.SessionId), None)
-            # No handles in the session 
+            # No handles in the session
             if not handles:
                 continue
             clip_array = wndsta.pClipBase.dereference()
-            # The tagCLIP array is empty or the pointer is invalid 
+            # The tagCLIP array is empty or the pointer is invalid
             if not clip_array:
                 continue
-            # Resolve tagCLIPDATA from tagCLIP.hData 
+            # Resolve tagCLIPDATA from tagCLIP.hData
             for clip in clip_array:
                 handle = handles.get(int(clip.hData), e0)
-                # Remove this handle from the list 
+                # Remove this handle from the list
                 if handle:
                     handles.pop(int(clip.hData))
                 yield session, wndsta, clip, handle
@@ -87,12 +87,12 @@ class Clipboard(common.AbstractWindowsCommand, sessions.SessionsMixin):
         # Any remaining tagCLIPDATA not matched. This allows us
         # to still find clipboard data if a window station is not
         # found or if pClipData or cNumClipFormats were corrupt
-        for sid in sesses.keys():
+        for sid in list(sesses.keys()):
             handles = session_handles.get(sid, None)
-            # No handles in the session 
+            # No handles in the session
             if not handles:
                 continue
-            for handle in handles.values():
+            for handle in list(handles.values()):
                 yield sesses[sid], e1, e2, handle
 
     def unified_output(self, data):
@@ -158,8 +158,8 @@ class Clipboard(common.AbstractWindowsCommand, sessions.SessionsMixin):
             if not clip:
                 fmt = obj.NoneObject("Format unknown")
             else:
-                # Try to get the format name, but failing that, print 
-                # the format number in hex instead. 
+                # Try to get the format name, but failing that, print
+                # the format number in hex instead.
                 if clip.fmt.v() in consts.CLIPBOARD_FORMAT_ENUM:
                     fmt = str(clip.fmt)
                 else:

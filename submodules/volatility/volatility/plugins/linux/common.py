@@ -22,7 +22,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 import os, re
 
@@ -84,15 +84,15 @@ class AbstractLinuxCommand(commands.Command):
         return (self.addr_space.address_compare(addr, text) != -1 and self.addr_space.address_compare(addr, etext) == -1) or self.address_in_module(addr, modules)
 
     def address_in_module(self, addr, modules):
-    
+
         for (_, start, end) in modules:
             if self.addr_space.address_compare(addr, start) != -1 and self.addr_space.address_compare(addr, end) == -1:
                 return True
-    
+
         return False
 
     def verify_ops(self, ops, op_members, modules):
-        ops_addr = ops.v()        
+        ops_addr = ops.v()
         ops_list = []
 
         if ops_addr in self.known_fops:
@@ -114,7 +114,7 @@ class AbstractLinuxCommand(commands.Command):
                 else:
                     known = self.is_known_address(addr, modules)
                     self.known_addrs[addr] = known
-                
+
                 if known == 0:
                     yield (check, addr)
                     ops_list.append((check, addr))
@@ -132,8 +132,8 @@ class AbstractLinuxARMCommand(AbstractLinuxCommand):
     @staticmethod
     def is_valid_profile(profile):
         return AbstractLinuxCommand.is_valid_profile(profile) \
-        and (profile.metadata.get('arch').lower() == 'arm')                   
- 
+        and (profile.metadata.get('arch').lower() == 'arm')
+
 def walk_internal_list(struct_name, list_member, list_start, addr_space = None):
     if not addr_space:
         addr_space = list_start.obj_vm
@@ -160,7 +160,7 @@ def do_get_path(rdentry, rmnt, dentry, vfsmnt):
             dentry = vfsmnt.mnt_mountpoint
             vfsmnt = vfsmnt.mnt_parent
             continue
-        
+
         dname = dentry.d_name.name.dereference_as("String", length = MAX_STRING_LENGTH)
         ret_path.append(dname.strip('/'))
 
@@ -190,7 +190,7 @@ def _get_path_file(task, filp):
     rmnt    = task.fs.get_root_mnt()
     dentry  = filp.dentry
     vfsmnt  = filp.vfsmnt
-   
+
     key = "%x|%x|%x|%x" % (rdentry.v(), rmnt.v(), dentry.v(), vfsmnt.v())
 
     if not key in task.obj_vm.profile.dentry_cache:
@@ -202,11 +202,11 @@ def get_new_sock_pipe_path(task, filp):
     dentry = filp.dentry
 
     sym = dentry.obj_vm.profile.get_symbol_by_address("kernel", dentry.d_op.d_dname)
-    
+
     if sym:
         if sym == "sockfs_dname":
-            pre_name = "socket"    
-    
+            pre_name = "socket"
+
         elif sym == "anon_inodefs_dname":
             pre_name = "anon_inode"
 
@@ -217,7 +217,7 @@ def get_new_sock_pipe_path(task, filp):
             pre_name = _get_path_file(task, filp)
 
         else:
-            print "no handler for %s" % sym
+            print("no handler for %s" % sym)
             pre_name = "<BAD>"
 
         ret = "%s:[%d]" % (pre_name, dentry.d_inode.i_ino)
@@ -246,9 +246,9 @@ def write_elf_file(dump_dir, task, elf_addr):
 
     fd = open(file_path, "wb")
     fd.write(file_contents)
-    fd.close()       
+    fd.close()
 
-    return file_path 
+    return file_path
 
 def get_time_vars(obj_vm):
     '''
@@ -258,7 +258,7 @@ def get_time_vars(obj_vm):
     wall_addr       = obj_vm.profile.get_symbol("wall_to_monotonic")
     sleep_addr      = obj_vm.profile.get_symbol("total_sleep_time")
     timekeeper_addr = obj_vm.profile.get_symbol("timekeeper")
-    tkcore_addr     = obj_vm.profile.get_symbol("tk_core") 
+    tkcore_addr     = obj_vm.profile.get_symbol("tk_core")
 
     wall  = None
     timeo = None
@@ -299,12 +299,11 @@ def get_time_vars(obj_vm):
             tv64 = (oreal.tv64 & 0xffffffff) - (oboot.tv64 & 0xffffffff)
         else:
             tv64 = (oreal & 0xffffffff) - (oboot & 0xffffffff)
-            
+
         if tv64:
             tv64 = (tv64 / 100000000) * -1
-            timeo = vol_timespec(tv64, 0) 
+            timeo = vol_timespec(tv64, 0)
         else:
             timeo = None
 
     return (wall, timeo)
-

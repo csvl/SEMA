@@ -9,7 +9,7 @@
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details. 
+# General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
@@ -212,7 +212,7 @@ macho_types = {
 }
 
 class macho(obj.CType):
-    def __init__(self, is_header, name32, name64, theType, offset, vm, name = None, **kwargs):  
+    def __init__(self, is_header, name32, name64, theType, offset, vm, name = None, **kwargs):
         self.name32 = name32
         self.name64 = name64
         self.macho_obj = None
@@ -223,13 +223,13 @@ class macho(obj.CType):
             self.size_cache = -39
 
         obj.CType.__init__(self, theType, offset, vm, name, **kwargs)
-    
+
     def is_valid(self):
         return self.size_cache in [32, 64, -39]
 
     def _init_cache(self, offset, vm):
         self._set_size_cache(offset, vm)
-        self._make_macho_obj(offset, vm) 
+        self._make_macho_obj(offset, vm)
 
     def _init_cache_from_parent(self):
         self.size_cache = self.obj_parent.size_cache
@@ -274,17 +274,17 @@ class macho(obj.CType):
 
 class macho_header(macho):
     """An macho header"""
-    
+
     def __init__(self, theType, offset, vm, name = None, **kwargs):
-        self.cached_strtab   = None   
+        self.cached_strtab   = None
         self.cached_symtab   = None
         self.cached_dysymtab = None
         self.cached_syms     = None
         self.load_diff       = 0
         self.link_edit_bias    = 0
 
-        macho.__init__(self, 1, "macho32_header", "macho64_header", theType, offset, vm, name, **kwargs)    
-      
+        macho.__init__(self, 1, "macho32_header", "macho64_header", theType, offset, vm, name, **kwargs)
+
         if self.macho_obj:
             self.calc_load_diff()
             self._calc_linkedit_bias()
@@ -298,7 +298,7 @@ class macho_header(macho):
             if str(s.segname) == "__LINKEDIT":
                 self.link_edit_bias = s.vmaddr - s.fileoff
                 break
-            
+
     def calc_load_diff(self):
         seg = None
 
@@ -316,7 +316,7 @@ class macho_header(macho):
         rtsize = self.obj_vm.profile.get_obj_size(rtname)
 
         tname = "macho_load_command"
-       
+
         if self.macho_obj == None:
             return
 
@@ -338,7 +338,7 @@ class macho_header(macho):
             yield cmd
 
             offset = offset + cmd.cmdsize
-    
+
     def load_commands_of_type(self, cmd_type):
         cmds = []
 
@@ -358,23 +358,23 @@ class macho_header(macho):
             ret = cmds[0]
 
         return ret
-   
+
     # used to fill the cache of symbols
     def get_indirect_syms(self):
-        syms = []        
+        syms = []
         tname = self._get_typename("nlist")
-        obj_size = self.obj_vm.profile.get_obj_size(tname)  
+        obj_size = self.obj_vm.profile.get_obj_size(tname)
 
         indirect_table_addr = self.link_edit_bias + self.cached_dysymtab.indirectsymoff
 
         if not self.obj_vm.is_valid_address(indirect_table_addr):
             return syms
 
-        cnt = self.cached_dysymtab.nindirectsyms 
+        cnt = self.cached_dysymtab.nindirectsyms
         if cnt > 100000:
             cnt = 1024
 
-        symtab_idxs = obj.Object(theType="Array", targetType="unsigned int", count=cnt, 
+        symtab_idxs = obj.Object(theType="Array", targetType="unsigned int", count=cnt,
                                  offset = indirect_table_addr,
                                  vm = self.obj_vm, parent = self)
 
@@ -399,45 +399,45 @@ class macho_header(macho):
             return syms
 
         for i in range(num_syms):
-            sym_addr = symtab_addr + (i * obj_size)            
+            sym_addr = symtab_addr + (i * obj_size)
             sym = obj.Object("macho_nlist", offset = sym_addr, vm = self.obj_vm, parent = self)
             if sym.is_valid():
                 syms.append(sym)
-    
+
         return syms
 
     def _build_symbol_caches(self):
         symtab_cmd         = self.load_command_of_type(2) # LC_SYMTAB
         symtab_struct_name = self._get_typename("symtab_command")
- 
+
         if symtab_cmd == None:
             return
 
         symtab_command     = symtab_cmd.cast(symtab_struct_name)
         str_strtab         = self.link_edit_bias + symtab_command.stroff
         symtab_addr        = self.link_edit_bias + symtab_command.symoff
-     
+
         self.cached_syms = self._get_symtab_syms(symtab_command, symtab_addr)
-   
+
         dysymtab_cmd     = self.load_command_of_type(0xb) # LC_DYSYMTAB
         if dysymtab_cmd == None:
             return
-        
+
         dystruct_name    = self._get_typename("dysymtab_command")
         dysymtab_command = dysymtab_cmd.cast(dystruct_name)
 
-        self.cached_strtab   = str_strtab    
+        self.cached_strtab   = str_strtab
         self.cached_symtab   = symtab_addr
         self.cached_dysymtab = dysymtab_command
-        
-        self.cached_syms    = self.cached_syms + self.get_indirect_syms() 
+
+        self.cached_syms    = self.cached_syms + self.get_indirect_syms()
 
     def symbols(self):
         if self.cached_syms == None:
             ret = []
         else:
-            ret = self.cached_syms         
- 
+            ret = self.cached_syms
+
         return ret
 
     def symbol_name(self, sym):
@@ -445,14 +445,14 @@ class macho_header(macho):
             return ""
 
         name_addr = self.cached_strtab + sym.n_strx
-     
+
         name = self.obj_vm.read(name_addr, 64)
         if name:
             idx = name.find("\x00")
             if idx != -1:
                 name = name[:idx]
 
-        return name 
+        return name
 
     def address_for_symbol(self, sym_name):
         ret = None
@@ -465,44 +465,44 @@ class macho_header(macho):
         return ret
 
     def needed_libraries(self):
-        for cmd in self.load_commands_of_type(0xc): # LC_LOAD_DYLIB 
+        for cmd in self.load_commands_of_type(0xc): # LC_LOAD_DYLIB
             tname = self._get_typename("dylib_command")
-            dylib_command = cmd.cast(tname) 
+            dylib_command = cmd.cast(tname)
 
             name_addr = cmd.obj_offset + dylib_command.name
 
             dylib_name = self.obj_vm.read(name_addr, 256)
-             
+
             if dylib_name:
                 idx = dylib_name.find("\x00")
                 if idx != -1:
                     dylib_name = dylib_name[:idx]
-            
-                yield dylib_name 
 
-    def imports(self): 
+                yield dylib_name
+
+    def imports(self):
         # TODO add check for bin & lib, and retest:
         # symbol resolution
         # symbol ptr mapping
         # for 64 bit
         # for 32 bit
-       
+
         sect_type = self._get_typename("section")
         sect_size = self.obj_vm.profile.get_obj_size(sect_type)
- 
+
         if self.get_bits() == 32:
             idx_type = "unsigned int"
         else:
             idx_type = "unsigned long long"
 
         num_idxs = sect_size / (self.get_bits() / 8)
-        
+
         for seg in self.segments():
             if str(seg.segname) == "__DATA":
                 for sect in self.sections_for_segment(seg):
                     if str(sect.sectname) == "__la_symbol_ptr":
                         # the array of (potentially) resolved imports
-                        sym_ptr_arr = obj.Object(theType="Array", targetType = idx_type, count = num_idxs, offset = self.obj_offset + sect.offset, vm = self.obj_vm)                                
+                        sym_ptr_arr = obj.Object(theType="Array", targetType = idx_type, count = num_idxs, offset = self.obj_offset + sect.offset, vm = self.obj_vm)
                         isyms = self.get_indirect_syms()
                         num_isyms = len(isyms)
 
@@ -513,7 +513,7 @@ class macho_header(macho):
 
                             sym = isyms[idx]
                             name = self.symbol_name(sym)
-                            yield (name, sym_ptr) 
+                            yield (name, sym_ptr)
 
     def segments(self):
         LC_SEGMENT    = 1    # 32 bit segments
@@ -524,7 +524,7 @@ class macho_header(macho):
         else:
             seg_type = LC_SEGMENT_64
 
-        load_commands = self.load_commands_of_type(seg_type) 
+        load_commands = self.load_commands_of_type(seg_type)
 
         for load_command in load_commands:
             segment = obj.Object("macho_segment_command", offset = load_command.obj_offset, vm = self.obj_vm, parent = self)
@@ -532,32 +532,32 @@ class macho_header(macho):
             yield segment
 
     def get_segment(self, segment_name):
-        ret = None   
-            
+        ret = None
+
         for segment in self.get_segments():
             if str(segment.segname) == segment_name:
                 ret = segment
                 break
 
         return ret
-    
+
     def sections_for_segment(self, segment):
         sect_struct = self._get_typename("section")
         sect_size   = self.obj_vm.profile.get_obj_size(sect_struct)
-        
+
         seg_struct = self._get_typename("segment_command")
         seg_size   = self.obj_vm.profile.get_obj_size(seg_struct)
 
-        cnt = segment.nsects 
+        cnt = segment.nsects
         if cnt > 1024:
             cnt = 1024
 
         for i in range(cnt):
             sect_addr = segment.obj_offset + seg_size + (i * sect_size)
-            
+
             sect = obj.Object("macho_section", offset = sect_addr, vm = self.obj_vm, parent = self)
-            
-            yield sect     
+
+            yield sect
 
 class macho32_header(obj.CType):
     def __init__(self, theType, offset, vm, name = None, **kwargs):
@@ -570,7 +570,7 @@ class macho64_header(obj.CType):
 class macho_section(macho):
     """ An macho section header """
     def __init__(self, theType, offset, vm, name = None, **kwargs):
-        macho.__init__(self, 0, "macho32_section", "macho64_section", theType, offset, vm, name, **kwargs)    
+        macho.__init__(self, 0, "macho32_section", "macho64_section", theType, offset, vm, name, **kwargs)
 
 class macho32_section(obj.CType):
     def __init__(self, theType, offset, vm, name = None, **kwargs):
@@ -583,15 +583,15 @@ class macho64_section(obj.CType):
 class macho_segment_command(macho):
     """ A macho segment command """
     def __init__(self, theType, offset, vm, name = None, **kwargs):
-        macho.__init__(self, 0, "macho32_segment_command", "macho64_segment_command", theType, offset, vm, name, **kwargs)    
+        macho.__init__(self, 0, "macho32_segment_command", "macho64_segment_command", theType, offset, vm, name, **kwargs)
 
     @property
     def vmaddr(self):
         ret = self.__getattr__("vmaddr")
-   
+
         if self.obj_parent.load_diff:
             ret = ret + self.obj_parent.load_diff
-            
+
         if self.obj_parent.filetype == 2:
             ret = ret + self.obj_parent.obj_offset
 
@@ -608,7 +608,7 @@ class macho64_segment_command(obj.CType):
 class macho_load_command(macho):
     """ A macho load command """
     def __init__(self, theType, offset, vm, name = None, **kwargs):
-        macho.__init__(self, 0, "macho32_load_command", "macho64_load_command", theType, offset, vm, name, **kwargs)    
+        macho.__init__(self, 0, "macho32_load_command", "macho64_load_command", theType, offset, vm, name, **kwargs)
 
     @property
     def cmd_type(self):
@@ -624,7 +624,7 @@ class macho_load_command(macho):
             ret = cmd_types[cmd]
         else:
             ret = ""
-    
+
         return ret
 
 class macho32_load_command(obj.CType):
@@ -638,7 +638,7 @@ class macho64_load_command(obj.CType):
 class macho_symtab_command(macho):
     """ A macho symtab command """
     def __init__(self, theType, offset, vm, name = None, **kwargs):
-        macho.__init__(self, 0, "macho32_symtab_command", "macho64_symtab_command", theType, offset, vm, name, **kwargs)    
+        macho.__init__(self, 0, "macho32_symtab_command", "macho64_symtab_command", theType, offset, vm, name, **kwargs)
 
 class macho32_symtab_command(obj.CType):
     def __init__(self, theType, offset, vm, name = None, **kwargs):
@@ -651,7 +651,7 @@ class macho64_symtab_command(obj.CType):
 class macho_dysymtab_command(macho):
     """ A macho symtab command """
     def __init__(self, theType, offset, vm, name = None, **kwargs):
-        macho.__init__(self, 0, "macho32_dysymtab_command", "macho64_dysymtab_command", theType, offset, vm, name, **kwargs)    
+        macho.__init__(self, 0, "macho32_dysymtab_command", "macho64_dysymtab_command", theType, offset, vm, name, **kwargs)
 
 class macho32_dysymtab_command(obj.CType):
     def __init__(self, theType, offset, vm, name = None, **kwargs):
@@ -664,7 +664,7 @@ class macho64_dysymtab_command(obj.CType):
 class macho_nlist(macho):
     """ A macho nlist """
     def __init__(self, theType, offset, vm, name = None, **kwargs):
-        macho.__init__(self, 0, "macho32_nlist", "macho64_nlist", theType, offset, vm, name, **kwargs)    
+        macho.__init__(self, 0, "macho32_nlist", "macho64_nlist", theType, offset, vm, name, **kwargs)
 
 class macho32_nlist(obj.CType):
     def __init__(self, theType, offset, vm, name = None, **kwargs):
@@ -685,9 +685,9 @@ class MachoModification(obj.ProfileModification):
                     'macho_header'            : macho_header,
                     'macho32_header'          : macho32_header,
                     'macho64_header'          : macho64_header,
-                    'macho_section'           : macho_section, 
-                    'macho32_section'         : macho32_section, 
-                    'macho64_section'         : macho64_section, 
+                    'macho_section'           : macho_section,
+                    'macho32_section'         : macho32_section,
+                    'macho64_section'         : macho64_section,
                     'macho_segment_command'   : macho_segment_command,
                     'macho32_segment_command' : macho32_segment_command,
                     'macho64_segment_command' : macho64_segment_command,
@@ -722,12 +722,10 @@ macho_overlay = {
         'sectname' : [ None , ['String', dict(length = 16)]],
         }],
 }
- 
+
 class MachoOverlay(obj.ProfileModification):
     conditions = {'os': lambda x: x == 'mac'}
     before = ['BasicObjectClasses']
 
     def modification(self, profile):
         profile.merge_overlay(macho_overlay)
-
-

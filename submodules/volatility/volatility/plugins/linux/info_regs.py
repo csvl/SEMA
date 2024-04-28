@@ -30,47 +30,47 @@ import volatility.debug as debug
 offsets = {}
 # x86 offsets - It works on my Linux machine.
 offsets['32bit'] = [
-'ebx', 
+'ebx',
 'ecx',
-'edx', 
-'esi', 
-'edi', 
-'ebp', 
-'eax', 
-'ds', 
-'es', 
-'fs', 
-'gs', 
-'orig_eax', 
-'eip', 
-'cs', 
-'eflags', 
-'esp', 
+'edx',
+'esi',
+'edi',
+'ebp',
+'eax',
+'ds',
+'es',
+'fs',
+'gs',
+'orig_eax',
+'eip',
+'cs',
+'eflags',
+'esp',
 'ss'
 ]
 
 # x64 offsets
 offsets['64bit'] = [
-'r15', 
-'r14', 
-'r13', 
+'r15',
+'r14',
+'r13',
 'r12',
-'rbp', 
+'rbp',
 'rbx',
-'r11', 
-'r10', 
-'r9', 
+'r11',
+'r10',
+'r9',
 'r8',
-'rax', 
-'rcx', 
+'rax',
+'rcx',
 'rdx',
-'rsi', 
+'rsi',
 'rdi',
 'unknown', # I'm not sure what this field is
 'rip',
-'cs', 
-'eflags', 
-'rsp', 
+'cs',
+'eflags',
+'rsp',
 'ss'
 ]
 
@@ -87,8 +87,8 @@ class linux_info_regs(linux_pslist.linux_pslist):
     '''It's like 'info registers' in GDB. It prints out all the
 processor registers involved during the context switch.'''
     def __init__(self, config, *args, **kwargs):
-        linux_pslist.linux_pslist.__init__(self, config, *args, **kwargs) 
-        
+        linux_pslist.linux_pslist.__init__(self, config, *args, **kwargs)
+
         self.bits     = 0
         self.reg_size = 0
         self.offsets  = []
@@ -98,7 +98,7 @@ processor registers involved during the context switch.'''
         common.set_plugin_members(self)
 
         if self.profile.metadata['arch'] not in ["x64", "x86"]:
-            debug.error("This plugin is only supported on Intel-based memory captures") 
+            debug.error("This plugin is only supported on Intel-based memory captures")
 
         self.bits = self.profile.metadata.get('memory_model', '32bit')
         self.reg_size = reg_size[self.bits]
@@ -125,7 +125,7 @@ processor registers involved during the context switch.'''
             for thread_name, regs in thread_regs:
                 outfd.write("  Thread Name: {}\n".format(thread_name))
                 if regs != None:
-                    for reg, value in regs.items():
+                    for reg, value in list(regs.items()):
 
                         outfd.write(("    {:8s}: {:0" + fmt + "x}\n").format(reg, value))
 

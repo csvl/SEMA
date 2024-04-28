@@ -77,7 +77,7 @@ class _CONTROL_AREA(obj.CType):
         # and IA32_PAE both use 8 byte PTEs. Whereas, IA32 uses 4 byte
         # PTE entries.
         memory_model = self.obj_vm.profile.metadata.get('memory_model', '32bit')
-        pae = self.obj_vm.pae 
+        pae = self.obj_vm.pae
 
         if pae:
             mmpte_size = self.obj_vm.profile.get_obj_size("_MMPTEPA")
@@ -305,8 +305,8 @@ class _SHARED_CACHE_MAP(obj.CType):
         FileSize = self.FileSize.QuadPart
         ValidDataLength = self.ValidDataLength.QuadPart
         SectionSize = self.SectionSize.QuadPart
-       
-        # Corrupted values: Win2003SP0x86.vmem 
+
+        # Corrupted values: Win2003SP0x86.vmem
         if FileSize <= 0 or ValidDataLength <= 0:
             return False
 
@@ -329,7 +329,7 @@ class _SHARED_CACHE_MAP(obj.CType):
             vacbary:          An array of collected VACBs
 
         Returns:
-            vacbary:          Collected VACBs 
+            vacbary:          Collected VACBs
         """
         if vacbary is None:
             vacbary = []
@@ -648,7 +648,7 @@ ntkrnlpa_types_x86 = {
 }
 
 class DumpFilesVTypesx86(obj.ProfileModification):
-    """This modification applies the vtypes for all 
+    """This modification applies the vtypes for all
     versions of 32bit Windows."""
     before = ['WindowsObjectClasses']
     conditions = {'os': lambda x: x == 'windows',
@@ -719,11 +719,11 @@ class DumpFiles(common.AbstractWindowsCommand):
 
         It performs a similar function to zread, in that it will
         pad "invalid" pages.  The main difference is that it allows
-        us to collect auditing information about which pages were actually 
-        present and which ones were padded. 
+        us to collect auditing information about which pages were actually
+        present and which ones were padded.
 
         Args:
-            vm: The address space to read the data from. 
+            vm: The address space to read the data from.
             vaddr: The virtual address to start reading the data from.
             length: How many bytes to read
             pad: This argument controls if the unavailable bytes are padded.
@@ -764,8 +764,8 @@ class DumpFiles(common.AbstractWindowsCommand):
         return ret, mdata, zpad
 
     def calculate(self):
-        """ Finds all the requested FILE_OBJECTS  
-        
+        """ Finds all the requested FILE_OBJECTS
+
         Traverses the VAD and HandleTable to find all requested
         FILE_OBJECTS
 
@@ -804,7 +804,7 @@ class DumpFiles(common.AbstractWindowsCommand):
                     file_re = re.compile(self._config.REGEX, re.I)
                 else:
                     file_re = re.compile(self._config.REGEX)
-            except re.error, e:
+            except re.error as e:
                 debug.error('Error parsing regular expression: {0:s}'.format(e))
 
         # Check to see if a specific physical address was specified for a
@@ -888,7 +888,7 @@ class DumpFiles(common.AbstractWindowsCommand):
                 #if not self._config.PHYSOFFSET:
                 offset = file_obj.obj_offset
                 #else:
-                # I'm not sure why we need to specify PHYSOFFSET here, 
+                # I'm not sure why we need to specify PHYSOFFSET here,
                 # shouldn't we have a valid _FILE_OBJECT?
                 #    offset = self._config.PHYSOFFSET
 
@@ -1155,9 +1155,9 @@ class DumpFiles(common.AbstractWindowsCommand):
             summaryfo.close()
 
     def render_text(self, outfd, data):
-        """Renders output for the dumpfiles plugin. 
+        """Renders output for the dumpfiles plugin.
 
-        This includes extracting the file artifacts from memory 
+        This includes extracting the file artifacts from memory
         to the specified dump directory.
 
         Args:

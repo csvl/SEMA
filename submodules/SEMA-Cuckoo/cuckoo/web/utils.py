@@ -7,7 +7,7 @@ import datetime
 import functools
 import json
 import os
-import StringIO
+import io
 
 from django.core.servers.basehttp import FileWrapper
 from django.http import StreamingHttpResponse, JsonResponse
@@ -101,7 +101,7 @@ def file_response(data, filename, content_type):
 
     if isinstance(data, file) and hasattr(data, "name"):
         response["Content-Length"] = os.path.getsize(data.name)
-    elif isinstance(data, StringIO.StringIO) and hasattr(data, "buf"):
+    elif isinstance(data, io.StringIO) and hasattr(data, "buf"):
         response["Content-Length"] = len(data.buf)
 
     response["Content-Disposition"] = "attachment; filename=%s" % filename

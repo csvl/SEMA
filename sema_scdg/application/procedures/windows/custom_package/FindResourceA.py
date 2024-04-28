@@ -50,4 +50,3 @@ class FindResourceA(angr.SimProcedure):
             self.state.plugin_resources.resources[finaloffset+minaddr] = {"size": size, "name": name, "data": resource, "rsrcname": rsrcname}
         x = finaloffset+minaddr
         return finaloffset+minaddr
-        

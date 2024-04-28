@@ -12,9 +12,9 @@ from lib.core.startup import init_logging
 @mock.patch("socket.create_connection")
 def test_netlogfile_init(p):
     nf = NetlogFile()
-    nf.init(u"dump-\u202e.exe")
+    nf.init("dump-\u202e.exe")
     nf.sock = None
-    nf.init(u"dump-\u202e.exe", u"file-\u202e.exe")
+    nf.init("dump-\u202e.exe", "file-\u202e.exe")
     a, b = p.return_value.sendall.call_args_list
     assert a[0][0] == str(a[0][0])
     assert b[0][0] == str(b[0][0])
@@ -31,7 +31,7 @@ def test_upload_to_host():
     init_logging()
 
     # Test file not found exception.
-    upload_to_host(u"\u202ethisis404.exe", "1.exe")
+    upload_to_host("\u202ethisis404.exe", "1.exe")
     c, _ = s.accept()
     assert "Exception uploading file u'\\u202e" in c.recv(0x1000)
     c, _ = s.accept()

@@ -49,7 +49,7 @@ class ImageInfo(kdbgscan.KDBGScan):
     def calculate(self):
         """Calculates various information about the image"""
         debug.info("Determining profile based on KDBG search...")
-        profilelist = [ p.__name__ for p in registry.get_plugin_classes(obj.Profile).values() ]
+        profilelist = [ p.__name__ for p in list(registry.get_plugin_classes(obj.Profile).values()) ]
 
         bestguess = None
         suglist = [ s for s, _ in kdbgscan.KDBGScan.calculate(self)]

@@ -197,7 +197,7 @@ bool quickSpan::judge_forward(
   }
   if (projection_map_forward.size() != 0)
     return true;
-  else 
+  else
     return false;
 }
 

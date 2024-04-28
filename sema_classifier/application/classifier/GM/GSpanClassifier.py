@@ -11,7 +11,7 @@ import progressbar
 
 from ..Classifier import Classifier
 from clogging.CustomFormatter import CustomFormatter
-        
+
 
 class GSpanClassifier(Classifier):
     def __init__(self,path,threshold=0.45, support=0.75,
@@ -45,26 +45,26 @@ class GSpanClassifier(Classifier):
         self.predictions_clean = []
 
         self.dataset_len = 1 # todo
-        
-        try: 
+
+        try:
             os.mkdir(self.path_sig)
         except:
             import shutil
             shutil.rmtree(self.path_sig)
             os.mkdir(self.path_sig)
-        try: 
+        try:
             os.mkdir(self.path_test)
         except:
             import shutil
-            shutil.rmtree(self.path_test)            
+            shutil.rmtree(self.path_test)
             os.mkdir(self.path_test)
-        
-        
+
+
     def add_clean(self,path):
         for clean_file in glob.glob(path+"/*") :
-            name = clean_file.split("/")[-1]        
+            name = clean_file.split("/")[-1]
             os.system("cp "+clean_file+" "+self.path_clean+name)
-             
+
     def train(self,path):
         self.log.info("Input Path = " + path)
         if path[-1] != "/":
@@ -122,12 +122,12 @@ class GSpanClassifier(Classifier):
             stdout, stderr = process.communicate()
             self.log.info(stdout)
             self.log.info(stderr)
-            
+
             #We know have /sig feed with merge of .gs  and /test with some samples
-                    
+
             files = []
             for i in range(5):
-                if os.path.isfile(out_name+'.t'+str(i)):        
+                if os.path.isfile(out_name+'.t'+str(i)):
                     file = open(out_name+'.t'+str(i),'r')
                     files.append(file)
 
@@ -167,8 +167,8 @@ class GSpanClassifier(Classifier):
             sig.close()
             cnt += 1
             bar.update(cnt)
-        bar.finish() 
-            
+        bar.finish()
+
     def classify(self, path=None, custom_sig_path=None):
         input_path = self.path_test if path is None else path
         #path_sig = self.path_sig if custom_sig_path is None else custom_sig_path
@@ -190,10 +190,10 @@ class GSpanClassifier(Classifier):
                     except Exception as e:
                         self.log.info(e)
                         score.append(0)
-                    
+
                     #fam_tar.append(re.findall(r"(?<=\/).*(?=_)",signature.split('/')[-1])[0])
                     fam_tar.append(signature.split('/')[-1].split('_')[0])
-                
+
                 max_score = [i for i, x in enumerate(score) if x == max(score)]
                 self.log.info(max_score)
                 self.log.info(score)
@@ -206,7 +206,7 @@ class GSpanClassifier(Classifier):
                     predictions.append(['clean',family,score[max_score[0]]])
                 #bar.update(cnt) # TODO update with families of test set, error for FL
                 cnt += 1
-        bar.finish() 
+        bar.finish()
         self.predictions = predictions
         if path is None:
             self.log.info(predictions)
@@ -236,10 +236,10 @@ class GSpanClassifier(Classifier):
                     score.append(sim)
                 except:
                     score.append(0)
-                
+
                 #fam_tar.append(re.findall(r"(?<=\/).*(?=_)",signature.split('/')[-1])[0])
                 fam_tar.append(signature.split('/')[-1].split('_')[0])
-            
+
             max_score = [i for i, x in enumerate(score) if x == max(score)]
             self.log.info(max_score)
             self.log.info(score)
@@ -260,7 +260,7 @@ class GSpanClassifier(Classifier):
             print("Prediction:")
             print(predictions)
         return predictions
-    
+
     def _calculate_sim(self,in_file,sig):
         N_GRAPH = 5
         tab_similarity = [0 for index in range(N_GRAPH)]
@@ -300,7 +300,7 @@ class GSpanClassifier(Classifier):
             res.close()
 
             # todo customize
-            command = self.gspan_path + "gspan --input_file temp.gs --output_file temp2.gs -pattern --biggest_subgraphs 1 --threads 1 --timeout 5 --support 1.0" 
+            command = self.gspan_path + "gspan --input_file temp.gs --output_file temp2.gs -pattern --biggest_subgraphs 1 --threads 1 --timeout 5 --support 1.0"
             process = Popen(command, shell=True, stdout=PIPE, stderr=PIPE)
             stdout, stderr = process.communicate()
             self.log.info(stdout)
@@ -339,7 +339,7 @@ class GSpanClassifier(Classifier):
             os.remove('temp.gs')
             os.remove('temp2.gs.t0')
             return max(tab_similarity)
-    
+
 
     def get_stat_classifier(self,target='classification'):
         if target == 'classification' and not self.predictions:
@@ -347,19 +347,19 @@ class GSpanClassifier(Classifier):
             return
         elif target == 'detection' and not self.predictions_clean:
             self.log.info('Need to classify cleanwares first\n')
-            return    
+            return
         elif target not in ['classification','detection']:
             self.log.info('Not valid target\n')
             return
         else :
             pass
-        
+
         dico ={self.families[i]: i for i in range(len(self.families))}
         sample_per_family = [0 for i in range(len(self.families))]
         tp = [0 for i in range(len(self.families))]
         fp = [0 for i in range(len(self.families))]
         conf_matrix = [[0 for i in range(len(self.families))] for i in range(len(self.families))]
-        
+
         for i in range(len(self.predictions)):
             tab = self.predictions[i]
             sample_per_family[dico[tab[1]]] += 1
@@ -368,7 +368,7 @@ class GSpanClassifier(Classifier):
             else :
                 fp[dico[tab[0]]] += 1
             conf_matrix[dico[tab[1]]][dico[tab[0]]] += 1
-        
+
         total_sample = sum(sample_per_family)
         precision = []
         recall = []
@@ -379,7 +379,7 @@ class GSpanClassifier(Classifier):
                 precision = precision + [0]
             if sample_per_family[i] !=0:
                 recall = recall + [(tp[i]/sample_per_family[i])*sample_per_family[i]/total_sample]
-            else : 
+            else :
                 recall = recall + [0]
         precision = sum(precision)
         recall = sum(recall)
@@ -388,12 +388,12 @@ class GSpanClassifier(Classifier):
         self.log.info("Precision obtained : "+str(precision))
         self.log.info("Recall obtained : "+str(recall))
         self.log.info("Fscore obtained : "+str(fscore))
-        
+
         self.fscore = fscore
         self.accuracy = None
         self.precision =precision
         self.recall = recall
-        
+
         figsize = (10,7)
         fontsize=9
         fig = plt.figure(figsize=figsize)
@@ -408,4 +408,3 @@ class GSpanClassifier(Classifier):
         plt.xlabel('Predicted label')
         plt.show()
         return fscore
-

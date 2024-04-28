@@ -10,7 +10,7 @@ from collections import namedtuple
 from subprocess import Popen
 from tempfile import NamedTemporaryFile
 
-from common import *
+from .common import *
 
 syscall = namedtuple("syscall", "name args result errno timestamp pid")
 

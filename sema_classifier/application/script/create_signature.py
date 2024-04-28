@@ -15,7 +15,7 @@ os.system('build/gspan --input_file '+args.input+' --output_file '+args.out+' --
 
 files = []
 for i in range(5):
-    if os.path.isfile(args.out+'.t'+str(i)):        
+    if os.path.isfile(args.out+'.t'+str(i)):
         file = open(args.out+'.t'+str(i),'r')
         files.append(file)
 

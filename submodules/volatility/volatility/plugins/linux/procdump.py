@@ -22,7 +22,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 import os
 
@@ -50,12 +50,11 @@ class linux_procdump(linux_pslist.linux_pslist):
         for task in data:
             if not task.mm:
                 continue
-    
+
             file_path = linux_common.write_elf_file(self._config.DUMP_DIR, task, task.mm.start_code)
 
             self.table_row(outfd, task.obj_offset,
                                   task.comm,
                                   str(task.pid),
-                                  task.mm.start_code, 
+                                  task.mm.start_code,
                                   file_path)
-

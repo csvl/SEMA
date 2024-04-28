@@ -107,10 +107,10 @@ class AngrStructuredSource(Source):
              self.lookup[n] = wn
              graph.add_node(wn)
         return wn
-    
+
     def build(self, obj, graph, parent_cluster):
         if type(obj).__name__ == 'SequenceNode':
-            cluster = graph.create_cluster(str(next(self.seq)), parent=parent_cluster, label=repr(obj))    
+            cluster = graph.create_cluster(str(next(self.seq)), parent=parent_cluster, label=repr(obj))
             for n in obj.nodes:
                 self.build(n, graph, cluster)
         elif type(obj).__name__ == 'CodeNode':

@@ -90,5 +90,5 @@ class SHGetSpecialFolderPathA(angr.SimProcedure):
             self.state.memory.store(pszPath,self.state.solver.BVV("C:\\Users\\%USERNAME%\\Pictures"))
         else:
             pass
-            
+
         return 0x1

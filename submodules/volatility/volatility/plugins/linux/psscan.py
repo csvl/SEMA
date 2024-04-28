@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 import struct
 
@@ -45,7 +45,7 @@ class linux_psscan(pslist.linux_pslist):
 
     def calculate(self):
         linux_common.set_plugin_members(self)
-        
+
         phys_addr_space = utils.load_as(self._config, astype = 'physical')
 
         if phys_addr_space.profile.metadata.get('memory_model', '32bit') == "32bit":
@@ -54,18 +54,18 @@ class linux_psscan(pslist.linux_pslist):
             fmt  = "<Q"
 
         needles     = []
-        
+
         for sym in phys_addr_space.profile.get_all_symbol_names("kernel"):
             if sym.find("_sched_class") != -1:
                 addr = phys_addr_space.profile.get_symbol(sym)
-                needles.append(struct.pack(fmt, addr)) 
+                needles.append(struct.pack(fmt, addr))
 
         if len(needles) == 0:
             debug.warning("Unable to scan for processes. Please file a bug report.")
         else:
             back_offset = phys_addr_space.profile.get_obj_offset("task_struct", "sched_class")
 
-            scanner = poolscan.MultiPoolScanner(needles)    
+            scanner = poolscan.MultiPoolScanner(needles)
 
             for _, offset in scanner.scan(phys_addr_space):
                 ptask = obj.Object("task_struct", offset = offset - back_offset, vm = phys_addr_space)
@@ -77,5 +77,3 @@ class linux_psscan(pslist.linux_pslist):
                     continue
 
                 yield ptask
-
-            

@@ -1,8 +1,8 @@
 # bingraphvis
 
-![warning](http://icons.veryicon.com/png/System/Onebit%201-3/warning.png)  
+![warning](http://icons.veryicon.com/png/System/Onebit%201-3/warning.png)
 
-The project is in its very early stage, and its under heavy development. 
+The project is in its very early stage, and its under heavy development.
 
 Currently all the functionality I want to support is just "throwed in", but the correct abstraction layers and underlying structure is missing/incomplete.
 

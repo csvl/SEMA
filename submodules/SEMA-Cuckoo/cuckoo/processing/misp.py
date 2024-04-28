@@ -100,5 +100,5 @@ class MISP(Processing):
 
         # Sort IOC information by date and return all information.
         return sorted(
-            self.iocs.values(), key=self._parse_date, reverse=True
+            list(self.iocs.values()), key=self._parse_date, reverse=True
         )

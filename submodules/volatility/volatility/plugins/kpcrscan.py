@@ -17,7 +17,7 @@
 #
 
 """
-@author:       Bradley Schatz 
+@author:       Bradley Schatz
 @license:      GNU General Public License 2.0
 @contact:      bradley@schatzforensic.com.au
 @organization: Schatz Forensic
@@ -82,36 +82,36 @@ class KPCRScan(common.AbstractWindowsCommand):
 
             if current_thread:
                 outfd.write("{0:<30}: {1:#x} TID {2} ({3}:{4})\n".format(
-                    "CurrentThread", 
-                    current_thread.obj_offset, current_thread.Cid.UniqueThread, 
-                    current_thread.owning_process().ImageFileName, 
-                    current_thread.Cid.UniqueProcess, 
+                    "CurrentThread",
+                    current_thread.obj_offset, current_thread.Cid.UniqueThread,
+                    current_thread.owning_process().ImageFileName,
+                    current_thread.Cid.UniqueProcess,
                     ))
 
             if idle_thread:
                 outfd.write("{0:<30}: {1:#x} TID {2} ({3}:{4})\n".format(
-                    "IdleThread", 
-                    idle_thread.obj_offset, idle_thread.Cid.UniqueThread, 
-                    idle_thread.owning_process().ImageFileName, 
-                    idle_thread.Cid.UniqueProcess, 
+                    "IdleThread",
+                    idle_thread.obj_offset, idle_thread.Cid.UniqueThread,
+                    idle_thread.owning_process().ImageFileName,
+                    idle_thread.Cid.UniqueProcess,
                     ))
 
             if next_thread:
                 outfd.write("{0:<30}: {1:#x} TID {2} ({3}:{4})\n".format(
-                    "NextThread", 
-                    next_thread.obj_offset, 
-                    next_thread.Cid.UniqueThread, 
-                    next_thread.owning_process().ImageFileName, 
-                    next_thread.Cid.UniqueProcess, 
+                    "NextThread",
+                    next_thread.obj_offset,
+                    next_thread.Cid.UniqueThread,
+                    next_thread.owning_process().ImageFileName,
+                    next_thread.Cid.UniqueProcess,
                     ))
 
-            outfd.write("{0:<30}: CPU {1} ({2} @ {3} MHz)\n".format("Details", 
-                kpcr.ProcessorBlock.Number, 
+            outfd.write("{0:<30}: CPU {1} ({2} @ {3} MHz)\n".format("Details",
+                kpcr.ProcessorBlock.Number,
                 kpcr.ProcessorBlock.VendorString,
                 kpcr.ProcessorBlock.MHz))
 
-            outfd.write("{0:<30}: {1:#x}\n".format("CR3/DTB", 
-                kpcr.ProcessorBlock.ProcessorState.SpecialRegisters.Cr3))            
+            outfd.write("{0:<30}: {1:#x}\n".format("CR3/DTB",
+                kpcr.ProcessorBlock.ProcessorState.SpecialRegisters.Cr3))
 
 class KPCRScannerCheck(scan.ScannerCheck):
     """Checks the self referential pointers to find KPCRs"""
@@ -122,8 +122,8 @@ class KPCRScannerCheck(scan.ScannerCheck):
             self.SelfPcr_offset = kpcr.SelfPcr.obj_offset
             self.Prcb_offset = kpcr.Prcb.obj_offset
             self.PrcbData_offset = kpcr.PrcbData.obj_offset
-            # In the check() routine, we need to compare masked virtual 
-            # addresses, but self.address_space is a BufferAddressSpace. 
+            # In the check() routine, we need to compare masked virtual
+            # addresses, but self.address_space is a BufferAddressSpace.
             self.address_equality = amd64.AMD64PagedMemory.address_equality
         else:
             # The self-referencing member of _KPCR is Self on x64

@@ -20,7 +20,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.utils as utils
@@ -31,7 +31,7 @@ class linux_aslr_shift(common.AbstractLinuxCommand):
 
     def calculate(self):
         aspace = utils.load_as(self._config)
-        
+
         yield aspace.profile.virtual_shift, aspace.profile.physical_shift
 
     def render_text(self, outfd, data):
@@ -39,5 +39,3 @@ class linux_aslr_shift(common.AbstractLinuxCommand):
 
         for v, p in data:
             self.table_row(outfd, v, p)
-
-

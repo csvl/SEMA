@@ -1,4 +1,4 @@
-/* 
+/*
    Copyright (C) 2016-2017 Cuckoo Foundation.
    This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
    see the file 'docs/LICENSE' for copying permission.
@@ -30,7 +30,7 @@
 		& > h2 {
 			color: #ccc;
 			font-weight: 200;
-			margin: 0;	
+			margin: 0;
 		}
 
 		& > h1 {
@@ -47,8 +47,8 @@
 			box-shadow: 0px 1px 0px #fff;
 		}
 
-		.header-right { 
-			margin-left: auto; 
+		.header-right {
+			margin-left: auto;
 			vertical-align: middle;
 			text-shadow: none;
 
@@ -74,8 +74,8 @@
 				font-size: 12px;
 				font-weight: 700;
 
-				@include cuckoo-theme('cyborg') { color: $cyborg_secundary_color; } 
-				@include cuckoo-theme('night') { color: $cyborg_secundary_color; } 
+				@include cuckoo-theme('cyborg') { color: $cyborg_secundary_color; }
+				@include cuckoo-theme('night') { color: $cyborg_secundary_color; }
 			}
 
 			&.valign-bottom {
@@ -153,7 +153,7 @@
 
 	}
 
-	// collapsible panels 
+	// collapsible panels
 	&__panels {
 		margin-bottom: 30px;
 
@@ -243,8 +243,8 @@
 		}
 
 		&--body {
-			.cuckoo-table { 
-				border: 0; 
+			.cuckoo-table {
+				border: 0;
 				font-size: 14px;
 			}
 		}

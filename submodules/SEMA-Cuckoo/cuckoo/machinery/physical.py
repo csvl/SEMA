@@ -11,7 +11,7 @@ import socket
 import subprocess
 import time
 import wakeonlan.wol
-import xmlrpclib
+import xmlrpc.client
 
 from cuckoo.common.abstracts import Machinery
 from cuckoo.common.constants import CUCKOO_GUEST_PORT
@@ -149,7 +149,7 @@ class Physical(Machinery):
 
         try:
             status = server.get_status()
-        except xmlrpclib.Fault as e:
+        except xmlrpc.client.Fault as e:
             # Contacted Agent, but it threw an error.
             log.debug("Agent error: %s (%s) (Error: %s).",
                       machine.id, machine.ip, e)

@@ -34,14 +34,14 @@ def load_as(config, astype = 'virtual', **kwargs):
     base_as = None
     error = exceptions.AddrSpaceError()
 
-    # Start off requiring another round    
+    # Start off requiring another round
     found = True
     ## A full iteration through all the classes without anyone
     ## selecting us means we are done:
     while found:
         debug.debug("Voting round")
         found = False
-        for cls in sorted(registry.get_plugin_classes(addrspace.BaseAddressSpace).values(),
+        for cls in sorted(list(registry.get_plugin_classes(addrspace.BaseAddressSpace).values()),
                           key = lambda x: x.order if hasattr(x, 'order') else 10):
             debug.debug("Trying {0} ".format(cls))
             try:
@@ -49,11 +49,11 @@ def load_as(config, astype = 'virtual', **kwargs):
                 debug.debug("Succeeded instantiating {0}".format(base_as))
                 found = True
                 break
-            except addrspace.ASAssertionError, e:
+            except addrspace.ASAssertionError as e:
                 debug.debug("Failed instantiating {0}: {1}".format(cls.__name__, e), 2)
                 error.append_reason(cls.__name__, e)
                 continue
-            except Exception, e:
+            except Exception as e:
                 debug.debug("Failed instantiating (exception): {0}".format(e))
                 error.append_reason(cls.__name__ + " - EXCEPTION", e)
                 continue
@@ -68,7 +68,7 @@ def load_as(config, astype = 'virtual', **kwargs):
 
 def Hexdump(data, width = 16):
     """ Hexdump function shared by various plugins """
-    for offset in xrange(0, len(data), width):
+    for offset in range(0, len(data), width):
         row_data = data[offset:offset + width]
         translated_data = [x if ord(x) < 127 and ord(x) > 32 else "." for x in row_data]
         hexdata = " ".join(["{0:02x}".format(ord(x)) for x in row_data])
@@ -79,7 +79,7 @@ def remove_unprintable(str):
     return ''.join([c for c in str if (ord(c) > 31 or ord(c) == 9) and ord(c) <= 126])
 
 # Compensate for Windows python not supporting socket.inet_ntop and some
-# Linux systems (i.e. OpenSuSE 11.2 w/ Python 2.6) not supporting IPv6. 
+# Linux systems (i.e. OpenSuSE 11.2 w/ Python 2.6) not supporting IPv6.
 
 def inet_ntop(address_family, packed_ip):
 
@@ -131,7 +131,7 @@ def inet_ntop(address_family, packed_ip):
     raise socket.error("[Errno 97] Address family not supported by protocol")
 
 def iterfind(data, string):
-    """This function is called by the search_process_memory() 
+    """This function is called by the search_process_memory()
     method of windows, linux, and mac process objects"""
 
     offset = data.find(string, 0)

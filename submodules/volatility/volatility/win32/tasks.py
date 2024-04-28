@@ -18,7 +18,7 @@
 #
 
 """
-@author:       AAron Walters 
+@author:       AAron Walters
 @license:      GNU General Public License 2.0
 @contact:      awalters@4tphi.net
 @organization: Volatility Foundation
@@ -31,16 +31,16 @@ import volatility.debug as debug #pylint: disable-msg=W0611
 from bisect import bisect_right
 
 def get_kdbg(addr_space):
-    """A function designed to return the KDBG structure from 
-    an address space. First we try scanning for KDBG and if 
+    """A function designed to return the KDBG structure from
+    an address space. First we try scanning for KDBG and if
     that fails, we try scanning for KPCR and bouncing back to
-    KDBG from there. 
+    KDBG from there.
 
-    Also note, both the primary and backup methods rely on the 
-    4-byte KDBG.Header.OwnerTag. If someone overwrites this 
-    value, then neither method will succeed. The same is true 
-    even if a user specifies --kdbg, because we check for the 
-    OwnerTag even in that case. 
+    Also note, both the primary and backup methods rely on the
+    4-byte KDBG.Header.OwnerTag. If someone overwrites this
+    value, then neither method will succeed. The same is true
+    even if a user specifies --kdbg, because we check for the
+    OwnerTag even in that case.
     """
     # we can use the hard coded KPCR value instead of scanning for KDBG
     # like back in the old days of version 1.x
@@ -60,23 +60,23 @@ def get_kdbg(addr_space):
         if kdbg.is_valid():
             return kdbg
 
-    # skip the KPCR backup method for x64 
+    # skip the KPCR backup method for x64
     memmode = addr_space.profile.metadata.get('memory_model', '32bit')
 
-    version = (addr_space.profile.metadata.get('major', 0), 
+    version = (addr_space.profile.metadata.get('major', 0),
                addr_space.profile.metadata.get('minor', 0))
 
     if memmode == '32bit' or version <= (6, 1):
-        
+
         # Fall back to finding it via the KPCR. We cannot
-        # accept the first/best suggestion, because only 
-        # the KPCR for the first CPU allows us to find KDBG. 
+        # accept the first/best suggestion, because only
+        # the KPCR for the first CPU allows us to find KDBG.
         for kpcr_off in obj.VolMagic(addr_space).KPCR.get_suggestions():
 
             kpcr = obj.Object("_KPCR", offset = kpcr_off, vm = addr_space)
 
             kdbg = kpcr.get_kdbg()
-    
+
             if kdbg.is_valid():
                 return kdbg
 
@@ -105,8 +105,8 @@ def find_module(modlist, mod_addrs, addr):
     This is much faster than a series of linear checks if you have
     to do it many times. Note that modlist and mod_addrs must be sorted
     in order of the module base address.
-    
-    NOTE: the mod_addrs and addr parameters must already be masked for 
+
+    NOTE: the mod_addrs and addr parameters must already be masked for
     the address space"""
 
     pos = bisect_right(mod_addrs, addr) - 1

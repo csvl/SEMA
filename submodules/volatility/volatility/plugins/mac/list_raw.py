@@ -22,7 +22,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.plugins.mac.common as mac_common
@@ -44,10 +44,10 @@ class mac_list_raw(mac_common.AbstractMacCommand):
         for task in mac_pstasks.mac_tasks(self._config).calculate():
             for filp, _, fd in task.lsof():
                 if filp.f_fglob.fg_type == 'DTYPE_SOCKET':
-                    socket = filp.f_fglob.fg_data.dereference_as("socket").v() 
-         
+                    socket = filp.f_fglob.fg_data.dereference_as("socket").v()
+
                     self.fd_cache[socket] = [task, fd]
- 
+
     def calculate(self):
         mac_common.set_plugin_members(self)
 
@@ -61,7 +61,7 @@ class mac_list_raw(mac_common.AbstractMacCommand):
 
         while cur.is_valid():
             socket = cur.rcb_socket.v()
-      
+
             if socket in self.fd_cache:
                 (task, fd) = self.fd_cache[socket]
                 yield (task, fd, socket)
@@ -93,4 +93,3 @@ class mac_list_raw(mac_common.AbstractMacCommand):
 
         for (task, fd, socket) in data:
             self.table_row(outfd, task.p_comm, task.p_pid, fd, socket)
-

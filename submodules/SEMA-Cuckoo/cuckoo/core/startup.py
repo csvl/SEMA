@@ -36,7 +36,7 @@ log = logging.getLogger(__name__)
 
 def check_specific_config(filename):
     sections = Config.configuration[filename]
-    for section, entries in sections.items():
+    for section, entries in list(sections.items()):
         if section == "*" or section == "__star__":
             continue
 
@@ -44,7 +44,7 @@ def check_specific_config(filename):
         if config("%s:%s:enabled" % (filename, section)) is False:
             continue
 
-        for key, value in entries.items():
+        for key, value in list(entries.items()):
             config(
                 "%s:%s:%s" % (filename, section, key),
                 check=True, strict=True
@@ -115,7 +115,7 @@ def check_version(ignore_vuln=False):
         r.raise_for_status()
         r = r.json()
     except (requests.RequestException, ValueError) as e:
-        print(red(" Error checking for the latest Cuckoo version: %s!" % e))
+        print((red(" Error checking for the latest Cuckoo version: %s!" % e)))
         return
 
     try:
@@ -124,7 +124,7 @@ def check_version(ignore_vuln=False):
         old = True
 
     warnings = []
-    for deptype, vulns in r.get("vulnerable", {}).iteritems():
+    for deptype, vulns in r.get("vulnerable", {}).items():
         for dep in vulns:
             compare = dep.get("highest") or dep.get("lowest")
 
@@ -194,9 +194,9 @@ def check_version(ignore_vuln=False):
                 warnings.append(message)
 
     if warnings:
-        print(color(bold(red("Vulnerable dependencies found\n")), 5))
+        print((color(bold(red("Vulnerable dependencies found\n")), 5)))
     for warning in warnings:
-        print("--> %s\n" % color(warning, 4))
+        print(("--> %s\n" % color(warning, 4)))
 
     if warnings and not ignore_vuln:
         print(
@@ -208,15 +208,15 @@ def check_version(ignore_vuln=False):
 
     if old:
         msg = "Cuckoo Sandbox version %s is available now." % r["version"]
-        print(red(" Outdated! ") + msg)
+        print((red(" Outdated! ") + msg))
     else:
-        print(green(" You're good to go!"))
+        print((green(" You're good to go!")))
 
     print("\n Our latest blogposts:")
     for blogpost in r["blogposts"]:
-        print(" * %s, %s." % (yellow(blogpost["title"]), blogpost["date"]))
-        print("   %s" % red(blogpost["oneline"]))
-        print("   More at %s" % blogpost["url"])
+        print((" * %s, %s." % (yellow(blogpost["title"]), blogpost["date"])))
+        print(("   %s" % red(blogpost["oneline"])))
+        print(("   More at %s" % blogpost["url"]))
         print("")
     return r
 
@@ -518,11 +518,11 @@ def ensure_tmpdir():
     if os.path.isdir(temppath()) and os.access(temppath(), os.R_OK | os.W_OK):
         return True
 
-    print red(
+    print(red(
         "Cuckoo cannot read or write files into the temporary directory '%s',"
         " please make sure the user running Cuckoo has the ability to do so. "
         "If the directory does not yet exist and the parent directory is "
         "owned by root, then please create and chown the directory with root."
         % temppath()
-    )
+    ))
     return False

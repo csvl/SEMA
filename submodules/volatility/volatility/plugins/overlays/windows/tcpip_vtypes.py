@@ -19,7 +19,7 @@
 import volatility.obj as obj
 
 # Structures used by connections, connscan, sockets, sockscan.
-# Used by x86 XP (all service packs) and x86 2003 SP0. 
+# Used by x86 XP (all service packs) and x86 2003 SP0.
 tcpip_vtypes = {
     '_ADDRESS_OBJECT' : [ 0x68, {
     'Next' : [ 0x0, ['pointer', ['_ADDRESS_OBJECT']]],
@@ -40,28 +40,28 @@ tcpip_vtypes = {
 }
 
 # Structures used by connections, connscan, sockets, sockscan.
-# Used by x64 XP and x64 2003 (all service packs). 
+# Used by x64 XP and x64 2003 (all service packs).
 tcpip_vtypes_2003_x64 = {
     '_ADDRESS_OBJECT' : [ None, {
     'Next' : [ 0x0, ['pointer', ['_ADDRESS_OBJECT']]],
-    'LocalIpAddress' : [ 0x58, ['IpAddress']], 
-    'LocalPort' : [ 0x5c, ['unsigned be short']], 
-    'Protocol'  : [ 0x5e, ['unsigned short']], 
-    'Pid' : [ 0x238, ['unsigned long']], 
+    'LocalIpAddress' : [ 0x58, ['IpAddress']],
+    'LocalPort' : [ 0x5c, ['unsigned be short']],
+    'Protocol'  : [ 0x5e, ['unsigned short']],
+    'Pid' : [ 0x238, ['unsigned long']],
     'CreateTime' : [ 0x248, ['WinTimeStamp', dict(is_utc = True)]],
   }],
     '_TCPT_OBJECT' : [ None, {
     'Next' : [ 0x0, ['pointer', ['_TCPT_OBJECT']]],
-    'RemoteIpAddress' : [ 0x14, ['IpAddress']], 
-    'LocalIpAddress' : [ 0x18, ['IpAddress']], 
-    'RemotePort' : [ 0x1c, ['unsigned be short']], 
-    'LocalPort' : [ 0x1e, ['unsigned be short']], 
-    'Pid' : [ 0x20, ['unsigned long']], 
+    'RemoteIpAddress' : [ 0x14, ['IpAddress']],
+    'LocalIpAddress' : [ 0x18, ['IpAddress']],
+    'RemotePort' : [ 0x1c, ['unsigned be short']],
+    'LocalPort' : [ 0x1e, ['unsigned be short']],
+    'Pid' : [ 0x20, ['unsigned long']],
     }],
 }
 
 # Structures used by sockets and sockscan.
-# Used by x86 2003 SP1 and SP2 only. 
+# Used by x86 2003 SP1 and SP2 only.
 tcpip_vtypes_2003_sp1_sp2 = {
     '_ADDRESS_OBJECT' : [ 0x68, {
     'Next' : [ 0x0, ['pointer', ['_ADDRESS_OBJECT']]],
@@ -74,13 +74,13 @@ tcpip_vtypes_2003_sp1_sp2 = {
 }
 
 TCP_STATE_ENUM = {
-    0: 'CLOSED', 1: 'LISTENING', 2: 'SYN_SENT', 
-    3: 'SYN_RCVD', 4: 'ESTABLISHED', 5: 'FIN_WAIT1', 
-    6: 'FIN_WAIT2', 7: 'CLOSE_WAIT', 8: 'CLOSING', 
+    0: 'CLOSED', 1: 'LISTENING', 2: 'SYN_SENT',
+    3: 'SYN_RCVD', 4: 'ESTABLISHED', 5: 'FIN_WAIT1',
+    6: 'FIN_WAIT2', 7: 'CLOSE_WAIT', 8: 'CLOSING',
     9: 'LAST_ACK', 12: 'TIME_WAIT', 13: 'DELETE_TCB'
 }
 
-# Structures used by netscan for x86 Vista and 2008 (all service packs). 
+# Structures used by netscan for x86 Vista and 2008 (all service packs).
 tcpip_vtypes_vista = {
     '_IN_ADDR' : [ None, {
     'addr4' : [ 0x0, ['IpAddress']],
@@ -99,7 +99,7 @@ tcpip_vtypes_vista = {
     '_TCP_ENDPOINT': [ None, { # TcpE
     'InetAF' : [ 0xC, ['pointer', ['_INETAF']]],
     'AddrInfo' : [ 0x10, ['pointer', ['_ADDRINFO']]],
-    'ListEntry': [ 0x14, ['_LIST_ENTRY']], 
+    'ListEntry': [ 0x14, ['_LIST_ENTRY']],
     'State' : [ 0x28, ['Enumeration', dict(target = 'long', choices = TCP_STATE_ENUM)]],
     'LocalPort' : [ 0x2C, ['unsigned be short']],
     'RemotePort' : [ 0x2E, ['unsigned be short']],
@@ -107,7 +107,7 @@ tcpip_vtypes_vista = {
     'CreateTime' : [ 0, ['WinTimeStamp', dict(value = 0, is_utc = True)]],
     }],
     '_TCP_SYN_ENDPOINT': [ None, {
-    'ListEntry': [ 8, ['_LIST_ENTRY']], 
+    'ListEntry': [ 8, ['_LIST_ENTRY']],
     'InetAF' : [ 0x18, ['pointer', ['_INETAF']]],
     'LocalPort' : [ 0x3c, ['unsigned be short']],
     'RemotePort' : [ 0x3e, ['unsigned be short']],
@@ -115,19 +115,19 @@ tcpip_vtypes_vista = {
     'RemoteAddress' : [ 0x28, ['pointer', ['_IN_ADDR']]],
     'Owner' : [ 0x20, ['pointer', ['_SYN_OWNER']]],
     'CreateTime' : [ 0, ['WinTimeStamp', dict(value = 0, is_utc = True)]],
-    }], 
+    }],
     '_SYN_OWNER': [ None, {
-    'Process': [ 0x18, ['pointer', ['_EPROCESS']]], 
-    }], 
+    'Process': [ 0x18, ['pointer', ['_EPROCESS']]],
+    }],
     '_TCP_TIMEWAIT_ENDPOINT': [ None, {
-    'ListEntry': [ 0x14, ['_LIST_ENTRY']], 
+    'ListEntry': [ 0x14, ['_LIST_ENTRY']],
     'InetAF' : [ 0xc, ['pointer', ['_INETAF']]],
     'LocalPort' : [ 0x1c, ['unsigned be short']],
     'RemotePort' : [ 0x1e, ['unsigned be short']],
     'LocalAddr' : [ 0x20, ['pointer', ['_LOCAL_ADDRESS']]],
     'RemoteAddress' : [ 0x24, ['pointer', ['_IN_ADDR']]],
     'CreateTime' : [ 0, ['WinTimeStamp', dict(value = 0, is_utc = True)]],
-    }], 
+    }],
     '_INETAF' : [ None, {
     'AddressFamily' : [ 0xC, ['unsigned short']],
     }],
@@ -149,7 +149,7 @@ tcpip_vtypes_7 = {
     '_TCP_ENDPOINT': [ None, { # TcpE
     'InetAF' : [ 0xC, ['pointer', ['_INETAF']]],
     'AddrInfo' : [ 0x10, ['pointer', ['_ADDRINFO']]],
-    'ListEntry': [ 0x14, ['_LIST_ENTRY']], 
+    'ListEntry': [ 0x14, ['_LIST_ENTRY']],
     'State' : [ 0x34, ['Enumeration', dict(target = 'long', choices = TCP_STATE_ENUM)]],
     'LocalPort' : [ 0x38, ['unsigned be short']],
     'RemotePort' : [ 0x3A, ['unsigned be short']],
@@ -157,7 +157,7 @@ tcpip_vtypes_7 = {
     'CreateTime' : [ 0, ['WinTimeStamp', dict(value = 0, is_utc = True)]],
     }],
     '_TCP_SYN_ENDPOINT': [ None, {
-    'ListEntry': [ 8, ['_LIST_ENTRY']], 
+    'ListEntry': [ 8, ['_LIST_ENTRY']],
     'InetAF' : [ 0x24, ['pointer', ['_INETAF']]],
     'LocalPort' : [ 0x48, ['unsigned be short']],
     'RemotePort' : [ 0x4a, ['unsigned be short']],
@@ -165,16 +165,16 @@ tcpip_vtypes_7 = {
     'RemoteAddress' : [ 0x34, ['pointer', ['_IN_ADDR']]],
     'Owner' : [ 0x2c, ['pointer', ['_SYN_OWNER']]],
     'CreateTime' : [ 0, ['WinTimeStamp', dict(value = 0, is_utc = True)]],
-    }], 
+    }],
     '_TCP_TIMEWAIT_ENDPOINT': [ None, {
-    'ListEntry': [ 0, ['_LIST_ENTRY']], 
+    'ListEntry': [ 0, ['_LIST_ENTRY']],
     'InetAF' : [ 0x18, ['pointer', ['_INETAF']]],
     'LocalPort' : [ 0x28, ['unsigned be short']],
     'RemotePort' : [ 0x2a, ['unsigned be short']],
     'LocalAddr' : [ 0x2c, ['pointer', ['_LOCAL_ADDRESS']]],
     'RemoteAddress' : [ 0x30, ['pointer', ['_IN_ADDR']]],
     'CreateTime' : [ 0, ['WinTimeStamp', dict(value = 0, is_utc = True)]],
-    }], 
+    }],
 }
 
 # Structures for netscan on x64 Vista SP0 and 2008 SP0
@@ -203,7 +203,7 @@ tcpip_vtypes_vista_64 = {
     '_TCP_ENDPOINT': [ None, { # TcpE
     'InetAF' : [ 0x18, ['pointer', ['_INETAF']]],
     'AddrInfo' : [ 0x20, ['pointer', ['_ADDRINFO']]],
-    'ListEntry': [ 0x28, ['_LIST_ENTRY']], 
+    'ListEntry': [ 0x28, ['_LIST_ENTRY']],
     'State' : [ 0x50, ['Enumeration', dict(target = 'long', choices = TCP_STATE_ENUM)]],
     'LocalPort' : [ 0x54, ['unsigned be short']],
     'RemotePort' : [ 0x56, ['unsigned be short']],
@@ -211,7 +211,7 @@ tcpip_vtypes_vista_64 = {
     'CreateTime' : [ 0, ['WinTimeStamp', dict(value = 0, is_utc = True)]],
     }],
     '_TCP_SYN_ENDPOINT': [ None, {
-    'ListEntry': [ 0x10, ['_LIST_ENTRY']], 
+    'ListEntry': [ 0x10, ['_LIST_ENTRY']],
     'InetAF' : [ 0x30, ['pointer', ['_INETAF']]],
     'LocalPort' : [ 0x64, ['unsigned be short']],
     'RemotePort' : [ 0x66, ['unsigned be short']],
@@ -219,19 +219,19 @@ tcpip_vtypes_vista_64 = {
     'RemoteAddress' : [ 0x50, ['pointer', ['_IN_ADDR']]],
     'Owner' : [ 0x40, ['pointer', ['_SYN_OWNER']]],
     'CreateTime' : [ 0, ['WinTimeStamp', dict(value = 0, is_utc = True)]],
-    }], 
+    }],
     '_SYN_OWNER': [ None, {
-    'Process': [ 0x28, ['pointer', ['_EPROCESS']]], 
-    }], 
+    'Process': [ 0x28, ['pointer', ['_EPROCESS']]],
+    }],
     '_TCP_TIMEWAIT_ENDPOINT': [ None, {
-    'ListEntry': [ 0, ['_LIST_ENTRY']], 
+    'ListEntry': [ 0, ['_LIST_ENTRY']],
     'InetAF' : [ 0x18, ['pointer', ['_INETAF']]],
     'LocalPort' : [ 0x30, ['unsigned be short']],
     'RemotePort' : [ 0x32, ['unsigned be short']],
     'LocalAddr' : [ 0x38, ['pointer', ['_LOCAL_ADDRESS']]],
     'RemoteAddress' : [ 0x40, ['pointer', ['_IN_ADDR']]],
     'CreateTime' : [ 0, ['WinTimeStamp', dict(value = 0, is_utc = True)]],
-    }], 
+    }],
     '_UDP_ENDPOINT': [ None, { # UdpA
     'Owner' : [ 0x28, ['pointer', ['_EPROCESS']]],
     'CreateTime' : [ 0x58, ['WinTimeStamp', dict(is_utc = True)]],
@@ -346,7 +346,7 @@ class VistaSP12x64Tcpip(obj.ProfileModification):
     conditions = {'os': lambda x: x == 'windows',
                   'memory_model': lambda x: x == '64bit',
                   'major': lambda x : x == 6,
-                  'minor': lambda x : x == 0, 
+                  'minor': lambda x : x == 0,
                   'build': lambda x : x >= 6001}
     def modification(self, profile):
         profile.merge_overlay({
@@ -376,14 +376,14 @@ class Win7x64Tcpip(obj.ProfileModification):
                 'LocalAddr' : [ 0x50, ['pointer', ['_LOCAL_ADDRESS']]],
                 'RemoteAddress' : [ 0x68, ['pointer', ['_IN_ADDR']]],
                 'Owner' : [ 0x58, ['pointer', ['_SYN_OWNER']]],
-                }], 
+                }],
             '_TCP_TIMEWAIT_ENDPOINT': [ None, {
                 'InetAF' : [ 0x30, ['pointer', ['_INETAF']]],
                 'LocalPort' : [ 0x48, ['unsigned be short']],
                 'RemotePort' : [ 0x4a, ['unsigned be short']],
                 'LocalAddr' : [ 0x50, ['pointer', ['_LOCAL_ADDRESS']]],
                 'RemoteAddress' : [ 0x58, ['pointer', ['_IN_ADDR']]],
-                }], 
+                }],
             })
 
 class Win8Tcpip(obj.ProfileModification):
@@ -499,10 +499,10 @@ class Win10x64Tcpip(obj.ProfileModification):
                   'minor': lambda x : x == 4}
     def modification(self, profile):
         profile.vtypes.update(tcpip_vtypes_win_10_x64)
-        
+
 class Win10x64_15063_Tcpip(obj.ProfileModification):
     """TCP Endpoint for Creators and Fall Creators"""
-    
+
     before = ['Win10x64Tcpip']
     conditions = {'os': lambda x: x == 'windows',
                   'memory_model': lambda x: x == '64bit',

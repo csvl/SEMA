@@ -43,7 +43,7 @@ class WinTree(messagehooks.MessageHooks):
 
 class Windows(messagehooks.MessageHooks):
     """Print Desktop Windows (verbose details)"""
-    
+
     def __init__(self, config, *args, **kwargs):
         common.AbstractWindowsCommand.__init__(self, config, *args, **kwargs)
 
@@ -53,7 +53,7 @@ class Windows(messagehooks.MessageHooks):
                           action='store', type='str')
 
     def render_text(self, outfd, data):
-    
+
         if self._config.PID:
             wanted_pids = [int(pid) for pid in self._config.PID.split(',')]
         else:
@@ -65,7 +65,7 @@ class Windows(messagehooks.MessageHooks):
                 outfd.write("Window context: {0}\\{1}\\{2}\n\n".format(
                     winsta.dwSessionId, winsta.Name, desktop.Name))
                 for wnd, _level in desktop.windows(desktop.DeskInfo.spwnd):
-                
+
                     # Is this a process we want?
                     if wanted_pids and not wnd.Process.UniqueProcessId in wanted_pids:
                         continue

@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -52,7 +52,7 @@ class linux_mount(linux_common.AbstractLinuxCommand):
             if n < 32 or n > 126 or n == 63: # 63 = ?
                 new_name = True
                 break
- 
+
         if new_name == True:
             s = obj.Object("Pointer", offset = mnt.mnt_devname.obj_offset + 16, vm = self.addr_space)
             if not s.is_valid():
@@ -66,7 +66,7 @@ class linux_mount(linux_common.AbstractLinuxCommand):
                 n = ord(nn)
                 if n < 32 or n > 126 or n == 63: # 63 = ?
                     return ret
- 
+
         fstype = mnt.mnt_sb.s_type.name.dereference_as("String", length = linux_common.MAX_STRING_LENGTH)
 
         if not fstype.is_valid() or len(fstype) < 3:
@@ -87,7 +87,7 @@ class linux_mount(linux_common.AbstractLinuxCommand):
             rr = "ro"
         else:
             rr = "rw"
-        
+
         return mnt.mnt_sb, str(dev_name), path, fstype, rr, mnt_string
 
     def calculate(self):
@@ -100,13 +100,13 @@ class linux_mount(linux_common.AbstractLinuxCommand):
         else:
             mnttype = "vfsmount"
 
-        ns = None        
+        ns = None
         fs_types = self._get_filesystem_types()
 
         hash_mnts = {}
         seen_outer = {}
         for (idx, outerlist) in enumerate(mnt_list):
-            if outerlist == None or outerlist.next == None:
+            if outerlist == None or outerlist.__next__ == None:
                 continue
 
             if outerlist.next.v() in seen_outer:
@@ -114,7 +114,7 @@ class linux_mount(linux_common.AbstractLinuxCommand):
 
             seen_outer[outerlist.next.v()] = 1
 
-            if outerlist == outerlist.next or not outerlist.m("next").is_valid():
+            if outerlist == outerlist.__next__ or not outerlist.m("next").is_valid():
                 continue
 
             seen = {}
@@ -125,26 +125,26 @@ class linux_mount(linux_common.AbstractLinuxCommand):
 
                 seen[mnt.v()] = 1
 
-                if len(seen.keys()) > 1024:
+                if len(list(seen.keys())) > 1024:
                     break
 
                 if mnt.is_valid():
                     mkey = mnt.v()
                     if not mkey in mseen:
                         hash_mnts[mnt] = 1
-                        mseen[mkey] = 1 
+                        mseen[mkey] = 1
                 else:
                     break
 
                 if mnt.mnt_parent.is_valid():
                     mkey = mnt.mnt_parent.v()
-                    if not mkey in mseen:        
+                    if not mkey in mseen:
                         hash_mnts[mnt.mnt_parent] = 1
                         mseen[mkey] = 1
 
-                if mnt.mnt_parent.mnt_parent.is_valid(): 
+                if mnt.mnt_parent.mnt_parent.is_valid():
                     mkey = mnt.mnt_parent.mnt_parent.v()
-                    if not mkey in mseen:   
+                    if not mkey in mseen:
                         hash_mnts[mnt.mnt_parent.mnt_parent] = 1
                         mseen[mkey] = 1
 
@@ -152,27 +152,27 @@ class linux_mount(linux_common.AbstractLinuxCommand):
         for mnt in hash_mnts:
             cseen = {}
             for child_mnt in mnt.mnt_child.list_of_type(mnttype, "mnt_child"):
-                
+
                 if not child_mnt.is_valid():
                     break
-                
+
                 child_mnts[child_mnt]            = 1
-  
+
                 if child_mnt.v() in cseen:
                     break
 
-                if len(child_mnts.keys()) > 1024:
+                if len(list(child_mnts.keys())) > 1024:
                     break
 
                 cseen[child_mnt.v()] = 1
-  
+
                 if child_mnt.mnt_parent.is_valid():
                     child_mnts[child_mnt.mnt_parent] = 1
-                
+
                 if child_mnt.mnt_parent.mnt_parent.is_valid():
                     child_mnts[child_mnt.mnt_parent.mnt_parent] = 1
 
-        tmp_mnts = list(set(hash_mnts.keys() + child_mnts.keys()))
+        tmp_mnts = list(set(list(hash_mnts.keys()) + list(child_mnts.keys())))
         all_mnts = []
 
         for t in tmp_mnts:
@@ -181,13 +181,13 @@ class linux_mount(linux_common.AbstractLinuxCommand):
                 if len(str(tt)) > 2 or (len(str(tt)) > 1 and str(tt)[0] == '/'):
                     all_mnts.append(t)
 
-        list_mnts    = {} 
+        list_mnts    = {}
         seen_m       = {}
         for mnt in all_mnts:
             if mnt.v() in seen_m:
                 continue
             else:
-                seen_m[mnt.v()] = 1 
+                seen_m[mnt.v()] = 1
 
             for (idx, child_mnt) in enumerate(mnt.mnt_list.list_of_type(mnttype, "mnt_list")):
                 if idx > 20:
@@ -195,22 +195,22 @@ class linux_mount(linux_common.AbstractLinuxCommand):
 
                 if child_mnt.is_valid():
                     list_mnts[child_mnt]            = 1
-                
+
                 if child_mnt.mnt_parent.is_valid():
                     list_mnts[child_mnt.mnt_parent] = 1
-                
+
                 if child_mnt.mnt_parent.mnt_parent.is_valid():
                     list_mnts[child_mnt.mnt_parent.mnt_parent] = 1
 
-        all_mnts = list(set(all_mnts + list_mnts.keys()))
+        all_mnts = list(set(all_mnts + list(list_mnts.keys())))
 
         seen = {}
         for (idx, mnt) in enumerate(all_mnts):
             if mnt.mnt_sb.v() not in seen:
                 ret = self._parse_mnt(mnt, ns, fs_types)
-                        
+
                 mark = False
-                
+
                 if ret:
                     (mnt_sb, dev_name, path, fstype, rr, mnt_string) = ret
 
@@ -232,7 +232,7 @@ class linux_mount(linux_common.AbstractLinuxCommand):
 
     def _get_filesystem_types(self):
         all_fs = {}
-        
+
         fs_ptr = obj.Object("Pointer", offset = self.addr_space.profile.get_symbol("file_systems"), vm = self.addr_space)
         file_systems = fs_ptr.dereference_as("file_system_type")
 
@@ -241,12 +241,10 @@ class linux_mount(linux_common.AbstractLinuxCommand):
         while fs.is_valid():
             fsname = obj.Object("String", offset = fs.name, vm = self.addr_space, length=256)
             all_fs[str(fsname)] = fs
-            fs = fs.next
+            fs = fs.__next__
 
         return all_fs
 
     def render_text(self, outfd, data):
         for (_sb, dev_name, path, fstype, rr, mnt_string) in data:
             outfd.write("{0:25s} {1:35s} {2:12s} {3:2s}{4:64s}\n".format(dev_name, path, fstype, rr, mnt_string))
-
-

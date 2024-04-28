@@ -25,9 +25,9 @@ CLASS_DIR = os.path.dirname(os.path.abspath(__file__))
 BINARY_CLASS = False # TODO
 
 class SVMWLClassifier(SVMClassifier):
-    def __init__(self,path,threshold=0.45, 
+    def __init__(self,path,threshold=0.45,
                  families=['bancteian','delf','FeakerStealer','gandcrab','ircbot','lamer','nitol','RedLineStealer','sfone','sillyp2p','simbot','Sodinokibi','sytro','upatre','wabot','RemcosRAT']):
-        
+
         super().__init__(path,'WL', threshold, families)
 
         ch = logging.StreamHandler()
@@ -78,5 +78,3 @@ class SVMWLClassifier(SVMClassifier):
         else:
             self.log.info("Dataset length should be > 0")
             exit(-1)
-    
-    

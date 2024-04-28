@@ -64,4 +64,3 @@ class Cmdline(taskmods.DllList):
 
             if task.Peb:
                 outfd.write("Command line : {0}\n".format(str(task.Peb.ProcessParameters.CommandLine or '')))
-

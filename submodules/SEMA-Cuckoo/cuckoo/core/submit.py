@@ -81,7 +81,7 @@ class SubmitManager(object):
             ret["route"] = entry["network-routing"]
 
         # Propagate any additional manually set key/value pairs.
-        for key, value in options.items():
+        for key, value in list(options.items()):
             if key not in self.known_web_options:
                 ret[key] = value
 
@@ -112,7 +112,7 @@ class SubmitManager(object):
             options.pop("route")
 
         # Propagate any additional manually set key/value pairs.
-        for key, value in options.items():
+        for key, value in list(options.items()):
             if key not in self.known_web_options:
                 ret[key] = value
 
@@ -344,15 +344,15 @@ class SubmitManager(object):
             )
 
         required_fields = {
-            "options": dict, "route": basestring, "package": basestring,
-            "target": basestring, "category": basestring, "memory": bool,
-            "timeout": (int, long), "priority": (int, long),
-            "custom": basestring, "tags": (tuple, list),
+            "options": dict, "route": str, "package": str,
+            "target": str, "category": str, "memory": bool,
+            "timeout": (int, int), "priority": (int, int),
+            "custom": str, "tags": (tuple, list),
         }
 
         try:
             info = json.loads(z.read("task.json"))
-            for key, type_ in required_fields.items():
+            for key, type_ in list(required_fields.items()):
                 if key not in info:
                     raise ValueError("missing %s" % key)
                 if info[key] is not None and not isinstance(info[key], type_):
@@ -422,10 +422,10 @@ class SubmitManager(object):
                 )
             else:
                 for error in set(obj.get("errors", [])):
-                    if isinstance(error, basestring):
+                    if isinstance(error, str):
                         db.add_error(error, task_id)
                 for action in set(obj.get("action", [])):
-                    if isinstance(action, basestring):
+                    if isinstance(action, str):
                         db.add_error("", task_id, action)
 
         # We set this analysis as completed so that it will be processed

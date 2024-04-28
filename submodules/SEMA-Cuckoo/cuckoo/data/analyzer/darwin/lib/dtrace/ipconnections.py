@@ -5,7 +5,7 @@
 
 import os
 import json
-from common import *
+from .common import *
 from subprocess import Popen
 from collections import namedtuple
 from tempfile import NamedTemporaryFile

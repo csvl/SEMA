@@ -24,7 +24,7 @@ var Guacamole = Guacamole || {};
  * received blobs into a single blob by appending them to each other in order.
  * Note that this object will overwrite any installed event handlers on the
  * given Guacamole.InputStream.
- * 
+ *
  * @constructor
  * @param {Guacamole.InputStream} stream The stream that data will be read
  *                                       from.
@@ -113,7 +113,7 @@ Guacamole.BlobReader = function(stream, mimetype) {
 
     /**
      * Fired once for every blob of data received.
-     * 
+     *
      * @event
      * @param {Number} length The number of bytes received.
      */

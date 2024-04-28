@@ -87,7 +87,7 @@ class kmem_cache_slab(kmem_cache):
 
         for slab in self._get_partial_list():
             if not self.num or self.num == 0:
-                return                
+                return
 
             bufctl = obj.Object("Array",
                         offset = slab.v() + slab.size(),

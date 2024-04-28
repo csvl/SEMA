@@ -51,7 +51,7 @@ class CuckooApi(object):
         )
 
         diskspace = {}
-        for key, path in paths.items():
+        for key, path in list(paths.items()):
             if hasattr(os, "statvfs") and os.path.isdir(path):
                 stats = os.statvfs(path)
                 diskspace[key] = dict(

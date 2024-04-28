@@ -7,7 +7,7 @@ import sys
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print "Usage: python %s <filepath>" % sys.argv[0]
+        print("Usage: python %s <filepath>" % sys.argv[0])
         exit(1)
 
     # Takes the file, reverses its contents, and writes it to tests/files/.

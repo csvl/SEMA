@@ -1,6 +1,6 @@
 # Volatility
 # Copyright (C) 2007-2013 Volatility Foundation
-# 
+#
 # This file is part of Volatility.
 #
 # Volatility is free software; you can redistribute it and/or modify
@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -40,9 +40,9 @@ class mac_netstat(mac_tasks.mac_tasks):
                          ("State", str),
                          ("Process", str),
                          ("PID", str)
-                         ], 
+                         ],
                          self.generator(data))
-                         
+
     def generator(self, data):
         for proc in data:
             for (family, info) in proc.netstat():
@@ -50,8 +50,8 @@ class mac_netstat(mac_tasks.mac_tasks):
                     (socket, path) = info
                     if path:
                       yield(0, [
-                                "UNIX", 
-                                str(path).strip(), 
+                                "UNIX",
+                                str(path).strip(),
                                 0,
                                 "-",
                                 0,
@@ -63,12 +63,12 @@ class mac_netstat(mac_tasks.mac_tasks):
                 elif family in [2, 30]:
                     (socket, proto, lip, lport, rip, rport, state) = info
                     yield(0, [
-                            str(proto), 
-                            str(lip), 
+                            str(proto),
+                            str(lip),
                             int(lport),
-                            str(rip), 
+                            str(rip),
                             int(rport),
-                            str(state), 
+                            str(state),
                             str(proc.p_comm),
                             str(proc.p_pid),
                             ])
@@ -81,7 +81,7 @@ class mac_netstat(mac_tasks.mac_tasks):
                                   ("Remote Port", "6"),
                                   ("State", "20"),
                                   ("Process", "24")])
-        
+
         for proc in data:
             for (family, info) in proc.netstat():
                 if family == 1:

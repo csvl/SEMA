@@ -5,7 +5,7 @@
  * (C) 2016, 2017, 2018, All right reserved.
  *
  * @copyright Inria
- * @author Laurent Morin 
+ * @author Laurent Morin
  */
 
 #define OVERLOAD_MALLOC_LIB		/*!< Flag: enables the memory monitoring system to initialize. */
@@ -35,7 +35,7 @@
  * This memory monitoring system records the memory allocated and send
  * a signal when a limit is reached. The system fit on one single file
  * and opereates at linking time: it does not need any header or declaration.
- * 
+ *
  * The system is activated using environment variables:
  *  ::OCLENI_MALLOC_MODE (integer): must be set to 1 to activate the
  *  memory limitation.

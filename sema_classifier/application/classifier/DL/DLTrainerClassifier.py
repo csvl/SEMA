@@ -17,20 +17,20 @@ import logging
 RANDOM_SEED=np.random.seed(10)
 
 try:
-	from .DLClassifier import DLClassifier	
+	from .DLClassifier import DLClassifier
 	from .DLDataset import DLDataset
 	from ..Classifier import Classifier
 	from clogging.CustomFormatter import CustomFormatter
 except:
-	from .DLClassifier import DLClassifier	
+	from .DLClassifier import DLClassifier
 	from .DLDataset import DLDataset
 	from ..Classifier import Classifier
 	from ...clogging.CustomFormatter import CustomFormatter
-	 
+
 
 class DLTrainerClassifier(Classifier):
-	def __init__(self, path, 
-				shared_type=0, epoch=5, data_scale=0.9, 
+	def __init__(self, path,
+				shared_type=0, epoch=5, data_scale=0.9,
 				vector_size=4, batch_size=1):
 
 		super().__init__(path,'DLTrainerClassifier', 0)
@@ -70,7 +70,7 @@ class DLTrainerClassifier(Classifier):
 		self.fname   = path + '/mapping_' + input_dir_name + '.txt'
 		self.apipath = self.apiname #os.path.join(dir_path, apiname)
 		self.mappath = self.fname   #os.path.join(dir_path, fname)
-	
+
 	def get_stat_classifier(self, save_path=None): # TODO custom parameter
 		self.TPR = self.TP/len(self.stat_dataset)
 		self.loss = self.loss/len(self.stat_dataset)
@@ -88,19 +88,19 @@ class DLTrainerClassifier(Classifier):
 			plt.savefig(f"{save_path}_CM_fig.png", bbox_inches='tight')
 		self.log.info(f"TPR\{self.TPR}")
 		self.log.info(f"Loss\{self.loss}")
-  
+
 		self.tpr = self.TPR
 		self.balanced_accuracy = bacc
 		self.fscore = fscore
 		self.accuracy = acc
-  
+
 		return acc, self.loss
 
 	def classify(self, path=None): # TODO test acc on val_set & test_set
 		self._model.eval()
 		criterion_x = nn.MSELoss(reduction='sum')
 		criterion_y = nn.BCELoss()
-		
+
 		self.labels =[c for c in self._model.classes]
 		self.loss = 0.
 
@@ -115,7 +115,7 @@ class DLTrainerClassifier(Classifier):
 			data_classify = DLDataset(path, self.mappath, self.apipath, self.vector_size)
 			self.test_dataset = DataLoader(data_classify,num_workers=ncpu)
 			self.stat_dataset = self.test_dataset
-		
+
 		self.y_true = list()
 		self.y_pred = list()
 		for x,y, z in self.stat_dataset:
@@ -138,7 +138,7 @@ class DLTrainerClassifier(Classifier):
 		TODO
 		"""
 		pass
-	
+
 	def train(self, path, sepoch=1):
 		if not self.data_load:
 			import multiprocessing
@@ -156,7 +156,7 @@ class DLTrainerClassifier(Classifier):
 		criterion_x = nn.MSELoss(reduction='mean')
 		criterion_y = nn.BCELoss()
 		# criterion_y = nn.CrossEntropyLoss()
-		
+
 		history = dict(train=[], val=[])
 		best_model_wts = copy.deepcopy(self._model.state_dict())
 		best_loss = 1e9
@@ -169,11 +169,11 @@ class DLTrainerClassifier(Classifier):
 			i_count = 0
 			for seq_true,y_true,_ in self.train_dataset:
 				optimizer.zero_grad()
-				x = seq_true[0] 
+				x = seq_true[0]
 				y= y_true[0]
 				x2,y_pred = self._model(x)
-				loss = self.loss_calc(x2,y_pred, 
-							x, y, 
+				loss = self.loss_calc(x2,y_pred,
+							x, y,
 							criterion_x,
 							criterion_y)
 				loss.backward()
@@ -210,11 +210,11 @@ class DLTrainerClassifier(Classifier):
 					best_model_wts = copy.deepcopy(self._model.state_dict())
 			history['train'].append(train_loss)
 			self.log.info(f'\tEpoch {epoch}: Train loss {train_loss} - Val loss {val_loss}')
-			
+
 		self._model.load_state_dict(best_model_wts)
 		self.log.info(f"\tLoss: {best_loss}")
 		return self._model, history
-		
+
 	def loss_calc(self,x,y,x_target, y_target,criterion_x,criterion_y):
 		f = torch.sigmoid
 		try:
@@ -223,11 +223,11 @@ class DLTrainerClassifier(Classifier):
 		except:
 			return None
 		return loss_y+loss_x
-	
+
 	@property
 	def classes(self):
 		return self._model.classes
-	
+
 	@property
 	def share_model(self):
 		if self.shared_type==1:
@@ -253,7 +253,7 @@ class DLTrainerClassifier(Classifier):
 			for i,p in enumerate(self.share_model.parameters()):
 				v = torch.tensor(values[i]).reshape(p.size())
 				p.copy_(v)
-				
+
 	def get_model_parameter(self):
 		para =[]
 		for i,p in enumerate(self.share_model.parameters()):

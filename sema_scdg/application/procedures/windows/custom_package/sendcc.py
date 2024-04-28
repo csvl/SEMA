@@ -16,7 +16,7 @@ class sendcc(angr.SimProcedure):
             # self.state.memory.store(buf,ptr)
             # self.state.globals["buffer_send"] = self.state.memory.load(buf,l)
             # self.state.globals["n_buffer_send"] = self.state.globals["n_buffer_send"] + 1
-            return self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)           
+            return self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)
         else:
             l = self.state.solver.eval(length)
             lw.debug("lenght: " + str(l))

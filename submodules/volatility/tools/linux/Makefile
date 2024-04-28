@@ -4,7 +4,7 @@ KVER ?= $(shell uname -r)
 
 -include version.mk
 
-all: dwarf 
+all: dwarf
 
 dwarf: module.c
 	$(MAKE) -C $(KDIR)/lib/modules/$(KVER)/build CONFIG_DEBUG_INFO=y M="$(PWD)" modules

@@ -247,7 +247,7 @@ Another event is triggered when a signature matches.
 
 .. code-block:: python
     :linenos:
-	
+
     required = ["creates_exe", "badmalware"]
 
     def on_signature(self, matched_sig):
@@ -256,7 +256,7 @@ Another event is triggered when a signature matches.
 
         if not self.required:
             return True
-	
+
         return False
 
 This kind of signature can be used to combine several signatures identifying

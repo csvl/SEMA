@@ -3,7 +3,7 @@
 #
 # Derived from source in PyFlag developed by:
 # Copyright 2004: Commonwealth of Australia.
-# Michael Cohen <scudette@users.sourceforge.net> 
+# Michael Cohen <scudette@users.sourceforge.net>
 # David Collett <daveco@users.sourceforge.net>
 #
 # This file is part of Volatility.
@@ -28,7 +28,7 @@
 
 """
 @author:       AAron Walters
-@license:      GNU General Public License 2.0 
+@license:      GNU General Public License 2.0
 @contact:      awalters@4tphi.net
 @organization: Volatility Foundation
 """

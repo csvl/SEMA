@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -44,11 +44,11 @@ class linux_pslist(linux_common.AbstractLinuxCommand):
         pspace = utils.load_as(addr_space.get_config(), astype = 'physical')
         task = obj.Object("task_struct", vm = pspace, offset = offset)
         parent = obj.Object("task_struct", vm = addr_space, offset = task.parent)
-        
+
         for child in parent.children.list_of_type("task_struct", "sibling"):
             if child.obj_vm.vtop(child.obj_offset) == task.obj_offset:
                 return child
-        
+
         return obj.NoneObject("Unable to bounce back from task_struct->parent->task_struct")
 
     def allprocs(self):
@@ -91,11 +91,11 @@ class linux_pslist(linux_common.AbstractLinuxCommand):
         uid = task.uid
         if uid == None or uid > 10000:
             uid = "-"
-        
+
         gid = task.gid
         if gid == None or gid > 100000:
             gid = "-"
-    
+
         start_time = task.get_task_start_time()
         if start_time == None:
             start_time = "-"
@@ -108,7 +108,7 @@ class linux_pslist(linux_common.AbstractLinuxCommand):
         task_offset = None
         if hasattr(self, "wants_physical") and task.obj_vm.base:
             task_offset = self.addr_space.vtop(task.obj_offset)
-            
+
         if task_offset == None:
             task_offset = task.obj_offset
 
@@ -122,7 +122,7 @@ class linux_pslist(linux_common.AbstractLinuxCommand):
                                   str(task.comm),
                                   int(task.pid),
                                   str(uid),
-                                  str(gid), 
+                                  str(gid),
                                   Address(dtb),
                                   start_time])
 

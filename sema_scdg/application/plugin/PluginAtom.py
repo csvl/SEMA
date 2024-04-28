@@ -30,6 +30,6 @@ class PluginAtom(angr.SimStatePlugin):
         p.stop_flag = self.stop_flag
         p.dict_calls = self.dict_calls.copy()
         return p
-    
+
     def merge(self):
         pass

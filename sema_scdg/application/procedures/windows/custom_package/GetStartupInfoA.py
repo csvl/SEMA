@@ -34,7 +34,7 @@ class GetStartupInfoA(angr.SimProcedure):
     def run(self, lpStartupInfo):
         # Get pointer to STARTUPINFO struct
         #startupinfo_ptr = self.state.mem[self.state.mem[lpStartupInfo].int.resolved].int.resolved
-        
+
         # Get default structure values
         # startupinfo = angr.SIM_PROCEDURES['libc']['__ctype_b_loc']().get_startupinfo_dict()
         startupinfo = {
@@ -87,12 +87,12 @@ class GetStartupInfoA(angr.SimProcedure):
                             "hStdError{}".format(self.display_name), self.arch.bits
                             ),"HANDLE"]
         }
-        
+
         # Update the structure values with information about the current process
         # startupinfo['dwX'][0] = self.state.posix.get_fd(1).pos
         # startupinfo['dwY'][0] = self.state.posix.get_fd(2).pos
         # startupinfo['dwFillAttribute'][0] = 0x7
-        
+
         # Write the updated structure values to memory
         offset = 0
         bits = 32 if self.state.arch.bits == 32 else 64 # TODO

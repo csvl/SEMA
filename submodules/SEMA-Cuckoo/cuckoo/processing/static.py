@@ -189,7 +189,7 @@ class PortableExecutable(object):
                     try:
                         if hasattr(entry, "StringTable"):
                             for st_entry in entry.StringTable:
-                                for str_entry in st_entry.entries.items():
+                                for str_entry in list(st_entry.entries.items()):
                                     entry = {}
                                     entry["name"] = convert_to_printable(str_entry[0])
                                     entry["value"] = convert_to_printable(str_entry[1])
@@ -198,8 +198,8 @@ class PortableExecutable(object):
                             for var_entry in entry.Var:
                                 if hasattr(var_entry, "entry"):
                                     entry = {}
-                                    entry["name"] = convert_to_printable(var_entry.entry.keys()[0])
-                                    entry["value"] = convert_to_printable(var_entry.entry.values()[0])
+                                    entry["name"] = convert_to_printable(list(var_entry.entry.keys())[0])
+                                    entry["value"] = convert_to_printable(list(var_entry.entry.values())[0])
                                     infos.append(entry)
                     except:
                         continue
@@ -518,7 +518,7 @@ class OfficeDocument(object):
     def extract_eps(self):
         """Extract some information from Encapsulated Post Script files."""
         ret = []
-        for filename, content in self.files.items():
+        for filename, content in list(self.files.items()):
             if filename.lower().endswith(".eps"):
                 ret.extend(re.findall(self.eps_comments, content))
         return ret
@@ -540,13 +540,13 @@ class PdfDocument(object):
         self.filepath = filepath
 
     def _parse_string(self, s):
-        if isinstance(s, unicode):
+        if isinstance(s, str):
             # Big endian.
-            if s.startswith(u"\xfe\xff"):
+            if s.startswith("\xfe\xff"):
                 return s[2:].encode("latin-1").decode("utf-16be")
 
             # Little endian.
-            if s.startswith(u"\xff\xfe"):
+            if s.startswith("\xff\xfe"):
                 return s[2:].encode("latin-1").decode("utf-16le")
 
         if isinstance(s, str):
@@ -585,7 +585,7 @@ class PdfDocument(object):
                         "type is not a string?"
                     )
 
-            for element in obj.elements.values():
+            for element in list(obj.elements.values()):
                 self.walk_object(element, entry)
             return
 
@@ -695,7 +695,7 @@ class PdfDocument(object):
             return
 
         ret = []
-        for version in xrange(f.updates + 1):
+        for version in range(f.updates + 1):
             md = f.getBasicMetadata(version)
             row = {
                 "version": version,
@@ -712,7 +712,7 @@ class PdfDocument(object):
                 "openaction": None,
             }
 
-            for obj in f.body[version].objects.values():
+            for obj in list(f.body[version].objects.values()):
                 action = self.get_openaction(obj, f, version)
                 if action:
                     row["openaction"] = action
@@ -783,10 +783,10 @@ class LnkShortcut(object):
             "attrs": []
         }
 
-        for x in xrange(7):
+        for x in range(7):
             ret["flags"][self.flags[x]] = bool(header.flags & (1 << x))
 
-        for x in xrange(14):
+        for x in range(14):
             if header.attrs & (1 << x):
                 ret["attrs"].append(self.attrs[x])
 
@@ -1011,9 +1011,9 @@ class ELF(object):
             parsed = "Library runpath: [%s]" % tag.runpath
         elif tag.entry.d_tag == "DT_SONAME":
             parsed = "Library soname: [%s]" % tag.soname
-        elif isinstance(tag.entry.d_tag, basestring) and tag.entry.d_tag.endswith(("SZ", "ENT")):
+        elif isinstance(tag.entry.d_tag, str) and tag.entry.d_tag.endswith(("SZ", "ENT")):
             parsed = "%i (bytes)" % tag["d_val"]
-        elif isinstance(tag.entry.d_tag, basestring) and tag.entry.d_tag.endswith(("NUM", "COUNT")):
+        elif isinstance(tag.entry.d_tag, str) and tag.entry.d_tag.endswith(("NUM", "COUNT")):
             parsed = "%i" % tag["d_val"]
         elif tag.entry.d_tag == "DT_PLTREL":
             s = describe_dyn_tag(tag.entry.d_val)

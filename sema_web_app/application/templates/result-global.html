@@ -345,7 +345,7 @@
 
         <script>
             $(document).ready(function() {
-                
+
                   const setLabel = (lbl, val) => {
                     const label = $(`#slider-${lbl}-label`);
                     label.text(val);
@@ -356,18 +356,18 @@
                       left: rect.left
                     });
                   }
-                  
+
                   const setLabels = (values) => {
                     setLabel("min", values[0]);
                     setLabel("max", values[1]);
                   }
-                  
-                  
+
+
                   $('#ex2').slider().on('slide', function(ev) {
                     setLabels(ev.value);
                   });
                   setLabels($('#ex2').attr("data-value").split(","));
-                
+
                   let dates = {{ df_dates | safe }};
                   const setLabel2 = (lbl, val) => {
                     const label = $(`#slider-${lbl}-label-1`);
@@ -379,18 +379,18 @@
                       left: rect.left
                     });
                   }
-                  
+
                 const setLabels2 = (values) => {
                     setLabel2("min", values[0]);
                     setLabel2("max", values[1]);
                   }
-                  
-                  
+
+
                   $('#ex3').slider().on('slide', function(ev) {
                     setLabels2(ev.value);
                   });
                   setLabels2($('#ex3').attr("data-value").split(","));
-                
+
                   // (A) FILE READER + HTML ELEMENTS
                 let table = document.getElementById("datatablesSimple");
                 var index = 0;

@@ -8,7 +8,7 @@ import time
 import shutil
 import logging
 import threading
-import Queue
+import queue
 
 import cuckoo
 
@@ -972,7 +972,7 @@ class Scheduler(object):
         log.info("Waiting for analysis tasks.")
 
         # Message queue with threads to transmit exceptions (used as IPC).
-        errors = Queue.Queue()
+        errors = queue.Queue()
 
         # Command-line overrides the configuration file.
         if self.maxcount is None:
@@ -1098,7 +1098,7 @@ class Scheduler(object):
             # Deal with errors.
             try:
                 raise errors.get(block=False)
-            except Queue.Empty:
+            except queue.Empty:
                 pass
 
         log.debug("End of analyses.")

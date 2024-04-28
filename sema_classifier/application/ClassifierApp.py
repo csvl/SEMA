@@ -33,7 +33,7 @@ def run_classifier():
             toolc.train()
         return "Request successful"
     except :
-        traceback.print_exc() 
+        traceback.print_exc()
         return "Something went wrong"
 
 # Return a json object containing all the available parameters of the Classifier as well as their group, default value and help message
@@ -62,8 +62,8 @@ def parse_class_args(user_data, args_parser):
                     exp_args.append(user_data[action.dest])
                     class_args[action.dest] = user_data[action.dest]
 
-    class_args["binary_signatures"] = user_data["binary_signatures"] 
-    exp_args.append(user_data["binary_signatures"])  
+    class_args["binary_signatures"] = user_data["binary_signatures"]
+    exp_args.append(user_data["binary_signatures"])
 
     return class_args, exp_args
 
@@ -80,7 +80,7 @@ def get_args():
                 continue
             if len(args_list[-1]) == 3:
                 args_list.append({})
-                
+
             for action in group._group_actions:
                 group_name = group.title
                 if group_name not in args_list[-1]:
@@ -91,7 +91,7 @@ def get_args():
                     args_list[-1][group_name].append({'name': action.dest, 'help': action.help, "type": "bool", "default": True, "is_mutually_exclusive": is_mutually_exclusive})
                 elif not isinstance(action, argparse._HelpAction):
                     args_list[-1][group_name].append({'name': action.dest, 'help': action.help, "type": str(action.type), "default": action.default, "is_mutually_exclusive": is_mutually_exclusive})
-        is_mutually_exclusive = False 
+        is_mutually_exclusive = False
     return args_list
 
 

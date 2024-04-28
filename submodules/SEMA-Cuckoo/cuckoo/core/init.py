@@ -42,10 +42,10 @@ def write_cuckoo_conf(cfg=None):
 
     # Merge any provided configuration with the defaults and emit their values.
     raw = {}
-    for filename, sections in Config.configuration.items():
+    for filename, sections in list(Config.configuration.items()):
         cfg[filename] = cfg.get(filename, {})
         raw[filename] = {}
-        for section, entries in sections.items():
+        for section, entries in list(sections.items()):
             if section == "__star__":
                 continue
 
@@ -59,7 +59,7 @@ def write_cuckoo_conf(cfg=None):
                 entries.update(cfg[filename].get(real_section, {}))
                 cfg[filename][real_section] = entries
                 raw[filename][real_section] = {}
-                for key, value in entry.items():
+                for key, value in list(entry.items()):
                     if key == "__section__":
                         continue
 
@@ -82,7 +82,7 @@ def write_cuckoo_conf(cfg=None):
                     section_types = sections["*"]
 
                 raw[filename][entry] = {}
-                for key, value in section_types.items():
+                for key, value in list(section_types.items()):
                     if key == "__section__":
                         continue
 

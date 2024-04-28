@@ -115,8 +115,8 @@ class UnloadedModules(common.AbstractWindowsCommand):
                            ('Time', "")])
 
         for drv in data:
-            self.table_row(outfd, drv.Name, drv.StartAddress, 
-                          drv.EndAddress, drv.CurrentTime) 
+            self.table_row(outfd, drv.Name, drv.StartAddress,
+                          drv.EndAddress, drv.CurrentTime)
 
     def calculate(self):
         addr_space = utils.load_as(self._config)

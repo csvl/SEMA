@@ -146,10 +146,10 @@ class _MM_SESSION_SPACE(win32k_core._MM_SESSION_SPACE): #pylint: disable-msg=W02
 
     def find_shared_info(self):
         """The way we find win32k!gSharedInfo on Windows 7
-        is different than before. For each DWORD in the 
+        is different than before. For each DWORD in the
         win32k.sys module's .data section (DWORD-aligned)
         we check if its the HeEntrySize member of a possible
-        tagSHAREDINFO structure. This should equal the size 
+        tagSHAREDINFO structure. This should equal the size
         of a _HANDLEENTRY.
 
         The HeEntrySize member didn't exist before Windows 7
@@ -207,4 +207,3 @@ class Win7Win32KCoreClasses(obj.ProfileModification):
             '_MM_SESSION_SPACE': _MM_SESSION_SPACE,
             'tagSHAREDINFO': tagSHAREDINFO,
             })
-

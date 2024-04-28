@@ -8,30 +8,30 @@ from sklearn.metrics import confusion_matrix, accuracy_score, precision_score,re
 #writer = csv.writer(new, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 y_true = []
 y_pred = []
-fam = [ 'Sodinokibi', 'simbot', 'RedLineStealer', 'FeakerStealer', 'gandcrab', 'lamer', 'nitol', 'RemcosRAT', 'sillyp2p', 'sfone', 'bancteian', 'ircbot', 'sytro','delf', 'wabot', 'none'] 
-"""with open('outCDFS2.csv') as csv_file:
-    csv_reader = csv.reader(csv_file, delimiter=',')
-    line_count = 0
-    for row in csv_reader:
-        if line_count == 0:
-            line_count += 1
-            #writer.writerow(row)
-        else:
-            if row[2] in ['shiz','autoit']:
-                families = eval(row[4])
-                res = eval(row[5])
-                max_s = 1
-                for i in range(len(families)):
-                    if i in [0,10]:
-                        pass
-                    else:
-                        if res[max_s] < res[i]:
-                            max_s = i
-                row[2] = families[max_s]
-                #writer.writerow(row)
-            else:
-                #writer.writerow(row)
-            line_count += 1"""
+fam = [ 'Sodinokibi', 'simbot', 'RedLineStealer', 'FeakerStealer', 'gandcrab', 'lamer', 'nitol', 'RemcosRAT', 'sillyp2p', 'sfone', 'bancteian', 'ircbot', 'sytro','delf', 'wabot', 'none']
+# with open('outCDFS2.csv') as csv_file:
+#     csv_reader = csv.reader(csv_file, delimiter=',')
+#     line_count = 0
+#     for row in csv_reader:
+#         if line_count == 0:
+#             line_count += 1
+#             #writer.writerow(row)
+#         else:
+#             if row[2] in ['shiz','autoit']:
+#                 families = eval(row[4])
+#                 res = eval(row[5])
+#                 max_s = 1
+#                 for i in range(len(families)):
+#                     if i in [0,10]:
+#                         pass
+#                     else:
+#                         if res[max_s] < res[i]:
+#                             max_s = i
+#                 row[2] = families[max_s]
+#                 #writer.writerow(row)
+#             else:
+#                 #writer.writerow(row)
+#             line_count += 1
 
 with open('outBFS2.csv') as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
@@ -42,21 +42,21 @@ with open('outBFS2.csv') as csv_file:
             #writer.writerow(row)
         else:
             y_pred = y_pred + [fam.index(row[2])]
-            y_true = y_true +[fam.index(row[1])] 
-              
+            y_true = y_true +[fam.index(row[1])]
+
 
             line_count += 1
 
 y_pred = y_pred + [fam.index(row[2])]
-y_true = y_true +[fam.index(row[1])] 
-acc = accuracy_score(y_true,y_pred)   
-prc = precision_score(y_true,y_pred,average='macro') 
-rec = recall_score(y_true,y_pred,average='macro')  
+y_true = y_true +[fam.index(row[1])]
+acc = accuracy_score(y_true,y_pred)
+prc = precision_score(y_true,y_pred,average='macro')
+rec = recall_score(y_true,y_pred,average='macro')
 
-print("Accuracy is "+str(acc)) 
-print("Precision is "+str(prc)) 
-print("Recall is "+str(rec))    
-            
+print("Accuracy is "+str(acc))
+print("Precision is "+str(prc))
+print("Recall is "+str(rec))
+
 conf = confusion_matrix(y_true,y_pred)
 figsize = (10,7)
 fontsize=9

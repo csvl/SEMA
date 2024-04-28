@@ -216,10 +216,10 @@ class HiveAddressSpace(addrspace.BaseAddressSpace):
             if not data:
                 bad_blocks_mem += 1
 
-        print "{0} bytes in hive.".format(length)
-        print "{0} blocks not loaded by CM, {1} blocks paged out, {2} total blocks.".format(bad_blocks_reg, bad_blocks_mem, total_blocks)
+        print("{0} bytes in hive.".format(length))
+        print("{0} blocks not loaded by CM, {1} blocks paged out, {2} total blocks.".format(bad_blocks_reg, bad_blocks_mem, total_blocks))
         if total_blocks:
-            print "Total of {0:.2f}% of hive unreadable.".format(((bad_blocks_reg + bad_blocks_mem) / float(total_blocks)) * 100)
+            print("Total of {0:.2f}% of hive unreadable.".format(((bad_blocks_reg + bad_blocks_mem) / float(total_blocks)) * 100))
 
         return (bad_blocks_reg, bad_blocks_mem, total_blocks)
 

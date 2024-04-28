@@ -93,12 +93,9 @@ class SemaSCDG():
         self.graph_builder = GraphBuilder()
 
         # Setup the output directory
-        self.log.info("Results wil be saved into : " + self.mapping_dir)
-        try:
+        self.log.info(f"Results wil be saved into : {self.mapping_dir}")
+        with contextlib.suppress(Exception):
             os.makedirs(self.mapping_dir)
-        except:
-            pass
-
         self.save_conf()
 
     def get_config_param(self, config):
@@ -170,7 +167,7 @@ class SemaSCDG():
                 "symbolic_approximating" if self.approximate else "symbolic"
             ),
         )
-    
+
     def print_program_info(self, proj, main_obj, os_obj):
         """
         Prints information about the program, including libraries used, OS recognition, CPU architecture, entry point, memory addresses, stack executability, binary position independence, and exploration method.
@@ -198,7 +195,7 @@ class SemaSCDG():
                 options.add(str.upper(option))
         return options
 
-    def set_breakpoints(self, state):      
+    def set_breakpoints(self, state):
         """
         Sets breakpoints for various inspection actions in the given state.
 
@@ -208,7 +205,7 @@ class SemaSCDG():
         state.inspect.b("simprocedure", when=angr.BP_BEFORE, action=self.syscall_to_scdg_builder.add_call_debug)
         state.inspect.b("call", when=angr.BP_BEFORE, action=self.syscall_to_scdg_builder.add_addr_call)
         state.inspect.b("call", when=angr.BP_AFTER, action=self.syscall_to_scdg_builder.rm_addr_call)
-        
+
         if self.count_block_enable:
             state.inspect.b("instruction",when=angr.BP_BEFORE, action=self.data_manager.print_state_address)
             state.inspect.b("instruction",when=angr.BP_AFTER, action=self.data_manager.add_instr_addr)
@@ -291,14 +288,14 @@ class SemaSCDG():
                 addr = None
         self.log.info(f"Entry_state address = {str(addr)}")
         return addr
-    
+
     def get_binary_args(self):
         """
         Generates symbolic arguments for the binary analysis.
 
         This function creates a list of binary arguments, including the binary name and symbolic arguments based on the number of arguments specified.
         """
-        args_binary = [self.nameFileShort] 
+        args_binary = [self.nameFileShort]
         if self.n_args:
             for i in range(self.n_args):
                 args_binary.append(claripy.BVS("arg" + str(i), 8 * 16))
@@ -356,7 +353,7 @@ class SemaSCDG():
 
         state.options.discard("LAZY_SOLVES")
         state.register_plugin(
-            "heap", 
+            "heap",
             angr.state_plugins.heap.heap_ptmalloc.SimHeapPTMalloc()
         )
 
@@ -374,7 +371,7 @@ class SemaSCDG():
                state.add_constraints(byte <= "~".encode("utf8"))  # '\x7e'
 
         return state, args_binary
-    
+
     def run_setup(self, exp_dir):
         """
         Runs the setup process for the experiment directory.
@@ -405,14 +402,13 @@ class SemaSCDG():
             logging.getLogger().removeHandler(fileHandler)
         except Exception:
             self.log.warning("Exception remove filehandler")
-            pass
 
         logging.getLogger().addHandler(fileHandler)
 
         exp_dir = exp_dir + self.nameFileShort + "/"
 
         return exp_dir, fileHandler
-    
+
     def setup_hooks(self, proj, state, os_obj):
         """
         Sets up hooks for the binary analysis based on the operating system.
@@ -445,7 +441,7 @@ class SemaSCDG():
         self.setup_simproc_scdg_builder(proj, os_obj)
         state, args_binary = self.create_binary_init_state(proj)
         return proj, main_obj, os_obj, state, args_binary
-    
+
     def perform_exploration(self, exp_dir, proj, simgr):
         """
         Performs the exploration process for the binary analysis.
@@ -526,7 +522,7 @@ class SemaSCDG():
         # Creation of simulation managerinline_call, primary interface in angr for performing execution
         simgr = proj.factory.simulation_manager(state)
         dump_file = {}
-        self.print_memory_info(main_obj, dump_file)    
+        self.print_memory_info(main_obj, dump_file)
 
         # Exploration
         if self.pre_run_thread:
@@ -605,7 +601,7 @@ class SemaSCDG():
             "deadended" : simgr.deadended,
             "active" : simgr.active,
             "errored" : simgr.errored,
-            "pause" : simgr.pause, 
+            "pause" : simgr.pause,
             "ExcessLoop" : simgr.stashes["ExcessLoop"],
             "ExcessStep" : simgr.stashes["ExcessStep"],
             "unconstrained" : simgr.unconstrained,
@@ -627,13 +623,13 @@ class SemaSCDG():
                     }
                     dump_id = dump_id + 1
                     scdg_fin.append(self.scdg_graph[present_state.globals["id"]])
-                
+
         self.print_memory_info(main_obj, dump_file)
-        
+
         if self.keep_inter_scdg:
             self.keep_inter_scdg_meth(exp_dir, dump_file)
         return scdg_fin
-    
+
     def keep_inter_scdg_meth(self, exp_dir, dump_file):
         """
         Keeps an intermediate System Call Dependency Graph (SCDG) by updating a JSON file with new data.
@@ -649,7 +645,7 @@ class SemaSCDG():
         list_obj.append(dump_file)
         with open(ofilename, "w") as save_SCDG:
             json_dumper.dump(list_obj, save_SCDG)
-            
+
     def print_memory_info(self, main_obj, dump_file):
         """
         Prints memory section information for the main object.
@@ -719,7 +715,7 @@ def start_scdg():
     binary_path = "".join(config['SCDG_arg']['binary_path'].rstrip())
     sema_scdg = SemaSCDG()
 
-    if os.path.isfile(binary_path): 
+    if os.path.isfile(binary_path):
         sema_scdg.log.info(f"You decide to analyse a single binary: {sema_scdg.binary_path}")
         sema_scdg.run(f"{sema_scdg.exp_dir}/")
     elif os.path.isdir(sema_scdg.binary_path):

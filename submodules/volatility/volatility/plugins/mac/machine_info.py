@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -36,10 +36,10 @@ class mac_machine_info(common.AbstractMacCommand):
         machine_info = obj.Object("machine_info", offset = self.addr_space.profile.get_symbol("_machine_info"), vm = self.addr_space)
 
         yield machine_info
- 
+
     def render_text(self, outfd, data):
         for machine_info in data:
-            
+
             info = (("Major Version:", machine_info.major_version),
                     ("Minor Version:", machine_info.minor_version),
                     ("Memory Size:", machine_info.max_mem),

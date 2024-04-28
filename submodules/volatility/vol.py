@@ -97,7 +97,7 @@ def command_help(command):
         if item.startswith("render_"):
             outputs.append(item.split("render_", 1)[-1])
     outputopts = "\nModule Output Options: " + \
-        "{0}\n".format("{0}".format("\n".join([", ".join(o for o in sorted(outputs))]))) 
+        "{0}\n".format("{0}".format("\n".join([", ".join(o for o in sorted(outputs))])))
 
     result = textwrap.dedent("""
     ---------------------------------
@@ -115,9 +115,9 @@ def print_info():
     for c, n in sorted(categories.items()):
         lower = (c == commands.Command)
         plugins = registry.get_plugin_classes(c, lower = lower)
-        print "\n"
-        print "{0}".format(n)
-        print "-" * len(n)
+        print("\n")
+        print("{0}".format(n))
+        print("-" * len(n))
 
         result = []
         max_length = 0
@@ -130,7 +130,7 @@ def print_info():
             max_length = max(len(clsname), max_length)
 
         for (name, doc) in result:
-            print "{0:{2}} - {1:15}".format(name, doc, max_length)
+            print("{0:{2}} - {1:15}".format(name, doc, max_length))
 
 def main():
 
@@ -161,7 +161,7 @@ def main():
     ## Try to find the first thing that looks like a module name
     cmds = registry.get_plugin_classes(commands.Command, lower = True)
     for m in config.args:
-        if m in cmds.keys():
+        if m in list(cmds.keys()):
             module = m
             break
 
@@ -170,7 +170,7 @@ def main():
         debug.error("You must specify something to do (try -h)")
 
     try:
-        if module in cmds.keys():
+        if module in list(cmds.keys()):
             command = cmds[module](config)
 
             ## Register the help cb from the command itself
@@ -181,8 +181,8 @@ def main():
                 debug.error("Please specify a location (-l) or filename (-f)")
 
             command.execute()
-    except exceptions.VolatilityException, e:
-        print e
+    except exceptions.VolatilityException as e:
+        print(e)
 
 if __name__ == "__main__":
     config.set_usage(usage = "Volatility - A memory forensics analysis platform.")
@@ -190,10 +190,10 @@ if __name__ == "__main__":
 
     try:
         main()
-    except Exception, ex:
+    except Exception as ex:
         if config.DEBUG:
             debug.post_mortem()
         else:
             raise
     except KeyboardInterrupt:
-        print "Interrupted"
+        print("Interrupted")

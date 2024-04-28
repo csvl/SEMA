@@ -26,8 +26,8 @@
 		color: #999;
 		border-bottom: 1px solid #D0D0D0;
 
-		h4 { 
-			margin: 30px 0 10px 0; 
+		h4 {
+			margin: 30px 0 10px 0;
 
 			& + small {
 				display: block;
@@ -120,8 +120,8 @@
 				border-left: 1px solid #D0D0D0;
 				margin-bottom: 0;
 
-				&.priority-s { 
-					@include cuckoo-priority($priority: 'low'); 
+				&.priority-s {
+					@include cuckoo-priority($priority: 'low');
 					border-left-width: 1px !important;
 				}
 				&.priority-m { @include cuckoo-priority($priority: 'medium'); }
@@ -193,10 +193,10 @@
 					padding: 3px 0;
 				}
 
-				.description { 
+				.description {
 					display: block;
 					padding: 0;
-					&:before { display: none; } 
+					&:before { display: none; }
 				}
 
 			}
@@ -212,7 +212,7 @@
 		@include cuckoo-theme('cyborg') {
 
 			border-color: $cyborg_border_color;
-			
+
 			& > li {
 				background-color: transparent;
 				label { border-color: $cyborg_border_color; }
@@ -222,8 +222,8 @@
 				background-color: $cyborg_primary_color;
 			}
 
-			& > li > .manual-input > input { 
-				background: $cyborg_background_color; 
+			& > li > .manual-input > input {
+				background: $cyborg_background_color;
 				border-color: $cyborg_border_color;
 			}
 
@@ -235,9 +235,9 @@
 		}
 
 		@include cuckoo-theme('night') {
-			
+
 			border-color: $night_border_color;
-			
+
 			& > li {
 				background-color: transparent;
 				label { border-color: $night_border_color; }
@@ -247,8 +247,8 @@
 				background-color: $night_primary_color;
 			}
 
-			& > li > .manual-input > input { 
-				background: $night_background_color; 
+			& > li > .manual-input > input {
+				background: $night_background_color;
 				border-color: $night_border_color;
 			}
 
@@ -342,8 +342,8 @@
 
 			}
 
-			& > input { 
-				display: none; 
+			& > input {
+				display: none;
 
 				&:checked + span {
 					background-color: #B8E986;
@@ -423,17 +423,17 @@
 			}
 		}
 
-		th { 
-			font-size: 8px; 
+		th {
+			font-size: 8px;
 			color: #999;
 			text-transform: uppercase;
 			font-weight: 900;
 		}
 
-		td { 
+		td {
 			font-family: monospace;
 			text-transform: lowercase;
-			font-size: 12px; 
+			font-size: 12px;
 			font-weight: 500;
 			padding-top: 10px;
 			padding-bottom: 10px;
@@ -462,8 +462,8 @@
 
 		tfoot td { padding: 0; }
 
-		.remove { 
-			float: right; 
+		.remove {
+			float: right;
 			&:hover {
 				cursor: pointer;
 			}
@@ -530,9 +530,9 @@
 			&:hover,
 			select:hover {
 				cursor: not-allowed;
-			}	
+			}
 
-			select, 
+			select,
 			i{ opacity: .2; }
 
 		}

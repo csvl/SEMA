@@ -6,7 +6,7 @@ import ctypes
 import os.path
 import platform
 import shutil
-import _winreg
+import winreg
 
 from lib.common.defines import NTDLL, UNICODE_STRING
 from lib.common.exceptions import CuckooError
@@ -21,12 +21,12 @@ class Driver(object):
     def install(self):
         self.copy_driver()
         self.set_regkey(
-            "ImagePath", _winreg.REG_SZ,
+            "ImagePath", winreg.REG_SZ,
             "\\SystemRoot\\system32\\drivers\\%s.sys" % self.install_name
         )
-        self.set_regkey("Start", _winreg.REG_DWORD, 3)
-        self.set_regkey("Type", _winreg.REG_DWORD, 1)
-        self.set_regkey("ErrorControl", _winreg.REG_DWORD, 1)
+        self.set_regkey("Start", winreg.REG_DWORD, 3)
+        self.set_regkey("Type", winreg.REG_DWORD, 1)
+        self.set_regkey("ErrorControl", winreg.REG_DWORD, 1)
         self.load_driver()
         self.del_regkeys()
 
@@ -57,7 +57,7 @@ class Driver(object):
 
     def set_regkey(self, key, type_, value):
         set_regkey(
-            _winreg.HKEY_LOCAL_MACHINE,
+            winreg.HKEY_LOCAL_MACHINE,
             "SYSTEM\\CurrentControlSet\\Services\\%s" % self.install_name,
             key, type_, value
         )
@@ -70,12 +70,12 @@ class Driver(object):
         ]
 
         for regkey in regkeys:
-            del_regkey(_winreg.HKEY_LOCAL_MACHINE, regkey % self.install_name)
+            del_regkey(winreg.HKEY_LOCAL_MACHINE, regkey % self.install_name)
 
     def load_driver(self):
         regkey = (
-            u"\\Registry\\Machine\\System"
-            u"\\CurrentControlSet\\Services\\%s" % self.install_name
+            "\\Registry\\Machine\\System"
+            "\\CurrentControlSet\\Services\\%s" % self.install_name
         )
         us = UNICODE_STRING()
         us.Buffer = regkey

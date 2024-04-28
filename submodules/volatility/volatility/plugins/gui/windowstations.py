@@ -48,15 +48,15 @@ class WndScan(common.AbstractScanCommand, sessions.SessionsMixin):
     """Pool scanner for window stations"""
 
     scanners = [PoolScanWind]
-    
+
     def calculate(self):
         addr_space = utils.load_as(self._config)
 
         seen = []
 
         for wind in self.scan_results(addr_space):
-            
-            # Find an address space for this window station's session  
+
+            # Find an address space for this window station's session
             session = self.find_session_space(
                 addr_space, wind.dwSessionId)
 
@@ -64,7 +64,7 @@ class WndScan(common.AbstractScanCommand, sessions.SessionsMixin):
                 continue
 
             # Reset the object's native VM so pointers are
-            # dereferenced in session space 
+            # dereferenced in session space
             wind.set_native_vm(session.obj_vm)
 
             for winsta in wind.traverse():

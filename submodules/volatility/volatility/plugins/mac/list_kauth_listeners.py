@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 import volatility.obj   as obj
 import volatility.utils as utils
@@ -84,4 +84,3 @@ class mac_list_kauth_listeners(kauth_scopes.mac_list_kauth_scopes):
                 cb = ls.kll_callback.v()
                 (module, handler_sym) = common.get_handler_name(kaddr_info, cb)
                 self.table_row(outfd, ls.v(), scope_name, ls.kll_idata, cb, module, handler_sym)
-

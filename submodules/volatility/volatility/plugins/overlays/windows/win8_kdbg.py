@@ -35,17 +35,17 @@ except ImportError:
     has_distorm = False
 
 class VolatilityKDBG(obj.VolatilityMagic):
-    """A Scanner for KDBG data within an address space. 
+    """A Scanner for KDBG data within an address space.
 
-    This implementation is specific for Windows 8 / 2012 
-    64-bit versions because the KDBG block is encoded. We 
-    have to find it a special way and then perform the 
-    decoding routine before Volatility plugins can run. 
+    This implementation is specific for Windows 8 / 2012
+    64-bit versions because the KDBG block is encoded. We
+    have to find it a special way and then perform the
+    decoding routine before Volatility plugins can run.
     """
 
     def v(self):
-        """The --kdbg parameter for this Win8/2012 KDBG 
-        structure is the virtual address of the 
+        """The --kdbg parameter for this Win8/2012 KDBG
+        structure is the virtual address of the
         nt!KdCopyDataBlock function (see kdbgscan output).
         """
 
@@ -61,58 +61,56 @@ class VolatilityKDBG(obj.VolatilityMagic):
             yield x
 
     def decode_kdbg(self, vals):
-        """Decoder the KDBG block using the provided 
-        magic values and the algorithm reversed from 
+        """Decoder the KDBG block using the provided
+        magic values and the algorithm reversed from
         the Windows kernel file."""
 
         block_encoded, kdbg_block, wait_never, wait_always = vals
-        # just take the maximum. if we decode a tiny bit of 
+        # just take the maximum. if we decode a tiny bit of
         # extra data in some cases, its totally fine.
         kdbg_size = max(self.unique_sizes())
         buffer = ""
 
-        entries = obj.Object("Array", 
-                            targetType = "unsigned long long", 
-                            count = kdbg_size / 8, 
+        entries = obj.Object("Array",
+                            targetType = "unsigned long long",
+                            count = kdbg_size / 8,
                             offset = kdbg_block, vm = self.obj_vm)
 
-        for entry in entries: 
+        for entry in entries:
             low_byte = (wait_never & 0xFFFFFFFF) & 0xFF
             entry = patchguard.rol(entry ^ wait_never, low_byte)
             swap_xor = block_encoded.obj_offset | 0xFFFF000000000000
             entry = patchguard.bswap(entry ^ swap_xor)
-            buffer += struct.pack("Q", entry ^ wait_always) 
+            buffer += struct.pack("Q", entry ^ wait_always)
 
-        return buffer
+            return buffer
 
     def unique_sizes(self):
-    	"""Determine the possible KDBG sizes to scan for, across all 
-    	profiles Win8 x64 and above. We do this by reflecting back on 
+        """Determine the possible KDBG sizes to scan for, across all
+    	profiles Win8 x64 and above. We do this by reflecting back on
     	the profile modifications to see which ones would trigger and
     	then grabbing the KDBG size."""
-    
-        items = registry.get_plugin_classes(windows_main.AbstractKDBGMod).items()
+        items = list(registry.get_plugin_classes(windows_main.AbstractKDBGMod).items())
         sizes = set()
-        
+
         for name, cls in items:
             try:
-                if (not cls.conditions["os"]("windows") or 
+                if (not cls.conditions["os"]("windows") or
                         not cls.conditions["major"](6)):
                     continue
 
                 sizes.add(cls.kdbgsize)
             except:
                 continue
-
         return sizes
 
     def copy_data_block(self, full_addr):
-        """This function emulates nt!KdCopyDataBlock on a live 
+        """This function emulates nt!KdCopyDataBlock on a live
         machine by finding the encoded KDBG structure and using
         the required entropy values to decode it."""
 
         sizes = self.unique_sizes()
-        alignment = 8 
+        alignment = 8
         addr_space = self.obj_vm
         bits = distorm3.Decode64Bits
 
@@ -125,30 +123,30 @@ class VolatilityKDBG(obj.VolatilityMagic):
         if code == None:
             return obj.NoneObject("Crossed a code boundary")
 
-        found_size = False 
-        
+        found_size = False
+
         for size in sizes:
             val = struct.pack("I", size / alignment)
             if code.find(val) != -1:
                 found_size = True
                 break
-        
+
         if not found_size:
             return obj.NoneObject("Cannot find KDBG size signature")
 
         version = (addr_space.profile.metadata.get('major', 0), addr_space.profile.metadata.get('minor', 0))
         if version < (6, 4):
             # we don't perform this check for Windows 10.x
-            found_str = False 
-            
+            found_str = False
+
             for size in sizes:
                 val = struct.pack("I", size)
                 if code.find(val) != -1:
                     found_str = True
                     break
-                
+
             if not found_str:
-                return obj.NoneObject("Cannot find KDBG size signature")  
+                return obj.NoneObject("Cannot find KDBG size signature")
 
         ops = list(distorm3.Decompose(full_addr, code, bits))
 
@@ -160,76 +158,76 @@ class VolatilityKDBG(obj.VolatilityMagic):
         wait_always = None
         # nt!KdpDataBlockEncoded
         block_encoded = None
-        
+
         # collect instructions up to the first RET
         before_ret = []
         # we need a bswap instruction to be valid
         found_bswap = False
-        
+
         for op in ops:
-        	if op.mnemonic == "BSWAP":
-        		found_bswap = True
-        	elif op.mnemonic == "RET":
-        		break
-        	else:
-        		before_ret.append(op)
-        		
+            if op.mnemonic == "BSWAP":
+                found_bswap = True
+            elif op.mnemonic == "RET":
+                break
+            else:
+                before_ret.append(op)
+
         if not found_bswap:
-        	return obj.NoneObject("No bswap instruction found")
+            return obj.NoneObject("No bswap instruction found")
 
         for op in before_ret:
             # cmp cs:KdpDataBlockEncoded, 0
-            if (not (block_encoded or kdbg_block or wait_never or wait_always) and 
+            if (not (block_encoded or kdbg_block or wait_never or wait_always) and
                         op.mnemonic == "CMP" and
-                        op.operands[0].type == "AbsoluteMemory" and 
-                        op.operands[1].type == "Immediate" and 
+                        op.operands[0].type == "AbsoluteMemory" and
+                        op.operands[1].type == "Immediate" and
                         op.operands[1].value == 0):
-                # an x64 RIP turned absolute 
+                # an x64 RIP turned absolute
                 offset = op.address + op.size + op.operands[0].disp
-                block_encoded = obj.Object("unsigned char", 
+                block_encoded = obj.Object("unsigned char",
                                         offset = offset,
                                         vm = addr_space)
             # lea rdx, KdDebuggerDataBlock
-            elif (not (kdbg_block or wait_never or wait_always) and 
+            elif (not (kdbg_block or wait_never or wait_always) and
                         op.mnemonic == "LEA" and
-                        op.operands[0].type == "Register" and 
-                        op.operands[0].size == 64 and 
-                        op.operands[1].type == "AbsoluteMemory" and 
+                        op.operands[0].type == "Register" and
+                        op.operands[0].size == 64 and
+                        op.operands[1].type == "AbsoluteMemory" and
                         op.operands[1].dispSize == 32):
-                kdbg_block = op.address + op.size + op.operands[1].disp 
+                kdbg_block = op.address + op.size + op.operands[1].disp
             # mov r10, cs:KiWaitNever
-            elif (not (wait_never or wait_always) and 
+            elif (not (wait_never or wait_always) and
                         op.mnemonic == "MOV" and
-                        op.operands[0].type == "Register" and 
-                        op.operands[0].size == 64 and 
-                        op.operands[1].type == "AbsoluteMemory" and 
+                        op.operands[0].type == "Register" and
+                        op.operands[0].size == 64 and
+                        op.operands[1].type == "AbsoluteMemory" and
                         op.operands[1].dispSize == 32):
                 offset = op.address + op.size + op.operands[1].disp
-                wait_never = obj.Object("unsigned long long", 
-                                        offset = offset, 
+                wait_never = obj.Object("unsigned long long",
+                                        offset = offset,
                                         vm = addr_space)
             # mov r11, cs:KiWaitAlways (Win 8 x64)
             # xor rdx, cs:KiWaitAlways (Win 8.1 x64)
-            elif (not wait_always and 
-                        op.mnemonic in ["MOV", "XOR"] and 
-                        op.operands[0].type == "Register" and 
-                        op.operands[0].size == 64 and 
-                        op.operands[1].type == "AbsoluteMemory" and 
+            elif (not wait_always and
+                        op.mnemonic in ["MOV", "XOR"] and
+                        op.operands[0].type == "Register" and
+                        op.operands[0].size == 64 and
+                        op.operands[1].type == "AbsoluteMemory" and
                         op.operands[1].dispSize == 32):
                 offset = op.address + op.size + op.operands[1].disp
-                wait_always = obj.Object("unsigned long long", 
+                wait_always = obj.Object("unsigned long long",
                                         offset = offset,
                                         vm = addr_space)
                 break
 
-        # check if we've found all the required offsets 
-        if (block_encoded != None 
-                    and kdbg_block != None 
+        # check if we've found all the required offsets
+        if (block_encoded != None
+                    and kdbg_block != None
                     and wait_never != None
                     and wait_always != None):
-            
-            # some acquisition tools decode the KDBG block but leave 
-            # nt!KdpDataBlockEncoded set, so we handle it here. 
+
+            # some acquisition tools decode the KDBG block but leave
+            # nt!KdpDataBlockEncoded set, so we handle it here.
             tag_offset = addr_space.profile.get_obj_offset("_DBGKD_DEBUG_DATA_HEADER64", "OwnerTag")
             signature = addr_space.read(kdbg_block + tag_offset, 4)
 
@@ -240,23 +238,23 @@ class VolatilityKDBG(obj.VolatilityMagic):
                             config = addr_space.get_config(),
                             base_offset = kdbg_block,
                             data = data)
-                kdbg = obj.Object("_KDDEBUGGER_DATA64", 
-                            offset = kdbg_block, 
-                            vm = buff, 
+                kdbg = obj.Object("_KDDEBUGGER_DATA64",
+                            offset = kdbg_block,
+                            vm = buff,
                             native_vm = addr_space)
             else:
-                kdbg = obj.Object("_KDDEBUGGER_DATA64", 
-                            offset = kdbg_block, 
+                kdbg = obj.Object("_KDDEBUGGER_DATA64",
+                            offset = kdbg_block,
                             vm = addr_space)
 
             kdbg.newattr('KdCopyDataBlock', full_addr)
             kdbg.newattr('block_encoded', block_encoded == 1 and signature != "KDBG")
             kdbg.newattr('wait_never', wait_never)
-            kdbg.newattr('wait_always', wait_always)                    
+            kdbg.newattr('wait_always', wait_always)
 
             if kdbg.Header.OwnerTag == 0x4742444b:
                 return kdbg
-                
+
         return obj.NoneObject("Cannot find decoding entropy values")
 
     def generate_suggestions(self):
@@ -266,10 +264,10 @@ class VolatilityKDBG(obj.VolatilityMagic):
             raise StopIteration("The distorm3 Python library is required")
 
         overlap = 20
-        offset = 0 
+        offset = 0
         current_offset = offset
         addr_space = self.obj_vm
-        
+
         addresses = sorted(addr_space.get_available_addresses())
         for (range_start, range_size) in addresses:
             # Jump to the next available point to scan from
@@ -284,9 +282,9 @@ class VolatilityKDBG(obj.VolatilityMagic):
                 l = min(constants.SCAN_BLOCKSIZE + overlap, range_end - current_offset)
 
                 data = addr_space.zread(current_offset, l)
-            
+
                 for addr in utils.iterfind(data, "\x80\x3D"):
-                    full_addr = addr + current_offset 
+                    full_addr = addr + current_offset
                     result = self.copy_data_block(full_addr)
                     if result:
                         yield result
@@ -299,8 +297,8 @@ class Win8x64VolatilityKDBG(obj.ProfileModification):
     before = ['WindowsOverlay', 'WindowsObjectClasses']
     conditions = {'os': lambda x: x == 'windows',
                   'major': lambda x: x == 6,
-                  'minor': lambda x: x >= 2, 
+                  'minor': lambda x: x >= 2,
                   'memory_model': lambda x: x == "64bit"}
-    
+
     def modification(self, profile):
         profile.object_classes.update({"VolatilityKDBG": VolatilityKDBG})

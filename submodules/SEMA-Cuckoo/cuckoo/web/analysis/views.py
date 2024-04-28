@@ -7,7 +7,7 @@ import json
 import os
 import pymongo
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 from bson.objectid import ObjectId
 
@@ -166,20 +166,20 @@ def search_behavior(request, task_id):
                     process_results.append(call)
                     continue
 
-                for key, value in call["arguments"].items():
+                for key, value in list(call["arguments"].items()):
                     if query.search(key):
                         call["id"] = index
                         process_results.append(call)
                         break
 
-                    if isinstance(value, basestring) and query.search(value):
+                    if isinstance(value, str) and query.search(value):
                         call["id"] = index
                         process_results.append(call)
                         break
 
                     if isinstance(value, (tuple, list)):
                         for arg in value:
-                            if not isinstance(arg, basestring):
+                            if not isinstance(arg, str):
                                 continue
 
                             if query.search(arg):
@@ -256,7 +256,7 @@ def moloch(request, **kwargs):
         return view_error(request, "Moloch is not enabled!")
 
     query = []
-    for key, value in kwargs.items():
+    for key, value in list(kwargs.items()):
         if value and value != "None":
             query.append(moloch_mapper[key] % value)
 
@@ -272,7 +272,7 @@ def moloch(request, **kwargs):
 
     url += "%s:8005/?%s" % (
         config("reporting:moloch:host") or hostname,
-        urllib.urlencode({
+        urllib.parse.urlencode({
             "date": "-1",
             "expression": " && ".join(query),
         }),
@@ -294,14 +294,14 @@ def _search_helper(obj, k, value):
     r = []
 
     if isinstance(obj, dict):
-        for k, v in obj.items():
+        for k, v in list(obj.items()):
             r += _search_helper(v, k, value)
 
     if isinstance(obj, (tuple, list)):
         for v in obj:
             r += _search_helper(v, k, value)
 
-    if isinstance(obj, basestring):
+    if isinstance(obj, str):
         if re.search(value, obj, re.I):
             r.append((k, obj))
 
@@ -463,7 +463,7 @@ def pcapstream(request, task_id, conntuple):
         else:
             connlist = conndata["network"]["tcp"]
 
-        conns = filter(lambda i: (i["sport"], i["dport"], i["src"], i["dst"]) == (sport, dport, src, dst), connlist)
+        conns = [i for i in connlist if (i["sport"], i["dport"], i["src"], i["dst"]) == (sport, dport, src, dst)]
         stream = conns[0]
         offset = stream["offset"]
     except:

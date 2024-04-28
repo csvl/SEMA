@@ -50,7 +50,7 @@ class OffsetTzInfo(datetime.tzinfo):
 
     def dst(self, _dt):
         """We almost certainly can't know about DST, so we say it's always off"""
-        # FIXME: Maybe we can know or make guesses about DST? 
+        # FIXME: Maybe we can know or make guesses about DST?
         return datetime.timedelta(0)
 
     def tzname(self, _dt):

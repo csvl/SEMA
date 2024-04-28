@@ -8,7 +8,7 @@
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details. 
+# General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
@@ -33,7 +33,7 @@ class linux_library_list(linux_pslist.linux_pslist):
 
     def calculate(self):
         linux_common.set_plugin_members(self)
-   
+
         tasks = linux_pslist.linux_pslist.calculate(self)
 
         for task in tasks:
@@ -60,6 +60,6 @@ class linux_library_list(linux_pslist.linux_pslist):
                           ("Load Address", "[addrpad]"),
                           ("Path", ""),
                           ])
-  
+
         for task, mapping in data:
             self.table_row(outfd, task.comm, task.pid, mapping.l_addr, mapping.l_name)

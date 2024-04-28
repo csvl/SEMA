@@ -50,7 +50,7 @@ import volatility.plugins.iehistory as iehistory
 import os, sys, ntpath
 import struct
 import volatility.debug as debug
-import volatility.obj as obj 
+import volatility.obj as obj
 import datetime
 from volatility.renderers import TreeGrid
 
@@ -71,7 +71,7 @@ class Win7LdrDataTableEntry(obj.ProfileModification):
                    #'_MMPTE_TIMESTAMP': [ None, {
                    #     'GlobalTimeStamp' : [ None, ['None', dict(is_utc = True)]],
                    #                     }],
-                   } 
+                   }
         profile.merge_overlay(overlay)
 
 class Win7SP1CMHIVE(obj.ProfileModification):
@@ -98,7 +98,7 @@ class WinXPTrim(obj.ProfileModification):
                         'LastTrimTime': [ None, ['WinTimeStamp', dict(is_utc = True)]],
                                         }],
                   }
-                                        
+
         profile.merge_overlay(overlay)
 
 class WinAllTime(obj.ProfileModification):
@@ -115,7 +115,7 @@ class WinAllTime(obj.ProfileModification):
                    '_IMAGE_DEBUG_DIRECTORY': [ None, {
                         'TimeDateStamp': [ None, ['UnixTimeStamp', dict(is_utc = True)]],
                                         }],
-                  } 
+                  }
         profile.merge_overlay(overlay)
 
 class TimeLiner(common.AbstractWindowsCommand):
@@ -163,11 +163,11 @@ class TimeLiner(common.AbstractWindowsCommand):
         for line in data:
             if line != None:
                 outfd.write("{0}\n".format(line))
-    
+
     def render_body(self, outfd, data):
         for line in data:
             if line != None:
-                outfd.write(line) 
+                outfd.write(line)
 
     def getoutput(self, header, start, end = None, body = False):
         if body:
@@ -176,7 +176,7 @@ class TimeLiner(common.AbstractWindowsCommand):
                     return "0|{0}|0|---------------|0|0|0|{1}|{1}|{1}|{1}\n".format(header, start.v())
                 else:
                     return "0|{0}|0|---------------|0|0|0|{1}|{2}|{1}|{1}\n".format(header, start.v(), end.v())
-            except ValueError, ve:
+            except ValueError as ve:
                 return "0|{0}|0|---------------|0|0|0|{1}|{1}|{1}|{1}\n".format(header, 0)
         else:
             try:
@@ -184,9 +184,9 @@ class TimeLiner(common.AbstractWindowsCommand):
                     return "{0}|{1}".format(start, header)
                 else:
                     return "{0}|{1} End: {2}".format(start, header, end)
-            except ValueError, ve:
+            except ValueError as ve:
                 return "{0}|{1}".format(-1, header)
-                
+
     def calculate(self):
         if (self._config.HIVE or self._config.USER) and "Registry" not in self._config.TYPE:
             debug.error("You must use --registry in conjuction with -H/--hive and/or -U/--user")
@@ -196,11 +196,11 @@ class TimeLiner(common.AbstractWindowsCommand):
                     debug.error("You have entered an incorrect type: {0}".format(t))
 
         addr_space = utils.load_as(self._config)
-        version = (addr_space.profile.metadata.get('major', 0), 
+        version = (addr_space.profile.metadata.get('major', 0),
                    addr_space.profile.metadata.get('minor', 0))
 
         pids = {}     #dictionary of process IDs/ImageFileName
-        
+
         body = False
         if self._config.OUTPUT == "body":
             body = True
@@ -210,14 +210,14 @@ class TimeLiner(common.AbstractWindowsCommand):
         if "ImageDate" in self._config.TYPE:
             im = imageinfo.ImageInfo(self._config).get_image_time(addr_space)
             yield self.getoutput("[{0}LIVE RESPONSE]{1} (System time){1}".format(
-                self._config.MACHINE, "" if body else "|"), 
+                self._config.MACHINE, "" if body else "|"),
                 im['ImageDatetime'], body = body)
 
         if version <= (6, 1) and "IEHistory" in self._config.TYPE:
             self._config.update("LEAK", True)
             data = iehistory.IEHistory(self._config).calculate()
             for process, record in data:
-                ## Extended fields are available for these records 
+                ## Extended fields are available for these records
                 if record.obj_name == "_URL_RECORD":
                     line = "[{6}IEHISTORY]{0} {1}->{5}{0} PID: {2}/Cache type \"{3}\" at {4:#x}".format(
                         "" if body else "|",
@@ -226,7 +226,7 @@ class TimeLiner(common.AbstractWindowsCommand):
                         record.Signature, record.obj_offset,
                         record.Url,
                         self._config.MACHINE)
-                        
+
                     yield self.getoutput(line, record.LastModified, end = record.LastAccessed, body = body)
             self._config.remove_option("REDR")
             self._config.remove_option("LEAK")
@@ -256,7 +256,7 @@ class TimeLiner(common.AbstractWindowsCommand):
                 ps_ad = eprocess.get_process_address_space()
                 if ps_ad == None:
                     continue
-                
+
             if version[0] == 5 and "Process" in self._config.TYPE:
                 line = "[{5}PROCESS LastTrimTime]{0} {1}{0} PID: {2}/PPID: {3}/POffset: 0x{4:08x}".format(
                     "" if body else "|",
@@ -303,7 +303,7 @@ class TimeLiner(common.AbstractWindowsCommand):
                         try:
                             pe_file = obj.Object("_IMAGE_DOS_HEADER", offset = 0, vm = bufferas)
                             header = pe_file.get_nt_header()
-                        except ValueError, ve: 
+                        except ValueError as ve:
                             continue
                         line = "[{7}PE HEADER 32-bit (dll)]{0} {4}{0} Process: {1}/PID: {2}/PPID: {3}/Process POffset: 0x{5:08x}/DLL Base: 0x{6:08x}".format(
                             "" if body else "|",
@@ -320,7 +320,7 @@ class TimeLiner(common.AbstractWindowsCommand):
             mods = dict()
             if "TimeDateStamp" in self._config.TYPE or "LoadTime" in self._config.TYPE:
                 mods = dict((mod.DllBase.v(), mod) for mod in eprocess.get_load_modules())
-            for mod in mods.values():
+            for mod in list(mods.values()):
                 basename = str(mod.BaseDllName or "")
                 if basename == str(eprocess.ImageFileName):
                     line = "[{7}PE HEADER (exe)]{0} {4}{0} Process: {1}/PID: {2}/PPID: {3}/Process POffset: 0x{5:08x}/DLL Base: 0x{6:08x}".format(
@@ -368,8 +368,8 @@ class TimeLiner(common.AbstractWindowsCommand):
                 la = "{0}:{1}".format(sock.LocalIpAddress, sock.LocalPort)
                 line = "[{6}SOCKET]{0} LocalIP: {2}/Protocol: {3}({4}){0} PID: {1}/POffset: 0x{5:#010x}".format(
                         "" if body else "|",
-                        sock.Pid, 
-                        la, 
+                        sock.Pid,
+                        la,
                         sock.Protocol,
                         protos.protos.get(sock.Protocol.v(), "-"),
                         sock.obj_offset,
@@ -430,7 +430,7 @@ class TimeLiner(common.AbstractWindowsCommand):
                     self._config.MACHINE)
             yield self.getoutput(line, thread.CreateTime, end = thread.ExitTime, body = body)
 
-    
+
         data = []
         if "Symlink" in self._config.TYPE:
             data = filescan.SymLinkScan(self._config).calculate()
@@ -456,7 +456,7 @@ class TimeLiner(common.AbstractWindowsCommand):
                 try:
                     pe_file = obj.Object("_IMAGE_DOS_HEADER", offset = mod_base, vm = space)
                     header = pe_file.get_nt_header()
-                except ValueError, ve: 
+                except ValueError as ve:
                     continue
                 line = "[{3}PE HEADER (module)]{0} {1}{0} Base: {2:#010x}".format(
                         "" if body else "|",
@@ -548,15 +548,15 @@ class TimeLiner(common.AbstractWindowsCommand):
         if "Registry" in self._config.TYPE:
             regapi.reset_current()
             regdata = regapi.reg_get_all_keys(self._config.HIVE, self._config.USER, reg = True, rawtime = True)
-    
+
             for lwtime, reg, item in regdata:
                 item = item.replace("|", "%7c")
                 line = "[{3}REGISTRY]{0} {2}{0} Registry: {1}".format(
                         "" if body else "|",
-                        reg, 
+                        reg,
                         item,
                         self._config.MACHINE)
-                        
+
                 yield self.getoutput(line, lwtime, body = body)
 
         if "Timer" in self._config.TYPE:

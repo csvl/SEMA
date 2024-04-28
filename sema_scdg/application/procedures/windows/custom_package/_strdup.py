@@ -17,11 +17,11 @@ class _strdup(angr.SimProcedure):
         if cpy_size.symbolic:
             self.state.memory.store(dst_addr, self.state.memory.load(src_addr, 0x20))
             return dst_addr
-           
+
         else:
             self.state.memory.store(dst_addr, self.state.memory.load(src_addr, self.state.solver.eval(cpy_size)))
             return dst_addr
-    
+
     def strlen(self, s, wchar=False, maxlen=None):
         if wchar:
             null_seq = self.state.solver.BVV(0, 16)
@@ -110,18 +110,18 @@ class _strdup(angr.SimProcedure):
                 self.state.add_constraints(result == rresult)
                 result = rresult
             return result, max_null_index
-   
-    
+
+
     def run(
         self,
         s,
     ):
         src_strlen_ret_expr, src_max_null_index = self.strlen(s)
-        
+
         new_s = self.state.heap._malloc(src_strlen_ret_expr)
-        
+
         src_strlen_ret_expr = self.strncpy(new_s, s, src_strlen_ret_expr + 1, src_len=src_strlen_ret_expr)
-        
+
         print(new_s)
 
         return new_s

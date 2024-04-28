@@ -37,7 +37,7 @@ class AnalysisRoutes:
             "feedback": "feedback/index"
         }
 
-        if page in pages.keys():
+        if page in list(pages.keys()):
             return render_template(
                 request, "analysis/pages/%s.html" % pages[page],
                 report=report, page=page
@@ -49,7 +49,7 @@ class AnalysisRoutes:
 
     @staticmethod
     def redirect_default(request, task_id):
-        if not isinstance(task_id, (unicode, str)):
+        if not isinstance(task_id, str):
             task_id = str(task_id)
 
         return redirect(reverse(

@@ -12,10 +12,10 @@ techniques and complexities associated with extracting digital artifacts
 from volatile memory samples and provide a platform for further work into
 this exciting area of research.
 
-The Volatility distribution is available from: 
+The Volatility distribution is available from:
 http://www.volatilityfoundation.org/#!releases/component_71401
 
-Volatility should run on any platform that supports 
+Volatility should run on any platform that supports
 Python (http://www.python.org)
 
 Volatility supports investigations of the following memory images:
@@ -35,16 +35,16 @@ Windows:
 * 64-bit Windows 2008 R2 Server Service Pack 0 and 1
 * 64-bit Windows 7 Service Pack 0 and 1
 * 64-bit Windows 8, 8.1, and 8.1 Update 1
-* 64-bit Windows Server 2012 and 2012 R2 
+* 64-bit Windows Server 2012 and 2012 R2
 * 64-bit Windows 10 (including at least 10.0.19041)
 * 64-bit Windows Server 2016 (including at least 10.0.19041)
 
-Note: Please see the guidelines at the following link for notes on 
+Note: Please see the guidelines at the following link for notes on
 compatibility with recently patched Windows 7 (or later) memory samples:
 
     https://github.com/volatilityfoundation/volatility/wiki/2.6-Win-Profiles
 
-Linux: 
+Linux:
 * 32-bit Linux kernels 2.6.11 to 5.5
 * 64-bit Linux kernels 2.6.11 to 5.5
 * OpenSuSE, Ubuntu, Debian, CentOS, Fedora, Mandriva, etc
@@ -66,7 +66,7 @@ Mac OSX:
 
 Volatility does not provide memory sample acquisition
 capabilities. For acquisition, there are both free and commercial
-solutions available. If you would like suggestions about suitable 
+solutions available. If you would like suggestions about suitable
 acquisition solutions, please contact us at:
 
 volatility (at) volatilityfoundation (dot) org
@@ -79,17 +79,17 @@ ability to convert between these formats:
   - Crash dump file
   - VirtualBox ELF64 core dump
   - VMware saved state and snapshot files
-  - EWF format (E01) 
+  - EWF format (E01)
   - LiME format
   - Mach-O file format
   - QEMU virtual machine dumps
-  - Firewire 
+  - Firewire
   - HPAK (FDPro)
 
 For a more detailed list of capabilities, see the following:
 
     https://github.com/volatilityfoundation/volatility/wiki
-    
+
 Also see the community plugins repository:
 
     https://github.com/volatilityfoundation/community
@@ -119,25 +119,25 @@ Volatility Foundation
 Web: http://www.volatilityfoundation.org
      http://volatility-labs.blogspot.com
      http://volatility.tumblr.com
-     
+
 Email: volatility (at) volatilityfoundation (dot) org
 
 IRC: #volatility on freenode
 
-Twitter: @volatility 
+Twitter: @volatility
 
 Requirements
 ============
 - Python 2.6 or later, but not 3.0. http://www.python.org
 
-Some plugins may have other requirements which can be found at: 
+Some plugins may have other requirements which can be found at:
     https://github.com/volatilityfoundation/volatility/wiki/Installation
 
 Quick Start
 ===========
 1. Unpack the latest version of Volatility from
     volatilityfoundation.org
-   
+
 2. To see available options, run "python vol.py -h" or "python vol.py --info"
 
    Example:
@@ -488,11 +488,11 @@ yarascan                   - Scan process or kernel memory with Yara signatures
    supports that sample type, run 'python vol.py imageinfo -f <imagename>' or 'python vol.py kdbgscan -f <imagename>'
 
    Example:
-   
-    $ python vol.py imageinfo -f WIN-II7VOJTUNGL-20120324-193051.raw 
+
+    $ python vol.py imageinfo -f WIN-II7VOJTUNGL-20120324-193051.raw
     Volatility Foundation Volatility Framework 2.6
     Determining profile based on KDBG search...
-    
+
               Suggested Profile(s) : Win2008R2SP0x64, Win7SP1x64, Win7SP0x64, Win2008R2SP1x64 (Instantiated with Win7SP0x64)
                          AS Layer1 : AMD64PagedMemory (Kernel AS)
                          AS Layer2 : FileAddressSpace (/Path/to/WIN-II7VOJTUNGL-20120324-193051.raw)
@@ -506,7 +506,7 @@ yarascan                   - Scan process or kernel memory with Yara signatures
                Image date and time : 2012-03-24 19:30:53 UTC+0000
          Image local date and time : 2012-03-25 03:30:53 +0800
 
-   If multiple profiles are suggested by imageinfo or kdbgscan, or if you're having trouble analyzing 
+   If multiple profiles are suggested by imageinfo or kdbgscan, or if you're having trouble analyzing
    Windows 7 or later memory samples, please see the guidelines here:
 
         https://github.com/volatilityfoundation/volatility/wiki/2.6-Win-Profiles
@@ -546,7 +546,7 @@ Bugs and Support
 ================
 There is no support provided with Volatility. There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR
-PURPOSE. 
+PURPOSE.
 
 If you think you've found a bug, please report it at:
 
@@ -580,12 +580,11 @@ output of Volatility. Many factors may contribute to the
 incorrectness of output from Volatility including, but not
 limited to, malicious modifications to the operating system,
 incomplete information due to swapping, and information corruption on
-image acquisition. 
+image acquisition.
 
-Command Reference 
+Command Reference
 ====================
-The following url contains a reference of all commands supported by 
+The following url contains a reference of all commands supported by
 Volatility.
 
     https://github.com/volatilityfoundation/volatility/wiki
-

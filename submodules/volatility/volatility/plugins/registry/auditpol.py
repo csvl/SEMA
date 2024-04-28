@@ -10,7 +10,7 @@
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details. 
+# General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
@@ -206,13 +206,13 @@ class AuditPolDataXP(obj.CType):
     def __str__(self):
         audit = "Disabled"
         if int(self.Enabled) != 0:
-            audit = "Enabled" 
+            audit = "Enabled"
         msg = "Auditing is {0}\n\tAudit System Events: {1}\n\tAudit Logon Events: {2}\n\tAudit Object Access: {3}\n\t".format(
                     audit, self.System, self.Logons, self.Files)
         msg += "Audit Privilege Use: {0}\n\tAudit Process Tracking: {1}\n\tAudit Policy Change: {2}\n\tAudit Account Management: {3}\n\t".format(
                     self.UserRights, self.Process, self.PolicyChange, self.AccountManagement)
         msg += "Audit Dir Service Access: {0}\n\tAudit Account Logon Events: {1}\n".format(self.DirectoryAccess, self.AccountLogon)
-        return msg 
+        return msg
 
 class AuditPolDataVista(obj.CType):
     def __str__(self):
@@ -233,7 +233,7 @@ class AuditPolDataVista(obj.CType):
         msg += "Handle Manipulation: {0}\n\tFile Share: {1}\n\tFiltering Platform Packet Drop: {2}\n\t".format(
                     self.HandleManipulation, self.FileShare, self.PacketDrop)
         msg += "Filtering Platform Connection: {0}\nPrivelege Use:\n\t".format(
-                    self.PlatformConnection) 
+                    self.PlatformConnection)
         msg += "Sensitive: {0}\n\tNon Sensitive{1}\n\tOther Privilege Use Events{2}\nDetailed Tracking:\n\t".format(
                     self.Sensitive, self.NonSensitive, self.PrivilegeOther)
         msg += "Process Creation: {0}\n\tProcess Termination: {1}\n\tDPAPI Activity: {2}\n\tRPC Events\n".format(
@@ -261,14 +261,14 @@ class AuditPolData8(obj.CType):
     def __str__(self):
         msg = "\nLogon: {0}\n\tLogoff: {1}\n\tSensitive Privilegs: {2}\n\tProcess Creation: {3}\n\t".format(
                     self.Logon, self.Logoff, self.Sensitive, self.ProcessCreation)
-  
+
         return msg
 
 class AuditPolData10(obj.CType):
     def __str__(self):
         msg = "\nLogon: {0}\n\tLogoff: {1}\n\tSensitive Privilegs: {2}\n\tProcess Creation: {3}\n\t".format(
                     self.Logon, self.Logoff, self.Sensitive, self.ProcessCreation)
-  
+
         return msg
 
 class AuditPolData7(obj.CType):
@@ -312,7 +312,7 @@ class AuditPolData7(obj.CType):
         msg += "Kerberos Service Ticket Operations: {0}\n\tOther Account Logon Events: {1}\n\tKerberos Authentication Service: {2}\n".format(
                     self.KerberosOperations, self.AccountLogonOther, self.KerberosAuthentication)
 
-        return msg 
+        return msg
 
 class AuditpolTypesXP(obj.ProfileModification):
     before = ['WindowsObjectClasses']
@@ -385,7 +385,7 @@ class Auditpol(common.AbstractWindowsCommand):
         return profile.metadata.get('os', 'unknown').lower() == 'windows'
 
     def get_yield(self, ap):
-        for k in ap.members.keys():
+        for k in list(ap.members.keys()):
             yield (0, ["{0}".format(k), "{0}".format(ap.m(k))])
 
 
@@ -405,11 +405,11 @@ class Auditpol(common.AbstractWindowsCommand):
                 ap = obj.Object("AuditPolDataVista", offset = 0, vm = bufferas)
             elif version == (6, 1):
                 ap = obj.Object("AuditPolData7", offset = 0, vm = bufferas)
-            elif version == (6, 2) or version == (6, 3):     
+            elif version == (6, 2) or version == (6, 3):
                 ap = obj.Object("AuditPolData8", offset = 0, vm = bufferas)
             else:
                 ap = obj.Object("AuditPolData10", offset = 0, vm = bufferas)
-                
+
             if ap == None:
                 debug.error("No AuditPol data found")
 
@@ -429,14 +429,14 @@ class Auditpol(common.AbstractWindowsCommand):
                 if int(ap.Enabled) != 0:
                     audit = "Enabled"
                 yield (0, ["GeneralAuditing", audit])
-            for k in ap.members.keys():
+            for k in list(ap.members.keys()):
                 if k != "Enabled":
                     yield (0, ["{0}".format(k), "{0}".format(ap.m(k))])
 
             if self._config.HEX:
                 # for now, not sure how to handle hexdump data
                 raw = "\n".join(["{0:010x}: {1:<48}  {2}".format(o, h, ''.join(c)) for o, h, c in utils.Hexdump(data_raw)])
-                print raw
+                print(raw)
 
     def render_text(self, outfd, data):
         for data_raw, ap in data:

@@ -54,7 +54,7 @@ Now you should reboot your Cuckoo guest image and it should PXE boot into Fog
 and capture the base image from the cuckoo guest.
 
 Now that you have created and capture an image in FOG, Cuckoo will use this image to
-rebuild the guest machine after each analysis task. If you have provided Cuckoo with 
+rebuild the guest machine after each analysis task. If you have provided Cuckoo with
 valid FOG credentials and enabled Remote RPC (as shown in the Network Configuration
 section), Cuckoo will automatically schedule the Deploy Task in FOG and will also
 reboot the guest machine for you.

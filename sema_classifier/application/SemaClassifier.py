@@ -31,15 +31,15 @@ class SemaClassifier:
         self.log = logging.getLogger("SemaClassifier")
         self.log.setLevel(logging.INFO)
         self.log.addHandler(ch)
-        self.log.propagate = False    
-        self.args = None  
-        self.families = []  
-        self.df = None   
+        self.log.propagate = False
+        self.args = None
+        self.families = []
+        self.df = None
         self.csv_path = None
         dill.settings['recurse'] = True
         self.training_elapsed_time = 0
         self.elapsed_time = 0
-        
+
     def save_model(self,object, path):
         with open(path, 'wb+') as output:
             dill.dump(object, output)
@@ -72,9 +72,9 @@ class SemaClassifier:
         if not from_saved_model:
             if self.classifier_name == "gspan":
                 self.classifier = GSpanClassifier(path=self.input_path,threshold=threshold,support=support,timeout=ctimeout,thread=nthread,biggest_subgraphs=biggest_subgraph)
-            elif self.classifier_name == "inria": 
+            elif self.classifier_name == "inria":
                 self.classifier = SVMInriaClassifier(path=self.input_path,threshold=threshold,families=families)
-            elif self.classifier_name == "wl": 
+            elif self.classifier_name == "wl":
                 self.classifier = SVMWLClassifier(path=self.input_path,threshold=threshold,families=families)
             elif self.classifier_name == "dl": # not working with pypy
                 try:
@@ -84,26 +84,26 @@ class SemaClassifier:
                 self.classifier = DLTrainerClassifier(path=self.input_path,epoch=epoch,shared_type=shared_type)
             else:
                 self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
-                exit(-1)    
+                exit(-1)
         else: # TODO improve
             if self.classifier_name == "gspan":
                 self.classifier = self.load_model("./classifier/saved_model/gspan_model.pkl")
-            elif self.classifier_name == "inria": 
+            elif self.classifier_name == "inria":
                 self.classifier = self.load_model("./classifier/saved_model/inria_model.pkl")
-            elif self.classifier_name == "wl": 
+            elif self.classifier_name == "wl":
                 self.classifier = self.load_model("./classifier/saved_model/wl_model.pkl")
             elif self.classifier_name == "dl": # not working with pypy
                 from classifier.DL.DLTrainerClassifier import DLTrainerClassifier
                 self.classifier = self.load_model("./classifier/saved_model/dl_model.pkl")
             else:
                 self.log.info("Error: Unrecognize classifer (gspan|inria|wl|dl)")
-                exit(-1)   
+                exit(-1)
             self.classifier.families = families
 
     def save_conf(self, args, path):
         with open(os.path.join(path, "class_conf.json"), "w") as f:
             json.dump(args, f, indent=4)
-            
+
     def init(self,exp_dir=None, fromWeb=[], csv_file=None):
         # TODO args.binaries vs binary
         if self.input_path is None and exp_dir is None:
@@ -126,20 +126,20 @@ class SemaClassifier:
                     last_familiy = folder.split("/")[-1]
                     families.append(str(last_familiy))
             self.init_classifer(args=self.args,families=families,from_saved_model=(not self.args.train))
-        
+
         if csv_file:
             try:
                 self.csv_path = csv_file
                 self.df = pd.read_csv(csv_file,sep=";")
             except:
                 self.df = pd.DataFrame(
-                    columns=["path", 
+                    columns=["path",
                              "time training"
                              "time class/detect",
                              "date",
-                             "Number of training samples", 
-                             "Number of test samples", 
-                             "Number of validation samples", 
+                             "Number of training samples",
+                             "Number of test samples",
+                             "Number of validation samples",
                              "fscore",
                              "accuracy",
                              "precision",
@@ -150,7 +150,7 @@ class SemaClassifier:
                              ]) # TODO add frame type
         else:
             self.df = None
-    
+
     def train(self):
         if self.args.train: # TODO refactor
             args_train = {}
@@ -162,7 +162,7 @@ class SemaClassifier:
                 args_train["path"] = self.input_path
             self.classifier.train(**args_train)
             self.save_model(self.classifier,ROOT_DIR + "/classifier/saved_model/"+ self.classifier_name +"_model.pkl")
-        
+
             self.training_elapsed_time = time.time() - self.start_time
             self.log.info("Total training time: " + str(self.training_elapsed_time))
 
@@ -173,10 +173,10 @@ class SemaClassifier:
     def detect(self):
         self.classifier.detection(path=(None if self.args.train else self.input_path))
         self.elapsed_time = time.time() - self.start_time
-        
+
     def save_csv(self):
         if self.csv_path:
-            self.df = self.df.append({"path":self.input_path, 
+            self.df = self.df.append({"path":self.input_path,
                              "time training": self.training_elapsed_time,
                              "time class/detect": self.elapsed_time,
                              "date": datetime.datetime.now(),
@@ -207,11 +207,11 @@ def main():
         tc.classifier.get_stat_classifier()
     elif tc.mode == "detection":
         tc.detect()
-    
+
     elapsed_time = time.time() - tc.start_time
-    
+
     tc.save_csv()
-            
+
     tc.log.info("Total "+ tc.mode +" time: " + str(elapsed_time))
 
 

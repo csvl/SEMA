@@ -55,7 +55,7 @@ class WindowsSimProcedure(CustomSimProcedure):
         new_proc.__name__ = proc.ALT_NAMES
         new_proc.__qualname__ = proc.ALT_NAMES
         self.sim_proc[pkg_name][proc.ALT_NAMES] = new_proc
-    
+
     def name_in_angr_simproc(self, name, simproc_names):
         """
         Checks if a given name is present in the angr simulation procedures for the specified simulation procedure names.
@@ -104,7 +104,7 @@ class WindowsSimProcedure(CustomSimProcedure):
             "ntdll",
             "msvcr"
         ]
-        
+
         for symb in symbols:
             name = symb.name
             if name in manual_link:
@@ -224,7 +224,7 @@ class WindowsSimProcedure(CustomSimProcedure):
             )
             return True
         return False
-    
+
     def load_syscall_table(self, proj):
         """
         Loads the syscall table using the DLL loader in the project.

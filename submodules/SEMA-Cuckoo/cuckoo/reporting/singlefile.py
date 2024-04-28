@@ -158,7 +158,7 @@ class SingleFile(Report):
         screenshots = results.get("screenshots", [])
 
         # Select N random screenshots.
-        shots = range(len(screenshots))
+        shots = list(range(len(screenshots)))
         if shuffle:
             random.shuffle(shots)
 

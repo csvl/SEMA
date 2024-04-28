@@ -1,6 +1,6 @@
 #
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-# General Public License for more details. 
+# General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
@@ -102,7 +102,7 @@ def _neg_fix(addr):
 # print as hex (0x12345678)
 def print_hex(value):
     """Print a value as in 4 byte hexadecimal."""
-    print("0x{:08x}".format(value))
+    print(("0x{:08x}".format(value)))
 
 
 def read_addr_range(start, end, addr_space):
@@ -653,7 +653,7 @@ class process_info(object):
         @return: True or False
         """
         if not space:
-            for func in self.is_pointer_dict.itervalues():
+            for func in self.is_pointer_dict.values():
                 if func(addr):
                     return True
             return False
@@ -692,7 +692,7 @@ class process_info(object):
             pointer_iter = self.get_pointers()
 
         store = []
-        
+
         for address, value in pointer_iter:
             if value not in store:
                 yield address, value
@@ -765,7 +765,7 @@ class process_info(object):
         @param addr: An address.
         @return: String pointer type
         """
-        for k, v in self.is_pointer_dict.iteritems():
+        for k, v in self.is_pointer_dict.items():
             if v(addr):
                 return k
         return None
@@ -776,6 +776,3 @@ class process_info(object):
         @return: An annotated address list of the stack
         """
         return self.annotate_addr_list(self._stack)
-
-
-

@@ -7,7 +7,7 @@ import types
 
 Column = collections.namedtuple('Column', ['index', 'name', 'type'])
 
-class TreePopulationError(StandardError):
+class TreePopulationError(Exception):
     """Exception class for accessing functions on an partially populated tree."""
     pass
 
@@ -39,7 +39,7 @@ class TreeNode(collections.Sequence):
         for index in range(len(self._treegrid.columns)):
             column = self._treegrid.columns[index]
             if not isinstance(values[index], column.type):
-                if not (type(values[index]) == long and column.type == int):
+                if not (type(values[index]) == int and column.type == int):
                     raise TypeError(
                     "Values item with index " + repr(index) + " is the wrong type for column " + \
                     repr(column.name) + " (got " + str(type(values[index])) + " but expected " + \
@@ -94,7 +94,7 @@ class TreeGrid(object):
     and to create cycles.
     """
 
-    simple_types = set([int, long, str, float, bytes])
+    simple_types = set([int, int, str, float, bytes])
     path_sep = "|"
 
     def __init__(self, columns, generator):
@@ -256,7 +256,7 @@ class TreeGrid(object):
             accumulator = function(node, initial_accumulator)
         if children is not None:
             if sort_key is not None:
-                children = sorted(children, key = lambda (x, y): sort_key(x.values))
+                children = sorted(children, key = lambda x_y1: sort_key(x_y1[0].values))
             accumulator = self._visit(children, function, accumulator, sort_key)
         return accumulator
 
@@ -266,7 +266,7 @@ class TreeGrid(object):
             for n, children in list_of_children:
                 accumulator = function(n, accumulator)
                 if sort_key is not None:
-                    children = sorted(children, key = lambda (x, y): sort_key(x.values))
+                    children = sorted(children, key = lambda x_y: sort_key(x_y[0].values))
                 accumulator = self._visit(children, function, accumulator, sort_key)
         return accumulator
 

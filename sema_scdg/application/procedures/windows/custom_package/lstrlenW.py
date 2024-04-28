@@ -10,7 +10,7 @@ class lstrlenW(angr.SimProcedure):
     def run(self, s):
         if s.symbolic:
             return self.state.solver.BVS("retval_{}".format(self.display_name), 32)
-        
+
         try:
             string = self.state.mem[s].wstring.concrete
             return len(string)
@@ -21,5 +21,3 @@ class lstrlenW(angr.SimProcedure):
                     return i
             lw.debug("can't find length")
             return self.state.solver.BVS("retval_{}".format(self.display_name), 32)
-        
-

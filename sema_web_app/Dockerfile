@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND="noninteractive"
 ENV SNAPCRAFT_SETUP_CORE=1
 
 RUN  apt-get update
-RUN  apt update; apt-get --fix-missing -y install \ 
+RUN  apt update; apt-get --fix-missing -y install \
                 python3.8 \
                 python3.8-dev \
                 python3.8-venv \
@@ -14,7 +14,7 @@ RUN  apt update; apt-get --fix-missing -y install \
                 git \
                 curl
 
-         
+
 COPY ./sema_web_app/requirements.txt /sema-web-app/requirements.txt
 WORKDIR /sema-web-app/
 RUN pip3 install -r requirements.txt

@@ -1,7 +1,7 @@
 # Volatility
 # Copyright (C) 2007-2013 Volatility Foundation
 # Copyright (C) 2010,2011,2012 Michael Hale Ligh <michael.ligh@mnin.org>
-# Copyright (C) 2009 Brendan Dolan-Gavitt 
+# Copyright (C) 2009 Brendan Dolan-Gavitt
 #
 # This file is part of Volatility.
 #
@@ -22,11 +22,11 @@
 import copy
 
 # Windows assigns several atom IDs by default, but doesn't include
-# them in the local or global atom tables. Thus when we perform a 
-# lookup, we don't want to exclude these default atoms, so we create 
-# a fake atom structure and assign the values as needed. The search 
-# algorithm will then check the default atoms before moving onto the 
-# atoms found in local/global tables. 
+# them in the local or global atom tables. Thus when we perform a
+# lookup, we don't want to exclude these default atoms, so we create
+# a fake atom structure and assign the values as needed. The search
+# algorithm will then check the default atoms before moving onto the
+# atoms found in local/global tables.
 class FakeAtom(object):
     def __init__(self, name):
         self.Name = name
@@ -41,48 +41,48 @@ DEFAULT_ATOMS = {
 }
 
 WINDOW_STYLES = dict(
-  WS_OVERLAPPED = 0x00000000L,
-  WS_POPUP = 0x80000000L,
-  WS_CHILD = 0x40000000L,
-  WS_MINIMIZE = 0x20000000L,
-  WS_VISIBLE = 0x10000000L,
-  WS_DISABLED = 0x08000000L,
-  WS_CLIPSIBLINGS = 0x04000000L,
-  WS_CLIPCHILDREN = 0x02000000L,
-  WS_MAXIMIZE = 0x01000000L,
-  WS_CAPTION = 0x00C00000L,
-  WS_BORDER = 0x00800000L,
-  WS_DLGFRAME = 0x00400000L,
-  WS_VSCROLL = 0x00200000L,
-  WS_HSCROLL = 0x00100000L,
-  WS_SYSMENU = 0x00080000L,
-  WS_THICKFRAME = 0x00040000L,
-  WS_GROUP = 0x00020000L,
-  WS_TABSTOP = 0x00010000L,
-  WS_MINIMIZEBOX = 0x00020000L,
-  WS_MAXIMIZEBOX = 0x00010000L,
+  WS_OVERLAPPED = 0x00000000,
+  WS_POPUP = 0x80000000,
+  WS_CHILD = 0x40000000,
+  WS_MINIMIZE = 0x20000000,
+  WS_VISIBLE = 0x10000000,
+  WS_DISABLED = 0x08000000,
+  WS_CLIPSIBLINGS = 0x04000000,
+  WS_CLIPCHILDREN = 0x02000000,
+  WS_MAXIMIZE = 0x01000000,
+  WS_CAPTION = 0x00C00000,
+  WS_BORDER = 0x00800000,
+  WS_DLGFRAME = 0x00400000,
+  WS_VSCROLL = 0x00200000,
+  WS_HSCROLL = 0x00100000,
+  WS_SYSMENU = 0x00080000,
+  WS_THICKFRAME = 0x00040000,
+  WS_GROUP = 0x00020000,
+  WS_TABSTOP = 0x00010000,
+  WS_MINIMIZEBOX = 0x00020000,
+  WS_MAXIMIZEBOX = 0x00010000,
 )
 
 WINDOW_STYLES_EX = dict(
-  WS_EX_DLGMODALFRAME = 0x00000001L,
-  WS_EX_NOPARENTNOTIFY = 0x00000004L,
-  WS_EX_TOPMOST = 0x00000008L,
-  WS_EX_ACCEPTFILES = 0x00000010L,
-  WS_EX_TRANSPARENT = 0x00000020L,
-  WS_EX_MDICHILD = 0x00000040L,
-  WS_EX_TOOLWINDOW = 0x00000080L,
-  WS_EX_WINDOWEDGE = 0x00000100L,
-  WS_EX_CLIENTEDGE = 0x00000200L,
-  WS_EX_CONTEXTHELP = 0x00000400L,
-  WS_EX_RIGHT = 0x00001000L,
-  WS_EX_LEFT = 0x00000000L,
-  WS_EX_RTLREADING = 0x00002000L,
-  WS_EX_LTRREADING = 0x00000000L,
-  WS_EX_LEFTSCROLLBAR = 0x00004000L,
-  WS_EX_RIGHTSCROLLBAR = 0x00000000L,
-  WS_EX_CONTROLPARENT = 0x00010000L,
-  WS_EX_STATICEDGE = 0x00020000L,
-  WS_EX_APPWINDOW = 0x00040000L,
+  WS_EX_DLGMODALFRAME = 0x00000001,
+  WS_EX_NOPARENTNOTIFY = 0x00000004,
+  WS_EX_TOPMOST = 0x00000008,
+  WS_EX_ACCEPTFILES = 0x00000010,
+  WS_EX_TRANSPARENT = 0x00000020,
+  WS_EX_MDICHILD = 0x00000040,
+  WS_EX_TOOLWINDOW = 0x00000080,
+  WS_EX_WINDOWEDGE = 0x00000100,
+  WS_EX_CLIENTEDGE = 0x00000200,
+  WS_EX_CONTEXTHELP = 0x00000400,
+  WS_EX_RIGHT = 0x00001000,
+  WS_EX_LEFT = 0x00000000,
+  WS_EX_RTLREADING = 0x00002000,
+  WS_EX_LTRREADING = 0x00000000,
+  WS_EX_LEFTSCROLLBAR = 0x00004000,
+  WS_EX_RIGHTSCROLLBAR = 0x00000000,
+  WS_EX_CONTROLPARENT = 0x00010000,
+  WS_EX_STATICEDGE = 0x00020000,
+  WS_EX_APPWINDOW = 0x00040000,
 )
 
 # These are message types in the order that they appear in the aphkStart array.
@@ -108,9 +108,9 @@ MESSAGE_TYPES = [
 # See http://forum.sysinternals.com/enumerate-windows-hooks_topic23877_post124845.html
 HOOK_FLAGS = dict(
     HF_GLOBAL = 0, #0x0001, # Global hooks (for all threads on desktop)
-    HF_ANSI = 1, #0x0002, # Uses Ansi strings instead of Unicode 
+    HF_ANSI = 1, #0x0002, # Uses Ansi strings instead of Unicode
     HF_HUNG = 3, #0x0008, # The hook procedure is hung
-    HF_HOOKFAULTED = 4, #0x0010, # The hook procedure caused some fault 
+    HF_HOOKFAULTED = 4, #0x0010, # The hook procedure caused some fault
     HF_WX86KNOWNDLL = 6, #0x0040, # Hook Module is x86 machine type
     HF_DESTROYED = 7, #0x0080, # The object is destroyed (set by FreeHook)
     HF_INCHECKWHF = 8, #0x0100, # The fsHooks is currently being updated
@@ -125,7 +125,7 @@ EVENT_FLAGS = {
     0x0004 : 'WINEVENT_INCONTEXT',
 }
 
-# The eventMin and eventMax parameters to SetWinEventHook. 
+# The eventMin and eventMax parameters to SetWinEventHook.
 EVENT_ID_ENUM = {
     0x00000001: 'EVENT_MIN',
     0x7FFFFFFF: 'EVENT_MAX',
@@ -215,7 +215,7 @@ HANDLE_TYPE_ENUM = {
    19: 'TYPE_DEVICEINFO',
 }
 
-# USER objects for Windows 7 
+# USER objects for Windows 7
 HANDLE_TYPE_ENUM_SEVEN = copy.copy(HANDLE_TYPE_ENUM)
 HANDLE_TYPE_ENUM_SEVEN[20] = 'TYPE_TOUCH'
 HANDLE_TYPE_ENUM_SEVEN[21] = 'TYPE_GESTURE'
@@ -244,14 +244,14 @@ CLIPBOARD_FORMAT_ENUM = {
     0x82: 'CF_DSPBITMAP',
     0x83: 'CF_DSPMETAFILEPICT',
     0x8E: 'CF_DSPENHMETAFILE',
-    ## The following are ranges, not actual formats 
-    #0x200: 'CF_PRIVATEFIRST', 
-    #0x2FF: 'CF_PRIVATELAST', 
-    #0x300: 'CF_GDIOBJFIRST', 
-    #0x3FF: 'CF_GDIOBJLAST', 
+    ## The following are ranges, not actual formats
+    #0x200: 'CF_PRIVATEFIRST',
+    #0x2FF: 'CF_PRIVATELAST',
+    #0x300: 'CF_GDIOBJFIRST',
+    #0x3FF: 'CF_GDIOBJLAST',
 }
 
-# Flags for timer objects 
+# Flags for timer objects
 TIMER_FLAGS = dict(
     TMRF_READY = 0, # 0x0001
     TMRF_SYSTEM = 1, # 0x0002

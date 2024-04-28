@@ -1,1 +1,136 @@
-[{"0": {"status": "deadendend", "trace": [{"name": "main", "args": ["00170db5bf4e7e94c04ab2f320aac8cb"], "addr": 4198860, "ret": "symbolic", "addr_func": 4198860}, {"name": "CharLowerBuffW", "args": ["version.dll", 7], "addr_func": "0x500014", "addr": "0x4011dc", "ret": "<BV32 retval_CharLowerBuffW_21770519_32>"}, {"name": "GetSystemInfo", "args": [4206636], "addr_func": "0x500008", "addr": "0x4011eb", "ret": "None"}, {"name": "ExitProcess", "args": [16777216], "addr_func": "0x500010", "addr": "0x401615", "ret": "None"}]}, "1": {"status": "deadendend", "trace": [{"name": "main", "args": ["00170db5bf4e7e94c04ab2f320aac8cb"], "addr": 4198860, "ret": "symbolic", "addr_func": 4198860}, {"name": "CharLowerBuffW", "args": ["version.dll", 7], "addr_func": "0x500014", "addr": "0x4011dc", "ret": "<BV32 retval_CharLowerBuffW_21770519_32>"}, {"name": "GetSystemInfo", "args": [4206636], "addr_func": "0x500008", "addr": "0x4011eb", "ret": "None"}, {"name": "LoadLibraryW", "args": ["D3D8.dll"], "addr_func": "0x50000c", "addr": "0x401204", "ret": 6295592}, {"name": "GetModuleHandleW", "args": ["version.dll"], "addr_func": "0x500004", "addr": "0x401216", "ret": 6295596}, {"name": "ExitProcess", "args": [4199956], "addr_func": "0x500010", "addr": "0x401615", "ret": "None"}]}, "sections": {".text": {"vaddr": 4198400, "memsize": 3708, "is_readable": true, "is_writable": false, "is_executable": true}, ".rdata": {"vaddr": 4202496, "memsize": 796, "is_readable": true, "is_writable": false, "is_executable": false}, ".data": {"vaddr": 4206592, "memsize": 3016, "is_readable": true, "is_writable": true, "is_executable": false}, ".rsrc": {"vaddr": 4210688, "memsize": 4356, "is_readable": true, "is_writable": false, "is_executable": false}}}]
+[
+  {
+    "0": {
+      "status": "deadendend",
+      "trace": [
+        {
+          "name": "main",
+          "args": [
+            "00170db5bf4e7e94c04ab2f320aac8cb"
+          ],
+          "addr": 4198860,
+          "ret": "symbolic",
+          "addr_func": 4198860
+        },
+        {
+          "name": "CharLowerBuffW",
+          "args": [
+            "version.dll",
+            7
+          ],
+          "addr_func": "0x500014",
+          "addr": "0x4011dc",
+          "ret": "<BV32 retval_CharLowerBuffW_21770519_32>"
+        },
+        {
+          "name": "GetSystemInfo",
+          "args": [
+            4206636
+          ],
+          "addr_func": "0x500008",
+          "addr": "0x4011eb",
+          "ret": "None"
+        },
+        {
+          "name": "ExitProcess",
+          "args": [
+            16777216
+          ],
+          "addr_func": "0x500010",
+          "addr": "0x401615",
+          "ret": "None"
+        }
+      ]
+    },
+    "1": {
+      "status": "deadendend",
+      "trace": [
+        {
+          "name": "main",
+          "args": [
+            "00170db5bf4e7e94c04ab2f320aac8cb"
+          ],
+          "addr": 4198860,
+          "ret": "symbolic",
+          "addr_func": 4198860
+        },
+        {
+          "name": "CharLowerBuffW",
+          "args": [
+            "version.dll",
+            7
+          ],
+          "addr_func": "0x500014",
+          "addr": "0x4011dc",
+          "ret": "<BV32 retval_CharLowerBuffW_21770519_32>"
+        },
+        {
+          "name": "GetSystemInfo",
+          "args": [
+            4206636
+          ],
+          "addr_func": "0x500008",
+          "addr": "0x4011eb",
+          "ret": "None"
+        },
+        {
+          "name": "LoadLibraryW",
+          "args": [
+            "D3D8.dll"
+          ],
+          "addr_func": "0x50000c",
+          "addr": "0x401204",
+          "ret": 6295592
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "version.dll"
+          ],
+          "addr_func": "0x500004",
+          "addr": "0x401216",
+          "ret": 6295596
+        },
+        {
+          "name": "ExitProcess",
+          "args": [
+            4199956
+          ],
+          "addr_func": "0x500010",
+          "addr": "0x401615",
+          "ret": "None"
+        }
+      ]
+    },
+    "sections": {
+      ".text": {
+        "vaddr": 4198400,
+        "memsize": 3708,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": true
+      },
+      ".rdata": {
+        "vaddr": 4202496,
+        "memsize": 796,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      },
+      ".data": {
+        "vaddr": 4206592,
+        "memsize": 3016,
+        "is_readable": true,
+        "is_writable": true,
+        "is_executable": false
+      },
+      ".rsrc": {
+        "vaddr": 4210688,
+        "memsize": 4356,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      }
+    }
+  }
+]

@@ -222,7 +222,7 @@ def test_staplog():
         "api": "execve",
         "arguments": {
             "p0": "/usr/bin/sh",
-            "p1": ["sh", "-c", u"/tmp/utf8\xc4invld"],
+            "p1": ["sh", "-c", "/tmp/utf8\xc4invld"],
             "p2": ["LANGUAGE=en_US:en", "HOME=/root"],
         },
         "instruction_pointer": "b774dcf9",

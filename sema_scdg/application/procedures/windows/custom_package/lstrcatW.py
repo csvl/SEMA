@@ -11,7 +11,7 @@ class lstrcatW(angr.SimProcedure):
     def run(self, string1, string2):
         if string1.symbolic or string2.symbolic:
             return string1
-            
+
         try:
             first_str = self.state.mem[string1].wstring.concrete
         except:
@@ -22,7 +22,7 @@ class lstrcatW(angr.SimProcedure):
         except:
             lw.debug("string2 not resolvable")
             second_str = ""
-                
+
         new_str = first_str + second_str + "\0"
         new_str = self.state.solver.BVV(new_str.encode("utf-16le"))
         self.state.memory.store(string1, new_str)

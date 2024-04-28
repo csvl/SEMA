@@ -1,29 +1,29 @@
 class PluginIoC:
     def __init__(self):
         pass
-    
+
     def build_ioc(self,scdg,exp_dir):
         funcs = {
                 "strings": ["lstrlenA","lstrlenW","strlen","lstrcpyA","lstrcpyW","strncpy","lstrcatA","lstrcatW","lstrcmpA","lstrcmpW","strcmp","strncmp"],
                 "format": ["wsprintfA","wsprintfW","MultiByteToWideChar","WideCharToMultiByte"],
-                "regs" :  
+                "regs" :
                     ["RegCreateKeyExA","RegCreateKeyExW","RegCreateKeyA","RegCreateKeyW","RegSetValueExA","RegSetValueExW","RegSetValueA","RegSetValueW","RegQueryValueExW","RegQueryValueExA","RegQueryValueA","RegQueryValueW","RegOpenKeyA","RegOpenKeyW","RegOpenKeyExA","RegOpenKeyExW","RegDeleteKeyW","RegDeleteKeyA","RegGetValueA","RegGetValueW",],
-                "files" : 
+                "files" :
                     ["CreateFileA","CreateFileW","GetModuleFileNameA","GetModuleFileNameW","GetTempPathA","GetTempPathW","FindFirstFileW","FindFirstFileA","WriteFile","ReadFile","CopyFile"],
                 "dir" :
                     ["CreateDirectoryA","CreateDirectoryW","SHGetFolderPathW","SHGetFolderPathA","GetWindowsDirectoryW","GetWindowsDirectoryA","SHGetSpecialFolderPathW","SHGetSpecialFolderPathA"],
-                "network" : 
+                "network" :
                     ["getaddrinfo","gethostbyname","inet_addr","NetLocalGroupAddMembers","socket","bind","listen","accept","connect","recv","shutdown","WSAStratup","WSACleanup","send"],
-                "cmd" : 
+                "cmd" :
                     ["ShellExecuteW","ShellExecuteA","ShellExecuteExW","ShellExecuteExA","WinExec"],
-                "thread" : 
+                "thread" :
                     ["ResumeThread","NtResumeThread","CreateThread","GetThreadContext","SetThreadContext"],
-                "process" : 
+                "process" :
                     ["CreateProcessA","CreateProcessW","ReadProcessMemory","NtWriteVirtualMemory","CreateRemoteThread","NtUnmapViewOfSection","WriteProcessMemory","VirtualAllocEx","ZwUnmapViewOfSection"],
                 "other" : ["CreateEventA","CreateEventW","FindResourceW","FindResourceA","LookupAccountSidW","LookupAccountSidA","ExpandEnvironmentStringsW","GetDriveTypeW","GetDriveTypeA","URLDownloadToFileW","URLDownloadToFileA","GetLogicalDriveStringsW","GetLogicalDriveStringsA"],
-                "lib" : 
+                "lib" :
                     ["LoadLibraryA","LoadLibraryW","GetModuleHandleA","GetModuleHandleW"],
-                "proc" : 
+                "proc" :
                     ["GetProcAddress"],
                 "services" :
                     ["OpenSCManager","CreateService","StartServiceCtrlDispatcher"],
@@ -32,7 +32,7 @@ class PluginIoC:
                 "anti" :
                     ["IsDebuggerPresent","GetSystemInfo","GlobalMemoryStatusEx","GetVersion","CreateToolhelp32Snapshot"]
         }
-        
+
         f = open(exp_dir + "IoC_report.txt", 'w')
         for func in funcs:
             strings = {""}
@@ -50,4 +50,3 @@ class PluginIoC:
                             f.write(string)
                             strings.add(string)
         f.close()
-        

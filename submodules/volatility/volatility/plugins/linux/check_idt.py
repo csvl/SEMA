@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.debug as debug
@@ -37,14 +37,14 @@ idt_vtype_64 = {
     'ist'           : [4,  ['unsigned short']],
     'offset_middle' : [6,  ['unsigned short']],
     'offset_high'   : [8,  ['unsigned int']],
-    'unused'        : [12, ['unsigned int']],  
+    'unused'        : [12, ['unsigned int']],
     }],
 }
 
 class LinuxIDTTypes(obj.ProfileModification):
     conditions = {"os" : lambda x : x in ["linux"]}
 
-    def modification(self, profile):       
+    def modification(self, profile):
         if profile.metadata.get('memory_model', '64bit') == "64bit":
             profile.vtypes.update(idt_vtype_64)
 
@@ -53,14 +53,14 @@ class linux_check_idt(linux_common.AbstractLinuxCommand):
     """ Checks if the IDT has been altered """
 
     def calculate(self):
-        """ 
+        """
         This works by walking the IDT table for the entries that Linux uses
         and verifies that each is a symbol in the kernel
         """
         linux_common.set_plugin_members(self)
 
         if self.profile.metadata['arch'] not in ["x64", "x86"]:
-            debug.error("This plugin is only supported on Intel-based memory captures") 
+            debug.error("This plugin is only supported on Intel-based memory captures")
 
         tblsz = 256
 
@@ -100,7 +100,7 @@ class linux_check_idt(linux_common.AbstractLinuxCommand):
                 else:
                     low    = ent.offset_low
                     middle = ent.offset_middle
-                    
+
                     if hasattr(ent, "offset_high"):
                         high   = ent.offset_high
                     else:
@@ -133,4 +133,3 @@ class linux_check_idt(linux_common.AbstractLinuxCommand):
 
         for (i, _, idt_addr, sym_name, hooked) in data:
             self.table_row(outfd, i, idt_addr, sym_name)
-

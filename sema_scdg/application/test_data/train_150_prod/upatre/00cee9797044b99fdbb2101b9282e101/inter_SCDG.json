@@ -1,1 +1,70 @@
-[{"0": {"status": "active", "trace": [{"name": "main", "args": ["00cee9797044b99fdbb2101b9282e101"], "addr": 4200313, "ret": "symbolic", "addr_func": 4200313}, {"name": "VirtualAlloc", "args": [0, 1747, 12288, 64], "addr_func": "0x500018", "addr": "0x401798", "ret": 3758096384}, {"name": "VirtualProtect", "args": [4206592, 4096, 4, 2147417724], "addr_func": "0x500014", "addr": "0xe0000045", "ret": 1}, {"name": "VirtualProtect", "args": [4202496, 4096, 4, 2147417724], "addr_func": "0x500014", "addr": "0xe0000045", "ret": 1}]}, "sections": {"": {"vaddr": 4198400, "memsize": 12288, "is_readable": true, "is_writable": false, "is_executable": true}, "petite": {"vaddr": 4210688, "memsize": 386, "is_readable": true, "is_writable": false, "is_executable": false}}}]
+[
+  {
+    "0": {
+      "status": "active",
+      "trace": [
+        {
+          "name": "main",
+          "args": [
+            "00cee9797044b99fdbb2101b9282e101"
+          ],
+          "addr": 4200313,
+          "ret": "symbolic",
+          "addr_func": 4200313
+        },
+        {
+          "name": "VirtualAlloc",
+          "args": [
+            0,
+            1747,
+            12288,
+            64
+          ],
+          "addr_func": "0x500018",
+          "addr": "0x401798",
+          "ret": 3758096384
+        },
+        {
+          "name": "VirtualProtect",
+          "args": [
+            4206592,
+            4096,
+            4,
+            2147417724
+          ],
+          "addr_func": "0x500014",
+          "addr": "0xe0000045",
+          "ret": 1
+        },
+        {
+          "name": "VirtualProtect",
+          "args": [
+            4202496,
+            4096,
+            4,
+            2147417724
+          ],
+          "addr_func": "0x500014",
+          "addr": "0xe0000045",
+          "ret": 1
+        }
+      ]
+    },
+    "sections": {
+      "": {
+        "vaddr": 4198400,
+        "memsize": 12288,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": true
+      },
+      "petite": {
+        "vaddr": 4210688,
+        "memsize": 386,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      }
+    }
+  }
+]

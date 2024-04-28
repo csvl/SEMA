@@ -105,6 +105,6 @@ class ShutdownTime(common.AbstractWindowsCommand):
                 outfd.write("Key Path: {0}\n".format(self.regapi.reg_get_key_path(result["key"])))
                 outfd.write("Key Last updated: {0}\n".format(result["key"].LastWriteTime))
                 outfd.write("Value Name: {0}\n".format(result["valuename"]))
-                outfd.write("Value: {0}\n\n".format(result["timestamp"] if result["timestamp"] else result["value"]))        
+                outfd.write("Value: {0}\n\n".format(result["timestamp"] if result["timestamp"] else result["value"]))
         if not keyfound:
             outfd.write("The requested key could not be found in the hive(s) searched\n")

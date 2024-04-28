@@ -22,13 +22,13 @@ class WideCharToMultiByte(angr.SimProcedure):
     ):
         CodePage = self.state.solver.eval(CodePage)
         cbMultiByte = self.state.solver.eval(cbMultiByte)
-        
+
         try:
             string = self.state.mem[lpWideCharStr].wstring.concrete
         except:
             lw.warning("Cannot resolve lpWideCharStr")
             return 0
-            
+
         length = len(string)+1
         if cbMultiByte == 0:
             if CodePage == 0xfdea:
@@ -43,6 +43,3 @@ class WideCharToMultiByte(angr.SimProcedure):
             else:
                 self.state.memory.store(lpMultiByteStr,self.state.solver.BVV(string))
                 return length
-
-            
-            

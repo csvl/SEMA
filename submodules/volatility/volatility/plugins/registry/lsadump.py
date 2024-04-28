@@ -128,9 +128,9 @@ class HashDump(common.AbstractWindowsCommand):
             else:
                 outfd.write(d + "\n")
 
-    # Note: we may want to break up the different fields 
+    # Note: we may want to break up the different fields
     # in addition to storing the constructed hash.
-    # for now we're just yielding the hash 
+    # for now we're just yielding the hash
     # Also applies to CacheDump
     def unified_output(self, data):
         return TreeGrid([("Hash", str)],
@@ -149,7 +149,7 @@ class CacheDump(common.AbstractWindowsCommand):
                           help = 'SYSTEM hive offset (virtual)')
         config.add_option('SEC-OFFSET', short_option = 's', type = 'int',
                           help = 'SECURITY hive offset (virtual)')
- 
+
 
     def calculate(self):
         addr_space = utils.load_as(self._config)

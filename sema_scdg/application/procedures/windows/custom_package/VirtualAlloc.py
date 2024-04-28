@@ -45,7 +45,7 @@ class VirtualAlloc(angr.SimProcedure):
             raise angr.errors.SimValueError("VirtualAlloc can't handle symbolic lpAddress")
         addr = addrs[0]
         addr &= ~0xfff
-        
+
 
         size = self.state.solver.max_int(dwSize)
         if dwSize.symbolic and size > self.state.libc.max_variable_size:
@@ -68,9 +68,9 @@ class VirtualAlloc(angr.SimProcedure):
         if flags & 0x00080000 or flags & 0x1000000:
             lw.warning("VirtualAlloc with MEM_RESET and MEM_RESET_UNDO are not supported")
             return addr
-        
+
         ft = True if flags & 0x00100000 else False
-        
+
         # if size == 0x7fff0000:
         #    return 0
 
@@ -118,4 +118,3 @@ class VirtualAlloc(angr.SimProcedure):
         # else:
         #     self.state.heap.max_addr = new_base
         return addr
-

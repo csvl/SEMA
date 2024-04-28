@@ -43,15 +43,15 @@ log = logging.getLogger("cuckoo")
 def cuckoo_create(username=None, cfg=None, quiet=False):
     """Create a new Cuckoo Working Directory."""
     if not quiet:
-        print jinja2.Environment().from_string(
+        print(jinja2.Environment().from_string(
             open(cwd("cwd", "init-pre.jinja2", private=True), "rb").read()
-        ).render(cwd=cwd, yellow=yellow, red=red)
+        ).render(cwd=cwd, yellow=yellow, red=red))
 
     if not os.path.exists(cwd(".cwd", private=True)):
-        print red(
+        print(red(
             "The cuckoo/private/.cwd file is missing. Please run "
             "'python setup.py sdist' before 'pip install ...'!"
-        )
+        ))
         return
 
     if not os.path.isdir(cwd()):
@@ -85,10 +85,10 @@ def cuckoo_create(username=None, cfg=None, quiet=False):
     write_cuckoo_conf(cfg=cfg)
 
     if not quiet:
-        print
-        print jinja2.Environment().from_string(
+        print()
+        print(jinja2.Environment().from_string(
             open(cwd("cwd", "init-post.jinja2", private=True), "rb").read()
-        ).render()
+        ).render())
 
 def cuckoo_resources():
     try:
@@ -337,7 +337,7 @@ def community(ctx, force, branch, filepath):
         fetch_community(force=force, branch=branch, filepath=filepath)
         log.info("Finished fetching & extracting the community files!")
     except KeyboardInterrupt:
-        print(yellow("Aborting fetching of the Cuckoo Community resources.."))
+        print((yellow("Aborting fetching of the Cuckoo Community resources..")))
 
 @main.command()
 def clean():
@@ -345,7 +345,7 @@ def clean():
     try:
         cuckoo_clean()
     except KeyboardInterrupt:
-        print(yellow("Aborting cleaning up of your CWD.."))
+        print((yellow("Aborting cleaning up of your CWD..")))
 
 @main.command()
 @click.argument("target", nargs=-1)
@@ -385,15 +385,15 @@ def submit(ctx, target, url, options, package, custom, owner, timeout,
 
         for category, target, task_id in l:
             if task_id:
-                print "%s: %s \"%s\" added as task with ID #%s" % (
+                print("%s: %s \"%s\" added as task with ID #%s" % (
                     bold(green("Success")), category, target, task_id
-                )
+                ))
             else:
-                print "%s: %s \"%s\" as it has already been analyzed" % (
+                print("%s: %s \"%s\" as it has already been analyzed" % (
                     bold(yellow("Skipped")), category, target
-                )
+                ))
     except KeyboardInterrupt:
-        print(red("Aborting submission of samples.."))
+        print((red("Aborting submission of samples..")))
 
 @main.command()
 @click.argument("instance", required=False)
@@ -439,7 +439,7 @@ def process(ctx, instance, report, maxcount, timeout):
         if report:
             process_task_range(report)
         elif not instance:
-            print ctx.get_help(), "\n"
+            print(ctx.get_help(), "\n")
             sys.exit("In automated mode an instance name is required!")
         else:
             log.info(
@@ -448,7 +448,7 @@ def process(ctx, instance, report, maxcount, timeout):
             )
             process_tasks(instance, maxcount, timeout)
     except KeyboardInterrupt:
-        print(red("Aborting (re-)processing of your analyses.."))
+        print((red("Aborting (re-)processing of your analyses..")))
 
     if instance:
         Pidfile(instance).remove()
@@ -486,7 +486,7 @@ def rooter(ctx, socket, group, service, iptables, ip, sudo):
             log.info("Starting Cuckoo Rooter (group=%s)!", group)
             cuckoo_rooter(socket, group, service, iptables, ip)
         except KeyboardInterrupt:
-            print(red("Aborting the Cuckoo Rooter.."))
+            print((red("Aborting the Cuckoo Rooter..")))
             cleanup_rooter()
 
 @main.command()
@@ -499,33 +499,33 @@ def api(ctx, host, port, uwsgi, nginx):
     """Operate the Cuckoo REST API."""
     username = ctx.parent.user or getuser()
     if uwsgi:
-        print "[uwsgi]"
-        print "plugins = python"
+        print("[uwsgi]")
+        print("plugins = python")
         if os.environ.get("VIRTUAL_ENV"):
-            print "virtualenv =", os.environ["VIRTUAL_ENV"]
-        print "module = cuckoo.apps.api"
-        print "callable = app"
-        print "uid =", username
-        print "gid =", username
-        print "env = CUCKOO_APP=api"
-        print "env = CUCKOO_CWD=%s" % cwd()
+            print("virtualenv =", os.environ["VIRTUAL_ENV"])
+        print("module = cuckoo.apps.api")
+        print("callable = app")
+        print("uid =", username)
+        print("gid =", username)
+        print("env = CUCKOO_APP=api")
+        print("env = CUCKOO_CWD=%s" % cwd())
         return
 
     if nginx:
-        print "upstream _uwsgi_cuckoo_api {"
-        print "    server unix:/run/uwsgi/app/cuckoo-api/socket;"
-        print "}"
-        print
-        print "server {"
-        print "    listen %s:%d;" % (host, port)
-        print
-        print "    # REST API app"
-        print "    location / {"
-        print "        client_max_body_size 1G;"
-        print "        uwsgi_pass  _uwsgi_cuckoo_api;"
-        print "        include     uwsgi_params;"
-        print "    }"
-        print "}"
+        print("upstream _uwsgi_cuckoo_api {")
+        print("    server unix:/run/uwsgi/app/cuckoo-api/socket;")
+        print("}")
+        print()
+        print("server {")
+        print("    listen %s:%d;" % (host, port))
+        print()
+        print("    # REST API app")
+        print("    location / {")
+        print("        client_max_body_size 1G;")
+        print("        uwsgi_pass  _uwsgi_cuckoo_api;")
+        print("        include     uwsgi_params;")
+        print("    }")
+        print("}")
         return
 
     init_console_logging(level=ctx.parent.level)
@@ -570,7 +570,7 @@ def dnsserve(ctx, host, port, nxdomain, hardcode, sudo):
         try:
             cuckoo_dnsserve(host, port, nxdomain, hardcode)
         except KeyboardInterrupt:
-            print(red("Aborting Cuckoo DNS Serve.."))
+            print((red("Aborting Cuckoo DNS Serve..")))
 
 @main.command()
 @click.argument("args", nargs=-1)
@@ -587,40 +587,40 @@ def web(ctx, args, host, port, uwsgi, nginx):
     """
     username = ctx.parent.user or getuser()
     if uwsgi:
-        print "[uwsgi]"
-        print "plugins = python"
+        print("[uwsgi]")
+        print("plugins = python")
         if os.environ.get("VIRTUAL_ENV"):
-            print "virtualenv =", os.environ["VIRTUAL_ENV"]
-        print "module = cuckoo.web.web.wsgi"
-        print "uid =", username
-        print "gid =", username
+            print("virtualenv =", os.environ["VIRTUAL_ENV"])
+        print("module = cuckoo.web.web.wsgi")
+        print("uid =", username)
+        print("gid =", username)
         dirpath = os.path.join(cuckoo.__path__[0], "web", "static")
-        print "static-map = /static=%s" % dirpath
-        print "# If you're getting errors about the PYTHON_EGG_CACHE, then"
-        print "# uncomment the following line and add some path that is"
-        print "# writable from the defined user."
-        print "# env = PYTHON_EGG_CACHE="
-        print "env = CUCKOO_APP=web"
-        print "env = CUCKOO_CWD=%s" % cwd()
+        print("static-map = /static=%s" % dirpath)
+        print("# If you're getting errors about the PYTHON_EGG_CACHE, then")
+        print("# uncomment the following line and add some path that is")
+        print("# writable from the defined user.")
+        print("# env = PYTHON_EGG_CACHE=")
+        print("env = CUCKOO_APP=web")
+        print("env = CUCKOO_CWD=%s" % cwd())
         return
 
     if nginx:
-        print "upstream _uwsgi_cuckoo_web {"
-        print "    server unix:/run/uwsgi/app/cuckoo-web/socket;"
-        print "}"
-        print
-        print "server {"
-        print "    listen %s:%d;" % (host, port)
-        print
-        print "    # Cuckoo Web Interface"
-        print "    location / {"
-        print "        client_max_body_size 1G;"
-        print "        proxy_redirect off;"
-        print "        proxy_set_header X-Forwarded-Proto $scheme;"
-        print "        uwsgi_pass  _uwsgi_cuckoo_web;"
-        print "        include     uwsgi_params;"
-        print "    }"
-        print "}"
+        print("upstream _uwsgi_cuckoo_web {")
+        print("    server unix:/run/uwsgi/app/cuckoo-web/socket;")
+        print("}")
+        print()
+        print("server {")
+        print("    listen %s:%d;" % (host, port))
+        print()
+        print("    # Cuckoo Web Interface")
+        print("    location / {")
+        print("        client_max_body_size 1G;")
+        print("        proxy_redirect off;")
+        print("        proxy_set_header X-Forwarded-Proto $scheme;")
+        print("        uwsgi_pass  _uwsgi_cuckoo_web;")
+        print("        include     uwsgi_params;")
+        print("    }")
+        print("}")
         return
 
     # Switch to cuckoo/web and add the current path to sys.path as the Web
@@ -686,10 +686,10 @@ def machine(ctx, vmname, ip, action, platform, options, tags, interface,
 def migrate(revision):
     """Perform database migrations."""
     if not migrate_database(revision):
-        print red(">>> Error migrating your database..")
+        print(red(">>> Error migrating your database.."))
         exit(1)
 
-    print yellow(">>> Your database migration was successful!")
+    print(yellow(">>> Your database migration was successful!"))
 
 @main.command("import")
 @click.option("--copy", "mode", flag_value="copy", default=True, help="Copy all existing analyses to the new CWD (default)")
@@ -702,16 +702,16 @@ def import_(ctx, mode, path):
     identified by PATH and the new CWD may be specified with the --cwd
     parameter, e.g., "cuckoo --cwd /tmp/cwd import old-cuckoo"."""
     if os.path.exists(os.path.join(path, ".cwd")):
-        print(yellow(
+        print((yellow(
             "The 'cuckoo import' feature is meant to import a legacy Cuckoo, "
             "i.e., Cuckoo 1.2, 2.0-dev, 2.0-rc1, or 2.0-rc2 into a new Cuckoo "
             "CWD."
-        ))
-        print(red(
+        )))
+        print((red(
             "You're attempting to import an existing Cuckoo CWD. To upgrade "
             "Cuckoo / your CWD, simply run 'pip install -U cuckoo' and re-run "
             "the cuckoo commands!"
-        ))
+        )))
         sys.exit(1)
 
     if mode == "symlink" and is_windows():
@@ -719,24 +719,24 @@ def import_(ctx, mode, path):
             "You can only use the 'symlink' mode on non-Windows platforms."
         ))
 
-    print yellow("You are importing an existing Cuckoo setup. Please")
-    print yellow("understand that, depending on the mode taken, if ")
-    print yellow("you remove the old Cuckoo setup after this import ")
-    print yellow("you may still"), red("lose ALL of your data!")
-    print
-    print yellow("Additionally, database migrations will be performed ")
-    print yellow("in-place*. You won't be able to use your old Cuckoo ")
-    print yellow("setup anymore afterwards! However, we'll provide ")
-    print yellow("you with the option to create a SQL backup beforehand.")
-    print
-    print red("TL;DR Cleaning the old setup after the import may")
-    print red("corrupt your new setup: its SQL, MongoDB, and ")
-    print red("ElasticSearch database may be dropped and, in 'symlink'")
-    print red("mode, the analyses removed.")
-    print
-    print yellow("*: Except for sqlite3 databases in combination with")
-    print yellow("   the import 'copy' approach.")
-    print
+    print(yellow("You are importing an existing Cuckoo setup. Please"))
+    print(yellow("understand that, depending on the mode taken, if "))
+    print(yellow("you remove the old Cuckoo setup after this import "))
+    print(yellow("you may still"), red("lose ALL of your data!"))
+    print()
+    print(yellow("Additionally, database migrations will be performed "))
+    print(yellow("in-place*. You won't be able to use your old Cuckoo "))
+    print(yellow("setup anymore afterwards! However, we'll provide "))
+    print(yellow("you with the option to create a SQL backup beforehand."))
+    print()
+    print(red("TL;DR Cleaning the old setup after the import may"))
+    print(red("corrupt your new setup: its SQL, MongoDB, and "))
+    print(red("ElasticSearch database may be dropped and, in 'symlink'"))
+    print(red("mode, the analyses removed."))
+    print()
+    print(yellow("*: Except for sqlite3 databases in combination with"))
+    print(yellow("   the import 'copy' approach."))
+    print()
 
     value = click.confirm(
         "... I've read the above and understand the consequences", False
@@ -747,7 +747,7 @@ def import_(ctx, mode, path):
     try:
         import_cuckoo(ctx.parent.user, mode, path)
     except KeyboardInterrupt:
-        print(red("Aborting import of Cuckoo instance.."))
+        print((red("Aborting import of Cuckoo instance..")))
 
 @main.group()
 def distributed():
@@ -762,33 +762,33 @@ def distributed():
 def server(ctx, host, port, uwsgi, nginx):
     username = ctx.parent.parent.user or getuser()
     if uwsgi:
-        print "[uwsgi]"
-        print "plugins = python"
+        print("[uwsgi]")
+        print("plugins = python")
         if os.environ.get("VIRTUAL_ENV"):
-            print "virtualenv =", os.environ["VIRTUAL_ENV"]
-        print "module = cuckoo.apps.distributed"
-        print "callable = app"
-        print "uid =", username
-        print "gid =", username
-        print "env = CUCKOO_APP=dist"
-        print "env = CUCKOO_CWD=%s" % cwd()
+            print("virtualenv =", os.environ["VIRTUAL_ENV"])
+        print("module = cuckoo.apps.distributed")
+        print("callable = app")
+        print("uid =", username)
+        print("gid =", username)
+        print("env = CUCKOO_APP=dist")
+        print("env = CUCKOO_CWD=%s" % cwd())
         return
 
     if nginx:
-        print "upstream _uwsgi_cuckoo_distributed {"
-        print "    server unix:/run/uwsgi/app/cuckoo-distributed/socket;"
-        print "}"
-        print
-        print "server {"
-        print "    listen %s:%d;" % (host, port)
-        print
-        print "    # REST Distributed app"
-        print "    location / {"
-        print "        client_max_body_size 1G;"
-        print "        uwsgi_pass  _uwsgi_cuckoo_distributed;"
-        print "        include     uwsgi_params;"
-        print "    }"
-        print "}"
+        print("upstream _uwsgi_cuckoo_distributed {")
+        print("    server unix:/run/uwsgi/app/cuckoo-distributed/socket;")
+        print("}")
+        print()
+        print("server {")
+        print("    listen %s:%d;" % (host, port))
+        print()
+        print("    # REST Distributed app")
+        print("    location / {")
+        print("        client_max_body_size 1G;")
+        print("        uwsgi_pass  _uwsgi_cuckoo_distributed;")
+        print("        include     uwsgi_params;")
+        print("    }")
+        print("}")
         return
 
     cuckoo_distributed(host, port, ctx.parent.parent.level == logging.DEBUG)
@@ -813,7 +813,7 @@ def dist_migrate():
             args, cwd=cwd("distributed", "migration", private=True)
         )
     except subprocess.CalledProcessError:
-        print red(">>> Error migrating your database..")
+        print(red(">>> Error migrating your database.."))
         exit(1)
 
-    print yellow(">>> Your database migration was successful!")
+    print(yellow(">>> Your database migration was successful!"))

@@ -322,8 +322,8 @@ class TestProcessing(object):
         r = s.run()
         assert len(r["pdf"][0]["urls"]) == 63
         assert r["pdf"][0]["urls"][54] == (
-            u"http://yourmirror.net/kali-security\u548c"
-            u"http://yourmirror.net/kali-images"
+            "http://yourmirror.net/kali-security\u548c"
+            "http://yourmirror.net/kali-images"
         )
 
     def test_pdf_parse_string(self):
@@ -1491,8 +1491,8 @@ def test_parse_cmdline():
     assert rb.parse_cmdline("stuff.exe /Y /x -P") == (
         "stuff.exe", ["/Y", "/x", "-P"]
     )
-    assert rb.parse_cmdline(u"stuff.exe \u4404\u73a8 \uecbc\uee9e") == (
-        "stuff.exe", [u"\u4404\u73a8", u"\uecbc\uee9e"]
+    assert rb.parse_cmdline("stuff.exe \u4404\u73a8 \uecbc\uee9e") == (
+        "stuff.exe", ["\u4404\u73a8", "\uecbc\uee9e"]
     )
 
 def test_wsf_language():

@@ -17,4 +17,3 @@ class NormalizedSteps(angr.exploration_techniques.ExplorationTechnique):
     def normalized_step(self, state):
         node = self.cfg.get_any_node(state.addr)
         return state.step(num_inst=len(node.instruction_addrs) if node is not None else None)
-

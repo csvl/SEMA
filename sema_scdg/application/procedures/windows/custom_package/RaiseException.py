@@ -12,4 +12,4 @@ class RaiseException(angr.SimProcedure):
     def run(self, hKey, lpValueName, lpReserved, lpType, lpData, lpcbData):
         # Implement the logic for querying the value of a registry key using the provided parameters.
         lw.warning("RaiseException called")
-        return 
+        return

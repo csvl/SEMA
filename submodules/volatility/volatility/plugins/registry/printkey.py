@@ -135,7 +135,7 @@ class PrintKey(hivelist.HiveList):
             if key:
                 subkeys = list(rawreg.subkeys(key))
                 values = list(rawreg.values(key))
-                yield (0, [str("{0}".format(reg)), 
+                yield (0, [str("{0}".format(reg)),
                         str("{0}".format(key.Name)),
                         str("{0:3s}".format(self.voltext(key))),
                         str("{0}".format(key.LastWriteTime)),
@@ -164,7 +164,7 @@ class PrintKey(hivelist.HiveList):
                                 str("{0}".format(key.Name)),
                                 str("{0:3s}".format(self.voltext(key))),
                                 str("{0}".format(key.LastWriteTime)),
-                                str("{0}".format(s.Name)), 
+                                str("{0}".format(s.Name)),
                                 str("{0:3s}".format(self.voltext(s))),
                                 "-",
                                 "-",

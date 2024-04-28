@@ -12,7 +12,7 @@ function nyanCat(width) {
 	} else {
 		this.width = 100;
 	}
-	
+
 	progressContainer = document.getElementById('rainbowContainer');
 	console.log(progressContainer.style.width);
 	progressContainer.style.width = 75 + "%";

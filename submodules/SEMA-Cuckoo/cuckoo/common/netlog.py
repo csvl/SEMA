@@ -34,7 +34,7 @@ def pointer_converter_64bit(v):
     return "0x%016x" % (v % 2**64)
 
 def default_converter_32bit(v):
-    if isinstance(v, (int, long)) and v < 0:
+    if isinstance(v, int) and v < 0:
         return v % 2**32
 
     # Try to avoid various unicode issues through usage of latin-1 encoding.
@@ -88,7 +88,7 @@ class BsonParser(object):
 
     def resolve_flags(self, apiname, argdict, flags):
         # Resolve 1:1 values.
-        for argument, values in self.flags_value[apiname].items():
+        for argument, values in list(self.flags_value[apiname].items()):
             if isinstance(argdict[argument], str):
                 value = int(argdict[argument], 16)
             else:
@@ -98,7 +98,7 @@ class BsonParser(object):
                 flags[argument] = values[value]
 
         # Resolve bitmasks.
-        for argument, values in self.flags_bitmask[apiname].items():
+        for argument, values in list(self.flags_bitmask[apiname].items()):
             if argument in flags:
                 continue
 
@@ -186,12 +186,12 @@ class BsonParser(object):
 
                 if dec.get("flags_value"):
                     self.flags_value[name] = {}
-                    for arg, values in dec["flags_value"].items():
+                    for arg, values in list(dec["flags_value"].items()):
                         self.flags_value[name][arg] = dict(values)
 
                 if dec.get("flags_bitmask"):
                     self.flags_bitmask[name] = {}
-                    for arg, values in dec["flags_bitmask"].items():
+                    for arg, values in list(dec["flags_bitmask"].items()):
                         self.flags_bitmask[name][arg] = values
                 continue
 

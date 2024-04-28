@@ -1,1 +1,1 @@
-PYTHONPATH=../..: python cfg.py 
+PYTHONPATH=../..: python cfg.py

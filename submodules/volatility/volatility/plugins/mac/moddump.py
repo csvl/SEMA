@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 import os
 import re
@@ -33,8 +33,8 @@ from volatility.renderers.basic import Address
 
 class mac_moddump(common.AbstractMacCommand):
     """ Writes the specified kernel extension to disk """
-    
-    def __init__(self, config, *args, **kwargs):         
+
+    def __init__(self, config, *args, **kwargs):
         common.AbstractMacCommand.__init__(self, config, *args, **kwargs)
         self._config.add_option('BASE', short_option = 'b', default = None, help = 'Dump driver with BASE address (in hex)', action = 'store', type = 'int')
         self._config.add_option('REGEX', short_option = 'r', help = 'Dump modules matching REGEX', action = 'store', type = 'string')
@@ -50,9 +50,9 @@ class mac_moddump(common.AbstractMacCommand):
                     mod_re = re.compile(self._config.REGEX, re.I)
                 else:
                     mod_re = re.compile(self._config.REGEX)
-            except re.error, e:
+            except re.error as e:
                 debug.error('Error parsing regular expression: {0}'.format(e))
-                
+
         if self._config.BASE:
             module_address = int(self._config.BASE)
             yield obj.Object("kmod_info", offset = module_address, vm = self.addr_space)
@@ -63,17 +63,17 @@ class mac_moddump(common.AbstractMacCommand):
 
             while mod.is_valid():
                 if self._config.REGEX and not mod_re.search(str(mod.name)):
-                    mod = mod.next
+                    mod = mod.__next__
                     continue
-                
+
                 yield mod
-  
-                mod = mod.next
+
+                mod = mod.__next__
 
     def unified_output(self, data):
         if (not self._config.DUMP_DIR or not os.path.isdir(self._config.DUMP_DIR)):
             debug.error("Please specify an existing output dir (--dump-dir)")
- 
+
         return TreeGrid([("Address", Address),
                         ("Size", int),
                         ("Output Path", str),
@@ -98,9 +98,9 @@ class mac_moddump(common.AbstractMacCommand):
     def render_text(self, outfd, data):
         if (not self._config.DUMP_DIR or not os.path.isdir(self._config.DUMP_DIR)):
             debug.error("Please specify an existing output dir (--dump-dir)")
- 
-        self.table_header(outfd, [("Address", "[addrpad]"), 
-                                  ("Size", "8"), 
+
+        self.table_header(outfd, [("Address", "[addrpad]"),
+                                  ("Size", "8"),
                                   ("Output Path", "")])
         for kmod in data:
             start = kmod.address
@@ -112,4 +112,3 @@ class mac_moddump(common.AbstractMacCommand):
             mod_file.write(mod_data)
             mod_file.close()
             self.table_row(outfd, start, size, file_name)
-

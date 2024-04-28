@@ -8,10 +8,10 @@ class PluginResources(angr.SimStatePlugin):
         self.res_block = 0
         self.resources = {}
         self.stop_flag = False
-       
+
     def setup_plugin(self):
         # For locale info mainly
-        self.res_block = self.state.heap.malloc(32767) 
+        self.res_block = self.state.heap.malloc(32767)
         for i in range(32767):
             c = self.state.solver.BVS("c_res_block{}".format(i), 8)
             self.state.memory.store(self.res_block + i, c)
@@ -29,7 +29,7 @@ class PluginResources(angr.SimStatePlugin):
                     if sstate.plugin_resources.resources[key] not in total_res[key]:
                         total_res[key].append(sstate.plugin_resources.resources[key])
         return total_res
-    
+
     @angr.SimStatePlugin.memo
     def copy(self, memo):
         p = PluginResources()

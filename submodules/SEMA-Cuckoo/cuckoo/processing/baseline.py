@@ -44,14 +44,14 @@ class Baseline(Processing):
         mark the existing rows with a `class_` attribute."""
         results = {}
 
-        for plugin in baseline.keys() + report.keys():
+        for plugin in list(baseline.keys()) + list(report.keys()):
             results[plugin] = {
                 "config": {},
                 "data": [],
             }
 
         # TODO Support having more keys in one report than the other.
-        for plugin in set(baseline.keys() + report.keys()):
+        for plugin in set(list(baseline.keys()) + list(report.keys())):
             lr = [self.normalize(plugin, x) for x in report[plugin]["data"]]
             lb = [self.normalize(plugin, x) for x in baseline[plugin]["data"]]
             sr, sb = set(lr), set(lb)

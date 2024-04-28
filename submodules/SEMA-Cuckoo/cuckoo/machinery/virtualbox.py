@@ -7,7 +7,7 @@ import logging
 import os
 import re
 import subprocess
-import thread
+import _thread
 import threading
 import time
 
@@ -28,12 +28,12 @@ class IgnoreLock(object):
     be able to perform the stopping operation."""
 
     def __init__(self):
-        self.parent = thread.get_ident()
+        self.parent = _thread.get_ident()
         self._takers = []
         self._ev = threading.Event()
 
     def acquire(self):
-        th_ident = thread.get_ident()
+        th_ident = _thread.get_ident()
         self._takers.append(th_ident)
 
         if th_ident == self.parent:
@@ -47,7 +47,7 @@ class IgnoreLock(object):
         return True
 
     def release(self):
-        self._takers.remove(thread.get_ident())
+        self._takers.remove(_thread.get_ident())
         self._ev.set()
 
     def __enter__(self):

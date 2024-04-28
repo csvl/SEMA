@@ -19,7 +19,7 @@ class GetModuleHandleExW(angr.SimProcedure):
 
     def run(self, flag, lib_ptr, module_ptr):
         call_sim = WindowsSimProcedure()
-         
+
         if self.state.solver.is_true(lib_ptr == 0):
             # import pdb; pdb.set_trace()
             return self.project.loader.main_object.mapped_base

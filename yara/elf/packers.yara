@@ -333,4 +333,3 @@ rule mipsLe_nrv2e_v395
 	condition:
 		$h00 at elf.entry_point
 }
-

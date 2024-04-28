@@ -3,7 +3,7 @@
 # This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
 # See the file 'docs/LICENSE' for copying permission.
 
-import cStringIO
+import io
 import hashlib
 import io
 import mock
@@ -116,7 +116,7 @@ class TestCreateFolders:
         with pytest.raises(CuckooOperationalError):
             Folders.delete(dirpath)
 
-        os.chmod(dirpath, 0775)
+        os.chmod(dirpath, 0o775)
         Folders.delete(dirpath)
 
     def test_create_tuple(self):
@@ -169,7 +169,7 @@ class TestCreateFile:
         assert filepath.startswith(dirpath)
 
     def test_stringio(self):
-        filepath = Files.temp_put(cStringIO.StringIO("foo"))
+        filepath = Files.temp_put(io.StringIO("foo"))
         assert open(filepath, "rb").read() == "foo"
 
     def test_bytesio(self):
@@ -198,7 +198,7 @@ class TestCreateFile:
     def test_fd_exhaustion(self):
         fd, filepath = tempfile.mkstemp()
 
-        for x in xrange(0x100):
+        for x in range(0x100):
             Files.temp_put("foo")
 
         fd2, filepath = tempfile.mkstemp()
@@ -217,10 +217,10 @@ class TestStorage:
 
 class TestConvertChar:
     def test_utf(self):
-        assert "\\xe9", utils.convert_char(u"\xe9")
+        assert "\\xe9", utils.convert_char("\xe9")
 
     def test_digit(self):
-        assert "9" == utils.convert_char(u"9")
+        assert "9" == utils.convert_char("9")
 
     def test_literal(self):
         assert "e" == utils.convert_char("e")
@@ -233,10 +233,10 @@ class TestConvertChar:
 
 class TestConvertToPrintable:
     def test_utf(self):
-        assert "\\xe9" == utils.convert_to_printable(u"\xe9")
+        assert "\\xe9" == utils.convert_to_printable("\xe9")
 
     def test_digit(self):
-        assert "9" == utils.convert_to_printable(u"9")
+        assert "9" == utils.convert_to_printable("9")
 
     def test_literal(self):
         assert "e" == utils.convert_to_printable("e")
@@ -252,10 +252,10 @@ class TestConvertToPrintable:
 
 class TestIsPrintable:
     def test_utf(self):
-        assert not utils.is_printable(u"\xe9")
+        assert not utils.is_printable("\xe9")
 
     def test_digit(self):
-        assert utils.is_printable(u"9")
+        assert utils.is_printable("9")
 
     def test_literal(self):
         assert utils.is_printable("e")
@@ -290,13 +290,13 @@ def test_jsbeautify():
     js = {
         "if(1){a(1,2,3);}": "if (1) {\n    a(1, 2, 3);\n}",
     }
-    for k, v in js.items():
+    for k, v in list(js.items()):
         assert utils.jsbeautify(k) == v
 
 @mock.patch("cuckoo.common.utils.jsbeautifier")
 def test_jsbeautify_packer(p, capsys):
     def beautify(s):
-        print u"error: Unknown p.a.c.k.e.r. encoding.\n",
+        print("error: Unknown p.a.c.k.e.r. encoding.\n", end=' ')
 
     p.beautify.side_effect = beautify
     utils.jsbeautify("thisisjavascript")
@@ -311,7 +311,7 @@ def test_htmlprettify():
     html = {
         "<a href=google.com>wow</a>": '<a href="google.com">\n wow\n</a>',
     }
-    for k, v in html.items():
+    for k, v in list(html.items()):
         assert utils.htmlprettify(k) == v
 
 def test_temppath():

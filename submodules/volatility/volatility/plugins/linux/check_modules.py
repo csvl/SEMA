@@ -22,7 +22,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -38,30 +38,30 @@ class linux_check_modules(linux_common.AbstractLinuxCommand):
     def get_kset_modules(self):
         module_kset_addr = self.profile.get_symbol("module_kset")
         if not module_kset_addr:
-            debug.error("This command is not supported by this profile.") 
+            debug.error("This command is not supported by this profile.")
 
         ret = {}
 
         module_kset = obj.Object("kset", offset = module_kset_addr, vm = self.addr_space)
-    
+
         for kobj in module_kset.list.list_of_type("kobject", "entry"):
             kobj_off = self.profile.get_obj_offset("module_kobject", "kobj")
-            mod_kobj = obj.Object("module_kobject", offset = kobj.v() - kobj_off, vm = self.addr_space)            
+            mod_kobj = obj.Object("module_kobject", offset = kobj.v() - kobj_off, vm = self.addr_space)
             mod = mod_kobj.mod
 
             name = kobj.name.dereference_as("String", length = 32)
             if name.is_valid() and kobj.reference_count() > 2:
                 ret[str(name)] = mod
-    
+
         return ret
 
     def calculate(self):
         linux_common.set_plugin_members(self)
 
         kset_modules = self.get_kset_modules()
-        
+
         lsmod_modules = set([str(module.name) for (module, params, sects) in linux_lsmod.linux_lsmod(self._config).calculate()])
-            
+
         for mod_name in set(kset_modules.keys()).difference(lsmod_modules):
             yield kset_modules[mod_name]
 

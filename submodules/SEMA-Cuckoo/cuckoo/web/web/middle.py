@@ -40,7 +40,7 @@ class CuckooFileDownloadAuthentication(object):
 
         #if no ALLOWED_FILEDOWNLOAD_SUBNETS in web local_settings, ignore this
         try:
-            from settings import ALLOWED_FILEDOWNLOAD_SUBNETS
+            from .settings import ALLOWED_FILEDOWNLOAD_SUBNETS
         except ImportError:
             return
 
@@ -48,8 +48,8 @@ class CuckooFileDownloadAuthentication(object):
         isallowed = False
         if ip:
             for network in ALLOWED_FILEDOWNLOAD_SUBNETS.split(","):
-                network = ip_network(unicode(network), strict=False)
-                if ip_address(unicode(ip)) in network:
+                network = ip_network(str(network), strict=False)
+                if ip_address(str(ip)) in network:
                     isallowed = True
                     return
 

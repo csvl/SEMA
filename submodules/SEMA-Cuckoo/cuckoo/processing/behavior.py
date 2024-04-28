@@ -32,7 +32,7 @@ class Summary(BehaviorHandler):
         self.results[event["category"]].add(event["value"])
 
     def run(self):
-        for key, value in self.results.items():
+        for key, value in list(self.results.items()):
             self.results[key] = list(value)
         return self.results
 
@@ -109,7 +109,7 @@ class ProcessTree(BehaviorHandler):
         first_seen = lambda x: x["first_seen"]
         procs_seen = []
 
-        for p in sorted(self.processes.values(), key=first_seen):
+        for p in sorted(list(self.processes.values()), key=first_seen):
             if p["ppid"] in procs_seen:
                 self.processes[p["ppid"]]["children"].append(p)
             else:
@@ -151,11 +151,11 @@ class GenericBehavior(BehaviorHandler):
             log.warning("Generic event for unknown process id %u", event["pid"])
 
     def run(self):
-        for process in self.processes.values():
-            for key, value in process["summary"].items():
+        for process in list(self.processes.values()):
+            for key, value in list(process["summary"].items()):
                 process["summary"][key] = list(value)
 
-        return self.processes.values()
+        return list(self.processes.values())
 
 class ApiStats(BehaviorHandler):
     """Counts API calls."""

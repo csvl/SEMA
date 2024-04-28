@@ -25,17 +25,17 @@ import volatility.win32.modules as modules
 import volatility.win32.tasks as tasks
 
 class SessionsMixin(object):
-    """This is a mixin that plugins can inherit for access to the 
+    """This is a mixin that plugins can inherit for access to the
     main sessions APIs."""
 
     def session_spaces(self, kernel_space):
         """ Generators unique _MM_SESSION_SPACE objects
-        referenced by active processes. 
-    
+        referenced by active processes.
+
         @param space: a kernel AS for process enumeration
-    
-        @yields _MM_SESSION_SPACE instantiated from the 
-        session space native_vm. 
+
+        @yields _MM_SESSION_SPACE instantiated from the
+        session space native_vm.
         """
         seen = []
         for proc in tasks.pslist(kernel_space):
@@ -47,13 +47,13 @@ class SessionsMixin(object):
                         offset = proc.Session.v(), vm = ps_ad)
 
     def find_session_space(self, kernel_space, session_id):
-        """ Get a session address space by its ID. 
-    
+        """ Get a session address space by its ID.
+
         @param space: a kernel AS for process enumeration
         @param session_id: the session ID to find.
-    
-        @returns _MM_SESSION_SPACE instantiated from the 
-        session space native_vm. 
+
+        @returns _MM_SESSION_SPACE instantiated from the
+        session space native_vm.
         """
         for proc in tasks.pslist(kernel_space):
             if proc.SessionId == session_id:
@@ -69,16 +69,16 @@ class Sessions(common.AbstractWindowsCommand, SessionsMixin):
     def calculate(self):
         kernel_space = utils.load_as(self._config)
 
-        # Once for each unique _MM_SESSION_SPACE 
+        # Once for each unique _MM_SESSION_SPACE
         for session in self.session_spaces(kernel_space):
             yield session
 
     def render_text(self, outfd, data):
 
-        # Kernel AS for looking up modules 
+        # Kernel AS for looking up modules
         kernel_space = utils.load_as(self._config)
 
-        # Modules sorted for address lookups 
+        # Modules sorted for address lookups
         mods = dict((kernel_space.address_mask(mod.DllBase), mod) for mod in modules.lsmod(kernel_space))
         mod_addrs = sorted(mods.keys())
 

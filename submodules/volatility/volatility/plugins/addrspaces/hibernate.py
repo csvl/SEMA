@@ -344,4 +344,3 @@ class WindowsHiberFileSpace32(addrspace.BaseAddressSpace):
 
     def close(self):
         self.base.close()
-

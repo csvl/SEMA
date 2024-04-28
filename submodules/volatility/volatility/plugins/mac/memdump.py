@@ -18,7 +18,7 @@
 #
 
 import os
-import volatility.plugins.mac.pstasks as pstasks 
+import volatility.plugins.mac.pstasks as pstasks
 import volatility.debug as debug
 
 class mac_memdump(pstasks.mac_tasks):
@@ -30,7 +30,7 @@ class mac_memdump(pstasks.mac_tasks):
 
     def render_text(self, outfd, data):
 
-        if (not self._config.DUMP_DIR or not 
+        if (not self._config.DUMP_DIR or not
                     os.path.isdir(self._config.DUMP_DIR)):
             debug.error("You must speficy a valid path with -D")
 
@@ -62,4 +62,3 @@ class mac_memdump(pstasks.mac_tasks):
                 outfd.write("Error dumping process: {0}\n".format(p_comm))
             finally:
                 handle.close()
-            

@@ -124,7 +124,7 @@ class MISP(Report):
 
             data = "%s - (%s)" % (sig["description"], markslist)
             self.misp.add_internal_comment(event, data)
-            for att, description in sig["ttp"].items():
+            for att, description in list(sig["ttp"].items()):
                 if not description:
                     log.warning("Description for %s is not found", att)
                     continue
@@ -183,7 +183,7 @@ class MISP(Report):
         # Add a specific tag to flag Cuckoo's event
         if tag:
             mispresult = self.misp.tag(event["Event"]["uuid"], tag)
-            if mispresult.has_key("message"):
+            if "message" in mispresult:
                 log.debug("tag event: %s" % mispresult["message"])
 
         if upload_sample:

@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import os
@@ -39,23 +39,23 @@ class linux_check_afinfo(linux_common.AbstractLinuxCommand):
     def check_afinfo(self, var_name, var, op_members, seq_members, modules):
         for (hooked_member, hook_address) in self.check_members(var.seq_fops, op_members,  modules):
             yield (var_name, hooked_member, hook_address)
-        
+
         # newer kernels
         if hasattr(var, "seq_ops"):
             for (hooked_member, hook_address) in self.check_members(var.seq_ops, seq_members, modules):
-                yield (var_name, hooked_member, hook_address) 
-                
+                yield (var_name, hooked_member, hook_address)
+
         elif not self.is_known_address(var.seq_show, modules):
             yield (var_name, "show", var.seq_show)
 
     def _pre_4_18(self, modules, seq_members):
-        op_members  = self.profile.types['file_operations'].keywords["members"].keys()
+        op_members  = list(self.profile.types['file_operations'].keywords["members"].keys())
 
         tcp = ("tcp_seq_afinfo", ["tcp6_seq_afinfo", "tcp4_seq_afinfo"])
         udp = ("udp_seq_afinfo", ["udplite6_seq_afinfo", "udp6_seq_afinfo", "udplite4_seq_afinfo", "udp4_seq_afinfo"])
         protocols = [tcp, udp]
 
-        for proto in protocols:    
+        for proto in protocols:
             struct_type = proto[0]
 
             for global_var_name in proto[1]:
@@ -67,7 +67,7 @@ class linux_check_afinfo(linux_common.AbstractLinuxCommand):
 
                 for (name, member, address) in self.check_afinfo(global_var_name, global_var, op_members, seq_members, modules):
                     yield (name, member, address)
-    
+
     # https://lore.kernel.org/patchwork/patch/901043/
     def _4_18_plus(self, modules, seq_members):
         ops_structs = ["raw_seq_ops", "udp_seq_ops", "arp_seq_ops", "unix_seq_ops", "udp6_seq_ops"
@@ -82,13 +82,13 @@ class linux_check_afinfo(linux_common.AbstractLinuxCommand):
 
             for hooked_member, hook_address in self.check_members(var, seq_members, modules):
                 yield op_struct, hooked_member, hook_address
- 
+
     def calculate(self):
         linux_common.set_plugin_members(self)
-        
+
         modules  = linux_lsmod.linux_lsmod(self._config).get_modules()
-        seq_members = self.profile.types['seq_operations'].keywords["members"].keys()       
-        
+        seq_members = list(self.profile.types['seq_operations'].keywords["members"].keys())
+
         if self.addr_space.profile.obj_has_member("tcp_seq_afinfo", "seq_fops"):
             func = self._pre_4_18
         else:
@@ -96,14 +96,12 @@ class linux_check_afinfo(linux_common.AbstractLinuxCommand):
 
         for name, member, address in func(modules, seq_members):
             yield name, member, address
-        
+
     def render_text(self, outfd, data):
 
-        self.table_header(outfd, [("Symbol Name", "42"), 
-                                  ("Member", "30"), 
+        self.table_header(outfd, [("Symbol Name", "42"),
+                                  ("Member", "30"),
                                   ("Address", "[addrpad]")])
-                                  
+
         for (what, member, address) in data:
             self.table_row(outfd, what, member, address)
-
-

@@ -64,7 +64,7 @@ class SemaExplorerBFS(SemaExplorer):
 
         while simgr.active:
             simgr.stashes["pause"].append(simgr.active.pop())
-            
+
         # If limit of simultaneous state is not reached and we have some states available in pause stash
         if len(simgr.stashes["pause"]) > 0 and len(simgr.active) < self.max_simul_state:
             moves = min(
@@ -88,7 +88,7 @@ class SemaExplorerBFS(SemaExplorer):
         super().excessed_step_to_active(simgr)
 
         super().excessed_loop_to_active(simgr)
-        
+
         self.time_evaluation(simgr)
 
         return simgr

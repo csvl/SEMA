@@ -34,8 +34,8 @@ class PluginPacking():
             cuckoo = CuckooInterface(name=filename, ossys="linux", guestos=gos, create_vm=False)
             GDB_SERVER_IP = cuckoo.start_sandbox(GDB_SERVER_PORT)
             cuckoo.load_analysis(nameFile)
-            remote_binary=cuckoo.start_analysis(nameFile)       
-            print(GDB_SERVER_IP)     
+            remote_binary=cuckoo.start_analysis(nameFile)
+            print(GDB_SERVER_IP)
         else:
             # TODO use the one in sandbox
             print("gdbserver %s:%s %s" % (GDB_SERVER_IP,GDB_SERVER_PORT,nameFile))
@@ -53,16 +53,16 @@ class PluginPacking():
             time.sleep(5)
             logger.info("AvatarGDBConcreteTarget failure")
             try:
-                avatar_gdb = AvatarGDBConcreteTarget(avatar2.archs.x86.X86, # TODO 
-                                                GDB_SERVER_IP, GDB_SERVER_PORT,remote_binary,local_ddl_path) 
+                avatar_gdb = AvatarGDBConcreteTarget(avatar2.archs.x86.X86, # TODO
+                                                GDB_SERVER_IP, GDB_SERVER_PORT,remote_binary,local_ddl_path)
             except Exception as ee:
                 exit(-1)
-        
+
         call_sim.system_call_table = call_sim.ddl_loader.load(proj, False)
-        
+
         preload = []
         for lib in call_sim.system_call_table:
-            for key in call_sim.system_call_table[lib]: 
+            for key in call_sim.system_call_table[lib]:
                 print(lib)
                 preload.append(lib)
 
@@ -118,7 +118,7 @@ class PluginPacking():
         #                 name = name.replace("KERNELBASE.dll","KernelBase.dll")
         #             dll.append(name.split("\\")[-1])
         #             print(dll)
-        #             libs.append(name.replace("C:\\",self.call_sim.ddl_loader.calls_dir.replace("calls","windows10_ddls/C:/")).replace("\\","/")) # .replace("system","System") 
+        #             libs.append(name.replace("C:\\",self.call_sim.ddl_loader.calls_dir.replace("calls","windows10_ddls/C:/")).replace("\\","/")) # .replace("system","System")
         #             self.log.info(name)
         #             #self.log.info(dump_file["sections"][name])
         #     t_0x0548 = proj.loader.main_object.get_thread_registers_by_id() # 0x1b30 0x0548 0x13c4 0x1ecc 0x760

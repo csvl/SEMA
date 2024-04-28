@@ -1,4 +1,4 @@
-import StringIO
+import io
 from volatility.renderers.basic import Renderer
 
 try:
@@ -16,7 +16,7 @@ class HTMLRenderer(Renderer):
     def render(self, outfd, data):
         """Renders the treegrid to HTML"""
         column_titles = ", \n".join(["{ \"title\": \"" + column.name + "\"}" for column in data.columns])
-        json = StringIO.StringIO()
+        json = io.StringIO()
         JSONRenderer().render(json, data)
         outfd.write("""<html>
                        <head>

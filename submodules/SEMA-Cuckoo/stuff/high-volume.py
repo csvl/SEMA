@@ -53,20 +53,20 @@ def index_vdi(vmcloakdir):
     return images, readonly, temporary
 
 if __name__ == "__main__":
-    print "Welcome to %s!" % sys.argv[0]
-    print "This script turns a VMCloak-based directory into a"
-    print "high-performance setup for high volume setups."
-    print
+    print(("Welcome to %s!" % sys.argv[0]))
+    print("This script turns a VMCloak-based directory into a")
+    print("high-performance setup for high volume setups.")
+    print()
 
     if len(sys.argv) != 3 and len(sys.argv) != 4:
-        print "Usage: python %s [-t] <vmmount> <tmpmount>" % sys.argv[0]
-        print
-        print "Input:  ~/.vmcloak"
-        print "Output: vmmount   tmpfs-based VM storage (readonly)"
-        print "Output: tmpmount  temporary VM changes mount"
-        print
-        print "Note that the VDI files located at tmpmount will grow"
-        print "in size during execution as samples write data to disk."
+        print(("Usage: python %s [-t] <vmmount> <tmpmount>" % sys.argv[0]))
+        print()
+        print("Input:  ~/.vmcloak")
+        print("Output: vmmount   tmpfs-based VM storage (readonly)")
+        print("Output: tmpmount  temporary VM changes mount")
+        print()
+        print("Note that the VDI files located at tmpmount will grow")
+        print("in size during execution as samples write data to disk.")
         exit(1)
 
     tmpfs = False
@@ -90,27 +90,27 @@ if __name__ == "__main__":
     vmsize = vmsize / 1024**3 + 1
 
     if not os.path.exists(vmmount):
-        print "# Please run the following commands first!"
-        print "# (Assuming the tmpfs mount is not yet in-place!)"
-        print "$ sudo mkdir -p %s" % vmmount
+        print("# Please run the following commands first!")
+        print("# (Assuming the tmpfs mount is not yet in-place!)")
+        print(("$ sudo mkdir -p %s" % vmmount))
         if tmpfs:
-            print "$ sudo mount -t tmpfs -o size=%dG tmpfs %s" % (
+            print(("$ sudo mount -t tmpfs -o size=%dG tmpfs %s" % (
                 vmsize, vmmount
-            )
-        print "$ sudo chown %s:%s %s" % (user, user, vmmount)
+            )))
+        print(("$ sudo chown %s:%s %s" % (user, user, vmmount)))
         exit(0)
 
     parentvfs = os.statvfs(os.path.dirname(vmmount))
     if tmpfs and parentvfs.f_blocks == os.statvfs(vmmount).f_blocks:
-        print "# Did you initialize the tmpfs mount yet?"
-        print "$ sudo mount -t tmpfs -o size=%dG tmpfs %s" % (
+        print("# Did you initialize the tmpfs mount yet?")
+        print(("$ sudo mount -t tmpfs -o size=%dG tmpfs %s" % (
             vmsize, vmmount
-        )
-        print "$ sudo chown %s:%s %s" % (user, user, vmmount)
+        )))
+        print(("$ sudo chown %s:%s %s" % (user, user, vmmount)))
         exit(0)
 
-    print "Moving original ~/.vmcloak to ~/.vmcloak.backup .."
-    print "Installing symbolic links etc .."
+    print("Moving original ~/.vmcloak to ~/.vmcloak.backup ..")
+    print("Installing symbolic links etc ..")
 
     if not os.path.exists(backupdir):
         shutil.move(vmcloakdir, backupdir)
@@ -150,7 +150,7 @@ if __name__ == "__main__":
         os.path.join(vmcloakdir, "iso")
     )
 
-    print "Copying ~/.vmcloak.backup files to new locations.."
+    print("Copying ~/.vmcloak.backup files to new locations..")
 
     shutil.copy(os.path.join(backupdir, "repository.db"), vmcloakdir)
 

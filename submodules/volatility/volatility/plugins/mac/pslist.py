@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 import volatility.obj   as obj
 import volatility.utils as utils
@@ -54,14 +54,14 @@ class mac_pslist(common.AbstractMacCommand):
         seen = []
 
         while proc.is_valid():
-    
+
             if proc.obj_offset in seen:
                 debug.warning("Recursive process list detected (a result of non-atomic acquisition). Use mac_tasks or mac_psxview)")
                 break
             else:
                 seen.append(proc.obj_offset)
 
-            yield proc 
+            yield proc
 
             proc = proc.p_list.le_next.dereference()
 
@@ -70,13 +70,13 @@ class mac_pslist(common.AbstractMacCommand):
 
         if self._config.TASK:
             task_addr = self._config.TASK
-        
+
             try:
                 task_addr = int(task_addr, 16)
             except TypeError:
                 debug.error("Invalid task address given. Must be address in hex.")
 
-            yield obj.Object("proc", offset = task_addr, vm = self.addr_space)  
+            yield obj.Object("proc", offset = task_addr, vm = self.addr_space)
         else:
             pidlist = None
             try:
@@ -84,10 +84,10 @@ class mac_pslist(common.AbstractMacCommand):
                     pidlist = [int(p) for p in self._config.PID.split(',')]
             except:
                 pass
-            
+
             for proc in self.allprocs():
                 if not pidlist or proc.p_pid in pidlist:
-                    yield proc 
+                    yield proc
 
     def unified_output(self, data):
         return TreeGrid([("Offset (V)", Address),
@@ -106,7 +106,7 @@ class mac_pslist(common.AbstractMacCommand):
             if not proc.is_valid() or len(proc.p_comm) == 0:
                 continue
 
-            # Strip the "TASK_MAP_" prefix from the enumeration 
+            # Strip the "TASK_MAP_" prefix from the enumeration
             bit_string = str(proc.task.map.pmap.pm_task_map or '')[9:]
 
             yield (0, [
@@ -139,7 +139,7 @@ class mac_pslist(common.AbstractMacCommand):
             if not proc.is_valid() or len(proc.p_comm) == 0:
                 continue
 
-            # Strip the "TASK_MAP_" prefix from the enumeration 
+            # Strip the "TASK_MAP_" prefix from the enumeration
             bit_string = str(proc.task.map.pmap.pm_task_map or '')[9:]
 
             self.table_row(outfd, proc.v(),

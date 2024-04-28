@@ -61,7 +61,7 @@ class PSTree(common.AbstractWindowsCommand):
 
     def generator(self, data):
         def draw_branch(level, inherited_from):
-            for task in data.values():
+            for task in list(data.values()):
                 if task.InheritedFromUniqueProcessId == inherited_from:
 
                     row = [Address(task.obj_offset),
@@ -91,8 +91,8 @@ class PSTree(common.AbstractWindowsCommand):
                     for item in draw_branch(level + 1, task.UniqueProcessId):
                         yield item
 
-        while len(data.keys()) > 0:
-            keys = data.keys()
+        while len(list(data.keys())) > 0:
+            keys = list(data.keys())
             root = self.find_root(data, keys[0])
             for item in draw_branch(0, root):
                 yield item
@@ -116,8 +116,8 @@ class PSTree(common.AbstractWindowsCommand):
         return tg
 
     def render_text(self, outfd, data):
-        self.table_header(outfd, 
-                         [("Name", "<50"), 
+        self.table_header(outfd,
+                         [("Name", "<50"),
                           ("Pid", ">6"),
                           ("PPid", ">6"),
                           ("Thds", ">6"),
@@ -125,16 +125,16 @@ class PSTree(common.AbstractWindowsCommand):
                           ("Time", "")])
 
         def draw_branch(pad, inherited_from):
-            for task in data.values():
+            for task in list(data.values()):
                 if task.InheritedFromUniqueProcessId == inherited_from:
 
                     first_column = "{0} {1:#x}:{2:20}".format(
-                                        "." * pad, 
-                                        task.obj_offset, 
+                                        "." * pad,
+                                        task.obj_offset,
                                         str(task.ImageFileName or '')
                                         )
 
-                    self.table_row(outfd, 
+                    self.table_row(outfd,
                         first_column,
                         task.UniqueProcessId,
                         task.InheritedFromUniqueProcessId,
@@ -157,10 +157,10 @@ class PSTree(common.AbstractWindowsCommand):
                     except KeyError:
                         debug.warning("PID {0} PPID {1} has already been seen".format(task.UniqueProcessId, task.InheritedFromUniqueProcessId))
 
-                    draw_branch(pad + 1, task.UniqueProcessId) 
+                    draw_branch(pad + 1, task.UniqueProcessId)
 
-        while len(data.keys()) > 0:
-            keys = data.keys()
+        while len(list(data.keys())) > 0:
+            keys = list(data.keys())
             root = self.find_root(data, keys[0])
             draw_branch(0, root)
 

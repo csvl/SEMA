@@ -7,10 +7,10 @@ import sys
 import pkgutil
 import logging
 import tempfile
-import xmlrpclib
+import xmlrpc.client
 import traceback
-import urllib
-import urllib2
+import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error, urllib.parse
 import time
 import datetime
 
@@ -369,14 +369,14 @@ if __name__ == "__main__":
     finally:
         try:
             # old agent
-            server = xmlrpclib.Server("http://127.0.0.1:8000")
+            server = xmlrpc.client.Server("http://127.0.0.1:8000")
             server.complete(success, error, PATHS["root"])
-        except xmlrpclib.ProtocolError:
+        except xmlrpc.client.ProtocolError:
             # new agent
             data = {
                 "status": "complete",
                 "description": success
             }
-            urllib2.urlopen(
-                "http://127.0.0.1:8000/status", urllib.urlencode(data)
+            urllib.request.urlopen(
+                "http://127.0.0.1:8000/status", urllib.parse.urlencode(data)
             )

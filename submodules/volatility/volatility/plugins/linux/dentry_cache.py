@@ -38,19 +38,19 @@ class linux_dentry_cache(linux_common.AbstractLinuxCommand):
                         action = 'store_true')
 
     def make_body(self, dentry):
-        """Create a pipe-delimited bodyfile from a dentry structure. 
-        
+        """Create a pipe-delimited bodyfile from a dentry structure.
+
         MD5|name|inode|mode_as_string|UID|GID|size|atime|mtime|ctime|crtime
         """
-        
+
         path = dentry.get_partial_path() or ""
         i = dentry.d_inode
-        
+
         if i:
             ret = [0, path, i.i_ino, 0, i.uid, i.gid, i.i_size, i.i_atime, i.i_mtime, 0, i.i_ctime]
         else:
             ret = [0, path] + [0] * 8
-            
+
         ret = "|".join([str(val) for val in ret])
         return ret
 
@@ -59,7 +59,7 @@ class linux_dentry_cache(linux_common.AbstractLinuxCommand):
 
         cache = linux_slabinfo(self._config).get_kmem_cache("dentry", self._config.UNALLOCATED)
 
-        # support for old kernels 
+        # support for old kernels
         if cache == []:
             cache = linux_slabinfo(self._config).get_kmem_cache("dentry_cache", self._config.UNALLOCATED, struct_name = "dentry")
 
@@ -70,6 +70,3 @@ class linux_dentry_cache(linux_common.AbstractLinuxCommand):
 
         for bodyline in data:
             outfd.write(bodyline + "\n")
-
-
-

@@ -24,7 +24,7 @@ class GetProcAddress(angr.SimProcedure):
         else:
             name = self.state.mem[name_addr].string.concrete
             if not isinstance(name, str):
-                name = name.decode("utf-8") # TODO 
+                name = name.decode("utf-8") # TODO
         lw.debug("GetProcAddress: " + str(name))
         if(str(name) == "wine_get_unix_file_name"):
             return 0x0

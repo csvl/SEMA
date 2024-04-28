@@ -9,7 +9,7 @@ RUN  apt-get update
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository ppa:pypy/ppa
 
-RUN  apt update; apt-get --fix-missing -y install \ 
+RUN  apt update; apt-get --fix-missing -y install \
                 python3.8 \
                 python3.8-dev \
                 python3.8-venv \
@@ -23,7 +23,7 @@ RUN  apt update; apt-get --fix-missing -y install \
                 python3-dev \
                 libvirt-dev \
                 python3.9 \
-                python3.9-venv 
+                python3.9-venv
 
 RUN apt-get update; apt-get --fix-missing -y install \
         pypy3-dev \
@@ -56,20 +56,20 @@ RUN apt update; apt-get --fix-missing -y install \
                 libpng-dev \
                 libossp-uuid-dev \
                 freerdp2-dev \
-                python3-wheel 
+                python3-wheel
 
 # For Symbion
 RUN apt update; apt-get install --fix-missing -y  \
                 gdb-multiarch
 
 # TCP dump for cuckoo
-RUN apt update; apt-get install --fix-missing -y  \ 
+RUN apt update; apt-get install --fix-missing -y  \
                 tcpdump \
                 wget
 
 # guacd for cuckoo
 RUN mkdir /tmp/guac-build
-RUN apt update; apt-get install --fix-missing -y  --fix-missing \ 
+RUN apt update; apt-get install --fix-missing -y  --fix-missing \
             libwebp-dev \
             libwebsockets-dev \
             libogg-dev \
@@ -80,13 +80,13 @@ RUN cd /tmp/guac-build; \
         wget https://www.apache.org/dist/guacamole/1.5.3/source/guacamole-server-1.5.3.tar.gz; \
         tar xvf guacamole-server-1.5.3.tar.gz && cd guacamole-server-1.5.3; \
         ./configure --with-init-dir=/etc/init.d; \
-        make && make install 
+        make && make install
 RUN ldconfig
 RUN /etc/init.d/guacd start
 
 
 #For testing
-RUN  apt update; apt-get --fix-missing -y install \ 
+RUN  apt update; apt-get --fix-missing -y install \
         libgraphviz-dev \
         pkg-config
 
@@ -98,9 +98,9 @@ RUN pip3 install -r /sema-scdg/requirements.txt
 COPY ./sema_scdg/requirements_pypy.txt /sema-scdg/requirements_pypy.txt
 RUN pypy3 -m pip install -r /sema-scdg/requirements_pypy.txt
 
-COPY ./sema_scdg/ /sema-scdg 
+COPY ./sema_scdg/ /sema-scdg
 COPY ./submodules/angr-utils /sema-scdg/application/submodules/angr-utils
-COPY ./submodules/bingraphvis /sema-scdg/application/submodules/bingraphvis 
+COPY ./submodules/bingraphvis /sema-scdg/application/submodules/bingraphvis
 COPY ./penv-fix/ /sema-scdg/application/penv-fix
 COPY ./database/ /sema-scdg/application/database
 

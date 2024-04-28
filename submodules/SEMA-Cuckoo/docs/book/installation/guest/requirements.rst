@@ -40,4 +40,3 @@ any additional software.
 
 This is completely up to you and to what your needs are. You can get some hints
 by reading the :doc:`../../introduction/sandboxing` chapter.
-

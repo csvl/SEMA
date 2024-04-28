@@ -74,7 +74,7 @@ def test_unicode_json():
     report_path = cwd("reports", "report.json", analysis=1)
 
     task(1, {}, conf, {
-        "a": u"\u1234 \uecbc\uee9e",
+        "a": "\u1234 \uecbc\uee9e",
     })
     assert open(report_path, "rb").read() == (
         '{\n  "a": "\\u1234 \\uecbc\\uee9e"\n}'

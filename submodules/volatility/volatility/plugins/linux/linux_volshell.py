@@ -33,35 +33,35 @@ class linux_volshell(volshell.volshell):
         mods = lsmod.linux_lsmod(self._config).calculate()
 
         for (module, _, __) in mods:
-            print "{0:24} {1:d}".format(module.name, module.init_size + module.core_size)
+            print("{0:24} {1:d}".format(module.name, module.init_size + module.core_size))
 
     def getpidlist(self):
         return pslist.linux_pslist(self._config).allprocs()
 
     def ps(self, procs = None):
-        print "{0:16} {1:6} {2:8}".format("Name", "PID", "Offset")
+        print("{0:16} {1:6} {2:8}".format("Name", "PID", "Offset"))
         for proc in procs or self.getpidlist():
-            print "{0:16} {1:<6} {2:#08x}".format(proc.comm, proc.pid, proc.obj_offset)
+            print("{0:16} {1:<6} {2:#08x}".format(proc.comm, proc.pid, proc.obj_offset))
 
     def context_display(self):
         dtb = self._addrspace.vtop(self._proc.mm.pgd) or self._proc.mm.pgd
-        print "Current context: process {0}, pid={1} DTB={2:#x}".format(self._proc.comm,
-                                                                        self._proc.pid, dtb)
+        print("Current context: process {0}, pid={1} DTB={2:#x}".format(self._proc.comm,
+                                                                        self._proc.pid, dtb))
 
     def set_context(self, offset = None, pid = None, name = None, physical = False):
         if physical and offset != None:
-            offset = pslist.linux_pslist.virtual_process_from_physical_offset(self._addrspace, offset).obj_offset  
+            offset = pslist.linux_pslist.virtual_process_from_physical_offset(self._addrspace, offset).obj_offset
         elif pid is not None:
             offsets = []
             for p in self.getpidlist():
                 if p.pid.v() == pid:
                     offsets.append(p)
             if not offsets:
-                print "Unable to find process matching pid {0}".format(pid)
+                print("Unable to find process matching pid {0}".format(pid))
                 return
             elif len(offsets) > 1:
-                print "Multiple processes match {0}, please specify by offset".format(pid)
-                print "Matching processes:"
+                print("Multiple processes match {0}, please specify by offset".format(pid))
+                print("Matching processes:")
                 self.ps(offsets)
                 return
             else:
@@ -72,17 +72,17 @@ class linux_volshell(volshell.volshell):
                 if p.comm.find(name) >= 0:
                     offsets.append(p)
             if not offsets:
-                print "Unable to find process matching name {0}".format(name)
+                print("Unable to find process matching name {0}".format(name))
                 return
             elif len(offsets) > 1:
-                print "Multiple processes match name {0}, please specify by PID or offset".format(name)
-                print "Matching processes:"
+                print("Multiple processes match name {0}, please specify by PID or offset".format(name))
+                print("Matching processes:")
                 self.ps(offsets)
                 return
             else:
                 offset = offsets[0].v()
         elif offset is None:
-            print "Must provide one of: offset, name, or pid as a argument."
+            print("Must provide one of: offset, name, or pid as a argument.")
             return
 
         self._proc = obj.Object("task_struct", offset = offset, vm = self._addrspace)

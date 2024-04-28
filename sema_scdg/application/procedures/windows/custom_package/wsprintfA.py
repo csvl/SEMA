@@ -22,7 +22,7 @@ class wsprintfA(angr.SimProcedure):
             return self.state.solver.BVS(
                 "retval_{}".format(self.display_name), self.arch.bits
             )
-        
+
         addr = self.state.solver.eval(arg2)
         buf = self.state.solver.eval(arg1)
         byte = self.state.solver.eval(self.state.memory.load(addr,1))
@@ -58,7 +58,7 @@ class wsprintfA(angr.SimProcedure):
             byte = self.state.solver.eval(self.state.memory.load(addr,1))
         self.arguments = self.arguments + sup_args
         return buf - self.state.solver.eval(arg1)
-        
+
         # var_string = self.getVarString(arg2)
         # n_arg = var_string.count("%")
         # sup_args = []

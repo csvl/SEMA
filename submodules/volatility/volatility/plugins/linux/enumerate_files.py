@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -52,4 +52,4 @@ class linux_enumerate_files(linux_common.AbstractLinuxCommand):
     def render_text(self, outfd, data):
         self.table_header(outfd, [("Inode Address", "[addr]"), ("Inode Number", "25"), ("Path", "")])
         for inode, inum, path in data:
-            self.table_row(outfd, inode, inum, path) 
+            self.table_row(outfd, inode, inum, path)

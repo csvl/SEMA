@@ -484,7 +484,7 @@ def cuckoo_rooter(socket_path, group, service, iptables, ip):
         args = obj.get("args", [])
         kwargs = obj.get("kwargs", {})
 
-        if not isinstance(command, basestring) or command not in handlers:
+        if not isinstance(command, str) or command not in handlers:
             log.info("Received incorrect command: %r", command)
             continue
 
@@ -496,15 +496,15 @@ def cuckoo_rooter(socket_path, group, service, iptables, ip):
             log.info("Invalid keyword arguments: %r", kwargs)
             continue
 
-        for arg in args + kwargs.keys() + kwargs.values():
-            if not isinstance(arg, basestring):
+        for arg in args + list(kwargs.keys()) + list(kwargs.values()):
+            if not isinstance(arg, str):
                 log.info("Invalid argument detected: %r", arg)
                 break
         else:
             log.info(
                 "Processing command: %s %s %s", command,
                 " ".join(args),
-                " ".join("%s=%s" % (k, v) for k, v in kwargs.items())
+                " ".join("%s=%s" % (k, v) for k, v in list(kwargs.items()))
             )
 
             output = e = None

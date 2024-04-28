@@ -23,7 +23,7 @@ class Output {
   explicit Output(
     size_t increment,
     size_t max_results,
-    const string &output_file, 
+    const string &output_file,
     bool output_parent,
     bool output_pattern
     ):

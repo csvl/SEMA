@@ -134,11 +134,11 @@ class DllList(common.AbstractWindowsCommand, cache.Testable):
         # (Note: the addr_space and flat_addr_space use the same config, so should have the same profile)
         tleoffset = addr_space.profile.get_obj_offset("_ETHREAD", "ThreadListEntry")
 
-        # start out with the member offset given to us from the profile 
+        # start out with the member offset given to us from the profile
         offsets = [tleoffset]
 
-        # if (and only if) we're dealing with 64-bit Windows 7 SP1 
-        # then add the other commonly seen member offset to the list 
+        # if (and only if) we're dealing with 64-bit Windows 7 SP1
+        # then add the other commonly seen member offset to the list
         meta = addr_space.profile.metadata
         major = meta.get("major", 0)
         minor = meta.get("minor", 0)
@@ -148,7 +148,7 @@ class DllList(common.AbstractWindowsCommand, cache.Testable):
         if meta.get("memory_model") == "64bit" and version == (6, 1, 7601):
             offsets.append(tleoffset + 8)
 
-        ## use the member offset from the profile 
+        ## use the member offset from the profile
         for ofs in offsets:
             ethread = obj.Object("_ETHREAD", offset = flateproc.ThreadListHead.Flink.v() - ofs, vm = addr_space)
             # and ask for the thread's process to get an _EPROCESS with a virtual address space
@@ -219,7 +219,7 @@ class PSList(DllList):
     def render_dot(self, outfd, data):
         objects = set()
         links = set()
- 
+
         for eprocess in data:
             label = "{0} | {1} |".format(eprocess.UniqueProcessId,
                 eprocess.ImageFileName)
@@ -229,12 +229,12 @@ class PSList(DllList):
             else:
                 label += "running"
                 options = ''
- 
+
             objects.add('pid{0} [label="{1}" shape="record" {2}];\n'.format(eprocess.UniqueProcessId,
                 label, options))
             links.add("pid{0} -> pid{1} [];\n".format(eprocess.InheritedFromUniqueProcessId,
                 eprocess.UniqueProcessId))
- 
+
         ## Now write the dot file
         outfd.write("digraph processtree { \ngraph [rankdir = \"TB\"];\n")
         for link in links:

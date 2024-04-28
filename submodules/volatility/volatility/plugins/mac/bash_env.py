@@ -22,7 +22,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import struct
@@ -45,4 +45,3 @@ class mac_bash_env(mac_tasks.mac_tasks):
 
     def render_text(self, outfd, data):
         debug.error("This plugin is deprecated. Please use mac_psenv.")
-

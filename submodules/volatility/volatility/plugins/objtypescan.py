@@ -76,17 +76,17 @@ class ObjTypeScan(common.AbstractScanCommand):
                                  generator(data))
 
     def render_text(self, outfd, data):
-        self.table_header(outfd, [("Offset", "[addrpad]"), 
-                                  ("nObjects", "[addr]"), 
-                                  ("nHandles", "[addr]"), 
-                                  ("Key", "8"), 
-                                  ("Name", "30"),  
+        self.table_header(outfd, [("Offset", "[addrpad]"),
+                                  ("nObjects", "[addr]"),
+                                  ("nHandles", "[addr]"),
+                                  ("Key", "8"),
+                                  ("Name", "30"),
                                   ("PoolType", "20")])
         for object_type in data:
-            self.table_row(outfd, 
-                            object_type.obj_offset, 
-                            object_type.TotalNumberOfObjects, 
-                            object_type.TotalNumberOfHandles, 
-                            str(object_type.Key), 
-                            str(object_type.Name or ''), 
+            self.table_row(outfd,
+                            object_type.obj_offset,
+                            object_type.TotalNumberOfObjects,
+                            object_type.TotalNumberOfHandles,
+                            str(object_type.Key),
+                            str(object_type.Name or ''),
                             object_type.TypeInfo.PoolType)

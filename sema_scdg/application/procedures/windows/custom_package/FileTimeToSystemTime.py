@@ -38,7 +38,7 @@ class FileTimeToSystemTime(angr.SimProcedure):
         # WORD wSecond;
         # WORD wMilliseconds;
         # } SYSTEMTIME, *PSYSTEMTIME, *LPSYSTEMTIME;
-                
+
         # Write the system time struct to the given pointer
         # dyear = self.state.solver.BVS("wYear{}".format(self.display_name),self.state.arch.bits)
         # self.state.solver.add(dyear >= 1601)
@@ -72,13 +72,13 @@ class FileTimeToSystemTime(angr.SimProcedure):
         # self.state.solver.add(wMilliseconds >= 1)
         # self.state.solver.add(wMilliseconds <= 999)
         # self.state.memory.store(lpSystemTime+14, wMilliseconds, endness=self.state.arch.memory_endness)
-        
+
         self.systemtime_ptr =  self.state.mem[lpSystemTime].int.resolved #lpSystemTime
         self.instrument()
 
         # Return success
         return 0x1 #self.state.solver.BVV(1, self.state.arch.bits)
-    
+
     def instrument(self):
         if angr.options.USE_SYSTEM_TIMES in self.state.options:
             self.fill_from_systemtime(time.time())

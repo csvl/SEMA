@@ -23,21 +23,7 @@
 @license:      GNU General Public License 2.0
 @contact:      jamie@memoryanalysis.net
 @organization: Volatility Foundation
-"""
 
-
-import volatility.utils as utils
-import volatility.plugins.common as common
-import volatility.plugins.registry.registryapi as registryapi
-import volatility.obj as obj
-import volatility.addrspace as addrspace
-import volatility.plugins.overlays.basic as basic
-import volatility.timefmt as timefmt
-from volatility.renderers import TreeGrid
-import struct
-import datetime 
-
-'''
 Some references for further reading, all of which were used for building this plugin:
 
 http://download.polytechnic.edu.na/pub4/download.sourceforge.net/pub/sourceforge/l/project/li/liblnk/Documentation/Windows%20Shell%20Item%20format/Windows%20Shell%20Item%20format.pdf
@@ -50,7 +36,20 @@ https://github.com/504ensicsLabs/registrydecoder/blob/master/templates/template_
     ShellBagMRU.py from Registry Decoder by Kevin Moore
 http://code.google.com/p/regripper/wiki/ShellBags
     Shellbags RegRipper plugin by Harlan Carvey
-'''
+"""
+
+
+import volatility.utils as utils
+import volatility.plugins.common as common
+import volatility.plugins.registry.registryapi as registryapi
+import volatility.obj as obj
+import volatility.addrspace as addrspace
+import volatility.plugins.overlays.basic as basic
+import volatility.timefmt as timefmt
+from volatility.renderers import TreeGrid
+import struct
+import datetime
+
 
 
 EXT_VERSIONS = {
@@ -93,7 +92,7 @@ FILE_ATTRS = {
     0x00010000:"VIR",       #Is virtual
 }
 
-# GUIDs and FOLDER_IDs copied from Will Ballenthin's shellbags parser: 
+# GUIDs and FOLDER_IDs copied from Will Ballenthin's shellbags parser:
 # https://github.com/williballenthin/shellbags
 
 KNOWN_GUIDS = {
@@ -135,7 +134,7 @@ KNOWN_GUIDS = {
     "dfdf76a2-c82a-4d63-906a-5644ac457385": "Public",
     "de974d24-d9c6-4d3e-bf91-f4455120b917": "Common Files",
     "ed228fdf-9ea8-4870-83b1-96b02cfe0d52": "My Games",
-    "f02c1a0d-be21-4350-88b0-7367fc96ef3c": "Network", 
+    "f02c1a0d-be21-4350-88b0-7367fc96ef3c": "Network",
     "f38bf404-1d43-42f2-9305-67de0b28fc23": "Windows",
     "f3ce0f7c-4901-4acc-8648-d5d44b04ef8f": "Users Files",
     "fdd39ad0-238f-46af-adb4-6c85480369c7": "Documents",
@@ -293,11 +292,11 @@ class ITEMPOS(obj.CType):
 
     def body(self, details):
         return "0|[{6}SHELLBAGS ITEMPOS] Name: {3}/Attrs: {4}/{5}|0|---------------|0|0|0|{0}|{1}|{2}|{2}\n".format(
-            self.Attributes.AccessDate.v(), 
+            self.Attributes.AccessDate.v(),
             self.Attributes.ModifiedDate.v(),
             self.Attributes.CreatedDate.v(),
-            str(self.Attributes.UnicodeFilename), 
-            self.get_file_attrs(), 
+            str(self.Attributes.UnicodeFilename),
+            self.get_file_attrs(),
             details,
             self.obj_vm._config.MACHINE)
 
@@ -339,7 +338,7 @@ class FILE_ENTRY(ITEMPOS):
 
     def body(self, details):
         return "0|[{6}SHELLBAGS FILE_ENTRY] Name: {3}/Attrs: {4}/{5}|0|---------------|0|0|0|{0}|{1}|{2}|{2}\n".format(
-            self.Attributes.AccessDate.v(), 
+            self.Attributes.AccessDate.v(),
             self.Attributes.ModifiedDate.v(),
             self.Attributes.CreatedDate.v(),
             str(self.Attributes.UnicodeFilename),
@@ -382,7 +381,7 @@ class FOLDER_ENTRY(obj.CType):
         return folder_ids
 
     def __str__(self):
-        return "{0:<14} {1:40} {2:20} {3}".format("Folder Entry", 
+        return "{0:<14} {1:40} {2:20} {3}".format("Folder Entry",
                str(self.GUID),
                KNOWN_GUIDS.get(str(self.GUID), "Unknown GUID"),
                self.get_folders())
@@ -464,7 +463,7 @@ class UNKNOWN_00(FOLDER_ENTRY):
         # TODO: this is not clear yet
         #    return "{0:<14} {1:40} {2:20} {3}".format("Device Property",
         #       str(self.Name), "", "")
-        # TODO: fix this for other types like "AugM" and 1SPS 
+        # TODO: fix this for other types like "AugM" and 1SPS
         else:
             return "{0:<14} {1:40} {2:20} {3}".format("Folder (unsupported)",
                 "This property is not yet supported", "", "")
@@ -506,7 +505,7 @@ class NETWORK_SHARE(NETWORK_VOLUME_NAME):
 
 #####  End Type Overrides #####
 
-        
+
 class NullString(basic.String):
     def __str__(self):
         result = self.obj_vm.zread(self.obj_offset, self.length).split("\x00\x00")[0].replace("\x00", "")
@@ -515,7 +514,7 @@ class NullString(basic.String):
         return result
 
     def v(self):
-        result = self.obj_vm.zread(self.obj_offset, self.length).split("\x00\x00")[0].replace("\x00", "") 
+        result = self.obj_vm.zread(self.obj_offset, self.length).split("\x00\x00")[0].replace("\x00", "")
         if not result:
             return obj.NoneObject("Cannot read string length {0} at {1:#x}".format(self.length, self.obj_offset))
         return result
@@ -554,7 +553,7 @@ shell_item_types = {
     'NETWORK_SHARE': [ None, {
         'ShellItem': [ 0x0, ['SHELLITEM']],
         'Flags': [ 0x4, ['unsigned char']],
-        'Name': [ 0x5, ['String', dict(length = 255)]], 
+        'Name': [ 0x5, ['String', dict(length = 255)]],
         'Description': [ lambda x: x.Name.obj_offset + len(x.Name), ['String', dict(length = 4096)]],
     } ],
     # These "OTHER" types are really not clear yet...
@@ -588,7 +587,7 @@ shell_item_types = {
 
 itempos_types_XP = {
     'ATTRIBUTES': [ None, {
-        'ModifiedDate': [ 0x0, ['DosDate', dict(is_utc = True)]], 
+        'ModifiedDate': [ 0x0, ['DosDate', dict(is_utc = True)]],
         'FileAttrs': [ 0x4, ['unsigned short']],
         'FileName': [ 0x6, ['String', dict(length = 255)]], # 8.3 File name although sometimes it's longer than 14 chars
         'FDataSize': [ lambda x: x.FileName.obj_offset + len(x.FileName) + (1 if len(x.FileName) % 2 == 1 else 2), ['unsigned short']],
@@ -640,7 +639,7 @@ itempos_types_Vista = {
     'ATTRIBUTES' : [ None, {
         'ModifiedDate': [ 0x0, ['DosDate', dict(is_utc = True)]],
         'FileAttrs': [ 0x4, ['unsigned short']],
-        'FileName': [ 0x6, ['String', dict(length = 255)]], 
+        'FileName': [ 0x6, ['String', dict(length = 255)]],
         'FDataSize': [ lambda x: x.FileName.obj_offset + len(x.FileName) + (1 if len(x.FileName) % 2 == 1 else 2), ['unsigned short']],
         'EVersion': [ lambda x: x.FDataSize.obj_offset + 2, ['unsigned short']],
         'Unknown1': [ lambda x: x.EVersion.obj_offset + 2, ['unsigned short']],
@@ -653,7 +652,7 @@ itempos_types_Vista = {
         'LongStringSize': [ lambda x: x.Unknown4.obj_offset + 8, ['unsigned short']],
         'UnicodeFilename': [ lambda x: x.LongStringSize.obj_offset + 2, ['NullString', dict(length = 4096, encoding = 'utf8')]],
         'AdditionalLongString': [ lambda x: x.UnicodeFilename.obj_offset + len(x.UnicodeFilename), ['NullString', dict(length = (lambda k: k.LongStringSize), encoding = 'utf8')]],
-    } ], 
+    } ],
     'ITEMPOS' : [ None, {
         'Size' : [ 0x0, ['unsigned short']],
         'Flags' : [ 0x2, ['unsigned short']],
@@ -671,7 +670,7 @@ itempos_types_Vista = {
 class ShellBagsTypesVista(obj.ProfileModification):
     before = ['WindowsObjectClasses']
     conditions = {'os': lambda x: x == 'windows',
-                  'major': lambda x: x == 6, 
+                  'major': lambda x: x == 6,
                   'minor': lambda x: x == 0}
     def modification(self, profile):
         profile.object_classes.update({
@@ -695,7 +694,7 @@ itempos_types_Win7 = {
     'ATTRIBUTES': [ None, {
         'ModifiedDate': [ 0x0, ['DosDate', dict(is_utc = True)]],
         'FileAttrs': [ 0x4, ['unsigned short']],
-        'FileName': [ 0x6, ['String', dict(length = 255)]], 
+        'FileName': [ 0x6, ['String', dict(length = 255)]],
         'FDataSize': [ lambda x: x.FileName.obj_offset + len(x.FileName) + (1 if len(x.FileName) % 2 == 1 else 2), ['unsigned short']],
         'EVersion': [ lambda x: x.FDataSize.obj_offset + 2, ['unsigned short']],
         'Unknown1': [ lambda x: x.EVersion.obj_offset + 2, ['unsigned short']],
@@ -727,7 +726,7 @@ itempos_types_Win7 = {
 class ShellBagsTypesWin7(obj.ProfileModification):
     before = ['WindowsObjectClasses']
     conditions = {'os': lambda x: x == 'windows',
-                  'major': lambda x: x == 6, 
+                  'major': lambda x: x == 6,
                   'minor': lambda x: x >= 1}
     def modification(self, profile):
         profile.object_classes.update({
@@ -783,7 +782,7 @@ class ShellBags(common.AbstractWindowsCommand):
                     list[obj.Object("int", offset = i, vm = bufferas).v()] = (i / 4)
                     i += 4
                 items["MruListEx"] = list
-            elif len(data) >= 0x10: 
+            elif len(data) >= 0x10:
                 bufferas = addrspace.BufferAddressSpace(self._config, data = data)
                 item = obj.Object("SHELLITEM", offset = 0, vm = bufferas)
                 thetype = SHELL_ITEM_TYPES.get(int(item.Type), None)
@@ -810,29 +809,29 @@ class ShellBags(common.AbstractWindowsCommand):
                         self.paths[reg + ":" + thekey + ":" + str(value)] = temp
                         items[str(value)] = []
                         items[str(value)].append(item)
-        return items 
+        return items
 
 
     def calculate(self):
         addr_space = utils.load_as(self._config)
-        version = (addr_space.profile.metadata.get('major', 0), 
+        version = (addr_space.profile.metadata.get('major', 0),
                    addr_space.profile.metadata.get('minor', 0))
-        
+
         if self._config.MACHINE != "":
             self._config.update("MACHINE", "{0} ".format(self._config.MACHINE))
         #set our current registry of interest and get its path
         regapi = registryapi.RegistryApi(self._config)
         regapi.reset_current()
         #scan for registries and populate them:
-        print "Scanning for registries...."
+        print("Scanning for registries....")
 
         regapi.set_current('ntuser.dat')
         shellbag_data = []
 
-        print "Gathering shellbag items and building path tree..."
+        print("Gathering shellbag items and building path tree...")
         seen = {}
         for bk in BAG_KEYS:
-            for cat, current_path in regapi.reg_yield_key("ntuser.dat", bk): 
+            for cat, current_path in regapi.reg_yield_key("ntuser.dat", bk):
                 keys = [(k, bk + "\\" + k.Name) for k in regapi.reg_get_all_subkeys("ntuser.dat", key = None, given_root = cat)]
                 for key, start in keys:
                     if key.Name:
@@ -850,7 +849,7 @@ class ShellBags(common.AbstractWindowsCommand):
             regapi.set_current("UsrClass.dat")
             seen = {}
             for bk in USERDAT_KEYS:
-                for cat, current_path in regapi.reg_yield_key("UsrClass.dat", bk): 
+                for cat, current_path in regapi.reg_yield_key("UsrClass.dat", bk):
                     keys = [(k, bk + "\\" + k.Name) for k in regapi.reg_get_all_subkeys("UsrClass.dat", key = None, given_root = cat)]
                     for key, start in keys:
                         if key.Name:
@@ -861,7 +860,7 @@ class ShellBags(common.AbstractWindowsCommand):
                             for k in subkeys:
                                 keys.append((k, start + "\\" + k.Name))
                             items = self.parse_key(regapi, current_path, start, given_root = key)
-                            if len(items) > 0: 
+                            if len(items) > 0:
                                 shellbag_data.append((start, current_path, key, items))
         return shellbag_data
 
@@ -873,7 +872,7 @@ class ShellBags(common.AbstractWindowsCommand):
             path = str(item.Name)
         else:
             return path
-        while key != "": 
+        while key != "":
             parent = self.rreplace(key, "\\" + key.split("\\")[-1], "", 1)
             prev = self.paths.get(reg + ":" + parent + ":" + key.split("\\")[-1], "")
             if prev == "":
@@ -881,7 +880,7 @@ class ShellBags(common.AbstractWindowsCommand):
             path = prev + "\\" + path
             key = parent
         return path
-        
+
 
     def render_body(self, outfd, data):
         for name, reg, key, items in data:
@@ -933,7 +932,7 @@ class ShellBags(common.AbstractWindowsCommand):
     def render_text(self, outfd, data):
         border = "*" * 75
         for name, reg, key, items in data:
-            if not key: 
+            if not key:
                 continue
             first = True
             mru = items.get("MruListEx", None)
@@ -963,5 +962,3 @@ class ShellBags(common.AbstractWindowsCommand):
                         outfd.write("{0:25} {1} {2}\n".format(item, str(shell), full_path))
             if not first:
                 outfd.write(border + "\n\n")
-
-

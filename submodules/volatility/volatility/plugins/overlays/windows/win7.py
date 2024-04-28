@@ -27,7 +27,7 @@ This file provides support for Windows 7.
 
 #pylint: disable-msg=C0111
 
-import windows
+from . import windows
 import volatility.obj as obj
 import volatility.debug as debug #pylint: disable-msg=W0611
 
@@ -149,7 +149,7 @@ class _OBJECT_HEADER(windows._OBJECT_HEADER):
 
     def get_object_type(self):
         """Return the object's type as a string"""
-        
+
         # wrap this in int() rather than calling .v() because the win10
         # property may return an int by default which doesn't have .v()
         return self.type_map.get(int(self.TypeIndex), '')
@@ -284,4 +284,3 @@ class Win2008R2SP1x64_23418(Win7SP1x64_23418):
 class Win2008R2SP1x64_24000(Win7SP1x64_24000):
     """ A Profile for Windows 2008 R2 SP1 x64 (6.1.7601.24000 / 2016-04-09) """
     _md_product = ["NtProductLanManNt", "NtProductServer"]
-

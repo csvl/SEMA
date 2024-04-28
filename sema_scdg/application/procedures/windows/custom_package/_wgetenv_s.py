@@ -47,7 +47,7 @@ class _wgetenv_s(angr.SimProcedure):
             )
         # Get the environment variable value
         env_value = self.get_str(varname)
-        
+
         lw.debug(env_value)
 
         # If the environment variable is not defined, set the return value to EINVAL

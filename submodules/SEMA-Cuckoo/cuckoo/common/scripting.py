@@ -167,7 +167,7 @@ class PowerShell(Scripting):
         idx, ret = 1, {}
 
         while idx < len(cmdline):
-            for key, regex in self.CMDLINE_REGEX.items():
+            for key, regex in list(self.CMDLINE_REGEX.items()):
                 if not re.match(regex, cmdline[idx]):
                     continue
 

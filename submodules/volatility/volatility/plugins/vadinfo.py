@@ -1,5 +1,5 @@
 # Volatility
-# Copyright (C) 2007-2013 Volatility Foundation  
+# Copyright (C) 2007-2013 Volatility Foundation
 #
 # Authors:
 # Brendan Dolan-Gavitt <bdolangavitt@wesleyan.edu>
@@ -21,7 +21,7 @@
 # along with Volatility.  If not, see <http://www.gnu.org/licenses/>.
 #
 # The source code in this file was inspired by the excellent work of
-# Brendan Dolan-Gavitt. Background information can be found in 
+# Brendan Dolan-Gavitt. Background information can be found in
 # the following reference:
 # "The VAD Tree: A Process-Eye View of Physical Memory," Brendan Dolan-Gavitt
 
@@ -34,7 +34,7 @@ from volatility.renderers import TreeGrid
 from volatility.renderers.basic import Address
 
 # Vad Protections. Also known as page protections. _MMVAD_FLAGS.Protection,
-# 3-bits, is an index into nt!MmProtectToValue (the following list). 
+# 3-bits, is an index into nt!MmProtectToValue (the following list).
 PROTECT_FLAGS = dict(enumerate([
     'PAGE_NOACCESS',
     'PAGE_READONLY',
@@ -70,10 +70,10 @@ PROTECT_FLAGS = dict(enumerate([
     'PAGE_WRITECOMBINE | PAGE_EXECUTE_WRITECOPY',
 ]))
 
-# Vad Types. The _MMVAD_SHORT.u.VadFlags (_MMVAD_FLAGS) struct on XP has  
+# Vad Types. The _MMVAD_SHORT.u.VadFlags (_MMVAD_FLAGS) struct on XP has
 # individual flags, 1-bit each, for these types. The _MMVAD_FLAGS for all
 # OS after XP has a member _MMVAD_FLAGS.VadType, 3-bits, which is an index
-# into the following enumeration. 
+# into the following enumeration.
 MI_VAD_TYPE = dict(enumerate([
     'VadNone',
     'VadDevicePhysicalMemory',
@@ -94,7 +94,7 @@ class VADInfo(taskmods.DllList):
         config.add_option('ADDR', short_option = 'a', default = None,
                           help = 'Show info on VAD at or containing this address',
                           action = 'store', type = 'int')
-                          
+
     def unified_output(self, data):
         return TreeGrid([("Pid", int),
                        ("VADNodeAddress", Address),
@@ -121,12 +121,12 @@ class VADInfo(taskmods.DllList):
     def generator(self, data):
         for task in data:
             for vad in task.VadRoot.traverse():
-                if (self._config.ADDR is not None and 
-                            (self._config.ADDR < vad.Start or 
+                if (self._config.ADDR is not None and
+                            (self._config.ADDR < vad.Start or
                             self._config.ADDR > vad.End)):
                     continue
-                if vad != None:    
-                    #Init vad control and ext variables 
+                if vad != None:
+                    #Init vad control and ext variables
                     controlAreaAddr = 0
                     segmentAddr = 0
                     numberOfSectionReferences = -1
@@ -140,27 +140,27 @@ class VADInfo(taskmods.DllList):
                     lastContiguousPteAddr = 0
                     flags2 = ""
                     vadType = ""
-                    
+
                     protection = PROTECT_FLAGS.get(vad.VadFlags.Protection.v(), hex(vad.VadFlags.Protection))
-                    
-                    
+
+
                     # translate the vad type if its available (> XP)
                     if hasattr(vad.VadFlags, "VadType"):
                         vadType = MI_VAD_TYPE.get(vad.VadFlags.VadType.v(), hex(vad.VadFlags.VadType))
 
                     try:
                         control_area = vad.ControlArea
-                        # even if the ControlArea is not NULL, it is only meaningful 
-                        # for shared (non private) memory sections. 
-                        if vad.VadFlags.PrivateMemory != 1 and control_area:                
-                            if control_area:        
+                        # even if the ControlArea is not NULL, it is only meaningful
+                        # for shared (non private) memory sections.
+                        if vad.VadFlags.PrivateMemory != 1 and control_area:
+                            if control_area:
                                 controlAreaAddr = control_area.dereference().obj_offset
                                 segmentAddr = control_area.Segment
                                 numberOfSectionReferences = control_area.NumberOfSectionReferences
                                 numberOfPfnReferences = control_area.NumberOfPfnReferences
                                 numberOfMappedViews = control_area.NumberOfMappedViews
                                 numberOfUserReferences = control_area.NumberOfUserReferences
-                                controlFlags = control_area.u.Flags 
+                                controlFlags = control_area.u.Flags
                                 file_object = vad.FileObject
 
                                 if file_object:
@@ -195,15 +195,15 @@ class VADInfo(taskmods.DllList):
                             Address(firstPrototypePteAddr),
                             Address(lastContiguousPteAddr),
                             str(flags2 or '')])
-                
-                
+
+
     def render_text(self, outfd, data):
         for task in data:
             outfd.write("*" * 72 + "\n")
             outfd.write("Pid: {0:6}\n".format(task.UniqueProcessId))
             for vad in task.VadRoot.traverse():
-                if (self._config.ADDR is not None and 
-                            (self._config.ADDR < vad.Start or 
+                if (self._config.ADDR is not None and
+                            (self._config.ADDR < vad.Start or
                             self._config.ADDR > vad.End)):
                     continue
                 if vad == None:
@@ -243,7 +243,7 @@ class VADInfo(taskmods.DllList):
                               vad.Tag)
         outfd.write("Flags: {0}\n".format(str(vad.VadFlags)))
         # although the numeric value of Protection is printed above with VadFlags,
-        # let's show the user a human-readable translation of the protection 
+        # let's show the user a human-readable translation of the protection
         outfd.write("Protection: {0}\n".format(PROTECT_FLAGS.get(vad.VadFlags.Protection.v(), hex(vad.VadFlags.Protection))))
         # translate the vad type if its available (> XP)
         if hasattr(vad.VadFlags, "VadType"):
@@ -252,8 +252,8 @@ class VADInfo(taskmods.DllList):
     def write_vad_control(self, outfd, vad):
         """Renders a text version of a (non-short) Vad's control information"""
 
-        # even if the ControlArea is not NULL, it is only meaningful 
-        # for shared (non private) memory sections. 
+        # even if the ControlArea is not NULL, it is only meaningful
+        # for shared (non private) memory sections.
         if vad.VadFlags.PrivateMemory == 1:
             return
 
@@ -310,7 +310,7 @@ class VADTree(VADInfo):
             modules = [mod.DllBase for mod in task.get_load_modules()]
             stacks = []
             for thread in task.ThreadListHead.list_of_type("_ETHREAD", "ThreadListEntry"):
-                teb = obj.Object("_TEB", 
+                teb = obj.Object("_TEB",
                                  offset = thread.Tcb.Teb,
                                  vm = task.get_process_address_space())
                 if teb:
@@ -331,13 +331,13 @@ class VADTree(VADInfo):
                                 if vad.FileObject.FileName:
                                     fillcolor = "yellow"
                             except AttributeError:
-                                pass                        
+                                pass
                         outfd.write("vad_{0:08x} [label = \"{{ {1}\\n{2:08x} - {3:08x} }}\""
                                 "shape = \"record\" color = \"blue\" style = \"filled\" fillcolor = \"{4}\"];\n".format(
                         vad.obj_offset,
                         vad.Tag,
                         vad.Start,
-                        vad.End, 
+                        vad.End,
                         fillcolor))
 
             outfd.write("}\n")
@@ -382,38 +382,38 @@ class VADDump(VADInfo):
         config.add_option('BASE', short_option = 'b', default = None,
                           help = 'Dump VAD with BASE address (in hex)',
                           action = 'store', type = 'int')
-        config.add_option('MAX-SIZE', short_option = 'M', default = 0x40000000, 
-                          action = 'store', type = 'long', 
-                          help = 'Set the maximum size (default is 1GB)') 
+        config.add_option('MAX-SIZE', short_option = 'M', default = 0x40000000,
+                          action = 'store', type = 'long',
+                          help = 'Set the maximum size (default is 1GB)')
 
     def dump_vad(self, path, vad, address_space):
         """
-        Dump an MMVAD to a file. 
+        Dump an MMVAD to a file.
 
-        @param path: full path to output file 
+        @param path: full path to output file
         @param vad: an MMVAD object
         @param address_space: process AS for the vad
 
         The purpose of this function is to read medium
-        sized vad chunks and write them immediately to 
-        a file, rather than building a large buffer in 
+        sized vad chunks and write them immediately to
+        a file, rather than building a large buffer in
         memory and then flushing it at once. This prevents
         our own analysis process from consuming massive
-        amounts of memory for large vads. 
+        amounts of memory for large vads.
 
         @returns path to the image file on success or
         an error message stating why the file could not
-        be dumped. 
+        be dumped.
         """
 
         fh = open(path, "wb")
         if fh:
             offset = vad.Start
-            out_of_range = vad.Start + vad.Length 
+            out_of_range = vad.Start + vad.Length
             while offset < out_of_range:
                 to_read = min(constants.SCAN_BLOCKSIZE, out_of_range - offset)
                 data = address_space.zread(offset, to_read)
-                if not data: 
+                if not data:
                     break
                 fh.write(data)
                 offset += to_read
@@ -421,7 +421,7 @@ class VADDump(VADInfo):
             return path
         else:
             return "Cannot open {0} for writing".format(path)
-        
+
     def render_text(self, outfd, data):
         if self._config.DUMP_DIR == None:
             debug.error("Please specify a dump directory (--dump-dir)")
@@ -437,8 +437,8 @@ class VADDump(VADInfo):
                            ])
 
         for task in data:
-            # Walking the VAD tree can be done in kernel AS, but to 
-            # carve the actual data, we need a valid process AS. 
+            # Walking the VAD tree can be done in kernel AS, but to
+            # carve the actual data, we need a valid process AS.
             task_space = task.get_process_address_space()
             if not task_space:
                 outfd.write("Unable to get process AS for {0}\n".format(task.UniqueProcessId))
@@ -472,7 +472,7 @@ class VADDump(VADInfo):
 
                 result = self.dump_vad(path, vad, task_space)
 
-                self.table_row(outfd, 
-                               task.UniqueProcessId, 
-                               task.ImageFileName, 
+                self.table_row(outfd,
+                               task.UniqueProcessId,
+                               task.ImageFileName,
                                vad.Start, vad.End, result)

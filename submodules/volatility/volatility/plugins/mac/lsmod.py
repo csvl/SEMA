@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -34,7 +34,7 @@ class mac_lsmod(common.AbstractMacCommand):
 
     def __init__(self, config, *args, **kwargs):
         common.AbstractMacCommand.__init__(self, config, *args, **kwargs)
-        
+
         config.add_option('ADDR', short_option = 'a', default = None, help = 'Show info on VAD at or containing this address', action = 'store', type = 'int')
 
     def calculate(self):
@@ -45,7 +45,7 @@ class mac_lsmod(common.AbstractMacCommand):
         if kmodaddr == None:
             return
 
-        kmod = kmodaddr.dereference_as("kmod_info") 
+        kmod = kmodaddr.dereference_as("kmod_info")
 
         seen = []
         ctr  = 0
@@ -63,7 +63,7 @@ class mac_lsmod(common.AbstractMacCommand):
             if not self._config.ADDR or (kmod.address <= self._config.ADDR <= (kmod.address + kmod.m("size"))):
                 yield kmod
 
-            kmod = kmod.next
+            kmod = kmod.__next__
 
     def unified_output(self, data):
         return TreeGrid([("Offset (V)", Address),
@@ -86,16 +86,16 @@ class mac_lsmod(common.AbstractMacCommand):
 
     def render_text(self, outfd, data):
         self.table_header(outfd, [("Offset (V)", "[addrpad]"),
-                                  ("Module Address", "[addrpad]"), 
-                                  ("Size", "8"), 
+                                  ("Module Address", "[addrpad]"),
+                                  ("Size", "8"),
                                   ("Refs", "^8"),
-                                  ("Version", "12"),  
+                                  ("Version", "12"),
                                   ("Name", "")])
         for kmod in data:
             self.table_row(outfd,
-                           kmod, 
-                           kmod.address, 
-                           kmod.m('size'), 
-                           kmod.reference_count, 
-                           kmod.version, 
+                           kmod,
+                           kmod.address,
+                           kmod.m('size'),
+                           kmod.reference_count,
+                           kmod.version,
                            kmod.name)

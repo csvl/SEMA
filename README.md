@@ -1,19 +1,19 @@
-# :skull_and_crossbones: SEMA :skull_and_crossbones: - ToolChain using Symbolic Execution for Malware Analysis. 
+# :skull_and_crossbones: SEMA :skull_and_crossbones: - ToolChain using Symbolic Execution for Malware Analysis.
 
 ```
-  ██████ ▓█████  ███▄ ▄███▓ ▄▄▄      
-▒██    ▒ ▓█   ▀ ▓██▒▀█▀ ██▒▒████▄    
-░ ▓██▄   ▒███   ▓██    ▓██░▒██  ▀█▄  
-  ▒   ██▒▒▓█  ▄ ▒██    ▒██ ░██▄▄▄▄██ 
+  ██████ ▓█████  ███▄ ▄███▓ ▄▄▄
+▒██    ▒ ▓█   ▀ ▓██▒▀█▀ ██▒▒████▄
+░ ▓██▄   ▒███   ▓██    ▓██░▒██  ▀█▄
+  ▒   ██▒▒▓█  ▄ ▒██    ▒██ ░██▄▄▄▄██
 ▒██████▒▒░▒████▒▒██▒   ░██▒ ▓█   ▓██▒
 ▒ ▒▓▒ ▒ ░░░ ▒░ ░░ ▒░   ░  ░ ▒▒   ▓▒█░
 ░ ░▒  ░ ░ ░ ░  ░░  ░      ░  ▒   ▒▒ ░
-░  ░  ░     ░   ░      ░     ░   ▒   
+░  ░  ░     ░   ░      ░     ░   ▒
       ░     ░  ░       ░         ░  ░
-                                     
+
 ```
-                                                                                                               
-                                   
+
+
 # :books:  Documentation
 
 1. [ Architecture ](#arch)
@@ -38,13 +38,13 @@
 <a name="arch_std"></a>
 
 
-##### Main depencies: 
+##### Main depencies:
 
     * Python 3.8 (angr)
 
     * KVM/QEMU
 
-    * Docker, docker buildx, docker compose 
+    * Docker, docker buildx, docker compose
 
 ##### Interesting links
 
@@ -107,7 +107,7 @@ Password for archive is "infected". Warning : it contains real samples of malwar
 
 ```bash
 #To zip back the test database
-cd databases/Binaries; bash compress_db.sh 
+cd databases/Binaries; bash compress_db.sh
 ```
 
 :page_with_curl: `SEMA - ToolChain`
@@ -119,7 +119,7 @@ Our toolchain is represented in the next figure  and works as follow. A collecti
 
 ### How to use ?
 
-First launch the containers : 
+First launch the containers :
 ```bash
 make run-toolchain
 ```
@@ -155,7 +155,7 @@ pypy3 SemaSCDG.py configs/config.ini
 ```
 
 The parameters are put in a configuration file : `configs/config.ini`
-Feel free to modify it or create new configuration files to run different experiments. 
+Feel free to modify it or create new configuration files to run different experiments.
 To restore the default values of `config.ini` do :
 ```bash
 python3 restore_defaults.py
@@ -225,14 +225,14 @@ Global parameter:
   is_packed                     Is the binary packed ? (default : False, not yet supported)
   timeout                       Timeout in seconds before ending extraction (default : 600)
   string_resolve                Do we try to resolv references of string (default : True)
-  log_level                     Level of log, can be INFO, DEBUG, WARNING, ERROR (default : INFO) 
+  log_level                     Level of log, can be INFO, DEBUG, WARNING, ERROR (default : INFO)
   family                        Family of the malware (default : Unknown)
   exp_dir                       Name of the directory to save SCDG extracted (default : Default)
   binary_path                   Relative path to the binary or directory (has to be in the database folder)
-  fast_main                     Jump directly into the main function 
-  
+  fast_main                     Jump directly into the main function
+
 Plugins:
-  plugin_env_var          Enable the env_var plugin 
+  plugin_env_var          Enable the env_var plugin
   plugin_locale_info      Enable the locale_info plugin
   plugin_resources        Enable the resources plugin
   plugin_widechar         Enable the widechar plugin
@@ -276,7 +276,7 @@ There is a jupyter notebook providing a tutorial on how to use the scdg. To laun
 make run-scdg
 ```
 
-Then, inside the docker, run 
+Then, inside the docker, run
 ```bash
 jupyter notebook --ip=0.0.0.0 --port=5001 --no-browser --allow-root --NotebookApp.token=''
 ```
@@ -298,7 +298,7 @@ Another classifier we use is the Support Vector Machine (`SVM`) with INRIA graph
 
 ### How to use ?
 
-Just run the script : 
+Just run the script :
 ```bash
 python3 SemaClassifier.py FOLDER/FILE
 
@@ -419,6 +419,6 @@ Main authors of the projects:
 
 * **Oreins Manon** (UCLouvain)
 
-Under the supervision and with the support of **Fabrizio Biondi** (Avast) 
+Under the supervision and with the support of **Fabrizio Biondi** (Avast)
 
 Under the supervision and with the support of our professor **Axel Legay** (UCLouvain) (:heart:)

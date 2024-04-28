@@ -78,4 +78,4 @@ class SqliteRenderer(Renderer):
                      ", ".join(['"' + self._sanitize_name(i.name) + '"' for i in grid.columns]) + ") " + \
                      " VALUES (?, " + ", ".join(["?"] * (len(self._accumulator[1][0])-1)) + ")"
             self._db.executemany(insert, self._accumulator[1])
-            self._db.execute("COMMIT TRANSACTION")  
+            self._db.execute("COMMIT TRANSACTION")

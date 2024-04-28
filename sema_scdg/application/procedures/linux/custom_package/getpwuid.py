@@ -21,7 +21,7 @@ class getpwuid(angr.SimProcedure):
             char *pw_dir;
             char *pw_shell;
             time_t pw_expire;
-        }; 
+        };
         """
         passwd_struc = self.state.solver.BVV(50) # TODO better struct
         ret_len = len(50)

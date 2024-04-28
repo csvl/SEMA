@@ -58,14 +58,14 @@ void _debug_msg(const char *format,...)
     }
 }
 
-void _die(const char* format,...) 
+void _die(const char* format,...)
 {
     va_list va;
     va_start(va,format);
     vfprintf(stderr,format,va);
     va_end(va);
     printf("\n");
-    
+
     exit(1);
 }
 
@@ -75,7 +75,7 @@ void _do_startup_checks(void)
         _die("This program must be run as root");
 
     if (access("/proc/kcore", F_OK) == -1)
-        _die("/proc/kcore does not exist");  
+        _die("/proc/kcore does not exist");
 }
 
 void _write_lime_header(int out_fd, unsigned long long phys_off, unsigned long long size)
@@ -83,7 +83,7 @@ void _write_lime_header(int out_fd, unsigned long long phys_off, unsigned long l
     lime_range l;
 
     l.magic   = 0x4C694D45;
-    l.version = 1; 
+    l.version = 1;
     l.s_addr  = phys_off;
     l.e_addr  = phys_off + size - 1;
     memset(&l.reserved, 0x00, sizeof(l.reserved));
@@ -92,7 +92,7 @@ void _write_lime_header(int out_fd, unsigned long long phys_off, unsigned long l
 
     if (write(out_fd, &l, sizeof(l)) != sizeof(l))
         _die("_write_lime_header: Error writing header for offset: %x", phys_off);
-} 
+}
 
 void _read_write_region(int kcore_fd, int out_fd, Elf64_Phdr *p, unsigned long long phys_start, unsigned char *read_buf)
 {
@@ -103,7 +103,7 @@ void _read_write_region(int kcore_fd, int out_fd, Elf64_Phdr *p, unsigned long l
 
     // seek to the offset where the region is
     if (lseek64(kcore_fd, p->p_offset, 0) != (off_t)p->p_offset)
-        _die("_read_write_region: Unable to seek to file offset %llx", p->p_offset); 
+        _die("_read_write_region: Unable to seek to file offset %llx", p->p_offset);
 
     wrote = 0;
 
@@ -111,7 +111,7 @@ void _read_write_region(int kcore_fd, int out_fd, Elf64_Phdr *p, unsigned long l
     while (wrote < p->p_memsz)
     {
         memset(read_buf, 0x00, chunk_size);
-        
+
         left = p->p_memsz - wrote;
 
         if (left < chunk_size)
@@ -122,16 +122,16 @@ void _read_write_region(int kcore_fd, int out_fd, Elf64_Phdr *p, unsigned long l
         rw_sz = read(kcore_fd, read_buf, to_read);
 
         if (rw_sz != to_read)
-            _die("_read_write_region: Requested to read %llx bytes from %llx | %llx but received %llx", to_read, phys_start, phys_start + wrote, rw_sz); 
+            _die("_read_write_region: Requested to read %llx bytes from %llx | %llx but received %llx", to_read, phys_start, phys_start + wrote, rw_sz);
 
         rw_sz = write(out_fd, read_buf, to_read);
 
         if (rw_sz != to_read)
-            _die("_read_write_region: Requested to write %llx bytes from %llx | %llx but wrote %llx", to_read, phys_start, phys_start + wrote, rw_sz); 
+            _die("_read_write_region: Requested to write %llx bytes from %llx | %llx but wrote %llx", to_read, phys_start, phys_start + wrote, rw_sz);
 
         wrote = wrote + to_read;
     }
-    
+
     printf("Wrote %llu bytes from %llx\n", wrote, phys_start);
 
 }
@@ -139,7 +139,7 @@ void _read_write_region(int kcore_fd, int out_fd, Elf64_Phdr *p, unsigned long l
 void _process_header(int kcore_fd, int out_fd, unsigned long long phdr_addr, unsigned long long phys_start, unsigned char *read_buf)
 {
     Elf64_Phdr p;
- 
+
     if (lseek64(kcore_fd, phdr_addr, 0) != (off_t)phdr_addr)
         _die("_process_header: Unable to seek to program header's offset: %x", phdr_addr);
 
@@ -150,9 +150,9 @@ void _process_header(int kcore_fd, int out_fd, unsigned long long phdr_addr, uns
     {
         _write_lime_header(out_fd, phys_start, p.p_memsz);
         _read_write_region(kcore_fd, out_fd, &p, phys_start, read_buf);
-    }       
+    }
 }
- 
+
 void _write_region(int kcore_fd, int out_fd, unsigned long long phys_start, unsigned char *read_buf)
 {
     Elf64_Ehdr h;
@@ -163,7 +163,7 @@ void _write_region(int kcore_fd, int out_fd, unsigned long long phys_start, unsi
 
     if (read(kcore_fd, &h, sizeof(h)) != sizeof(h))
         _die("_write_region: Unable to read ELF header for offset: %llx\n", phys_start);
- 
+
     for (i = 0; i < h.e_phnum; i++)
         _process_header(kcore_fd, out_fd, h.e_phoff + (i * sizeof(Elf64_Phdr)), phys_start, read_buf);
 
@@ -178,7 +178,7 @@ char *_read_proc_iomem(void)
     fd = open("/proc/iomem", O_RDONLY);
 
     if (fd == -1)
-        _die("_read_proc_iomem: Unable to open /proc/iomem");  
+        _die("_read_proc_iomem: Unable to open /proc/iomem");
 
     size = 1000000;
 
@@ -197,16 +197,16 @@ char *_read_proc_iomem(void)
     return contents;
 }
 
-// Parses /proc/iomem and calls _write_region with each found 
+// Parses /proc/iomem and calls _write_region with each found
 void _dump_ranges(int kcore_fd, int out_fd, unsigned char *read_buf)
 {
     off_t size;
     off_t curoff;
     char *contents;
     char *cur;
-    char *curn; 
+    char *curn;
     char *intbuf;
-    char *dash;   
+    char *dash;
     unsigned long long start;
     unsigned long long end;
 
@@ -230,10 +230,10 @@ void _dump_ranges(int kcore_fd, int out_fd, unsigned char *read_buf)
         // skip to next line if not RAM
         if (strstr(cur, "System RAM") == NULL)
         {
-            curoff = curoff + curn - cur + 1; 
-            continue;        
+            curoff = curoff + curn - cur + 1;
+            continue;
         }
-        
+
         // 00100000-3fedffff : System RAM
         intbuf = strstr(cur, " ");
         dash = strstr(cur, "-");
@@ -250,8 +250,8 @@ void _dump_ranges(int kcore_fd, int out_fd, unsigned char *read_buf)
         _debug_msg("Found RAM at start: %llx end: %llx", start, end);
 
         _write_region(kcore_fd, out_fd, start, read_buf);
-            
-        curoff = curoff + curn - cur + 1; 
+
+        curoff = curoff + curn - cur + 1;
     }
 }
 
@@ -264,7 +264,7 @@ int create_memory_dump(char *outfile)
     read_buf = malloc(chunk_size);
     if (read_buf == NULL)
         _die("_create_memory_dump: Unable to allocate /proc/kcore read buffer");
- 
+
     _do_startup_checks();
 
     kcore_fd = open("/proc/kcore", O_RDONLY);
@@ -285,10 +285,9 @@ int create_memory_dump(char *outfile)
 int main(int argc, char **argv)
 {
     if (argc < 2)
-        _die("Usage: ./getkcore <output file name>");  
+        _die("Usage: ./getkcore <output file name>");
 
     create_memory_dump(argv[1]);
-    
+
     return 0;
 }
-

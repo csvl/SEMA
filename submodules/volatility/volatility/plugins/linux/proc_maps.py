@@ -39,7 +39,7 @@ class linux_proc_maps(linux_pslist.linux_pslist):
         for task in tasks:
             if task.mm:
                 for vma in task.get_proc_maps():
-                    yield task, vma            
+                    yield task, vma
 
     def unified_output(self, data):
         return TreeGrid([("Offset",Address),
@@ -82,8 +82,8 @@ class linux_proc_maps(linux_pslist.linux_pslist):
                                   ("Major", "6"),
                                   ("Minor", "6"),
                                   ("Inode", "10"),
-                                  ("File Path", ""),                    
-                                 ]) 
+                                  ("File Path", ""),
+                                 ])
         for task, vma in data:
             (fname, major, minor, ino, pgoff) = vma.info(task)
 

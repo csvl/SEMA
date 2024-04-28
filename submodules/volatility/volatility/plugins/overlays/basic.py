@@ -74,7 +74,7 @@ class String(obj.BaseObject):
 
     def __len__(self):
         """This returns the length of the string"""
-        return len(unicode(self))
+        return len(str(self))
 
     def __str__(self):
         """
@@ -83,13 +83,13 @@ class String(obj.BaseObject):
 
         Note: this effectively masks the NoneObject alert from .v()
         """
-        return unicode(self).encode('ascii', 'replace') or ""
+        return str(self).encode('ascii', 'replace') or ""
 
     def __unicode__(self):
         """ This function returns the unicode encoding of the data retrieved by .v()
-            Any unusual characters in the input are replaced with \ufffd.
+            Any unusual characters in the input are replaced with \\ufffd.
         """
-        return self.v().decode(self.encoding, 'replace').split("\x00", 1)[0] or u''
+        return self.v().decode(self.encoding, 'replace').split("\x00", 1)[0] or ''
 
     def __format__(self, formatspec):
         return format(self.__str__(), formatspec)
@@ -132,7 +132,7 @@ class Flags(obj.NativeType):
     def __str__(self):
         result = []
         value = self.v()
-        keys = self.bitmap.keys()
+        keys = list(self.bitmap.keys())
         keys.sort()
         for k in keys:
             if value & (1 << self.bitmap[k]):
@@ -185,7 +185,7 @@ class Enumeration(obj.NativeType):
 
     def __str__(self):
         value = self.v()
-        if value in self.choices.keys():
+        if value in list(self.choices.keys()):
             return self.choices[value]
         return 'Unknown choice ' + str(value)
 
@@ -195,7 +195,7 @@ class Enumeration(obj.NativeType):
 
 class VOLATILITY_MAGIC(obj.CType):
     """Class representing a VOLATILITY_MAGIC namespace
-    
+
        Needed to ensure that the address space is not verified as valid for constants
     """
     def __init__(self, theType, offset, vm, **kwargs):
@@ -229,7 +229,7 @@ class VolatilityDTB(obj.VolatilityMagic):
 
             offset += len(data)
             if offset >= max_offset:
-                break 
+                break
             data = self.obj_vm.zread(offset, constants.SCAN_BLOCKSIZE)
 
 class UnixTimeStamp(obj.NativeType):
@@ -242,7 +242,7 @@ class UnixTimeStamp(obj.NativeType):
     def v(self):
         return obj.NativeType.v(self)
 
-    def __nonzero__(self):
+    def __bool__(self):
         return self.v() != 0
 
     def __str__(self):
@@ -254,7 +254,7 @@ class UnixTimeStamp(obj.NativeType):
             if self.is_utc:
                 # Only do dt.replace when dealing with UTC
                 dt = dt.replace(tzinfo = timefmt.UTC())
-        except ValueError, e:
+        except ValueError as e:
             return obj.NoneObject("Datetime conversion failure: " + str(e))
         return dt
 
@@ -266,16 +266,16 @@ class UnixTimeStamp(obj.NativeType):
         return "-"
 
 class VolatilityMaxAddress(obj.VolatilityMagic):
-    """The maximum address of a profile's 
-    underlying AS. 
+    """The maximum address of a profile's
+    underlying AS.
 
     On x86 this is 0xFFFFFFFF (2 ** 32) - 1
-    On x64 this is 0xFFFFFFFFFFFFFFFF (2 ** 64) - 1 
+    On x64 this is 0xFFFFFFFFFFFFFFFF (2 ** 64) - 1
 
-    We use a VolatilityMagic to calculate this 
-    based on the size of an address, since that's 
+    We use a VolatilityMagic to calculate this
+    based on the size of an address, since that's
     something we can already rely on being set
-    properly for the AS. 
+    properly for the AS.
     """
 
     def generate_suggestions(self):

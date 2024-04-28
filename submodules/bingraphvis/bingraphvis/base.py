@@ -25,25 +25,25 @@ class Node(object):
             self.cluster.remove_node(self)
         cluster.add_node(self)
         node.cluster = cluster
-        
+
     def __eq__(self, other):
         return self.obj.__eq__(other.obj) and self.seq == other.seq
 
     def __hash__(self):
         return self.obj.__hash__()
-    
+
 class Edge(object):
     def __init__(self, src, dst, meta = {}, color=None, label=None, style=None, width=None, weight=None):
         self.src = src
         self.dst = dst
         self.meta = meta
-        
+
         self.color = color
         self.label = label
         self.style = style
         self.width = width
         self.weight = weight
-        
+
     def __eq__(self, other):
         return self.src == other.src and self.dst == other.dst
 
@@ -53,7 +53,7 @@ class Edge(object):
 class Source(object):
     def __init__(self):
         pass
-        
+
     def set_vis(self, vis):
         self.vis = vis
 
@@ -64,28 +64,28 @@ class Source(object):
 class NodeAnnotator(object):
     def __init__(self):
         self.graph = None
-        
+
     def set_graph(self, graph):
         self.graph = graph
-        
+
     def annotate_node(self, node):
         raise NotImplementedError('annotate_node() is not implemented.')
 
-                
+
 class EdgeAnnotator(object):
     def __init__(self):
         self.graph = None
-        
+
     def set_graph(self, graph):
         self.graph = graph
-    
+
     def annotate_edge(self, edge):
         raise NotImplementedError('annotate_edge() is not implemented.')
 
 class Transformer(object):
     def __init__(self):
         pass
-        
+
     def transform(self, graph):
         raise NotImplementedError('transform() is not implemented.')
 
@@ -93,7 +93,7 @@ class Transformer(object):
 class Clusterer(object):
     def __init__(self):
         pass
-        
+
     def cluster(self, graph):
         raise NotImplementedError('cluster() is not implemented.')
 
@@ -103,7 +103,7 @@ class Content(object):
         self.name = name
         self.columns = columns
         self.annotators = []
-        
+
     def get_columns(self):
         return self.columns
 
@@ -114,11 +114,11 @@ class Content(object):
     def add_column_before(self, column):
         if column not in self.columns:
             self.columns.insert(0, column)
-        
+
     def add_annotator(self, obj):
         obj.register(self)
         self.annotators.append(obj)
-    
+
     def render(self, n):
         self.gen_render(n)
         for an in self.annotators:
@@ -146,7 +146,7 @@ class Cluster(object):
         self.label = label
         self.style = None;
         self.fillcolor = None;
-        
+
     def add_node(self, node):
         self.nodes.add(node)
         node.cluster = self
@@ -175,22 +175,22 @@ class Graph(object):
             return self.clusters[key]
         else:
             return None
-    
+
     def get_clusters(self, parent=None):
         return list(filter(lambda c:c.parent==parent, self.clusters.values()))
-        
+
     def add_node(self, node):
         self.nodes.add(node)
         if node.cluster:
             node.cluster.add_node(node)
-        
+
     def add_edge(self, edge):
         self.edges.append(edge)
-        
+
     def remove_node(self, node):
         self.nodes.remove(node)
         self.edges = list(filter(lambda edge: edge.src != node and edge.dst != node, self.edges))
-        
+
     def remove_edge(self, edge):
         self.edges.remove(edge)
 
@@ -204,10 +204,10 @@ class Graph(object):
         nodes = list(filter(lambda _: node_filter(_), self.nodes))
         edges = list(filter(lambda edge: node_filter(edge.src) and node_filter(edge.dst), self.edges))
         return Graph(nodes, edges)
-    
+
 
 class VisPipeLine(object):
-        
+
     def __init__(self):
         self.content = OrderedDict()
         self.node_annotators = []
@@ -215,17 +215,17 @@ class VisPipeLine(object):
         self.transformers = []
         self.clusterers = []
         self.graph = Graph()
-        
+
     def set_source(self, source):
         if not isinstance(source, Source):
             raise VisError("Incompatible source type '%s'" % type(obj))
         self.source = source
-        
+
     def add_content(self, obj):
         if not isinstance(obj, Content):
             raise VisError("Incompatible content type '%s'" % type(obj))
         self.content[obj.name] = obj
-    
+
     def add_node_annotator(self, obj):
         if not isinstance(obj, NodeAnnotator):
             raise VisError("Incompatible node annotator type '%s'" % type(obj))
@@ -244,7 +244,7 @@ class VisPipeLine(object):
         self.clusterers.append(obj)
         return self
 
-    
+
     def add_content_annotator(self, obj):
         if not isinstance(obj, ContentAnnotator):
             raise VisError("Incompatible content annotator type '%s'" % type(obj))
@@ -254,7 +254,7 @@ class VisPipeLine(object):
         self.content[cname].add_annotator(obj)
         return self
 
-        
+
     def add_transformer(self, obj):
         if not isinstance(obj, Transformer):
             raise VisError("Incompatible transformer type '%s'" % type(obj))
@@ -277,10 +277,10 @@ class VisPipeLine(object):
 
         for ea in self.edge_annotators:
             ea.set_graph(graph)
-            
+
         for na in self.node_annotators:
             na.set_graph(graph)
-            
+
         for n in graph.nodes:
             for c in self.content.values():
                 c.render(n)
@@ -292,27 +292,27 @@ class VisPipeLine(object):
                 ea.annotate_edge(e)
         for c in self.clusterers:
             c.cluster(graph)
-        
+
         return graph
-        
-        
+
+
 class Vis(object):
     def __init__(self):
         self.pipeline = VisPipeLine()
-    
+
     def preprocess(self, obj):
         self.pipeline.preprocess(obj)
-        
+
     def process(self, obj=None, filter=None):
         if obj:
             self.preprocess(obj)
-        graph = self.pipeline.process(filter=filter)        
+        graph = self.pipeline.process(filter=filter)
         return self.output.generate(graph)
 
     def set_source(self, source):
         self.pipeline.set_source(source)
         return self
-        
+
     def add_content(self, obj):
         self.pipeline.add_content(obj)
         return self
@@ -332,7 +332,7 @@ class Vis(object):
     def add_clusterer(self, obj):
         self.pipeline.add_clusterer(obj)
         return self
-        
+
     def add_transformer(self, obj):
         self.pipeline.add_transformer(obj)
         return self

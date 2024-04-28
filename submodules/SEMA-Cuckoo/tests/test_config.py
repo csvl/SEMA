@@ -1206,15 +1206,15 @@ class FullMigration(object):
         cfg = migrate(cfg, self.VERSION)
 
         # Ensure that all values exist and that have the correct types.
-        for filename, sections in Config.configuration.items():
+        for filename, sections in list(Config.configuration.items()):
             assert filename in cfg
-            for section, entries in sections.items():
+            for section, entries in list(sections.items()):
                 # We check machines and VPNs manually later on.
                 if section == "*" or section == "__star__":
                     continue
 
                 assert section in cfg[filename]
-                for key, value in entries.items():
+                for key, value in list(entries.items()):
                     if key not in cfg[filename][section]:
                         continue
                     actual_value = cfg[filename][section][key]
@@ -1232,7 +1232,7 @@ class FullMigration(object):
                 if isinstance(type_, (tuple, list)):
                     type_ = type_[0]
 
-                for key, value in cfg[machinery][machine].items():
+                for key, value in list(cfg[machinery][machine].items()):
                     assert value == type_[key].parse(value)
 
         for vpn in cfg["routing"]["vpn"]["vpns"]:
@@ -1241,7 +1241,7 @@ class FullMigration(object):
             if isinstance(type_, (tuple, list)):
                 type_ = type_[0]
 
-            for key, value in cfg["routing"][vpn].items():
+            for key, value in list(cfg["routing"][vpn].items()):
                 assert value == type_[key].parse(value)
 
     def test_write_configuration(self):
@@ -1496,7 +1496,7 @@ def test_incomplete_envvar():
     })
 
     # Clear cache.
-    for key in _cache.keys():
+    for key in list(_cache.keys()):
         del _cache[key]
 
     with pytest.raises(CuckooConfigurationError) as e:

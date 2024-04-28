@@ -21,7 +21,7 @@
 @author:       Andrew Case
 @license:      GNU General Public License 2.0
 @contact:      atcuno@gmail.com
-@organization: 
+@organization:
 """
 
 import volatility.obj as obj
@@ -32,7 +32,7 @@ from volatility.renderers.basic import Address
 class mac_network_conns(common.AbstractMacCommand):
     """ Lists network connections from kernel network structures """
 
-    # in_pcblookup_hash - bsd/netinet/in_pcb.c 
+    # in_pcblookup_hash - bsd/netinet/in_pcb.c
     def _walk_pcb_hash(self, proto_pcbinfo):
         pcb_hash = obj.Object("Array", offset = proto_pcbinfo.hashbase, vm = self.addr_space, targetType = "Pointer", count = proto_pcbinfo.hashmask + 1)
 
@@ -46,40 +46,40 @@ class mac_network_conns(common.AbstractMacCommand):
 
             while inpcb:
                 yield inpcb
-                inpcb = inpcb.inp_hash.le_next 
+                inpcb = inpcb.inp_hash.le_next
 
-    # in_pcblookup_hash - bsd/netinet/in_pcb.c 
+    # in_pcblookup_hash - bsd/netinet/in_pcb.c
     def _walk_pcb_list(self, proto_pcbinfo):
         inpcb = proto_pcbinfo.listhead.lh_first.dereference_as("inpcb")
 
         while inpcb:
             yield inpcb
-            inpcb = inpcb.inp_list.le_next 
+            inpcb = inpcb.inp_list.le_next
 
     def _walk_pcb_entries(self, inpcbinfo_addr):
         pcbs = {}
-        
+
         inpcbinfo = obj.Object("inpcbinfo", offset = inpcbinfo_addr, vm = self.addr_space)
 
         for pcbinfo in self._walk_pcb_list(inpcbinfo):
             pcbs[pcbinfo.obj_offset] = pcbinfo
-    
+
         for pcbinfo in self._walk_pcb_hash(inpcbinfo):
             pcbs[pcbinfo.obj_offset] = pcbinfo
 
-        for pcbinfo in pcbs.values():
-            (lip, lport, rip, rport) = pcbinfo.ipv4_info() 
+        for pcbinfo in list(pcbs.values()):
+            (lip, lport, rip, rport) = pcbinfo.ipv4_info()
             yield (pcbinfo, lip, lport, rip, rport)
 
     def calculate(self):
-        common.set_plugin_members(self)    
+        common.set_plugin_members(self)
 
         entries = []
-        
+
         tcbinfo_addr   = self.addr_space.profile.get_symbol("_tcbinfo")
-        udbinfo_addr   = self.addr_space.profile.get_symbol("_udbinfo") 
+        udbinfo_addr   = self.addr_space.profile.get_symbol("_udbinfo")
         ripdbinfo_addr = self.addr_space.profile.get_symbol("_ripcbinfo")
-        
+
         info_addrs = [("TCP", tcbinfo_addr), ("UDP", udbinfo_addr), ("RAW", ripdbinfo_addr)]
 
         for (proto_str, info_addr) in info_addrs:
@@ -113,7 +113,7 @@ class mac_network_conns(common.AbstractMacCommand):
                 ])
 
     def render_text(self, outfd, data):
-        self.table_header(outfd, [("Offset (V)", "[addrpad]"), 
+        self.table_header(outfd, [("Offset (V)", "[addrpad]"),
                                   ("Protocol", "4"),
                                   ("Local IP", "20"),
                                   ("Local Port", "6"),
@@ -122,5 +122,5 @@ class mac_network_conns(common.AbstractMacCommand):
                                   ("State", ""),
                                  ])
 
-        for (proto, pcb, lip, lport, rip, rport, state) in data: 
+        for (proto, pcb, lip, lport, rip, rport, state) in data:
             self.table_row(outfd, pcb.obj_offset, proto, lip, lport, rip, rport, state)

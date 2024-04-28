@@ -24,7 +24,7 @@ import datetime
 #         # self.state.solver.add(dwHighDateTime >= 1)
 #         # self.state.solver.add(dwHighDateTime <= 12)
 #         self.state.memory.store(lpSystemTimeAsFileTime+4, dwHighDateTime, endness=self.state.arch.memory_endness)
-        
+
 #         # Return success
 #         return
 
@@ -46,4 +46,3 @@ class GetSystemTimeAsFileTime(angr.SimProcedure):
 
     def fill_symbolic(self):
         self.timestamp = self.state.solver.BVS('SystemTimeAsFileTime', 64, key=('api', 'SystemTimeAsFileTime'))
-

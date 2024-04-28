@@ -55,7 +55,7 @@ class Moloch(Report):
             for variant in results.get("virustotal", {}).get("normalized", []):
                 tags["virustotal"] = variant
 
-        for key, value in tags.items():
+        for key, value in list(tags.items()):
             args += [
                 "-t", "%s:%s" % (key, value),
             ]

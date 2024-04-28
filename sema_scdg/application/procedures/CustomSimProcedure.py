@@ -73,7 +73,7 @@ class CustomSimProcedure(ABC):
         "advapi32.dll": "advapi32.dll",
         "user32.dll": "user32.dll",
     }
-    
+
     EVASION_LIBS = [
         "dwmapi.dll",
         "avghookx.dll",
@@ -89,18 +89,18 @@ class CustomSimProcedure(ABC):
         "snxhk64.dll",
         "sxIn.dll"
     ]
- 
+
     ANGR_CALLING_CONVENTIONS_x86 = {
         "__stdcall": SimCCStdcall,
         "__cdecl": SimCCCdecl
     }
-    
+
     ANGR_CALLING_CONVENTIONS_x86_64 = {
         "__stdcall": SimCCStdcall,
         "__cdecl": SimCCCdecl,
-        "__fastcall": SimCCMicrosoftAMD64,# TODO 32 vs 64 bits 
+        "__fastcall": SimCCMicrosoftAMD64,# TODO 32 vs 64 bits
     }
-    
+
     FASTCALL_EXCEPTION = [
         "_initterm",
         "__getmainargs",
@@ -142,7 +142,7 @@ class CustomSimProcedure(ABC):
         This function returns a boolean indicating whether the system call table is already populated with data.
         """
         return len(self.system_call_table) > 0
-    
+
     def clear(self):
         """
         Clears all data structures within the object.
@@ -191,7 +191,7 @@ class CustomSimProcedure(ABC):
             "5": custom_pack["gen_simproc5"],
             "6": custom_pack["gen_simproc6"],
         }
-    
+
     def get_custom_sim_proc(self):
         """
         Returns a dictionary containing custom simulation procedures.
@@ -499,7 +499,3 @@ class CustomSimProcedure(ABC):
                 proj.simos.syscall_library.add(
                     name, generic[str(self.system_call_table[key]["num_args"])]
                 )
-
-
-
-

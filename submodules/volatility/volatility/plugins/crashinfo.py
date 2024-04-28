@@ -33,8 +33,8 @@ class _DMP_HEADER(obj.CType):
     def SystemUpTime(self):
         """Returns a string uptime"""
 
-        # Some utilities write PAGEPAGE to this field when 
-        # creating the dump header. 
+        # Some utilities write PAGEPAGE to this field when
+        # creating the dump header.
         if self.m('SystemUpTime') == 0x4547415045474150:
             return obj.NoneObject("No uptime recorded")
 
@@ -178,7 +178,7 @@ class CrashInfo(common.AbstractWindowsCommand):
         run = []
 
         ## FIXME. These runs differ for x86 vs x64. This is a reminder
-        ## for MHL or AW to fix it. 
+        ## for MHL or AW to fix it.
 
         for run in runs:
             outfd.write("{0:08x}      {1:08x}         {2:08x}\n".format(foffset, run[0], run[2]))

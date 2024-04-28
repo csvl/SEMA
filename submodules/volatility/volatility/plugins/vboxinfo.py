@@ -52,7 +52,7 @@ class VBoxInfo(crashinfo.CrashInfo):
         outfd.write("CPUs: {0}\n\n".format(header.cCpus))
 
         Command.render_text(self, outfd, data)
-    
+
 class QemuInfo(VBoxInfo):
     """Dump Qemu information"""
 

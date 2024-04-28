@@ -5,13 +5,13 @@ import json
 import logging
 
 import libvirt # VMs manager
-import sys 
+import sys
 import os
 import inspect
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 parentdir = os.path.dirname(currentdir)
-sys.path.insert(0, parentdir) 
+sys.path.insert(0, parentdir)
 
 from VMInterface import VMInterface
 
@@ -19,7 +19,7 @@ from VMInterface import VMInterface
 TODO volume should be deleted by hand for now
 """
 class KVMInterface(VMInterface):
-    def __init__(self, name: str, filename:str, config:str, config_vol:str, config_pool:str, image:str, 
+    def __init__(self, name: str, filename:str, config:str, config_vol:str, config_pool:str, image:str,
                  mem_mb=4194304, vcpu=2, capacity = 45, create_vm=False, user="user",password="user",guestos="linux"):
 
         self.user = user
@@ -36,12 +36,12 @@ class KVMInterface(VMInterface):
         self.vcpu = vcpu
         self.capacity = capacity
         # Maybe useless
-        self.localhost = kvm.Hypervisor(Linux(Local())) 
-        
+        self.localhost = kvm.Hypervisor(Linux(Local()))
+
         self.log = logging.getLogger("KVMInterface")
         self.log.setLevel("INFO")
         self.log.info(self.localhost.hypervisor.nodeinfo())
-        
+
         self.conn = None
         try:
             self.conn = libvirt.open('qemu:///system') #KVM-QEMU
@@ -51,13 +51,13 @@ class KVMInterface(VMInterface):
             exit(1)
 
         self.update_global_config(config)
-        
+
         self.update_pool_config(config_pool)
 
         self.update_volume_config(config_vol)
 
         self.dom = None
-        if create_vm: 
+        if create_vm:
             self.create_vm()
 
         self.get_vm_infos()
@@ -128,12 +128,12 @@ class KVMInterface(VMInterface):
             except libvirt.libvirtError as e:
                 self.log.info(e)
 
-            try:    
+            try:
                 self.pool.createXML(self.xml_vol_config, 0)
             except libvirt.libvirtError as e:
                 self.log.info(e)
-                
-            try:      
+
+            try:
                 self.dom = self.conn.defineXML(self.xml_config)
                 self.dom.create()
             except libvirt.libvirtError as e:

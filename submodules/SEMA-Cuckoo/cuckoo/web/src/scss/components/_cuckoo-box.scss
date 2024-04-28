@@ -1,4 +1,4 @@
-/* 
+/*
    Copyright (C) 2016 Cuckoo Foundation.
    This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
    see the file 'docs/LICENSE' for copying permission.
@@ -15,14 +15,14 @@
 		width: 100%;
 		border-radius: 3px;
 		border: 1px solid #D1D3D4;
-		font-weight: normal;	
+		font-weight: normal;
 	}
 
 	input[type="radio"],
 	input[type="checkbox"] {
 
-		&:empty { 
-			display: none; 
+		&:empty {
+			display: none;
 
 			& ~ label {
 				position: relative;
@@ -49,8 +49,8 @@
 			}
 		}
 
-		&:hover:not(:checked) ~ label { 
-			color: #888; 
+		&:hover:not(:checked) ~ label {
+			color: #888;
 			&:before {
 				content: '\2714';
 				text-indent: .9em;

@@ -1,1 +1,439 @@
-[{"0": {"status": "lost", "trace": [{"name": "main", "args": ["00825a2da08f9165a9f360a11e1e239e"], "addr": 4358154, "ret": "symbolic", "addr_func": 4358154}, {"name": "GetStartupInfoW", "args": [2147417640], "addr_func": "0x700358", "addr": "0x42a052", "ret": "None"}, {"name": "GetProcessHeap", "args": [], "addr_func": "0x70011c", "addr": "0x428dbc", "ret": "0x0"}, {"name": "EncodePointer", "args": [0], "addr_func": "0x70030c", "addr": "0x4233ca", "ret": 0}, {"name": "EncodePointer", "args": [4368176], "addr_func": "0x70030c", "addr": "0x42a769", "ret": 4368176}, {"name": "GetModuleHandleW", "args": ["kernel32.dll"], "addr_func": "0x700160", "addr": "0x42a0e0", "ret": 8392744}, {"name": "GetProcAddress", "args": [8392744, "FlsAlloc"], "addr_func": "0x700148", "addr": "0x42a0f4", "ret": 8392748}, {"name": "GetProcAddress", "args": [8392744, "FlsFree"], "addr_func": "0x700148", "addr": "0x42a107", "ret": 8392752}, {"name": "GetProcAddress", "args": [8392744, "FlsGetValue"], "addr_func": "0x700148", "addr": "0x42a11a", "ret": 8392756}, {"name": "GetProcAddress", "args": [8392744, "FlsSetValue"], "addr_func": "0x700148", "addr": "0x42a12d", "ret": 8392760}, {"name": "GetProcAddress", "args": [8392744, "InitializeCriticalSectionEx"], "addr_func": "0x700148", "addr": "0x42a140", "ret": 8392764}, {"name": "GetProcAddress", "args": [8392744, "CreateEventExW"], "addr_func": "0x700148", "addr": "0x42a153", "ret": 8392768}, {"name": "GetProcAddress", "args": [8392744, "CreateSemaphoreExW"], "addr_func": "0x700148", "addr": "0x42a166", "ret": 8392772}, {"name": "GetProcAddress", "args": [8392744, "SetThreadStackGuarantee"], "addr_func": "0x700148", "addr": "0x42a179", "ret": 8392776}, {"name": "GetProcAddress", "args": [8392744, "CreateThreadpoolTimer"], "addr_func": "0x700148", "addr": "0x42a18c", "ret": 8392780}, {"name": "GetProcAddress", "args": [8392744, "SetThreadpoolTimer"], "addr_func": "0x700148", "addr": "0x42a19f", "ret": 8392784}, {"name": "GetProcAddress", "args": [8392744, "WaitForThreadpoolTimerCallbacks"], "addr_func": "0x700148", "addr": "0x42a1b2", "ret": 8392788}, {"name": "GetProcAddress", "args": [8392744, "CloseThreadpoolTimer"], "addr_func": "0x700148", "addr": "0x42a1c5", "ret": 8392792}, {"name": "GetProcAddress", "args": [8392744, "CreateThreadpoolWait"], "addr_func": "0x700148", "addr": "0x42a1d8", "ret": 8392796}, {"name": "GetProcAddress", "args": [8392744, "SetThreadpoolWait"], "addr_func": "0x700148", "addr": "0x42a1eb", "ret": 8392800}, {"name": "GetProcAddress", "args": [8392744, "CloseThreadpoolWait"], "addr_func": "0x700148", "addr": "0x42a1fe", "ret": 8392804}, {"name": "GetProcAddress", "args": [8392744, "FlushProcessWriteBuffers"], "addr_func": "0x700148", "addr": "0x42a211", "ret": 8392808}, {"name": "GetProcAddress", "args": [8392744, "FreeLibraryWhenCallbackReturns"], "addr_func": "0x700148", "addr": "0x42a224", "ret": 8392812}, {"name": "GetProcAddress", "args": [8392744, "GetCurrentProcessorNumber"], "addr_func": "0x700148", "addr": "0x42a237", "ret": 8392816}, {"name": "GetProcAddress", "args": [8392744, "GetLogicalProcessorInformation"], "addr_func": "0x700148", "addr": "0x42a24a", "ret": 8392820}, {"name": "GetProcAddress", "args": [8392744, "CreateSymbolicLinkW"], "addr_func": "0x700148", "addr": "0x42a25d", "ret": 8392824}, {"name": "GetProcAddress", "args": [8392744, "SetDefaultDllDirectories"], "addr_func": "0x700148", "addr": "0x42a270", "ret": 8392828}, {"name": "GetProcAddress", "args": [8392744, "EnumSystemLocalesEx"], "addr_func": "0x700148", "addr": "0x42a283", "ret": 8392832}, {"name": "GetProcAddress", "args": [8392744, "CompareStringEx"], "addr_func": "0x700148", "addr": "0x42a296", "ret": 8392836}, {"name": "GetProcAddress", "args": [8392744, "GetDateFormatEx"], "addr_func": "0x700148", "addr": "0x42a2a9", "ret": 8392840}, {"name": "GetProcAddress", "args": [8392744, "GetLocaleInfoEx"], "addr_func": "0x700148", "addr": "0x42a2bc", "ret": 8392844}, {"name": "GetProcAddress", "args": [8392744, "GetTimeFormatEx"], "addr_func": "0x700148", "addr": "0x42a2cf", "ret": 8392848}, {"name": "GetProcAddress", "args": [8392744, "GetUserDefaultLocaleName"], "addr_func": "0x700148", "addr": "0x42a2e2", "ret": 8392852}, {"name": "GetProcAddress", "args": [8392744, "IsValidLocaleName"], "addr_func": "0x700148", "addr": "0x42a2f5", "ret": 8392856}, {"name": "GetProcAddress", "args": [8392744, "LCMapStringEx"], "addr_func": "0x700148", "addr": "0x42a308", "ret": 8392860}, {"name": "GetProcAddress", "args": [8392744, "GetCurrentPackageId"], "addr_func": "0x700148", "addr": "0x42a31b", "ret": 8392864}, {"name": "GetProcAddress", "args": [8392744, "GetTickCount64"], "addr_func": "0x700148", "addr": "0x42a32e", "ret": 8392868}, {"name": "GetProcAddress", "args": [8392744, "GetFileInformationByHandleExW"], "addr_func": "0x700148", "addr": "0x42a341", "ret": 8392872}, {"name": "GetProcAddress", "args": [8392744, "SetFileInformationByHandleW"], "addr_func": "0x700148", "addr": "0x42a354", "ret": 8392876}, {"name": "InitializeCriticalSectionEx", "args": [4997680, 4000, 0], "addr_func": "0x80103c", "addr": "0x42a084", "ret": 1}]}, "sections": {".text": {"vaddr": 4198400, "memsize": 581597, "is_readable": true, "is_writable": false, "is_executable": true}, ".rdata": {"vaddr": 4780032, "memsize": 195982, "is_readable": true, "is_writable": false, "is_executable": false}, ".data": {"vaddr": 4976640, "memsize": 36724, "is_readable": true, "is_writable": true, "is_executable": false}, ".rsrc": {"vaddr": 5013504, "memsize": 2205456, "is_readable": true, "is_writable": false, "is_executable": false}, ".reloc": {"vaddr": 7221248, "memsize": 28980, "is_readable": true, "is_writable": false, "is_executable": false}}}]
+[
+  {
+    "0": {
+      "status": "lost",
+      "trace": [
+        {
+          "name": "main",
+          "args": [
+            "00825a2da08f9165a9f360a11e1e239e"
+          ],
+          "addr": 4358154,
+          "ret": "symbolic",
+          "addr_func": 4358154
+        },
+        {
+          "name": "GetStartupInfoW",
+          "args": [
+            2147417640
+          ],
+          "addr_func": "0x700358",
+          "addr": "0x42a052",
+          "ret": "None"
+        },
+        {
+          "name": "GetProcessHeap",
+          "args": [],
+          "addr_func": "0x70011c",
+          "addr": "0x428dbc",
+          "ret": "0x0"
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            0
+          ],
+          "addr_func": "0x70030c",
+          "addr": "0x4233ca",
+          "ret": 0
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            4368176
+          ],
+          "addr_func": "0x70030c",
+          "addr": "0x42a769",
+          "ret": 4368176
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "kernel32.dll"
+          ],
+          "addr_func": "0x700160",
+          "addr": "0x42a0e0",
+          "ret": 8392744
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "FlsAlloc"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a0f4",
+          "ret": 8392748
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "FlsFree"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a107",
+          "ret": 8392752
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "FlsGetValue"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a11a",
+          "ret": 8392756
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "FlsSetValue"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a12d",
+          "ret": 8392760
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "InitializeCriticalSectionEx"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a140",
+          "ret": 8392764
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "CreateEventExW"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a153",
+          "ret": 8392768
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "CreateSemaphoreExW"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a166",
+          "ret": 8392772
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "SetThreadStackGuarantee"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a179",
+          "ret": 8392776
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "CreateThreadpoolTimer"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a18c",
+          "ret": 8392780
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "SetThreadpoolTimer"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a19f",
+          "ret": 8392784
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "WaitForThreadpoolTimerCallbacks"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a1b2",
+          "ret": 8392788
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "CloseThreadpoolTimer"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a1c5",
+          "ret": 8392792
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "CreateThreadpoolWait"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a1d8",
+          "ret": 8392796
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "SetThreadpoolWait"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a1eb",
+          "ret": 8392800
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "CloseThreadpoolWait"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a1fe",
+          "ret": 8392804
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "FlushProcessWriteBuffers"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a211",
+          "ret": 8392808
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "FreeLibraryWhenCallbackReturns"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a224",
+          "ret": 8392812
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "GetCurrentProcessorNumber"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a237",
+          "ret": 8392816
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "GetLogicalProcessorInformation"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a24a",
+          "ret": 8392820
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "CreateSymbolicLinkW"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a25d",
+          "ret": 8392824
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "SetDefaultDllDirectories"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a270",
+          "ret": 8392828
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "EnumSystemLocalesEx"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a283",
+          "ret": 8392832
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "CompareStringEx"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a296",
+          "ret": 8392836
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "GetDateFormatEx"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a2a9",
+          "ret": 8392840
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "GetLocaleInfoEx"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a2bc",
+          "ret": 8392844
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "GetTimeFormatEx"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a2cf",
+          "ret": 8392848
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "GetUserDefaultLocaleName"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a2e2",
+          "ret": 8392852
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "IsValidLocaleName"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a2f5",
+          "ret": 8392856
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "LCMapStringEx"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a308",
+          "ret": 8392860
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "GetCurrentPackageId"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a31b",
+          "ret": 8392864
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "GetTickCount64"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a32e",
+          "ret": 8392868
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "GetFileInformationByHandleExW"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a341",
+          "ret": 8392872
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            8392744,
+            "SetFileInformationByHandleW"
+          ],
+          "addr_func": "0x700148",
+          "addr": "0x42a354",
+          "ret": 8392876
+        },
+        {
+          "name": "InitializeCriticalSectionEx",
+          "args": [
+            4997680,
+            4000,
+            0
+          ],
+          "addr_func": "0x80103c",
+          "addr": "0x42a084",
+          "ret": 1
+        }
+      ]
+    },
+    "sections": {
+      ".text": {
+        "vaddr": 4198400,
+        "memsize": 581597,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": true
+      },
+      ".rdata": {
+        "vaddr": 4780032,
+        "memsize": 195982,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      },
+      ".data": {
+        "vaddr": 4976640,
+        "memsize": 36724,
+        "is_readable": true,
+        "is_writable": true,
+        "is_executable": false
+      },
+      ".rsrc": {
+        "vaddr": 5013504,
+        "memsize": 2205456,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      },
+      ".reloc": {
+        "vaddr": 7221248,
+        "memsize": 28980,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      }
+    }
+  }
+]

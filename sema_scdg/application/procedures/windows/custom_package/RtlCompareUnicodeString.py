@@ -1,6 +1,6 @@
 import logging
 import angr
-import archinfo 
+import archinfo
 
 import os
 
@@ -16,7 +16,7 @@ class RtlCompareUnicodeString(angr.SimProcedure):
         addr2 = self.state.memory.load(arg2+4,4,endness=archinfo.Endness.LE)
         if not addr2.symbolic:
             print(self.state.mem[addr2].wstring.concrete)
-            
+
         return self.state.solver.BVS(
             "retval_{}".format(self.display_name), self.arch.bits
         )

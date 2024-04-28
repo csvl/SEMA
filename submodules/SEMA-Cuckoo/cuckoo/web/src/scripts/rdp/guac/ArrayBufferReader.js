@@ -23,7 +23,7 @@ var Guacamole = Guacamole || {};
  * A reader which automatically handles the given input stream, returning
  * strictly received packets as array buffers. Note that this object will
  * overwrite any installed event handlers on the given Guacamole.InputStream.
- * 
+ *
  * @constructor
  * @param {Guacamole.InputStream} stream The stream that data will be read
  *                                       from.
@@ -61,7 +61,7 @@ Guacamole.ArrayBufferReader = function(stream) {
 
     /**
      * Fired once for every blob of data received.
-     * 
+     *
      * @event
      * @param {ArrayBuffer} buffer The data packet received.
      */

@@ -31,12 +31,12 @@ class SemaExplorerDBFS(SemaExplorer):
     def config_logger(self):
         self.log_level = log_level
         self.log = log
-        
+
     def manage_stashes(self, simgr):
         if self.flag:
             while simgr.active:
                 simgr.stashes["pause"].append(simgr.active.pop())
-           
+
         # If limit of simultaneous state is not reached and we have some states available in pause stash
         if len(simgr.stashes["pause"]) > 0 and len(simgr.active) < self.max_simul_state:
             moves = min(
@@ -49,7 +49,7 @@ class SemaExplorerDBFS(SemaExplorer):
             else:
                 for m in range(moves):
                     super().take_longuest(simgr, "pause")
-        
+
         super().drop_excessed_loop(simgr)
 
         # If states end with errors, it is often worth investigating. Set DEBUG_ERROR to live debug
@@ -57,7 +57,7 @@ class SemaExplorerDBFS(SemaExplorer):
         super().manage_error(simgr)
 
         super().manage_unconstrained(simgr)
-    
+
 
     def step(self, simgr, stash="active", **kwargs):
         try:
@@ -79,7 +79,7 @@ class SemaExplorerDBFS(SemaExplorer):
 
         if len(self.fork_stack) > 0:
             self.log.info("fork_stack : " + str(len(self.fork_stack)) + " " + hex(simgr.active[0].addr) + " " + hex(simgr.active[1].addr))
-        
+
         c = 0
         if len(simgr.active) > 0:
             for key, symbol in simgr.active[0].solver.get_variables("buffer"):
@@ -107,5 +107,5 @@ class SemaExplorerDBFS(SemaExplorer):
         super().excessed_loop_to_active(simgr)
 
         super().time_evaluation(simgr)
-       
+
         return simgr

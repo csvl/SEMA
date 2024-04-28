@@ -11,7 +11,7 @@ class PluginRegistery(angr.SimStatePlugin):
 
     def setup_plugin(self):
         # For locale info mainly
-        self.registery_block = self.state.heap.malloc(32767) 
+        self.registery_block = self.state.heap.malloc(32767)
         for i in range(32767):
             c = self.state.solver.BVS("c_registery_block{}".format(i), 8)
             self.state.memory.store(self.registery_block + i, c)
@@ -29,7 +29,7 @@ class PluginRegistery(angr.SimStatePlugin):
                     if sstate.plugin_registery.registery[key] not in total_registery[key]:
                         total_registery[key].append(sstate.plugin_registery.registery[key])
         return total_registery
-    
+
     @angr.SimStatePlugin.memo
     def copy(self, memo):
         p = PluginRegistery()

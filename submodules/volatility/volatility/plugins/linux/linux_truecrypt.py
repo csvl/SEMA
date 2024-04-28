@@ -39,8 +39,8 @@ class PassphraseScanner(malfind.BaseYaraScanner):
           task: The task_struct object for this task.
         """
         self.task = task
-        malfind.BaseYaraScanner.__init__(self, 
-                    address_space = task.get_process_address_space(), 
+        malfind.BaseYaraScanner.__init__(self,
+                    address_space = task.get_process_address_space(),
                     **kwargs)
 
     def scan(self, offset = 0, maxlen = None):
@@ -51,23 +51,23 @@ class PassphraseScanner(malfind.BaseYaraScanner):
         for vma in self.task.get_proc_maps():
 
             # only scanning the process heap
-            if not (vma.vm_start <= self.task.mm.start_brk 
+            if not (vma.vm_start <= self.task.mm.start_brk
                     and vma.vm_end >= self.task.mm.brk):
                 continue
 
-            for hit, address in malfind.BaseYaraScanner.scan(self, 
-                       vma.vm_start, 
+            for hit, address in malfind.BaseYaraScanner.scan(self,
+                       vma.vm_start,
                        vma.vm_end - vma.vm_start):
 
-                # possible passphrase structure 
-                passt = obj.Object("PASSPHRASE", 
-                                   offset = address - offset, 
+                # possible passphrase structure
+                passt = obj.Object("PASSPHRASE",
+                                   offset = address - offset,
                                    vm = self.address_space)
 
                 # the sanity checks
-                if (passt and vma.vm_start <= passt.Text and 
-                          vma.vm_end >= passt.Text and 
-                          passt.Length > 0 and 
+                if (passt and vma.vm_start <= passt.Text and
+                          vma.vm_end >= passt.Text and
+                          passt.Length > 0 and
                           passt.Length < passt.MaxLength):
 
                     password = passt.Text.dereference()
@@ -85,14 +85,14 @@ class LinuxTruecryptModification(obj.ProfileModification):
 
         x86_vtypes =  {
                 'PASSPHRASE': [ None, {
-                'Text': [ 0, ['pointer', ['String', dict(length = 255)]]], 
-                'MaxLength': [ 0x4, ['int']], 
+                'Text': [ 0, ['pointer', ['String', dict(length = 255)]]],
+                'MaxLength': [ 0x4, ['int']],
                 'Length': [ 0x8, ['int']],
                 }]}
         x64_vtypes = {
                 'PASSPHRASE': [ None, {
-                'Text': [ 0, ['pointer', ['String', dict(length = 255)]]], 
-                'MaxLength': [ 0x8, ['int']], 
+                'Text': [ 0, ['pointer', ['String', dict(length = 255)]]],
+                'MaxLength': [ 0x8, ['int']],
                 'Length': [ 0xC, ['int']],
                 }]}
 
@@ -101,7 +101,7 @@ class LinuxTruecryptModification(obj.ProfileModification):
         if bits == "32bit":
             vtypes = x86_vtypes
         else:
-            vtypes = x64_vtypes 
+            vtypes = x64_vtypes
 
         profile.vtypes.update(vtypes)
 
@@ -124,7 +124,7 @@ class linux_truecrypt_passphrase(linux_pslist.linux_pslist):
             space = task.get_process_address_space()
             if not space:
                 continue
-    
+
             rules = yara.compile(sources = {
                'n' : 'rule r1 {strings: $a = {40 00 00 00 ?? 00 00 00} condition: $a}'
                })
@@ -135,9 +135,9 @@ class linux_truecrypt_passphrase(linux_pslist.linux_pslist):
 
     def render_text(self, outfd, data):
 
-        self.table_header(outfd, [("Process", "16"), 
+        self.table_header(outfd, [("Process", "16"),
                                   ("Pid", "8"),
-                                  ("Address", "[addrpad]"), 
+                                  ("Address", "[addrpad]"),
                                   ("Password", "")])
 
         for (task, address, password) in data:

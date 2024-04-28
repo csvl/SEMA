@@ -232,7 +232,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="container-fluid px-4"> 
+                            <div class="container-fluid px-4">
                                 <iframe srcdoc="{{ df_csv_content }}" width="100%" height="500px"></iframe>
                             </div>
                         {% endif %}
@@ -293,7 +293,7 @@
         <script src="https://cdn.rawgit.com/okfn/csv.js/master/csv.min.js"></script>
         <script>
             $(document).ready(function() {
-                
+
                  /* const setLabel = (lbl, val) => {
                     const label = $(`#slider-${lbl}-label`);
                     label.text(val);
@@ -304,18 +304,18 @@
                       left: rect.left
                     });
                   }
-                  
+
                   const setLabels = (values) => {
                     setLabel("min", values[0]);
                     setLabel("max", values[1]);
                   }
-                  
-                  
+
+
                   $('#ex2').slider().on('slide', function(ev) {
                     setLabels(ev.value);
                   });
                   setLabels($('#ex2').attr("data-value").split(","));
-                
+
                   let dates = {{ df_dates | safe }};
                   const setLabel2 = (lbl, val) => {
                     const label = $(`#slider-${lbl}-label-1`);
@@ -327,13 +327,13 @@
                       left: rect.left
                     });
                   }
-                  
+
                 const setLabels2 = (values) => {
                     setLabel2("min", values[0]);
                     setLabel2("max", values[1]);
                   }
-                  
-                  
+
+
                   $('#ex3').slider().on('slide', function(ev) {
                     setLabels2(ev.value);
                   });
@@ -349,7 +349,7 @@
                 for (let row in scdg_json) {
                     let th = document.createElement("th");
                     th.innerHTML = row;
-                    tr.appendChild(th);                       
+                    tr.appendChild(th);
                     index++;
                 }
                 body = table.createTBody();
@@ -357,7 +357,7 @@
                 for (let row in scdg_json) {
                     let th = tr.insertCell();
                     th.innerHTML = scdg_json[row];
-                    tr.appendChild(th);                       
+                    tr.appendChild(th);
                     index++;
                 }
 
@@ -395,7 +395,7 @@
                 for (let row in class_json) {
                     let th = document.createElement("th");
                     th.innerHTML = row;
-                    tr.appendChild(th);                       
+                    tr.appendChild(th);
                     index++;
                 }
                 body = table.createTBody();
@@ -403,7 +403,7 @@
                 for (let row in class_json) {
                     let th = tr.insertCell();
                     th.innerHTML = scdg_json[row];
-                    tr.appendChild(th);                       
+                    tr.appendChild(th);
                     index++;
                 }
 

@@ -19,7 +19,7 @@
 
 import volatility.plugins.common as common
 import volatility.utils as utils
-import volatility.obj as obj 
+import volatility.obj as obj
 
 class Win10Cookie(common.AbstractWindowsCommand):
     """Find the ObHeaderCookie value for Windows 10"""
@@ -35,10 +35,10 @@ class Win10Cookie(common.AbstractWindowsCommand):
     @staticmethod
     def is_valid_profile(profile):
 
-        meta = profile.metadata 
+        meta = profile.metadata
         vers = (meta.get("major", 0), meta.get("minor", 0))
 
-        # this algorithm only applies to Windows 10 or greater 
+        # this algorithm only applies to Windows 10 or greater
         return meta.get('os', '') == 'windows' and vers >= (6, 4)
 
     def calculate(self):
@@ -48,4 +48,4 @@ class Win10Cookie(common.AbstractWindowsCommand):
 
     def render_text(self, outfd, data):
         for cookie in data:
-            print cookie
+            print(cookie)

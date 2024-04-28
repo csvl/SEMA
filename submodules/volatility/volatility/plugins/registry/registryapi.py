@@ -50,9 +50,9 @@ class RegistryApi(object):
         this is just in case we want to check our offsets and which hive(s) was/were chosen
         '''
         for item in self.all_offsets:
-            print "0x{0:x}".format(item), self.all_offsets[item]
+            print("0x{0:x}".format(item), self.all_offsets[item])
         for item in self.current_offsets:
-            print 'current', "0x{0:x}".format(item), self.current_offsets[item]
+            print('current', "0x{0:x}".format(item), self.current_offsets[item])
 
     def populate_offsets(self):
         '''
@@ -85,7 +85,7 @@ class RegistryApi(object):
 
     def set_current(self, hive_name = None, user = None):
         '''
-        if we find a hive that fits the given criteria, save its offset 
+        if we find a hive that fits the given criteria, save its offset
         so we don't have to scan again.  this can be reset using reset_current
         if context changes
         '''
@@ -100,7 +100,7 @@ class RegistryApi(object):
             elif hive_name != None and hive_name.lower() == 'hklm' \
                 and (name.lower().find("\\security ") != -1 or name.lower().find("\\system ") != -1 \
                 or name.lower().find("\\software ") != -1 or name.lower().find("\\sam ") != -1):
-                #any HKLM hive 
+                #any HKLM hive
                 self.current_offsets[item] = name
             elif hive_name != None and name.lower().find("\\" + hive_name.lower() + " ") != -1 and user == None:
                 #a particular hive indicated by hive_name
@@ -138,18 +138,18 @@ class RegistryApi(object):
         return None
 
     def reg_get_key_path(self, key):
-        ''' 
+        '''
         Takes in a key object and traverses back through its family to build the path
         '''
         path = key.Name
         while key.Parent and key.Parent & 0xffffffff > 0x20:
             key = key.Parent.dereference()
-            if utils.remove_unprintable(str(key.Name)) != "": 
+            if utils.remove_unprintable(str(key.Name)) != "":
                 path = "{0}\\{1}".format(key.Name, path)
         return path
 
     def reg_yield_key(self, hive_name, key, user = None, given_root = None):
-        ''' 
+        '''
         Use this function if you are collecting keys from more than one hive
         '''
         if self.all_offsets == {}:
@@ -204,7 +204,7 @@ class RegistryApi(object):
                         if raw:
                             yield v, dat
                         else:
-                            yield v.Name, dat 
+                            yield v.Name, dat
 
     def reg_get_value(self, hive_name, key, value, strcmp = None, given_root = None):
         '''
@@ -231,7 +231,7 @@ class RegistryApi(object):
 
     def reg_get_all_keys(self, hive_name, user = None, start = None, end = None, reg = False, rawtime = False):
         '''
-        This function enumerates all keys in specified hives and 
+        This function enumerates all keys in specified hives and
         collects lastwrite times.
         '''
         keys = []
@@ -240,7 +240,7 @@ class RegistryApi(object):
         if self.current_offsets == {}:
             self.set_current(hive_name, user)
 
-        # Collect the root keys 
+        # Collect the root keys
         for offset in self.current_offsets:
             reg_name = self.current_offsets[offset]
             h = hivemod.HiveAddressSpace(self.addr_space, self._config, offset)
@@ -292,7 +292,7 @@ class RegistryApi(object):
 
     def reg_get_last_modified(self, hive_name, count = 1, user = None, start = None, end = None, reg = False):
         '''
-        Wrapper function using reg_get_all_keys. These functions can take a WHILE since all 
+        Wrapper function using reg_get_all_keys. These functions can take a WHILE since all
         subkeys have to be collected before you can compare lastwrite times.
         '''
         data = nlargest(count, self.reg_get_all_keys(hive_name, user, start, end, reg))
@@ -300,7 +300,5 @@ class RegistryApi(object):
             for t, regname, name in data:
                 yield (t, regname, name)
         else:
-            for t, name in data: 
+            for t, name in data:
                 yield (t, name)
-
-

@@ -82,7 +82,3 @@ class linux_threads(linux_pslist.linux_pslist):
             self.table_header(outfd, [('Thread PID', '13'), ('Thread Name', '16')])
             for thread in task.threads():
                 self.table_row(outfd, str(thread.pid), thread.comm)
-
-    
-
-

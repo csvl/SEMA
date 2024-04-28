@@ -9,10 +9,10 @@ lw = logging.getLogger("CustomSimProcedureWindows")
 lw.setLevel(os.environ["LOG_LEVEL"])
 
 class FindResourceW(angr.SimProcedure):
-            
+
     def run(self, hModule, lpName, lpType):
         #https://blog.kowalczyk.info/articles/pefileformat.html
-        
+
         def find(state, rsrc, offset):
             Id =  state.solver.eval(state.memory.load(rsrc+offset,4,endness=archinfo.Endness.LE))
             if Id >= 0x80000000:
@@ -23,7 +23,7 @@ class FindResourceW(angr.SimProcedure):
                 Name = Name.decode('utf-16le')
                 return Name
             return Id
-        
+
         #Name or Id
         Name = self.state.mem[lpName].wstring.concrete
         NameInt = False
@@ -35,7 +35,7 @@ class FindResourceW(angr.SimProcedure):
         if Name == '':
             Type = self.state.solver.eval(lpType)
             TypeInt = True
-        
+
         #Type directory
         rsrc = self.state.globals["rsrc"]
         nbTypes = self.state.solver.eval(self.state.memory.load(rsrc+0xc,2,endness=archinfo.Endness.LE))
@@ -43,18 +43,18 @@ class FindResourceW(angr.SimProcedure):
         if TypeInt:
             offset += 8 * nbTypes
             nbTypes = self.state.solver.eval(self.state.memory.load(rsrc+0xe,2,endness=archinfo.Endness.LE))
-            
+
         TypeType = find(self.state, rsrc, offset)
         print(TypeType)
-        
+
         while nbTypes > 0 and Type != TypeType:
             offset += 0x8
             nbTypes -= 1
             TypeType = find(self.state, rsrc, offset)
-            
+
         if Type != TypeType:
             return 0
-        
+
         #Name directory
         offset = self.state.solver.eval(self.state.memory.load(rsrc+offset+0x4,2,endness=archinfo.Endness.LE))
         nbNames = self.state.solver.eval(self.state.memory.load(rsrc+offset+0xc,2,endness=archinfo.Endness.LE))
@@ -62,18 +62,18 @@ class FindResourceW(angr.SimProcedure):
         if NameInt:
             offset += 8 * nbNames
             nbNames = self.state.solver.eval(self.state.memory.load(rsrc+offset+0xe,2,endness=archinfo.Endness.LE))
-            
+
         NameName = find(self.state, rsrc, offset)
         print(NameName)
-        
+
         while nbNames > 0 and Name != NameName:
             offset += 0x8
             nbNames -= 1
             NameName = find(self.state, rsrc, offset)
-            
+
         if Name != NameName:
             return 0
-            
+
         #Language directory
         offset = self.state.solver.eval(self.state.memory.load(rsrc+offset+0x4,2,endness=archinfo.Endness.LE))
         offset = self.state.solver.eval(self.state.memory.load(rsrc+offset+0x14,2,endness=archinfo.Endness.LE))
@@ -87,4 +87,3 @@ class FindResourceW(angr.SimProcedure):
         self.state.globals["resources"][addr] = size
         print(hex(addr))
         return addr
-        

@@ -78,10 +78,10 @@ class TestAPI(object):
         )) == [1, 2, 3]
 
     def test_list_tasks_unicode(self):
-        assert self.create_task(u"\u202e.jpg") == 1
+        assert self.create_task("\u202e.jpg") == 1
         r = json.loads(self.get("/tasks/list").data)
         assert len(r["tasks"]) == 1
-        assert r["tasks"][0]["target"].endswith(u"\u202e.jpg")
+        assert r["tasks"][0]["target"].endswith("\u202e.jpg")
 
     def test_create_task(self):
         assert self.create_task() == 1
