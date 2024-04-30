@@ -38,15 +38,39 @@
 <a name="arch_std"></a>
 
 
-##### Main depencies:
+#### Main depencies:
 
     * Python 3.8 (angr)
 
-    * KVM/QEMU
-
     * Docker, docker buildx, docker compose
 
-##### Interesting links
+    * radare2
+
+#### Using Pypi sema-toolchain package
+
+If you wish to install the toolchain python dependencies on your system, use :
+
+```bash
+pip install sema-toolchain
+```
+
+#### Pypy3 usage
+
+By default, pypy3 can be used to launch experiments inside the SCDG's docker container. If you wish to use it outside the container, make sure to install pypy3 :
+
+```bash
+sudo add-apt-repository ppa:pypy/ppa
+sudo apt update
+sudo apt install pypy3
+```
+
+Then install the dependecies on pypy3 :
+
+```bash
+pypy3 -m pip install -r /sema_scdg/requirements_pypy.txt
+```
+
+#### Interesting links
 
 * https://angr.io/
 
@@ -58,7 +82,7 @@
 ====
 <a name="install"></a>
 
-Tested on Ubuntu 20.
+Tested on Ubuntu 20.04
 
 **Recommanded installation:**
 
@@ -73,29 +97,13 @@ If you only need the SCDG part of the toolchain you can use :
 ```bash
 make pull-scdg
 ```
+To pull the docker image directly from dockerHub
 
-Or visit `https://hub.docker.com/repository/docker/manonoreins/sema-scdg/tags` to pull the image
+Or visit `https://hub.docker.com/repository/docker/manonoreins/sema-scdg/tags`
 
 ## Installation details (optional)
 
-#### Pip
-
-To run this SCDG extractor you first need to install pip.
-
-##### Debian (and Debian-based)
-To install pip on debian-based systems:
-```bash
-sudo apt update;
-sudo apt-get install python3-pip xterm;
-```
-
-##### Arch (and Arch-based)
-To install pip on arch-based systems:
-```bash
-sudo pacman -Sy python-pip xterm;
-```
-
-##### For extracting database
+#### For extracting database
 
 ```bash
 cd databases/Binaries; bash extract_deploy_db.sh
@@ -103,7 +111,7 @@ cd databases/Binaries; bash extract_deploy_db.sh
 
 Password for archive is "infected". Warning : it contains real samples of malwares.
 
-##### For code cleaning
+#### For code cleaning
 
 ```bash
 #To zip back the test database
