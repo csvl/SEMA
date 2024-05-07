@@ -7,7 +7,7 @@ py-modules = ["sema_scdg", "sema_web_app", "sema_classifier"]
 
 [project]
 name = "sema_toolchain"
-version = "0.0.6"
+version = "0.0.7"
 authors = [
   { name="Manon-Oreins", email="manon.oreins@gmail.com" },
 ]
@@ -65,6 +65,7 @@ dependencies= [
     "grakel",
     "numpy",
     "torch",
+    "torchvision",
     "flask_session",
     "django",
     "Flask-Cors",

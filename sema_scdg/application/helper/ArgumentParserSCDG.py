@@ -265,6 +265,11 @@ class ArgumentParserSCDG:
 
         self.group = self.parser.add_argument_group('Global parameter')
         self.group.add_argument(
+            "--wait_scdg",
+            help="Does the classifier wait for the result of the SCDG or not (default = False)",
+            action="store_true",
+        )
+        self.group.add_argument(
             "--approximate",
             help="Symbolic approximation (default : False)",
             action="store_true",

@@ -1,9 +1,8 @@
 from flask import Flask, request, jsonify
 import argparse
 import configparser
-import os
 import sys
-import traceback
+import threading
 
 from helper.ArgumentParserSCDG import ArgumentParserSCDG
 from SemaSCDG import start_scdg
@@ -21,13 +20,12 @@ def run_scdg():
     #Modify config file with the args provided in web app
     user_data = request.json
     parse_json_request(user_data)
-
-    try:
+    if user_data.get("wait_scdg", False):
         start_scdg()
-        return "Request successful"
-    except:
-        print(traceback.print_exc())
-        return "Something went wrong"
+    else :
+        thread = threading.Thread(target=start_scdg)
+        thread.start()
+    return {"SCDG request": "Accepted"}, 202
 
 # Respond to the request with a json object containing the return value of get_args
 @app.route('/scdg_args', methods=['GET'])
