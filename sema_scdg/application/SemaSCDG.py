@@ -711,6 +711,13 @@ def start_scdg():
 
     This function initiates the analysis by determining whether to analyze a single binary or multiple binaries in a folder, running the analysis, handling exceptions, and reporting any crashed samples.
     """
+    config = configparser.ConfigParser()
+    file = config.read(sys.argv[1])
+    if file == []:
+        raise FileNotFoundError("Config file not found")
+    log_level = config['SCDG_arg'].get('log_level')
+    os.environ["LOG_LEVEL"] = log_level
+
     crashed_samples = []
     binary_path = "".join(config['SCDG_arg']['binary_path'].rstrip())
     sema_scdg = SemaSCDG()

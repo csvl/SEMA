@@ -1,9 +1,7 @@
 from flask import Flask, request, jsonify
 import argparse
-import configparser
-import os
-import sys
 import traceback
+import threading
 
 from helper.ArgumentParserClassifier import ArgumentParserClassifier
 from SemaClassifier import SemaClassifier
@@ -24,17 +22,14 @@ def run_classifier():
     parser.update_tool(toolc, toolc.args)
     toolc.init()
 
-    try:
-        if class_args.get("operation_mode", False) == "classification":
-            toolc.classify()
-        elif class_args.get("operation_mode", False) == "detection":
-            toolc.detect()
-        elif not class_args.get("operation_mode", False):
-            toolc.train()
-        return "Request successful"
-    except :
-        traceback.print_exc()
-        return "Something went wrong"
+    if class_args.get("operation_mode", False) == "classification":
+        thread = threading.Thread(target=toolc.classify)
+    elif class_args.get("operation_mode", False) == "detection":
+        thread = threading.Thread(target=toolc.detect)
+    else :
+        thread = threading.Thread(target=toolc.train)
+    thread.start()
+    return {"Classifier request": "Accepted"}, 202
 
 # Return a json object containing all the available parameters of the Classifier as well as their group, default value and help message
 @app.route('/classifier_args', methods=['GET'])
