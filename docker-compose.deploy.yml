@@ -37,6 +37,8 @@ services:
       dockerfile: ./sema_scdg/Dockerfile
     ports:
     - "5001:5001"
+    volumes:
+      - $(PWD)/database/:/sema-scdg/application/database
     restart: always
     environment:
       - DISPLAY=unix$DISPLAY
