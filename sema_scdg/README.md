@@ -2,10 +2,11 @@ This repository contains a first version of a SCDG extractor.
 During symbolic analysis of a binary, all system calls and their arguments found are recorded. After some stop conditions for symbolic analysis, a graph is build as follow : Nodes are systems Calls recorded, edges show that some arguments are shared between calls.
 
 ### How to use ?
-First run the SCDG container:
+First run the SCDG container with volumes like this :
 ```bash
-make run-scdg-service
+docker run --rm --name="sema-scdg" -v ${PWD}/OutputFolder:/sema-scdg/application/database/SCDG -v ${PWD}/ConfigFolder:/sema-scdg/application/configs -v ${PWD}/InputFolder:/sema-scdg/application/database/Binaries  -it sema-scdg bash
 ```
+Where the first volume corresponds to the output folder where the results will be put. The second volume corresponds to the folder containing the configuration files that will be passed to the docker. And the third matches the folder containing the binaries that are going to be passed to the container.
 
 Inside the container just run  :
 ```bash
@@ -16,35 +17,32 @@ Or if you want to use pypy3:
 pypy3 SemaSCDG.py configs/config.ini
 ```
 
+#### Configuration files
+
 The parameters are put in a configuration file : `configs/config.ini`
 Feel free to modify it or create new configuration files to run different experiments.
+
 To restore the default values of `config.ini` do :
 ```bash
 python3 restore_defaults.py
 ```
 The default parameters are stored in the file `default_config.ini`
+Do not modify `config_tutorial.ini` and `config_test.ini` as they are designed to fit the Tutorial and the tests needs respectively.
 
-If you wish to run multiple experiments with different configuration files, the script `multiple_experiments.sh` is available and can be used inside the scdg container:
+The output of the SCDG are put into `database/SCDG/runs/` by default. If you are not using volumes and want to save some runs from the container to your host machine :
 ```bash
-# To show usage
-./multiple_experiments.sh -h
-
-# Run example
-./multiple_experiments.sh -m python3 -c configs/config configs/default_configs
+make save-scdg-runs ARGS=PATH
 ```
 
-### Parameters description
+#### Parameters description
 SCDG module arguments
 
 ```
 expl_method:
   DFS                 Depth First Search
   BFS                 Breadth First Search
-  CDFS                Custom Depth First Search (Default)
-  CBFS                Custom Breadth First Search
-  DBFS                TODO
-  SDFS                TODO
-  SCDFS               TODO
+  CDFS                Coverage Depth-First Search Strategy (Default)
+  CBFS                Coverage Breadth First Search
 
 graph_output:
   gs                  .GS format
@@ -110,37 +108,30 @@ Plugins:
 
 To know the details of the angr options see [Angr documentation](https://docs.angr.io/en/latest/appendix/options.html)
 
-Program will output a graph in `.gs` format that could be exploited by `gspan`.
-
 You also have a script `MergeGspan.py` in `sema_scdg/application/helper` which could merge all `.gs` from a directory into only one file.
 
+#### Run multiple experiments automatically
 
-## Managing your runs
-
-The output of the SCDG are put into `database/SCDG/runs/`
-
-If you want to save some runs from the container to your host machine :
+If you wish to run multiple experiments with different configuration files, the script `multiple_experiments.sh` is available and can be used inside the scdg container:
 ```bash
-make save-scdg-runs ARGS=PATH
+# To show usage
+./multiple_experiments.sh -h
+
+# Run example
+./multiple_experiments.sh -m python3 -c configs/config configs/default_configs
 ```
 
-## Tests
+#### Tests
 
 To run the test, inside the docker container :
 ```bash
 python3 scdg_tests.py configs/config_test.ini
 ```
 
-## Tutorial
+#### Tutorial
 
-There is a jupyter notebook providing a tutorial on how to use the scdg. To launch it, run the container by using :
-```bash
-make run-scdg
-```
-
-Then, inside the docker, run
+There is a jupyter notebook providing a tutorial on how to use the scdg. To launch it, inside the docker, run
 ```bash
 jupyter notebook --ip=0.0.0.0 --port=5001 --no-browser --allow-root --NotebookApp.token=''
 ```
-
-and visit `http://127.0.0.1:5001/tree` on your browser. Go to `/Tutorial` and open the jupyter notebook. If it shows you a blank page, use ctrl + shift + R to refresh the page
+and visit `http://127.0.0.1:5001/tree` on your browser. Go to `/Tutorial` and open the jupyter notebook.

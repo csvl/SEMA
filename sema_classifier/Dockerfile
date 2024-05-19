@@ -30,4 +30,10 @@ RUN apt update; apt-get --fix-missing -y install \
 COPY ./sema_classifier/docker_startup.sh /sema-classifier/docker_startup.sh
 RUN chmod +x /sema-classifier/docker_startup.sh
 
+COPY ./sema_classifier/ /sema-classifier
+COPY ./submodules/SEMA-quickspan /sema-classifier/application/submodules/SEMA-quickspan
+COPY ./submodules/bingraphvis /sema-classifier/application/submodules/bingraphvis
+COPY ./penv-fix/ /sema-classifier/application/penv-fix
+COPY ./yara/ /sema-classifier/application/yara
+
 WORKDIR /sema-classifier/application/

@@ -1,6 +1,3 @@
-# docker-compose.deploy.yml
-version: '0.1'
-
 networks:
   micro_network:
     name: micro_network
@@ -38,7 +35,7 @@ services:
     ports:
     - "5001:5001"
     volumes:
-      - $(PWD)/database/:/sema-scdg/application/database
+      - ${PWD}/database/:/sema-scdg/application/database
     restart: always
     environment:
       - DISPLAY=unix$DISPLAY
