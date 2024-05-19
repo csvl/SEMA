@@ -12,8 +12,15 @@ Another classifier we use is the Support Vector Machine (`SVM`) with INRIA graph
 
 ### How to use ?
 
-Just run the script :
+Launch the container:
 ```bash
+docker run --rm --name="sema-scdg" -v ${PWD}/InputFolder:/sema-classifier/application/database -it sema-classifier ../docker_startup.sh 1
+```
+
+Where the volume correspond to the folder containings the inputs that will be accessible by the container.
+
+Then just run the script :
+```
 python3 SemaClassifier.py FOLDER/FILE
 
 usage: update_readme_usage.py [-h] [--threshold THRESHOLD] [--biggest_subgraph BIGGEST_SUBGRAPH] [--support SUPPORT] [--ctimeout CTIMEOUT] [--epoch EPOCH] [--sepoch SEPOCH]
@@ -76,7 +83,6 @@ Global parameter:
   --train               Launch training process, else classify/detect new sample with previously computed model
   --nthread NTHREAD     Number of thread used (default: max)
   binaries              Name of the folder containing binary'signatures to analyze (Default: output/save-SCDG/, only that for ToolChain)
-
 ```
 
 #### Example
@@ -84,16 +90,16 @@ Global parameter:
 This will train models for input dataset
 
 ```bash
-python3 SemaClassifier/SemaClassifier.py --train output/save-SCDG/
+python3 SemaClassifier.py --train output/save-SCDG/
 ```
 
 This will classify input dataset based on previously computed models
 
 ```bash
-python3 SemaClassifier/SemaClassifier.py output/test-set/
+python3 SemaClassifier.py output/test-set/
 ```
 
-### Tests
+#### Tests
 
 To run the classifier tests, run inside the docker container:
 ```bash

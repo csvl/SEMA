@@ -45,14 +45,15 @@ class PluginManager():
                 # elif plugin == "plugin_thread" :
                 #     state.register_plugin("plugin_thread", PluginThread(self, exp_dir, proj, nameFileShort, options))
 
-    def get_plugin_hooks(self):
-        return self.hooks
+    def enable_plugin_hooks(self, content, state, proj, call_sim):
+        self.hooks.initialization(content, is_64bits=proj.arch.name == "AMD64")
+        self.hooks.hook(state,proj,call_sim)
 
-    def get_plugin_commands(self):
-        return self.commands
+    def enable_plugin_commands(self, simgr, scdg_graph, exp_dir):
+        self.commands.track(simgr, scdg_graph, exp_dir)
 
-    def get_plugin_ioc(self):
-        return self.ioc
+    def enable_plugin_ioc(self, scdg_graph, exp_dir):
+        self.ioc.build_ioc(scdg_graph, exp_dir)
 
     def get_plugin_packing(self):
         return self.packing

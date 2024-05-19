@@ -2,9 +2,6 @@ from explorer.SemaExplorerDFS import SemaExplorerDFS
 from explorer.SemaExplorerCDFS import SemaExplorerCDFS
 from explorer.SemaExplorerBFS import SemaExplorerBFS
 from explorer.SemaExplorerCBFS import SemaExplorerCBFS
-from explorer.SemaExplorerSDFS import SemaExplorerSDFS
-from explorer.SemaExplorerDBFS import SemaExplorerDBFS
-from explorer.SemaExplorerAnotherCDFS import SemaExplorerAnotherCDFS
 
 class SemaExplorerManager():
 
@@ -26,18 +23,6 @@ class SemaExplorerManager():
         elif expl_tech == "BFS":
             self.expl_tech = SemaExplorerBFS(
                 simgr, exp_dir, nameFileShort, scdg_graph, call_sim
-            )
-        elif expl_tech == "SCDFS":
-            self.expl_tech = SemaExplorerAnotherCDFS(
-                simgr, exp_dir, nameFileShort, scdg_graph, call_sim
-            )
-        elif expl_tech == "DBFS":
-            self.expl_tech = SemaExplorerDBFS(
-                simgr, exp_dir, nameFileShort, scdg_graph, call_sim
-            )
-        elif expl_tech == "SDFS":
-            self.expl_tech = SemaExplorerSDFS(
-                simgr, exp_dir, nameFileShort, scdg_graph, call_sim, proj
             )
 
         return self.expl_tech
