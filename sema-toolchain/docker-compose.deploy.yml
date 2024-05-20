@@ -28,7 +28,7 @@ services:
   sema-scdg:
     container_name: sema-scdg
     image: sema-scdg:latest
-    command: python3 SCDGApp.py configs/config_web_app.ini
+    command: python3 SCDGApp.py config_web_app.ini
     build:
       context: .
       dockerfile: ./sema_scdg/Dockerfile

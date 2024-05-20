@@ -102,10 +102,7 @@ class TestSCDG(unittest.TestCase):
                             [{'name': 'DFS', 'help': 'Depth First Search', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
                               {'name': 'BFS', 'help': 'Breadth First Search', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
                               {'name': 'CDFS', 'help': 'Custom Depth First Search (Default)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
-                              {'name': 'CBFS', 'help': 'Custom Breadth First Search', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
-                              {'name': 'DBFS', 'help': 'TODO', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
-                              {'name': 'SDFS', 'help': 'TODO', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
-                              {'name': 'SCDFS', 'help': 'TODO', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True}],
+                              {'name': 'CBFS', 'help': 'Custom Breadth First Search', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True}],
                             'graph_output':
                                 [{'name': 'gs', 'help': '.GS format', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
                                 {'name': 'json', 'help': '.JSON format', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True}],
@@ -148,7 +145,8 @@ class TestSCDG(unittest.TestCase):
                              {'name': 'runtime_run_thread', 'help': 'TODO (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
                              {'name': 'post_run_thread', 'help': 'TODO (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False}],
                         'Global parameter':
-                            [{'name': 'approximate', 'help': 'Symbolic approximation (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
+                            [{'name': 'wait_scdg', 'help': 'Does the classifier wait for the result of the SCDG or not (default = False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
+                             {'name': 'approximate', 'help': 'Symbolic approximation (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
                              {'name': 'fast_main', 'help': 'Jump directly to the main method of the binary', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
                              {'name': 'timeout', 'help': 'Timeout in seconds before ending extraction (default : 1000)', 'type': "<class 'int'>", 'default': 1000, 'is_mutually_exclusive': False},
                              {'name': 'string_resolve', 'help': 'Do we try to resolv references of string (default : False)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': False},
@@ -217,7 +215,7 @@ class TestSCDG(unittest.TestCase):
 
         # Reset default_config
         with open(sys.argv[1], 'w') as configfile:
-            with open('configs/default_config.ini', "r") as default_config:
+            with open('test_data/default_config.ini', "r") as default_config:
                 default_settings = default_config.read()
                 configfile.write(default_settings)
 
