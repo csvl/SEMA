@@ -14,7 +14,7 @@ Another classifier we use is the Support Vector Machine (`SVM`) with INRIA graph
 
 Launch the container:
 ```bash
-docker run --rm --name="sema-scdg" -v ${PWD}/InputFolder:/sema-classifier/application/database -it sema-classifier ../docker_startup.sh 1
+docker run --rm --name="sema-classifier" -v ${PWD}/InputFolder:/sema-classifier/application/database -it sema-classifier ../docker_startup.sh 1
 ```
 
 Where the volume correspond to the folder containings the inputs that will be accessible by the container.

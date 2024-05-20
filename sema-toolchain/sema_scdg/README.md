@@ -1,3 +1,6 @@
+:page_with_curl: System Call Dependy Graph extractor (`SemaSCDG`)
+====
+
 This repository contains a first version of a SCDG extractor.
 During symbolic analysis of a binary, all system calls and their arguments found are recorded. After some stop conditions for symbolic analysis, a graph is build as follow : Nodes are systems Calls recorded, edges show that some arguments are shared between calls.
 
