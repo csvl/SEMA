@@ -1,4 +1,4 @@
-# :skull_and_crossbones: SEMA :skull_and_crossbones: - ToolChain using Symbolic Execution for Malware Analysis.
+# SEMA - ToolChain using Symbolic Execution for Malware Analysis.
 
 ```
   ██████ ▓█████  ███▄ ▄███▓ ▄▄▄
@@ -14,49 +14,89 @@
 ```
 
 
-# :books:  Documentation
+# Table of Contents
+1. [Architecture](#architecture)
+    - [Toolchain Architecture](#toolchain-architecture)
+2. [Recommended Installation and Usage](#page_with_curl-recommended-installation-and-usage)
+3. [Dockerhub Installation and Usage](#page_with_curl-dockerhub-installation)
+4. [Pypi Installation and Usage](#page_with_curl-pypi-installation-and-usage)
+5. [Credentials](#page_with_curl-credentials)
 
-1. [ Architecture ](#arch)
-    1. [ Toolchain architecture ](#arch_std)
-
-2. [ Installation ](#install)
-
-3. [ SEMA ](#tc)
-    1. [ `SemaSCDG` ](#tcscdg)
-    2. [ `SemaClassifier` ](#tcc)
-
-4. [Quick Start Demos](#)
-    1. [ `Extract SCDGs from binaries` ](https://github.com/csvl/SEMA-ToolChain/blob/production/Tutorial/Notebook/SEMA-SCDG%20Demo.ipynb)
-
-5. [ Credentials ](#credit)
-
-:page_with_curl: Architecture
+Architecture
 ====
-<a name="arch"></a>
+<a name="architecture"></a>
 
 ### Toolchain architecture
-<a name="arch_std"></a>
+<a name="toolchain-architecture"></a>
 
+Our toolchain is represented in the following figure and works as follows:
+
+- A collection of labelled binaries from different malware families is collected and used as the input of the toolchain.
+- **Angr**, a framework for symbolic execution, is used to execute binaries symbolically and extract execution traces. For this purpose, different heuristics have been developed to optimize symbolic execution.
+- Several execution traces (i.e., API calls used and their arguments) corresponding to one binary are extracted with Angr and gathered together using several graph heuristics to construct a SCDG.
+- These resulting SCDGs are then used as input to graph mining to extract common graphs between SCDGs of the same family and create a signature.
+- Finally, when a new sample has to be classified, its SCDG is built and compared with SCDGs of known families using a simple similarity metric.
+
+This repository contains a first version of a SCDG extractor. During the symbolic analysis of a binary, all system calls and their arguments found are recorded. After some stop conditions for symbolic analysis, a graph is built as follows: Nodes are system calls recorded, edges show that some arguments are shared between calls.
+
+When a new sample has to be evaluated, its SCDG is first built as described previously. Then, `gspan` is applied to extract the biggest common subgraph and a similarity score is evaluated to decide if the graph is considered as part of the family or not. The similarity score `S` between graph `G'` and `G''` is computed as follows:
+Since `G''` is a subgraph of `G'`, this is calculating how much `G'` appears in `G''`.
+Another classifier we use is the Support Vector Machine (`SVM`) with INRIA graph kernel or the Weisfeiler-Lehman extension graph kernel.
+
+A web application is available and is called SemaWebApp. It allows to manage the launch of experiments on SemaSCDG and/or SemaClassifier.
 
 #### Main depencies:
 
-    * Python 3.8 (angr)
+    * Python 3.8
 
-    * Docker, docker buildx, docker compose
+    * Docker >=26.1.3 , docker buildx, Docker Compose >=v2.27.0
 
     * radare2
 
-#### Using Pypi sema-toolchain package
+    * libvirt-dev, libgraphviz-dev, wheel
 
-If you wish to install the toolchain python dependencies on your system, use :
+#### Interesting links
+
+
+- [Angr](https://angr.io/)
+- [Bazaar Abuse](https://bazaar.abuse.ch/)
+- [Docker Installation on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
+
+
+#### Extracting database
+
+To extract the database, use the following commands:
+```bash
+cd databases/Binaries
+./extract_deploy_db.sh
+```
+
+Password for archive is "infected". Warning : it contains real samples of malwares.
+
+#### Compressing database
+
+To compress the database, use the following commands:
+```bash
+#To zip back the test database
+cd databases/Binaries
+./compress_db.sh
+```
+
+**Pypi installation and usage**
+====
+<a name="pypi-installation-and-usage"></a>
+
+To use the toolchain without docker container by using the Pypi package to install dependencies, use :
 
 ```bash
 pip install sema-toolchain
 ```
 
-#### Pypy3 usage
+After cloning the git you can then use the toolchain without docker
 
-By default, pypy3 can be used to launch experiments inside the SCDG's docker container. If you wish to use it outside the container, make sure to install pypy3 :
+## Pypy3 usage
+
+Pypy3 can be used to launch experiments, make sure to install pypy3 :
 
 ```bash
 sudo add-apt-repository ppa:pypy/ppa
@@ -70,127 +110,37 @@ Then install the dependecies on pypy3 :
 pypy3 -m pip install -r /sema_scdg/requirements_pypy.txt
 ```
 
-#### Interesting links
+## How to use ?
 
-* https://angr.io/
+### Use SemaSCDG
 
-* https://bazaar.abuse.ch/
-
-* https://docs.docker.com/engine/install/ubuntu/
-
-:page_with_curl: Installation
-====
-<a name="install"></a>
-
-Tested on Ubuntu 20.04
-
-**Recommanded installation:**
-
+To run experiments, run :
 ```bash
-git clone https://github.com/Manon-Oreins/SEMA-ToolChain.git;
-
-# Full installation (ubuntu)
-make build-toolchain;
-```
-
-If you only need the SCDG part of the toolchain you can use :
-```bash
-make pull-scdg
-```
-To pull the docker image directly from dockerHub
-
-Or visit `https://hub.docker.com/repository/docker/manonoreins/sema-scdg/tags`
-
-## Installation details (optional)
-
-#### For extracting database
-
-```bash
-cd databases/Binaries; bash extract_deploy_db.sh
-```
-
-Password for archive is "infected". Warning : it contains real samples of malwares.
-
-#### For code cleaning
-
-```bash
-#To zip back the test database
-cd databases/Binaries; bash compress_db.sh
-```
-
-:page_with_curl: `SEMA - ToolChain`
-====
-<a name="tc"></a>
-
-Our toolchain is represented in the next figure  and works as follow. A collection of labelled binaries of different malwares families is collected and used as the input of the toolchain. **Angr**, a framework for symbolic execution, is used to execute symbolically binaries and extract execution traces. For this purpose, different heuristics have been developped to optimize symbolic execution. Several execution traces (i.e : API calls used and their arguments) corresponding to one binary are extracted with Angr and gather together thanks to several graph heuristics to construct a SCDG. These resulting SCDGs are then used as input to graph mining to extract common graph between SCDG of the same family and create a signature. Finally when a new sample has to be classified, its SCDG is build and compared with SCDG of known families (thanks to a simple similarity metric).
-
-
-### How to use ?
-
-First launch the containers :
-```bash
-make run-toolchain
-```
-
-It will start the scdg, the classifier and the web app services. If you wish to use only the scdg or only the classifier, refer to the next sections.
-
-Wait for the containers to be up
-
-Then visit 127.0.0.1:5000 on your browser
-
-See next sections for details about the different parameters.
-
-:page_with_curl: System Call Dependency Graphs extractor (`SemaSCDG`)
-====
-<a name="tcscdg"></a>
-
-This repository contains a first version of a SCDG extractor.
-During symbolic analysis of a binary, all system calls and their arguments found are recorded. After some stop conditions for symbolic analysis, a graph is build as follow : Nodes are systems Calls recorded, edges show that some arguments are shared between calls.
-
-### How to use ?
-First run the SCDG container:
-```bash
-make run-scdg-service
-```
-
-Inside the container just run  :
-```bash
-python3 SemaSCDG.py configs/config.ini
+python3 sema_scdg/application/SemaSCDG.py sema_scdg/application/configs/config.ini
 ```
 Or if you want to use pypy3:
 ```bash
-pypy3 SemaSCDG.py configs/config.ini
+pypy3 sema_scdg/application/SemaSCDG.py sema_scdg/application/configs/config.ini
 ```
 
-The parameters are put in a configuration file : `configs/config.ini`
-Feel free to modify it or create new configuration files to run different experiments.
-To restore the default values of `config.ini` do :
+#### Configuration files
+
+The parameters are put in a configuration file : `configs/config.ini`. Feel free to modify it or create new configuration files to run different experiments.
+
+The output of the SCDG are put into `database/SCDG/runs/` by default. If you are not using volumes and want to save some runs from the container to your host machine, use :
 ```bash
-python3 restore_defaults.py
-```
-The default parameters are stored in the file `default_config.ini`
-
-If you wish to run multiple experiments with different configuration files, the script `multiple_experiments.sh` is available and can be used inside the scdg container:
-```bash
-# To show usage
-./multiple_experiments.sh -h
-
-# Run example
-./multiple_experiments.sh -m python3 -c configs/config configs/default_configs
+make save-scdg-runs ARGS=PATH
 ```
 
-### Parameters description
+#### Parameters description
 SCDG module arguments
 
 ```
 expl_method:
   DFS                 Depth First Search
   BFS                 Breadth First Search
-  CDFS                Custom Depth First Search (Default)
-  CBFS                Custom Breadth First Search
-  DBFS                TODO
-  SDFS                TODO
-  SCDFS               TODO
+  CDFS                Coverage Depth-First Search Strategy (Default)
+  CBFS                Coverage Breadth First Search
 
 graph_output:
   gs                  .GS format
@@ -252,62 +202,40 @@ Plugins:
   plugin_hooks            Enable the hooks plugin
 ```
 
-**The binary path has to be a relative path to a binary beeing into the `database` directory**
-
 To know the details of the angr options see [Angr documentation](https://docs.angr.io/en/latest/appendix/options.html)
-
-Program will output a graph in `.gs` format that could be exploited by `gspan`.
 
 You also have a script `MergeGspan.py` in `sema_scdg/application/helper` which could merge all `.gs` from a directory into only one file.
 
+#### Run multiple experiments automatically
 
-## Managing your runs
-
-The output of the SCDG are put into `database/SCDG/runs/`
-
-If you want to save some runs from the container to your host machine :
+If you wish to run multiple experiments with different configuration files, the script `multiple_experiments.sh` is available. When being in the folder containing SemaSCDG.py :
 ```bash
-make save-scdg-runs ARGS=PATH
+# To show usage
+./multiple_experiments.sh -h
+
+# Run example
+./multiple_experiments.sh -m python3 -c configs/config1.ini configs/config2.ini
 ```
 
-## Tests
+#### Tests
 
-To run the test, inside the docker container :
+To run the test :
 ```bash
-python3 scdg_tests.py configs/config_test.ini
+python3 scdg_tests.py test_data/config_test.ini
 ```
 
-## Tutorial
+#### Tutorial
 
-There is a jupyter notebook providing a tutorial on how to use the scdg. To launch it, run the container by using :
-```bash
-make run-scdg
-```
-
-Then, inside the docker, run
+There is a jupyter notebook providing a tutorial on how to use the scdg. To launch it, run
 ```bash
 jupyter notebook --ip=0.0.0.0 --port=5001 --no-browser --allow-root --NotebookApp.token=''
 ```
-
 and visit `http://127.0.0.1:5001/tree` on your browser. Go to `/Tutorial` and open the jupyter notebook.
 
-
-:page_with_curl: Model & Classification extractor (`SemaClassifier`)
-====
-<a name="tcc"></a>
-
-When a new sample has to be evaluated, its SCDG is first build as described previously. Then, `gspan` is applied to extract the biggest common subgraph and a similarity score is evaluated to decide if the graph is considered as part of the family or not.
-
-The similarity score `S` between graph `G'` and `G''` is computed as follow:
-
-Since `G''` is a subgraph of `G'`, this is calculating how much `G'` appears in `G''`.
-
-Another classifier we use is the Support Vector Machine (`SVM`) with INRIA graph kernel or the Weisfeiler-Lehman extension graph kernel.
-
-### How to use ?
+### Use SemaClassifier
 
 Just run the script :
-```bash
+```
 python3 SemaClassifier.py FOLDER/FILE
 
 usage: update_readme_usage.py [-h] [--threshold THRESHOLD] [--biggest_subgraph BIGGEST_SUBGRAPH] [--support SUPPORT] [--ctimeout CTIMEOUT] [--epoch EPOCH] [--sepoch SEPOCH]
@@ -370,7 +298,6 @@ Global parameter:
   --train               Launch training process, else classify/detect new sample with previously computed model
   --nthread NTHREAD     Number of thread used (default: max)
   binaries              Name of the folder containing binary'signatures to analyze (Default: output/save-SCDG/, only that for ToolChain)
-
 ```
 
 #### Example
@@ -378,44 +305,24 @@ Global parameter:
 This will train models for input dataset
 
 ```bash
-python3 SemaClassifier/SemaClassifier.py --train output/save-SCDG/
+python3 SemaClassifier.py --train output/save-SCDG/
 ```
 
 This will classify input dataset based on previously computed models
-
 ```bash
-python3 SemaClassifier/SemaClassifier.py output/test-set/
+python3 SemaClassifier.py output/test-set/
 ```
 
-### Tests
+#### Tests
 
-To run the classifier tests, run inside the docker container:
+To run the classifier tests :
 ```bash
 python3 classifier_tests.py configs/config_test.ini
 ```
 
-
-## Shut down
-
-To leave the toolchain just press Ctrl+C then use
-
-```bash
-make stop-toolchain
-```
-
-To stop all docker containers.
-
-If you want to remove all images :
-
-```bash
-docker rmi sema-web-app
-docker rmi sema-scdg
-docker rmi sema-classifier
-```
-
-:page_with_curl: Credentials
+Credentials
 ====
-<a name="credit"></a>
+<a name="credentials"></a>
 
 Main authors of the projects:
 

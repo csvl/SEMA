@@ -34,24 +34,6 @@ class ArgumentParserSCDG:
             action="store_true",
 
         )
-        self.group_expl.add_argument(
-            "--DBFS",
-            help="TODO",
-            action="store_true",
-
-        )
-        self.group_expl.add_argument(
-            "--SDFS",
-            help="TODO",
-            action="store_true",
-
-        )
-        self.group_expl.add_argument(
-            "--SCDFS",
-            help="TODO",
-            action="store_true",
-
-        )
 
         self.group_output = self.parser.add_mutually_exclusive_group() # required=True
         self.group_output.title = 'graph_output'
