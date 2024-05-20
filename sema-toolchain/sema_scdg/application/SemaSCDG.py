@@ -65,6 +65,7 @@ class SemaSCDG():
         This method sets up the application environment, including configurations, logging, plugins, and directories for storing results.
         """
         self.config = config
+        config.read(sys.argv[1])
         self.get_config_param(self.config)
         self.log = logger
         self.log_level = log_level
@@ -90,7 +91,7 @@ class SemaSCDG():
         self.graph_builder = GraphBuilder()
 
         # Setup the output directory
-        self.log.info(f"Results wil be saved into : {self.mapping_dir}")
+        self.log.info(f"Results will be saved into : {self.mapping_dir}")
         with contextlib.suppress(Exception):
             os.makedirs(self.mapping_dir)
         self.save_conf()
@@ -725,14 +726,14 @@ def start_scdg():
         subfolder = [os.path.join(sema_scdg.binary_path, f) for f in os.listdir(sema_scdg.binary_path) if os.path.isdir(os.path.join(sema_scdg.binary_path, f))]
         if not subfolder:
             sema_scdg.log.error("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/Binaries/malware-win/small_train")
-            exit(-1)
+            raise FileNotFoundError("No correct subfolder found")
         with progressbar.ProgressBar(max_value=len(subfolder)) as bar_f:
             for folder in subfolder:
                 __process_folder(folder, sema_scdg, crashed_samples)
                 bar_f.next()
     else:
         sema_scdg.log.error("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/Binaries/malware-win/small_train")
-        exit(-1)
+        raise FileNotFoundError("No correct subfolder or binary found")
 
     if crashed_samples:
         sema_scdg.log.warning(

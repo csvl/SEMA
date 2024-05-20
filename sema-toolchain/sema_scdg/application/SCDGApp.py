@@ -20,11 +20,14 @@ def run_scdg():
     #Modify config file with the args provided in web app
     user_data = request.json
     parse_json_request(user_data)
-    if user_data.get("wait_scdg", False):
-        start_scdg()
-    else :
-        thread = threading.Thread(target=start_scdg)
-        thread.start()
+    try:
+        if user_data.get("wait_scdg", False) in [True, 'true']:
+            start_scdg()
+        else :
+            thread = threading.Thread(target=start_scdg)
+            thread.start()
+    except Exception:
+        return {"SCDG request": "Failed"}, 500
     return {"SCDG request": "Accepted"}, 202
 
 # Respond to the request with a json object containing the return value of get_args
