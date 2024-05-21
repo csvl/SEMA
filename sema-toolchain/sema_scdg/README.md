@@ -11,6 +11,11 @@ docker run --rm --name="sema-scdg" -v ${PWD}/OutputFolder:/sema-scdg/application
 ```
 Where the first volume corresponds to the output folder where the results will be put. The second volume corresponds to the folder containing the configuration files that will be passed to the docker. And the third matches the folder containing the binaries that are going to be passed to the container.
 
+Example taking the files already provided, being inside the sema-toolchain folder, run :
+```bash
+docker run --rm --name="sema-scdg" -v ${PWD}/database/SCDG:/sema-scdg/application/database/SCDG -v ${PWD}/sema_scdg/application/configs:/sema-scdg/application/configs -v ${PWD}/database/Binaries:/sema-scdg/application/database/Binaries  -it sema-scdg bash
+```
+
 Inside the container just run  :
 ```bash
 python3 SemaSCDG.py configs/config.ini
