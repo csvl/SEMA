@@ -104,7 +104,7 @@ Plugins:
   plugin_locale_info      Enable the locale_info plugin
   plugin_resources        Enable the resources plugin
   plugin_widechar         Enable the widechar plugin
-  plugin_registery        Enable the registery plugin
+  plugin_registry        Enable the registry plugin
   plugin_atom             Enable the atom plugin
   plugin_thread           Enable the thread plugin
   plugin_track_command    Enable the track_command plugin

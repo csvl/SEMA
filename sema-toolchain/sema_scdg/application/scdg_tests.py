@@ -93,7 +93,7 @@ class TestSCDG(unittest.TestCase):
         self.assertEqual(state.has_plugin("plugin_locale_info"), True)
         self.assertEqual(state.has_plugin("plugin_resources"), True)
         self.assertEqual(state.has_plugin("plugin_widechar"), True)
-        self.assertEqual(state.has_plugin("plugin_registery"), False)
+        self.assertEqual(state.has_plugin("plugin_registry"), False)
         self.assertEqual(state.has_plugin("plugin_atom"), False)
 
     def test_REST_scdg_args(self):
