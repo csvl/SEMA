@@ -26,14 +26,14 @@ class RegCreateKeyExW(angr.SimProcedure):
         )
         self.state.memory.store(phkResult,ptr)
 
-        # if hKey in self.state.plugin_registery.registery and lpSubKey in self.state.plugin_registery.registery[hKey]:
+        # if hKey in self.state.plugin_registry.registry and lpSubKey in self.state.plugin_registry.registry[hKey]:
         #     return 0x0
 
-        # self.state.memory.store(self.state.plugin_registery.registery_block, lpLCData)
+        # self.state.memory.store(self.state.plugin_registry.registry_block, lpLCData)
 
-        # if lpSubKey not in self.state.plugin_registery.registery[hKey]:
-        #     self.state.plugin_registery.registery[hKey][lpSubKey] = {}
+        # if lpSubKey not in self.state.plugin_registry.registry[hKey]:
+        #     self.state.plugin_registry.registry[hKey][lpSubKey] = {}
         # else:
-        #     self.state.plugin_registery.registery[hKey][lpSubKey] = (LCType, lpLCData, cchData)
+        #     self.state.plugin_registry.registry[hKey][lpSubKey] = (LCType, lpLCData, cchData)
 
         return 0x0

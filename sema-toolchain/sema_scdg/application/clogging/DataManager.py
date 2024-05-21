@@ -80,7 +80,7 @@ class DataManager():
                     "EnvVar found": json.dumps(self.data.get("total_env_var", -1)),
                     "Locale found": json.dumps(self.data.get("total_locale", -1)),
                     "Resources found": json.dumps(resources_found),
-                    "Registry found": json.dumps(self.data.get("total_registery", -1)),
+                    "Registry found": json.dumps(self.data.get("total_registry", -1)),
 
                     "Number Address found": 0,
                     "Number Syscall found": sum(call_sim.syscall_found.values()),
@@ -147,11 +147,11 @@ class DataManager():
             if to_store:
                 self.data["total_env_var"] = total_env_var
             #self.log.info("Environment variables:" + str(total_env_var))
-        if state.has_plugin("plugin_registery"):
-            total_registery = state.plugin_registery.ending_state(simgr)
+        if state.has_plugin("plugin_registry"):
+            total_registry = state.plugin_registry.ending_state(simgr)
             if to_store:
-                self.data["total_registery"] = total_registery
-            #self.log.info("Registery variables:" + str(total_registery))
+                self.data["total_registry"] = total_registry
+            #self.log.info("registry variables:" + str(total_registry))
         if state.has_plugin("plugin_locale_info"):
             total_locale = state.plugin_locale_info.ending_state(simgr)
             if to_store:

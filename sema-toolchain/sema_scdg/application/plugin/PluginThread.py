@@ -4,7 +4,7 @@ import re
 
 from .PluginEnvVar import *
 from .PluginLocaleInfo import *
-from .PluginRegistery import *
+from .PluginRegistry import *
 from .PluginHooks import *
 from .PluginWideChar import *
 from .PluginResources import *
@@ -14,8 +14,8 @@ class PluginThread(angr.SimStatePlugin):
     def __init__(self, sema_scdg, exp_dir, proj, nameFileShort, options, args):
         super(PluginThread, self).__init__()
         self.last_error = 0
-        self.registery_block = 0
-        self.registery = {}
+        self.registry_block = 0
+        self.registry = {}
         self.stop_flag = False
         self.log = logging.getLogger("PluginThread")
         self.sema_scdg = sema_scdg
@@ -238,8 +238,8 @@ class PluginThread(angr.SimStatePlugin):
 
             tstate.register_plugin("plugin_widechar", PluginWideChar())
 
-            tstate.register_plugin("plugin_registery", PluginRegistery())
-            tstate.plugin_registery.setup_plugin()
+            tstate.register_plugin("plugin_registry", PluginRegistry())
+            tstate.plugin_registry.setup_plugin()
 
             # Create ProcessHeap struct and set heapflages to 0
             tib_addr = tstate.regs.fs.concat(tstate.solver.BVV(0, 16))
@@ -284,7 +284,7 @@ class PluginThread(angr.SimStatePlugin):
     # def copy(self, memo):
     #     p = PluginThread(self.sema_scdg, self.exp_dir, self.proj, self.nameFileShort, self.options, self.args)
     #     p.last_error = self.last_error
-    #     p.registery_block = self.registery_block
-    #     p.registery = self.registery.copy()
+    #     p.registry_block = self.registry_block
+    #     p.registry = self.registry.copy()
     #     p.stop_flag = self.stop_flag
     #     return p

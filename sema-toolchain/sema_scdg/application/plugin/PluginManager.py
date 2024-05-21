@@ -1,6 +1,6 @@
 from plugin.PluginEnvVar import PluginEnvVar
 from plugin.PluginLocaleInfo import PluginLocaleInfo
-from plugin.PluginRegistery import PluginRegistery
+from plugin.PluginRegistry import PluginRegistry
 from plugin.PluginHooks import PluginHooks
 from plugin.PluginWideChar import PluginWideChar
 from plugin.PluginResources import PluginResources
@@ -36,9 +36,9 @@ class PluginManager():
                     state.plugin_resources.setup_plugin()
                 elif plugin == "plugin_widechar" :
                     state.register_plugin(plugin, PluginWideChar())
-                elif plugin == "plugin_registery" :
-                    state.register_plugin(plugin, PluginRegistery())
-                    state.plugin_registery.setup_plugin()
+                elif plugin == "plugin_registry" :
+                    state.register_plugin(plugin, PluginRegistry())
+                    state.plugin_registry.setup_plugin()
                 elif plugin == "plugin_atom" :
                     state.register_plugin(plugin, PluginAtom())
                 #TODO Christophe : Check if plugin thread does the right thing (handles thread in the binary and not try to multithread angr execution)
