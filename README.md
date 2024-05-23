@@ -65,6 +65,8 @@ Under the supervision and with the support of our professor **Axel Legay** (UCLo
 
 ### Linked papers
 
-* ![Analysis and classification of malware based on symbolic execution and machine learning](http://hdl.handle.net/2078.1/285757)
+* [Analysis and classification of malware based on symbolic execution and machine learning](https://dial.uclouvain.be/pr/boreal/object/boreal:285757)
 
-* ![Tool Paper - SEMA: Symbolic Execution Toolchain for Malware Analysis](https://doi.org/10.1007/978-3-031-31108-6\_5)
+* [Tool Paper - SEMA: Symbolic Execution Toolchain for Malware Analysis](https://doi.org/10.1007/978-3-031-31108-6\_5)
+
+* [On Exploiting Symbolic Execution to Improve the Analysis of RAT Samples with angr](https://dial.uclouvain.be/pr/boreal/object/boreal%3A280744/datastream/PDF_01/view)
