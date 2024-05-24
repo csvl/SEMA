@@ -7,7 +7,7 @@ During symbolic analysis of a binary, all system calls and their arguments found
 ### How to use ?
 First run the SCDG container with volumes like this :
 ```bash
-docker run --rm --name="sema-scdg" -v ${PWD}/OutputFolder:/sema-scdg/application/database/SCDG -v ${PWD}/ConfigFolder:/sema-scdg/application/configs -v ${PWD}/InputFolder:/sema-scdg/application/database/Binaries  -it sema-scdg bash
+docker run --rm --name="sema-scdg" -v ${PWD}/OutputFolder:/sema-scdg/application/database/SCDG -v ${PWD}/ConfigFolder:/sema-scdg/application/configs -v ${PWD}/InputFolder:/sema-scdg/application/database/Binaries -p 5001:5001 -it sema-scdg bash
 ```
 In this command:
 
@@ -17,7 +17,7 @@ In this command:
 
 Example taking the files already provided, being inside the sema-toolchain folder, run :
 ```bash
-docker run --rm --name="sema-scdg" -v ${PWD}/database/SCDG:/sema-scdg/application/database/SCDG -v ${PWD}/sema_scdg/application/configs:/sema-scdg/application/configs -v ${PWD}/database/Binaries:/sema-scdg/application/database/Binaries  -it sema-scdg bash
+docker run --rm --name="sema-scdg" -v ${PWD}/database/SCDG:/sema-scdg/application/database/SCDG -v ${PWD}/sema_scdg/application/configs:/sema-scdg/application/configs -v ${PWD}/database/Binaries:/sema-scdg/application/database/Binaries -p 5001:5001 -it sema-scdg bash
 ```
 
 To run experiments, run inside the container :
@@ -138,6 +138,6 @@ python3 scdg_tests.py test_data/config_test.ini
 
 There is a jupyter notebook providing a tutorial on how to use the scdg. To launch it, inside the docker, run
 ```bash
-jupyter notebook --ip=0.0.0.0 --port=5001 --no-browser --allow-root --NotebookApp.token=''
+jupyter notebook --ip=0.0.0.0 --port=5001 --no-browser --allow-root --IdentityProvider.token=''
 ```
 and visit `http://127.0.0.1:5001/tree` on your browser. Go to `/Tutorial` and open the jupyter notebook.
