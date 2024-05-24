@@ -143,6 +143,11 @@ Example taking the files already provided, being inside the sema-toolchain folde
 docker run --rm --name="sema-scdg" -v ${PWD}/database/SCDG:/sema-scdg/application/database/SCDG -v ${PWD}/sema_scdg/application/configs:/sema-scdg/application/configs -v ${PWD}/database/Binaries:/sema-scdg/application/database/Binaries  -p 5001:5001 -it sema-scdg bash
 ```
 
+If you want to be able to modify the code when the container is running, use
+```bash
+docker run --rm --name="sema-scdg" -v ${PWD}/database:/sema-scdg/application/database -v ${PWD}/sema_scdg/application:/sema-scdg/application -p 5001:5001 -it sema-scdg bash
+```
+
 To run experiments, run inside the container :
 ```bash
 python3 SemaSCDG.py configs/config.ini
