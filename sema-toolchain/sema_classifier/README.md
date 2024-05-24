@@ -90,13 +90,13 @@ Global parameter:
 This will train models for input dataset
 
 ```bash
-python3 SemaClassifier.py --train output/save-SCDG/
+python3 SemaClassifier.py --train test-set/autoit
 ```
 
 This will classify input dataset based on previously computed models
 
 ```bash
-python3 SemaClassifier.py output/test-set/
+python3 SemaClassifier.py test-set/autoit
 ```
 
 #### Tests
