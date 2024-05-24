@@ -66,7 +66,7 @@ class ArgumentParserSCDG:
         )
 
         self.group_logs = self.parser.add_mutually_exclusive_group() # required=True
-        self.group_logs.title = 'log_level'
+        self.group_logs.title = 'log_level_sema'
         self.group_logs.add_argument(
             "--INFO",
             help="Info, warning and error logs",

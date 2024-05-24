@@ -9,14 +9,18 @@ First run the SCDG container with volumes like this :
 ```bash
 docker run --rm --name="sema-scdg" -v ${PWD}/OutputFolder:/sema-scdg/application/database/SCDG -v ${PWD}/ConfigFolder:/sema-scdg/application/configs -v ${PWD}/InputFolder:/sema-scdg/application/database/Binaries  -it sema-scdg bash
 ```
-Where the first volume corresponds to the output folder where the results will be put. The second volume corresponds to the folder containing the configuration files that will be passed to the docker. And the third matches the folder containing the binaries that are going to be passed to the container.
+In this command:
+
+- The first volume corresponds to the output folder where the results will be put.
+- The second volume corresponds to the folder containing the configuration files that will be passed to the docker.
+- The third matches the folder containing the binaries that are going to be passed to the container.
 
 Example taking the files already provided, being inside the sema-toolchain folder, run :
 ```bash
 docker run --rm --name="sema-scdg" -v ${PWD}/database/SCDG:/sema-scdg/application/database/SCDG -v ${PWD}/sema_scdg/application/configs:/sema-scdg/application/configs -v ${PWD}/database/Binaries:/sema-scdg/application/database/Binaries  -it sema-scdg bash
 ```
 
-Inside the container just run  :
+To run experiments, run inside the container :
 ```bash
 python3 SemaSCDG.py configs/config.ini
 ```
@@ -27,17 +31,9 @@ pypy3 SemaSCDG.py configs/config.ini
 
 #### Configuration files
 
-The parameters are put in a configuration file : `configs/config.ini`
-Feel free to modify it or create new configuration files to run different experiments.
+The parameters are put in a configuration file : `configs/config.ini`. Feel free to modify it or create new configuration files to run different experiments.
 
-To restore the default values of `config.ini` do :
-```bash
-python3 restore_defaults.py
-```
-The default parameters are stored in the file `default_config.ini`
-Do not modify `config_tutorial.ini` and `config_test.ini` as they are designed to fit the Tutorial and the tests needs respectively.
-
-The output of the SCDG are put into `database/SCDG/runs/` by default. If you are not using volumes and want to save some runs from the container to your host machine :
+The output of the SCDG are put into `database/SCDG/runs/` by default. If you are not using volumes and want to save some runs from the container to your host machine, use :
 ```bash
 make save-scdg-runs ARGS=PATH
 ```
@@ -93,7 +89,9 @@ Global parameter:
   is_packed                     Is the binary packed ? (default : False, not yet supported)
   timeout                       Timeout in seconds before ending extraction (default : 600)
   string_resolve                Do we try to resolv references of string (default : True)
-  log_level                     Level of log, can be INFO, DEBUG, WARNING, ERROR (default : INFO)
+  log_level_sema                Level of log of sema, can be INFO, DEBUG, WARNING, ERROR (default : INFO)
+  log_level_angr                Level of log of angr, can be INFO, DEBUG, WARNING, ERROR (default : ERROR)
+  log_level_claripy             Level of log of claripy, can be INFO, DEBUG, WARNING, ERROR (default : ERROR)
   family                        Family of the malware (default : Unknown)
   exp_dir                       Name of the directory to save SCDG extracted (default : Default)
   binary_path                   Relative path to the binary or directory (has to be in the database folder)
@@ -126,14 +124,14 @@ If you wish to run multiple experiments with different configuration files, the 
 ./multiple_experiments.sh -h
 
 # Run example
-./multiple_experiments.sh -m python3 -c configs/config configs/default_configs
+./multiple_experiments.sh -m python3 -c configs/config1 configs/config2
 ```
 
 #### Tests
 
 To run the test, inside the docker container :
 ```bash
-python3 scdg_tests.py configs/config_test.ini
+python3 scdg_tests.py test_data/config_test.ini
 ```
 
 #### Tutorial
