@@ -194,7 +194,7 @@ class ArgumentParserClassifier:
             "--nthread",
             help="Number of thread used (default: max)",
             type=int,
-            default=multiprocessing.cpu_count(),
+            default=4,
         )
 
         self.group.add_argument("binary_signatures",
