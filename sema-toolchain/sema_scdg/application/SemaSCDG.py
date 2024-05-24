@@ -26,8 +26,10 @@ config = configparser.ConfigParser()
 file = config.read(sys.argv[1])
 if file == []:
     raise FileNotFoundError("Config file not found")
-log_level = config['SCDG_arg'].get('log_level')
-os.environ["LOG_LEVEL"] = log_level
+log_level_sema = config['SCDG_arg'].get('log_level_sema')
+log_level_angr = config['SCDG_arg'].get('log_level_angr')
+log_level_claripy = config['SCDG_arg'].get('log_level_claripy')
+os.environ["LOG_LEVEL"] = log_level_sema
 
 from helper.GraphBuilder import *
 from helper.SyscallToSCDG import SyscallToSCDG
@@ -44,13 +46,13 @@ ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 # Setup the logging system and set it to the level specified in the config file
 logger = logging.getLogger("SemaSCDG")
 ch = logging.StreamHandler()
-ch.setLevel(log_level)
+ch.setLevel(log_level_sema)
 ch.setFormatter(CustomFormatter())
 logger.addHandler(ch)
 logger.propagate = False
-logging.getLogger("angr").setLevel(log_level)
-logging.getLogger('claripy').setLevel(log_level)
-logger.setLevel(log_level)
+logging.getLogger("angr").setLevel(log_level_angr)
+logging.getLogger('claripy').setLevel(log_level_claripy)
+logger.setLevel(log_level_sema)
 
 class SemaSCDG():
     """
@@ -68,7 +70,9 @@ class SemaSCDG():
         config.read(sys.argv[1])
         self.get_config_param(self.config)
         self.log = logger
-        self.log_level = log_level
+        self.log_level_sema = log_level_sema
+        self.log_level_angr = log_level_angr
+        self.log_level_claripy= log_level_claripy
 
         self.store_data = self.csv_file != ""
         self.scdg_graph = []
@@ -712,8 +716,8 @@ def start_scdg():
     file = config.read(sys.argv[1])
     if file == []:
         raise FileNotFoundError("Config file not found")
-    log_level = config['SCDG_arg'].get('log_level')
-    os.environ["LOG_LEVEL"] = log_level
+    log_level_sema = config['SCDG_arg'].get('log_level_sema')
+    os.environ["LOG_LEVEL"] = log_level_sema
 
     crashed_samples = []
     binary_path = "".join(config['SCDG_arg']['binary_path'].rstrip())
@@ -725,8 +729,7 @@ def start_scdg():
     elif os.path.isdir(sema_scdg.binary_path):
         subfolder = [os.path.join(sema_scdg.binary_path, f) for f in os.listdir(sema_scdg.binary_path) if os.path.isdir(os.path.join(sema_scdg.binary_path, f))]
         if not subfolder:
-            sema_scdg.log.error("Error: you should insert a folder containing malware classified in their family folders\n(Example: databases/Binaries/malware-win/small_train")
-            raise FileNotFoundError("No correct subfolder found")
+            __process_folder(sema_scdg.binary_path, sema_scdg, crashed_samples)
         with progressbar.ProgressBar(max_value=len(subfolder)) as bar_f:
             for folder in subfolder:
                 __process_folder(folder, sema_scdg, crashed_samples)

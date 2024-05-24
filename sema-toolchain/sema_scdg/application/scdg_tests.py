@@ -46,7 +46,9 @@ class TestSCDG(unittest.TestCase):
         self.assertEqual(sema_scdg.pre_run_thread, False)
         self.assertEqual(sema_scdg.runtime_run_thread, False)
         self.assertEqual(sema_scdg.post_run_thread, False)
-        self.assertEqual(sema_scdg.log_level, "INFO")
+        self.assertEqual(sema_scdg.log_level_sema, "INFO")
+        self.assertEqual(sema_scdg.log_level_angr, "ERROR")
+        self.assertEqual(sema_scdg.log_level_claripy, "ERROR")
 
     def test_config_explorer(self):
         sema_explorer = SemaExplorer(None, "", "", [], None)
@@ -109,7 +111,7 @@ class TestSCDG(unittest.TestCase):
                             'packing_type':
                                 [{'name': 'symbion', 'help': 'Concolic unpacking method (linux | windows [in progress])', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
                                 {'name': 'unipacker', 'help': 'Emulation unpacking method (windows only)', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True}]},
-                        {'log_level':
+                        {'log_level_sema':
                             [{'name': 'INFO', 'help': 'Info, warning and error logs', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
                              {'name': 'DEBUG', 'help': 'All logs and debug logs', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
                              {'name': 'WARNING', 'help': 'Only Warning and error logs', 'type': 'bool', 'default': False, 'is_mutually_exclusive': True},
@@ -161,7 +163,7 @@ class TestSCDG(unittest.TestCase):
         web_app_input = {'scdg_enable': 'scdg_enable', 'expl_method': 'CDFS', 'graph_output': 'gs',
                 'is_packed': 'false', 'concrete_target_is_local': 'false',
                 'jump_it': '3', 'max_in_pause_stach': '200', 'max_step': '50000',
-                'max_end_state': '600', 'max_simul_state': '10', 'log_level': 'WARNING',
+                'max_end_state': '600', 'max_simul_state': '10', 'log_level_sema': 'WARNING',
                 'n_args': '1', 'loop_counter_concrete': '10240', 'count_block_enable': 'false',
                 'sim_file': 'false', 'plugin_track_command': 'false', 'plugin_ioc_report': 'false', 'plugin_hooks': 'false',
                 'min_size': '3', 'disjoint_union': 'false', 'not_comp_args': 'false', 'three_edges': 'false',
@@ -185,7 +187,7 @@ class TestSCDG(unittest.TestCase):
         self.assertEqual(config['SCDG_arg']['family'], "Unknown")
         self.assertEqual(config['SCDG_arg']['exp_dir'], "Test")
         self.assertEqual(config['SCDG_arg']['binary_path'], 'test/test')
-        self.assertEqual(config['SCDG_arg']['log_level'], "WARNING")
+        self.assertEqual(config['SCDG_arg']['log_level_sema'], "WARNING")
         self.assertEqual(int(config['SCDG_arg']['n_args']), 1)
         self.assertEqual(config['SCDG_arg'].getboolean('pre_run_thread'), False)
         self.assertEqual(config['SCDG_arg'].getboolean('runtime_run_thread'), False)

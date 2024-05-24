@@ -82,10 +82,9 @@ class DataManager():
                     "Resources found": json.dumps(resources_found),
                     "Registry found": json.dumps(self.data.get("total_registry", -1)),
 
-                    "Number Address found": 0,
                     "Number Syscall found": sum(call_sim.syscall_found.values()),
                     "Number diff syscall found": len(call_sim.syscall_found),
-                    "Libraries":str(proj.loader.requested_names),
+                    "Libraries":json.dumps(list(proj.loader.requested_names)),
                     "OS": proj.loader.main_object.os,
                     "CPU architecture": proj.loader.main_object.arch.name,
                     "Entry point": proj.loader.main_object.entry,
