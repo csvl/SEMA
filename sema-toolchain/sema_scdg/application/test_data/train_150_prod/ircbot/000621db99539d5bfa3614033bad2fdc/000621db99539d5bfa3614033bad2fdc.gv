@@ -1,0 +1,63 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4270136.main
+000621db99539d5bfa3614033bad2fdc"]
+	1 [label="0x405b54.GetModuleHandleA
+0"]
+	2 [label="0x403301.GetKeyboardType
+0"]
+	3 [label="0x405a17.GetCommandLineA
+"]
+	4 [label="0x4012c2.GetStartupInfoA
+2147412416"]
+	5 [label="0x405a2b.GetVersion
+"]
+	3 -> 5 [label="(0-->0)"]
+	6 [label="0x405a69.GetThreadLocale
+"]
+	3 -> 6 [label="(0-->0)"]
+	5 -> 6 [label="(0-->0)"]
+	7 [label="0x40590e.GetLocaleInfoA
+retval_GetThreadLocale_5902957_32
+4100
+
+7"]
+	8 [label="0x405a78.GetCurrentThreadId
+"]
+	3 -> 8 [label="(0-->0)"]
+	5 -> 8 [label="(0-->0)"]
+	6 -> 8 [label="(0-->0)"]
+	9 [label="0x405c62.CreateMutexA
+0
+1
+svchostsx"]
+	10 [label="0x412880.GetLastError
+"]
+	3 -> 10 [label="(0-->0)"]
+	5 -> 10 [label="(0-->0)"]
+	6 -> 10 [label="(0-->0)"]
+	8 -> 10 [label="(0-->0)"]
+	11 [label="0x4128a1.GetSystemDirectoryA
+C:\Windows\System32
+200"]
+	12 [label="0x4128b0.GetSystemDirectoryA
+C:\Windows\System32
+161"]
+	11 -> 12 [label="(1-->1)"]
+	11 -> 12 [label="(0-->0)"]
+	13 [label="0x4019be.InitializeCriticalSection
+4367812"]
+	4 -> 13 [label="(0-->0)"]
+	14 [label="0x4019fb.LocalAlloc
+0
+4088"]
+	15 [label="0x40590e.GetLocaleInfoA
+retval_GetThreadLocale_5902956_32
+4100
+
+7"]
+	16 [label="0x405a3c.GetVersion
+"]
+	3 -> 16 [label="(0-->0)"]
+	5 -> 16 [label="(0-->0)"]
+}

@@ -1,0 +1,458 @@
+[
+  {
+    "0": {
+      "status": "deadendend",
+      "trace": [
+        {
+          "name": "main",
+          "args": [
+            "00e8f188552d514b9eab3520c065829c"
+          ],
+          "addr": 9310208,
+          "ret": "symbolic",
+          "addr_func": 9310208
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            0
+          ],
+          "addr_func": "0x90004c",
+          "addr": "0x8e1013",
+          "ret": 9306112
+        },
+        {
+          "name": "HeapCreate",
+          "args": [
+            0,
+            8192,
+            0
+          ],
+          "addr_func": "0x900020",
+          "addr": "0x8e102e",
+          "ret": 1
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            8192
+          ],
+          "addr_func": "0x900048",
+          "addr": "0x8e1041",
+          "ret": 3221356584
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            8192
+          ],
+          "addr_func": "0x900048",
+          "addr": "0x8e104c",
+          "ret": 3221364784
+        },
+        {
+          "name": "GetModuleFileNameW",
+          "args": [
+            0,
+            "00e8f188552d514b9eab3520c065829c",
+            8192
+          ],
+          "addr_func": "0x900024",
+          "addr": "0x8e1056",
+          "ret": 65
+        },
+        {
+          "name": "GetTempPathW",
+          "args": [
+            4096,
+            ""
+          ],
+          "addr_func": "0x900034",
+          "addr": "0x8e1064",
+          "ret": "<BV32 retval_GetTempPathW_20195864_32>"
+        },
+        {
+          "name": "wsprintfW",
+          "args": [
+            "",
+            "%s%s"
+          ],
+          "addr_func": "0x90005c",
+          "addr": "0x8e107a",
+          "ret": "<BV32 retval_wsprintfW_20195865_32>"
+        },
+        {
+          "name": "CreateFileW",
+          "args": [
+            "00e8f188552d514b9eab3520c065829c",
+            2147483648,
+            1,
+            0,
+            3,
+            128,
+            0
+          ],
+          "addr_func": "0x900058",
+          "addr": "0x8e1096",
+          "ret": 3
+        },
+        {
+          "name": "GetFileSize",
+          "args": [
+            3,
+            0
+          ],
+          "addr_func": "0x900044",
+          "addr": "0x8e10ae",
+          "ret": "<BV32 retval_GetFileSize_20195866_32>"
+        },
+        {
+          "name": "lstrlenW",
+          "args": [
+            "00e8f188552d514b9eab3520c065829c"
+          ],
+          "addr_func": "0x900038",
+          "addr": "0x8e10c0",
+          "ret": 32
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            "retval_GetFileSize_20195866_32"
+          ],
+          "addr_func": "0x900048",
+          "addr": "0x8e10cf",
+          "ret": 3221372984
+        },
+        {
+          "name": "ReadFile",
+          "args": [
+            3,
+            3221372984,
+            "retval_GetFileSize_20195866_32",
+            2147417744,
+            0
+          ],
+          "addr_func": "0x900054",
+          "addr": "0x8e10e8",
+          "ret": 1
+        },
+        {
+          "name": "lstrcmpW",
+          "args": [
+            "00e8f188552d514b9eab3520c065829c",
+            ""
+          ],
+          "addr_func": "0x90003c",
+          "addr": "0x8e10f4",
+          "ret": 1
+        },
+        {
+          "name": "lstrlenW",
+          "args": [
+            "00e8f188552d514b9eab3520c065829c"
+          ],
+          "addr_func": "0x900038",
+          "addr": "0x8e1105",
+          "ret": 32
+        },
+        {
+          "name": "CreateFileW",
+          "args": [
+            "",
+            1073741824,
+            2,
+            0,
+            2,
+            128,
+            0
+          ],
+          "addr_func": "0x900058",
+          "addr": "0x8e113d",
+          "ret": "<BV32 retval_CreateFileW_20195868_32>"
+        }
+      ]
+    },
+    "1": {
+      "status": "deadendend",
+      "trace": [
+        {
+          "name": "main",
+          "args": [
+            "00e8f188552d514b9eab3520c065829c"
+          ],
+          "addr": 9310208,
+          "ret": "symbolic",
+          "addr_func": 9310208
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            0
+          ],
+          "addr_func": "0x90004c",
+          "addr": "0x8e1013",
+          "ret": 9306112
+        },
+        {
+          "name": "HeapCreate",
+          "args": [
+            0,
+            8192,
+            0
+          ],
+          "addr_func": "0x900020",
+          "addr": "0x8e102e",
+          "ret": 1
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            8192
+          ],
+          "addr_func": "0x900048",
+          "addr": "0x8e1041",
+          "ret": 3221356584
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            8192
+          ],
+          "addr_func": "0x900048",
+          "addr": "0x8e104c",
+          "ret": 3221364784
+        },
+        {
+          "name": "GetModuleFileNameW",
+          "args": [
+            0,
+            "00e8f188552d514b9eab3520c065829c",
+            8192
+          ],
+          "addr_func": "0x900024",
+          "addr": "0x8e1056",
+          "ret": 65
+        },
+        {
+          "name": "GetTempPathW",
+          "args": [
+            4096,
+            ""
+          ],
+          "addr_func": "0x900034",
+          "addr": "0x8e1064",
+          "ret": "<BV32 retval_GetTempPathW_20195864_32>"
+        },
+        {
+          "name": "wsprintfW",
+          "args": [
+            "",
+            "%s%s"
+          ],
+          "addr_func": "0x90005c",
+          "addr": "0x8e107a",
+          "ret": "<BV32 retval_wsprintfW_20195865_32>"
+        },
+        {
+          "name": "CreateFileW",
+          "args": [
+            "00e8f188552d514b9eab3520c065829c",
+            2147483648,
+            1,
+            0,
+            3,
+            128,
+            0
+          ],
+          "addr_func": "0x900058",
+          "addr": "0x8e1096",
+          "ret": 3
+        },
+        {
+          "name": "GetFileSize",
+          "args": [
+            3,
+            0
+          ],
+          "addr_func": "0x900044",
+          "addr": "0x8e10ae",
+          "ret": "<BV32 retval_GetFileSize_20195866_32>"
+        },
+        {
+          "name": "lstrlenW",
+          "args": [
+            "00e8f188552d514b9eab3520c065829c"
+          ],
+          "addr_func": "0x900038",
+          "addr": "0x8e10c0",
+          "ret": 32
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            "retval_GetFileSize_20195866_32"
+          ],
+          "addr_func": "0x900048",
+          "addr": "0x8e10cf",
+          "ret": 3221372984
+        },
+        {
+          "name": "ReadFile",
+          "args": [
+            3,
+            3221372984,
+            "retval_GetFileSize_20195866_32",
+            2147417744,
+            0
+          ],
+          "addr_func": "0x900054",
+          "addr": "0x8e10e8",
+          "ret": 1
+        },
+        {
+          "name": "lstrcmpW",
+          "args": [
+            "00e8f188552d514b9eab3520c065829c",
+            ""
+          ],
+          "addr_func": "0x90003c",
+          "addr": "0x8e10f4",
+          "ret": 1
+        },
+        {
+          "name": "lstrlenW",
+          "args": [
+            "00e8f188552d514b9eab3520c065829c"
+          ],
+          "addr_func": "0x900038",
+          "addr": "0x8e1105",
+          "ret": 32
+        },
+        {
+          "name": "CreateFileW",
+          "args": [
+            "",
+            1073741824,
+            2,
+            0,
+            2,
+            128,
+            0
+          ],
+          "addr_func": "0x900058",
+          "addr": "0x8e113d",
+          "ret": "<BV32 retval_CreateFileW_20195868_32>"
+        },
+        {
+          "name": "lstrlenW",
+          "args": [
+            "00e8f188552d514b9eab3520c065829c"
+          ],
+          "addr_func": "0x900038",
+          "addr": "0x8e1157",
+          "ret": 32
+        },
+        {
+          "name": "WriteFile",
+          "args": [
+            "retval_CreateFileW_20195868_32",
+            3221372984,
+            "retval_GetFileSize_20195866_32",
+            2147417744,
+            0
+          ],
+          "addr_func": "0x900050",
+          "addr": "0x8e1164",
+          "ret": 1
+        },
+        {
+          "name": "CloseHandle",
+          "args": [
+            3
+          ],
+          "addr_func": "0x90002c",
+          "addr": "0x8e1173",
+          "ret": 1
+        },
+        {
+          "name": "CloseHandle",
+          "args": [
+            "retval_CreateFileW_20195868_32"
+          ],
+          "addr_func": "0x90002c",
+          "addr": "0x8e1178",
+          "ret": 1
+        },
+        {
+          "name": "GetTempPathW",
+          "args": [
+            4096,
+            "00e8f188552d514b9eab3520c065829c"
+          ],
+          "addr_func": "0x900034",
+          "addr": "0x8e1182",
+          "ret": "<BV32 retval_GetTempPathW_20196126_32>"
+        },
+        {
+          "name": "ShellExecuteW",
+          "args": [
+            0,
+            "open",
+            "",
+            0,
+            "00e8f188552d514b9eab3520c065829c",
+            0
+          ],
+          "addr_func": "0x900060",
+          "addr": "0x8e1196",
+          "ret": 32
+        },
+        {
+          "name": "ExitProcess",
+          "args": [
+            0
+          ],
+          "addr_func": "0x900040",
+          "addr": "0x8e1020",
+          "ret": "None"
+        }
+      ]
+    },
+    "sections": {
+      ".text": {
+        "vaddr": 9310208,
+        "memsize": 939,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": true
+      },
+      ".rdata": {
+        "vaddr": 9314304,
+        "memsize": 1036,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      },
+      ".reloc": {
+        "vaddr": 9318400,
+        "memsize": 156,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      }
+    }
+  }
+]

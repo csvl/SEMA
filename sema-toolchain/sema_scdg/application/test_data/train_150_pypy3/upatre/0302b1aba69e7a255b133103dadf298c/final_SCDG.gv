@@ -1,0 +1,79 @@
+// Global SCDG with merge call
+digraph {
+	0 [label="4200850.main
+0302b1aba69e7a255b133103dadf298c
+<BV128 arg0_15643192_128>"]
+	1 [label="0x4019d8.TlsGetValue
+2"]
+	2 [label="0x40162c.FileTimeToSystemTime
+4217993
+4218001"]
+	3 [label="0x401665.TlsGetValue
+2"]
+	1 -> 3 [label="(1-->1)"]
+	4 [label="0x401a50.lstrcmpA
+fmtmtzlnik
+fmtmtzlnik"]
+	5 [label="0x401731.TlsGetValue
+2"]
+	1 -> 5 [label="(1-->1)"]
+	3 -> 5 [label="(1-->1)"]
+	6 [label="0x4017aa.SetEnvironmentVariableW
+煨摥灣步杶n癭灭敮扷桭捫
+癭灭敮扷桭捫"]
+	7 [label="0x4017d2.lstrcmpiA
+iymyivqsw
+iymyivqsw"]
+	8 [label="0x40154f.GetPrivateProfileIntW
+汫橴楺祲椀桳敵湩癸桦汢祡n汵楢癴橧煨湳牬楹椀浹楹煶睳椀浹楹煶睳Ȁ
+獩畨楥确晶扨慬湹甀扬瑩杶桪獱汮祲i祩祭癩獱w祩祭癩獱w
+0
+汵楢癴橧煨湳牬楹椀浹楹煶睳椀浹楹煶睳Ȁ"]
+	9 [label="0x4016c8.SetEnvironmentVariableW
+煨摥灣步杶n癭灭敮扷桭捫
+癭灭敮扷桭捫"]
+	6 -> 9 [label="(1-->1)"]
+	6 -> 9 [label="(2-->2)"]
+	10 [label="0x4016eb.CallReturn
+"]
+	11 [label="0x401b85.SleepEx
+1000
+0"]
+	12 [label="0x401c21.GetModuleHandleW
+kernel32.DLL"]
+	13 [label="0x401cf8.GetProcAddress
+6295592
+WriteProcessMemory"]
+	12 -> 13 [label="(0-->1)"]
+	14 [label="0x401d36.GetProcAddress
+6295592
+HeapCreate"]
+	12 -> 14 [label="(0-->1)"]
+	13 -> 14 [label="(1-->1)"]
+	15 [label="0x401d8a.GetProcAddress
+6295592
+LoadLibraryA"]
+	12 -> 15 [label="(0-->1)"]
+	13 -> 15 [label="(1-->1)"]
+	14 -> 15 [label="(1-->1)"]
+	16 [label="0x401dd7.LoadLibraryA
+jscript.DLL"]
+	17 [label="0x401e05.GetEnvironmentVariableA
+ldlaivqxuju
+4217940
+8"]
+	18 [label="0x401e20.SetEnvironmentVariableW
+煨摥灣步杶n癭灭敮扷桭捫
+癭灭敮扷桭捫"]
+	6 -> 18 [label="(1-->1)"]
+	6 -> 18 [label="(2-->2)"]
+	19 [label="0x401e30.SetErrorMode
+0"]
+	20 [label="0x401eb3.WriteProcessMemory
+4294967295
+4216077
+6295772
+4
+0"]
+	2 -> 20 [label="(0-->0)"]
+}

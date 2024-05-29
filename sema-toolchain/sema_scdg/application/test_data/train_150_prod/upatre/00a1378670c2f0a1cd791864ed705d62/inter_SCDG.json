@@ -1,0 +1,65 @@
+[
+  {
+    "0": {
+      "status": "active",
+      "trace": [
+        {
+          "name": "main",
+          "args": [
+            "00a1378670c2f0a1cd791864ed705d62"
+          ],
+          "addr": 4203766,
+          "ret": "symbolic",
+          "addr_func": 4203766
+        },
+        {
+          "name": "VirtualAlloc",
+          "args": [
+            0,
+            4219,
+            12288,
+            64
+          ],
+          "addr_func": "0x500018",
+          "addr": "0x402515",
+          "ret": 3758096384
+        },
+        {
+          "name": "VirtualProtect",
+          "args": [
+            4220560,
+            2416,
+            4,
+            2147417724
+          ],
+          "addr_func": "0x500014",
+          "addr": "0xe0000045",
+          "ret": 1
+        }
+      ]
+    },
+    "sections": {
+      "": {
+        "vaddr": 4198400,
+        "memsize": 12288,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": true
+      },
+      ".rsrc": {
+        "vaddr": 4210688,
+        "memsize": 12288,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      },
+      "petite": {
+        "vaddr": 4222976,
+        "memsize": 500,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      }
+    }
+  }
+]

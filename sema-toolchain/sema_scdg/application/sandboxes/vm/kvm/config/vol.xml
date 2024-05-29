@@ -1,0 +1,15 @@
+<volume>
+​  <name>$name$.qcow2</name>
+​  <allocation>0</allocation>
+​  <capacity unit="G">$capacity$</capacity>
+​  <target>
+​    <path>/var/lib/libvirt/images/$name$.qcow2</path>
+​    <format type='qcow2'/>
+​    <permissions>
+​      <owner>107</owner>
+​      <group>107</group>
+​      <mode>0744</mode>
+​     <label>$name$Volume</label>
+​    </permissions>
+​  </target>
+</volume>

@@ -1,0 +1,28 @@
+import logging
+import angr
+
+import os
+
+lw = logging.getLogger("CustomSimProcedureWindows")
+lw.setLevel(os.environ["LOG_LEVEL"])
+
+
+class SysAllocString(angr.SimProcedure):
+    def run(self, strIn):
+        if strIn.symbolic:
+            return self.state.solver.BVS(
+                "retval_{}".format(self.display_name), self.arch.bits
+            )
+
+        string_addr = self.state.solver.eval(strIn)
+        string = self.state.mem[string_addr].wstring.concrete
+        len_str = len(str(string))
+
+        ptr = self.state.heap.malloc(len_str + 1)
+        if hasattr(string, "decode"):
+            str_BVV = string.decode("utf-8") + "\0"
+        else:
+            str_BVV = string + "\0"
+
+        self.state.memory.store(ptr, str_BVV)  # ,endness=self.arch.memory_endness)
+        return ptr

@@ -1,0 +1,27 @@
+# docker-compose.yml
+networks:
+  micro_network:
+    name: micro_network
+    external: True
+
+services:
+  web-app:
+    container_name: web-app
+    image: sema-web-app:latest
+    command: python3 application/SemaServer.py
+    depends_on:
+      - sema-classifier
+      - sema-scdg
+    build:
+      context: .
+      dockerfile: ./sema_web_app/Dockerfile
+    ports:
+    - "5000:5000"
+    restart: always
+    volumes:
+      - ${PWD}/sema_web_app/:/sema-web-app
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=unix$DISPLAY
+    networks:
+      - micro_network # TODO set fix IPv4 ?

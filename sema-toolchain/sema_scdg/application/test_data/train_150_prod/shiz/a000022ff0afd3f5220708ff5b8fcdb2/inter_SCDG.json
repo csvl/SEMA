@@ -1,0 +1,97 @@
+[
+  {
+    "0": {
+      "status": "active",
+      "trace": [
+        {
+          "name": "main",
+          "args": [
+            "a000022ff0afd3f5220708ff5b8fcdb2"
+          ],
+          "addr": 4199510,
+          "ret": "symbolic",
+          "addr_func": 4199510
+        },
+        {
+          "name": "GetModuleFileNameA",
+          "args": [
+            0,
+            "a000022ff0afd3f5220708ff5b8fcdb2",
+            260
+          ],
+          "addr_func": "0x500048",
+          "addr": "0x401467",
+          "ret": 32
+        },
+        {
+          "name": "SetErrorMode",
+          "args": [
+            1
+          ],
+          "addr_func": "0x500064",
+          "addr": "0x40146f",
+          "ret": 0
+        },
+        {
+          "name": "_alloca_probe",
+          "args": [],
+          "addr_func": "0x50012c",
+          "addr": "0x4020bb",
+          "ret": "0x0"
+        },
+        {
+          "name": "LoadLibraryA",
+          "args": [
+            "kernel32.dll"
+          ],
+          "addr_func": "0x500030",
+          "addr": "0x4020d8",
+          "ret": 6295592
+        },
+        {
+          "name": "_alloca_probe",
+          "args": [],
+          "addr_func": "0x50012c",
+          "addr": "0x4020e4",
+          "ret": "0x0"
+        },
+        {
+          "name": "_alloca_probe",
+          "args": [],
+          "addr_func": "0x50012c",
+          "addr": "0x402105",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            1867346533,
+            "SetProcessUserModeExceptionPolicy"
+          ],
+          "addr_func": "0x50003c",
+          "addr": "0x40212d",
+          "ret": "<BV32 retval_GetProcAddress_2099365_32>"
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            1867346533,
+            "SetProcessUserModeExceptionPolicy"
+          ],
+          "addr_func": "0x50003c",
+          "addr": "0x402135",
+          "ret": 6295596
+        }
+      ]
+    },
+    "sections": {
+      ".": {
+        "vaddr": 4370432,
+        "memsize": 1484,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      }
+    }
+  }
+]

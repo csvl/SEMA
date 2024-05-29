@@ -1,0 +1,22 @@
+# docker-compose.yml
+
+networks:
+  micro_network:
+    name: micro_network
+    external: True
+
+services:
+  sema-scdg:
+    container_name: sema-scdg
+    image: sema-scdg:latest
+    command: python3 SCDGApp.py config_web_app.ini
+    build:
+      context: .
+      dockerfile: ./sema_scdg/Dockerfile
+    ports:
+    - "5001:5001"
+    restart: always
+    environment:
+      - DISPLAY=unix$DISPLAY
+    networks:
+      - micro_network # TODO set fix IPv4 ?

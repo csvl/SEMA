@@ -1,39 +1,9 @@
 *.pyc
 archives/*
-Result/save_SCDG
 */__pycache__/
-penv/
-penv-2.7/
-Examples/
-# malware-win/
-# malware-win2/
-# malware-linux/
-kkrunchy-dataset-1/
-PEPacker-dataset-1/
-malware-inputs-2/
-malware-inputs/
-upx-dataset/
 .vscode/
 .idea/
-build/
-dist/
-toolchain-malware-analysis.rep
-.unpacker_history
-toolchain-malware-analysis.gpr
-databases_local
-samples.zip
-delf.zip
-bancteian.zip
-lamer.zip
-nitol.zip
-sfone.zip
-sillyp2p.zip
-simbot.zip
-sytro.zip
-wabot.zip
-wl_model.pkl
-# find . -size +100M | cat >> .gitignore
-
+sema/toolchain/submodules/SEMA-quickspan/build/*
 # Packages #
 ############
 # it's better to unpack these files and commit the raw source
@@ -45,8 +15,3 @@ wl_model.pkl
 *.jar
 *.rar
 *.tar
-*.zip
-
-# TODO dl link
-/home/crochetch/Documents/Projects/MalwareAnalysis/SEMA-ToolChain-packing/src/ToolChainSCDG/procedures/windows7_ddls
-/home/crochetch/Documents/Projects/MalwareAnalysis/SEMA-ToolChain-packing/src/ToolChainSCDG/procedures/windows10_ddls

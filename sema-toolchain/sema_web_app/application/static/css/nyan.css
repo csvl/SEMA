@@ -1,0 +1,28 @@
+
+
+#rainbowContainer {
+	width: 100px;
+	height: 18px;
+	border: 1px solid black;
+}
+
+#rainbow {
+	width: 1px;
+	height: 18px;
+	float: left;
+	background: url(images/rainbow.png) repeat;
+}
+
+#nyanCat {
+	/* float: right; */
+	position: relative;
+	left: 1px;
+	width: 32px;
+	height: 20px;
+	background:  url(images/nyanCat.png);
+	background-position: 32px 0px;
+}
+
+.clearDiv {
+	clear: both;
+}

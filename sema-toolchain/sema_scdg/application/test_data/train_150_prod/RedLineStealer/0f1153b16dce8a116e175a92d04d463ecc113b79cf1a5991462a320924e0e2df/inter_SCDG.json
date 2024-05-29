@@ -1,0 +1,7368 @@
+[
+  {
+    "0": {
+      "status": "active",
+      "trace": [
+        {
+          "name": "main",
+          "args": [
+            "0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df"
+          ],
+          "addr": 4206674,
+          "ret": "symbolic",
+          "addr_func": 4206674
+        },
+        {
+          "name": "GetStartupInfoA",
+          "args": [
+            2147417504
+          ],
+          "addr_func": "0x18000cc",
+          "addr": "0x402ee9",
+          "ret": "None"
+        },
+        {
+          "name": "HeapCreate",
+          "args": [
+            0,
+            4096,
+            0
+          ],
+          "addr_func": "0x180014c",
+          "addr": "0x40be1c",
+          "ret": 1
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40bc80",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsAlloc"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bca7",
+          "ret": 26218540
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsGetValue"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bcb4",
+          "ret": 26218544
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsSetValue"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bcc1",
+          "ret": 26218548
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsFree"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bcce",
+          "ret": 26218552
+        },
+        {
+          "name": "TlsAlloc",
+          "args": [],
+          "addr_func": "0x1800130",
+          "addr": "0x40bd1e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsSetValue",
+          "args": [
+            1,
+            26218544
+          ],
+          "addr_func": "0x1800134",
+          "addr": "0x40bd39",
+          "ret": 1
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            0
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 0
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            4247854
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 4247854
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            4209274
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 4209274
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218540
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218540
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218544
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218544
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218548
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218548
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218552
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218552
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559560,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559584,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559608,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559632,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559656,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559680,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559704,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559728,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559752,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559776,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559800,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559824,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559848,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559872,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b83c",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b869",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "DecodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b884",
+          "ret": 26218560
+        },
+        {
+          "name": "DecodePointer",
+          "args": [
+            26218540
+          ],
+          "addr_func": "0x1901040",
+          "addr": "0x40b891",
+          "ret": 26218540
+        },
+        {
+          "name": "FlsAlloc",
+          "args": [
+            4242125
+          ],
+          "addr_func": "0x190102c",
+          "addr": "0x40bda5",
+          "ret": 1
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            532
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221356584
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b83c",
+          "ret": 26218544
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b853",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40b855",
+          "ret": "<BV32 retval_FlsAlloc_8000535_32>"
+        },
+        {
+          "name": "FlsSetValue",
+          "args": [
+            1,
+            3221356584
+          ],
+          "addr_func": "0x1901034",
+          "addr": "0x40bdd8",
+          "ret": 1
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b965",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b999",
+          "ret": 26218556
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "DecodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b9a9",
+          "ret": 26218560
+        },
+        {
+          "name": "EnterCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800104",
+          "addr": "0x40d3e2",
+          "ret": "None"
+        },
+        {
+          "name": "InterlockedIncrement",
+          "args": [
+            4552584
+          ],
+          "addr_func": "0x180013c",
+          "addr": "0x40b9d8",
+          "ret": 1
+        },
+        {
+          "name": "LeaveCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800108",
+          "addr": "0x40d2d5",
+          "ret": "None"
+        },
+        {
+          "name": "EnterCriticalSection",
+          "args": [
+            4559752
+          ],
+          "addr_func": "0x1800104",
+          "addr": "0x40d3e2",
+          "ret": "None"
+        },
+        {
+          "name": "InterlockedIncrement",
+          "args": [
+            4553912
+          ],
+          "addr_func": "0x180013c",
+          "addr": "0x40f2f2",
+          "ret": 2
+        },
+        {
+          "name": "InterlockedIncrement",
+          "args": [
+            4554364
+          ],
+          "addr_func": "0x180013c",
+          "addr": "0x40f368",
+          "ret": 1
+        },
+        {
+          "name": "LeaveCriticalSection",
+          "args": [
+            4559752
+          ],
+          "addr_func": "0x1800108",
+          "addr": "0x40d2d5",
+          "ret": "None"
+        },
+        {
+          "name": "GetCurrentThreadId",
+          "args": [],
+          "addr_func": "0x1800140",
+          "addr": "0x40bde8",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetStartupInfoA",
+          "args": [
+            2147417380
+          ],
+          "addr_func": "0x18000cc",
+          "addr": "0x40b4bc",
+          "ret": "None"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2048
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221357128
+        },
+        {
+          "name": "GetStdHandle",
+          "args": [
+            4294967286
+          ],
+          "addr_func": "0x18000f8",
+          "addr": "0x40b670",
+          "ret": 1000
+        },
+        {
+          "name": "GetFileType",
+          "args": [
+            1000
+          ],
+          "addr_func": "0x1800124",
+          "addr": "0x40b682",
+          "ret": 3
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            3221357140,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "GetStdHandle",
+          "args": [
+            4294967285
+          ],
+          "addr_func": "0x18000f8",
+          "addr": "0x40b670",
+          "ret": 1001
+        },
+        {
+          "name": "GetFileType",
+          "args": [
+            1001
+          ],
+          "addr_func": "0x1800124",
+          "addr": "0x40b682",
+          "ret": 3
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            3221357204,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "GetStdHandle",
+          "args": [
+            4294967284
+          ],
+          "addr_func": "0x18000f8",
+          "addr": "0x40b670",
+          "ret": 1002
+        },
+        {
+          "name": "GetFileType",
+          "args": [
+            1002
+          ],
+          "addr_func": "0x1800124",
+          "addr": "0x40b682",
+          "ret": 3
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            3221357268,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "SetHandleCount",
+          "args": [
+            32
+          ],
+          "addr_func": "0x1800120",
+          "addr": "0x40b6da",
+          "ret": "<BV32 retval_SetHandleCount_8000565_32>"
+        },
+        {
+          "name": "GetCommandLineA",
+          "args": [],
+          "addr_func": "0x18000c8",
+          "addr": "0x402f7e",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetEnvironmentStringsW",
+          "args": [],
+          "addr_func": "0x180011c",
+          "addr": "0x40b38e",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40b3a2",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetEnvironmentStrings",
+          "args": [],
+          "addr_func": "0x1800110",
+          "addr": "0x40b44f",
+          "ret": "0x0"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            0,
+            63
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x40703c",
+          "ret": 3221359184
+        },
+        {
+          "name": "FreeEnvironmentStringsA",
+          "args": [
+            "A"
+          ],
+          "addr_func": "0x180010c",
+          "addr": "0x40b49a",
+          "ret": "<BV32 retval_FreeEnvironmentStringsA_8000570_32>"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "EnterCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800104",
+          "addr": "0x40d3e2",
+          "ret": "None"
+        },
+        {
+          "name": "LeaveCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800108",
+          "addr": "0x40d2d5",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetACP",
+          "args": [],
+          "addr_func": "0x180018c",
+          "addr": "0x40ed80",
+          "ret": "0x0"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            0,
+            544
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x40703c",
+          "ret": 3221359256
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "IsValidCodePage",
+          "args": [
+            1252
+          ],
+          "addr_func": "0x1800194",
+          "addr": "0x40ee23",
+          "ret": "<BV32 retval_IsValidCodePage_8000575_32>"
+        },
+        {
+          "name": "GetCPInfo",
+          "args": [
+            1252,
+            2147417348
+          ],
+          "addr_func": "0x1800188",
+          "addr": "0x40ee36",
+          "ret": 1
+        },
+        {
+          "name": "GetCPInfo",
+          "args": [
+            1252,
+            2147416016
+          ],
+          "addr_func": "0x1800188",
+          "addr": "0x40eb1e",
+          "ret": 1
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetStringTypeW",
+          "args": [
+            1,
+            "",
+            1,
+            2147415904
+          ],
+          "addr_func": "0x18001cc",
+          "addr": "0x41a782",
+          "ret": 1
+        },
+        {
+          "name": "MultiByteToWideChar",
+          "args": [
+            1252,
+            1,
+            2147417060,
+            256,
+            0,
+            0
+          ],
+          "addr_func": "0x18001a0",
+          "addr": "0x41a7f9",
+          "ret": 0
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "LCMapStringW",
+          "args": [
+            0,
+            256,
+            "",
+            1,
+            0,
+            0
+          ],
+          "addr_func": "0x18001c4",
+          "addr": "0x41a39b",
+          "ret": 1
+        },
+        {
+          "name": "MultiByteToWideChar",
+          "args": [
+            1252,
+            1,
+            2147417060,
+            256,
+            0,
+            0
+          ],
+          "addr_func": "0x18001a0",
+          "addr": "0x41a439",
+          "ret": 0
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        }
+      ]
+    },
+    "1": {
+      "status": "active",
+      "trace": [
+        {
+          "name": "main",
+          "args": [
+            "0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df"
+          ],
+          "addr": 4206674,
+          "ret": "symbolic",
+          "addr_func": 4206674
+        },
+        {
+          "name": "GetStartupInfoA",
+          "args": [
+            2147417504
+          ],
+          "addr_func": "0x18000cc",
+          "addr": "0x402ee9",
+          "ret": "None"
+        },
+        {
+          "name": "HeapCreate",
+          "args": [
+            0,
+            4096,
+            0
+          ],
+          "addr_func": "0x180014c",
+          "addr": "0x40be1c",
+          "ret": 1
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40bc80",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsAlloc"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bca7",
+          "ret": 26218540
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsGetValue"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bcb4",
+          "ret": 26218544
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsSetValue"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bcc1",
+          "ret": 26218548
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsFree"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bcce",
+          "ret": 26218552
+        },
+        {
+          "name": "TlsAlloc",
+          "args": [],
+          "addr_func": "0x1800130",
+          "addr": "0x40bd1e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsSetValue",
+          "args": [
+            1,
+            26218544
+          ],
+          "addr_func": "0x1800134",
+          "addr": "0x40bd39",
+          "ret": 1
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            0
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 0
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            4247854
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 4247854
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            4209274
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 4209274
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218540
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218540
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218544
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218544
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218548
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218548
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218552
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218552
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559560,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559584,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559608,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559632,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559656,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559680,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559704,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559728,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559752,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559776,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559800,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559824,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559848,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559872,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b83c",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b869",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "DecodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b884",
+          "ret": 26218560
+        },
+        {
+          "name": "DecodePointer",
+          "args": [
+            26218540
+          ],
+          "addr_func": "0x1901040",
+          "addr": "0x40b891",
+          "ret": 26218540
+        },
+        {
+          "name": "FlsAlloc",
+          "args": [
+            4242125
+          ],
+          "addr_func": "0x190102c",
+          "addr": "0x40bda5",
+          "ret": 1
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            532
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221356584
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b83c",
+          "ret": 26218544
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b853",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40b855",
+          "ret": "<BV32 retval_FlsAlloc_8000535_32>"
+        },
+        {
+          "name": "FlsSetValue",
+          "args": [
+            1,
+            3221356584
+          ],
+          "addr_func": "0x1901034",
+          "addr": "0x40bdd8",
+          "ret": 1
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b965",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b999",
+          "ret": 26218556
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "DecodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b9a9",
+          "ret": 26218560
+        },
+        {
+          "name": "EnterCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800104",
+          "addr": "0x40d3e2",
+          "ret": "None"
+        },
+        {
+          "name": "InterlockedIncrement",
+          "args": [
+            4552584
+          ],
+          "addr_func": "0x180013c",
+          "addr": "0x40b9d8",
+          "ret": 1
+        },
+        {
+          "name": "LeaveCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800108",
+          "addr": "0x40d2d5",
+          "ret": "None"
+        },
+        {
+          "name": "EnterCriticalSection",
+          "args": [
+            4559752
+          ],
+          "addr_func": "0x1800104",
+          "addr": "0x40d3e2",
+          "ret": "None"
+        },
+        {
+          "name": "InterlockedIncrement",
+          "args": [
+            4553912
+          ],
+          "addr_func": "0x180013c",
+          "addr": "0x40f2f2",
+          "ret": 2
+        },
+        {
+          "name": "InterlockedIncrement",
+          "args": [
+            4554364
+          ],
+          "addr_func": "0x180013c",
+          "addr": "0x40f368",
+          "ret": 1
+        },
+        {
+          "name": "LeaveCriticalSection",
+          "args": [
+            4559752
+          ],
+          "addr_func": "0x1800108",
+          "addr": "0x40d2d5",
+          "ret": "None"
+        },
+        {
+          "name": "GetCurrentThreadId",
+          "args": [],
+          "addr_func": "0x1800140",
+          "addr": "0x40bde8",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetStartupInfoA",
+          "args": [
+            2147417380
+          ],
+          "addr_func": "0x18000cc",
+          "addr": "0x40b4bc",
+          "ret": "None"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2048
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221357128
+        },
+        {
+          "name": "GetStdHandle",
+          "args": [
+            4294967286
+          ],
+          "addr_func": "0x18000f8",
+          "addr": "0x40b670",
+          "ret": 1000
+        },
+        {
+          "name": "GetFileType",
+          "args": [
+            1000
+          ],
+          "addr_func": "0x1800124",
+          "addr": "0x40b682",
+          "ret": 3
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            3221357140,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "GetStdHandle",
+          "args": [
+            4294967285
+          ],
+          "addr_func": "0x18000f8",
+          "addr": "0x40b670",
+          "ret": 1001
+        },
+        {
+          "name": "GetFileType",
+          "args": [
+            1001
+          ],
+          "addr_func": "0x1800124",
+          "addr": "0x40b682",
+          "ret": 3
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            3221357204,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "GetStdHandle",
+          "args": [
+            4294967284
+          ],
+          "addr_func": "0x18000f8",
+          "addr": "0x40b670",
+          "ret": 1002
+        },
+        {
+          "name": "GetFileType",
+          "args": [
+            1002
+          ],
+          "addr_func": "0x1800124",
+          "addr": "0x40b682",
+          "ret": 3
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            3221357268,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "SetHandleCount",
+          "args": [
+            32
+          ],
+          "addr_func": "0x1800120",
+          "addr": "0x40b6da",
+          "ret": "<BV32 retval_SetHandleCount_8000566_32>"
+        },
+        {
+          "name": "GetCommandLineA",
+          "args": [],
+          "addr_func": "0x18000c8",
+          "addr": "0x402f7e",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetEnvironmentStringsW",
+          "args": [],
+          "addr_func": "0x180011c",
+          "addr": "0x40b38e",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40b3a2",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetEnvironmentStrings",
+          "args": [],
+          "addr_func": "0x1800110",
+          "addr": "0x40b44f",
+          "ret": "0x0"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            0,
+            63
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x40703c",
+          "ret": 3221359184
+        },
+        {
+          "name": "FreeEnvironmentStringsA",
+          "args": [
+            "A"
+          ],
+          "addr_func": "0x180010c",
+          "addr": "0x40b49a",
+          "ret": "<BV32 retval_FreeEnvironmentStringsA_8000571_32>"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "EnterCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800104",
+          "addr": "0x40d3e2",
+          "ret": "None"
+        },
+        {
+          "name": "LeaveCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800108",
+          "addr": "0x40d2d5",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetACP",
+          "args": [],
+          "addr_func": "0x180018c",
+          "addr": "0x40ed80",
+          "ret": "0x0"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            0,
+            544
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x40703c",
+          "ret": 3221359256
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "IsValidCodePage",
+          "args": [
+            1252
+          ],
+          "addr_func": "0x1800194",
+          "addr": "0x40ee23",
+          "ret": "<BV32 retval_IsValidCodePage_8000576_32>"
+        },
+        {
+          "name": "HeapFree",
+          "args": [
+            1,
+            0,
+            3221359256
+          ],
+          "addr_func": "0x1800100",
+          "addr": "0x4070f7",
+          "ret": 1
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetModuleFileNameA",
+          "args": [
+            0,
+            "0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df",
+            260
+          ],
+          "addr_func": "0x18000fc",
+          "addr": "0x40b2e1",
+          "ret": 64
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            0,
+            17
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x40703c",
+          "ret": 3221359808
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            124
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221359840
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221359976
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221359992
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221360008
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221360024
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221360040
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221360056
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221360072
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221360088
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221360104
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221360120
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221360136
+        }
+      ]
+    },
+    "2": {
+      "status": "active",
+      "trace": [
+        {
+          "name": "main",
+          "args": [
+            "0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df"
+          ],
+          "addr": 4206674,
+          "ret": "symbolic",
+          "addr_func": 4206674
+        },
+        {
+          "name": "GetStartupInfoA",
+          "args": [
+            2147417504
+          ],
+          "addr_func": "0x18000cc",
+          "addr": "0x402ee9",
+          "ret": "None"
+        },
+        {
+          "name": "HeapCreate",
+          "args": [
+            0,
+            4096,
+            0
+          ],
+          "addr_func": "0x180014c",
+          "addr": "0x40be1c",
+          "ret": 1
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40bc80",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsAlloc"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bca7",
+          "ret": 26218540
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsGetValue"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bcb4",
+          "ret": 26218544
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsSetValue"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bcc1",
+          "ret": 26218548
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsFree"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bcce",
+          "ret": 26218552
+        },
+        {
+          "name": "TlsAlloc",
+          "args": [],
+          "addr_func": "0x1800130",
+          "addr": "0x40bd1e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsSetValue",
+          "args": [
+            1,
+            26218544
+          ],
+          "addr_func": "0x1800134",
+          "addr": "0x40bd39",
+          "ret": 1
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            0
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 0
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            4247854
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 4247854
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            4209274
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 4209274
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218540
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218540
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218544
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218544
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218548
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218548
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218552
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218552
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559560,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559584,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559608,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559632,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559656,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559680,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559704,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559728,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559752,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559776,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559800,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559824,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559848,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559872,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b83c",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b869",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "DecodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b884",
+          "ret": 26218560
+        },
+        {
+          "name": "DecodePointer",
+          "args": [
+            26218540
+          ],
+          "addr_func": "0x1901040",
+          "addr": "0x40b891",
+          "ret": 26218540
+        },
+        {
+          "name": "FlsAlloc",
+          "args": [
+            4242125
+          ],
+          "addr_func": "0x190102c",
+          "addr": "0x40bda5",
+          "ret": 1
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            532
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221356584
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b83c",
+          "ret": 26218544
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b853",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40b855",
+          "ret": "<BV32 retval_FlsAlloc_8000535_32>"
+        },
+        {
+          "name": "FlsSetValue",
+          "args": [
+            1,
+            3221356584
+          ],
+          "addr_func": "0x1901034",
+          "addr": "0x40bdd8",
+          "ret": 1
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b965",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b999",
+          "ret": 26218556
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "DecodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b9a9",
+          "ret": 26218560
+        },
+        {
+          "name": "EnterCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800104",
+          "addr": "0x40d3e2",
+          "ret": "None"
+        },
+        {
+          "name": "InterlockedIncrement",
+          "args": [
+            4552584
+          ],
+          "addr_func": "0x180013c",
+          "addr": "0x40b9d8",
+          "ret": 1
+        },
+        {
+          "name": "LeaveCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800108",
+          "addr": "0x40d2d5",
+          "ret": "None"
+        },
+        {
+          "name": "EnterCriticalSection",
+          "args": [
+            4559752
+          ],
+          "addr_func": "0x1800104",
+          "addr": "0x40d3e2",
+          "ret": "None"
+        },
+        {
+          "name": "InterlockedIncrement",
+          "args": [
+            4553912
+          ],
+          "addr_func": "0x180013c",
+          "addr": "0x40f2f2",
+          "ret": 2
+        },
+        {
+          "name": "InterlockedIncrement",
+          "args": [
+            4554364
+          ],
+          "addr_func": "0x180013c",
+          "addr": "0x40f368",
+          "ret": 1
+        },
+        {
+          "name": "LeaveCriticalSection",
+          "args": [
+            4559752
+          ],
+          "addr_func": "0x1800108",
+          "addr": "0x40d2d5",
+          "ret": "None"
+        },
+        {
+          "name": "GetCurrentThreadId",
+          "args": [],
+          "addr_func": "0x1800140",
+          "addr": "0x40bde8",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetStartupInfoA",
+          "args": [
+            2147417380
+          ],
+          "addr_func": "0x18000cc",
+          "addr": "0x40b4bc",
+          "ret": "None"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2048
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221357128
+        },
+        {
+          "name": "GetStdHandle",
+          "args": [
+            4294967286
+          ],
+          "addr_func": "0x18000f8",
+          "addr": "0x40b670",
+          "ret": 1000
+        },
+        {
+          "name": "GetFileType",
+          "args": [
+            1000
+          ],
+          "addr_func": "0x1800124",
+          "addr": "0x40b682",
+          "ret": 3
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            3221357140,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "GetStdHandle",
+          "args": [
+            4294967285
+          ],
+          "addr_func": "0x18000f8",
+          "addr": "0x40b670",
+          "ret": 1001
+        },
+        {
+          "name": "GetFileType",
+          "args": [
+            1001
+          ],
+          "addr_func": "0x1800124",
+          "addr": "0x40b682",
+          "ret": 3
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            3221357204,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "GetStdHandle",
+          "args": [
+            4294967284
+          ],
+          "addr_func": "0x18000f8",
+          "addr": "0x40b670",
+          "ret": 1002
+        },
+        {
+          "name": "GetFileType",
+          "args": [
+            1002
+          ],
+          "addr_func": "0x1800124",
+          "addr": "0x40b682",
+          "ret": 3
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            3221357268,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "SetHandleCount",
+          "args": [
+            32
+          ],
+          "addr_func": "0x1800120",
+          "addr": "0x40b6da",
+          "ret": "<BV32 retval_SetHandleCount_8000566_32>"
+        },
+        {
+          "name": "GetCommandLineA",
+          "args": [],
+          "addr_func": "0x18000c8",
+          "addr": "0x402f7e",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetEnvironmentStringsW",
+          "args": [],
+          "addr_func": "0x180011c",
+          "addr": "0x40b38e",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40b3a2",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetEnvironmentStrings",
+          "args": [],
+          "addr_func": "0x1800110",
+          "addr": "0x40b44f",
+          "ret": "0x0"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            0,
+            63
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x40703c",
+          "ret": 3221359184
+        },
+        {
+          "name": "FreeEnvironmentStringsA",
+          "args": [
+            "A"
+          ],
+          "addr_func": "0x180010c",
+          "addr": "0x40b49a",
+          "ret": "<BV32 retval_FreeEnvironmentStringsA_8000571_32>"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "EnterCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800104",
+          "addr": "0x40d3e2",
+          "ret": "None"
+        },
+        {
+          "name": "LeaveCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800108",
+          "addr": "0x40d2d5",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetACP",
+          "args": [],
+          "addr_func": "0x180018c",
+          "addr": "0x40ed80",
+          "ret": "0x0"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            0,
+            544
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x40703c",
+          "ret": 3221359256
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "IsValidCodePage",
+          "args": [
+            1252
+          ],
+          "addr_func": "0x1800194",
+          "addr": "0x40ee23",
+          "ret": "<BV32 retval_IsValidCodePage_8000576_32>"
+        },
+        {
+          "name": "GetCPInfo",
+          "args": [
+            1252,
+            2147417348
+          ],
+          "addr_func": "0x1800188",
+          "addr": "0x40ee36",
+          "ret": 1
+        },
+        {
+          "name": "GetCPInfo",
+          "args": [
+            1252,
+            2147416016
+          ],
+          "addr_func": "0x1800188",
+          "addr": "0x40eb1e",
+          "ret": 1
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetStringTypeW",
+          "args": [
+            1,
+            "",
+            1,
+            2147415904
+          ],
+          "addr_func": "0x18001cc",
+          "addr": "0x41a782",
+          "ret": 1
+        },
+        {
+          "name": "MultiByteToWideChar",
+          "args": [
+            1252,
+            1,
+            2147417060,
+            256,
+            0,
+            0
+          ],
+          "addr_func": "0x18001a0",
+          "addr": "0x41a7f9",
+          "ret": 0
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "LCMapStringW",
+          "args": [
+            0,
+            256,
+            "",
+            1,
+            0,
+            0
+          ],
+          "addr_func": "0x18001c4",
+          "addr": "0x41a39b",
+          "ret": 1
+        },
+        {
+          "name": "MultiByteToWideChar",
+          "args": [
+            1252,
+            1,
+            2147417060,
+            256,
+            0,
+            0
+          ],
+          "addr_func": "0x18001a0",
+          "addr": "0x41a439",
+          "ret": 0
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        }
+      ]
+    },
+    "3": {
+      "status": "active",
+      "trace": [
+        {
+          "name": "main",
+          "args": [
+            "0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df"
+          ],
+          "addr": 4206674,
+          "ret": "symbolic",
+          "addr_func": 4206674
+        },
+        {
+          "name": "GetStartupInfoA",
+          "args": [
+            2147417504
+          ],
+          "addr_func": "0x18000cc",
+          "addr": "0x402ee9",
+          "ret": "None"
+        },
+        {
+          "name": "HeapCreate",
+          "args": [
+            0,
+            4096,
+            0
+          ],
+          "addr_func": "0x180014c",
+          "addr": "0x40be1c",
+          "ret": 1
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40bc80",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsAlloc"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bca7",
+          "ret": 26218540
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsGetValue"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bcb4",
+          "ret": 26218544
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsSetValue"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bcc1",
+          "ret": 26218548
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsFree"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bcce",
+          "ret": 26218552
+        },
+        {
+          "name": "TlsAlloc",
+          "args": [],
+          "addr_func": "0x1800130",
+          "addr": "0x40bd1e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsSetValue",
+          "args": [
+            1,
+            26218544
+          ],
+          "addr_func": "0x1800134",
+          "addr": "0x40bd39",
+          "ret": 1
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            0
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 0
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            4247854
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 4247854
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            4209274
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 4209274
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218540
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218540
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218544
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218544
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218548
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218548
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218552
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218552
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559560,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559584,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559608,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559632,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559656,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559680,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559704,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559728,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559752,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559776,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559800,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559824,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559848,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559872,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b83c",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b869",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "DecodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b884",
+          "ret": 26218560
+        },
+        {
+          "name": "DecodePointer",
+          "args": [
+            26218540
+          ],
+          "addr_func": "0x1901040",
+          "addr": "0x40b891",
+          "ret": 26218540
+        },
+        {
+          "name": "FlsAlloc",
+          "args": [
+            4242125
+          ],
+          "addr_func": "0x190102c",
+          "addr": "0x40bda5",
+          "ret": 1
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            532
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221356584
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b83c",
+          "ret": 26218544
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b853",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40b855",
+          "ret": "<BV32 retval_FlsAlloc_8000535_32>"
+        },
+        {
+          "name": "FlsSetValue",
+          "args": [
+            1,
+            3221356584
+          ],
+          "addr_func": "0x1901034",
+          "addr": "0x40bdd8",
+          "ret": 1
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b965",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b999",
+          "ret": 26218556
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "DecodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b9a9",
+          "ret": 26218560
+        },
+        {
+          "name": "EnterCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800104",
+          "addr": "0x40d3e2",
+          "ret": "None"
+        },
+        {
+          "name": "InterlockedIncrement",
+          "args": [
+            4552584
+          ],
+          "addr_func": "0x180013c",
+          "addr": "0x40b9d8",
+          "ret": 1
+        },
+        {
+          "name": "LeaveCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800108",
+          "addr": "0x40d2d5",
+          "ret": "None"
+        },
+        {
+          "name": "EnterCriticalSection",
+          "args": [
+            4559752
+          ],
+          "addr_func": "0x1800104",
+          "addr": "0x40d3e2",
+          "ret": "None"
+        },
+        {
+          "name": "InterlockedIncrement",
+          "args": [
+            4553912
+          ],
+          "addr_func": "0x180013c",
+          "addr": "0x40f2f2",
+          "ret": 2
+        },
+        {
+          "name": "InterlockedIncrement",
+          "args": [
+            4554364
+          ],
+          "addr_func": "0x180013c",
+          "addr": "0x40f368",
+          "ret": 1
+        },
+        {
+          "name": "LeaveCriticalSection",
+          "args": [
+            4559752
+          ],
+          "addr_func": "0x1800108",
+          "addr": "0x40d2d5",
+          "ret": "None"
+        },
+        {
+          "name": "GetCurrentThreadId",
+          "args": [],
+          "addr_func": "0x1800140",
+          "addr": "0x40bde8",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetStartupInfoA",
+          "args": [
+            2147417380
+          ],
+          "addr_func": "0x18000cc",
+          "addr": "0x40b4bc",
+          "ret": "None"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2048
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221357128
+        },
+        {
+          "name": "GetStdHandle",
+          "args": [
+            4294967286
+          ],
+          "addr_func": "0x18000f8",
+          "addr": "0x40b670",
+          "ret": 1000
+        },
+        {
+          "name": "GetFileType",
+          "args": [
+            1000
+          ],
+          "addr_func": "0x1800124",
+          "addr": "0x40b682",
+          "ret": 3
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            3221357140,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "GetStdHandle",
+          "args": [
+            4294967285
+          ],
+          "addr_func": "0x18000f8",
+          "addr": "0x40b670",
+          "ret": 1001
+        },
+        {
+          "name": "GetFileType",
+          "args": [
+            1001
+          ],
+          "addr_func": "0x1800124",
+          "addr": "0x40b682",
+          "ret": 3
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            3221357204,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "GetStdHandle",
+          "args": [
+            4294967284
+          ],
+          "addr_func": "0x18000f8",
+          "addr": "0x40b670",
+          "ret": 1002
+        },
+        {
+          "name": "GetFileType",
+          "args": [
+            1002
+          ],
+          "addr_func": "0x1800124",
+          "addr": "0x40b682",
+          "ret": 3
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            3221357268,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "SetHandleCount",
+          "args": [
+            32
+          ],
+          "addr_func": "0x1800120",
+          "addr": "0x40b6da",
+          "ret": "<BV32 retval_SetHandleCount_8000564_32>"
+        },
+        {
+          "name": "GetCommandLineA",
+          "args": [],
+          "addr_func": "0x18000c8",
+          "addr": "0x402f7e",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetEnvironmentStringsW",
+          "args": [],
+          "addr_func": "0x180011c",
+          "addr": "0x40b38e",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40b3a2",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetEnvironmentStrings",
+          "args": [],
+          "addr_func": "0x1800110",
+          "addr": "0x40b44f",
+          "ret": "0x0"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            0,
+            63
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x40703c",
+          "ret": 3221359184
+        },
+        {
+          "name": "FreeEnvironmentStringsA",
+          "args": [
+            "A"
+          ],
+          "addr_func": "0x180010c",
+          "addr": "0x40b49a",
+          "ret": "<BV32 retval_FreeEnvironmentStringsA_8000569_32>"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "EnterCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800104",
+          "addr": "0x40d3e2",
+          "ret": "None"
+        },
+        {
+          "name": "LeaveCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800108",
+          "addr": "0x40d2d5",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetACP",
+          "args": [],
+          "addr_func": "0x180018c",
+          "addr": "0x40ed80",
+          "ret": "0x0"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            0,
+            544
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x40703c",
+          "ret": 3221359256
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "IsValidCodePage",
+          "args": [
+            1252
+          ],
+          "addr_func": "0x1800194",
+          "addr": "0x40ee23",
+          "ret": "<BV32 retval_IsValidCodePage_8000574_32>"
+        },
+        {
+          "name": "GetCPInfo",
+          "args": [
+            1252,
+            2147417348
+          ],
+          "addr_func": "0x1800188",
+          "addr": "0x40ee36",
+          "ret": 1
+        },
+        {
+          "name": "GetCPInfo",
+          "args": [
+            1252,
+            2147416016
+          ],
+          "addr_func": "0x1800188",
+          "addr": "0x40eb1e",
+          "ret": 1
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetStringTypeW",
+          "args": [
+            1,
+            "",
+            1,
+            2147415904
+          ],
+          "addr_func": "0x18001cc",
+          "addr": "0x41a782",
+          "ret": 1
+        },
+        {
+          "name": "MultiByteToWideChar",
+          "args": [
+            1252,
+            1,
+            2147417060,
+            256,
+            0,
+            0
+          ],
+          "addr_func": "0x18001a0",
+          "addr": "0x41a7f9",
+          "ret": 0
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "LCMapStringW",
+          "args": [
+            0,
+            256,
+            "",
+            1,
+            0,
+            0
+          ],
+          "addr_func": "0x18001c4",
+          "addr": "0x41a39b",
+          "ret": 1
+        },
+        {
+          "name": "MultiByteToWideChar",
+          "args": [
+            1252,
+            1,
+            2147417060,
+            256,
+            0,
+            0
+          ],
+          "addr_func": "0x18001a0",
+          "addr": "0x41a439",
+          "ret": 0
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        }
+      ]
+    },
+    "4": {
+      "status": "active",
+      "trace": [
+        {
+          "name": "main",
+          "args": [
+            "0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df"
+          ],
+          "addr": 4206674,
+          "ret": "symbolic",
+          "addr_func": 4206674
+        },
+        {
+          "name": "GetStartupInfoA",
+          "args": [
+            2147417504
+          ],
+          "addr_func": "0x18000cc",
+          "addr": "0x402ee9",
+          "ret": "None"
+        },
+        {
+          "name": "HeapCreate",
+          "args": [
+            0,
+            4096,
+            0
+          ],
+          "addr_func": "0x180014c",
+          "addr": "0x40be1c",
+          "ret": 1
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40bc80",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsAlloc"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bca7",
+          "ret": 26218540
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsGetValue"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bcb4",
+          "ret": 26218544
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsSetValue"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bcc1",
+          "ret": 26218548
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "FlsFree"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40bcce",
+          "ret": 26218552
+        },
+        {
+          "name": "TlsAlloc",
+          "args": [],
+          "addr_func": "0x1800130",
+          "addr": "0x40bd1e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsSetValue",
+          "args": [
+            1,
+            26218544
+          ],
+          "addr_func": "0x1800134",
+          "addr": "0x40bd39",
+          "ret": 1
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            0
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 0
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            4247854
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 4247854
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            4209274
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 4209274
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218540
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218540
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218544
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218544
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218548
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218548
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b7c1",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b7ee",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b809",
+          "ret": 26218556
+        },
+        {
+          "name": "EncodePointer",
+          "args": [
+            26218552
+          ],
+          "addr_func": "0x190103c",
+          "addr": "0x40b816",
+          "ret": 26218552
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559560,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559584,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559608,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559632,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559656,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559680,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559704,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559728,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559752,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559776,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559800,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559824,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559848,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            4559872,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b83c",
+          "ret": 26218544
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b869",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "DecodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b884",
+          "ret": 26218560
+        },
+        {
+          "name": "DecodePointer",
+          "args": [
+            26218540
+          ],
+          "addr_func": "0x1901040",
+          "addr": "0x40b891",
+          "ret": 26218540
+        },
+        {
+          "name": "FlsAlloc",
+          "args": [
+            4242125
+          ],
+          "addr_func": "0x190102c",
+          "addr": "0x40bda5",
+          "ret": 1
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            532
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221356584
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b83c",
+          "ret": 26218544
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b853",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40b855",
+          "ret": "<BV32 retval_FlsAlloc_8000535_32>"
+        },
+        {
+          "name": "FlsSetValue",
+          "args": [
+            1,
+            3221356584
+          ],
+          "addr_func": "0x1901034",
+          "addr": "0x40bdd8",
+          "ret": 1
+        },
+        {
+          "name": "GetModuleHandleW",
+          "args": [
+            "KERNEL32.DLL"
+          ],
+          "addr_func": "0x18000e0",
+          "addr": "0x40b965",
+          "ret": 26218536
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "EncodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b999",
+          "ret": 26218556
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            26218536,
+            "DecodePointer"
+          ],
+          "addr_func": "0x1800068",
+          "addr": "0x40b9a9",
+          "ret": 26218560
+        },
+        {
+          "name": "EnterCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800104",
+          "addr": "0x40d3e2",
+          "ret": "None"
+        },
+        {
+          "name": "InterlockedIncrement",
+          "args": [
+            4552584
+          ],
+          "addr_func": "0x180013c",
+          "addr": "0x40b9d8",
+          "ret": 1
+        },
+        {
+          "name": "LeaveCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800108",
+          "addr": "0x40d2d5",
+          "ret": "None"
+        },
+        {
+          "name": "EnterCriticalSection",
+          "args": [
+            4559752
+          ],
+          "addr_func": "0x1800104",
+          "addr": "0x40d3e2",
+          "ret": "None"
+        },
+        {
+          "name": "InterlockedIncrement",
+          "args": [
+            4553912
+          ],
+          "addr_func": "0x180013c",
+          "addr": "0x40f2f2",
+          "ret": 2
+        },
+        {
+          "name": "InterlockedIncrement",
+          "args": [
+            4554364
+          ],
+          "addr_func": "0x180013c",
+          "addr": "0x40f368",
+          "ret": 1
+        },
+        {
+          "name": "LeaveCriticalSection",
+          "args": [
+            4559752
+          ],
+          "addr_func": "0x1800108",
+          "addr": "0x40d2d5",
+          "ret": "None"
+        },
+        {
+          "name": "GetCurrentThreadId",
+          "args": [],
+          "addr_func": "0x1800140",
+          "addr": "0x40bde8",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetStartupInfoA",
+          "args": [
+            2147417380
+          ],
+          "addr_func": "0x18000cc",
+          "addr": "0x40b4bc",
+          "ret": "None"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2048
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221357128
+        },
+        {
+          "name": "GetStdHandle",
+          "args": [
+            4294967286
+          ],
+          "addr_func": "0x18000f8",
+          "addr": "0x40b670",
+          "ret": 1000
+        },
+        {
+          "name": "GetFileType",
+          "args": [
+            1000
+          ],
+          "addr_func": "0x1800124",
+          "addr": "0x40b682",
+          "ret": 3
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            3221357140,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "GetStdHandle",
+          "args": [
+            4294967285
+          ],
+          "addr_func": "0x18000f8",
+          "addr": "0x40b670",
+          "ret": 1001
+        },
+        {
+          "name": "GetFileType",
+          "args": [
+            1001
+          ],
+          "addr_func": "0x1800124",
+          "addr": "0x40b682",
+          "ret": 3
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            3221357204,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "GetStdHandle",
+          "args": [
+            4294967284
+          ],
+          "addr_func": "0x18000f8",
+          "addr": "0x40b670",
+          "ret": 1002
+        },
+        {
+          "name": "GetFileType",
+          "args": [
+            1002
+          ],
+          "addr_func": "0x1800124",
+          "addr": "0x40b682",
+          "ret": 3
+        },
+        {
+          "name": "InitializeCriticalSectionAndSpinCount",
+          "args": [
+            3221357268,
+            4000
+          ],
+          "addr_func": "0x1800178",
+          "addr": "0x40d827",
+          "ret": 1
+        },
+        {
+          "name": "SetHandleCount",
+          "args": [
+            32
+          ],
+          "addr_func": "0x1800120",
+          "addr": "0x40b6da",
+          "ret": "<BV32 retval_SetHandleCount_8000565_32>"
+        },
+        {
+          "name": "GetCommandLineA",
+          "args": [],
+          "addr_func": "0x18000c8",
+          "addr": "0x402f7e",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetEnvironmentStringsW",
+          "args": [],
+          "addr_func": "0x180011c",
+          "addr": "0x40b38e",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40b3a2",
+          "ret": "0x0"
+        },
+        {
+          "name": "GetEnvironmentStrings",
+          "args": [],
+          "addr_func": "0x1800110",
+          "addr": "0x40b44f",
+          "ret": "0x0"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            0,
+            63
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x40703c",
+          "ret": 3221359184
+        },
+        {
+          "name": "FreeEnvironmentStringsA",
+          "args": [
+            "A"
+          ],
+          "addr_func": "0x180010c",
+          "addr": "0x40b49a",
+          "ret": "<BV32 retval_FreeEnvironmentStringsA_8000570_32>"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "EnterCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800104",
+          "addr": "0x40d3e2",
+          "ret": "None"
+        },
+        {
+          "name": "LeaveCriticalSection",
+          "args": [
+            4559776
+          ],
+          "addr_func": "0x1800108",
+          "addr": "0x40d2d5",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetACP",
+          "args": [],
+          "addr_func": "0x180018c",
+          "addr": "0x40ed80",
+          "ret": "0x0"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            0,
+            544
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x40703c",
+          "ret": 3221359256
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "IsValidCodePage",
+          "args": [
+            1252
+          ],
+          "addr_func": "0x1800194",
+          "addr": "0x40ee23",
+          "ret": "<BV32 retval_IsValidCodePage_8000575_32>"
+        },
+        {
+          "name": "HeapFree",
+          "args": [
+            1,
+            0,
+            3221359256
+          ],
+          "addr_func": "0x1800100",
+          "addr": "0x4070f7",
+          "ret": 1
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetModuleFileNameA",
+          "args": [
+            0,
+            "0f1153b16dce8a116e175a92d04d463ecc113b79cf1a5991462a320924e0e2df",
+            260
+          ],
+          "addr_func": "0x18000fc",
+          "addr": "0x40b2e1",
+          "ret": 64
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            0,
+            17
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x40703c",
+          "ret": 3221359808
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "GetLastError",
+          "args": [],
+          "addr_func": "0x18000ec",
+          "addr": "0x40ba3e",
+          "ret": "0x0"
+        },
+        {
+          "name": "TlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x180012c",
+          "addr": "0x40b8ce",
+          "ret": 26218544
+        },
+        {
+          "name": "FlsGetValue",
+          "args": [
+            1
+          ],
+          "addr_func": "0x1901030",
+          "addr": "0x40ba51",
+          "ret": 3221356584
+        },
+        {
+          "name": "SetLastError",
+          "args": [
+            0
+          ],
+          "addr_func": "0x1800064",
+          "addr": "0x40baa8",
+          "ret": "None"
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            124
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221359840
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221359976
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221359992
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221360008
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221360024
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221360040
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221360056
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221360072
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221360088
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221360104
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221360120
+        },
+        {
+          "name": "HeapAlloc",
+          "args": [
+            1,
+            8,
+            2
+          ],
+          "addr_func": "0x1800000",
+          "addr": "0x4071db",
+          "ret": 3221360136
+        }
+      ]
+    },
+    "sections": {
+      ".text": {
+        "vaddr": 4198400,
+        "memsize": 350199,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": true
+      },
+      ".data": {
+        "vaddr": 4550656,
+        "memsize": 20149180,
+        "is_readable": true,
+        "is_writable": true,
+        "is_executable": false
+      },
+      ".dimar": {
+        "vaddr": 24702976,
+        "memsize": 4097,
+        "is_readable": true,
+        "is_writable": true,
+        "is_executable": false
+      },
+      ".new": {
+        "vaddr": 24711168,
+        "memsize": 18408,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      },
+      ".rsrc": {
+        "vaddr": 24731648,
+        "memsize": 12011,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      },
+      ".reloc": {
+        "vaddr": 24743936,
+        "memsize": 38688,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      }
+    }
+  }
+]

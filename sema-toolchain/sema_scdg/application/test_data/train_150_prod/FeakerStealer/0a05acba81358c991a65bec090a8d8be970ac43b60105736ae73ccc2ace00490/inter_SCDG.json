@@ -1,0 +1,103 @@
+[
+  {
+    "0": {
+      "status": "lost",
+      "trace": [
+        {
+          "name": "main",
+          "args": [
+            "0a05acba81358c991a65bec090a8d8be970ac43b60105736ae73ccc2ace00490"
+          ],
+          "addr": 4212428,
+          "ret": "symbolic",
+          "addr_func": 4212428
+        },
+        {
+          "name": "IsProcessorFeaturePresent",
+          "args": [
+            10
+          ],
+          "addr_func": "0x500088",
+          "addr": "0x404f35",
+          "ret": 0
+        },
+        {
+          "name": "LoadLibraryExW",
+          "args": [
+            "api-ms-win-core-synch-l1-2-0",
+            0,
+            2048
+          ],
+          "addr_func": "0x5000d8",
+          "addr": "0x4060f9",
+          "ret": 6295592
+        },
+        {
+          "name": "GetProcAddress",
+          "args": [
+            6295592,
+            "InitializeCriticalSectionEx"
+          ],
+          "addr_func": "0x50000c",
+          "addr": "0x406085",
+          "ret": 6295596
+        },
+        {
+          "name": "InitializeCriticalSectionEx",
+          "args": [
+            4571412,
+            4000,
+            0
+          ],
+          "addr_func": "0x60102c",
+          "addr": "0x406260",
+          "ret": 1
+        }
+      ]
+    },
+    "sections": {
+      ".text": {
+        "vaddr": 4198400,
+        "memsize": 62918,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": true
+      },
+      ".rdata": {
+        "vaddr": 4263936,
+        "memsize": 27860,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      },
+      ".data": {
+        "vaddr": 4292608,
+        "memsize": 280820,
+        "is_readable": true,
+        "is_writable": true,
+        "is_executable": false
+      },
+      ".gfids": {
+        "vaddr": 4575232,
+        "memsize": 288,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      },
+      ".rsrc": {
+        "vaddr": 4579328,
+        "memsize": 1512,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      },
+      ".reloc": {
+        "vaddr": 4583424,
+        "memsize": 4220,
+        "is_readable": true,
+        "is_writable": false,
+        "is_executable": false
+      }
+    }
+  }
+]
