@@ -16,6 +16,35 @@ import pandas as pd
 
 ROOT_DIR = "."
 
+from termcolor import colored, cprint
+import terminal_banner
+import sys
+import os
+os.system('clear')
+banner = ("""
+                
+                      ██████ ▓█████  ███▄ ▄███▓ ▄▄▄
+                    ▒██    ▒ ▓█   ▀ ▓██▒▀█▀ ██▒▒████▄
+                    ░ ▓██▄   ▒███   ▓██    ▓██░▒██  ▀█▄
+                      ▒   ██▒▒▓█  ▄ ▒██    ▒██ ░██▄▄▄▄██
+                    ▒██████▒▒░▒████▒▒██▒   ░██▒ ▓█   ▓██▒
+                    ▒ ▒▓▒ ▒ ░░░ ▒░ ░░ ▒░   ░  ░ ▒▒   ▓▒█░
+                    ░ ░▒  ░ ░ ░ ░  ░░  ░      ░  ▒   ▒▒ ░
+                    ░  ░  ░     ░   ░      ░     ░   ▒
+                          ░     ░  ░       ░         ░  ░
+                                                                                                    
+                            Made with ❤️ 
+                For the Community, By the Community   
+
+                ###################################
+       
+                        Made by ElNiak & Co.
+        linkedin  - https://www.linkedin.com/in/christophe-crochet-5318a8182/ 
+                Github - https://github.com/elniak
+                                                                                      
+""")
+banner_terminal = terminal_banner.Banner(banner)
+cprint(banner_terminal , 'green', file=sys.stderr)
 
 # TODO make usage of method in main file
 class SemaClassifier:
