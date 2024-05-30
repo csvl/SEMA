@@ -54,6 +54,36 @@ logging.getLogger("angr").setLevel(log_level_angr)
 logging.getLogger('claripy').setLevel(log_level_claripy)
 logger.setLevel(log_level_sema)
 
+from termcolor import colored, cprint
+import terminal_banner
+import sys
+import os
+os.system('clear')
+banner = ("""
+                
+                      ██████ ▓█████  ███▄ ▄███▓ ▄▄▄
+                    ▒██    ▒ ▓█   ▀ ▓██▒▀█▀ ██▒▒████▄
+                    ░ ▓██▄   ▒███   ▓██    ▓██░▒██  ▀█▄
+                      ▒   ██▒▒▓█  ▄ ▒██    ▒██ ░██▄▄▄▄██
+                    ▒██████▒▒░▒████▒▒██▒   ░██▒ ▓█   ▓██▒
+                    ▒ ▒▓▒ ▒ ░░░ ▒░ ░░ ▒░   ░  ░ ▒▒   ▓▒█░
+                    ░ ░▒  ░ ░ ░ ░  ░░  ░      ░  ▒   ▒▒ ░
+                    ░  ░  ░     ░   ░      ░     ░   ▒
+                          ░     ░  ░       ░         ░  ░
+                                                                                                    
+                            Made with ❤️ 
+                For the Community, By the Community   
+
+                ###################################
+       
+                        Made by ElNiak & Co.
+        linkedin  - https://www.linkedin.com/in/christophe-crochet-5318a8182/ 
+                Github - https://github.com/elniak
+                                                                                      
+""")
+banner_terminal = terminal_banner.Banner(banner)
+cprint(banner_terminal , 'green', file=sys.stderr)
+
 class SemaSCDG():
     """
     Class for managing the SemaSCDG application, including setting up configurations, creating angr projects, running exploration, building SCDG graphs, and handling various analysis tasks.
