@@ -16,6 +16,11 @@
 ```
 
 [![Documentation Built by gendocs](https://img.shields.io/badge/docs%20by-gendocs-blue.svg)](https://gendocs.readthedocs.io/en/latest/)
+[![.github/workflows/.pre-commit-config.yaml](https://github.com/csvl/SEMA-ToolChain/actions/workflows/.pre-commit-config.yaml/badge.svg)](https://github.com/csvl/SEMA-ToolChain/actions/workflows/.pre-commit-config.yaml)
+[![CodeQL](https://github.com/csvl/SEMA-ToolChain/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/csvl/SEMA-ToolChain/actions/workflows/github-code-scanning/codeql)
+[![Documentation Generation](https://github.com/csvl/SEMA-ToolChain/actions/workflows/pr-generate-docs.yaml/badge.svg)](https://github.com/csvl/SEMA-ToolChain/actions/workflows/pr-generate-docs.yaml)
+[![pages-build-deployment](https://github.com/csvl/SEMA-ToolChain/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/csvl/SEMA-ToolChain/actions/workflows/pages/pages-build-deployment)
+[![Python application](https://github.com/csvl/SEMA-ToolChain/actions/workflows/python-app.yml/badge.svg)](https://github.com/csvl/SEMA-ToolChain/actions/workflows/python-app.yml)
 
 ### Toolchain architecture
 <a name="toolchain-architecture"></a>
