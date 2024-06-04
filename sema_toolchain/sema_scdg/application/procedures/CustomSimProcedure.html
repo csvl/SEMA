@@ -13326,7 +13326,7 @@
 
 <h1 id="_1"><a class="headerlink" href="#_1" title="Permanent link">¤</a></h1>
 <h2 id="customsimprocedure">CustomSimProcedure<a class="headerlink" href="#customsimprocedure" title="Permanent link">¤</a></h2>
-<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L27">source</a>
+<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L22">source</a>
 <div class="language-python highlight"><pre><span></span><code><span class="n">CustomSimProcedure</span><span class="p">(</span>
    <span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">)</span>
@@ -13336,14 +13336,14 @@
 <p>This class defines various attributes and methods for handling custom simulation procedures, loading libraries, setting calling conventions, and creating simprocedures.</p>
 <p><strong>Methods:</strong></p>
 <h3 id="clear">.clear<a class="headerlink" href="#clear" title="Permanent link">¤</a></h3>
-<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L156">source</a>
+<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L151">source</a>
 <div class="language-python highlight"><pre><span></span><code><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 </code></pre></div></p>
 <hr />
 <p>Clears all data structures within the object.</p>
 <p>This method empties the dictionaries <code class="language-python highlight"><span class="n">sim_proc</span></code>, <code class="language-python highlight"><span class="n">system_call_table</span></code>, and <code class="language-python highlight"><span class="n">syscall_found</span></code>.</p>
 <h3 id="setup">.setup<a class="headerlink" href="#setup" title="Permanent link">¤</a></h3>
-<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L166">source</a>
+<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L161">source</a>
 <div class="language-python highlight"><pre><span></span><code><span class="o">.</span><span class="n">setup</span><span class="p">(</span>
    <span class="n">os</span>
 <span class="p">)</span>
@@ -13352,7 +13352,7 @@
 <p>Sets up the object for system call procedure initialization.</p>
 <p>If the object is not already set up, this method initializes loaders, configures logging if verbose, and initializes system call procedures based on the provided operating system.</p>
 <h3 id="load_syscall_table">.load_syscall_table<a class="headerlink" href="#load_syscall_table" title="Permanent link">¤</a></h3>
-<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L180">source</a>
+<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L175">source</a>
 <div class="language-python highlight"><pre><span></span><code><span class="o">.</span><span class="n">load_syscall_table</span><span class="p">(</span>
    <span class="n">proj</span>
 <span class="p">)</span>
@@ -13361,21 +13361,21 @@
 <p>Loads the system call table for the given project.</p>
 <p>This method is abstract and must be implemented in subclasses to define the behavior of loading the system call table for a specific project.</p>
 <h3 id="get_gen_simproc">.get_gen_simproc<a class="headerlink" href="#get_gen_simproc" title="Permanent link">¤</a></h3>
-<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L188">source</a>
+<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L183">source</a>
 <div class="language-python highlight"><pre><span></span><code><span class="o">.</span><span class="n">get_gen_simproc</span><span class="p">()</span>
 </code></pre></div></p>
 <hr />
 <p>Returns a dictionary containing generic simulation procedures.</p>
 <p>This method retrieves and returns specific simulation procedures from the <code class="language-python highlight"><span class="n">custom_package</span></code> dictionary.</p>
 <h3 id="get_custom_sim_proc">.get_custom_sim_proc<a class="headerlink" href="#get_custom_sim_proc" title="Permanent link">¤</a></h3>
-<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L205">source</a>
+<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L200">source</a>
 <div class="language-python highlight"><pre><span></span><code><span class="o">.</span><span class="n">get_custom_sim_proc</span><span class="p">()</span>
 </code></pre></div></p>
 <hr />
 <p>Returns a dictionary containing custom simulation procedures.</p>
 <p>This method retrieves and returns specific custom simulation procedures from the <code class="language-python highlight"><span class="n">custom_package</span></code> dictionary.</p>
 <h3 id="generic_sim_procedure">.generic_sim_procedure<a class="headerlink" href="#generic_sim_procedure" title="Permanent link">¤</a></h3>
-<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L258">source</a>
+<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L253">source</a>
 <div class="language-python highlight"><pre><span></span><code><span class="o">.</span><span class="n">generic_sim_procedure</span><span class="p">(</span>
    <span class="n">args</span><span class="p">,</span> <span class="n">ret</span>
 <span class="p">)</span>
@@ -13384,7 +13384,7 @@
 <p>Creates a generic simulation procedure based on arguments and return type.</p>
 <p>This method dynamically generates a simulation procedure based on the provided arguments and return type.</p>
 <h3 id="create_sim_procedure">.create_sim_procedure<a class="headerlink" href="#create_sim_procedure" title="Permanent link">¤</a></h3>
-<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L271">source</a>
+<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L266">source</a>
 <div class="language-python highlight"><pre><span></span><code><span class="o">.</span><span class="n">create_sim_procedure</span><span class="p">(</span>
    <span class="n">name</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">ret</span><span class="p">,</span> <span class="n">args_mismatch</span>
 <span class="p">)</span>
@@ -13393,7 +13393,7 @@
 <p>Creates a custom simulation procedure based on the provided name, arguments, return type, and arguments mismatch flag.</p>
 <p>This method dynamically generates a custom simulation procedure with specific characteristics based on the input parameters.</p>
 <h3 id="deal_with_alt_names">.deal_with_alt_names<a class="headerlink" href="#deal_with_alt_names" title="Permanent link">¤</a></h3>
-<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L283">source</a>
+<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L278">source</a>
 <div class="language-python highlight"><pre><span></span><code><span class="o">.</span><span class="n">deal_with_alt_names</span><span class="p">(</span>
    <span class="n">pkg_name</span><span class="p">,</span> <span class="n">proc</span>
 <span class="p">)</span>
@@ -13402,7 +13402,7 @@
 <p>Defines the behavior for handling alternative names in simulation procedures.</p>
 <p>This method is abstract and must be implemented in subclasses to specify how to deal with alternative names in simulation procedures.</p>
 <h3 id="init_sim_proc">.init_sim_proc<a class="headerlink" href="#init_sim_proc" title="Permanent link">¤</a></h3>
-<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L291">source</a>
+<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L286">source</a>
 <div class="language-python highlight"><pre><span></span><code><span class="o">.</span><span class="n">init_sim_proc</span><span class="p">(</span>
    <span class="n">os_name</span>
 <span class="p">)</span>
@@ -13411,7 +13411,7 @@
 <p>Initializes simulation procedures based on the provided operating system name.</p>
 <p>This method dynamically imports and organizes simulation procedures based on the specified operating system for further analysis.</p>
 <h3 id="create_lib_procedures">.create_lib_procedures<a class="headerlink" href="#create_lib_procedures" title="Permanent link">¤</a></h3>
-<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L319">source</a>
+<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L314">source</a>
 <div class="language-python highlight"><pre><span></span><code><span class="o">.</span><span class="n">create_lib_procedures</span><span class="p">(</span>
    <span class="n">dlldict</span><span class="p">,</span> <span class="n">libname</span><span class="p">,</span> <span class="n">angrlib</span>
 <span class="p">)</span>
@@ -13420,7 +13420,7 @@
 <p>Creates library procedures based on the provided dictionary, library name, and angr library.</p>
 <p>This function iterates through the dictionary of procedures, extracts arguments, checks for argument mismatches, and creates custom simulation procedures for each procedure in the library.</p>
 <h3 id="set_calling_conventions">.set_calling_conventions<a class="headerlink" href="#set_calling_conventions" title="Permanent link">¤</a></h3>
-<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L360">source</a>
+<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L355">source</a>
 <div class="language-python highlight"><pre><span></span><code><span class="o">.</span><span class="n">set_calling_conventions</span><span class="p">(</span>
    <span class="n">lib_name</span><span class="p">,</span> <span class="n">dlls_functions</span>
 <span class="p">)</span>
@@ -13429,7 +13429,7 @@
 <p>Sets calling conventions for a given library based on the provided information.</p>
 <p>This function determines and sets the calling conventions for the library, updating the default calling conventions for X86 and AMD64 architectures accordingly.</p>
 <h3 id="loadlibs_proc">.loadlibs_proc<a class="headerlink" href="#loadlibs_proc" title="Permanent link">¤</a></h3>
-<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L386">source</a>
+<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L381">source</a>
 <div class="language-python highlight"><pre><span></span><code><span class="o">.</span><span class="n">loadlibs_proc</span><span class="p">(</span>
    <span class="n">dlls_functions</span><span class="p">,</span> <span class="n">project</span>
 <span class="p">)</span>
@@ -13438,7 +13438,7 @@
 <p>Loads library procedures and applies hooks to symbols based on the provided information.</p>
 <p>This function iterates through requested libraries, sets calling conventions, creates procedures, applies hooks to symbols, and updates the simulation procedures accordingly.</p>
 <h3 id="std_sim_proc_hook">.std_sim_proc_hook<a class="headerlink" href="#std_sim_proc_hook" title="Permanent link">¤</a></h3>
-<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L442">source</a>
+<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L437">source</a>
 <div class="language-python highlight"><pre><span></span><code><span class="o">.</span><span class="n">std_sim_proc_hook</span><span class="p">(</span>
    <span class="n">proj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">simproc</span>
 <span class="p">)</span>
@@ -13447,7 +13447,7 @@
 <p>Applies a standard calling convention hook to a symbol in the project.</p>
 <p>This function hooks the specified symbol in the project with a standard calling convention based on the project architecture.</p>
 <h3 id="exception_sim_proc_hook">.exception_sim_proc_hook<a class="headerlink" href="#exception_sim_proc_hook" title="Permanent link">¤</a></h3>
-<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L453">source</a>
+<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L448">source</a>
 <div class="language-python highlight"><pre><span></span><code><span class="o">.</span><span class="n">exception_sim_proc_hook</span><span class="p">(</span>
    <span class="n">proj</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">simproc</span>
 <span class="p">)</span>
@@ -13456,7 +13456,7 @@
 <p>Applies an exception calling convention hook to a symbol in the project.</p>
 <p>This function hooks the specified symbol in the project with an exception calling convention based on the project architecture.</p>
 <h3 id="amd64_sim_proc_hook">.amd64_sim_proc_hook<a class="headerlink" href="#amd64_sim_proc_hook" title="Permanent link">¤</a></h3>
-<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L465">source</a>
+<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L460">source</a>
 <div class="language-python highlight"><pre><span></span><code><span class="o">.</span><span class="n">amd64_sim_proc_hook</span><span class="p">(</span>
    <span class="n">project</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">sim_proc</span>
 <span class="p">)</span>
@@ -13465,7 +13465,7 @@
 <p>Defines an abstract method for applying an AMD64 specific simulation procedure hook to a symbol in the project.</p>
 <p>This method must be implemented in subclasses to handle the application of AMD64 simulation procedure hooks.</p>
 <h3 id="custom_hook_static">.custom_hook_static<a class="headerlink" href="#custom_hook_static" title="Permanent link">¤</a></h3>
-<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L474">source</a>
+<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L469">source</a>
 <div class="language-python highlight"><pre><span></span><code><span class="o">.</span><span class="n">custom_hook_static</span><span class="p">(</span>
    <span class="n">proj</span>
 <span class="p">)</span>
@@ -13474,7 +13474,7 @@
 <p>Defines an abstract method for applying custom static hooks in the project.</p>
 <p>This method must be implemented in subclasses to handle the application of custom static hooks in the project.</p>
 <h3 id="custom_hook_no_symbols">.custom_hook_no_symbols<a class="headerlink" href="#custom_hook_no_symbols" title="Permanent link">¤</a></h3>
-<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L482">source</a>
+<p><a href="https://github.com/csvl/SEMA-ToolChain/blob/production/sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py/#L477">source</a>
 <div class="language-python highlight"><pre><span></span><code><span class="o">.</span><span class="n">custom_hook_no_symbols</span><span class="p">(</span>
    <span class="n">proj</span>
 <span class="p">)</span>

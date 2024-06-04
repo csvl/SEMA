@@ -13272,15 +13272,15 @@
 
                   <details class="quote">
                     <summary>Source code in <code>sema_toolchain/sema_scdg/application/sandboxes/CuckooInterface.py</code></summary>
-                    <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">27</span>
+                    <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
 <span class="normal">28</span>
 <span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">ossys</span><span class="o">=</span><span class="s2">&quot;linux&quot;</span><span class="p">,</span> <span class="n">guestos</span><span class="o">=</span><span class="s2">&quot;windows&quot;</span><span class="p">,</span> <span class="n">create_vm</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="n">ossys</span><span class="o">=</span><span class="s2">&quot;linux&quot;</span><span class="p">,</span> <span class="n">guestos</span><span class="o">=</span><span class="s2">&quot;windows&quot;</span><span class="p">,</span> <span class="n">create_vm</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">vm</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">guestos</span> <span class="o">=</span> <span class="n">guestos</span>

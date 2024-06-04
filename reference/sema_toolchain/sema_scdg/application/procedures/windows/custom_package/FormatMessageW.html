@@ -13336,7 +13336,9 @@ copies the formatted message text to an output buffer, processing any embedded i
 
             <details class="quote">
               <summary>Source code in <code>sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FormatMessageW.py</code></summary>
-              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">22</span>
+              <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
 <span class="normal">23</span>
 <span class="normal">24</span>
 <span class="normal">25</span>
@@ -13386,9 +13388,7 @@ copies the formatted message text to an output buffer, processing any embedded i
 <span class="normal">69</span>
 <span class="normal">70</span>
 <span class="normal">71</span>
-<span class="normal">72</span>
-<span class="normal">73</span>
-<span class="normal">74</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dwFlags</span><span class="p">,</span> <span class="n">lpSource</span><span class="p">,</span> <span class="n">dwMessageId</span><span class="p">,</span> <span class="n">dwLanguageId</span><span class="p">,</span> <span class="n">lpBuffer</span><span class="p">,</span> <span class="n">nSize</span><span class="p">,</span> <span class="n">Arguments</span><span class="p">):</span>
+<span class="normal">72</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dwFlags</span><span class="p">,</span> <span class="n">lpSource</span><span class="p">,</span> <span class="n">dwMessageId</span><span class="p">,</span> <span class="n">dwLanguageId</span><span class="p">,</span> <span class="n">lpBuffer</span><span class="p">,</span> <span class="n">nSize</span><span class="p">,</span> <span class="n">Arguments</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;_summary_</span>
 <span class="sd">    Formats a message string. The function requires a message definition as input. The message definition can come from a</span>
 <span class="sd">    buffer passed into the function. It can come from a message table resource in an already-loaded module. Or the caller</span>
