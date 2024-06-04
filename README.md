@@ -18,6 +18,10 @@
 [![Documentation Built by gendocs](https://img.shields.io/badge/docs%20by-gendocs-blue.svg)](https://gendocs.readthedocs.io/en/latest/)
 
 .. image:: https://readthedocs.org/projects/gendocs/badge/?version=latest
+   :target: https://gendocs.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+
+.. image:: https://readthedocs.org/projects/gendocs/badge/?version=latest
    :target: https://csvl.github.io/SEMA-ToolChain/?badge=latest
    :alt: Documentation Status
    
