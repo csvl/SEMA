@@ -22,6 +22,9 @@
 [![pages-build-deployment](https://github.com/csvl/SEMA-ToolChain/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/csvl/SEMA-ToolChain/actions/workflows/pages/pages-build-deployment)
 [![Python application](https://github.com/csvl/SEMA-ToolChain/actions/workflows/python-app.yml/badge.svg)](https://github.com/csvl/SEMA-ToolChain/actions/workflows/python-app.yml)
 
+
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) ! ![Debian](https://img.shields.io/badge/Debian-D70A53?style=for-the-badge&logo=debian&logoColor=white)
+
 ### Toolchain architecture
 <a name="toolchain-architecture"></a>
 
