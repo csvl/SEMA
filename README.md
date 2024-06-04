@@ -1,4 +1,6 @@
-# :skull_and_crossbones: SEMA :skull_and_crossbones: - ToolChain using Symbolic Execution for Malware Analysis.
+# :skull_and_crossbones: SEMA :skull_and_crossbones:
+
+## ToolChain using Symbolic Execution for Malware Analysis.
 
 ```
   ██████ ▓█████  ███▄ ▄███▓ ▄▄▄
@@ -40,11 +42,11 @@ A web application is available and is called SemaWebApp. It allows to manage the
 
 * Complete README of the entire toolchain : ![Sema README](./doc/README.md)
 
-* SCDG README : ![SCDG README](./sema-toolchain/sema_scdg/README.md)
+* SCDG README : ![SCDG README](./sema_toolchain/sema_scdg/README.md)
 
-* Classifier README : ![Classifier README](./sema-toolchain/sema_classifier/README.md)
+* Classifier README : ![Classifier README](./sema_toolchain/sema_classifier/README.md)
 
-* Web app README : ![Web app README](./sema-toolchain/sema_web_app/README.md)
+* Web app README : ![Web app README](./sema_toolchain/sema_web_app/README.md)
 
 * A Makefile is provided to ease the usage of the toolchain, run ```make help``` for more information about the available commands
 

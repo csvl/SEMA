@@ -1,0 +1,36 @@
+import os
+import sys
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+import logging
+import angr
+
+import os
+
+try:
+    lw = logging.getLogger("CustomSimProcedureWindows")
+    lw.setLevel(os.environ["LOG_LEVEL"])
+except Exception as e:
+    print(e)
+
+
+class SysAllocString(angr.SimProcedure):
+    def run(self, strIn):
+        if strIn.symbolic:
+            return self.state.solver.BVS(
+                "retval_{}".format(self.display_name), self.arch.bits
+            )
+
+        string_addr = self.state.solver.eval(strIn)
+        string = self.state.mem[string_addr].wstring.concrete
+        len_str = len(str(string))
+
+        ptr = self.state.heap.malloc(len_str + 1)
+        if hasattr(string, "decode"):
+            str_BVV = string.decode("utf-8") + "\0"
+        else:
+            str_BVV = string + "\0"
+
+        self.state.memory.store(ptr, str_BVV)  # ,endness=self.arch.memory_endness)
+        return ptr

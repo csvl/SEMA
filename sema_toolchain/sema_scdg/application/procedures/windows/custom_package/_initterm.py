@@ -1,0 +1,45 @@
+import os
+import sys
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+import angr
+import logging
+
+import os
+
+try:
+    lw = logging.getLogger("CustomSimProcedureWindows")
+    lw.setLevel(os.environ["LOG_LEVEL"])
+except Exception as e:
+    print(e)
+
+class _initterm(angr.SimProcedure):
+    local_vars = ('callbacks',)
+    callbacks = []
+
+    #pylint:disable=arguments-differ
+    def run(self, fp_a, fp_z):
+        if self.state.solver.symbolic(fp_a) or self.state.solver.symbolic(fp_z):
+            lw.warning("Symbolic argument to _initterm{_e} is not supported... returning")
+            self.ret(0) # might as well try to keep going
+
+        self.callbacks = self.get_callbacks(fp_a, fp_z)
+        self.do_callbacks(fp_a, fp_z)
+
+    def get_callbacks(self, fp_a, fp_z):
+        callbacks = []
+        table_size = fp_z - fp_a + self.state.arch.bytes
+        for addr in reversed(self.state.memory.load(fp_a, table_size, endness=self.state.arch.memory_endness).chop(self.state.arch.bits)):
+            addr = self.state.solver.eval(addr)
+            if addr != 0:
+                callbacks.append(addr)
+        return callbacks
+
+    def do_callbacks(self, fp_a, fp_z): # pylint:disable=unused-argument
+        if len(self.callbacks) == 0:
+            self.ret(0)  # probably best to assume each callback returned 0
+        else:
+            callback_addr = self.callbacks.pop(0)
+            lw.debug("Calling %#x", callback_addr)
+            self.call(callback_addr, [], continue_at='do_callbacks', prototype='void x()')

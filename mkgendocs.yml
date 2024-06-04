@@ -1,0 +1,2261 @@
+sources_dir: docs
+templates_dir: docs/templates
+repo: https://github.com/csvl/SEMA-ToolChain
+version: "production"
+pages:
+  - page: "./automate_mkdocs.md"
+    source: "automate_mkdocs.py"
+    functions:
+      - add_val
+      - automate_mkdocs_from_docstring
+      - automate_nav_structure
+      - fix
+      - indent
+
+  - page: "./sema_toolchain/sema_classifier/application/SemaClassifier.md"
+    source: "sema_toolchain/sema_classifier/application/SemaClassifier.py"
+    classes:
+      - SemaClassifier
+
+  - page: "./sema_toolchain/sema_classifier/application/classifier_tests.md"
+    source: "sema_toolchain/sema_classifier/application/classifier_tests.py"
+    classes:
+      - TestClassifier
+
+  - page: "./sema_toolchain/sema_classifier/application/ClassifierApp.md"
+    source: "sema_toolchain/sema_classifier/application/ClassifierApp.py"
+    functions:
+      - run_classifier
+      - get_args_request
+      - parse_class_args
+      - get_args
+
+  - page: "./sema_toolchain/sema_classifier/application/classifier/Classifier.md"
+    source: "sema_toolchain/sema_classifier/application/classifier/Classifier.py"
+    classes:
+      - Classifier
+
+  - page: "./sema_toolchain/sema_classifier/application/classifier/saved_model/PluginAtom.md"
+    source: "sema_toolchain/sema_classifier/application/classifier/saved_model/PluginAtom.py"
+    classes:
+      - PluginAtom
+
+  - page: "./sema_toolchain/sema_classifier/application/classifier/DL/DLClassifier.md"
+    source: "sema_toolchain/sema_classifier/application/classifier/DL/DLClassifier.py"
+    classes:
+      - Encoder
+      - Decoder
+      - RecurrentAutoencoder
+      - mClassifier
+      - DLClassifier
+
+  - page: "./sema_toolchain/sema_classifier/application/classifier/DL/DLTrainerClassifier.md"
+    source: "sema_toolchain/sema_classifier/application/classifier/DL/DLTrainerClassifier.py"
+    classes:
+      - DLTrainerClassifier
+
+  - page: "./sema_toolchain/sema_classifier/application/classifier/DL/DLDataset.md"
+    source: "sema_toolchain/sema_classifier/application/classifier/DL/DLDataset.py"
+    classes:
+      - DLDataset
+
+  - page: "./sema_toolchain/sema_classifier/application/classifier/SVM/SVMInriaClassifier.md"
+    source: "sema_toolchain/sema_classifier/application/classifier/SVM/SVMInriaClassifier.py"
+    classes:
+      - SVMInriaClassifier
+
+  - page: "./sema_toolchain/sema_classifier/application/classifier/SVM/SVMWLClassifier.md"
+    source: "sema_toolchain/sema_classifier/application/classifier/SVM/SVMWLClassifier.py"
+    classes:
+      - SVMWLClassifier
+
+  - page: "./sema_toolchain/sema_classifier/application/classifier/SVM/SVMClassifier.md"
+    source: "sema_toolchain/sema_classifier/application/classifier/SVM/SVMClassifier.py"
+    classes:
+      - SVMClassifier
+
+  - page: "./sema_toolchain/sema_classifier/application/classifier/GM/GSpanClassifier.md"
+    source: "sema_toolchain/sema_classifier/application/classifier/GM/GSpanClassifier.py"
+    classes:
+      - GSpanClassifier
+
+  - page: "./sema_toolchain/sema_classifier/application/clogging/LogBookFormatter.md"
+    source: "sema_toolchain/sema_classifier/application/clogging/LogBookFormatter.py"
+    functions:
+      - log_type
+      - init_logger
+
+  - page: "./sema_toolchain/sema_classifier/application/clogging/CustomFormatter.md"
+    source: "sema_toolchain/sema_classifier/application/clogging/CustomFormatter.py"
+    classes:
+      - CustomFormatter
+
+  - page: "./sema_toolchain/sema_classifier/application/helper/ArgumentParserClassifier.md"
+    source: "sema_toolchain/sema_classifier/application/helper/ArgumentParserClassifier.py"
+    classes:
+      - ArgumentParserClassifier
+
+  - page: "./sema_toolchain/sema_scdg/application/SemaSCDG.md"
+    source: "sema_toolchain/sema_scdg/application/SemaSCDG.py"
+    classes:
+      - SemaSCDG
+    functions:
+      - __handle_exception
+      - __process_folder
+      - start_scdg
+
+  - page: "./sema_toolchain/sema_scdg/application/explorer/SemaExplorer.md"
+    source: "sema_toolchain/sema_scdg/application/explorer/SemaExplorer.py"
+    classes:
+      - SemaExplorer
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/LinuxTableLoader.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/LinuxTableLoader.py"
+    classes:
+      - LinuxTableLoader
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/WindowsSimProcedure.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/WindowsSimProcedure.py"
+    classes:
+      - WindowsSimProcedure
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/DDLLoader.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/DDLLoader.py"
+    classes:
+      - DDLLoader
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/LinuxSimProcedure.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/LinuxSimProcedure.py"
+    classes:
+      - LinuxSimProcedure
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/CustomSimProcedure.py"
+    classes:
+      - CustomSimProcedure
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc3v.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc3v.py"
+    classes:
+      - gen_simproc3v
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/getuid.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/getuid.py"
+    classes:
+      - getuid
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gettimeofday.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gettimeofday.py"
+    classes:
+      - gettimeofday
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc0.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc0.py"
+    classes:
+      - gen_simproc0
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/socket.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/socket.py"
+    classes:
+      - socket
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/write.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/write.py"
+    classes:
+      - write
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc5.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc5.py"
+    classes:
+      - gen_simproc5
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/nanosleep.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/nanosleep.py"
+    classes:
+      - nanosleep
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/rt_sigaction.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/rt_sigaction.py"
+    classes:
+      - rt_sigaction
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/times.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/times.py"
+    classes:
+      - times
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/rt_sigprocmask.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/rt_sigprocmask.py"
+    classes:
+      - rt_sigprocmask
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/clock_gettime.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/clock_gettime.py"
+    classes:
+      - clock_gettime
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/stat.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/stat.py"
+    classes:
+      - stat
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/getgid.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/getgid.py"
+    classes:
+      - getgid
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/clock.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/clock.py"
+    classes:
+      - clock
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc6.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc6.py"
+    classes:
+      - gen_simproc6
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/prctl.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/prctl.py"
+    classes:
+      - prctl
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc4v.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc4v.py"
+    classes:
+      - gen_simproc4v
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc7.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc7.py"
+    classes:
+      - gen_simproc7
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/futex.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/futex.py"
+    classes:
+      - futex
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc2.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc2.py"
+    classes:
+      - gen_simproc2
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/set_thread_area.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/set_thread_area.py"
+    classes:
+      - set_thread_area
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/readv.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/readv.py"
+    classes:
+      - readv
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/getpwuid.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/getpwuid.py"
+    classes:
+      - getpwuid
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/open.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/open.py"
+    classes:
+      - open
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/readdir.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/readdir.py"
+    classes:
+      - readdir
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/openat.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/openat.py"
+    classes:
+      - openat
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/time.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/time.py"
+    classes:
+      - time
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/clone.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/clone.py"
+    classes:
+      - clone
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/select.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/select.py"
+    classes:
+      - select
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/sendto.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/sendto.py"
+    classes:
+      - sendto
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/exit.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/exit.py"
+    classes:
+      - exit
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc1.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc1.py"
+    classes:
+      - gen_simproc1
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc6v.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc6v.py"
+    classes:
+      - gen_simproc6v
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/sigprocmask.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/sigprocmask.py"
+    classes:
+      - sigprocmask
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/getsockname.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/getsockname.py"
+    classes:
+      - getsockname
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc1v.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc1v.py"
+    classes:
+      - gen_simproc1v
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/read.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/read.py"
+    classes:
+      - read
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/readlink.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/readlink.py"
+    classes:
+      - readlink
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc4.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc4.py"
+    classes:
+      - gen_simproc4
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/connect.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/connect.py"
+    classes:
+      - connect
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/unlink.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/unlink.py"
+    classes:
+      - unlink
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/socketcall.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/socketcall.py"
+    classes:
+      - socketcall
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/chdir.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/chdir.py"
+    classes:
+      - chdir
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/writev.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/writev.py"
+    classes:
+      - writev
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc2v.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc2v.py"
+    classes:
+      - gen_simproc2v
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc5v.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc5v.py"
+    classes:
+      - gen_simproc5v
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/setsid.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/setsid.py"
+    classes:
+      - setsid
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/socketpair.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/socketpair.py"
+    classes:
+      - socketpair
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/fstat.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/fstat.py"
+    classes:
+      - fstat
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc3.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/linux/custom_package/gen_simproc3.py"
+    classes:
+      - gen_simproc3
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/FindAtomA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/FindAtomA.py"
+    classes:
+      - FindAtomA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/RepMovsbHook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/RepMovsbHook.py"
+    classes:
+      - RepMovsbHook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/RewritingHook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/RewritingHook.py"
+    classes:
+      - RewritingHook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/MagicRATTrapHook3.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/MagicRATTrapHook3.py"
+    classes:
+      - MagicRATTrapHook3
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/MagicRATSSE3Hook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/MagicRATSSE3Hook.py"
+    classes:
+      - MagicRATSSE3Hook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/Crc32Hook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/Crc32Hook.py"
+    classes:
+      - Crc32Hook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/MagicRATTrapHook2.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/MagicRATTrapHook2.py"
+    classes:
+      - MagicRATTrapHook2
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/memcpy.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/memcpy.py"
+    classes:
+      - memcpy
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/WeedLeaf2Hook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/WeedLeaf2Hook.py"
+    classes:
+      - WeedLeaf2Hook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/RepMovsdHook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/RepMovsdHook.py"
+    classes:
+      - RepMovsdHook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/Crc32Hook2.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/Crc32Hook2.py"
+    classes:
+      - Crc32Hook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/CopyHook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/CopyHook.py"
+    classes:
+      - CopyHook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/MagicRATTrapHook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/MagicRATTrapHook.py"
+    classes:
+      - MagicRATTrapHook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/FindStartHook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/FindStartHook.py"
+    classes:
+      - FindStartHook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/LAB_00cafb11.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/LAB_00cafb11.py"
+    classes:
+      - LAB_00cafb11
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/Copy3Hook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/Copy3Hook.py"
+    classes:
+      - Copy3Hook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/WeedLeafHook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/WeedLeafHook.py"
+    classes:
+      - WeedLeafHook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/CldHook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/CldHook.py"
+    classes:
+      - CldHook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/CPUIDHook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/CPUIDHook.py"
+    classes:
+      - CPUIDHook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/MurmurHash2Hook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/MurmurHash2Hook.py"
+    classes:
+      - MurmurHash2Hook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/MagicRATForceHook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/MagicRATForceHook.py"
+    classes:
+      - MagicRATForceHook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/ClearStackHook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/ClearStackHook.py"
+    classes:
+      - ClearStackHook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/MagicRATTrapHook4.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/MagicRATTrapHook4.py"
+    classes:
+      - MagicRATTrapHook4
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/RepStosdHook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/RepStosdHook.py"
+    classes:
+      - RepStosdHook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/MurmurHashHook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/MurmurHashHook.py"
+    classes:
+      - MurmurHashHook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/StdHook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/StdHook.py"
+    classes:
+      - StdHook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/WeedLeaf3Hook.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/WeedLeaf3Hook.py"
+    classes:
+      - WeedLeaf3Hook
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/AddAtomA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_hook/AddAtomA.py"
+    classes:
+      - AddAtomA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetModuleFileNameExA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetModuleFileNameExA.py"
+    classes:
+      - GetModuleFileNameExA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetTempFileNameW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetTempFileNameW.py"
+    classes:
+      - GetTempFileNameW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/NtResumeThread.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/NtResumeThread.py"
+    classes:
+      - NtResumeThread
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetShortPathNameA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetShortPathNameA.py"
+    classes:
+      - GetShortPathNameA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ExpandEnvironmentStringsW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ExpandEnvironmentStringsW.py"
+    classes:
+      - ExpandEnvironmentStringsW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/TlsSetValue.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/TlsSetValue.py"
+    classes:
+      - TlsSetValue
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/htonl.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/htonl.py"
+    classes:
+      - htonl
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/MoveFileExW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/MoveFileExW.py"
+    classes:
+      - MoveFileExW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrcpynA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrcpynA.py"
+    classes:
+      - lstrcpynA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetUserDefaultUILanguage.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetUserDefaultUILanguage.py"
+    classes:
+      - GetUserDefaultUILanguage
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/AddVectoredExceptionHandler.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/AddVectoredExceptionHandler.py"
+    classes:
+      - AddVectoredExceptionHandler
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InternetConnectA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InternetConnectA.py"
+    classes:
+      - InternetConnectA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetErrorMode.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetErrorMode.py"
+    classes:
+      - SetErrorMode
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/strcat.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/strcat.py"
+    classes:
+      - strcat
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/TlsGetValue.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/TlsGetValue.py"
+    classes:
+      - TlsGetValue
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetKeyboardType.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetKeyboardType.py"
+    classes:
+      - GetKeyboardType
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetEnvironmentVariableW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetEnvironmentVariableW.py"
+    classes:
+      - GetEnvironmentVariableW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetFileInformationByHandle.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetFileInformationByHandle.py"
+    classes:
+      - GetFileInformationByHandle
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateSemaphoreW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateSemaphoreW.py"
+    classes:
+      - CreateSemaphoreW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ntohs.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ntohs.py"
+    classes:
+      - ntohs
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LoadLibraryExA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LoadLibraryExA.py"
+    classes:
+      - LoadLibraryExA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateFileW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateFileW.py"
+    classes:
+      - CreateFileW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetFileAttributesExW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetFileAttributesExW.py"
+    classes:
+      - GetFileAttributesExW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetLocaleInfoA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetLocaleInfoA.py"
+    classes:
+      - GetLocaleInfoA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateProcessA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateProcessA.py"
+    classes:
+      - CreateProcessA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetFullPathNameW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetFullPathNameW.py"
+    classes:
+      - GetFullPathNameW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SysFreeString.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SysFreeString.py"
+    classes:
+      - SysFreeString
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ShellMessageBoxW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ShellMessageBoxW.py"
+    classes:
+      - ShellMessageBoxW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetUserNameA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetUserNameA.py"
+    classes:
+      - GetUserNameA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ReadFile.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ReadFile.py"
+    classes:
+      - ReadFile
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/OpenProcess.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/OpenProcess.py"
+    classes:
+      - OpenProcess
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/__getmainargs.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/__getmainargs.py"
+    classes:
+      - __getmainargs
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/htons.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/htons.py"
+    classes:
+      - htons
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetModuleFileNameExW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetModuleFileNameExW.py"
+    classes:
+      - GetModuleFileNameExW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HeapAlloc.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HeapAlloc.py"
+    classes:
+      - HeapAlloc
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FormatMessageW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FormatMessageW.py"
+    classes:
+      - FormatMessageW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SysAllocStringLen.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SysAllocStringLen.py"
+    classes:
+      - SysAllocStringLen
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetIfTable.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetIfTable.py"
+    classes:
+      - GetIfTable
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VarBstrFromBool.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VarBstrFromBool.py"
+    classes:
+      - VarBstrFromBool
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HeapReAlloc.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HeapReAlloc.py"
+    classes:
+      - HeapReAlloc
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetStringTypeA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetStringTypeA.py"
+    classes:
+      - GetStringTypeA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InternetSetOptionW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InternetSetOptionW.py"
+    classes:
+      - InternetSetOptionW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetProcAddress.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetProcAddress.py"
+    classes:
+      - GetProcAddress
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LCMapStringW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LCMapStringW.py"
+    classes:
+      - LCMapStringW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LoadLibraryA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LoadLibraryA.py"
+    classes:
+      - LoadLibraryA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegisterClassExA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegisterClassExA.py"
+    classes:
+      - RegisterClassExA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LoadResource.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LoadResource.py"
+    classes:
+      - LoadResource
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateEventW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateEventW.py"
+    classes:
+      - CreateEventA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/socket.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/socket.py"
+    classes:
+      - socket
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VirtualFree.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VirtualFree.py"
+    classes:
+      - VirtualFree
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VirtualQuery.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VirtualQuery.py"
+    classes:
+      - VirtualQuery
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WaitForMultipleObjects.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WaitForMultipleObjects.py"
+    classes:
+      - WaitForMultipleObjects
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ftell.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ftell.py"
+    classes:
+      - ftell
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/DuplicateHandle.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/DuplicateHandle.py"
+    classes:
+      - DuplicateHandle
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/send.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/send.py"
+    classes:
+      - send
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/memcpy.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/memcpy.py"
+    classes:
+      - memcpy
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetFileAttributesA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetFileAttributesA.py"
+    classes:
+      - GetFileAttributesA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HttpOpenRequestA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HttpOpenRequestA.py"
+    classes:
+      - HttpOpenRequestA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/IsValidLocale.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/IsValidLocale.py"
+    classes:
+      - IsValidLocale
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetLocaleInfoW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetLocaleInfoW.py"
+    classes:
+      - SetLocaleInfoW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InternetOpenA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InternetOpenA.py"
+    classes:
+      - InternetOpenA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VirtualProtect.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VirtualProtect.py"
+    classes:
+      - VirtualProtect
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetLocaleInfoW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetLocaleInfoW.py"
+    classes:
+      - GetLocaleInfoW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetCPInfo.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetCPInfo.py"
+    classes:
+      - GetCPInfo
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/realloc.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/realloc.py"
+    classes:
+      - realloc
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetUserNameW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetUserNameW.py"
+    classes:
+      - GetUserNameW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FindClose.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FindClose.py"
+    classes:
+      - FindClose
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrcmpW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrcmpW.py"
+    classes:
+      - lstrcmpW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetFileType.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetFileType.py"
+    classes:
+      - GetFileType
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetEnvironmentVariableA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetEnvironmentVariableA.py"
+    classes:
+      - GetEnvironmentVariableA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegCloseKey.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegCloseKey.py"
+    classes:
+      - RegCloseKey
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegOpenKeyExA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegOpenKeyExA.py"
+    classes:
+      - RegOpenKeyExA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/recv.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/recv.py"
+    classes:
+      - recv
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CryptAcquireContextW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CryptAcquireContextW.py"
+    classes:
+      - CryptAcquireContextW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetSecurityInfo.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetSecurityInfo.py"
+    classes:
+      - GetSecurityInfo
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetTokenInformation.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetTokenInformation.py"
+    classes:
+      - GetTokenInformation
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/gethostbyname.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/gethostbyname.py"
+    classes:
+      - gethostbyname
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegisterClassA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegisterClassA.py"
+    classes:
+      - RegisterClassA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VarBstrFromDate.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VarBstrFromDate.py"
+    classes:
+      - VarBstrFromDate
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WNetGetConnectionA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WNetGetConnectionA.py"
+    classes:
+      - WNetGetConnectionA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegSetValueExA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegSetValueExA.py"
+    classes:
+      - RegSetValueExA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HttpOpenRequestW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HttpOpenRequestW.py"
+    classes:
+      - HttpOpenRequestW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/inet_ntoa.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/inet_ntoa.py"
+    classes:
+      - inet_ntoa
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateFileA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateFileA.py"
+    classes:
+      - CreateFileA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateSemaphoreA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateSemaphoreA.py"
+    classes:
+      - CreateSemaphoreA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetLastError.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetLastError.py"
+    classes:
+      - GetLastError
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InternetReadFile.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InternetReadFile.py"
+    classes:
+      - InternetReadFile
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/EnumCalendarInfoW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/EnumCalendarInfoW.py"
+    classes:
+      - EnumCalendarInfoW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/MapViewOfFile.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/MapViewOfFile.py"
+    classes:
+      - MapViewOfFile
+    functions:
+      - convert_prot
+      - deconvert_prot
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SHGetSpecialFolderPathA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SHGetSpecialFolderPathA.py"
+    classes:
+      - SHGetSpecialFolderPathA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetEvent.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetEvent.py"
+    classes:
+      - SetEvent
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetStartupInfoA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetStartupInfoA.py"
+    classes:
+      - GetStartupInfoA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/TerminateProcess.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/TerminateProcess.py"
+    classes:
+      - TerminateProcess
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LoadStringA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LoadStringA.py"
+    classes:
+      - LoadStringA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HttpSendRequestW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HttpSendRequestW.py"
+    classes:
+      - HttpSendRequestW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/_strdup.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/_strdup.py"
+    classes:
+      - _strdup
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrcpyA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrcpyA.py"
+    classes:
+      - lstrcpyA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RtlGetVersion.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RtlGetVersion.py"
+    classes:
+      - RtlGetVersion
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FlsFree.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FlsFree.py"
+    classes:
+      - FlsFree
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RtlGetNtVersionNumbers.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RtlGetNtVersionNumbers.py"
+    classes:
+      - RtlGetNtVersionNumbers
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CloseHandle.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CloseHandle.py"
+    classes:
+      - CloseHandle
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetVersionExA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetVersionExA.py"
+    classes:
+      - GetVersionExA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetLogicalDrives.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetLogicalDrives.py"
+    classes:
+      - GetLogicalDrives
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegisterClassW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegisterClassW.py"
+    classes:
+      - RegisterClassW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FindWindowW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FindWindowW.py"
+    classes:
+      - FindWindowW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegSetValueExW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegSetValueExW.py"
+    classes:
+      - RegSetValueExW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ShellExecuteW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ShellExecuteW.py"
+    classes:
+      - ShellExecuteW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SysAllocString.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SysAllocString.py"
+    classes:
+      - SysAllocString
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetFilePointerEx.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetFilePointerEx.py"
+    classes:
+      - SetFilePointerEx
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FindFirstFileW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FindFirstFileW.py"
+    classes:
+      - FindFirstFileW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/NtQueryInformationProcess.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/NtQueryInformationProcess.py"
+    classes:
+      - NtQueryInformationProcess
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateThread.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateThread.py"
+    classes:
+      - CreateThread
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateEventA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateEventA.py"
+    classes:
+      - CreateEventA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/recvcc.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/recvcc.py"
+    classes:
+      - recvcc
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WNetGetConnectionW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WNetGetConnectionW.py"
+    classes:
+      - WNetGetConnectionW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetThreadPriority.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetThreadPriority.py"
+    classes:
+      - SetThreadPriority
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VirtualAlloc.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VirtualAlloc.py"
+    classes:
+      - VirtualAlloc
+    functions:
+      - convert_prot
+      - deconvert_prot
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/inet_addr.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/inet_addr.py"
+    classes:
+      - inet_addr
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/memcmp.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/memcmp.py"
+    classes:
+      - memcmp
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/Process32NextW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/Process32NextW.py"
+    classes:
+      - Process32NextW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetUnhandledExceptionFilter.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetUnhandledExceptionFilter.py"
+    classes:
+      - SetUnhandledExceptionFilter
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CryptHashData.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CryptHashData.py"
+    classes:
+      - CryptHashData
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/_waccess.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/_waccess.py"
+    classes:
+      - _waccess
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetLastError.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetLastError.py"
+    classes:
+      - SetLastError
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateFileMappingW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateFileMappingW.py"
+    classes:
+      - CreateFileMappingW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetTempFileNameA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetTempFileNameA.py"
+    classes:
+      - GetTempFileNameA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InterlockedIncrement.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InterlockedIncrement.py"
+    classes:
+      - InterlockedIncrement
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/wsprintfW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/wsprintfW.py"
+    classes:
+      - wsprintfW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/OpenSCManagerA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/OpenSCManagerA.py"
+    classes:
+      - OpenSCManagerA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WinExec.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WinExec.py"
+    classes:
+      - WinExec
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/IsWow64Process.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/IsWow64Process.py"
+    classes:
+      - IsWow64Process
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetLongPathNameW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetLongPathNameW.py"
+    classes:
+      - GetLongPathNameW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/sendcc.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/sendcc.py"
+    classes:
+      - sendcc
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ResumeThread.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ResumeThread.py"
+    classes:
+      - ResumeThread
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SizeofResource.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SizeofResource.py"
+    classes:
+      - SizeofResource
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/wsprintfA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/wsprintfA.py"
+    classes:
+      - wsprintfA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/TlsFree.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/TlsFree.py"
+    classes:
+      - TlsFree
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InternetCloseHandle.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InternetCloseHandle.py"
+    classes:
+      - InternetCloseHandle
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InternetConnectW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InternetConnectW.py"
+    classes:
+      - InternetConnectW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/_wgetenv_s.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/_wgetenv_s.py"
+    classes:
+      - _wgetenv_s
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/strncmp.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/strncmp.py"
+    classes:
+      - strncmp
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/QueryPerformanceCounter.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/QueryPerformanceCounter.py"
+    classes:
+      - QueryPerformanceCounter
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FindNextFileA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FindNextFileA.py"
+    classes:
+      - FindNextFileA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FindResourceW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FindResourceW.py"
+    classes:
+      - FindResourceW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LoadStringW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LoadStringW.py"
+    classes:
+      - LoadStringW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/URLDownloadToFileW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/URLDownloadToFileW.py"
+    classes:
+      - URLDownloadToFileW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetModuleHandleExA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetModuleHandleExA.py"
+    classes:
+      - GetModuleHandleExA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateProcessW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateProcessW.py"
+    classes:
+      - CreateProcessW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VarBstrFromCy.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VarBstrFromCy.py"
+    classes:
+      - VarBstrFromCy
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LockResource.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LockResource.py"
+    classes:
+      - LockResource
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/_wchmod.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/_wchmod.py"
+    classes:
+      - _wchmod
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetEnvironmentStringsW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetEnvironmentStringsW.py"
+    classes:
+      - GetEnvironmentStringsW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/srand.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/srand.py"
+    classes:
+      - srand
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetUserDefaultLCID.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetUserDefaultLCID.py"
+    classes:
+      - GetUserDefaultLCID
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetModuleFileNameA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetModuleFileNameA.py"
+    classes:
+      - GetModuleFileNameA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VarBoolFromStr.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VarBoolFromStr.py"
+    classes:
+      - VarBoolFromStr
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VirtualAllocEx.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VirtualAllocEx.py"
+    classes:
+      - VirtualAllocEx
+    functions:
+      - convert_prot
+      - deconvert_prot
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegQueryValueExW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegQueryValueExW.py"
+    classes:
+      - RegQueryValueExW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SHGetPathFromIDList.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SHGetPathFromIDList.py"
+    classes:
+      - SHGetPathFromIDList
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateToolhelp32Snapshot.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateToolhelp32Snapshot.py"
+    classes:
+      - CreateToolhelp32Snapshot
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetCommandLineA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetCommandLineA.py"
+    classes:
+      - GetCommandLineA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WideCharToMultiByte.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WideCharToMultiByte.py"
+    classes:
+      - WideCharToMultiByte
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetModuleHandleW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetModuleHandleW.py"
+    classes:
+      - GetModuleHandleW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HttpQueryInfoW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HttpQueryInfoW.py"
+    classes:
+      - HttpQueryInfoW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetComputerNameA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetComputerNameA.py"
+    classes:
+      - GetComputerNameA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegOpenKeyExW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegOpenKeyExW.py"
+    classes:
+      - RegOpenKeyExW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RtlMoveMemory.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RtlMoveMemory.py"
+    classes:
+      - RtlMoveMemory
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/EncodePointer.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/EncodePointer.py"
+    classes:
+      - EncodePointer
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateRemoteThread.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateRemoteThread.py"
+    classes:
+      - CreateRemoteThread
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InitCommonControls.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InitCommonControls.py"
+    classes:
+      - InitCommonControls
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/AdjustTokenPrivileges.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/AdjustTokenPrivileges.py"
+    classes:
+      - AdjustTokenPrivileges
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FlsGetValue.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FlsGetValue.py"
+    classes:
+      - FlsGetValue
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetCommandLineW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetCommandLineW.py"
+    classes:
+      - GetCommandLineW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FindFirstFile.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FindFirstFile.py"
+    classes:
+      - FindFirstFile
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CommandLineToArgvW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CommandLineToArgvW.py"
+    classes:
+      - CommandLineToArgvW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetSystemDirectoryA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetSystemDirectoryA.py"
+    classes:
+      - GetSystemDirectoryA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/strrchr.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/strrchr.py"
+    classes:
+      - strrchr
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/atoi.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/atoi.py"
+    classes:
+      - atoi
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetAdaptersInfo.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetAdaptersInfo.py"
+    classes:
+      - GetAdaptersInfo
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateWindowExA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateWindowExA.py"
+    classes:
+      - CreateWindowExA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetDriveTypeW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetDriveTypeW.py"
+    classes:
+      - GetDriveTypeW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/AfxWinMain.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/AfxWinMain.py"
+    classes:
+      - AfxWinMain
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InterlockedExchange.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InterlockedExchange.py"
+    classes:
+      - InterlockedExchange
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RtlAddFunctionTable.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RtlAddFunctionTable.py"
+    classes:
+      - RtlAddFunctionTable
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/select.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/select.py"
+    classes:
+      - select
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetMessageA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetMessageA.py"
+    classes:
+      - GetMessageA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/sprintf.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/sprintf.py"
+    classes:
+      - sprintf
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RtlCompareUnicodeString.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RtlCompareUnicodeString.py"
+    classes:
+      - RtlCompareUnicodeString
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/strchr.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/strchr.py"
+    classes:
+      - strchr
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/PathFileExistsA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/PathFileExistsA.py"
+    classes:
+      - PathFileExistsA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetDriveTypeA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetDriveTypeA.py"
+    classes:
+      - GetDriveTypeA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CryptDestroyHash.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CryptDestroyHash.py"
+    classes:
+      - CryptDestroyHash
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/StartServiceA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/StartServiceA.py"
+    classes:
+      - StartServiceA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WinHttpAddRequestHeaders.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WinHttpAddRequestHeaders.py"
+    classes:
+      - WinHttpAddRequestHeaders
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/OleInitialize.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/OleInitialize.py"
+    classes:
+      - OleInitialize
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetSecurityInfo.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetSecurityInfo.py"
+    classes:
+      - SetSecurityInfo
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetModuleHandleExW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetModuleHandleExW.py"
+    classes:
+      - GetModuleHandleExW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/rand.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/rand.py"
+    classes:
+      - rand
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/NtGetContextThread.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/NtGetContextThread.py"
+    classes:
+      - NtGetContextThread
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/Handler.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/Handler.py"
+    classes:
+      - Handler
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/_ismbblead.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/_ismbblead.py"
+    classes:
+      - _ismbblead
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrlenW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrlenW.py"
+    classes:
+      - lstrlenW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/getsockname.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/getsockname.py"
+    classes:
+      - getsockname
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FlsAlloc.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FlsAlloc.py"
+    classes:
+      - FlsAlloc
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetSystemDirectoryW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetSystemDirectoryW.py"
+    classes:
+      - GetSystemDirectoryW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WaitForSingleObjectEx.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WaitForSingleObjectEx.py"
+    classes:
+      - WaitForSingleObjectEx
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetThreadContext.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetThreadContext.py"
+    classes:
+      - GetThreadContext
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetCurrentThreadId.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetCurrentThreadId.py"
+    classes:
+      - GetCurrentThreadId
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CryptGetHashParam.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CryptGetHashParam.py"
+    classes:
+      - CryptGetHashParam
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CheckRemoteDebuggerPresent.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CheckRemoteDebuggerPresent.py"
+    classes:
+      - CheckRemoteDebuggerPresent
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LoadLibraryW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LoadLibraryW.py"
+    classes:
+      - LoadLibraryW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HeapSize.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HeapSize.py"
+    classes:
+      - HeapSize
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/__iob_func.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/__iob_func.py"
+    classes:
+      - __iob_func
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LCMapStringA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LCMapStringA.py"
+    classes:
+      - LCMapStringA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HttpEndRequestA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HttpEndRequestA.py"
+    classes:
+      - HttpEndRequestA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/NtUnmapViewOfSection.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/NtUnmapViewOfSection.py"
+    classes:
+      - NtUnmapViewOfSection
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetCurrentProcessId.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetCurrentProcessId.py"
+    classes:
+      - GetCurrentProcessId
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetTickCount.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetTickCount.py"
+    classes:
+      - GetTickCount
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetModuleHandleA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetModuleHandleA.py"
+    classes:
+      - GetModuleHandleA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/malloc.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/malloc.py"
+    classes:
+      - malloc
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FormatMessageA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FormatMessageA.py"
+    classes:
+      - FormatMessageA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetFilePointer.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetFilePointer.py"
+    classes:
+      - SetFilePointer
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CryptCreateHash.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CryptCreateHash.py"
+    classes:
+      - CryptCreateHash
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetFileVersionInfoSizeW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetFileVersionInfoSizeW.py"
+    classes:
+      - GetFileVersionInfoSizeW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/getenv.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/getenv.py"
+    classes:
+      - getenv
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrcmpA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrcmpA.py"
+    classes:
+      - lstrcmpA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetThreadPriority.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetThreadPriority.py"
+    classes:
+      - GetThreadPriority
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegQueryValueExA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegQueryValueExA.py"
+    classes:
+      - RegQueryValueExA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetSystemInfo.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetSystemInfo.py"
+    classes:
+      - GetSystemInfo
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SHBrowseForFolder.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SHBrowseForFolder.py"
+    classes:
+      - SHBrowseForFolder
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetFileVersionInfoW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetFileVersionInfoW.py"
+    classes:
+      - GetFileVersionInfoW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/TlsAlloc.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/TlsAlloc.py"
+    classes:
+      - TlsAlloc
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/wcslen.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/wcslen.py"
+    classes:
+      - wcslen
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateMutexA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateMutexA.py"
+    classes:
+      - CreateMutexA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CoCreateInstance.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CoCreateInstance.py"
+    classes:
+      - CoCreateInstance
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateServiceA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CreateServiceA.py"
+    classes:
+      - CreateServiceA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ThunRTMain.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ThunRTMain.py"
+    classes:
+      - ThunRTMain
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FlsSetValue.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FlsSetValue.py"
+    classes:
+      - FlsSetValue
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/NtWriteVirtualMemory.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/NtWriteVirtualMemory.py"
+    classes:
+      - NtWriteVirtualMemory
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FileTimeToSystemTime.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FileTimeToSystemTime.py"
+    classes:
+      - FileTimeToSystemTime
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrcpyW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrcpyW.py"
+    classes:
+      - lstrcpyW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HttpSendRequestA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HttpSendRequestA.py"
+    classes:
+      - HttpSendRequestA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InitCommonControlsEx.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InitCommonControlsEx.py"
+    classes:
+      - InitCommonControlsEx
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/DeleteFileW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/DeleteFileW.py"
+    classes:
+      - DeleteFileW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/NtTerminateProcess.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/NtTerminateProcess.py"
+    classes:
+      - NtTerminateProcess
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/BlockInput.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/BlockInput.py"
+    classes:
+      - BlockInput
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ShellExecuteExW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ShellExecuteExW.py"
+    classes:
+      - ShellExecuteExW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/StartServiceCtrlDispatcherA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/StartServiceCtrlDispatcherA.py"
+    classes:
+      - StartServiceCtrlDispatcherA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WriteProcessMemory.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WriteProcessMemory.py"
+    classes:
+      - WriteProcessMemory
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RaiseException.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RaiseException.py"
+    classes:
+      - RaiseException
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/free.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/free.py"
+    classes:
+      - free
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetThreadLocale.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetThreadLocale.py"
+    classes:
+      - SetThreadLocale
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/NtReadVirtualMemory.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/NtReadVirtualMemory.py"
+    classes:
+      - NtReadVirtualMemory
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GlobalAddAtomA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GlobalAddAtomA.py"
+    classes:
+      - GlobalAddAtomA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SHGetSpecialFolderPathW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SHGetSpecialFolderPathW.py"
+    classes:
+      - SHGetSpecialFolderPathW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LoadLibraryExW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LoadLibraryExW.py"
+    classes:
+      - LoadLibraryExW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrcatA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrcatA.py"
+    classes:
+      - lstrcatA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/memset.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/memset.py"
+    classes:
+      - memset
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FindResourceA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FindResourceA.py"
+    classes:
+      - FindResourceA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrcatW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrcatW.py"
+    classes:
+      - lstrcatW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetNativeSystemInfo.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetNativeSystemInfo.py"
+    classes:
+      - GetNativeSystemInfo
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/OpenProcessToken.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/OpenProcessToken.py"
+    classes:
+      - OpenProcessToken
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/NtQuerySystemInformation.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/NtQuerySystemInformation.py"
+    classes:
+      - NtQuerySystemInformation
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/getaddrinfo.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/getaddrinfo.py"
+    classes:
+      - getaddrinfo
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/IsDebuggerPresent.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/IsDebuggerPresent.py"
+    classes:
+      - IsDebuggerPresent
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/_initterm.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/_initterm.py"
+    classes:
+      - _initterm
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetACP.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetACP.py"
+    classes:
+      - GetACP
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/Process32First.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/Process32First.py"
+    classes:
+      - Process32First
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ReleaseSemaphore.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ReleaseSemaphore.py"
+    classes:
+      - ReleaseSemaphore
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/Netbios.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/Netbios.py"
+    classes:
+      - Netbios
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetFileSize.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetFileSize.py"
+    classes:
+      - GetFileSize
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegCreateKeyExW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegCreateKeyExW.py"
+    classes:
+      - RegCreateKeyExW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LookupPrivilegeValueA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/LookupPrivilegeValueA.py"
+    classes:
+      - LookupPrivilegeValueA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetComputerNameW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetComputerNameW.py"
+    classes:
+      - GetComputerNameW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetModuleFileNameW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetModuleFileNameW.py"
+    classes:
+      - GetModuleFileNameW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SHGetFolderPathW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SHGetFolderPathW.py"
+    classes:
+      - SHGetFolderPathW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/Process32FirstW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/Process32FirstW.py"
+    classes:
+      - Process32FirstW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetCurrentDirectoryW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetCurrentDirectoryW.py"
+    classes:
+      - GetCurrentDirectoryW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FindNextFileW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FindNextFileW.py"
+    classes:
+      - FindNextFileW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetConsoleWindow.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetConsoleWindow.py"
+    classes:
+      - GetConsoleWindow
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WritePrivateProfileStringA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WritePrivateProfileStringA.py"
+    classes:
+      - WritePrivateProfileStringA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/_endthreadex.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/_endthreadex.py"
+    classes:
+      - _endthreadex
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InternetQueryOptionW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InternetQueryOptionW.py"
+    classes:
+      - InternetQueryOptionW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/strstr.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/strstr.py"
+    classes:
+      - strstr
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/OutputDebugStringW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/OutputDebugStringW.py"
+    classes:
+      - OutputDebugStringW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ShellMessageBoxA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ShellMessageBoxA.py"
+    classes:
+      - ShellMessageBoxA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/QueryPerformanceFrequency.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/QueryPerformanceFrequency.py"
+    classes:
+      - QueryPerformanceFrequency
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CopyFileA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/CopyFileA.py"
+    classes:
+      - CopyFileA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FlushFileBuffers.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FlushFileBuffers.py"
+    classes:
+      - FlushFileBuffers
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FreeLibrary.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FreeLibrary.py"
+    classes:
+      - FreeLibrary
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ImageList_AddMasked.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/ImageList_AddMasked.py"
+    classes:
+      - ImageList_AddMasked
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WaitForSingleObject.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WaitForSingleObject.py"
+    classes:
+      - WaitForSingleObject
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetWindowsDirectoryW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetWindowsDirectoryW.py"
+    classes:
+      - GetWindowsDirectoryW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrlenA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrlenA.py"
+    classes:
+      - lstrlenA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InternetOpenUrlA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InternetOpenUrlA.py"
+    classes:
+      - InternetOpenUrlA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetEnvironmentStrings.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetEnvironmentStrings.py"
+    classes:
+      - GetEnvironmentStrings
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WriteFile.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WriteFile.py"
+    classes:
+      - WriteFile
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/Process32Next.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/Process32Next.py"
+    classes:
+      - Process32Next
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VerQueryValueW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/VerQueryValueW.py"
+    classes:
+      - VerQueryValueW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegCreateKeyExA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/RegCreateKeyExA.py"
+    classes:
+      - RegCreateKeyExA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetThreadUILanguage.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetThreadUILanguage.py"
+    classes:
+      - GetThreadUILanguage
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/memmove.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/memmove.py"
+    classes:
+      - memmove
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrcpynW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/lstrcpynW.py"
+    classes:
+      - lstrcpynW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/URLDownloadToFileA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/URLDownloadToFileA.py"
+    classes:
+      - URLDownloadToFileA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetStringTypeW.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetStringTypeW.py"
+    classes:
+      - GetStringTypeW
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/??2@YAPAXI@Z.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/??2@YAPAXI@Z.py"
+    classes:
+      - NewInt
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HeapSetInformation.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/HeapSetInformation.py"
+    classes:
+      - HeapSetInformation
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/MultiByteToWideChar.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/MultiByteToWideChar.py"
+    classes:
+      - MultiByteToWideChar
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FindFirstFileA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/FindFirstFileA.py"
+    classes:
+      - FindFirstFileA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/setsockopt.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/setsockopt.py"
+    classes:
+      - setsockopt
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetSystemTimeAsFileTime.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetSystemTimeAsFileTime.py"
+    classes:
+      - GetSystemTimeAsFileTime
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/NtSetContextThread.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/NtSetContextThread.py"
+    classes:
+      - NtSetContextThread
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/_getenv_s.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/_getenv_s.py"
+    classes:
+      - _getenv_s
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetEndOfFile.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/SetEndOfFile.py"
+    classes:
+      - SetEndOfFile
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/OpenServiceA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/OpenServiceA.py"
+    classes:
+      - OpenServiceA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InitializeCriticalSectionEx.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InitializeCriticalSectionEx.py"
+    classes:
+      - InitializeCriticalSectionEx
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/DecodePointer.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/DecodePointer.py"
+    classes:
+      - DecodePointer
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WSAConnect.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/WSAConnect.py"
+    classes:
+      - WSAConnect
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/KiUserExceptionDispatcher.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/KiUserExceptionDispatcher.py"
+    classes:
+      - KiUserExceptionDispatcher
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetTickCount64.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/GetTickCount64.py"
+    classes:
+      - GetTickCount64
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/DispatchMessageA.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/DispatchMessageA.py"
+    classes:
+      - DispatchMessageA
+
+  - page: "./sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InterlockedDecrement.md"
+    source: "sema_toolchain/sema_scdg/application/procedures/windows/custom_package/InterlockedDecrement.py"
+    classes:
+      - InterlockedDecrement
+
+  - page: "./sema_toolchain/sema_scdg/application/plugin/PluginCommands.md"
+    source: "sema_toolchain/sema_scdg/application/plugin/PluginCommands.py"
+    classes:
+      - PluginCommands
+
+  - page: "./sema_toolchain/sema_scdg/application/plugin/PluginAtom.md"
+    source: "sema_toolchain/sema_scdg/application/plugin/PluginAtom.py"
+    classes:
+      - PluginAtom
+
+  - page: "./sema_toolchain/sema_scdg/application/plugin/PluginIoC.md"
+    source: "sema_toolchain/sema_scdg/application/plugin/PluginIoC.py"
+    classes:
+      - PluginIoC
+
+  - page: "./sema_toolchain/sema_scdg/application/plugin/PluginWideChar.md"
+    source: "sema_toolchain/sema_scdg/application/plugin/PluginWideChar.py"
+    classes:
+      - PluginWideChar
+
+  - page: "./sema_toolchain/sema_scdg/application/plugin/PluginLocaleInfo.md"
+    source: "sema_toolchain/sema_scdg/application/plugin/PluginLocaleInfo.py"
+    classes:
+      - PluginLocaleInfo
+
+  - page: "./sema_toolchain/sema_scdg/application/plugin/PluginRegistry.md"
+    source: "sema_toolchain/sema_scdg/application/plugin/PluginRegistry.py"
+    classes:
+      - PluginRegistry
+
+  - page: "./sema_toolchain/sema_scdg/application/plugin/PluginResources.md"
+    source: "sema_toolchain/sema_scdg/application/plugin/PluginResources.py"
+    classes:
+      - PluginResources
+
+  - page: "./sema_toolchain/sema_scdg/application/plugin/PluginEvasion.md"
+    source: "sema_toolchain/sema_scdg/application/plugin/PluginEvasion.py"
+    classes:
+      - PluginEvasion
+
+  - page: "./sema_toolchain/sema_scdg/application/plugin/PluginEnvVar.md"
+    source: "sema_toolchain/sema_scdg/application/plugin/PluginEnvVar.py"
+    classes:
+      - PluginEnvVar
+
+  - page: "./sema_toolchain/sema_scdg/application/clogging/DataManager.md"
+    source: "sema_toolchain/sema_scdg/application/clogging/DataManager.py"
+    classes:
+      - DataManager
+
+  - page: "./sema_toolchain/sema_scdg/application/clogging/LogBookFormatter.md"
+    source: "sema_toolchain/sema_scdg/application/clogging/LogBookFormatter.py"
+    functions:
+      - log_type
+      - init_logger
+
+  - page: "./sema_toolchain/sema_scdg/application/clogging/CustomFormatter.md"
+    source: "sema_toolchain/sema_scdg/application/clogging/CustomFormatter.py"
+    classes:
+      - CustomFormatter
+
+  - page: "./sema_toolchain/sema_scdg/application/sandboxes/SandBoxInterface.md"
+    source: "sema_toolchain/sema_scdg/application/sandboxes/SandBoxInterface.py"
+    classes:
+      - SandBoxInterface
+
+  - page: "./sema_toolchain/sema_scdg/application/sandboxes/CuckooInterface.md"
+    source: "sema_toolchain/sema_scdg/application/sandboxes/CuckooInterface.py"
+    classes:
+      - CuckooInterface
+
+  - page: "./sema_toolchain/sema_scdg/application/sandboxes/vm/VMInterface.md"
+    source: "sema_toolchain/sema_scdg/application/sandboxes/vm/VMInterface.py"
+    classes:
+      - VMInterface
+
+  - page: "./sema_toolchain/sema_scdg/application/sandboxes/vm/kvm/KVMInterface.md"
+    source: "sema_toolchain/sema_scdg/application/sandboxes/vm/kvm/KVMInterface.py"
+    classes:
+      - KVMInterface
+
+  - page: "./sema_toolchain/sema_scdg/application/helper/SyscallToSCDG.md"
+    source: "sema_toolchain/sema_scdg/application/helper/SyscallToSCDG.py"
+    classes:
+      - SyscallToSCDG
+
+  - page: "./sema_toolchain/sema_scdg/application/helper/PlotResults.md"
+    source: "sema_toolchain/sema_scdg/application/helper/PlotResults.py"
+    classes:
+      - PlotResults
+
+  - page: "./sema_toolchain/sema_scdg/application/helper/Debugger.md"
+    source: "sema_toolchain/sema_scdg/application/helper/Debugger.py"
+    classes:
+      - Debugger
+
+  - page: "./sema_toolchain/sema_scdg/application/helper/GraphBuilder.md"
+    source: "sema_toolchain/sema_scdg/application/helper/GraphBuilder.py"
+    classes:
+      - GraphBuilder
+
+  - page: "./sema_toolchain/sema_scdg/application/helper/Graph.md"
+    source: "sema_toolchain/sema_scdg/application/helper/Graph.py"
+    classes:
+      - Graph
+
+  - page: "./sema_toolchain/sema_scdg/application/helper/ArgumentParserSCDG.md"
+    source: "sema_toolchain/sema_scdg/application/helper/ArgumentParserSCDG.py"
+    classes:
+      - ArgumentParserSCDG
+

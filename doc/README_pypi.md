@@ -89,7 +89,7 @@ cd databases/Binaries
 To use the toolchain without docker container by using the Pypi package to install dependencies, use :
 
 ```bash
-pip install sema-toolchain
+pip install sema_toolchain
 ```
 
 After cloning the git you can then use the toolchain without docker

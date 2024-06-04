@@ -1,0 +1,33 @@
+import os
+import sys
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+import logging
+import angr
+import archinfo
+import os
+
+try:
+    lw = logging.getLogger("CustomSimProcedureWindows")
+    lw.setLevel(os.environ["LOG_LEVEL"])
+except Exception as e:
+    print(e)
+
+class recv(angr.SimProcedure):
+    def run(self, s, buf, length, flags):
+        if self.state.globals["recv"] > 2:
+            return -1
+        self.state.globals["recv"] += 1
+        if length.symbolic:
+            ptr=self.state.solver.BVS("buf",8*0x10)
+            self.state.memory.store(buf,ptr)
+            retval = self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)
+            self.state.solver.add(retval < 0x10)
+            self.state.solver.add(retval >= 0)
+            return retval
+        else:
+            ptr=self.state.solver.BVS("buf",8*self.state.solver.eval(length),key=("buffer", hex(self.state.globals["n_buffer"])),eternal=True)
+            self.state.memory.store(buf,ptr)
+            self.state.globals["n_buffer"] = self.state.globals["n_buffer"] + 1
+            return length

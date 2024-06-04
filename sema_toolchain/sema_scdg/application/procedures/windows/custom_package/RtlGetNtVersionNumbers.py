@@ -1,0 +1,28 @@
+import os
+import sys
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+import logging
+import angr
+import os
+
+try:
+    lw = logging.getLogger("CustomSimProcedureWindows")
+    lw.setLevel(os.environ["LOG_LEVEL"])
+except Exception as e:
+    print(e)
+
+class RtlGetNtVersionNumbers(angr.SimProcedure):
+    def run(self, MajorVersion, MinorVersion, BuildNumber):
+        dwMajorVersion = self.state.solver.BVS("dwMajorVersion_{}".format(self.display_name),32)
+        self.state.solver.add(dwMajorVersion > 4)
+        self.state.solver.add(dwMajorVersion <= 10)
+        self.state.memory.store(MajorVersion, dwMajorVersion,endness=self.arch.memory_endness)
+        dwMinorVersion = self.state.solver.BVS("dwMinorVersion_{}".format(self.display_name),32)
+        self.state.solver.add(dwMinorVersion >= 0)
+        self.state.solver.add(dwMinorVersion < 4)
+        self.state.memory.store(MinorVersion, dwMinorVersion,endness=self.arch.memory_endness)
+        dwBuildNumber = self.state.solver.BVS("dwBuildNumber_{}".format(self.display_name),32)
+        self.state.memory.store(BuildNumber, dwBuildNumber, endness=self.arch.memory_endness)
+        return 0x0

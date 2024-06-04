@@ -1,6 +1,14 @@
-site_name: Panther Documentation
+site_name: Sema Documentation
+site_description: "ToolChain using Symbolic Execution for Malware Analysis"
+repo_url: https://github.com/csvl/SEMA-ToolChain
+edit_uri: edit/gh-pages/docs/
+docs_dir: "docs"
+watch: [mkdocs.yaml, README.md, CONTRIBUTING.md, CHANGELOG.md, sema_toolchain]
+copyright: Copyright &copy; 2023 ElNiak - Christophe Crochet
 theme:
   name: material
+  features:
+    - navigation.indexes
   palette:
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"
@@ -19,8 +27,103 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to system preference
+nav:
+  - Home: home.md
+  - Usage: 
+    - SCDG: sema_scdg.md
+    - Classifer: sema_classifier.md
+    - WebApp: sema_web_app.md
+  - Development:
+    - Contributing: CONTRIBUTING.md
+  # rest of the navigation...
+  # defer to gen-files + literate-nav
+  - Code Reference: reference/  
+  # rest of the navigation...
 markdown_extensions:
   - attr_list
+  - admonition
+  - tables
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - callouts
+  - footnotes
+  - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:pymdownx.emoji.gemoji
       emoji_generator: !!python/name:pymdownx.emoji.to_alt
+  - pymdownx.highlight
+  - pymdownx.magiclink
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      pygments_lang_class: true
+  - pymdownx.inlinehilite:
+      style_plain_text: python
+  - pymdownx.magiclink
+  - pymdownx.snippets:
+      base_path: [!relative $config_dir]
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - toc:
+      permalink: "¤"
+use_directory_urls: false
+plugins:
+  - search:
+      separator: '[\s\-,:!=\[\]()"/]+|(?!\b)(?=[A-Z][a-z])|\.(?!\d)|&[lg]t;'
+  # - same-dir
+  # - exclude: # NOT WORKING
+  #     glob:
+  #       - '../panther/panther_worker/app/panther-ivy/**'
+  #       - '../panther/outputs/**'
+  #       - '../panther/panther_webapp/app/res/tmp/**'
+  #       - '*.tmp'
+  #       - '*.pdf'
+  #       - '*.gz'
+  #       - '**/setup.py'
+  #     regex:
+  #       - '.*\.(tmp|bin|tar)$'
+  - gen-files:
+      scripts:
+        - doc/gen_ref_pages.py  # Path to the script generating reference pages
+  - literate-nav:
+      nav_file: SUMMARY.md  # Path to the generated navigation file
+  # - section-index
+  - coverage
+  - mkdocstrings:
+      default_handler: python
+      show_inheritance_diagram: true
+      handlers:
+        python:
+          setup_commands:
+            - import sys
+            - from pathlib import Path
+            - sys.path.append(str(Path('.').resolve()))
+          paths:
+            - ../panther/panther_webapp/**
+            - ../panther/panther_worker/**
+          options:
+            docstring_options:
+              ignore_init_summary: true
+            docstring_section_style: list
+            filters: ["!^_"]
+            heading_level: 1
+            inherited_members: true
+            merge_init_into_class: true
+            parameter_headings: true
+            separate_signature: true
+            show_root_heading: true
+            show_root_full_path: false
+            show_signature_annotations: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            signature_crossrefs: true
+            summary: true
+

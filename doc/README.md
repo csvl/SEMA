@@ -138,7 +138,7 @@ In this command:
 - The second volume corresponds to the folder containing the configuration files that will be passed to the docker.
 - The third matches the folder containing the binaries that are going to be passed to the container.
 
-Example taking the files already provided, being inside the sema-toolchain folder, run :
+Example taking the files already provided, being inside the sema_toolchain folder, run :
 ```bash
 docker run --rm --name="sema-scdg" -v ${PWD}/database/SCDG:/sema-scdg/application/database/SCDG -v ${PWD}/sema_scdg/application/configs:/sema-scdg/application/configs -v ${PWD}/database/Binaries:/sema-scdg/application/database/Binaries  -p 5001:5001 -it sema-scdg bash
 ```
@@ -396,7 +396,7 @@ Then use the same commands than in the recommended usage section
 It is also possible to use the toolchain without docker container by using the Pypi package to install dependencies.
 
 ```bash
-pip install sema-toolchain
+pip install sema_toolchain
 ```
 
 After cloning the git you can then use the toolchain without docker
