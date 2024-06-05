@@ -23,7 +23,7 @@
 [![Python application](https://github.com/csvl/SEMA-ToolChain/actions/workflows/python-app.yml/badge.svg)](https://github.com/csvl/SEMA-ToolChain/actions/workflows/python-app.yml)
 
 
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) ! ![Debian](https://img.shields.io/badge/Debian-D70A53?style=for-the-badge&logo=debian&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)  ![Debian](https://img.shields.io/badge/Debian-D70A53?style=for-the-badge&logo=debian&logoColor=white)
 
 ### Toolchain architecture
 <a name="toolchain-architecture"></a>
@@ -45,6 +45,15 @@ Since `G''` is a subgraph of `G'`, this is calculating how much `G'` appears in 
 Another classifier we use is the Support Vector Machine (`SVM`) with INRIA graph kernel or the Weisfeiler-Lehman extension graph kernel.
 
 A web application is available and is called SemaWebApp. It allows to manage the launch of experiments on SemaSCDG and/or SemaClassifier.
+
+### Pre-commit
+
+This repository uses pre-commit to ensure that the code is formatted correctly and that the code is clean. To install pre-commit, run the following command:
+
+```bash
+python3 -m pip install pre-commit
+pre-commit install
+```
 
 ### Documentation
 
