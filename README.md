@@ -15,6 +15,7 @@
 
 ```
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b433e8981ad7409baccec27f554e4e00)](https://app.codacy.com/gh/csvl/SEMA?utm_source=github.com&utm_medium=referral&utm_content=csvl/SEMA&utm_campaign=Badge_Grade)
 [![Documentation Built by gendocs](https://img.shields.io/badge/docs%20by-gendocs-blue.svg)](https://gendocs.readthedocs.io/en/latest/)
 [![.github/workflows/.pre-commit-config.yaml](https://github.com/csvl/SEMA-ToolChain/actions/workflows/.pre-commit-config.yaml/badge.svg)](https://github.com/csvl/SEMA-ToolChain/actions/workflows/.pre-commit-config.yaml)
 [![CodeQL](https://github.com/csvl/SEMA-ToolChain/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/csvl/SEMA-ToolChain/actions/workflows/github-code-scanning/codeql)
