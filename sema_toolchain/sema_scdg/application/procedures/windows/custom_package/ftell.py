@@ -1,8 +1,7 @@
 import os
 import sys
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
+
 import logging
 import angr
 from cle.backends.externs.simdata.io_file import io_file_data_for_arch

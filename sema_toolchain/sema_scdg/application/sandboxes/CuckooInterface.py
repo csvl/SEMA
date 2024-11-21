@@ -1,8 +1,7 @@
 import os
 import sys
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
+
 from SandBoxInterface import SandBoxInterface
 from vm.kvm.KVMInterface import KVMInterface
 from vm.virtualbox import VirtualBoxInterface
@@ -31,7 +30,7 @@ class CuckooInterface(SandBoxInterface):
 
     def init_vm(self, name, ossys, guestos, create_vm):
         if ossys == "linux":
-            import libvirt
+            # import libvirt
             if False:
                 conf= ROOT_DIR + "/vm/kvm/config/win7.xml"
                 image="/var/lib/libvirt/images/en_windows_7_ultimate_x64_dvd.iso"

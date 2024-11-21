@@ -8,26 +8,21 @@ RUN  apt-get --fix-missing install -y apt-utils
 RUN  apt-get update
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository ppa:pypy/ppa
+RUN add-apt-repository ppa:deadsnakes/ppa
 
 RUN  apt update; apt-get --fix-missing -y install \
-                python3.8 \
-                python3.8-dev \
-                python3.8-venv \
-                python3-pip \
+                python3.9 \
+                python3.9-dev \
+                python3.9-venv \
+                python3.9-distutils \
                 xterm \
                 virt-manager \
                 git \
                 curl \
-                pypy3 \
-                python3-pip \
-                python3-dev \
-                libvirt-dev \
-                python3.9 \
-                python3.9-venv
+                libvirt-dev 
+
 
 RUN apt-get update; apt-get --fix-missing -y install \
-        pypy3-dev \
-        pypy3-venv \
         python-pycparser \
         gfortran \
         cmake \
@@ -92,16 +87,51 @@ RUN  apt update; apt-get --fix-missing -y install \
 
 RUN apt-get --fix-missing -y install radare2
 
-COPY ./sema_scdg/requirements.txt /sema-scdg/requirements.txt
-RUN pip3 install -r /sema-scdg/requirements.txt
 
+ENV PYENV_ROOT /root/.pyenv
+ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
+# Install pyenv
+RUN set -ex \
+    && curl https://pyenv.run | bash \
+    && pyenv update 
+
+RUN apt-get install -y libbz2-dev
+
+# Pip
+# RUN wget https://bootstrap.pypa.io/get-pip.py 
+RUN pyenv install 3.8.10; pyenv local 3.8.10
+COPY ./sema_scdg/requirements.txt /sema-scdg/requirements.txt
+RUN pip install -r /sema-scdg/requirements.txt --default-timeout=100
+
+#pypy
+# GCC problem
+# RUN wget https://downloads.python.org/pypy/pypy3.9-v7.3.16-linux64.tar.bz2
+# RUN apt install gcc make libffi-dev pkg-config zlib1g-dev libbz2-dev \
+#         libsqlite3-dev libncurses5-dev libexpat1-dev libssl-dev libgdbm-dev \
+#         tk-dev libgc-dev python-cffi \
+#         liblzma-dev libncursesw5-dev; 
+# RUN git clone https://github.com/pypy/pypy.git; cd pypy; \
+#         git checkout a2113ea87262a302918df8a262fb073f81776bbe; \
+#         python3.9 -mpip install cffi; \
+#         python3.9 pypy/tool/release/package.py --archive-name=pypy3.9-v7.3.16-linux64; \
+#         tar xf pypy3.9-v7.3.16-linux64.tar.bz2 -C /opt; \
+#         ln -s /opt/pypy3.9-v7.3.16-linux64/bin/pypy /usr/local/bin/pypy 
+
+# # Ensure the pypy binary is available in the PATH
+# ENV PATH="/opt/pypy3.9-v7.3.16-linux64/bin:$PATH"
+RUN pyenv install pypy3.9-7.3.16; pyenv local pypy3.9-7.3.16
 COPY ./sema_scdg/requirements_pypy.txt /sema-scdg/requirements_pypy.txt
-RUN pypy3 -m pip install -r /sema-scdg/requirements_pypy.txt
+RUN pip install -r /sema-scdg/requirements_pypy.txt --default-timeout=100 
+
+
+# TODO
+# RUN pypy -m pip uninstall capstone;  pypy -m pip install capstone
 
 COPY ./sema_scdg/ /sema-scdg
 COPY ./submodules/angr-utils /sema-scdg/application/submodules/angr-utils
 COPY ./submodules/bingraphvis /sema-scdg/application/submodules/bingraphvis
-COPY ./penv-fix/ /sema-scdg/application/penv-fix
+# TODO not used for now <!>
+COPY ./penv-fix/ /sema-scdg/application/penv-fix 
 COPY ./database/ /sema-scdg/application/database
 
 WORKDIR /sema-scdg/application/

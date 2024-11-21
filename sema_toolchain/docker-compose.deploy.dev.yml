@@ -1,0 +1,69 @@
+networks:
+  micro_network:
+    name: micro_network
+    external: True
+
+services:
+  web-app:
+    container_name: web-app
+    image: sema-web-app:latest
+    command: python3 application/SemaServer.py
+    depends_on:
+      - sema-classifier
+      - sema-scdg
+    build:
+      context: .
+      dockerfile: ./sema_web_app/Dockerfile
+    ports:
+    - "5000:5000"
+    restart: always
+    volumes:
+      - ${PWD}/sema_web_app/:/sema-web-app
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=unix$DISPLAY
+    networks:
+      - micro_network # TODO set fix IPv4 ?
+
+  sema-scdg:
+    container_name: sema-scdg
+    image: sema-scdg:latest
+    command: python3 SCDGApp.py config_web_app.ini
+    build:
+      context: .
+      dockerfile: ./sema_scdg/Dockerfile
+    ports:
+    - "5001:5001"
+    volumes:
+      - ${PWD}/database/:/sema-scdg/application/database
+      - ${PWD}/penv-fix/:/sema-scdg/application/penv-fix
+      - ${PWD}/sema_scdg/application/:/sema-scdg/application
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    restart: always
+    environment:
+      - DISPLAY=unix$DISPLAY
+    networks:
+      - micro_network # TODO set fix IPv4 ?
+
+  sema-classifier:
+    container_name: sema-classifier
+    image: sema-classifier:latest
+    command: ../docker_startup.sh 0
+    build:
+      context: .
+      dockerfile: ./sema_classifier/Dockerfile
+    ports:
+      - "5002:5002"
+    restart: always
+    volumes:
+      - ${PWD}/sema_classifier/application/:/sema-classifier/application/
+      - ${PWD}/submodules/SEMA-quickspan:/sema-classifier/application/submodules/SEMA-quickspan
+      - ${PWD}/submodules/bingraphvis:/sema-classifier/application/submodules/bingraphvis
+      - ${PWD}/penv-fix/:/sema-classifier/application/penv-fix
+      - ${PWD}/database/:/sema-classifier/application/database
+      - ${PWD}/yara/:/sema-classifier/application/yara
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=$(DISPLAY)
+    networks:
+      - micro_network

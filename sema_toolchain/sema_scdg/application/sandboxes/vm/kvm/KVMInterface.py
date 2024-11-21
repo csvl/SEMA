@@ -1,22 +1,21 @@
 import os
 import sys
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
+
 from unix import Local, Remote, UnixError
 from unix.linux import Linux
 import kvm # hypervisor (https://pypi.org/project/kvm/)
 import json
 import logging
 
-import libvirt # VMs manager
+# import libvirt # VMs manager
 import sys
 import os
 import inspect
 
-currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-parentdir = os.path.dirname(currentdir)
-sys.path.insert(0, parentdir)
+# currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+# parentdir = os.path.dirname(currentdir)
+# sys.path.insert(0, parentdir)
 
 from VMInterface import VMInterface
 

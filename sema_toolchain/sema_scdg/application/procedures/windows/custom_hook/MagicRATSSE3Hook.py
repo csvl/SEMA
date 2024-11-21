@@ -1,8 +1,7 @@
 import os
 import sys
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
+
 # 85 db <-> 0x0040132e
 
 import angr

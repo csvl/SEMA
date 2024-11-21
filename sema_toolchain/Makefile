@@ -1,6 +1,6 @@
 build-toolchain:
 	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
-	DOCKER_BUILDKIT=0 docker compose -f docker-compose.deploy.yml build
+	DOCKER_BUILDKIT=0 docker compose -f docker-compose.deploy.dev.yml build
 
 build-web-app:
 	docker network inspect micro_network >/dev/null 2>&1 || docker network create --driver bridge micro_network
@@ -26,11 +26,18 @@ pull-classifier:
 	docker image tag manonoreins/sema-classifier:latest sema-classifier:latest
 	docker rmi manonoreins/sema-classifier:latest
 
+run-toolchain-dev:
+	DOCKER_BUILDKIT=0 docker compose -f docker-compose.deploy.dev.yml up
+
 run-toolchain:
 	DOCKER_BUILDKIT=0 docker compose -f docker-compose.deploy.yml up
 
 stop-toolchain:
 	docker compose -f docker-compose.deploy.yml down
+	
+stop-toolchain-dev:
+	docker compose -f docker-compose.deploy.dev.yml down
+	
 
 ARGS = *
 save-scdg-runs:

@@ -17,21 +17,30 @@ In this command:
 
 Example taking the files already provided, being inside the sema_toolchain folder, run :
 ```bash
-docker run --rm --name="sema-scdg" -v ${PWD}/database/SCDG:/sema-scdg/application/database/SCDG -v ${PWD}/sema_scdg/application/configs:/sema-scdg/application/configs -v ${PWD}/database/Binaries:/sema-scdg/application/database/Binaries -p 5001:5001 -it sema-scdg bash
+docker run --rm --name="sema-scdg" \
+  -v ${PWD}/database/SCDG:/sema-scdg/application/database/SCDG \
+  -v ${PWD}/sema_scdg/application/configs:/sema-scdg/application/configs \
+  -v ${PWD}/database/Binaries:/sema-scdg/application/database/Binaries \
+  -p 5001:5001 -it sema-scdg bash
 ```
 
 If you want to be able to modify the code when the container is running, use
 ```bash
-docker run --rm --name="sema-scdg" -v ${PWD}/database:/sema-scdg/application/database -v ${PWD}/sema_scdg/application:/sema-scdg/application -p 5001:5001 -it sema-scdg bash
+docker run --rm --name="sema-scdg" \
+  -v ${PWD}/database:/sema-scdg/application/database \
+  -v ${PWD}/sema_scdg/application:/sema-scdg/application \
+  -p 5001:5001 -it sema-scdg bash
 ```
 
 To run experiments, run inside the container :
 ```bash
-python3 SemaSCDG.py configs/config.ini
+pyenv local 3.8.10
+python SemaSCDG.py configs/config.ini
 ```
 Or if you want to use pypy3:
 ```bash
-pypy3 SemaSCDG.py configs/config.ini
+pyenv local pypy3.9-7.3.16
+python SemaSCDG.py configs/config.ini
 ```
 
 #### Configuration files
@@ -129,14 +138,15 @@ If you wish to run multiple experiments with different configuration files, the 
 ./multiple_experiments.sh -h
 
 # Run example
-./multiple_experiments.sh -m python3 -c configs/config1 configs/config2
+./multiple_experiments.sh -m python3.10 -c configs/config1 configs/config2
 ```
 
 #### Tests
 
 To run the test, inside the docker container :
 ```bash
-python3 scdg_tests.py test_data/config_test.ini
+source venv/bin/activate
+python scdg_tests.py test_data/config_test.ini
 ```
 
 #### Tutorial

@@ -3,14 +3,13 @@
 import os
 import sys
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
+
 
 import monkeyhex  # this will format numerical results in hexadecimal
 import logging
 from collections import deque
 import sys, os
-from SemaExplorer import SemaExplorer
+from explorer.SemaExplorer import SemaExplorer
 import traceback
 
 try:
