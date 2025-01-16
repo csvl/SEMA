@@ -472,7 +472,7 @@ class SemaSCDG():
             self.call_sim.custom_hook_windows_symbols(proj)  #TODO ue if (self.is_packed and False) else False,symbs)
 
         if self.hooks_enable:
-            self.plugins.enable_plugin_hooks(self, self.content, state, proj, self.call_sim)
+            self.plugins.enable_plugin_hooks(self.content, state, proj, self.call_sim)
 
     def project_creation(self):
         """Handles project creation and initial analysis setup."""
@@ -538,9 +538,9 @@ class SemaSCDG():
             self.data_manager.get_plugin_data(state, simgr, to_store=self.store_data)
 
         if self.track_command:
-            self.plugins.enable_plugin_commands(self, simgr, self.scdg_graph, exp_dir)
+            self.plugins.enable_plugin_commands(simgr, self.scdg_graph, exp_dir)
         if self.ioc_report:
-            self.plugins.enable_plugin_ioc(self, self.scdg_graph, exp_dir)
+            self.plugins.enable_plugin_ioc(self.scdg_graph, exp_dir)
 
     def run(self, exp_dir):
         """
