@@ -121,7 +121,7 @@ class SemaSCDG():
         self.scdg_graph = []
         self.new = {}
         self.nameFileShort = ""
-        self.content = ""
+        self.content = b""
 
         self.plugins = PluginManager()
         self.packing_manager = self.plugins.get_plugin_packing()
