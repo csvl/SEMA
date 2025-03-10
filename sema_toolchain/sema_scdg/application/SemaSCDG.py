@@ -121,7 +121,7 @@ class SemaSCDG():
         self.scdg_graph = []
         self.new = {}
         self.nameFileShort = ""
-        self.content = ""
+        self.content = b""
 
         self.plugins = PluginManager()
         self.packing_manager = self.plugins.get_plugin_packing()
@@ -538,9 +538,9 @@ class SemaSCDG():
             self.data_manager.get_plugin_data(state, simgr, to_store=self.store_data)
 
         if self.track_command:
-            self.plugins.enable_plugin_commands(simgr, self.scdg_graph, exp_dir)
+            self.plugins.enable_plugin_commands(self, simgr, self.scdg_graph, exp_dir)
         if self.ioc_report:
-            self.plugins.enable_plugin_ioc(self.scdg_graph, exp_dir)
+            self.plugins.enable_plugin_ioc(self, self.scdg_graph, exp_dir)
 
     def run(self, exp_dir):
         """
