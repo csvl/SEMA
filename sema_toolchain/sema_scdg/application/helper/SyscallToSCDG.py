@@ -402,6 +402,8 @@ class SyscallToSCDG:
             ("LPCWSTR" in callee_arg[i]["type"]
             or "LPWSTR" in callee_arg[i]["type"]
             or "wchar_t*const" in callee_arg[i]["type"]
+            or "const wchar_t*" in callee_arg[i]["type"]
+            or "wchar_t*" in callee_arg[i]["type"]
             or "OLECHAR" in callee_arg[i]["type"]
             or "PWSTR" in callee_arg[i]["type"]
             or "PCWSTR" in callee_arg[i]["type"]
