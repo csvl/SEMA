@@ -17,7 +17,7 @@ except Exception as e:
 
 class SizeofResource(angr.SimProcedure):
     def run(self, hModule, hResInfo):
-        if self.state.has_plugin("plugin_ressources"):
+        if self.state.has_plugin("plugin_resources"):
             if self.state.solver.eval(hResInfo) in self.state.plugin_resources.resources:
                 lw.debug(hex(self.state.plugin_resources.resources[self.state.solver.eval(hResInfo)]["size"]))
                 return self.state.plugin_resources.resources[self.state.solver.eval(hResInfo)]["size"]
@@ -27,4 +27,4 @@ class SizeofResource(angr.SimProcedure):
                 #         "retval_{}".format(self.display_name), self.arch.bits
                 #     )
         else :
-            lw.warning("The procedure SizeofRessource is using the plugin plugin_ressources which is not activated")
+            lw.warning("The procedure SizeofRessource is using the plugin plugin_resources which is not activated")

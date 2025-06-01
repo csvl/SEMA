@@ -16,8 +16,16 @@ except Exception as e:
 
 class StartServiceCtrlDispatcherA(angr.SimProcedure):
     def run(self, lpServiceStartTable):
-        retval = self.state.solver.BVS(
-            "retval_{}".format(self.display_name), self.arch.bits
-        )
-        self.state.solver.add(retval != 0)
-        return retval
+        lw.debug("Starting Service Control Dispatcher")
+        b = self.state.arch.bytes
+        lpServiceName = self.state.memory.load(lpServiceStartTable, b)
+        lw.debug(lpServiceName)
+
+        lpServiceProc = self.state.memory.load(lpServiceStartTable + b, b, endness='Iend_LE')
+        lw.debug(lpServiceProc)
+
+
+        self.jump(self.state.solver.eval(lpServiceProc))
+
+
+        return self.state.solver.BVV(1, self.arch.bits)

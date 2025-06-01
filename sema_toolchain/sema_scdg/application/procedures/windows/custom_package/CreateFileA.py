@@ -4,6 +4,7 @@ import sys
 
 import logging
 import angr
+import claripy
 
 import os
 
@@ -45,10 +46,10 @@ class CreateFileA(angr.SimProcedure):
             "CreateFileA: {}  asks to create file {}".format(self.display_name, name)
         )
         access = self.state.solver.eval(dwDesiredAccess)
-        access & (1 << 31) or (access & (1 << 16))
-        access & (1 << 30)
-        access & (1 << 29)
-        access & (1 << 28)
+        # access & (1 << 31) or (access & (1 << 16))
+        # access & (1 << 30)
+        # access & (1 << 29)
+        # access & (1 << 28)
 
         fd = self.state.posix.open(name, self.state.solver.BVV(2, self.arch.bits))
         # import pdb; pdb.set_trace()
@@ -59,4 +60,12 @@ class CreateFileA(angr.SimProcedure):
             )
         #real_fd  = open(name, "wb") # TODO fix
         self.state.globals["files"][fd] = name #name #real_fd
-        return fd
+        lw.debug(fd)
+
+        retval = self.state.solver.BVS(
+                "retval_{}".format(self.display_name), self.arch.bits
+            )
+
+        #add the possibility to fail
+        self.state.solver.add(claripy.Or(retval == 0xffffffff, retval == fd ))
+        return retval

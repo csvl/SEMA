@@ -25,41 +25,59 @@ class CreateThread(angr.SimProcedure):
         dwCreationFlags,
         lpThreadId
     ):
-        if not self.state.globals["is_thread"]:
-            # code_addr = self.state.solver.eval(lpStartAddress)
-            lw.debug("IS THREAD")
-            lw.debug(self.state.solver.eval(lpStartAddress))
-            #self.state.regs.esp += 4 * 6
-            new_state = self.state.copy()
-            _ = new_state.stack_pop()
-            new_state.stack_push(0xdeadbeef)
-            # new_state.stack_push(lpThreadId)
-            # new_state.stack_push(dwCreationFlags)
-            # new_state.stack_push(lpParameter)
-            # new_state.stack_push(lpStartAddress)
-            # new_state.stack_push(dwStackSize)
-            # new_state.stack_push(lpThreadAttributes)
-            # new_state.stack_push(0xdeadbeef)
-            self.state.globals["create_thread_address"].append(
-                {
-                    "new_state":new_state
-                }
-            )
-            # self.state.regs.esp -= 4 * 6
-            return self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)
-        else:
-            lw.debug("IS NOT THREAD")
-            lw.debug(self.state.solver.eval(lpStartAddress))
-            code_addr = self.state.solver.eval(lpStartAddress)
-            ret_addr = self.state.stack_pop()
-            self.state.regs.esp += 4 * 6
-            new_state = self.state.copy()
-            new_state.stack_push(lpParameter)
-            new_state.stack_push(ret_addr)
-            self.successors.add_successor(new_state, code_addr, new_state.solver.true, 'Ijk_Call')
-            self.returns = False
 
-            threadId = self.state.solver.BVS("Thread_Id{}".format(self.display_name),  self.arch.bits)
-            self.state.memory.store(lpThreadId, threadId)
+        code_addr = self.state.solver.eval(lpStartAddress)
+        lw.debug("thread created, address: 0x%x, skip" % code_addr)
+        # if(code_addr == 0x10004790 or code_addr == 0x100045c0):
+        #     lw.debug("address: 0x%x, skip thread(infinite loop)" % code_addr)
+        #     return 1
+        # new_state = self.state.copy()
+        # new_state.stack_push(self.state.stack_pop())  # return address
+        # new_state.stack_push(lpParameter)  # parameter
+        # threadId = new_state.solver.BVS(f"Thread_Id{self.display_name}", self.arch.bits)
+        # new_state.memory.store(lpThreadId, threadId)
+        # self.successors.add_successor(new_state, code_addr, new_state.solver.true, 'Ijk_Call')
+        # self.returns = False
 
-            return self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)
+        return 1
+
+        #code that use the plugin thread, not working on this version :
+
+        # if not self.state.globals["is_thread"]:
+        #     # code_addr = self.state.solver.eval(lpStartAddress)
+        #     lw.debug("IS THREAD")
+        #     lw.debug(hex(self.state.solver.eval(lpStartAddress)))
+        #     #self.state.regs.esp += 4 * 6
+        #     new_state = self.state.copy()
+        #     _ = new_state.stack_pop()
+        #     new_state.stack_push(0xdeadbeef)
+        #     # new_state.stack_push(lpThreadId)
+        #     # new_state.stack_push(dwCreationFlags)
+        #     # new_state.stack_push(lpParameter)
+        #     # new_state.stack_push(lpStartAddress)
+        #     # new_state.stack_push(dwStackSize)
+        #     # new_state.stack_push(lpThreadAttributes)
+        #     # new_state.stack_push(0xdeadbeef)
+        #     self.state.globals["create_thread_address"].append(
+        #         {
+        #             "new_state":new_state
+        #         }
+        #     )
+        #     # self.state.regs.esp -= 4 * 6
+        #     return self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)
+        # else:
+        #     lw.debug("IS NOT THREAD")
+        #     lw.debug(self.state.solver.eval(lpStartAddress))
+        #     code_addr = self.state.solver.eval(lpStartAddress)
+        #     ret_addr = self.state.stack_pop()
+        #     self.state.regs.esp += 4 * 6
+        #     new_state = self.state.copy()
+        #     new_state.stack_push(lpParameter)
+        #     new_state.stack_push(ret_addr)
+        #     self.successors.add_successor(new_state, code_addr, new_state.solver.true, 'Ijk_Call')
+        #     self.returns = False
+        #
+        #     threadId = self.state.solver.BVS("Thread_Id{}".format(self.display_name),  self.arch.bits)
+        #     self.state.memory.store(lpThreadId, threadId)
+        #
+        #     return self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)

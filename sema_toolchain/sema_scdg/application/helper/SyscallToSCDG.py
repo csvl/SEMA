@@ -503,7 +503,7 @@ class SyscallToSCDG:
         else:
             if len(self.scdg[id][-1]) != 0:
                 # if same address and different name, we have an inline call (call to another simprocedure used during the hook), discard !
-                if (self.scdg[id][-1]["addr"] == dic["addr"] and self.scdg[id][-1]["name"] != dic["name"]):
+                if (self.scdg[id][-1]["addr"] == dic["addr"] and self.scdg[id][-1]["name"] != dic["name"] and dic["addr_func"] == self.scdg[id][-1]["addr_func"]):
                     return
 
                 self.scdg[id].append(dic)

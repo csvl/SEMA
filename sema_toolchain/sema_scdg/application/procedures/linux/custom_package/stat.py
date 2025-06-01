@@ -1,12 +1,18 @@
 import os
 import sys
-
-
+import logging
 import angr
 
 
+try:
+    lw = logging.getLogger("CustomSimProcedureLinux")
+    lw.setLevel(os.environ["LOG_LEVEL"])
+except Exception as e:
+    print(e)
+
 class stat(angr.SimProcedure):
-    def run(self, path, stat_buf):
+    def run(self, pathaddr, stat_buf):
+        lw.debug('$'*150)
         strlen = angr.SIM_PROCEDURES["libc"]["strlen"]
         p_strlen = self.inline_call(strlen, pathaddr)
         p_expr = self.state.memory.load(
@@ -19,10 +25,13 @@ class stat(angr.SimProcedure):
         # TODO: make arch-neutral
         # import pdb; pdb.set_trace()
         if self.state.arch.name == "AMD64":
+            lw.debug("AMD64")
             self._store_amd64(stat_buf, stat)
         else:
+            lw.debug("i868")
             self._store_i868(stat_buf, stat)
         self.state.posix.close(fd)
+        lw.debug('$'*150)
         return 0
 
     def _store_i868(self, stat_buf, stat):
@@ -38,7 +47,7 @@ class stat(angr.SimProcedure):
         store(0x18, stat.st_gid)
         store(0x1C, self.state.solver.BVV(0, 32))
         store(0x20, stat.st_rdev)
-        store(0x24, stat.st_size)
+        store(0x24, self.state.solver.BVV(0,32)) # stat.st_size)
         store(0x28, stat.st_blksize)
         store(0x2C, stat.st_blocks)
         store(0x30, stat.st_atime)
@@ -62,7 +71,7 @@ class stat(angr.SimProcedure):
         store(0x20, stat.st_gid)
         store(0x24, self.state.solver.BVV(0, 32))
         store(0x28, stat.st_rdev)
-        store(0x30, stat.st_size)
+        store(0x30, self.state.solver.BVV(0, 64)) #stat.st_size) # we can just make this 0 instead
         store(0x38, stat.st_blksize)
         store(0x40, stat.st_blocks)
         store(0x48, stat.st_atime)

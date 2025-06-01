@@ -19,12 +19,16 @@ class _initterm(angr.SimProcedure):
 
     #pylint:disable=arguments-differ
     def run(self, fp_a, fp_z):
+        #return
         if self.state.solver.symbolic(fp_a) or self.state.solver.symbolic(fp_z):
             lw.warning("Symbolic argument to _initterm{_e} is not supported... returning")
             self.ret(0) # might as well try to keep going
 
-        self.callbacks = self.get_callbacks(fp_a, fp_z)
-        self.do_callbacks(fp_a, fp_z)
+        concrete_fp_a = self.state.solver.eval(fp_a)
+        concrete_fp_z = self.state.solver.eval(fp_z)
+
+        self.callbacks = self.get_callbacks(concrete_fp_a, concrete_fp_z)
+        self.do_callbacks(concrete_fp_a, concrete_fp_z)
 
     def get_callbacks(self, fp_a, fp_z):
         callbacks = []

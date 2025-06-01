@@ -119,9 +119,9 @@ RUN pip install -r /sema-scdg/requirements.txt --default-timeout=100
 
 # # Ensure the pypy binary is available in the PATH
 # ENV PATH="/opt/pypy3.9-v7.3.16-linux64/bin:$PATH"
-RUN pyenv install pypy3.9-7.3.16; pyenv local pypy3.9-7.3.16
-COPY ./sema_scdg/requirements_pypy.txt /sema-scdg/requirements_pypy.txt
-RUN pip install -r /sema-scdg/requirements_pypy.txt --default-timeout=100 
+#RUN pyenv install pypy3.9-7.3.16; pyenv local pypy3.9-7.3.16
+#COPY ./sema_scdg/requirements_pypy.txt /sema-scdg/requirements_pypy.txt
+#RUN pip install -r /sema-scdg/requirements_pypy.txt --default-timeout=100 
 
 
 # TODO

@@ -20,11 +20,7 @@ class NewInt(angr.SimProcedure):
         self,
         uint,
     ):
-        if uint.symbolic:
-            lw.warning("Symbolic size passed to new")
-            return self.state.heap._malloc(0x42)
-        malloced = self.state.heap._malloc(uint)
-        for i in range(self.state.solver.eval(uint)):
-            self.state.memory.store(malloced+i, 0,size=1)
-        print(malloced)
-        return malloced
+        lw.debug("New Int")
+        size = self.state.solver.eval(uint)
+        lw.debug(size)
+        return self.state.heap._malloc(size)

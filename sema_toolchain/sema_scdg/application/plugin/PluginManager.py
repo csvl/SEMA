@@ -14,6 +14,8 @@ from plugin.PluginIoC import PluginIoC
 from plugin.PluginAtom import PluginAtom
 from plugin.PluginPacking import PluginPacking
 from plugin.PluginThread import PluginThread
+from plugin.PluginLinuxSystem import PluginLinuxSystem
+from plugin.PluginCallReplace import PluginCallReplace
 
 
 class PluginManager():
@@ -23,6 +25,7 @@ class PluginManager():
         self.commands = PluginCommands()
         self.ioc = PluginIoC()
         self.packing = PluginPacking()
+        self.replace = PluginCallReplace()
 
    # Load and setup plugins set to true in config file
     def load_plugin(self, state, config):
@@ -45,6 +48,9 @@ class PluginManager():
                     state.plugin_registry.setup_plugin()
                 elif plugin == "plugin_atom" :
                     state.register_plugin(plugin, PluginAtom())
+                elif plugin == "plugin_linux_fs":
+                    state.register_plugin(plugin, PluginLinuxSystem())
+                    state.plugin_linux_fs.setup_plugin()
                 #TODO Christophe : Check if plugin thread does the right thing (handles thread in the binary and not try to multithread angr execution)
                 # elif plugin == "plugin_thread" :
                 #     state.register_plugin("plugin_thread", PluginThread(self, exp_dir, proj, nameFileShort, options))
@@ -61,3 +67,6 @@ class PluginManager():
 
     def get_plugin_packing(self):
         return self.packing
+
+    def enable_plugin_call_replace(self, scdg_graph):
+        self.replace.call_replace(scdg_graph)
