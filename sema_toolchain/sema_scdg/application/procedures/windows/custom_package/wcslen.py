@@ -1,16 +1,30 @@
+import logging
 import os
 import sys
 
 
 import angr
-from angr.sim_type import SimTypeString, SimTypeLength
+try:
+    lw = logging.getLogger("CustomSimProcedureLinux")
+    lw.setLevel(os.environ["LOG_LEVEL"])
+except Exception as e:
+    print(e)
 
 class wcslen(angr.SimProcedure):
     def run(self, string):
-        # Ensure that string is a wide-character string
-        self.argument_types = {0: self.ty_ptr(SimTypeString())}
-        self.return_type = SimTypeLength(self.state.arch)
-        # print("cacacacacac")
-        # Use angr's memory access functions to determine the length of the string
-        length = self.state.memory.load(string, 4, endness='Iend_LE')
-        return length
+        lw.debug("wslen.run")
+        maxLen = 1024
+        try:
+
+            for i in range(maxLen):
+                char = self.state.memory.load(string + i * 2, 2, endness="Iend_LE")
+                lw.debug(char)
+                if self.state.solver.eval(char) == 0:
+                    return i
+
+        except:
+            pass
+
+        return self.state.solver.BVS(
+            "retval_{}".format(self.display_name), self.arch.bits
+        )

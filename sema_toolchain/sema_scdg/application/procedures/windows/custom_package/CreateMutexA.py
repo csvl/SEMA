@@ -7,6 +7,8 @@ import angr
 
 import os
 
+import claripy
+
 try:
     lw = logging.getLogger("CustomSimProcedureWindows")
     lw.setLevel(os.environ["LOG_LEVEL"])
@@ -21,5 +23,5 @@ class CreateMutexA(angr.SimProcedure):
         retval = self.state.solver.BVS(
             "retval_{}".format(self.display_name), self.arch.bits
         )
-        self.state.solver.add(retval > 0)
+        self.state.solver.add(claripy.Or(retval == 0, retval == 1 ))
         return retval

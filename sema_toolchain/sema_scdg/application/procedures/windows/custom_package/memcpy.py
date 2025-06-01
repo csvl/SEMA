@@ -81,7 +81,6 @@ class memcpy(angr.SimProcedure):
                         lw.debug(inter_dst_addr)
                         self.state.memory.store(inter_dst_addr, src_mem, size=conditional_size, endness='Iend_BE')
                     offset += int(conditional_size/100)
-
         return dst_addr
 
 from angr.sim_options import ABSTRACT_MEMORY

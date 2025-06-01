@@ -7,6 +7,8 @@ import angr
 
 import os
 
+import claripy
+
 try:
     lw = logging.getLogger("CustomSimProcedureWindows")
     lw.setLevel(os.environ["LOG_LEVEL"])
@@ -29,10 +31,10 @@ class GetFileSize(angr.SimProcedure):
             "GetFileSize: {}  asks file size of {}".format(self.display_name, hFile)
         )
         size = simfd.size()
+
         if not size.symbolic and self.state.solver.eval(size) != 0:
             return size
         else:
             ret_val = self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)
-            self.state.solver.add(ret_val > 0)
-            self.state.solver.add(ret_val < 0x100000)
+            self.state.add_constraints(claripy.Or(ret_val == 0, ret_val == 1))
             return ret_val

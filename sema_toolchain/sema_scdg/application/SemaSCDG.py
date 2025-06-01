@@ -121,7 +121,10 @@ class SemaSCDG():
         self.scdg_graph = []
         self.new = {}
         self.nameFileShort = ""
-        self.content = b""
+        self.content = ""
+
+        with open_file(self.binary_path, "rb") as f:
+            self.content = f.read()
 
         self.plugins = PluginManager()
         self.packing_manager = self.plugins.get_plugin_packing()
@@ -159,6 +162,7 @@ class SemaSCDG():
         self.track_command = config['Plugins_to_load'].getboolean('plugin_track_command')
         self.ioc_report = config['Plugins_to_load'].getboolean('plugin_ioc_report')
         self.hooks_enable = config['Plugins_to_load'].getboolean('plugin_hooks')
+        self.call_replace = config['Plugins_to_load'].getboolean('plugin_call_replace')
         self.sim_file = config['SCDG_arg'].getboolean('sim_file')
         self.count_block_enable = config['SCDG_arg'].getboolean('count_block_enable')
         self.plugin_enable = config['SCDG_arg'].getboolean('plugin_enable')
@@ -328,10 +332,10 @@ class SemaSCDG():
             addr = self.config["SCDG_arg"]["entry_addr"]
             if addr != "None":
                 #Convert string into hexadecimal
-                addr = hex(int(addr, 16))
+                addr = int(addr, 16)
+                self.log.info(f"Entry_state address = {str(hex(addr))}")
             else:
                 addr = None
-        self.log.info(f"Entry_state address = {str(addr)}")
         return addr
 
     def get_binary_args(self):
@@ -538,9 +542,11 @@ class SemaSCDG():
             self.data_manager.get_plugin_data(state, simgr, to_store=self.store_data)
 
         if self.track_command:
-            self.plugins.enable_plugin_commands(self, simgr, self.scdg_graph, exp_dir)
+            self.plugins.enable_plugin_commands(simgr, self.scdg_graph, exp_dir)
         if self.ioc_report:
-            self.plugins.enable_plugin_ioc(self, self.scdg_graph, exp_dir)
+            self.plugins.enable_plugin_ioc(self.scdg_graph, exp_dir)
+        if self.call_replace:
+            self.plugins.enable_plugin_call_replace(self.scdg_graph)
 
     def run(self, exp_dir):
         """

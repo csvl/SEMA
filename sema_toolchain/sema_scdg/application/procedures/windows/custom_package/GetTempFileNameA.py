@@ -21,8 +21,12 @@ class GetTempFileNameA(angr.SimProcedure):
         return fileName
 
     def run(self, lpPathName, lpPrefixString, uUnique, lpTempFileName):
+        lw.debug("GetTempFileNameA")
+        lw.debug(lpPathName)
+        if self.state.solver.symbolic(lpPathName) or  self.state.solver.eval(lpPathName) == 0:
+            lw.debug("symbolic pathname")
+            return self.state.solver.BVS("retval_{}".format(self.display_name), self.arch.bits)
 
-        self.state.project
         # import pdb; pdb.set_trace()
         dirname = self.decodeString(lpPathName)
         name = self.decodeString(lpPrefixString)[:3]

@@ -30,7 +30,6 @@ class GetModuleFileNameExA(angr.SimProcedure):
         return lib
 
     def run(self, hProcess, hModule, lpFilename, nSize):
-        self.state.project
         size = self.state.solver.eval(nSize)
 
         # if NULL, retrieve path of exe of current process

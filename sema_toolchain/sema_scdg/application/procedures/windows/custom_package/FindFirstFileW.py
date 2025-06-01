@@ -4,16 +4,24 @@ import sys
 
 import angr
 import claripy
+import logging
 
+try:
+    lw = logging.getLogger("CustomSimProcedureWindows")
+    lw.setLevel(os.environ["LOG_LEVEL"])
+except Exception as e:
+    print(e)
 
 class FindFirstFileW(angr.SimProcedure):
     def run(self, lpFileName, lpFindFileData):
+        lw.debug("FindFirstFileW.run")
         try:
-            print(self.state.mem[lpFileName].string.concrete)
+            lw.debug(self.state.mem[lpFileName].string.concrete)
         except:
-            print(self.state.memory.load(lpFileName,0x20))
+            lw.debug(lpFileName)
+        lw.debug(self.state.globals["FindFirstFile"])
         if self.state.globals["FindFirstFile"] == 0:
-            self.state.globals["FindFirstFile"] == 1
+            #self.state.globals["FindFirstFile"] = 1
             self.state.memory.store(lpFindFileData, claripy.BVS("dwFileAttributes", 8 * 4))
             self.state.memory.store(lpFindFileData+0x4, claripy.BVS("ftCreationTime", 8 * 8))
             self.state.memory.store(lpFindFileData+0xc, claripy.BVS("ftLastAccessTime", 8 * 8))

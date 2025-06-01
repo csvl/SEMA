@@ -19,7 +19,6 @@ class ReadFile(angr.SimProcedure):
         self, hFile, lpBuffer, nNumberOfBytesToRead, lpNumberOfBytesRead, lpOverlapped
     ):
 
-        self.state.project
         simfd = self.state.posix.get_fd(hFile)
         if simfd is None:
             lw.warning("ReadFile: could not find fd")
@@ -30,5 +29,5 @@ class ReadFile(angr.SimProcedure):
         self.state.memory.store(
             lpNumberOfBytesRead, bytes_read, endness=self.arch.memory_endness
         )
-        return 1
-        # return self.state.solver.BVS("retval_{}".format(self.display_name),self.arch.bits)
+        #return 1
+        return self.state.solver.BVS("retval_{}".format(self.display_name),self.arch.bits)
